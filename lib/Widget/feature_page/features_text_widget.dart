@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+
+import '../colors.dart';
+
+Widget featuretext(text1, text2, context) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: Row(
+      children: [
+        Text(
+          text1,
+          style: const TextStyle(
+              fontSize: 30, fontFamily: 'Poppins-Regular', height: 0.8),
+        ), //bullet text
+        const SizedBox(width: 10), //space between bullet and text
+        Expanded(
+          child: Text(
+            text2,
+            style: TextStyle(
+              fontSize: 12,
+              fontFamily: 'Poppins-Regular',
+              color: kBlack,
+              height: 0.8,
+            ),
+          ), //text
+        ),
+      ],
+    ),
+  );
+}
