@@ -55,10 +55,10 @@ Widget myHeaderNotification(BuildContext context, backImage,titleText, rightImag
   );
 }
 
-class myAppBarSingleImage extends StatelessWidget implements PreferredSizeWidget{
+class MyAppBarSingleImage extends StatelessWidget implements PreferredSizeWidget{
   final String title;
   final String? backImage;
-  const myAppBarSingleImage({Key? key,this.title="", this.backImage}) : super(key: key);
+  const MyAppBarSingleImage({Key? key,this.title="", this.backImage}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -94,10 +94,10 @@ class myAppBarSingleImage extends StatelessWidget implements PreferredSizeWidget
   }
 }
 
-class myAppBarSettingsPage extends StatelessWidget implements PreferredSizeWidget{
+class MyAppBarSettingsPage extends StatelessWidget implements PreferredSizeWidget{
   final String title;
   final String backImage;
-  const myAppBarSettingsPage({Key? key,this.title="", this.backImage = "",}) : super(key: key);
+  const MyAppBarSettingsPage({Key? key,this.title="", this.backImage = "",}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -133,10 +133,10 @@ class myAppBarSettingsPage extends StatelessWidget implements PreferredSizeWidge
   }
 }
 
-class myAppBarAboutUsPage extends StatelessWidget implements PreferredSizeWidget{
+class MyAppBarAboutUsPage extends StatelessWidget implements PreferredSizeWidget{
   final String title;
   final String backImage;
-  const myAppBarAboutUsPage({Key? key,this.title="", this.backImage = "",}) : super(key: key);
+  const MyAppBarAboutUsPage({Key? key,this.title="", this.backImage = "",}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -166,6 +166,107 @@ class myAppBarAboutUsPage extends StatelessWidget implements PreferredSizeWidget
             style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
       ),
       backgroundColor: appBgColor,
+      elevation: 0.0,
+      centerTitle: true,
+    );
+  }
+}
+
+class MyAppBarSignUp extends StatelessWidget implements PreferredSizeWidget{
+  final String title;
+  const MyAppBarSignUp({Key? key,this.title=""}) : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(70);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // <-- SEE HERE
+        statusBarIconBrightness: Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
+      ),
+      // leadingWidth: 80,
+      title: Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: Text(title, textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
+      ),
+      automaticallyImplyLeading: false,
+      backgroundColor: appBgColor,
+      // backgroundColor: kRed,
+      elevation: 0.0,
+      centerTitle: true,
+    );
+  }
+}
+
+
+class myAppBarDoubleImage extends StatelessWidget
+    implements PreferredSizeWidget {
+  final String? frontImage;
+  final String title;
+  final String? backImage;
+  const myAppBarDoubleImage(
+      {Key? key, this.frontImage, this.title = "", this.backImage})
+      : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(70);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // <-- SEE HERE
+        statusBarIconBrightness:
+        Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+        Brightness.light, //<-- For iOS SEE HERE (dark icons)
+      ),
+      actions: [
+        GestureDetector(
+          onTap: () {
+            print("clicked");
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const NotificationsScreen()));
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Image.asset(
+              backImage!,
+              height: 25,
+              width: 25,
+            ),
+          ),
+        ),
+      ],
+      leading: GestureDetector(
+        onTap: () {
+          print("clicked");
+          Navigator.pop(context);
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30),
+          child: Image.asset(
+            frontImage!,
+            height: 25,
+            width: 25,
+          ),
+        ),
+      ),
+      leadingWidth: 80,
+      title: Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: Text(title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack)),
+      ),
+      backgroundColor: homeBgColor,
       elevation: 0.0,
       centerTitle: true,
     );

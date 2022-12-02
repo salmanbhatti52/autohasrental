@@ -1,7 +1,8 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../Widget/button.dart';
 import '../../../../Widget/colors.dart';
+import '../../../../Widget/fontFamily.dart';
 import '../../../../Widget/logo_container.dart';
 import '../../../../Widget/range_slider.dart';
 
@@ -23,9 +24,7 @@ class _FilterScreenState extends State<FilterScreen> {
         color: appBgColor,
         child: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.08,
-            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.08,),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 30,
@@ -33,26 +32,15 @@ class _FilterScreenState extends State<FilterScreen> {
                 children: [
                   Positioned(
                     left: 160,
-                    child: Text(
-                      'Filter',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins-Bold',
-                          color: kWhite),
-                    ),
+                    child: Text('Filter', textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
                   ),
                   Positioned(
                     top: 5,
                     right: 15,
-                    child: Text(
-                      'Clear Filter',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Poppins-Medium',
-                          color: kWhite),
-                    ),
+                    child: Text('Clear Filter', textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 14,
+                          fontFamily: poppinMedium, color: kWhite),),
                   ),
                 ],
               ),
@@ -63,26 +51,24 @@ class _FilterScreenState extends State<FilterScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('TESLA',
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'Poppins-Regular',
-                        color: kWhite),
-                  ),
-                  const SizedBox(width: 5),
-                  Icon(Icons.close, color: borderColor, size: 10,),
-                  const SizedBox(width: 10),
-                  Text('Low to High',
+                  Text('TESLA', textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 10,
-                        fontFamily: 'Poppins-Regular', color: kWhite),
+                        fontFamily: poppinRegular, color: kWhite),
                   ),
                   const SizedBox(width: 5),
                   Icon(Icons.close, color: borderColor, size: 10,),
                   const SizedBox(width: 10),
-                  Text('400 km to 800',
+                  Text('Low to High', textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 10,
+                        fontFamily: poppinRegular, color: kWhite),
+                  ),
+                  const SizedBox(width: 5),
+                  Icon(Icons.close, color: borderColor, size: 10,),
+                  const SizedBox(width: 10),
+                  Text('400 km to 800', textAlign: TextAlign.left,
                     style: TextStyle(
                         fontSize: 10,
-                        fontFamily: 'Poppins-Regular',
+                        fontFamily: poppinRegular,
                         color: kWhite),
                   ),
                   const SizedBox(width: 5),
@@ -106,12 +92,11 @@ class _FilterScreenState extends State<FilterScreen> {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Select Car make',
+                  'Select Car make', textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 16,
-                    fontWeight: FontWeight.bold,
                     color: kWhite,
-                    fontFamily: 'Poppins-Bold',
+                    fontFamily: poppinBold,
                   ),
                 ),
               ),
@@ -136,11 +121,10 @@ class _FilterScreenState extends State<FilterScreen> {
               child: Row(
                 children: [
                   Text(
-                    'Price',
+                    'Price', textAlign: TextAlign.left,
                     style: TextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins-Bold',
+                        fontFamily: poppinBold,
                         color: kWhite),
                   ),
                   const SizedBox(width: 10),
@@ -149,27 +133,28 @@ class _FilterScreenState extends State<FilterScreen> {
                       text: 'from RM ',
                       style: TextStyle(
                           fontSize: 14,
-                          fontFamily: 'Poppins-Medium',
+                          fontFamily: poppinMedium,
                           color: borderColor),
-                      children: const [
+                      children: [
                         TextSpan(
                             text: '1,000 ',
                             style: TextStyle(
                                 fontSize: 14,
-                                fontFamily: 'Poppins-Medium',
+                                fontFamily: poppinMedium,
                                 color: Colors.white)),
                         TextSpan(
                             text: 'to RM ',
                             style: TextStyle(
-                                fontSize: 14, fontFamily: 'Poppins-Medium')),
+                                fontSize: 14, fontFamily: poppinMedium)),
                         TextSpan(
                             text: '1,500',
                             style: TextStyle(
                                 fontSize: 14,
-                                fontFamily: 'Poppins-Medium',
+                                fontFamily: poppinMedium,
                                 color: Colors.white)),
                       ],
                     ),
+                    textAlign: TextAlign.left,
                   ),
                 ],
               ),
@@ -199,41 +184,26 @@ class _FilterScreenState extends State<FilterScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
-                  Text(
-                    'Mileage',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins-Bold',
-                        color: kWhite),
-                  ),
+                  Text('Mileage', textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),),
                   const SizedBox(width: 10),
                   RichText(
                     text: TextSpan(
                       text: 'from KM ',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Poppins-Medium',
-                          color: borderColor),
-                      children: const [
+                      style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: borderColor),
+                      children: [
                         TextSpan(
                             text: '400 ',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Poppins-Medium',
-                                color: Colors.white)),
+                            style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: Colors.white)),
                         TextSpan(
                             text: 'to KM ',
-                            style: TextStyle(
-                                fontSize: 14, fontFamily: 'Poppins-Medium')),
+                            style: TextStyle(fontSize: 14, fontFamily: poppinMedium)),
                         TextSpan(
                             text: '800',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Poppins-Medium',
-                                color: Colors.white)),
+                            style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: Colors.white)),
                       ],
                     ),
+                    textAlign: TextAlign.left,
                   ),
                 ],
               ),
@@ -259,22 +229,12 @@ class _FilterScreenState extends State<FilterScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
-                  Text(
-                    'Car Year',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins-Bold',
-                        color: kWhite),
+                  Text('Car Year', textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),
                   ),
                   const SizedBox(width: 105),
-                  Text(
-                    'Listing Date',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins-Bold',
-                        color: kWhite),
+                  Text('Listing Date', textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),
                   ),
                 ],
               ),
@@ -290,8 +250,12 @@ class _FilterScreenState extends State<FilterScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 40),
-            loginButton('Apply', context),
+            SizedBox(height: MediaQuery.of(context).size.height* 0.02),
+            GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const TabBarPage()));
+                },
+                child: loginButton('Apply', context)),
           ],
         ),
       ),

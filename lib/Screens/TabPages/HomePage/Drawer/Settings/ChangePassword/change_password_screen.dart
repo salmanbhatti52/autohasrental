@@ -22,7 +22,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const myAppBarSingleImage(
+      appBar: const MyAppBarSingleImage(
         title: "Change Password", backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
         child: Column(
@@ -89,16 +89,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: TextField(
+                            cursorColor: borderColor,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
+                               contentPadding: const EdgeInsets.only(
+                                  top: 15, left: 20, bottom: 15),
                               // focusedBorder: OutlineInputBorder(
                               //     borderRadius: BorderRadius.circular(30.0),
                               //     borderSide: BorderSide(color: borderColor)
                               // ),
-                              hintText: '*********',
-                              hintStyle: TextStyle(color: textLabelColor),
+                              hintText: '••••••••',
+                               hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
+                                fontFamily: 'Poppins-Bold'),
                               // labelStyle: TextStyle(color: textLabelColor),
                               focusColor: borderColor,
                               suffixIcon: Padding(
@@ -132,16 +135,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: TextField(
+                            cursorColor: borderColor,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
+                               contentPadding: const EdgeInsets.only(
+                                  top: 15, left: 20, bottom: 15),
                               // focusedBorder: OutlineInputBorder(
                               //     borderRadius: BorderRadius.circular(30.0),
                               //     borderSide: BorderSide(color: borderColor)
                               // ),
-                              hintText: '*********',
-                              hintStyle: TextStyle(color: textLabelColor),
+                              hintText: '••••••••',
+                               hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
+                                fontFamily: 'Poppins-Bold'),
                               // labelStyle: TextStyle(color: textLabelColor),
                               focusColor: borderColor,
                               suffixIcon: Padding(
@@ -175,16 +181,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: TextField(
+                            cursorColor: borderColor,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
+                               contentPadding: const EdgeInsets.only(
+                                  top: 15, left: 20, bottom: 15),
                               // focusedBorder: OutlineInputBorder(
                               //     borderRadius: BorderRadius.circular(30.0),
                               //     borderSide: BorderSide(color: borderColor)
                               // ),
-                              hintText: '*********',
-                              hintStyle: TextStyle(color: textLabelColor),
+                              hintText: '••••••••',
+                               hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
+                                fontFamily: 'Poppins-Bold'),
                               // labelStyle: TextStyle(color: textLabelColor),
                               focusColor: borderColor,
                               suffixIcon: Padding(

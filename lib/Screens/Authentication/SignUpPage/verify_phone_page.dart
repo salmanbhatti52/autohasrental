@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../Widget/button.dart';
+import '../../../Widget/fontFamily.dart';
 import '../LoginPage/login_page.dart';
 
 class VerifyPhonePage extends StatefulWidget {
@@ -65,14 +66,14 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                         // backgroundColor: Colors.transparent,
                       ),
                       length: 6,
-                      obscureText: true,
-                      hintStyle: TextStyle(color: textLabelColor),
+                      // obscureText: true,
+                      hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular'),
                       hintCharacter: "0",
-                      obscuringCharacter: '*',
+                      // obscuringCharacter: '*',
                       // obscuringWidget: const FlutterLogo(
                       //   size: 24,
                       // ),
-                      blinkWhenObscuring: true,
+                      // blinkWhenObscuring: true,
                       animationType: AnimationType.fade,
                       validator: (v) {
                         if (v!.length < 3) {

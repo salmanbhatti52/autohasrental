@@ -6,6 +6,7 @@ Widget allNotificationList(){
   return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
+      physics: const BouncingScrollPhysics(),
       itemCount: notificationItemsList.length,
       itemBuilder: (BuildContext context, int index){
         return GestureDetector(

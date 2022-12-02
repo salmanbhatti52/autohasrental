@@ -18,7 +18,7 @@ class _LiveChatPage1State extends State<LiveChatPage1> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const myAppBarSettingsPage(
+      appBar: const MyAppBarSettingsPage(
         backImage: "assets/home_page/Side_Menu.png", title: "Live Chat", ),
       body: Column(
         children: [
@@ -107,15 +107,14 @@ class _LiveChatPage1State extends State<LiveChatPage1> {
               ),
             ),
           ),
-          const SizedBox(height: 100),
+          SizedBox(height: MediaQuery.of(context).size.height* 0.1),
           GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
+                Navigator.push(context, MaterialPageRoute(
                         builder: (context) => const LiveChatPage2()));
               },
-              child: loginButton('Chat with us', context))
+              child: loginButton('Chat with us', context),
+          ),
         ],
       ),
     );

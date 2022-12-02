@@ -10,7 +10,7 @@ class DescriptionBookingsDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding:
           const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
@@ -89,7 +89,7 @@ class DescriptionBookingsDetails extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
         GestureDetector(
             onTap: () {
               ratingsdialogbox(context);
@@ -126,7 +126,7 @@ class DescriptionBookingsDetails extends StatelessWidget {
                         Image.asset('assets/car_bookings_images/close.png'),
                       ),
                     ),
-                    const SizedBox(height: 5),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                     Text(
                       "Ratings",
                       style: TextStyle(
@@ -134,7 +134,7 @@ class DescriptionBookingsDetails extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: borderColor),
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     const Text(
                       "Give your Ratings \n   and Feedback",
                       style: TextStyle(
@@ -143,12 +143,12 @@ class DescriptionBookingsDetails extends StatelessWidget {
                         color: Color(0xffb0b0b0),
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Image.asset(
                       "assets/car_bookings_images/rating.png",
                       height: 30,
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     TextField(
                       keyboardType: TextInputType.multiline,
                       maxLines: 4,

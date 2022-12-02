@@ -34,7 +34,7 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
                   color: const Color(0xffd4dce1),
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                padding: const EdgeInsets.all(5),
                 child: TabBar(
                   controller: tabcontroller,
                   indicator: BoxDecoration(

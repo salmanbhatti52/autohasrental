@@ -16,7 +16,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const myAppBarSingleImage(
+      appBar: const MyAppBarSingleImage(
         title: "Payment", backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
         child: Column(

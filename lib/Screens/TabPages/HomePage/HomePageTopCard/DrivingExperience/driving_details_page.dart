@@ -41,8 +41,10 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
                        right: 0,
                        left: 0,
                        child: Image.asset("assets/images/SVG 03.png",
-                         width: MediaQuery.of(context).size.width* 0.9,
-                         height: MediaQuery.of(context).size.height*0.5,)),
+                         // width: MediaQuery.of(context).size.width* 0.95,
+                         // height: MediaQuery.of(context).size.height*0.5,
+                         fit: BoxFit.fill,
+                       )),
                   Positioned(
                     bottom: 375,
                     child: Padding(
@@ -166,6 +168,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
                 ],
               ),
               const SizedBox(height: 10,),
+
               const DrivingTabBar(),
 
               const SizedBox(height: 20,),

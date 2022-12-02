@@ -30,9 +30,9 @@ Widget filterButton1(buttonText, context) {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(color: const Color(0xff8d8d8d))),
     child: Center(
-      child: Text(buttonText,
-          style: const TextStyle(
-              color: Color(0xff8d8d8d), fontFamily: 'Poppins', fontSize: 12)),
+      child: Text(buttonText, textAlign: TextAlign.left,
+          style: TextStyle(
+              color: const Color(0xff8d8d8d), fontFamily: poppinRegular, fontSize: 12)),
     ),
   );
 }

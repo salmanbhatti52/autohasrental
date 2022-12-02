@@ -41,7 +41,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const myAppBarSingleImage(
+      appBar: const MyAppBarSingleImage(
         title: "Edit Profile", backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
         child: Column(
@@ -143,16 +143,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: TextField(
+                            cursorColor: borderColor,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
+                              contentPadding: const EdgeInsets.only(
+                                  top: 15, left: 20, bottom: 15),
                               // focusedBorder: OutlineInputBorder(
                               //     borderRadius: BorderRadius.circular(30.0),
                               //     borderSide: BorderSide(color: borderColor)
                               // ),
                               hintText: 'John',
-                              hintStyle: TextStyle(color: textLabelColor),
+                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
                               // labelStyle: TextStyle(color: textLabelColor),
                               focusColor: borderColor,
                             ),
@@ -173,16 +175,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: TextField(
+                            cursorColor: borderColor,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
+                              contentPadding: const EdgeInsets.only(
+                                  top: 15, left: 20, bottom: 15),
                               // focusedBorder: OutlineInputBorder(
                               //     borderRadius: BorderRadius.circular(30.0),
                               //     borderSide: BorderSide(color: borderColor)
                               // ),
                               hintText: 'Doe',
-                              hintStyle: TextStyle(color: textLabelColor),
+                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
                               // labelStyle: TextStyle(color: textLabelColor),
                               focusColor: borderColor,
                             ),
@@ -203,16 +207,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: TextField(
+                            cursorColor: borderColor,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
+                              contentPadding: const EdgeInsets.only(
+                                  top: 15, left: 20, bottom: 15),
                               // focusedBorder: OutlineInputBorder(
                               //     borderRadius: BorderRadius.circular(30.0),
                               //     borderSide: BorderSide(color: borderColor)
                               // ),
                               hintText: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.',
-                              hintStyle: TextStyle(color: textLabelColor),
+                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
                               // labelStyle: TextStyle(color: textLabelColor),
                               focusColor: borderColor,
                             ),
@@ -233,16 +239,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: TextField(
+                            cursorColor: borderColor,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
-                              // focusedBorder: OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(30.0),
-                              //     borderSide: BorderSide(color: borderColor)
-                              // ),
+                              contentPadding: const EdgeInsets.only(
+                                  top: 15, left: 20, bottom: 15),
                               hintText: 'rose.matthews@mail.com',
-                              hintStyle: TextStyle(color: textLabelColor),
+                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
                               // labelStyle: TextStyle(color: textLabelColor),
                               focusColor: borderColor,
                             ),
@@ -263,16 +267,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: TextField(
+                            cursorColor: borderColor,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
+                              contentPadding: const EdgeInsets.only(
+                                  top: 15, left: 20, bottom: 15),
                               // focusedBorder: OutlineInputBorder(
                               //     borderRadius: BorderRadius.circular(30.0),
                               //     borderSide: BorderSide(color: borderColor)
                               // ),
                               hintText: 'Enter your location here',
-                              hintStyle: TextStyle(color: textLabelColor),
+                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
                               // labelStyle: TextStyle(color: textLabelColor),
                               focusColor: borderColor,
                             ),

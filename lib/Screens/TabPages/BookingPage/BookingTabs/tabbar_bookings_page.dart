@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
-import 'previous_page.dart/previous_page.dart';
-import 'upcoming_page/upcoming_page.dart';
+import '../../../../Widget/colors.dart';
+import '../../../../Widget/previous_page.dart/previous_page.dart';
+import '../../../../Widget/upcoming_page/upcoming_page.dart';
+import 'ProviousTab/previous_page.dart';
 
 class TabbarCarBooings extends StatefulWidget {
   const TabbarCarBooings({super.key});
@@ -62,7 +63,10 @@ class _TabbarCarBooingsState extends State<TabbarCarBooings>
           height: MediaQuery.of(context).size.height,
           child: TabBarView(
             controller: tabcontroller,
-            children: const [PreviousPage(), UpcomingPage()],
+            children: const [
+              PreviousPage(),
+              UpcomingPage(),
+            ],
           ),
         ),
       ],

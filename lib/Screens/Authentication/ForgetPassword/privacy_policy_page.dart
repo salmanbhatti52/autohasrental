@@ -25,13 +25,19 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
               // mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(Icons.arrow_back_ios_new_outlined, color: kWhite,),
-                 // child: Image.asset("assets/messages_images/Back.png", color: kWhite,),
+                  child: Image.asset('assets/live_chat_images/back_arrow.png', color: kWhite,),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.07),
+                // GestureDetector(
+                //   onTap: (){
+                //     Navigator.pop(context);
+                //   },
+                //   child: Icon(Icons.arrow_back_ios_new_outlined, color: kWhite,),
+                //  // child: Image.asset("assets/messages_images/Back.png", color: kWhite,),
+                // ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.1),
                 Text("Review Terms of \nService & Privacy Policy",
                   maxLines: 2, textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, fontFamily: 'Poppins-SemiBold', color: kWhite),),
@@ -40,54 +46,49 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
           ),
 
           Container(
-            width: MediaQuery.of(context).size.width,
+            // width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.7,
-            // height: double.maxFinite,
             color: Colors.transparent,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Expanded(
-              flex: 1,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                child: Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, "
-                    "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
-                    "aliquyam erat, sed diam voluptua. At vero eos et accusam et justo "
-                    "duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata "
-                    "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-                    "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
-                    "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero "
-                    "eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, "
-                    "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor "
-                    "sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
-                    "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et "
-                    "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea "
-                    "takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-                    "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore "
-                    "et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et "
-                    "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus "
-                    "est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing.\n\n"
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, "
+                  "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
+                  "aliquyam erat, sed diam voluptua. At vero eos et accusam et justo "
+                  "duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata "
+                  "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
+                  "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
+                  "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero "
+                  "eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, "
+                  "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor "
+                  "sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
+                  "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et "
+                  "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea "
+                  "takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
+                  "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore "
+                  "et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et "
+                  "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus "
+                  "est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing.\n\n"
 
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, "
-                    "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
-                    "aliquyam erat, sed diam voluptua. At vero eos et accusam et justo "
-                    "duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata "
-                    "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-                    "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
-                    "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero "
-                    "eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, "
-                    "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor "
-                    "sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
-                    "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et "
-                    "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea "
-                    "takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-                    "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore "
-                    "et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et "
-                    "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus "
-                    "est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing."
-                  , textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontFamily: 'Poppins-Light', color: kWhite),),
-              ),
+                  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, "
+                  "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
+                  "aliquyam erat, sed diam voluptua. At vero eos et accusam et justo "
+                  "duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata "
+                  "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
+                  "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
+                  "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero "
+                  "eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, "
+                  "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor "
+                  "sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
+                  "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et "
+                  "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea "
+                  "takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
+                  "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore "
+                  "et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et "
+                  "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus "
+                  "est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing."
+                , textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, fontFamily: 'Poppins-Light', color: kWhite),),
             ),
           ),
           GestureDetector(

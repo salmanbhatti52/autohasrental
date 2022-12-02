@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 
-import '../../Screens/TabPages/BookingPage/bookings_details_page2.dart';
-import '../colors.dart';
+import '../../../../../Widget/colors.dart';
+import '../../bookings_detail_page.dart';
 
-class UpcomingPage extends StatefulWidget {
-  const UpcomingPage({super.key});
+class PreviousPage extends StatefulWidget {
+  const PreviousPage({super.key});
 
   @override
-  State<UpcomingPage> createState() => _UpcomingPageState();
+  State<PreviousPage> createState() => _PreviousPageState();
 }
 
-class _UpcomingPageState extends State<UpcomingPage> {
+class _PreviousPageState extends State<PreviousPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const BookingDetailPage2()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const BookingDetailPage()));
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 15),
@@ -30,7 +28,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                itemCount: upcomingItemsList.length,
+                itemCount: previousItemsList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Stack(
                     children: [
@@ -73,17 +71,19 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                         width: 102,
                                         height: 25,
                                         decoration: BoxDecoration(
-                                          color: kRed,
+                                          color: borderColor,
                                           borderRadius:
                                           BorderRadius.circular(30),
                                         ),
                                         child: Center(
                                           child: Text(
-                                            'Cancel',
+                                            'Rebook',
                                             style: TextStyle(
-                                                fontSize: 12,
-                                                fontFamily: 'Poppins-Regular',
-                                                color: kWhite),
+                                              fontSize: 12,
+                                              fontFamily: 'Poppins-Regular',
+                                              color: kWhite,
+                                            ),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
                                       ),
@@ -103,7 +103,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                           Row(
                                             children: [
                                               Text(
-                                                "${upcomingItemsList[index].carCompanyName} | ",
+                                                "${previousItemsList[index].carCompanyName} | ",
                                                 style: TextStyle(
                                                   color: kBlack,
                                                   fontSize: 14,
@@ -112,7 +112,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                 textAlign: TextAlign.left,
                                               ),
                                               Text(
-                                                "${upcomingItemsList[index].textModel} ",
+                                                "${previousItemsList[index].textModel} ",
                                                 style: TextStyle(
                                                   color: kBlack,
                                                   fontSize: 12,
@@ -121,7 +121,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                 textAlign: TextAlign.left,
                                               ),
                                               Text(
-                                                "${upcomingItemsList[index].carModelYear} ",
+                                                "${previousItemsList[index].carModelYear} ",
                                                 style: TextStyle(
                                                   color: kBlack,
                                                   fontSize: 14,
@@ -130,7 +130,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                 textAlign: TextAlign.left,
                                               ),
                                               Text(
-                                                upcomingItemsList[index].range,
+                                                previousItemsList[index].range,
                                                 style: TextStyle(
                                                   color: kBlack,
                                                   fontSize: 10,
@@ -158,7 +158,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                 textAlign: TextAlign.left,
                                               ),
                                               Text(
-                                                upcomingItemsList[index]
+                                                previousItemsList[index]
                                                     .oldPrice,
                                                 style: TextStyle(
                                                   color: kRed,
@@ -184,7 +184,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                 textAlign: TextAlign.left,
                                               ),
                                               Text(
-                                                upcomingItemsList[index]
+                                                previousItemsList[index]
                                                     .newPrice,
                                                 style: TextStyle(
                                                   color: borderColor,
@@ -310,7 +310,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  upcomingItemsList[index].discountText,
+                                  previousItemsList[index].discountText,
                                   style: TextStyle(
                                     color: kWhite,
                                     fontSize: 13,
@@ -330,7 +330,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                           )),
                       Positioned(
                         child: Image.asset(
-                          upcomingItemsList[index].carImage,
+                          previousItemsList[index].carImage,
                           width: 332,
                           height: 180,
                         ),
@@ -351,18 +351,18 @@ class _UpcomingPageState extends State<UpcomingPage> {
   }
 }
 
-List upcomingItemsList = [
-  UpcomingItemsClass("assets/car_bookings_images/tesla_car_image.png", "5%",
+List previousItemsList = [
+  PreviousItemsClass("assets/car_bookings_images/tesla_car_image.png", "5%",
       'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
-  UpcomingItemsClass("assets/car_bookings_images/bmw_car_image.png", "5%",
+  PreviousItemsClass("assets/car_bookings_images/bmw_car_image.png", "5%",
       'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
-  UpcomingItemsClass("assets/car_bookings_images/tesla_car_image.png", "5%",
+  PreviousItemsClass("assets/car_bookings_images/tesla_car_image.png", "5%",
       'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
-  UpcomingItemsClass("assets/car_bookings_images/bmw_car_image.png", "5%",
+  PreviousItemsClass("assets/car_bookings_images/bmw_car_image.png", "5%",
       'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
 ];
 
-class UpcomingItemsClass {
+class PreviousItemsClass {
   final String carImage;
   final String discountText;
   final String carCompanyName;
@@ -372,7 +372,7 @@ class UpcomingItemsClass {
   final String oldPrice;
   final String newPrice;
 
-  UpcomingItemsClass(
+  PreviousItemsClass(
       this.carImage,
       this.discountText,
       this.carCompanyName,

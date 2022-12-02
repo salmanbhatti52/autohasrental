@@ -16,32 +16,38 @@ class _ChooseMileagePlanState extends State<ChooseMileagePlan> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
     mileageData.add(MileageRadioModel(false, 'Lite - 1250km'));
     mileageData.add(MileageRadioModel(false, 'Standard - 1,250km'));
     mileageData.add(MileageRadioModel(false, 'Unlimited'));
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      height: 130,
-      child: ListView.builder(
-        itemCount: mileageData.length,
-        scrollDirection: Axis.vertical,
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            onTap: () {
-              setState(() {
-                mileageData.forEach((element) => element.isSelectedMileage = false);
-                mileageData[index].isSelectedMileage = true;
-              });
-            },
-            child: MileageRadioItem(mileageData[index]),
-          );
-        },
+      height: 100,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1/0.2,
+              mainAxisSpacing: 02,
+              crossAxisSpacing: 0,
+            ),
+            itemCount: mileageData.length,
+            itemBuilder: (BuildContext context, int index){
+              return InkWell(
+                onTap: () {
+                  setState(() {
+                    mileageData.forEach((element) => element.isSelectedMileage = false);
+                    mileageData[index].isSelectedMileage = true;
+                  });
+                },
+                child: MileageRadioItem(mileageData[index]),
+              );
+            }),
       ),
     );
   }
@@ -54,7 +60,7 @@ class MileageRadioItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(5.0),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
             height: 30.0,

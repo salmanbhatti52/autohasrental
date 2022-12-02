@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../Widget/colors.dart';
@@ -26,7 +27,7 @@ class _ChooseSubscriptionPlanState extends State<ChooseSubscriptionPlan> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      height: 80,
+      height: 60,
       child: ListView.builder(
         itemCount: sampleData.length,
         scrollDirection: Axis.horizontal,
@@ -70,7 +71,7 @@ class SubscriptionRadioItem extends StatelessWidget {
             child: Center(
               child: Text(_item.buttonText,
                       textAlign: TextAlign.left, style: TextStyle(
-                      fontFamily: 'Poppins-Regular', fontSize: 12.0,
+                      fontFamily: poppinRegular, fontSize: 12.0,
                       color: _item.isSelected ? kWhite : textLabelColor)),
             ),
           ),

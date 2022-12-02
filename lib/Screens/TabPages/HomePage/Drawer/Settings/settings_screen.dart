@@ -20,7 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const myAppBarSettingsPage(backImage: "assets/home_page/Side_Menu.png", title: "Settings", ),
+      appBar: const MyAppBarSettingsPage(backImage: "assets/home_page/Side_Menu.png", title: "Settings", ),
       body: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -178,7 +178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     });
                 // Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountPage()));
               },
-              child: settingWidget("Delete Account", kRed, "Delete your account",  Icons.arrow_forward_ios_rounded, const Color(0xffD4DCE1))),
+              child: settingWidget("Delete Account", introColor, "Delete your account",  Icons.arrow_forward_ios_rounded, const Color(0xffD4DCE1))),
 
         ],
       ),
@@ -208,10 +208,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 borderRadius: BorderRadius.circular(10)
             ),
             child: ListTile(
-                title: Text(titleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 14,
-                    fontWeight: FontWeight.bold, fontFamily: 'Poppins', color: textColor),),
-                subtitle: Text(subTitleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 10,
-                    fontWeight: FontWeight.w400, fontFamily: 'Poppins', color: kBlack),),
+                title: Text(titleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 14, fontFamily: 'Poppins-Bold', color: textColor),),
+                subtitle: Text(subTitleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 10, fontFamily: 'Poppins-Regular', color: kBlack),),
                 trailing: Icon(iconData, color: iconColor, size: 20,),
             ),
           ),
@@ -227,7 +225,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         height: MediaQuery.of(context).size.height * 0.05,
         width: MediaQuery.of(context).size.width* 0.6,
         decoration: BoxDecoration(
-          color: kRed,
+          color: introColor,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Center(

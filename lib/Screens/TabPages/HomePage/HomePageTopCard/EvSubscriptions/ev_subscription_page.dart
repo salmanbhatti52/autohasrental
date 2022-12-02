@@ -188,17 +188,16 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                             textAlign: TextAlign.left,
                                           ),
                                           Text(
-                                            browseCarItemsList[index].range,
+                                            "${browseCarItemsList[index].carModelYear} ",
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 14,
-                                              fontWeight: FontWeight.w400,
                                               fontFamily: 'Poppins-Medium',
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
                                           Text(
-                                            "${browseCarItemsList[index].carModelYear} ",
+                                            browseCarItemsList[index].range,
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 10,
@@ -222,7 +221,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                           Text(
                                             browseCarItemsList[index].oldPrice,
                                             style: TextStyle(
-                                              color: borderColor,
+                                              color: kRed,
                                               decoration:
                                               TextDecoration.lineThrough,
                                               decorationColor: kRed,
@@ -248,7 +247,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                             style: TextStyle(
                                               color: borderColor,
                                               fontSize: 20,
-                                              fontFamily: 'Poppins-Bold',
+                                              fontFamily: 'Poppins-SemiBold',
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -397,8 +396,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                   Positioned(
                     child: Image.asset(
                       browseCarItemsList[index].carImage,
-                      width: 332,
-                      height: 180,
+                      // width: 332,
+                      // height: 180,
                     ),
                   ),
                   Positioned(
@@ -417,11 +416,11 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
 
 List browseCarItemsList = [
   BrowseRentCarItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA',
-      "MODEL", "Y LONG RANGE ", "2022", "RM 9,000", "RM8,500"),
+      "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
   BrowseRentCarItemsClass("assets/home_page/bmw_car_image.png", "5%", 'TESLA',
-      "MODEL", "Y LONG RANGE ", "2022", "RM 9,000", "RM8,500"),
+      "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
   BrowseRentCarItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA',
-      "MODEL", "Y LONG RANGE ", "2022", "RM 9,000", "RM8,500"),
+      "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
 ];
 
 class BrowseRentCarItemsClass {

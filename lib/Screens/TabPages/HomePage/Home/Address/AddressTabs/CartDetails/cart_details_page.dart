@@ -34,7 +34,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const myAppBarSingleImage(
+      appBar: const MyAppBarSingleImage(
         title: "BMW 2 series, 2022", backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
         child: Column(

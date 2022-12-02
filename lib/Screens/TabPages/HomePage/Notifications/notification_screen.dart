@@ -15,7 +15,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const myAppBarSingleImage(
+      appBar: const MyAppBarSingleImage(
         title: "Notifications", backImage: "assets/messages_images/Back.png",),
       body: Column(
         children: [
@@ -24,7 +24,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Container(
-              height: MediaQuery.of(context).size.height* 0.87,
+              height: MediaQuery.of(context).size.height* 0.85,
               color: Colors.transparent,
               child: allNotificationList(),
             ),

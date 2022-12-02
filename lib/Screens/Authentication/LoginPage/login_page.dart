@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,7 +19,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   bool _obscureText  = true;
-  // bool checkBoxValue = false;
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   bool checkBoxValue = false;
 
@@ -35,10 +37,10 @@ class _LoginPageState extends State<LoginPage> {
               SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
               SizedBox(height: MediaQuery.of(context).size.height * 0.09,),
               Text("Hey there, \nwelcome back", textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Medium', color: kWhite),),
+                style: TextStyle(fontSize: 20, fontFamily: poppinMedium, color: kWhite),),
               SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
               Text("Please login your account.",
-                style: TextStyle(fontSize: 16, fontFamily: 'Poppins-Light', color: kWhite),),
+                style: TextStyle(fontSize: 16, fontFamily: poppinLight, color: kWhite),),
 
               SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
 
@@ -66,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         Text('Remember me', textAlign: TextAlign.left,
-                          style: TextStyle(color: kWhite, fontSize: 12, fontFamily: 'Poppins-Regular'),
+                          style: TextStyle(color: kWhite, fontSize: 12, fontFamily: poppinRegular),
                         ), //Text
                       ], //<Widget>[]
                     ),
@@ -77,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                         },
 
                         child: Text('Forgot your password?', style: TextStyle(
-                            color: kWhite, fontFamily: 'Poppins-Regular', fontSize: 12),)),
+                            color: kWhite, fontFamily: poppinRegular, fontSize: 12),)),
                   ],
                 ),
               ),
@@ -93,11 +95,11 @@ class _LoginPageState extends State<LoginPage> {
               RichText(
                 text: TextSpan(
                     text: "Don't have an account? ",
-                    style: TextStyle(color: kWhite, fontFamily: 'Poppins-Regular', fontSize: 16),
+                    style: TextStyle(color: kWhite, fontFamily: poppinRegular, fontSize: 16),
                     children: [
                       TextSpan(
                         text: 'SignUp',
-                        style: TextStyle(fontFamily: 'Poppins-Bold',
+                        style: TextStyle(fontFamily: poppinBold,
                             decoration: TextDecoration.underline, fontSize: 16, color: kWhite),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Navigator.push(context,
@@ -131,10 +133,13 @@ class _LoginPageState extends State<LoginPage> {
                         textWidget("Email"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         TextField(
+                          controller: emailController,
+                          cursorColor: borderColor,
                           keyboardType: TextInputType.emailAddress,
                           // textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
-                            // contentPadding: const EdgeInsets.only(top: 10, left: 20),
+                            contentPadding: const EdgeInsets.only(
+                                top: 15, left: 20, bottom: 15),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(color: textLabelColor)
@@ -148,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                                 borderSide: BorderSide(color: borderColor)
                             ),
                             hintText: 'rose.matthews@mail.com',
-                            hintStyle: TextStyle(color: textLabelColor),
+                            hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
                             // labelStyle: TextStyle(color: textLabelColor),
                             focusColor: borderColor,
                             // errorText: "error_msg"
@@ -165,37 +170,13 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         textWidget("Password"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     color: Colors.transparent,
-                        //     borderRadius: BorderRadius.circular(30),
-                        //   ),
-                        //   height: MediaQuery.of(context).size.height * 0.06,
-                        //   child: TextField(
-                        //     keyboardType: TextInputType.text,
-                        //     decoration: InputDecoration(
-                        //       border: InputBorder.none,
-                        //       contentPadding:
-                        //       const EdgeInsets.fromLTRB(20, 12, 10, 0),
-                        //       hintText: '*********',
-                        //       hintStyle: const TextStyle(
-                        //           color: Color(0xffD4DCE1),
-                        //           fontSize: 14,
-                        //           fontFamily: 'Poppins-Light'),
-                        //       focusColor: borderColor,
-                        //       suffixIcon: const Icon(
-                        //         Icons.search_outlined,
-                        //         color: Color(0xffD4DCE1),
-                        //       ),
-                        //     ),
-                        //     style: TextStyle(color: borderColor, fontSize: 14),
-                        //   ),
-                        // ),
                         TextField(
-                          keyboardType: TextInputType.visiblePassword,
+                          cursorColor: borderColor,
+                          controller: passwordController,
+                          keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            // contentPadding: const EdgeInsets.only(top: 10, left: 20),
+                              contentPadding: const EdgeInsets.only(
+                                  top: 15, left: 20, bottom: 15),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(color: textLabelColor)
@@ -208,8 +189,9 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(color: borderColor)
                             ),
-                            hintText: '*********',
-                            hintStyle: TextStyle(color: textLabelColor),
+                            hintText: '••••••••',
+                            hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
+                                fontFamily: 'Poppins-Bold'),
                             // labelStyle: TextStyle(color: textLabelColor),
                             focusColor: borderColor,
                             suffixIcon: Padding(
@@ -228,6 +210,45 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           style: TextStyle(color: borderColor, fontSize: 14, fontFamily: "Poppins-Regular"),
                         ),
+
+                        // SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                        // TextField(
+                        //   controller: passwordController,
+                        //   keyboardType: TextInputType.visiblePassword,
+                        //   decoration: InputDecoration(
+                        //     contentPadding: const EdgeInsets.fromLTRB(20, 15, 10, 0),
+                        //     enabledBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(30.0),
+                        //         borderSide: BorderSide(color: textLabelColor)
+                        //     ),
+                        //     border: OutlineInputBorder(
+                        //         borderSide: BorderSide(color: textLabelColor),
+                        //         borderRadius: BorderRadius.circular(30)
+                        //     ),
+                        //     focusedBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(30.0),
+                        //         borderSide: BorderSide(color: borderColor)
+                        //     ),
+                        //     hintText: 'password',
+                        //     hintStyle: TextStyle(color: textLabelColor),
+                        //     // labelStyle: TextStyle(color: textLabelColor),
+                        //     focusColor: borderColor,
+                        //     suffixIcon: Padding(
+                        //       padding: const EdgeInsetsDirectional.only(end: 12.0),
+                        //       child: IconButton(
+                        //         icon: Icon(
+                        //           _obscureText ?  Icons.visibility :Icons.visibility_off,
+                        //           color: textLabelColor, size: 24,),
+                        //         onPressed: () {
+                        //           setState(() {
+                        //             _obscureText = !_obscureText;
+                        //           });
+                        //         },
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   style: TextStyle(color: borderColor, fontSize: 14, fontFamily: "Poppins-Regular"),
+                        // ),
                       ],
                     ),
                   ],

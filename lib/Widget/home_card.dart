@@ -27,6 +27,7 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
             height: MediaQuery.of(context).size.height* 0.55,
             color: Colors.transparent,
             child: GridView.builder(
+              physics: const BouncingScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 1/1.37,

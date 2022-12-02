@@ -76,8 +76,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.005),
 
                     TextField(
+                      cursorColor: borderColor,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(
+                            top: 15, left: 20, bottom: 15),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30.0),
                             borderSide: BorderSide(color: textLabelColor)
@@ -91,7 +94,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             borderSide: BorderSide(color: borderColor)
                         ),
                         hintText: "rose.matthews@mail.com",
-                        hintStyle: TextStyle(color: textLabelColor),
+                        hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
+
                         // labelStyle: TextStyle(color: textLabelColor),
                         focusColor: borderColor,
                         // errorText: "error_msg"

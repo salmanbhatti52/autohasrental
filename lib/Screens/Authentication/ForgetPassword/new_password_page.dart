@@ -83,6 +83,8 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                           controller: newPassController,
                           keyboardType: TextInputType.visiblePassword,
                           decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                top: 15, left: 20, bottom: 15),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(color: textLabelColor)
@@ -95,8 +97,9 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(color: borderColor)
                             ),
-                            hintText: '*********',
-                            hintStyle: TextStyle(color: textLabelColor),
+                            hintText: '••••••••',
+                            hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
+                                fontFamily: 'Poppins-Bold'),
                             // labelStyle: TextStyle(color: textLabelColor),
                             focusColor: borderColor,
                             suffixIcon: IconButton(
@@ -124,9 +127,12 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                         textWidget("Confirm new password"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         TextField(
+                          cursorColor: borderColor,
                           controller: confirmNewPassController,
                           keyboardType: TextInputType.visiblePassword,
                           decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                top: 15, left: 20, bottom: 15),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(color: textLabelColor)
@@ -139,8 +145,9 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(color: borderColor)
                             ),
-                            hintText: '*********',
-                            hintStyle: TextStyle(color: textLabelColor),
+                            hintText: '••••••••',
+                            hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
+                                fontFamily: 'Poppins-Bold'),
                             // labelStyle: TextStyle(color: textLabelColor),
                             focusColor: borderColor,
                             suffixIcon: IconButton(

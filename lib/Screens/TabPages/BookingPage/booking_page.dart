@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../../Widget/colors.dart';
-import '../../../Widget/tabbar_bookings_page.dart';
 import '../HomePage/Drawer/drawer_screen.dart';
+import 'BookingTabs/tabbar_bookings_page.dart';
 
 class BookingPage extends StatefulWidget {
   const BookingPage({Key? key}) : super(key: key);

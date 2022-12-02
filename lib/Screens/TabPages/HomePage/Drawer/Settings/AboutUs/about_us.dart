@@ -15,7 +15,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
-      appBar: const myAppBarAboutUsPage(
+      appBar: const MyAppBarAboutUsPage(
         backImage: "assets/home_page/Side_Menu.png", title: "About Us", ),
       body: Column(
         children: [

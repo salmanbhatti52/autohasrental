@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../../Widget/button.dart';
@@ -23,14 +24,24 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
+      // appBar: PreferredSize(
+      //   preferredSize: const Size.fromHeight(80.0),
+      //   child: AppBar(
+      //     title: const Text("Create Your \nNew Account"),
+      //     centerTitle: true,
+      //     backgroundColor: appBgColor,
+      //     automaticallyImplyLeading: false,
+      //   ),
+      // ),
+      appBar: const MyAppBarSignUp(title: "Create Your New Account "),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(0.0),
           child: Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.09,),
-              Text("Create Your \nNew Account ", textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', color: kWhite),),
+              // SizedBox(height: MediaQuery.of(context).size.height * 0.09,),
+              // Text("Create Your \nNew Account ", textAlign: TextAlign.center,
+              //   style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', color: kWhite),),
               SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
 
               Center(
@@ -139,239 +150,250 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget buildTextFields() {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Container(
-          child: Column(
-            children: [
-              Form(
-                key: loginFormKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              textWidget("First name"),
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                              TextField(
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      borderSide: BorderSide(color: textLabelColor)
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(color: textLabelColor),
-                                      borderRadius: BorderRadius.circular(30)
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      borderSide: BorderSide(color: borderColor)
-                                  ),
-                                  hintText: 'Legal first name',
-                                  hintStyle: TextStyle(color: textLabelColor),
-                                  // labelStyle: TextStyle(color: textLabelColor),
-                                  focusColor: borderColor,
-                                  // errorText: "error_msg"
+        child: Column(
+          children: [
+            Form(
+              key: loginFormKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textWidget("First name"),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                            TextField(
+                              cursorColor: borderColor,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(
+                                    top: 15, left: 20, bottom: 15),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    borderSide: BorderSide(color: textLabelColor)
                                 ),
-                                style: TextStyle(color: borderColor, fontSize: 14),
-
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              textWidget("Last name"),
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                              TextField(
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      borderSide: BorderSide(color: textLabelColor)
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(color: textLabelColor),
-                                      borderRadius: BorderRadius.circular(30)
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      borderSide: BorderSide(color: borderColor)
-                                  ),
-                                  hintText: 'Legal last name',
-                                  hintStyle: TextStyle(color: textLabelColor),
-                                  // labelStyle: TextStyle(color: textLabelColor),
-                                  focusColor: borderColor,
-                                  // errorText: "error_msg"
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(color: textLabelColor),
+                                    borderRadius: BorderRadius.circular(30)
                                 ),
-                                style: TextStyle(color: borderColor, fontSize: 14),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    borderSide: BorderSide(color: borderColor)
+                                ),
+                                hintText: 'Legal first name',
+                                hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
+                                // labelStyle: TextStyle(color: textLabelColor),
+                                focusColor: borderColor,
+                                // errorText: "error_msg"
                               ),
-                            ],
+                              style: TextStyle(color: borderColor, fontSize: 14),
+
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textWidget("Last name"),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                            TextField(
+                              cursorColor: borderColor,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(
+                                    top: 15, left: 20, bottom: 15),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    borderSide: BorderSide(color: textLabelColor)
+                                ),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(color: textLabelColor),
+                                    borderRadius: BorderRadius.circular(30)
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    borderSide: BorderSide(color: borderColor)
+                                ),
+                                hintText: 'Legal last name',
+                                hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
+                                focusColor: borderColor,
+                                // errorText: "error_msg"
+                              ),
+                              style: TextStyle(color: borderColor, fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      textWidget("Mobile number"),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                      TextField(
+                        cursorColor: borderColor,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(
+                              top: 15, left: 20, bottom: 15),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide(color: textLabelColor)
+                          ),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: textLabelColor),
+                              borderRadius: BorderRadius.circular(30)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide(color: borderColor)
+                          ),
+                          hintText: "+971 | Mobile number",
+                          hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
+                          focusColor: borderColor,
+                          // errorText: "error_msg"
+                        ),
+                        style: TextStyle(color: borderColor, fontSize: 14),
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      textWidget("Email"),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+
+                      TextField(
+                        cursorColor: borderColor,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(
+                              top: 15, left: 20, bottom: 15),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide(color: textLabelColor)
+                          ),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: textLabelColor),
+                              borderRadius: BorderRadius.circular(30)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide(color: borderColor)
+                          ),
+                          hintText: "rose.matthews@mail.com",
+                          hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
+                          focusColor: borderColor,
+                          // errorText: "error_msg"
+                        ),
+                        style: TextStyle(color: borderColor, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      textWidget("Password"),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                      TextField(
+                        cursorColor: borderColor,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(
+                              top: 15, left: 20, bottom: 15),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide(color: textLabelColor)
+                          ),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: textLabelColor),
+                              borderRadius: BorderRadius.circular(30)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide(color: borderColor)
+                          ),
+                          hintText: '••••••••',
+                          hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
+                              fontFamily: 'Poppins-Bold'),
+                          // labelStyle: TextStyle(color: textLabelColor),
+                          focusColor: borderColor,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              // _obscureText ? Icons.visibility_off : Icons.visibility,
+                                _obscureText ?  Icons.visibility :Icons.visibility_off,
+                                color: textLabelColor),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                        style: TextStyle(color: borderColor, fontSize: 14),
+                      ),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textWidget("Mobile number"),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                        TextField(
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: textLabelColor)
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: textLabelColor),
-                                borderRadius: BorderRadius.circular(30)
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: borderColor)
-                            ),
-                            hintText: "+971 | Mobile number",
-                            hintStyle: TextStyle(color: textLabelColor),
-                            // labelStyle: TextStyle(color: textLabelColor),
-                            focusColor: borderColor,
-                            // errorText: "error_msg"
-                          ),
-                          style: TextStyle(color: borderColor, fontSize: 14),
-                        ),
-
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textWidget("Email"),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-
-                        TextField(
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: textLabelColor)
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: textLabelColor),
-                                borderRadius: BorderRadius.circular(30)
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: borderColor)
-                            ),
-                            hintText: "rose.matthews@mail.com",
-                            hintStyle: TextStyle(color: textLabelColor),
-                            // labelStyle: TextStyle(color: textLabelColor),
-                            focusColor: borderColor,
-                            // errorText: "error_msg"
-                          ),
-                          style: TextStyle(color: borderColor, fontSize: 14),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textWidget("Password"),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                        TextField(
-                          keyboardType: TextInputType.visiblePassword,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: textLabelColor)
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: textLabelColor),
-                                borderRadius: BorderRadius.circular(30)
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: borderColor)
-                            ),
-                            hintText: '*********',
-                            hintStyle: TextStyle(color: textLabelColor),
-                            // labelStyle: TextStyle(color: textLabelColor),
-                            focusColor: borderColor,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                // _obscureText ? Icons.visibility_off : Icons.visibility,
-                                  _obscureText ?  Icons.visibility :Icons.visibility_off,
-                                  color: textLabelColor),
-                              onPressed: () {
-                                setState(() {
-                                  _obscureText = !_obscureText;
-                                });
-                              },
-                            ),
-                          ),
-                          style: TextStyle(color: borderColor, fontSize: 14),
-                        ),
-
-                        // TextFormField(
-                        //   keyboardType: TextInputType.text,
-                        //   style: TextStyle(color: borderColor),
-                        //   // controller: passwordControllerLogin,
-                        //   obscureText: _obscureText,
-                        //   // maxLength: 15,
-                        //   decoration: InputDecoration(
-                        //     labelText: '*********',
-                        //     hintText: '*********',
-                        //     enabledBorder: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(30.0),
-                        //         borderSide: BorderSide(color: textLabelColor)
-                        //     ),
-                        //     focusedBorder: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(30.0),
-                        //         borderSide: BorderSide(color: borderColor)
-                        //     ),
-                        //     border: OutlineInputBorder(
-                        //         borderSide: BorderSide(color: textLabelColor),
-                        //         borderRadius: BorderRadius.circular(30)
-                        //     ),
-                        //     labelStyle: TextStyle(color: textLabelColor),
-                        //     hintStyle: TextStyle(color: borderColor),
-                        //     suffixIcon: IconButton(
-                        //       icon: Icon(
-                        //         // _obscureText ? Icons.visibility_off : Icons.visibility,
-                        //           _obscureText ?  Icons.visibility :Icons.visibility_off,
-                        //           color: textLabelColor),
-                        //       onPressed: () {
-                        //         setState(() {
-                        //           _obscureText = !_obscureText;
-                        //         });
-                        //       },
-                        //     ),
-                        //   ),
-                        //   validator: (value) {
-                        //     if (value!.isEmpty) {
-                        //       return "Please Enter Password";
-                        //     }
-                        //     return null;
-                        //   },
-                        // ),
-                      ],
-                    ),
-                  ],
-                ),
+                      // TextFormField(
+                      //   keyboardType: TextInputType.text,
+                      //   style: TextStyle(color: borderColor),
+                      //   // controller: passwordControllerLogin,
+                      //   obscureText: _obscureText,
+                      //   // maxLength: 15,
+                      //   decoration: InputDecoration(
+                      //     labelText: '*********',
+                      //     hintText: '*********',
+                      //     enabledBorder: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(30.0),
+                      //         borderSide: BorderSide(color: textLabelColor)
+                      //     ),
+                      //     focusedBorder: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(30.0),
+                      //         borderSide: BorderSide(color: borderColor)
+                      //     ),
+                      //     border: OutlineInputBorder(
+                      //         borderSide: BorderSide(color: textLabelColor),
+                      //         borderRadius: BorderRadius.circular(30)
+                      //     ),
+                      //     labelStyle: TextStyle(color: textLabelColor),
+                      //     hintStyle: TextStyle(color: borderColor),
+                      //     suffixIcon: IconButton(
+                      //       icon: Icon(
+                      //         // _obscureText ? Icons.visibility_off : Icons.visibility,
+                      //           _obscureText ?  Icons.visibility :Icons.visibility_off,
+                      //           color: textLabelColor),
+                      //       onPressed: () {
+                      //         setState(() {
+                      //           _obscureText = !_obscureText;
+                      //         });
+                      //       },
+                      //     ),
+                      //   ),
+                      //   validator: (value) {
+                      //     if (value!.isEmpty) {
+                      //       return "Please Enter Password";
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ));
   }
 }
