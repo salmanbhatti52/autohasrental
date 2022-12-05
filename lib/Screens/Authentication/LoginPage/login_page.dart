@@ -2,8 +2,10 @@ import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../Widget/TextFields/text_form_field.dart';
 import '../../../Widget/button.dart';
 import '../../../Widget/colors.dart';
+import '../../../Widget/TextFields/password_text_field.dart';
 import '../../TabPages/tab_page.dart';
 import '../ForgetPassword/myTextWidget.dart';
 import '../ForgetPassword/reset_password_page.dart';
@@ -132,34 +134,45 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         textWidget("Email"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                        TextField(
-                          controller: emailController,
-                          cursorColor: borderColor,
-                          keyboardType: TextInputType.emailAddress,
-                          // textAlignVertical: TextAlignVertical.center,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                top: 15, left: 20, bottom: 15),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: textLabelColor)
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: textLabelColor),
-                                borderRadius: BorderRadius.circular(30)
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: borderColor)
-                            ),
-                            hintText: 'rose.matthews@mail.com',
-                            hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
-                            // labelStyle: TextStyle(color: textLabelColor),
-                            focusColor: borderColor,
-                            // errorText: "error_msg"
-                          ),
-                          style: TextStyle(color: borderColor, fontSize: 14, fontFamily: "Poppins-Regular"),
+                        // TextField(
+                        //   controller: emailController,
+                        //   cursorColor: borderColor,
+                        //   keyboardType: TextInputType.emailAddress,
+                        //   // textAlignVertical: TextAlignVertical.center,
+                        //   decoration: InputDecoration(
+                        //     contentPadding: const EdgeInsets.only(
+                        //         top: 15, left: 20, bottom: 15),
+                        //     enabledBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(30.0),
+                        //         borderSide: BorderSide(color: textLabelColor)
+                        //     ),
+                        //     border: OutlineInputBorder(
+                        //         borderSide: BorderSide(color: textLabelColor),
+                        //         borderRadius: BorderRadius.circular(30)
+                        //     ),
+                        //     focusedBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(30.0),
+                        //         borderSide: BorderSide(color: borderColor)
+                        //     ),
+                        //     hintText: 'rose.matthews@mail.com',
+                        //     hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
+                        //     // labelStyle: TextStyle(color: textLabelColor),
+                        //     focusColor: borderColor,
+                        //     // errorText: "error_msg"
+                        //   ),
+                        //   style: TextStyle(color: borderColor, fontSize: 14, fontFamily: "Poppins-Regular"),
+                        //
+                        // ),
+                        //
+                        // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
+                        EditTextUtils().getCustomEditTextArea(
+                            hintValue: "rose.matthews@mail.com",
+                            validation: true,
+                            // autoFocus: true,
+                            textController: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            // errorTextMsg: "Please Enter Email",
                         ),
                       ],
                     ),
@@ -170,45 +183,69 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         textWidget("Password"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                        TextField(
-                          cursorColor: borderColor,
-                          controller: passwordController,
+                        // TextField(
+                        //   cursorColor: borderColor,
+                        //   controller: passwordController,
+                        //   keyboardType: TextInputType.text,
+                        //   obscureText: _obscureText,
+                        //   decoration: InputDecoration(
+                        //       contentPadding: const EdgeInsets.only(
+                        //           top: 15, left: 20, bottom: 15),
+                        //     enabledBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(30.0),
+                        //         borderSide: BorderSide(color: textLabelColor)
+                        //     ),
+                        //     border: OutlineInputBorder(
+                        //         borderSide: BorderSide(color: textLabelColor),
+                        //         borderRadius: BorderRadius.circular(30)
+                        //     ),
+                        //     focusedBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(30.0),
+                        //         borderSide: BorderSide(color: borderColor)
+                        //     ),
+                        //     hintText: '••••••••',
+                        //     hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
+                        //         fontFamily: 'Poppins-Bold'),
+                        //     // labelStyle: TextStyle(color: textLabelColor),
+                        //     focusColor: borderColor,
+                        //     suffixIcon: Padding(
+                        //       padding: const EdgeInsetsDirectional.only(end: 12.0),
+                        //       child: IconButton(
+                        //         icon: Icon(
+                        //             _obscureText ?  Icons.visibility :Icons.visibility_off,
+                        //             color: textLabelColor, size: 24,),
+                        //         onPressed: () {
+                        //           setState(() {
+                        //             _obscureText = !_obscureText;
+                        //           });
+                        //         },
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   style: TextStyle(color: borderColor, fontSize: 14, fontFamily: "Poppins-Regular"),
+                        // ),
+
+                        PasswordEditTextUtils().getPasswordTextField(
+                          hintValue: "••••••••",
+                          validation: true,
+                          // autoFocus: true,
+                          textController: passwordController,
                           keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(
-                                  top: 15, left: 20, bottom: 15),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: textLabelColor)
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: textLabelColor),
-                                borderRadius: BorderRadius.circular(30)
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(color: borderColor)
-                            ),
-                            hintText: '••••••••',
-                            hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
-                                fontFamily: 'Poppins-Bold'),
-                            // labelStyle: TextStyle(color: textLabelColor),
-                            focusColor: borderColor,
-                            suffixIcon: Padding(
+                          obscureText: _obscureText,
+                          suffixIcon: IconButton(
+                            icon: Padding(
                               padding: const EdgeInsetsDirectional.only(end: 12.0),
-                              child: IconButton(
-                                icon: Icon(
-                                    _obscureText ?  Icons.visibility :Icons.visibility_off,
-                                    color: textLabelColor, size: 24,),
-                                onPressed: () {
-                                  setState(() {
-                                    _obscureText = !_obscureText;
-                                  });
-                                },
-                              ),
+                              child: Icon(
+                                _obscureText ?  Icons.visibility :Icons.visibility_off,
+                                color: textLabelColor, size: 24,),
                             ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
                           ),
-                          style: TextStyle(color: borderColor, fontSize: 14, fontFamily: "Poppins-Regular"),
+                          // errorTextMsg: "Please Enter Email",
                         ),
 
                         // SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -249,6 +286,7 @@ class _LoginPageState extends State<LoginPage> {
                         //   ),
                         //   style: TextStyle(color: borderColor, fontSize: 14, fontFamily: "Poppins-Regular"),
                         // ),
+
                       ],
                     ),
                   ],

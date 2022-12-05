@@ -38,16 +38,10 @@ class _AddressTabBarState extends State<AddressTabBar> with TickerProviderStateM
                     color: kWhite,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  // indicator: BubbleTabIndicator(
-                  //   indicatorHeight: 35.0,
-                  //   indicatorColor: kWhite,
-                  //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                  // ),
                   indicatorColor: kWhite,
-                  isScrollable: true,
                   labelColor: kBlack,
-                  labelPadding: const EdgeInsets.only(left: 40, right: 40),
-                  labelStyle: const TextStyle(fontSize: 14),
+                  labelPadding: const EdgeInsets.only(left: 30, right: 30),
+                  labelStyle: const TextStyle(fontSize: 12),
                   unselectedLabelColor: kBlack,
                   tabs: const [
                     Tab(

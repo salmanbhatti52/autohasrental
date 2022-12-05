@@ -8,6 +8,7 @@ Widget topExperienceWidget(BuildContext context) {
     width: double.infinity,
     color: Colors.transparent,
     child: ListView.builder(
+      physics: const BouncingScrollPhysics(),
         itemCount: topExperienceItemsList.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {

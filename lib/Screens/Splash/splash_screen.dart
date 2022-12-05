@@ -1,10 +1,9 @@
 import 'dart:async';
+import 'package:auto_haus_rental_app/Screens/Introduction_screens/introduction_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../Widget/colors.dart';
 import '../Authentication/LoginPage/login_page.dart';
-import '../Introduction_screens/introduction_page.dart';
-import '../TabPages/tab_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -36,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   splashNavigator() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const IntroductionPage()));
     });
   }
 }

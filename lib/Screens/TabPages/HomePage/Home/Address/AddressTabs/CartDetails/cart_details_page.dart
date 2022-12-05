@@ -37,12 +37,13 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
       appBar: const MyAppBarSingleImage(
         title: "BMW 2 series, 2022", backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
             Container(
-              height: MediaQuery.of(context).size.height* 0.78,
+              height: MediaQuery.of(context).size.height* 0.8,
               color: Colors.transparent,
               child: Stack(
                 children: [
@@ -226,7 +227,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                   style: TextStyle(fontSize: 12, fontFamily: poppinRegular, color: borderColor),),
                               ),
 
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                               Center(
                                 child: Container(
                                   height: MediaQuery.of(context).size.height * 0.03,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../Widget/button.dart';
 import '../../../../../Widget/colors.dart';
 import '../../../../../Widget/description_page/description_page_top_card.dart';
 import '../../../../../Widget/tabbar_description_page.dart';
+import '../../../MyAppBarHeader/app_bar_header.dart';
 
 class CarDescription extends StatefulWidget {
   const CarDescription({super.key});
@@ -16,13 +18,16 @@ class _CarDescriptionState extends State<CarDescription> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
+      appBar: const myAppBarDoubleImageRichText(frontImage: "assets/live_chat_images/back_arrow.png",
+        title: "Tesla S series, ", year: "2022", backImage: "assets/car_description_images/chat.png",
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 361,
+              height: MediaQuery.of(context).size.height * 0.37,
               decoration: const BoxDecoration(
                 color: Color(0xff0f172a),
                 borderRadius: BorderRadius.only(
@@ -31,57 +36,12 @@ class _CarDescriptionState extends State<CarDescription> {
               ),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: GestureDetector(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Tesla S series, ',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'Poppins-Bold',
-                              color: kWhite),
-                          children: const [
-                            TextSpan(
-                                text: '2022',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: 'Poppins-Regular',
-                                    color: Colors.white)),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Image.asset(
-                            'assets/car_description_images/chat.png',
-                            width: 25,
-                            height: 25),
-                      ),
-                    ],
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset('assets/car_description_images/rating.png',
                           width: 75, height: 12),
-                      const SizedBox(width: 6),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(
                         '4.0',
                         style: TextStyle(
@@ -91,7 +51,7 @@ class _CarDescriptionState extends State<CarDescription> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -132,6 +92,7 @@ class _CarDescriptionState extends State<CarDescription> {
             ),
             myHorizontalCard2(context),
             const TabbarCarDescription(),
+            loginButton('Book Me', context),
           ],
         ),
       ),

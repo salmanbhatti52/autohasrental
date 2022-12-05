@@ -3,7 +3,6 @@ import 'package:auto_haus_rental_app/Widget/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../../../Widget/button.dart';
 import '../../../Widget/fontFamily.dart';
 import '../LoginPage/login_page.dart';
@@ -39,16 +38,16 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Text("Verify Phone", textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', color: kWhite),),
+                style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
               SizedBox(height: MediaQuery.of(context).size.height * 0.12),
               SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
               SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text("We sent you an SMS with a 6 digit code. Enter the code to verify your mobile.",
                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontFamily: 'Poppins-Regular', color: kWhite,),),
+                  style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite,),),
               ),
 
               SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
@@ -67,7 +66,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                       ),
                       length: 6,
                       // obscureText: true,
-                      hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular'),
+                      hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular),
                       hintCharacter: "0",
                       // obscuringCharacter: '*',
                       // obscuringWidget: const FlutterLogo(
@@ -145,12 +144,12 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                   children: [
                     Image.asset("assets/images/timer.png",),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                    const Text(" Expire on 02:00",
-                    style: TextStyle(color: Color(0xffFF6666), fontSize: 12, fontWeight: FontWeight.w500,
-                      fontFamily: 'Poppins-Medium',),),
+                    Text(" Expire on 02:00",
+                    style: TextStyle(color: const Color(0xffFF6666), fontSize: 12, fontWeight: FontWeight.w500,
+                      fontFamily: poppinMedium,),),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                     Text("Resend Code (4)",
-                    style: TextStyle(color: borderColor, fontSize: 16, fontFamily: 'Poppins-SemiBold', fontWeight: FontWeight.w500),),
+                    style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold, fontWeight: FontWeight.w500),),
                   ],
                 ),
               ),

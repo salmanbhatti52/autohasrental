@@ -9,6 +9,7 @@ Widget myHorizontalCard3(BuildContext context) {
       width: double.infinity,
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 150,
               childAspectRatio: 3,

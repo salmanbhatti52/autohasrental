@@ -44,29 +44,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: const MyAppBarSingleImage(
         title: "Edit Profile", backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.07,),
-            //
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       GestureDetector(
-            //         onTap:(){
-            //           Navigator.pop(context);
-            //         },
-            //         child: Image.asset("assets/messages_images/Back.png", height: 25, width: 25,),),
-            //
-            //       Text("Edit Profile",
-            //         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kBlack),),
-            //
-            //       Container(),
-            //     ],
-            //   ),
-            // ),
-
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
 
             Column(

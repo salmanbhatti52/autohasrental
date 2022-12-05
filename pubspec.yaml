@@ -44,7 +44,7 @@ dependencies:
   bubble_tab_indicator: ^0.1.6
   country_list_pick: ^1.0.1+6
   country_picker:
-  flutter_stripe: ^7.0.0
+#  flutter_stripe: ^7.0.0
   flutter_svg: ^1.1.6
   modal_bottom_sheet: ^2.1.2
   get: ^4.6.5

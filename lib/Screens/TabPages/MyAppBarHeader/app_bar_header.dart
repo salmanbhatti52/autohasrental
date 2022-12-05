@@ -235,7 +235,7 @@ class myAppBarDoubleImage extends StatelessWidget
                     builder: (context) => const NotificationsScreen()));
           },
           child: Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 30, right: 20),
             child: Image.asset(
               backImage!,
               height: 25,
@@ -250,7 +250,7 @@ class myAppBarDoubleImage extends StatelessWidget
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding: const EdgeInsets.only(top: 30, right: 20),
           child: Image.asset(
             frontImage!,
             height: 25,
@@ -258,7 +258,6 @@ class myAppBarDoubleImage extends StatelessWidget
           ),
         ),
       ),
-      leadingWidth: 80,
       title: Padding(
         padding: const EdgeInsets.only(top: 30),
         child: Text(title,
@@ -267,6 +266,90 @@ class myAppBarDoubleImage extends StatelessWidget
                 fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack)),
       ),
       backgroundColor: homeBgColor,
+      elevation: 0.0,
+      centerTitle: true,
+    );
+  }
+}
+
+
+class myAppBarDoubleImageRichText extends StatelessWidget
+    implements PreferredSizeWidget {
+  final String? frontImage;
+  final String title;
+  final String year;
+  final String? backImage;
+
+  const myAppBarDoubleImageRichText(
+      {Key? key, this.frontImage, this.title = "", this.year = "", this.backImage,})
+      : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(70);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // <-- SEE HERE
+        statusBarIconBrightness:
+        Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+        Brightness.light, //<-- For iOS SEE HERE (dark icons)
+      ),
+      actions: [
+        GestureDetector(
+          onTap: () {
+            print("clicked");
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const NotificationsScreen()));
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30, right: 20),
+            child: Image.asset(
+              backImage!,
+              height: 25,
+              width: 25,
+            ),
+          ),
+        ),
+      ],
+      leading: GestureDetector(
+        onTap: () {
+          print("clicked");
+          Navigator.pop(context);
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30, right: 20),
+          child: Image.asset(
+            frontImage!,
+             color: kWhite,
+            height: 25,
+            width: 25,
+          ),
+        ),
+      ),
+      // leadingWidth: 80,
+      title: Padding(
+        padding: const EdgeInsets.only(top: 30, right: 10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(title,
+              style: TextStyle(
+                  fontSize: 20, fontFamily: poppinBold, color: kWhite),),
+                Text(year, style: TextStyle(
+                    fontSize: 20, fontFamily: poppinRegular, color: kWhite),),
+              ],
+            ),
+          ],
+        ),
+
+      ),
+      backgroundColor: appBgColor,
       elevation: 0.0,
       centerTitle: true,
     );

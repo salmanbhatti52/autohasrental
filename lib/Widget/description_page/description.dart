@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../button.dart';
 
 class Description extends StatelessWidget {
   const Description({super.key});
@@ -8,9 +7,9 @@ class Description extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 10),
-        const Padding(
+      children: const [
+        SizedBox(height: 10),
+        Padding(
           padding: EdgeInsets.only(left: 20, right: 20, top: 5),
           child: Text(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has",
@@ -21,7 +20,7 @@ class Description extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 20, top: 10),
           child: Text(
             "Owner’s Details",
@@ -30,7 +29,7 @@ class Description extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 20, top: 6),
           child: Text(
             "About",
@@ -41,7 +40,7 @@ class Description extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 20, top: 6),
           child: Text(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
@@ -52,7 +51,7 @@ class Description extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 20, top: 6),
           child: Text(
             "Location",
@@ -63,7 +62,7 @@ class Description extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 20, top: 6),
           child: Text(
             "Los Angeles, CA 90015",
@@ -74,8 +73,6 @@ class Description extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-        const SizedBox(height: 10),
-        loginButton('Book Now', context),
       ],
     );
   }

@@ -1,5 +1,5 @@
+import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
 import 'package:flutter/material.dart';
-
 import 'colors.dart';
 import 'description_page/description.dart';
 import 'feature_page/features.dart';
@@ -43,12 +43,11 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
                   ),
                   //indicatorSize: TabBarIndicatorSize,
                   indicatorColor: kWhite,
-
-                  isScrollable: true,
+                  // isScrollable: true,
                   labelColor: kBlack,
-                  labelPadding: const EdgeInsets.only(left: 23, right: 22),
-                  labelStyle: const TextStyle(
-                      fontSize: 14, fontFamily: 'Poppins-Regular'),
+                  // labelPadding: const EdgeInsets.only(left: 23, right: 22),
+                  labelStyle: TextStyle(
+                      fontSize: 12, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,
                   tabs: const [
                     Tab(
@@ -66,7 +65,7 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
         ),
         SizedBox(
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height * 0.35,
           child: TabBarView(
             controller: tabcontroller,
             children: const [Description(), Features(), Rating()],

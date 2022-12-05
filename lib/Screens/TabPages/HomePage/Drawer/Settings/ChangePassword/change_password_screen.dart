@@ -3,6 +3,8 @@ import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../Widget/TextFields/change_password_text_field.dart';
+import '../../../../../../Widget/TextFields/password_text_field.dart';
 import '../../../../../Authentication/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 
@@ -85,9 +87,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
-                            color: kWhite,
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
                           child: TextField(
                             cursorColor: borderColor,
                             keyboardType: TextInputType.text,
@@ -123,6 +125,35 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         ),
                       ],
                     ),
+
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     color: kWhite,
+                    //     borderRadius: BorderRadius.circular(30.0),
+                    //   ),
+                    //   child: ChangePasswordEditTextUtils().getChangePasswordTextField(
+                    //     hintValue: "••••••••",
+                    //     validation: true,
+                    //     // autoFocus: true,
+                    //     // textController: newPassController,
+                    //     keyboardType: TextInputType.text,
+                    //     obscureText: obscureOldPass,
+                    //     suffixIcon: IconButton(
+                    //       icon: Padding(
+                    //         padding: const EdgeInsetsDirectional.only(end: 12.0),
+                    //         child: Icon(
+                    //           obscureOldPass ?  Icons.visibility :Icons.visibility_off,
+                    //           color: textLabelColor, size: 24,),
+                    //       ),
+                    //       onPressed: () {
+                    //         setState(() {
+                    //           obscureOldPass = !obscureOldPass;
+                    //         });
+                    //       },
+                    //     ),
+                    //     // errorTextMsg: "Please Enter Email",
+                    //   ),
+                    // ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

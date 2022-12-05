@@ -4,6 +4,7 @@ import '../../colors.dart';
 
 Widget allRatingList() {
   return ListView.builder(
+      physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemCount: ratingItemsList.length,

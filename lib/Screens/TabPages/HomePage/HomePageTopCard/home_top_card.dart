@@ -1,6 +1,5 @@
 import 'package:auto_haus_rental_app/Widget/colors.dart';
 import 'package:flutter/material.dart';
-
 import 'BrowseCardForRent/browse_car_page.dart';
 import 'DrivingExperience/driving_experience_page.dart';
 import 'EvSubscriptions/ev_subscription_page.dart';
@@ -11,6 +10,7 @@ Widget myHorizontalCard(BuildContext context){
     width: double.infinity,
     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     child: ListView.builder(
+      physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: cardItemsList.length,

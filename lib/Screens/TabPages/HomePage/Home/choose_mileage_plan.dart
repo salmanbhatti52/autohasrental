@@ -64,7 +64,7 @@ class MileageRadioItem extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 30.0,
-            width: 150.0,
+            width: 140.0,
             decoration: BoxDecoration(
               color: _item.isSelectedMileage ? borderColor : kWhite,
               border: Border.all(width: 1.0,

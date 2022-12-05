@@ -1,6 +1,8 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:flutter/material.dart';
+import '../../../../../Widget/button.dart';
 import '../../../../../Widget/colors.dart';
-import 'Tabs/driving_tabbar.dart';
+import '../../../../../Widget/tabbar_description_page.dart';
 
 class DrivingDetailsPage extends StatefulWidget {
   const DrivingDetailsPage({Key? key}) : super(key: key);
@@ -9,7 +11,8 @@ class DrivingDetailsPage extends StatefulWidget {
   State<DrivingDetailsPage> createState() => _DrivingDetailsPageState();
 }
 
-class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTickerProviderStateMixin {
+class _DrivingDetailsPageState extends State<DrivingDetailsPage>
+    with SingleTickerProviderStateMixin {
   TabController? tabController;
 
   @override
@@ -21,159 +24,209 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF5F5F5),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        color: Colors.transparent,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                Container(
-                  height: 800,
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.transparent,
+      backgroundColor: homeBgColor,
+      appBar: const myAppBarDoubleImageRichText(frontImage: "assets/live_chat_images/back_arrow.png",
+          title: "Tesla S series, ", year: "2022", backImage: "assets/car_description_images/chat.png",
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              color: const Color(0xff3d4a68),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.4,
+                decoration: const BoxDecoration(
+                  color: Color(0xff0f172a),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
                 ),
-                   Positioned(
-                     bottom: 0,
-                       right: 0,
-                       left: 0,
-                       child: Image.asset("assets/images/SVG 03.png",
-                         // width: MediaQuery.of(context).size.width* 0.95,
-                         // height: MediaQuery.of(context).size.height*0.5,
-                         fit: BoxFit.fill,
-                       )),
-                  Positioned(
-                    bottom: 375,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Driving Experiences",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kWhite),),
-                         SizedBox(width: MediaQuery.of(context).size.width *0.3,),
-                          Text("250",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kWhite),),
-                        ],
-                      ),
+                child: Column(
+                  children: [
+                    // SizedBox(
+                    //   height: MediaQuery.of(context).size.height * 0.07,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 20),
+                    //       child: GestureDetector(
+                    //         onTap: () {
+                    //           Navigator.pop(context);
+                    //         },
+                    //         child: const Icon(
+                    //           Icons.arrow_back_ios,
+                    //           color: Colors.white,
+                    //           size: 20,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     RichText(
+                    //       text: TextSpan(
+                    //         text: 'Tesla S series, ',
+                    //         style: TextStyle(
+                    //             fontSize: 20,
+                    //             fontFamily: 'Poppins-Bold',
+                    //             color: kWhite),
+                    //         children: const [
+                    //           TextSpan(
+                    //               text: '2022',
+                    //               style: TextStyle(
+                    //                   fontSize: 20,
+                    //                   fontFamily: 'Poppins-Regular',
+                    //                   color: Colors.white)),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(right: 20),
+                    //       child: Image.asset(
+                    //           'assets/car_description_images/chat.png',
+                    //           width: 25,
+                    //           height: 25),
+                    //     ),
+                    //   ],
+                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/car_description_images/rating.png',
+                            width: 75, height: 12),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                        Text(
+                          '4.0',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Poppins-SemiBold',
+                              color: kWhite),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Image.asset(
+                              'assets/car_description_images/tesla.png',
+                              width: 41,
+                              height: 41),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Image.asset(
+                              'assets/car_description_images/heart.png',
+                              width: 24,
+                              height: 20),
+                        ),
+                      ],
+                    ),
+                    Stack(
+                      children: [
+                        Positioned(
+                          child: Image.asset('assets/home_page/tesla.png',
+                              width: 307, height: 192),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          child: Image.asset(
+                            'assets/car_description_images/circle.png',
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.6,
+              decoration: const BoxDecoration(
+                color: Color(0xff3d4a68),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/background.png'),
+                    fit: BoxFit.cover),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Driving Experiences",
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontFamily: 'Poppins-Medium',
+                              color: kWhite),
+                          textAlign: TextAlign.left,
+                        ),
+                        Text(
+                          "\$250",
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontFamily: 'Poppins-Bold',
+                              color: kWhite),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
                     ),
                   ),
-
-                  Positioned(
-                      right: 20,
-                      left: 20, bottom: 230,
-                      child: Image.asset("assets/images/crown_image.png")),
-
-                  Positioned(
-                    right: 40,
-                    left: 40, bottom: 130,
-                    child: Text('Track Day Session \nGet driven around by \n"Alex Yoong" at \nSepang Circuit for \nRMx,xxx',
-                      maxLines: 5, textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kWhite),),
-                  ),
-
-                  Positioned(
-                      right: 20,
-                      left: 20, bottom: 10,
-                      child: Image.asset("assets/images/crown_images_two.png")),
-                  Positioned(
-                    top: 0,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.45,
-                      width: MediaQuery.of(context).size.width*1,
-                      decoration: BoxDecoration(
-                          color: appBgColor,
-                          borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20)
-                          )
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                GestureDetector(
-                                  onTap:(){
-                                    Navigator.pop(context);
-                                  },
-                                  child: Icon(Icons.arrow_back_ios_new_outlined, color: kWhite,),),
-
-                                Text("Tesla S series, 2022",
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kWhite),),
-
-                                GestureDetector(
-                                    onTap: (){
-                                      // Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
-                                    },
-                                    child:
-                                    Image.asset("assets/images/chat.png"
-                                      // Image.asset("assets/images/heart_transparent.png"
-                                      // Image.asset("assets/images/tesla.png"
-                                    )),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset("assets/home_page/rating_stars.png"),
-                              SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                              Text("4.0", style: TextStyle(color: kWhite,
-                                fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Poppins',),),
-                            ],
-                          ),
-                          const SizedBox(height: 10,),
-                          Stack(
-                            children: [
-                              Container(
-                                height: MediaQuery.of(context).size.height * 0.3,
-                                color: Colors.transparent,
-                              ),
-                              Positioned(
-                                  right: 20, top: 120, left: 20,
-                                  child: Image.asset("assets/images/plate_image.png")),
-                              Positioned(
-                                left: 20,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: borderColor,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: borderColor, width: 1)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset("assets/filter_images/tesla.png", width: 35, height: 35, color: kWhite,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                  right: 20,
-                                  child: Image.asset("assets/home_page/heart_transparent.png")),
-                              Positioned(
-                                  top: 15, left: 50, right: 50,
-                                  child: Image.asset("assets/home_page/tesla.png")),
-                            ],
-                          ),
-                        ],
-                      ),
+                  Image.asset("assets/images/crown_image.png"),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Track Day Session \n',
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Poppins-Medium',
+                          color: kWhite),
+                      children: [
+                        TextSpan(
+                          text: 'Get driven around by \n',
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontFamily: 'Poppins-Regular',
+                              color: kWhite),
+                        ),
+                        TextSpan(
+                          text: "\" Alex Yoong \"",
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontFamily: 'Poppins-Bold',
+                              color: kWhite),
+                        ),
+                        TextSpan(
+                          text: ' at \n',
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontFamily: 'Poppins-Regular',
+                              color: kWhite),
+                        ),
+                        TextSpan(
+                          text: 'Sepang Circuit for \n RMx,xxx',
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontFamily: 'Poppins-Regular',
+                              color: kWhite),
+                        ),
+                      ],
                     ),
+                    textAlign: TextAlign.center,
                   ),
+                  Image.asset("assets/images/crown_images_two.png")
                 ],
               ),
-              const SizedBox(height: 10,),
-
-              const DrivingTabBar(),
-
-              const SizedBox(height: 20,),
-            ],
-          ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            const TabbarCarDescription(),
+            loginButton('Book Me', context),
+          ],
         ),
       ),
     );

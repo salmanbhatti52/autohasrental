@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../colors.dart';
 
 Widget allRatingList() {
   return ListView.builder(
+    physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemCount: ratingItemsList.length,
@@ -74,6 +74,17 @@ List ratingItemsList = [
   ),
   RatingClass(
     "assets/car_description_images/user.png",
+    'Josh Gibson',
+    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
+    "assets/car_description_images/rating.png",
+  ),
+  RatingClass(
+    "assets/car_description_images/user.png",
+    'Josh Gibson',
+    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
+    "assets/car_description_images/rating.png",
+  ),
+  RatingClass("assets/car_description_images/user.png",
     'Josh Gibson',
     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
     "assets/car_description_images/rating.png",

@@ -20,6 +20,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
       appBar: const MyAppBarSingleImage(
         title: "BMW 2 series, 2022", backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(

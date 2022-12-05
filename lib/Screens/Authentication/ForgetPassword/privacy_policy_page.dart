@@ -1,4 +1,5 @@
 import 'package:auto_haus_rental_app/Widget/colors.dart';
+import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
 import 'package:flutter/material.dart';
 import '../../../Widget/button.dart';
 import '../LoginPage/login_page.dart';
@@ -17,7 +18,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
       backgroundColor: appBgColor,
       body: Column(
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.04),
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -40,14 +41,14 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 SizedBox(width: MediaQuery.of(context).size.width * 0.1),
                 Text("Review Terms of \nService & Privacy Policy",
                   maxLines: 2, textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontFamily: 'Poppins-SemiBold', color: kWhite),),
+                  style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
               ],
             ),
           ),
 
           Container(
             // width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.7,
+            height: MediaQuery.of(context).size.height * 0.74,
             color: Colors.transparent,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(
@@ -88,7 +89,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus "
                   "est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing."
                 , textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, fontFamily: 'Poppins-Light', color: kWhite),),
+                style: TextStyle(fontSize: 14, fontFamily: poppinLight, color: kWhite),),
             ),
           ),
           GestureDetector(
