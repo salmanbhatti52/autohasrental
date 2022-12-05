@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../Screens/TabPages/BookingPage/bookings_details_page2.dart';
-import '../colors.dart';
+import '../../../../../Widget/colors.dart';
+import 'bookings_details_page2.dart';
 
 class UpcomingPage extends StatefulWidget {
   const UpcomingPage({super.key});
@@ -15,8 +15,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
+        Navigator.push(context,
             MaterialPageRoute(
                 builder: (context) => const BookingDetailPage2()));
       },
@@ -62,28 +61,32 @@ class _UpcomingPageState extends State<UpcomingPage> {
                             child: Column(
                               children: [
                                 Container(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.1,
+                                  height: MediaQuery.of(context).size.height * 0.1,
+                                  color: Colors.transparent,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 40, right: 20),
+                                    padding: const EdgeInsets.only(top: 40, right: 20),
                                     child: Align(
                                       alignment: Alignment.centerRight,
-                                      child: Container(
-                                        width: 102,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          color: kRed,
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Cancel',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontFamily: 'Poppins-Regular',
-                                                color: kWhite),
+                                      child: GestureDetector(
+                                        onTap: (){
+                                          print("cancel Clicked");
+                                        },
+                                        child: Container(
+                                          width: 102,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                            color: kRed,
+                                            borderRadius:
+                                            BorderRadius.circular(30),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              'Cancel',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontFamily: 'Poppins-Regular',
+                                                  color: kWhite),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -148,14 +151,17 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                           ),
                                           Row(
                                             children: [
-                                              Text(
-                                                "RM",
-                                                style: TextStyle(
-                                                  color: kRed,
-                                                  fontSize: 5,
-                                                  fontFamily: 'Poppins-Regular',
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 04),
+                                                child: Text(
+                                                  "RM",
+                                                  style: TextStyle(
+                                                    color: kRed,
+                                                    fontSize: 5,
+                                                    fontFamily: 'Poppins-Regular',
+                                                  ),
+                                                  textAlign: TextAlign.left,
                                                 ),
-                                                textAlign: TextAlign.left,
                                               ),
                                               Text(
                                                 upcomingItemsList[index]
@@ -173,15 +179,18 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                 textAlign: TextAlign.left,
                                               ),
                                               const SizedBox(width: 5),
-                                              Text(
-                                                "RM",
-                                                style: TextStyle(
-                                                  color: borderColor,
-                                                  fontSize: 7,
-                                                  fontFamily:
-                                                  'Poppins-SemiBold',
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 06),
+                                                child: Text(
+                                                  "RM",
+                                                  style: TextStyle(
+                                                    color: borderColor,
+                                                    fontSize: 7,
+                                                    fontFamily:
+                                                    'Poppins-SemiBold',
+                                                  ),
+                                                  textAlign: TextAlign.left,
                                                 ),
-                                                textAlign: TextAlign.left,
                                               ),
                                               Text(
                                                 upcomingItemsList[index]

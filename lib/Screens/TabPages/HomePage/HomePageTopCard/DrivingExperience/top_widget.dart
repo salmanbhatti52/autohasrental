@@ -91,14 +91,17 @@ Widget topExperienceWidget(BuildContext context) {
                                 const Divider(),
                                 Row(
                                   children: [
-                                    Text(
-                                      "RM",
-                                      style: TextStyle(
-                                        color: kRed,
-                                        fontSize: 5,
-                                        fontFamily: 'Poppins-Light',
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 04),
+                                      child: Text(
+                                        "RM",
+                                        style: TextStyle(
+                                          color: kRed,
+                                          fontSize: 5,
+                                          fontFamily: 'Poppins-Light',
+                                        ),
+                                        textAlign: TextAlign.left,
                                       ),
-                                      textAlign: TextAlign.left,
                                     ),
                                     Text(
                                       topExperienceItemsList[index].oldPrice,

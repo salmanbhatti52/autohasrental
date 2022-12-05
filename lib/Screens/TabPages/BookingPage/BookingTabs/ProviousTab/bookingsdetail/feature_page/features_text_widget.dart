@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../colors.dart';
+import '../../../../../../../Widget/colors.dart';
 
 Widget featuretext(text1, text2, context) {
   return Padding(
@@ -9,8 +9,7 @@ Widget featuretext(text1, text2, context) {
       children: [
         Text(
           text1,
-          style: const TextStyle(
-              fontSize: 30, fontFamily: 'Poppins-Regular', height: 0.8),
+          style: const TextStyle(fontSize: 30, height: 0.8),
         ), //bullet text
         const SizedBox(width: 10), //space between bullet and text
         Expanded(
@@ -18,7 +17,6 @@ Widget featuretext(text1, text2, context) {
             text2,
             style: TextStyle(
               fontSize: 12,
-              fontFamily: 'Poppins-Regular',
               color: kBlack,
               height: 0.8,
             ),

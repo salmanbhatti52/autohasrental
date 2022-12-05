@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
-import '../../button.dart';
 import 'feature_image_widget.dart';
 import 'features_text_widget.dart';
 

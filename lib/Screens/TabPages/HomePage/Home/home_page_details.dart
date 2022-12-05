@@ -20,8 +20,8 @@ class _HomePageDetailsState extends State<HomePageDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImage(
-        title: "BMW 2 series, 2022", backImage: "assets/messages_images/Back.png",),
+      appBar: const MyAppBarSingleImagewithText(
+        title: "BMW 2 series, ", subtitle: "2022", backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -104,38 +104,6 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                                 fontSize: 14, fontFamily: poppinRegular, color: borderColor),),
 
                           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
-                          // Container(
-                          //   height: MediaQuery.of(context).size.height *0.1,
-                          //   width: MediaQuery.of(context).size.height ,
-                          //   decoration: BoxDecoration(
-                          //     color: kBlack,
-                          //     borderRadius: BorderRadius.circular(25)
-                          //   ),
-                          //   child: Center(
-                          //     child: ListTile(
-                          //       leading: Image.asset("assets/home_page/business-investment.png"),
-                          //       title: Text("Monthly Total Fee", style: TextStyle(fontSize: 16,
-                          //           fontWeight: FontWeight.w600, fontFamily: 'Poppins', color: kWhite),),
-                          //       subtitle: Text("in your first year with AutoHaus Rental",
-                          //           style: TextStyle(color: kWhite,
-                          //             fontSize: 10, fontWeight: FontWeight.w400, fontFamily: 'Poppins',)),
-                          //       trailing: Container(
-                          //         height: 25, width: MediaQuery.of(context).size.width * 0.22,
-                          //         decoration: BoxDecoration(
-                          //             color: borderColor,
-                          //             borderRadius: BorderRadius.circular(20)
-                          //         ),
-                          //         child: Center(
-                          //           child: Text("Learn more", style: TextStyle(fontSize: 12,
-                          //               fontWeight: FontWeight.w400, fontFamily: 'Poppins', color: kWhite),),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          //
-                          //
-                          // ),
                           Container(
                             height: MediaQuery.of(context).size.height *0.1,
                             width: MediaQuery.of(context).size.height ,
@@ -143,39 +111,64 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                                 color: kBlack,
                                 borderRadius: BorderRadius.circular(25)
                             ),
-                            child:Row(
-                              children: [
-                                Image.asset("assets/home_page/business-investment.png"),
-                                SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Save RM 37,538", textAlign: TextAlign.left, style: TextStyle(
-                                            fontSize: 16, fontFamily: poppinSemiBold, color: kWhite),),
-                                        SizedBox(width: MediaQuery.of(context).size.height * 0.03),
-                                        Container(
-                                          height: 25, width: MediaQuery.of(context).size.width * 0.22,
-                                          decoration: BoxDecoration(
+                            child:Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/home_page/business-investment.png"),
+                                  SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Save RM 37,538", textAlign: TextAlign.left, style: TextStyle(
+                                              fontSize: 16, fontFamily: poppinSemiBold, color: kWhite),),
+                                          SizedBox(width: MediaQuery.of(context).size.width * 0.03),
+                                          Container(
+                                            height: 25,
+                                            width: MediaQuery.of(context).size.width * 0.24,
+                                            decoration: BoxDecoration(
+                                                color: borderColor,
+                                                borderRadius: BorderRadius.circular(20)
+                                            ),
+                                            child: Center(
+                                              child: Text("Learn more", textAlign: TextAlign.left, style: TextStyle(
+                                                  fontSize: 12, fontFamily: poppinRegular, color: kWhite),),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "in your first year with ",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              color: kWhite,
+                                              fontSize: 10,
+                                              fontFamily: poppinRegular,
+                                            ),
+                                          ),
+                                          Text(
+                                            "AutoHaus Rental",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
                                               color: borderColor,
-                                              borderRadius: BorderRadius.circular(20)
+                                              fontSize: 10,
+                                              fontFamily: poppinSemiBold,
+                                            ),
                                           ),
-                                          child: Center(
-                                            child: Text("Learn more", textAlign: TextAlign.left, style: TextStyle(
-                                                fontSize: 12, fontFamily: poppinRegular, color: kWhite),),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Text("in your first year with AutoHaus Rental",textAlign: TextAlign.left,
-                                        style: TextStyle(color: kWhite, fontSize: 10, fontFamily: poppinSemiBold,)),
-                                  ],
-                                ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
 
-                              ],
+                                ],
+                              ),
                             ),
 
                           ),
@@ -207,7 +200,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                       ),
                     ),
                   ],
-                )
+                ),
             ),
           ],
         ),
@@ -236,7 +229,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.42,
+            height: MediaQuery.of(context).size.height * 0.43,
             decoration: BoxDecoration(
                 color: kWhite,
               borderRadius: BorderRadius.circular(20)
@@ -278,13 +271,19 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                   // SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                   Row(
                     children: [
-                      Text("RM", textAlign: TextAlign.left, style: TextStyle(color: kRed,
-                        fontSize: 5, fontFamily: 'Poppins-Light',),),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 04),
+                        child: Text("RM", textAlign: TextAlign.left, style: TextStyle(color: kRed,
+                          fontSize: 5, fontFamily: 'Poppins-Light',),),
+                      ),
                       Text(" 9,000", textAlign: TextAlign.left, style: TextStyle(color: kRed, decoration: TextDecoration.lineThrough,
                         fontSize: 10,  fontFamily: 'Poppins-Light',),),
                       SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                      Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
-                        fontSize: 7, fontFamily: poppinSemiBold,),),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 06),
+                        child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
+                          fontSize: 7, fontFamily: poppinSemiBold,),),
+                      ),
                       Text("8,500", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
                         fontSize: 20, fontFamily: poppinSemiBold,),),
                       Text("/ Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
@@ -326,12 +325,12 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                             color: kBlack, fontSize: 14, fontFamily: poppinRegular,),),
                         ],
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.height * 0.1,),
+                      SizedBox(width: MediaQuery.of(context).size.height * 0.2,),
                       Container(
-                        height: 25, width: 60,
+                        height: 25, width: 65,
                         decoration: BoxDecoration(
                             color: kBlack,
-                            borderRadius: BorderRadius.circular(10)
+                            borderRadius: BorderRadius.circular(20)
                         ),
                         child: Center(
                           child: Text("Pre book", textAlign: TextAlign.left, style: TextStyle(color: kWhite,
@@ -354,7 +353,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
         ),
 
         Positioned(
-            top: 23, left: 27,
+            top: 28, left: 27,
             child: Container(
               height: MediaQuery.of(context).size.width* 0.07,
               width: MediaQuery.of(context).size.width* 0.16,
@@ -378,11 +377,10 @@ class _HomePageDetailsState extends State<HomePageDetails> {
         ),
 
         Positioned(
-          top: 0,
           child: Image.asset("assets/home_page/tesla_car_image.png"),
         ),
         Positioned(
-            top: 23, right: 27,
+            top: 28, right: 27,
             child: Image.asset("assets/home_page/heart_transparent.png", color: kBlack,)),
 
       ],

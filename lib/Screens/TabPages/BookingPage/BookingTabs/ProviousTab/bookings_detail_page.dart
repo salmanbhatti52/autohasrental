@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../Widget/button.dart';
-import '../../../Widget/colors.dart';
-import '../../../Widget/tabbar_bookings_detail_page.dart';
-import '../MyAppBarHeader/app_bar_header.dart';
-import 'BookingTabs/ProviousTab/bookings_detail_previous.dart';
+import '../../../../../Widget/button.dart';
+import '../../../../../Widget/colors.dart';
+import '../../../MyAppBarHeader/app_bar_header.dart';
+import '../tabbar_bookings_detail_page.dart';
+import 'bookings_detail_previous.dart';
 
 class BookingDetailPage extends StatefulWidget {
   const BookingDetailPage({super.key});

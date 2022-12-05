@@ -1,27 +1,27 @@
+import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
 import 'package:flutter/material.dart';
+import '../../../../../../Widget/colors.dart';
+import 'description_page/description.dart';
+import 'feature_page/features.dart';
+import 'rating_page.dart/rating.dart';
 
-import '../../../../Widget/colors.dart';
-import '../../../../Widget/previous_page.dart/previous_page.dart';
-import '../../../../Widget/upcoming_page/upcoming_page.dart';
-import 'ProviousTab/previous_page.dart';
-
-class TabbarCarBooings extends StatefulWidget {
-  const TabbarCarBooings({super.key});
+class TabbarCarDescription extends StatefulWidget {
+  const TabbarCarDescription({super.key});
 
   @override
-  State<TabbarCarBooings> createState() => _TabbarCarBooingsState();
+  State<TabbarCarDescription> createState() => _TabbarCarDescriptionState();
 }
 
 abstract class TickerProvider {}
 
-class _TabbarCarBooingsState extends State<TabbarCarBooings>
+class _TabbarCarDescriptionState extends State<TabbarCarDescription>
     with TickerProviderStateMixin {
-  List<String> tabs = ["Previous", "Upcoming"];
+  List<String> tabs = ["Description", "Features", "Ratings"];
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    TabController tabcontroller = TabController(length: 2, vsync: this);
+    TabController tabcontroller = TabController(length: 3, vsync: this);
 
     return Column(
       children: [
@@ -34,25 +34,30 @@ class _TabbarCarBooingsState extends State<TabbarCarBooings>
                   color: const Color(0xffd4dce1),
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                padding: const EdgeInsets.all(5),
                 child: TabBar(
                   controller: tabcontroller,
                   indicator: BoxDecoration(
                     color: kWhite,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
+                  //indicatorSize: TabBarIndicatorSize,
                   indicatorColor: kWhite,
-                  isScrollable: true,
+                  // isScrollable: true,
                   labelColor: kBlack,
-                  labelPadding: const EdgeInsets.only(left: 50, right: 46),
-                  labelStyle: const TextStyle(fontSize: 14),
+                  // labelPadding: const EdgeInsets.only(left: 23, right: 22),
+                  labelStyle: TextStyle(
+                      fontSize: 12, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,
                   tabs: const [
                     Tab(
-                      text: "Previous",
+                      text: "Description",
                     ),
                     Tab(
-                      text: "Upcoming",
+                      text: "Features",
+                    ),
+                    Tab(
+                      text: "Ratings",
                     ),
                   ],
                 ),
@@ -60,13 +65,10 @@ class _TabbarCarBooingsState extends State<TabbarCarBooings>
         ),
         SizedBox(
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height * 0.35,
           child: TabBarView(
             controller: tabcontroller,
-            children: const [
-              PreviousPage(),
-              UpcomingPage(),
-            ],
+            children: const [Description(), Features(), Rating()],
           ),
         ),
       ],

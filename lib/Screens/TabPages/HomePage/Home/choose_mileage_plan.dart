@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../Widget/colors.dart';
@@ -27,7 +28,7 @@ class _ChooseMileagePlanState extends State<ChooseMileagePlan> {
       color: Colors.transparent,
       height: 100,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -58,28 +59,22 @@ class MileageRadioItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(5.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            height: 30.0,
-            width: 140.0,
-            decoration: BoxDecoration(
-              color: _item.isSelectedMileage ? borderColor : kWhite,
-              border: Border.all(width: 1.0,
-                  color: _item.isSelectedMileage ? borderColor : kWhite),
-              borderRadius: BorderRadius.circular(20),
-              // border: Border.all(color: borderColor)
-            ),
-            child: Center(
-              child: Text(_item.buttonText,
-                      textAlign: TextAlign.left, style: TextStyle(
-                      fontFamily: 'Poppins-Regular', fontSize: 12.0,
-                      color: _item.isSelectedMileage ? kWhite : textLabelColor)),
-            ),
-          ),
-        ],
+      margin: const EdgeInsets.only(right: 05),
+      // height: MediaQuery.of(context).size.height * 0.02,
+      // width: MediaQuery.of(context).size.width * 0.28,
+      decoration: BoxDecoration(
+        color: _item.isSelectedMileage ? borderColor : kWhite,
+        border: Border.all(width: 1.0, color: _item.isSelectedMileage ? borderColor : kWhite),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Center(
+          child: Text(_item.buttonText,
+                  textAlign: TextAlign.left, style: TextStyle(
+                  fontFamily: poppinRegular, fontSize: 12.0,
+                  color: _item.isSelectedMileage ? kWhite : textLabelColor)),
+        ),
       ),
     );
   }

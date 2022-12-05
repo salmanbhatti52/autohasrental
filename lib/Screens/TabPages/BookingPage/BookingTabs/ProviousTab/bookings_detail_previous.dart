@@ -133,14 +133,17 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                   ),
                                   Row(
                                     children: [
-                                      Text(
-                                        "RM",
-                                        style: TextStyle(
-                                          color: kRed,
-                                          fontSize: 5,
-                                          fontFamily: 'Poppins-Regular',
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 04),
+                                        child: Text(
+                                          "RM",
+                                          style: TextStyle(
+                                            color: kRed,
+                                            fontSize: 5,
+                                            fontFamily: 'Poppins-Regular',
+                                          ),
+                                          textAlign: TextAlign.left,
                                         ),
-                                        textAlign: TextAlign.left,
                                       ),
                                       Text(
                                         previousItemsList[index].oldPrice,
@@ -156,14 +159,17 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         textAlign: TextAlign.left,
                                       ),
                                       const SizedBox(width: 5),
-                                      Text(
-                                        "RM",
-                                        style: TextStyle(
-                                          color: borderColor,
-                                          fontSize: 7,
-                                          fontFamily: 'Poppins-SemiBold',
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 06),
+                                        child: Text(
+                                          "RM",
+                                          style: TextStyle(
+                                            color: borderColor,
+                                            fontSize: 7,
+                                            fontFamily: 'Poppins-SemiBold',
+                                          ),
+                                          textAlign: TextAlign.left,
                                         ),
-                                        textAlign: TextAlign.left,
                                       ),
                                       Text(
                                         previousItemsList[index].newPrice,

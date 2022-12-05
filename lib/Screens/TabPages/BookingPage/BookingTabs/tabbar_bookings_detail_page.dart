@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
-
-import 'bookingsdetail/description_page/description.dart';
-import 'bookingsdetail/feature_page/features.dart';
-import 'bookingsdetail/rating_page.dart/rating.dart';
-import 'colors.dart';
+import '../../../../Widget/colors.dart';
+import 'ProviousTab/bookingsdetail/description_page/description.dart';
+import 'ProviousTab/bookingsdetail/feature_page/features.dart';
+import 'ProviousTab/bookingsdetail/rating_page.dart/rating.dart';
 
 class TabbarBookingsDetails extends StatefulWidget {
   const TabbarBookingsDetails({super.key});

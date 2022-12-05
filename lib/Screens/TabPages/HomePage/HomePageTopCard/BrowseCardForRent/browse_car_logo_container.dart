@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
+import '../../../../../Widget/colors.dart';
 
-class LogoContainer extends StatefulWidget {
-  const LogoContainer({super.key});
+class BrowseCarLogoContainer extends StatefulWidget {
+  const BrowseCarLogoContainer({super.key});
 
   @override
-  State<LogoContainer> createState() => _LogoContainerState();
+  State<BrowseCarLogoContainer> createState() => _BrowseCarLogoContainerState();
 }
 
-class _LogoContainerState extends State<LogoContainer> {
+class _BrowseCarLogoContainerState extends State<BrowseCarLogoContainer> {
   List<FilterRadioModel> filterData = <FilterRadioModel>[];
 
   @override
   void initState() {
     super.initState();
 
-    filterData.add(FilterRadioModel(true, 'assets/filter_images/tesla.png'));
+    filterData
+        .add(FilterRadioModel(true, 'assets/filter_images/tesla_white.png'));
     filterData.add(FilterRadioModel(false, 'assets/filter_images/ferrari.png'));
     filterData
         .add(FilterRadioModel(false, 'assets/filter_images/mercedes.png'));
@@ -59,17 +60,18 @@ class FilterRadioItem extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: _item.isSelectedFilter ? kWhite : const Color(0xff3f4555),
-            border: Border.all(
-                width: 1.0,
-                color:
-                    _item.isSelectedFilter ? borderColor : Colors.transparent),
+            color: _item.isSelectedFilter ? borderColor : kWhite,
+            // border: Border.all(
+            //     width: 1.0,
+            //     color:
+            //         _item.isSelectedFilter ? borderColor : Colors.transparent),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
               _item.image,
+              color: _item.isSelectedFilter ? kWhite : const Color(0xffd4dce1),
             ),
           ),
         ),
@@ -84,7 +86,7 @@ class FilterRadioModel {
   final String image;
 
   FilterRadioModel(
-    this.isSelectedFilter,
-    this.image,
-  );
+      this.isSelectedFilter,
+      this.image,
+      );
 }

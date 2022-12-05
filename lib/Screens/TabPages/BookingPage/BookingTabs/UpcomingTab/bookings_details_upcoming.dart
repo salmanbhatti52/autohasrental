@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../colors.dart';
+import '../../../../../Widget/colors.dart';
 
 class BookingsDetailsUpcoming extends StatefulWidget {
   const BookingsDetailsUpcoming({super.key});
@@ -30,11 +30,11 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                   ),
                 ),
                 Positioned(
-                  top: 90,
+                  top: 70,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 9),
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.22,
+                      height: MediaQuery.of(context).size.height * 0.24,
                       width: 343,
                       decoration: BoxDecoration(
                         color: kWhite,
@@ -50,49 +50,54 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                       ),
                       child: Column(
                         children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.1,
-                            child: Padding(
-                              padding:
-                              const EdgeInsets.only(top: 40, right: 20),
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    canceldialogbox(context);
-                                  },
-                                  child: Container(
-                                    width: 102,
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                      color: kRed,
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        'Cancel',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontFamily: 'Poppins-Regular',
-                                          color: kWhite,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Container(
+                          //   height: MediaQuery.of(context).size.height * 0.1,
+                          //   child: Padding(
+                          //     padding:
+                          //     const EdgeInsets.only(top: 40, right: 20),
+                          //     child: Align(
+                          //       alignment: Alignment.centerRight,
+                          //       child: GestureDetector(
+                          //         onTap: () {
+                          //           canceldialogbox(context);
+                          //         },
+                          //         child: Container(
+                          //           width: 102,
+                          //           height: 25,
+                          //           decoration: BoxDecoration(
+                          //             color: kRed,
+                          //             borderRadius: BorderRadius.circular(30),
+                          //           ),
+                          //           child: Center(
+                          //             child: Text(
+                          //               'Cancel',
+                          //               style: TextStyle(
+                          //                 fontSize: 12,
+                          //                 fontFamily: 'Poppins-Regular',
+                          //                 color: kWhite,
+                          //               ),
+                          //               textAlign: TextAlign.center,
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           Row(
                             children: [
                               const SizedBox(height: 93.6),
                               Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 15),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.12),
                                     Row(
                                       children: [
                                         Text(
@@ -135,26 +140,29 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                                     ),
                                     SizedBox(
                                       height:
-                                      MediaQuery.of(context).size.height *
-                                          0.01,
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
                                     ),
                                     Row(
                                       children: [
-                                        Text(
-                                          "RM",
-                                          style: TextStyle(
-                                            color: kRed,
-                                            fontSize: 5,
-                                            fontFamily: 'Poppins-Regular',
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 04),
+                                          child: Text(
+                                            "RM",
+                                            style: TextStyle(
+                                              color: kRed,
+                                              fontSize: 5,
+                                              fontFamily: 'Poppins-Regular',
+                                            ),
+                                            textAlign: TextAlign.left,
                                           ),
-                                          textAlign: TextAlign.left,
                                         ),
                                         Text(
                                           previousItemsList[index].oldPrice,
                                           style: TextStyle(
                                               color: kRed,
                                               decoration:
-                                              TextDecoration.lineThrough,
+                                                  TextDecoration.lineThrough,
                                               decorationColor: kRed,
                                               decorationThickness: 3,
                                               fontSize: 10,
@@ -163,14 +171,17 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                                           textAlign: TextAlign.left,
                                         ),
                                         const SizedBox(width: 5),
-                                        Text(
-                                          "RM",
-                                          style: TextStyle(
-                                            color: borderColor,
-                                            fontSize: 7,
-                                            fontFamily: 'Poppins-SemiBold',
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 06),
+                                          child: Text(
+                                            "RM",
+                                            style: TextStyle(
+                                              color: borderColor,
+                                              fontSize: 7,
+                                              fontFamily: 'Poppins-SemiBold',
+                                            ),
+                                            textAlign: TextAlign.left,
                                           ),
-                                          textAlign: TextAlign.left,
                                         ),
                                         Text(
                                           previousItemsList[index].newPrice,
@@ -192,16 +203,16 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                                         ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.01,
                                         ),
                                         Image.asset(
                                             "assets/car_bookings_images/rating_stars.png"),
                                         SizedBox(
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.01,
                                         ),
                                         Text(
@@ -217,8 +228,8 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                                     ),
                                     SizedBox(
                                         height:
-                                        MediaQuery.of(context).size.height *
-                                            0.01),
+                                            MediaQuery.of(context).size.height *
+                                                0.01),
                                     Row(
                                       children: [
                                         Image.asset(
@@ -244,7 +255,7 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                                           decoration: BoxDecoration(
                                               color: kBlack,
                                               borderRadius:
-                                              BorderRadius.circular(10)),
+                                                  BorderRadius.circular(10)),
                                           child: Center(
                                             child: Text(
                                               "New",
@@ -262,13 +273,16 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                                   ],
                                 ),
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Image.asset(
-                                      "assets/car_bookings_images/more_button.png"),
-                                ],
+                              Padding(
+                                padding: const EdgeInsets.only(top: 100),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Image.asset(
+                                        "assets/car_bookings_images/more_button.png"),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -325,6 +339,43 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                     child: Image.asset(
                       "assets/car_bookings_images/heart.png",
                     )),
+                Positioned(
+                  top: 90,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 40, right: 20),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            canceldialogbox(context);
+                          },
+                          child: Container(
+                            width: 102,
+                            height: 25,
+                            decoration: BoxDecoration(
+                              color: kRed,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins-Regular',
+                                  color: kWhite,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
               ],
             );
           }),
@@ -356,7 +407,7 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                           Navigator.pop(context);
                         },
                         child:
-                        Image.asset('assets/car_bookings_images/close.png'),
+                            Image.asset('assets/car_bookings_images/close.png'),
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -455,7 +506,8 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
 }
 
 List previousItemsList = [
-  PreviousItemsClass("assets/car_bookings_images/tesla_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  PreviousItemsClass("assets/car_bookings_images/tesla_car_image.png", "5%",
+      'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
 ];
 
 class PreviousItemsClass {

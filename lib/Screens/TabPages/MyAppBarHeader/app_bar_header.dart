@@ -94,6 +94,68 @@ class MyAppBarSingleImage extends StatelessWidget implements PreferredSizeWidget
   }
 }
 
+class MyAppBarSingleImagewithText extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final String subtitle;
+  final String? backImage;
+  const MyAppBarSingleImagewithText(
+      {Key? key, this.title = "", this.subtitle = "", this.backImage})
+      : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(70);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // <-- SEE HERE
+        statusBarIconBrightness:
+        Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+        Brightness.light, //<-- For iOS SEE HERE (dark icons)
+      ),
+      leading: GestureDetector(
+        onTap: () {
+          print("clicked");
+          Navigator.pop(context);
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30, right: 30),
+          child: Image.asset(
+            backImage!,
+            height: 25,
+            width: 25,
+          ),
+        ),
+      ),
+      leadingWidth: 80,
+      title: Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: Row(
+          children: [
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack),
+            ),
+            Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20, fontFamily: 'Poppins-Regular', color: kBlack),
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: homeBgColor,
+      elevation: 0.0,
+      centerTitle: true,
+    );
+  }
+}
+
 class MyAppBarSettingsPage extends StatelessWidget implements PreferredSizeWidget{
   final String title;
   final String backImage;

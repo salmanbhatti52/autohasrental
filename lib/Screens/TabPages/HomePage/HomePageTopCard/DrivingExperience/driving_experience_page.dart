@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../Widget/browse_car_logo_container.dart';
+import '../BrowseCardForRent/browse_car_logo_container.dart';
 import '../../../../../Widget/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Filter/filter_screen.dart';
@@ -229,14 +229,17 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                       ),
                                       Row(
                                         children: [
-                                          Text(
-                                            "RM",
-                                            style: TextStyle(
-                                              color: kRed,
-                                              fontSize: 5,
-                                              fontFamily: 'Poppins-Regular',
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 04),
+                                            child: Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: kRed,
+                                                fontSize: 5,
+                                                fontFamily: 'Poppins-Regular',
+                                              ),
+                                              textAlign: TextAlign.left,
                                             ),
-                                            textAlign: TextAlign.left,
                                           ),
                                           Text(
                                             browseCarItemsList[index].oldPrice,
@@ -253,14 +256,17 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             textAlign: TextAlign.left,
                                           ),
                                           const SizedBox(width: 5),
-                                          Text(
-                                            "RM",
-                                            style: TextStyle(
-                                              color: borderColor,
-                                              fontSize: 7,
-                                              fontFamily: 'Poppins-SemiBold',
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 06),
+                                            child: Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: borderColor,
+                                                fontSize: 7,
+                                                fontFamily: 'Poppins-SemiBold',
+                                              ),
+                                              textAlign: TextAlign.left,
                                             ),
-                                            textAlign: TextAlign.left,
                                           ),
                                           Text(
                                             browseCarItemsList[index].newPrice,

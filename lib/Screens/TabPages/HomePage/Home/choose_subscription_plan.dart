@@ -12,7 +12,6 @@ class ChooseSubscriptionPlan extends StatefulWidget {
 
 class _ChooseSubscriptionPlanState extends State<ChooseSubscriptionPlan> {
   List<SubscriptionRadioModel> sampleData = <SubscriptionRadioModel>[];
-  // List<MileageRadioModel> mileageData = <MileageRadioModel>[];
 
   @override
   void initState() {
@@ -27,7 +26,7 @@ class _ChooseSubscriptionPlanState extends State<ChooseSubscriptionPlan> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      height: 60,
+      height: 50,
       child: ListView.builder(
         itemCount: sampleData.length,
         scrollDirection: Axis.horizontal,
@@ -39,6 +38,12 @@ class _ChooseSubscriptionPlanState extends State<ChooseSubscriptionPlan> {
               setState(() {
                 sampleData.forEach((element) => element.isSelected = false);
                 sampleData[index].isSelected = true;
+
+                // for (var element in sampleData) {
+                //   element.isSelected = false;
+                // }
+                // sampleData[index].isSelected = true;
+
               });
             },
             child: SubscriptionRadioItem(sampleData[index]),

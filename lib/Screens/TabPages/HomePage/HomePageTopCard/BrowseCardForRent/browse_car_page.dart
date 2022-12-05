@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../Widget/browse_car_logo_container.dart';
+import 'browse_car_logo_container.dart';
 import '../../../../../Widget/colors.dart';
 import '../../Filter/filter_screen.dart';
 import '../../Notifications/notification_screen.dart';
@@ -58,7 +58,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                 children: [
                   Expanded(
@@ -110,7 +110,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
@@ -224,14 +224,17 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                       ),
                                       Row(
                                         children: [
-                                          Text(
-                                            "RM",
-                                            style: TextStyle(
-                                              color: kRed,
-                                              fontSize: 5,
-                                              fontFamily: 'Poppins-Regular',
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 04),
+                                            child: Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: kRed,
+                                                fontSize: 5,
+                                                fontFamily: 'Poppins-Regular',
+                                              ),
+                                              textAlign: TextAlign.left,
                                             ),
-                                            textAlign: TextAlign.left,
                                           ),
                                           Text(
                                             browseCarItemsList[index].oldPrice,
@@ -248,14 +251,17 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                             textAlign: TextAlign.left,
                                           ),
                                           const SizedBox(width: 5),
-                                          Text(
-                                            "RM",
-                                            style: TextStyle(
-                                              color: borderColor,
-                                              fontSize: 7,
-                                              fontFamily: 'Poppins-SemiBold',
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 06),
+                                            child: Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: borderColor,
+                                                fontSize: 7,
+                                                fontFamily: 'Poppins-SemiBold',
+                                              ),
+                                              textAlign: TextAlign.left,
                                             ),
-                                            textAlign: TextAlign.left,
                                           ),
                                           Text(
                                             browseCarItemsList[index].newPrice,

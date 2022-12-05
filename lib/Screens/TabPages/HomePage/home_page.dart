@@ -1,8 +1,8 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/Settings/EditProfile/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Widget/colors.dart';
 import '../../../Widget/home_card.dart';
+import 'Drawer/Settings/EditProfile/edit_profile_screen.dart';
 import 'HomePageTopCard/home_top_card.dart';
 import 'Drawer/drawer_screen.dart';
 import 'Filter/filter_screen.dart';

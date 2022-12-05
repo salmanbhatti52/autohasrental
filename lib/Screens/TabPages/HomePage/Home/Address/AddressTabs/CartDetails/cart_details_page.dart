@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../../../../Widget/TextFields/address_text_field.dart';
+import '../../../../../../../Widget/TextFields/text_form_field.dart';
 import '../../../../../../../Widget/button.dart';
 import '../../../../../../../Widget/colors.dart';
 import '../../../../../../../Widget/fontFamily.dart';
@@ -35,7 +37,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: const MyAppBarSingleImage(
-        title: "BMW 2 series, 2022", backImage: "assets/messages_images/Back.png",),
+        title: "Cart Details", backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -81,18 +83,23 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                               SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                               Row(
                                 children: [
-                                  Text("RM ", textAlign: TextAlign.left, style: TextStyle(
-                                      color: kRed, fontSize: 14, fontFamily: poppinLight),),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 04),
+                                    child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
+                                        color: kRed, fontSize: 5, fontFamily: poppinLight),),
+                                  ),
                                   Text("9,000", textAlign: TextAlign.left, style: TextStyle(color: kRed,
                                       decoration: TextDecoration.lineThrough, fontSize: 10, fontFamily: poppinLight),),
                                   SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                                  Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
-                                    fontSize: 7, fontWeight: FontWeight.w600, fontFamily: poppinSemiBold),),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 06),
+                                    child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
+                                      fontSize: 7, fontWeight: FontWeight.w600, fontFamily: poppinSemiBold),),
+                                  ),
                                   Text("8,500", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
                                     fontSize: 20, fontWeight: FontWeight.w600, fontFamily: poppinSemiBold),),
                                   Text("/ Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
                                     fontSize: 8, fontWeight: FontWeight.w400, fontFamily: poppinRegular),),
-
                                 ],
                               ),
                               SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
@@ -250,14 +257,13 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                   ),
 
                   Positioned(
-                    top: 0, right: 20,
                     child: Image.asset("assets/home_page/tesla_car_image.png",
                       // height: 100,
                     ),
                   ),
 
                   Positioned(
-                      top: 10, left: 10,
+                      top: 10, left: 20,
                       child: Container(
                         height: MediaQuery.of(context).size.width* 0.06,
                         width: MediaQuery.of(context).size.width* 0.15,
@@ -281,9 +287,8 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                   ),
 
                   Positioned(
-                      top: 10, right: 10,
+                      top: 10, right: 20,
                       child: Image.asset("assets/home_page/heart_transparent.png", color: kBlack,)),
-
                 ],
               ),
             ),
@@ -342,34 +347,13 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
 
                                   paymentTextWidget("Email"),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                                  Container(
-                                    height: MediaQuery.of(context).size.height * 0.06,
-                                    child: TextField(
-                                      keyboardType: TextInputType.emailAddress,
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(30.0),
-                                            borderSide: BorderSide(color: textLabelColor)
-                                        ),
-                                        border: OutlineInputBorder(
-                                            borderSide: BorderSide(color: textLabelColor),
-                                            borderRadius: BorderRadius.circular(30)
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(30.0),
-                                            borderSide: BorderSide(color: borderColor)
-                                        ),
-                                        hintText: 'rose.matthews@mail.com',
-                                        hintStyle: TextStyle(color: textLabelColor),
-                                        // labelStyle: TextStyle(color: textLabelColor),
-                                        focusColor: borderColor,
-                                        // errorText: "error_msg"
-                                        prefixIcon: Image.asset("assets/payment_card_images/card_prefix.png",),
-                                        suffixIcon: Image.asset("assets/payment_card_images/visa_icon.png",),
-                                      ),
-                                      style: TextStyle(color: borderColor, fontSize: 14),
-
-                                    ),
+                                  EditTextUtils().getCustomEditTextArea(
+                                    hintValue: "rose.matthews@mail.com",
+                                    validation: true,
+                                    // autoFocus: true,
+                                    // textController: firstNameController,
+                                    keyboardType: TextInputType.text,
+                                    // errorTextMsg: "Please Enter Email",
                                   ),
                                 ],
                               ),
@@ -400,7 +384,8 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                         focusColor: borderColor,
                                         // errorText: "error_msg"
                                         fillColor: kWhite,
-
+                                        prefixIcon: Image.asset("assets/payment_card_images/card_prefix.png",),
+                                        suffixIcon: Image.asset("assets/payment_card_images/visa_icon.png",),
                                         // prefixIcon:
                                       ),
                                       style: TextStyle(color: borderColor, fontSize: 14),
@@ -491,7 +476,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                   paymentTextWidget("Country or Region"),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                   Container(
-                                    height: MediaQuery.of(context).size.height *0.07,
+                                    height: MediaQuery.of(context).size.height *0.06,
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                         color: kWhite,
@@ -538,23 +523,12 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                       color: kWhite,
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
-                                    child: TextField(
-                                      keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        contentPadding: const EdgeInsets.all(20),
-                                        focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(30.0),
-                                            borderSide: BorderSide(color: borderColor)
-                                        ),
-                                        hintText: 'Select state',
-                                        hintStyle: TextStyle(color: textLabelColor),
-                                        // labelStyle: TextStyle(color: textLabelColor),
-                                        focusColor: borderColor,
-                                        // errorText: "error_msg"
-                                      ),
-                                      style: TextStyle(color: borderColor, fontSize: 14),
-
+                                    child: AddressTextUtils().getCustomEditTextArea(
+                                      hintValue: "Select state",
+                                      validation: true,
+                                      // autoFocus: true,
+                                      // textController: resetEmailController,
+                                      keyboardType: TextInputType.text,
                                     ),
                                   ),
                                 ],
@@ -739,8 +713,10 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.06,
                                 child: TextField(
+                                  cursorColor: borderColor,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.only(top: 15, left: 20, bottom: 15),
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30.0),
                                         borderSide: BorderSide(color: textLabelColor)
@@ -777,9 +753,12 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                     SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.06,
+                                      color: Colors.transparent,
                                       child: TextField(
-                                        keyboardType: TextInputType.emailAddress,
+                                        cursorColor: borderColor,
+                                        keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
                                           enabledBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(30.0),
                                               borderSide: BorderSide(color: textLabelColor)
@@ -815,8 +794,10 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.06,
                                       child: TextField(
-                                        keyboardType: TextInputType.emailAddress,
+                                        cursorColor: borderColor,
+                                        keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
+                                          contentPadding: const EdgeInsets.only(top: 15, left: 20, bottom: 15),
                                           enabledBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(30.0),
                                               borderSide: BorderSide(color: textLabelColor)

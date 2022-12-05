@@ -31,7 +31,7 @@ class _AddressTabBarState extends State<AddressTabBar> with TickerProviderStateM
                   color: const Color(0xffd4dce1),
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: const EdgeInsets.only(left: 0, top: 0, bottom: 0),
+                padding: const EdgeInsets.all(05),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
@@ -40,7 +40,6 @@ class _AddressTabBarState extends State<AddressTabBar> with TickerProviderStateM
                   ),
                   indicatorColor: kWhite,
                   labelColor: kBlack,
-                  labelPadding: const EdgeInsets.only(left: 30, right: 30),
                   labelStyle: const TextStyle(fontSize: 12),
                   unselectedLabelColor: kBlack,
                   tabs: const [

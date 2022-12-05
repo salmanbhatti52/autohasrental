@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../../../Widget/TextFields/address_text_field.dart';
 import '../../../../../../Widget/colors.dart';
 import '../../../../../Authentication/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
@@ -122,23 +123,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             color: kWhite,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: TextField(
-                            cursorColor: borderColor,
+                          child: AddressTextUtils().getCustomEditTextArea(
+                            hintValue: "John",
+                            validation: true,
+                            // autoFocus: true,
+                            // textController: resetEmailController,
                             keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  top: 15, left: 20, bottom: 15),
-                              // focusedBorder: OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(30.0),
-                              //     borderSide: BorderSide(color: borderColor)
-                              // ),
-                              hintText: 'John',
-                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
-                              // labelStyle: TextStyle(color: textLabelColor),
-                              focusColor: borderColor,
-                            ),
-                            style: TextStyle(color: textLabelColor, fontSize: 14),
                           ),
                         ),
                       ],
@@ -154,23 +144,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             color: kWhite,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: TextField(
-                            cursorColor: borderColor,
+                          child: AddressTextUtils().getCustomEditTextArea(
+                            hintValue: "Doe",
+                            validation: true,
+                            // autoFocus: true,
+                            // textController: resetEmailController,
                             keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  top: 15, left: 20, bottom: 15),
-                              // focusedBorder: OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(30.0),
-                              //     borderSide: BorderSide(color: borderColor)
-                              // ),
-                              hintText: 'Doe',
-                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
-                              // labelStyle: TextStyle(color: textLabelColor),
-                              focusColor: borderColor,
-                            ),
-                            style: TextStyle(color: textLabelColor, fontSize: 14),
                           ),
                         ),
                       ],
@@ -186,23 +165,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             color: kWhite,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: TextField(
-                            cursorColor: borderColor,
+                          child: AddressTextUtils().getCustomEditTextArea(
+                            hintValue: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.",
+                            validation: true,
+                            // autoFocus: true,
+                            // textController: resetEmailController,
                             keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  top: 15, left: 20, bottom: 15),
-                              // focusedBorder: OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(30.0),
-                              //     borderSide: BorderSide(color: borderColor)
-                              // ),
-                              hintText: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.',
-                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
-                              // labelStyle: TextStyle(color: textLabelColor),
-                              focusColor: borderColor,
-                            ),
-                            style: TextStyle(color: textLabelColor, fontSize: 14),
                           ),
                         ),
                       ],
@@ -218,19 +186,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             color: kWhite,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: TextField(
-                            cursorColor: borderColor,
+                          child: AddressTextUtils().getCustomEditTextArea(
+                            hintValue: "rose.matthews@mail.com",
+                            validation: true,
+                            // autoFocus: true,
+                            // textController: resetEmailController,
                             keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  top: 15, left: 20, bottom: 15),
-                              hintText: 'rose.matthews@mail.com',
-                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
-                              // labelStyle: TextStyle(color: textLabelColor),
-                              focusColor: borderColor,
-                            ),
-                            style: TextStyle(color: textLabelColor, fontSize: 14),
                           ),
                         ),
                       ],
@@ -246,23 +207,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             color: kWhite,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: TextField(
-                            cursorColor: borderColor,
+                          child: AddressTextUtils().getCustomEditTextArea(
+                            hintValue: "Enter your location here",
+                            validation: true,
+                            // autoFocus: true,
+                            // textController: resetEmailController,
                             keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  top: 15, left: 20, bottom: 15),
-                              // focusedBorder: OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(30.0),
-                              //     borderSide: BorderSide(color: borderColor)
-                              // ),
-                              hintText: 'Enter your location here',
-                              hintStyle: TextStyle(color: textLabelColor, fontFamily: 'Poppins-Regular',),
-                              // labelStyle: TextStyle(color: textLabelColor),
-                              focusColor: borderColor,
-                            ),
-                            style: TextStyle(color: textLabelColor, fontSize: 14),
                           ),
                         ),
                       ],

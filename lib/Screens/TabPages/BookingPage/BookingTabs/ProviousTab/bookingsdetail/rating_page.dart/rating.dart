@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../button.dart';
 import 'rating_image_widget.dart';
 
 class RatingBookingsDetails extends StatefulWidget {

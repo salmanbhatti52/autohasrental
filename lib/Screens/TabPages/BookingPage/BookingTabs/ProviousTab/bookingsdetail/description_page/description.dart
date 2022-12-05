@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../button.dart';
-import '../../colors.dart';
+
+import '../../../../../../../Widget/colors.dart';
 
 class DescriptionBookingsDetails extends StatelessWidget {
   const DescriptionBookingsDetails({super.key});

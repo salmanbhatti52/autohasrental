@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../Widget/button.dart';
 import '../../../../Widget/colors.dart';
 import '../../../../Widget/fontFamily.dart';
-import '../../../../Widget/logo_container.dart';
+import 'choose_filter_mileage.dart';
+import 'choose_filter_price.dart';
+import 'filter_logo_container.dart';
 import '../../../../Widget/range_slider.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -107,7 +109,7 @@ class _FilterScreenState extends State<FilterScreen> {
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  child: const LogoContainer()),
+                  child: const FilterLogoContainer()),
             ),
             const SizedBox(height: 10),
             const Divider(
@@ -162,17 +164,7 @@ class _FilterScreenState extends State<FilterScreen> {
             const SizedBox(height: 10),
             const CustomRangeSlider(),
             const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  filterButton1('High to Low', context),
-                  const SizedBox(width: 10),
-                  filterButton2('Low to High', context),
-                ],
-              ),
-            ),
+            const ChooseFilterPrice(),
             const SizedBox(height: 10),
             const Divider(
               color: Color(0xff3F4655),
@@ -211,13 +203,7 @@ class _FilterScreenState extends State<FilterScreen> {
             const SizedBox(height: 10),
             const CustomRangeSlider2(),
             const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: filterButton1('High to Low', context),
-              ),
-            ),
+            const ChooseFilterMileage(),
             const SizedBox(height: 10),
             const Divider(
               color: Color(0xff3F4655),

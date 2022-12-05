@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../colors.dart';
+
+import '../../../../../../../Widget/colors.dart';
 
 Widget allRatingList() {
   return ListView.builder(
-    physics: const BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemCount: ratingItemsList.length,
@@ -29,7 +30,8 @@ Widget allRatingList() {
                 child: Text(ratingItemsList[index].name,
                     style: const TextStyle(
                       fontSize: 15,
-                      fontFamily: 'Poppins-Medium',
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
                     )),
               ),
               subtitle: Padding(
@@ -38,7 +40,7 @@ Widget allRatingList() {
                   ratingItemsList[index].description,
                   style: const TextStyle(
                     fontSize: 10,
-                    fontFamily: 'Poppins-Regular',
+                    fontFamily: 'Poppins',
                   ),
                 ),
               ),
@@ -78,17 +80,6 @@ List ratingItemsList = [
     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
     "assets/car_description_images/rating.png",
   ),
-  RatingClass(
-    "assets/car_description_images/user.png",
-    'Josh Gibson',
-    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
-    "assets/car_description_images/rating.png",
-  ),
-  RatingClass("assets/car_description_images/user.png",
-    'Josh Gibson',
-    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
-    "assets/car_description_images/rating.png",
-  ),
 ];
 
 class RatingClass {
@@ -98,9 +89,9 @@ class RatingClass {
   final String image2;
 
   RatingClass(
-      this.image,
-      this.name,
-      this.description,
-      this.image2,
-      );
+    this.image,
+    this.name,
+    this.description,
+    this.image2,
+  );
 }

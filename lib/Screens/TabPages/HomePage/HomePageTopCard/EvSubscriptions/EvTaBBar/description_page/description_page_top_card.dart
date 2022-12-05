@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../colors.dart';
+import '../../../../../../../Widget/colors.dart';
 
 Widget myHorizontalCard2(BuildContext context) {
   return Container(

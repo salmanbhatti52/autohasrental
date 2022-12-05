@@ -1,8 +1,8 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/EvSubscriptions/car_description.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Widget/colors.dart';
 import '../../Filter/filter_screen.dart';
 import '../../Notifications/notification_screen.dart';
+import 'car_description.dart';
 
 class EvSubscriptionPage extends StatefulWidget {
   const EvSubscriptionPage({Key? key}) : super(key: key);
@@ -209,14 +209,17 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                       ),
                                       Row(
                                         children: [
-                                          Text(
-                                            "RM",
-                                            style: TextStyle(
-                                              color: kRed,
-                                              fontSize: 5,
-                                              fontFamily: 'Poppins-Regular',
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 04),
+                                            child: Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: kRed,
+                                                fontSize: 5,
+                                                fontFamily: 'Poppins-Regular',
+                                              ),
+                                              textAlign: TextAlign.left,
                                             ),
-                                            textAlign: TextAlign.left,
                                           ),
                                           Text(
                                             browseCarItemsList[index].oldPrice,
@@ -233,14 +236,17 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                             textAlign: TextAlign.left,
                                           ),
                                           const SizedBox(width: 5),
-                                          Text(
-                                            "RM",
-                                            style: TextStyle(
-                                              color: borderColor,
-                                              fontSize: 7,
-                                              fontFamily: 'Poppins-SemiBold',
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 06),
+                                            child: Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: borderColor,
+                                                fontSize: 7,
+                                                fontFamily: 'Poppins-SemiBold',
+                                              ),
+                                              textAlign: TextAlign.left,
                                             ),
-                                            textAlign: TextAlign.left,
                                           ),
                                           Text(
                                             browseCarItemsList[index].newPrice,

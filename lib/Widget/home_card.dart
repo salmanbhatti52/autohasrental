@@ -88,8 +88,11 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                       children: [
                                         Row(
                                           children: [
-                                            Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: kRed,
-                                              fontSize: 5, fontFamily: 'Poppins-Light',),),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 04),
+                                              child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: kRed,
+                                                fontSize: 5, fontFamily: 'Poppins-Light',),),
+                                            ),
                                             Text(topRentedItemsList[index].oldPrice, textAlign: TextAlign.left, style: TextStyle(color: kRed,
                                               decoration: TextDecoration.lineThrough,
                                               fontSize: 10, fontFamily: 'Poppins-Light',),),
@@ -97,8 +100,11 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                         ),
                                         Row(
                                           children: [
-                                            Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
-                                              fontSize: 7, fontFamily: 'Poppins-SemiBold',),),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 06),
+                                              child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
+                                                fontSize: 7, fontFamily: 'Poppins-SemiBold',),),
+                                            ),
                                             Text(topRentedItemsList[index].newPrice, textAlign: TextAlign.left, style: TextStyle(color: borderColor,
                                               fontSize: 16, fontFamily: 'Poppins-SemiBold',),),
                                             Text("/ Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack,

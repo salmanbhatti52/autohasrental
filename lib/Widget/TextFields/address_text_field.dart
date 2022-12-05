@@ -19,20 +19,10 @@ class AddressTextUtils {
       cursorColor: borderColor,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(top: 15, left: 20, bottom: 15),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            borderSide: BorderSide(color: textLabelColor)
-        ),
-        border: OutlineInputBorder(
-            borderSide: BorderSide(color: textLabelColor),
-            borderRadius: BorderRadius.circular(30)
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            borderSide: BorderSide(color: borderColor)
-        ),
+        border: InputBorder.none,
+        contentPadding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
         hintText: hintValue,
+        fillColor: kWhite,
         hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular,),
         focusColor: borderColor,
         // errorText: errorTextMsg,

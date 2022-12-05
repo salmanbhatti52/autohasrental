@@ -1,7 +1,9 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../Widget/TextFields/address_text_field.dart';
 import '../../../../../../Widget/colors.dart';
+import '../../../../../../Widget/fontFamily.dart';
 import '../../../../../Authentication/ForgetPassword/myTextWidget.dart';
 
 
@@ -47,7 +49,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                 changePasswordTextWidget("State"),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                 Container(
-                  height: MediaQuery.of(context).size.height *0.07,
+                  height: MediaQuery.of(context).size.height *0.06,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: kWhite,
@@ -55,27 +57,33 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 10, ),
                   child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      // Initial Value
-                      value: dropdownvalue,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: DropdownButton(
+                        // Initial Value
+                        value: dropdownvalue,
+                        // hint: Text("Select state", style: TextStyle(color: textLabelColor, fontFamily: poppinRegular,
+                        // ),
+                        // ),
 
-                      // Down Arrow Icon
-                      icon: const Icon(Icons.keyboard_arrow_down),
+                        // Down Arrow Icon
+                        icon: const Icon(Icons.keyboard_arrow_down),
 
-                      // Array list of items
-                      items: items.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      // After selecting the desired option,it will
-                      // change button value to selected value
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      },
+                        // Array list of items
+                        items: items.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        // After selecting the desired option,it will
+                        // change button value to selected value
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownvalue = newValue!;
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -126,7 +134,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                   },
                   child: Container(
                       padding: const EdgeInsets.only(left: 10),
-                      height: MediaQuery.of(context).size.height * 0.075,
+                      height: MediaQuery.of(context).size.height * 0.06,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           color: kWhite,
@@ -134,26 +142,29 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                       ),
                       margin: const EdgeInsets.only(left: 0, right: 0),
                       alignment: Alignment.centerLeft,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              _country.toString(),
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                            Container(
-                              //padding: EdgeInsets.only(right: 6),
-                              alignment: Alignment.center,
-                              height: MediaQuery.of(context).size.height,
-                              width: MediaQuery.of(context).size.width * 0.07,
-                              decoration: const BoxDecoration(
-                                // color: Colors.black12,
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(4),
-                                      bottomRight: Radius.circular(4))),
-                              child: const Icon(Icons.keyboard_arrow_down_outlined),
-                            ),
-                          ])),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                _country.toString(),
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              Container(
+                                //padding: EdgeInsets.only(right: 6),
+                                alignment: Alignment.center,
+                                height: MediaQuery.of(context).size.height,
+                                width: MediaQuery.of(context).size.width * 0.07,
+                                decoration: const BoxDecoration(
+                                  // color: Colors.black12,
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(4),
+                                        bottomRight: Radius.circular(4))),
+                                child: const Icon(Icons.keyboard_arrow_down_outlined),
+                              ),
+                            ]),
+                      )),
                 ),
 
               ],
@@ -206,26 +217,34 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                             color: kWhite,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: TextField(
+                          child: AddressTextUtils().getCustomEditTextArea(
+                            hintValue: "Street address line 1",
+                            validation: true,
+                            // autoFocus: true,
+                            // textController: resetEmailController,
                             keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  borderSide: BorderSide(color: borderColor)
-                              ),
-                              hintText: 'Street address line 1',
-                              hintStyle: TextStyle(color: textLabelColor),
-                              // labelStyle: TextStyle(color: textLabelColor),
-                              focusColor: borderColor,
-                              // errorText: "error_msg"
-                              fillColor: kWhite,
-
-                              // prefixIcon:
-                            ),
-                            style: TextStyle(color: borderColor, fontSize: 14),
                           ),
+
+                          // TextField(
+                          //   keyboardType: TextInputType.text,
+                          //   decoration: InputDecoration(
+                          //     border: InputBorder.none,
+                          //     contentPadding: const EdgeInsets.all(20),
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(30.0),
+                          //         borderSide: BorderSide(color: borderColor)
+                          //     ),
+                          //     hintText: 'Street address line 1',
+                          //     hintStyle: TextStyle(color: textLabelColor),
+                          //     // labelStyle: TextStyle(color: textLabelColor),
+                          //     focusColor: borderColor,
+                          //     // errorText: "error_msg"
+                          //     fillColor: kWhite,
+                          //
+                          //     // prefixIcon:
+                          //   ),
+                          //   style: TextStyle(color: borderColor, fontSize: 14),
+                          // ),
                         ),
                       ],
                     ),
@@ -241,25 +260,12 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                             color: kWhite,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: TextField(
+                          child: AddressTextUtils().getCustomEditTextArea(
+                            hintValue: "Street address line 2",
+                            validation: true,
+                            // autoFocus: true,
+                            // textController: resetEmailController,
                             keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.all(20),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  borderSide: BorderSide(color: borderColor)
-                              ),
-                              hintText: 'Street address line 2',
-                              hintStyle: TextStyle(color: textLabelColor),
-                              // labelStyle: TextStyle(color: textLabelColor),
-                              focusColor: borderColor,
-                              // errorText: "error_msg"
-                              fillColor: kWhite,
-
-                              // prefixIcon:
-                            ),
-                            style: TextStyle(color: borderColor, fontSize: 14),
                           ),
                         ),
 
@@ -280,25 +286,12 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                                   color: kWhite,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
-                                child: TextField(
+                                child: AddressTextUtils().getCustomEditTextArea(
+                                  hintValue: "City",
+                                  validation: true,
+                                  // autoFocus: true,
+                                  // textController: resetEmailController,
                                   keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.all(20),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30.0),
-                                        borderSide: BorderSide(color: borderColor)
-                                    ),
-                                    hintText: 'City',
-                                    hintStyle: TextStyle(color: textLabelColor),
-                                    // labelStyle: TextStyle(color: textLabelColor),
-                                    focusColor: borderColor,
-                                    // errorText: "error_msg"
-                                    fillColor: kWhite,
-
-                                    // prefixIcon:
-                                  ),
-                                  style: TextStyle(color: borderColor, fontSize: 14),
                                 ),
                               ),
                             ],
@@ -318,25 +311,12 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                                   color: kWhite,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
-                                child: TextField(
+                                child: AddressTextUtils().getCustomEditTextArea(
+                                  hintValue: "Post Code",
+                                  validation: true,
+                                  // autoFocus: true,
+                                  // textController: resetEmailController,
                                   keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.all(20),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30.0),
-                                        borderSide: BorderSide(color: borderColor)
-                                    ),
-                                    hintText: 'Post Code',
-                                    hintStyle: TextStyle(color: textLabelColor),
-                                    // labelStyle: TextStyle(color: textLabelColor),
-                                    focusColor: borderColor,
-                                    // errorText: "error_msg"
-                                    fillColor: kWhite,
-
-                                    // prefixIcon:
-                                  ),
-                                  style: TextStyle(color: borderColor, fontSize: 14),
                                 ),
                               ),
                             ],
