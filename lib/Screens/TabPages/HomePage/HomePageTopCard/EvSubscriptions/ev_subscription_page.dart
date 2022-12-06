@@ -19,7 +19,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.08,
+            height: MediaQuery.of(context).size.height * 0.05,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -27,14 +27,14 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios_new_outlined,
-                    color: kBlack,
-                  ),
-                ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                        height: 30,
+                        width: 30,
+                        color: Colors.transparent,
+                        child: Image.asset("assets/home_page/back_arrow.png"))),
                 Text(
                   "EV Subscription",
                   style: TextStyle(
@@ -50,10 +50,10 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                              const NotificationsScreen()));
+                                  const NotificationsScreen()));
                     },
                     child:
-                    Image.asset("assets/home_page/notification_image.png")),
+                        Image.asset("assets/home_page/notification_image.png")),
               ],
             ),
           ),
@@ -73,7 +73,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding:
-                        const EdgeInsets.fromLTRB(20, 12, 10, 0),
+                            const EdgeInsets.fromLTRB(20, 12, 10, 0),
                         hintText: 'Search for Cars',
                         hintStyle: const TextStyle(
                             color: Color(0xffD4DCE1),
@@ -118,7 +118,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
     return SingleChildScrollView(
       child: Container(
         color: Colors.transparent,
-        height: MediaQuery.of(context).size.height * 0.76,
+        height: MediaQuery.of(context).size.height * 0.79,
         child: ListView.builder(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
@@ -165,7 +165,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                       horizontal: 15),
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -210,7 +210,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 04),
+                                            padding:
+                                                const EdgeInsets.only(top: 04),
                                             child: Text(
                                               "RM",
                                               style: TextStyle(
@@ -226,7 +227,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                             style: TextStyle(
                                               color: kRed,
                                               decoration:
-                                              TextDecoration.lineThrough,
+                                                  TextDecoration.lineThrough,
                                               decorationColor: kRed,
                                               decorationThickness: 3,
                                               fontSize: 10,
@@ -237,7 +238,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                           ),
                                           const SizedBox(width: 5),
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 06),
+                                            padding:
+                                                const EdgeInsets.only(top: 06),
                                             child: Text(
                                               "RM",
                                               style: TextStyle(
@@ -268,16 +270,16 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                           ),
                                           SizedBox(
                                             width: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.01,
                                           ),
                                           Image.asset(
                                               "assets/car_bookings_images/rating_stars.png"),
                                           SizedBox(
                                             width: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.01,
                                           ),
                                           Text(
@@ -293,8 +295,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.01),
                                       Row(
                                         children: [
@@ -321,7 +323,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                             decoration: BoxDecoration(
                                                 color: kBlack,
                                                 borderRadius:
-                                                BorderRadius.circular(10)),
+                                                    BorderRadius.circular(10)),
                                             child: Center(
                                               child: Text(
                                                 "New",
@@ -349,7 +351,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                const CarDescription()));
+                                                    const CarDescription()));
                                       }),
                                       child: Image.asset(
                                           "assets/car_bookings_images/more_button.png"),

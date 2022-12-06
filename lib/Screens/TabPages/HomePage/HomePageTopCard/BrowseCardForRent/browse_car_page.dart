@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'browse_car_logo_container.dart';
 import '../../../../../Widget/colors.dart';
 import '../../Filter/filter_screen.dart';
@@ -21,22 +20,23 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.08,
+              height: MediaQuery.of(context).size.height * 0.04,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios_new_outlined,
-                      color: kBlack,
-                    ),
-                  ),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                          height: 40,
+                          width: 40,
+                          color: Colors.transparent,
+                          child:
+                              Image.asset("assets/home_page/back_arrow.png"))),
                   Text(
                     "Brows Cars",
                     style: TextStyle(
@@ -50,7 +50,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                const NotificationsScreen()));
+                                    const NotificationsScreen()));
                       },
                       child: Image.asset(
                           "assets/home_page/notification_image.png")),
@@ -73,7 +73,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding:
-                          const EdgeInsets.fromLTRB(20, 12, 10, 0),
+                              const EdgeInsets.fromLTRB(20, 12, 10, 0),
                           hintText: 'Search for Cars',
                           hintStyle: const TextStyle(color: Color(0xffD4DCE1)),
                           focusColor: borderColor,
@@ -174,7 +174,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                       horizontal: 15),
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -219,13 +219,14 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                       ),
                                       SizedBox(
                                         height:
-                                        MediaQuery.of(context).size.height *
-                                            0.01,
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
                                       ),
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 04),
+                                            padding:
+                                                const EdgeInsets.only(top: 04),
                                             child: Text(
                                               "RM",
                                               style: TextStyle(
@@ -241,7 +242,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                             style: TextStyle(
                                               color: kRed,
                                               decoration:
-                                              TextDecoration.lineThrough,
+                                                  TextDecoration.lineThrough,
                                               decorationColor: kRed,
                                               decorationThickness: 3,
                                               fontSize: 10,
@@ -252,7 +253,8 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                           ),
                                           const SizedBox(width: 5),
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 06),
+                                            padding:
+                                                const EdgeInsets.only(top: 06),
                                             child: Text(
                                               "RM",
                                               style: TextStyle(
@@ -283,16 +285,16 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                           ),
                                           SizedBox(
                                             width: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.01,
                                           ),
                                           Image.asset(
                                               "assets/car_bookings_images/rating_stars.png"),
                                           SizedBox(
                                             width: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.01,
                                           ),
                                           Text(
@@ -308,8 +310,8 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.01),
                                       Row(
                                         children: [
@@ -336,7 +338,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                             decoration: BoxDecoration(
                                                 color: kBlack,
                                                 borderRadius:
-                                                BorderRadius.circular(10)),
+                                                    BorderRadius.circular(10)),
                                             child: Center(
                                               child: Text(
                                                 "New",

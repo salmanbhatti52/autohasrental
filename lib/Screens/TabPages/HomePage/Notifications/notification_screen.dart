@@ -16,7 +16,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: const MyAppBarSingleImage(
-        title: "Notifications", backImage: "assets/messages_images/Back.png",),
+        title: "Notifications", backImage: "assets/home_page/back_arrow.png",),
       body: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),

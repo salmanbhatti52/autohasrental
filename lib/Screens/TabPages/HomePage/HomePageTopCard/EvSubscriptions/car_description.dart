@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../Widget/button.dart';
 import '../../../../../Widget/colors.dart';
 import 'EvTaBBar/description_page/description_page_top_card.dart';
@@ -18,7 +17,7 @@ class _CarDescriptionState extends State<CarDescription> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const myAppBarDoubleImageRichText(frontImage: "assets/live_chat_images/back_arrow.png",
+      appBar: const MyAppBarDoubleImageRichText(frontImage: "assets/live_chat_images/back_arrow.png",
         title: "Tesla S series, ", year: "2022", backImage: "assets/car_description_images/chat.png",
       ),
       body: SingleChildScrollView(
