@@ -19,7 +19,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSettingsPage(backImage: "assets/home_page/Side_Menu.png", title: "Settings", ),
+      appBar: const MyAppBarSettingsPage(
+        backImage: "assets/home_page/Side_Menu.png",
+        title: "Settings",
+      ),
       body: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -28,11 +31,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Container(
               height: MediaQuery.of(context).size.height * 0.08,
               decoration: BoxDecoration(
-                  color: kWhite,
-                  borderRadius: BorderRadius.circular(10)
-              ),
+                  color: kWhite, borderRadius: BorderRadius.circular(10)),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,56 +43,89 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                      Text("Notifications", textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 14, fontFamily: poppinBold, color: kBlack),),
-                      Text("Enable your notifications", textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 10, fontFamily: poppinRegular, color: kBlack),),
-                    ],),
+                        Text(
+                          "Notifications",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: poppinBold,
+                              color: kBlack),
+                        ),
+                        Text(
+                          "Enable your notifications",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: poppinRegular,
+                              color: kBlack),
+                        ),
+                      ],
+                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                      FlutterSwitch(
-                        height: 25,
-                        width: 45,
-                        padding: 1,
-                        toggleSize: 24,
-                        activeColor: borderColor,
-                        inactiveToggleColor: kWhite,
-                        value: isSwitched,
-                        onToggle: (value) {
-                          setState(() {
-                            isSwitched = value;
-                            // userDetail.covidVaccine=covid?"True":"False";
-                          });
-                        },
-                      ),
-                    ],),
+                        FlutterSwitch(
+                          height: 25,
+                          width: 40,
+                          padding: 2,
+                          toggleSize: 20,
+                          activeColor: borderColor,
+                          inactiveToggleColor: kWhite,
+                          value: isSwitched,
+                          onToggle: (value) {
+                            setState(() {
+                              isSwitched = value;
+                              // userDetail.covidVaccine=covid?"True":"False";
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-          
           GestureDetector(
-            onTap: (){
-              // Get.to(()=> const PaymentScreen());
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PaymentScreen()));
-            },
-              child: settingWidget("Payment Details", kBlack, "Add your cards for quick payments", Icons.arrow_forward_ios_rounded, kBlack)),
+              onTap: () {
+                // Get.to(()=> const PaymentScreen());
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PaymentScreen()));
+              },
+              child: settingWidget(
+                  "Payment Details",
+                  kBlack,
+                  "Add your cards for quick payments",
+                  Icons.arrow_forward_ios_rounded,
+                  kBlack)),
           GestureDetector(
-              onTap: (){
+              onTap: () {
                 // Get.to(()=>const ChangePasswordScreen());
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ChangePasswordScreen()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ChangePasswordScreen()));
               },
-              child: settingWidget("Change Password", kBlack,"Update your password", Icons.arrow_forward_ios_rounded, kBlack)),
+              child: settingWidget(
+                  "Change Password",
+                  kBlack,
+                  "Update your password",
+                  Icons.arrow_forward_ios_rounded,
+                  kBlack)),
           GestureDetector(
-              onTap: (){
+              onTap: () {
                 // Get.to(() => const EditProfileScreen());
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EditProfileScreen()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const EditProfileScreen()));
               },
-              child: settingWidget("Profile", kBlack, "Update your profile", Icons.arrow_forward_ios_rounded, const Color(0xffD4DCE1) )),
+              child: settingWidget("Profile", kBlack, "Update your profile",
+                  Icons.arrow_forward_ios_rounded, const Color(0xffD4DCE1))),
           GestureDetector(
-              onTap: (){
+              onTap: () {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -100,15 +135,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           color: const Color(0xff0f172a).withOpacity(0.5),
                           child: Dialog(
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0)), //this right here
+                                borderRadius: BorderRadius.circular(
+                                    20.0)), //this right here
                             child: Container(
                               // height: 300,
                               // color: homeBgColor,
                               // color: Colors.green,
                               decoration: BoxDecoration(
                                   color: homeBgColor,
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
+                                  borderRadius: BorderRadius.circular(20)),
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Column(
@@ -118,35 +153,65 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   children: [
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         GestureDetector(
-                                          onTap: (){
-                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                                          onTap: () {
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const SettingsScreen()));
                                           },
-                                          child: Image.asset("assets/payment_card_images/cancle.png",),),
+                                          child: Image.asset(
+                                            "assets/payment_card_images/cancle.png",
+                                          ),
+                                        ),
                                       ],
                                     ),
 
-                                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                                    Text("Delete Account", textAlign: TextAlign.center, style: TextStyle(color: kRed,
-                                      fontSize: 24, fontFamily: poppinSemiBold,),),
-                                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                    Text("Are you sure you want to delete your account?",
-                                      textAlign: TextAlign.center, style: TextStyle(color: kBlack,
-                                        fontSize: 20, fontFamily: poppinMedium,),),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.05),
+                                    Text(
+                                      "Delete Account",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: kRed,
+                                        fontSize: 24,
+                                        fontFamily: poppinSemiBold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.01),
+                                    Text(
+                                      "Are you sure you want to delete your account?",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: kBlack,
+                                        fontSize: 20,
+                                        fontFamily: poppinMedium,
+                                      ),
+                                    ),
                                     // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                                     GestureDetector(
-                                        onTap: (){
+                                        onTap: () {
                                           Navigator.pop(context);
                                         },
                                         child: yesButton()),
                                     GestureDetector(
-                                        onTap: (){
+                                        onTap: () {
                                           Navigator.pop(context);
                                         },
                                         child: noButton()),
-                                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.03),
                                   ],
                                 ),
                               ),
@@ -157,52 +222,66 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     });
                 // Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountPage()));
               },
-              child: settingWidget("Delete Account", introColor, "Delete your account",  Icons.arrow_forward_ios_rounded, const Color(0xffD4DCE1))),
-
+              child: settingWidget(
+                  "Delete Account",
+                  introColor,
+                  "Delete your account",
+                  Icons.arrow_forward_ios_rounded,
+                  const Color(0xffD4DCE1))),
         ],
       ),
     );
   }
+
   bool isSwitched = false;
   void toggleSwitch(bool value) {
-    if(isSwitched == false) {
+    if (isSwitched == false) {
       setState(() {
         isSwitched = true;
       });
-    }
-    else {
+    } else {
       setState(() {
         isSwitched = false;
       });
     }
   }
 
-  Widget settingWidget(titleText, textColor, subTitleText, iconData, iconColor){
-    return
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 05),
-          child: Container(
-            decoration: BoxDecoration(
-                color: kWhite,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            child: ListTile(
-                title: Text(titleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 14, fontFamily: poppinBold, color: textColor),),
-                subtitle: Text(subTitleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 10, fontFamily: poppinRegular, color: kBlack),),
-                trailing: Icon(iconData, color: iconColor, size: 20,),
-            ),
+  Widget settingWidget(
+      titleText, textColor, subTitleText, iconData, iconColor) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 05),
+      child: Container(
+        decoration: BoxDecoration(
+            color: kWhite, borderRadius: BorderRadius.circular(10)),
+        child: ListTile(
+          title: Text(
+            titleText,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 14, fontFamily: poppinBold, color: textColor),
           ),
-      );
-
+          subtitle: Text(
+            subTitleText,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 10, fontFamily: poppinRegular, color: kBlack),
+          ),
+          trailing: Icon(
+            iconData,
+            color: iconColor,
+            size: 20,
+          ),
+        ),
+      ),
+    );
   }
 
-
-  Widget yesButton(){
+  Widget yesButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.05,
-        width: MediaQuery.of(context).size.width* 0.6,
+        width: MediaQuery.of(context).size.width * 0.6,
         decoration: BoxDecoration(
           color: introColor,
           borderRadius: BorderRadius.circular(30),
@@ -210,30 +289,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Center(
           child: Text("Yes",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white,
-                  fontFamily: poppinRegular, fontSize: 16)
-          ),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: poppinRegular,
+                  fontSize: 16)),
         ),
       ),
     );
   }
 
-  Widget noButton(){
+  Widget noButton() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60, ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 60,
+      ),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.05,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(30),
-            border: Border.all(color: borderColor, width: 2)
-        ),
+            border: Border.all(color: borderColor, width: 2)),
         child: Center(
-          child: Text("No", textAlign: TextAlign.center,
-              style: TextStyle(color: borderColor,
-                  fontFamily: poppinRegular, fontSize: 16)
-          ),
+          child: Text("No",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: borderColor, fontFamily: poppinRegular, fontSize: 16)),
         ),
       ),
     );
