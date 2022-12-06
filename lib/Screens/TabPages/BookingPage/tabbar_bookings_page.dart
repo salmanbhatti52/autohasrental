@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../Widget/colors.dart';
-import 'BookingTabs/ProviousTab/previous_page.dart';
+import 'BookingTabs/PreviousTab/previous_page.dart';
 import 'BookingTabs/UpcomingTab/upcoming_page.dart';
 
 class TabbarCarBooings extends StatefulWidget {

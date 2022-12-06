@@ -36,6 +36,7 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
       ),
     );
   }
+
   void ratingsdialogbox(BuildContext context) {
     showDialog(
         context: context,
@@ -60,7 +61,7 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
                           Navigator.pop(context);
                         },
                         child:
-                        Image.asset('assets/car_bookings_images/close.png'),
+                            Image.asset('assets/car_bookings_images/close.png'),
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -96,7 +97,7 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide:
-                          const BorderSide(color: Color(0xffd4dce1)),
+                              const BorderSide(color: Color(0xffd4dce1)),
                         ),
                       ),
                     ),

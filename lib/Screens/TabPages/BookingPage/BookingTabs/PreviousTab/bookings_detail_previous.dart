@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../Widget/colors.dart';
 
 class BookingsDetailsPrevious extends StatefulWidget {
@@ -83,7 +82,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                             const SizedBox(height: 93.6),
                             Padding(
                               padding:
-                              const EdgeInsets.symmetric(horizontal: 15),
+                                  const EdgeInsets.symmetric(horizontal: 15),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -150,7 +149,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         style: TextStyle(
                                             color: kRed,
                                             decoration:
-                                            TextDecoration.lineThrough,
+                                                TextDecoration.lineThrough,
                                             decorationColor: kRed,
                                             decorationThickness: 3,
                                             fontSize: 10,
@@ -191,15 +190,15 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                       ),
                                       SizedBox(
                                         width:
-                                        MediaQuery.of(context).size.height *
-                                            0.01,
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
                                       ),
                                       Image.asset(
                                           "assets/car_bookings_images/rating_stars.png"),
                                       SizedBox(
                                         width:
-                                        MediaQuery.of(context).size.height *
-                                            0.01,
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
                                       ),
                                       Text(
                                         "4.0",
@@ -214,8 +213,8 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                   ),
                                   SizedBox(
                                       height:
-                                      MediaQuery.of(context).size.height *
-                                          0.01),
+                                          MediaQuery.of(context).size.height *
+                                              0.01),
                                   Row(
                                     children: [
                                       Image.asset(
@@ -241,7 +240,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         decoration: BoxDecoration(
                                             color: kBlack,
                                             borderRadius:
-                                            BorderRadius.circular(10)),
+                                                BorderRadius.circular(10)),
                                         child: Center(
                                           child: Text(
                                             "New",
