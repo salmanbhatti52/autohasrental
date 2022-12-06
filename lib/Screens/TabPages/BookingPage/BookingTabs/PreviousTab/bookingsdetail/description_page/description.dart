@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../../../Widget/colors.dart';
 
 class DescriptionBookingsDetails extends StatelessWidget {
@@ -13,7 +12,7 @@ class DescriptionBookingsDetails extends StatelessWidget {
         SizedBox(height: MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding:
-          const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+              const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -89,9 +88,7 @@ class DescriptionBookingsDetails extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-
       ],
     );
   }
-
 }

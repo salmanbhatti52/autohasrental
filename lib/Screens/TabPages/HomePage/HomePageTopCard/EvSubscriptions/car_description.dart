@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Widget/colors.dart';
-import 'EvTaBBar/description_page/description_page_top_card.dart';
-import 'EvTaBBar/tabbar_description_page.dart';
+import 'EvTabbar/description_page/description_page_top_card.dart';
+import 'EvTabbar/tabbar_description_page.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 
 class CarDescription extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_hea
 import 'package:flutter/material.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Widget/colors.dart';
-import '../EvSubscriptions/EvTaBBar/tabbar_description_page.dart';
+import '../EvSubscriptions/EvTabbar/tabbar_description_page.dart';
 
 class DrivingDetailsPage extends StatefulWidget {
   const DrivingDetailsPage({Key? key}) : super(key: key);
