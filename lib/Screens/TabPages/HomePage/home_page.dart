@@ -36,10 +36,8 @@ class _HomePageState extends State<HomePage> {
                     },
                       child: Image.asset(
                         "assets/home_page/Side_Menu.png", height: 25, width: 25,),),
-
                   Text("Home",
                     style: TextStyle(fontSize: 20, fontFamily: "Poppins-Bold", color: kBlack),),
-
                   Row(
                     children: [
                       GestureDetector(
@@ -56,13 +54,11 @@ class _HomePageState extends State<HomePage> {
                         child: Image.asset(
                           "assets/home_page/user.png", height: 30, width: 30,),
                       ),
-
                     ],
                   ),
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -111,7 +107,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 05, vertical: 0),
               child: Column(
@@ -121,8 +116,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-
-
           ],
         ),
       ),

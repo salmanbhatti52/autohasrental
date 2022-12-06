@@ -22,7 +22,6 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
             child: Text("Top Rented",
               style: TextStyle(fontSize: 20,  fontFamily: 'Poppins-Bold',  color: kBlack),),
           ),
-
           Container(
             height: MediaQuery.of(context).size.height* 0.55,
             color: Colors.transparent,
