@@ -5,26 +5,36 @@ import '../../../Widget/colors.dart';
 import '../HomePage/Drawer/drawer_screen.dart';
 import '../HomePage/Notifications/notification_screen.dart';
 
-Widget myHeaderDrawer(BuildContext context, backImage,titleText, rightImage ){
-  return  Padding(
+Widget myHeaderDrawer(BuildContext context, backImage, titleText, rightImage) {
+  return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap:(){
+          onTap: () {
             print("clicked");
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const DrawerScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const DrawerScreen()));
           },
           child: Image.asset(
-            backImage, height: 25, width: 25,),),
-
-        Text(titleText, textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack),),
-
+            backImage,
+            height: 25,
+            width: 25,
+          ),
+        ),
+        Text(
+          titleText,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack),
+        ),
         GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NotificationsScreen()));
             },
             child: Image.asset(rightImage)),
       ],
@@ -32,33 +42,12 @@ Widget myHeaderDrawer(BuildContext context, backImage,titleText, rightImage ){
   );
 }
 
-Widget myHeaderNotification(BuildContext context, backImage,titleText, rightImage ){
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap:(){
-            print("clicked");
-            Navigator.pop(context);
-          },
-          child: Image.asset(
-            backImage, height: 25, width: 25,),),
-
-        Text(titleText, textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack),),
-
-       Container(),
-      ],
-    ),
-  );
-}
-
-class MyAppBarSingleImage extends StatelessWidget implements PreferredSizeWidget{
+class MyAppBarSingleImage extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final String? backImage;
-  const MyAppBarSingleImage({Key? key,this.title="", this.backImage}) : super(key: key);
+  const MyAppBarSingleImage({Key? key, this.title = "", this.backImage})
+      : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -68,24 +57,31 @@ class MyAppBarSingleImage extends StatelessWidget implements PreferredSizeWidget
     return AppBar(
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
-        statusBarIconBrightness: Brightness.light, //<-- For Android SEE HERE (dark icons)
-        statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
+        statusBarIconBrightness:
+            Brightness.dark, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
       ),
       leading: GestureDetector(
-        onTap:(){
+        onTap: () {
           print("clicked");
           Navigator.pop(context);
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 30),
           child: Image.asset(
-            backImage!, height: 25, width: 25,),
-        ),),
-      leadingWidth: 80,
+            backImage!,
+            height: 25,
+            width: 25,
+          ),
+        ),
+      ),
       title: Padding(
         padding: const EdgeInsets.only(top: 30),
-        child: Text(title, textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack)),
+        child: Text(title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack)),
       ),
       backgroundColor: homeBgColor,
       elevation: 0.0,
@@ -94,7 +90,8 @@ class MyAppBarSingleImage extends StatelessWidget implements PreferredSizeWidget
   }
 }
 
-class MyAppBarSingleImagewithText extends StatelessWidget implements PreferredSizeWidget {
+class MyAppBarSingleImagewithText extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final String subtitle;
   final String? backImage;
@@ -111,9 +108,9 @@ class MyAppBarSingleImagewithText extends StatelessWidget implements PreferredSi
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
-        Brightness.light, //<-- For Android SEE HERE (dark icons)
+            Brightness.dark, //<-- For Android SEE HERE (dark icons)
         statusBarBrightness:
-        Brightness.light, //<-- For iOS SEE HERE (dark icons)
+            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
       ),
       leading: GestureDetector(
         onTap: () {
@@ -156,10 +153,15 @@ class MyAppBarSingleImagewithText extends StatelessWidget implements PreferredSi
   }
 }
 
-class MyAppBarSettingsPage extends StatelessWidget implements PreferredSizeWidget{
+class MyAppBarSettingsPage extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final String backImage;
-  const MyAppBarSettingsPage({Key? key,this.title="", this.backImage = "",}) : super(key: key);
+  const MyAppBarSettingsPage({
+    Key? key,
+    this.title = "",
+    this.backImage = "",
+  }) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -169,24 +171,33 @@ class MyAppBarSettingsPage extends StatelessWidget implements PreferredSizeWidge
     return AppBar(
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
-        statusBarIconBrightness: Brightness.light, //<-- For Android SEE HERE (dark icons)
-        statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
+        statusBarIconBrightness:
+            Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+            Brightness.light, //<-- For iOS SEE HERE (dark icons)
       ),
       leading: GestureDetector(
-        onTap:(){
+        onTap: () {
           print("clicked");
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const DrawerScreen()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const DrawerScreen()));
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 30),
           child: Image.asset(
-            backImage, height: 25, width: 25,),
-        ),),
+            backImage,
+            height: 25,
+            width: 25,
+          ),
+        ),
+      ),
       leadingWidth: 80,
       title: Padding(
         padding: const EdgeInsets.only(top: 30),
-        child: Text(title, textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack)),
+        child: Text(title,
+            textAlign: TextAlign.center,
+            style:
+                TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack)),
       ),
       backgroundColor: homeBgColor,
       elevation: 0.0,
@@ -195,10 +206,15 @@ class MyAppBarSettingsPage extends StatelessWidget implements PreferredSizeWidge
   }
 }
 
-class MyAppBarAboutUsPage extends StatelessWidget implements PreferredSizeWidget{
+class MyAppBarAboutUsPage extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final String backImage;
-  const MyAppBarAboutUsPage({Key? key,this.title="", this.backImage = "",}) : super(key: key);
+  const MyAppBarAboutUsPage({
+    Key? key,
+    this.title = "",
+    this.backImage = "",
+  }) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -208,24 +224,34 @@ class MyAppBarAboutUsPage extends StatelessWidget implements PreferredSizeWidget
     return AppBar(
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
-        statusBarIconBrightness: Brightness.light, //<-- For Android SEE HERE (dark icons)
-        statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
+        statusBarIconBrightness:
+            Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+            Brightness.light, //<-- For iOS SEE HERE (dark icons)
       ),
       leading: GestureDetector(
-        onTap:(){
+        onTap: () {
           print("clicked");
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const DrawerScreen()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const DrawerScreen()));
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 30),
           child: Image.asset(
-            backImage, height: 25, width: 25, color: kWhite,),
-        ),),
+            backImage,
+            height: 25,
+            width: 25,
+            color: kWhite,
+          ),
+        ),
+      ),
       leadingWidth: 80,
       title: Padding(
         padding: const EdgeInsets.only(top: 30),
-        child: Text(title, textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
+        child: Text(title,
+            textAlign: TextAlign.center,
+            style:
+                TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
       ),
       backgroundColor: appBgColor,
       elevation: 0.0,
@@ -234,9 +260,9 @@ class MyAppBarAboutUsPage extends StatelessWidget implements PreferredSizeWidget
   }
 }
 
-class MyAppBarSignUp extends StatelessWidget implements PreferredSizeWidget{
+class MyAppBarSignUp extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const MyAppBarSignUp({Key? key,this.title=""}) : super(key: key);
+  const MyAppBarSignUp({Key? key, this.title = ""}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -246,14 +272,18 @@ class MyAppBarSignUp extends StatelessWidget implements PreferredSizeWidget{
     return AppBar(
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
-        statusBarIconBrightness: Brightness.light, //<-- For Android SEE HERE (dark icons)
-        statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
+        statusBarIconBrightness:
+            Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+            Brightness.light, //<-- For iOS SEE HERE (dark icons)
       ),
       // leadingWidth: 80,
       title: Padding(
         padding: const EdgeInsets.only(top: 30),
-        child: Text(title, textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
+        child: Text(title,
+            textAlign: TextAlign.center,
+            style:
+                TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
       ),
       automaticallyImplyLeading: false,
       backgroundColor: appBgColor,
@@ -264,13 +294,12 @@ class MyAppBarSignUp extends StatelessWidget implements PreferredSizeWidget{
   }
 }
 
-
-class myAppBarDoubleImage extends StatelessWidget
+class MyAppBarDoubleImage extends StatelessWidget
     implements PreferredSizeWidget {
   final String? frontImage;
   final String title;
   final String? backImage;
-  const myAppBarDoubleImage(
+  const MyAppBarDoubleImage(
       {Key? key, this.frontImage, this.title = "", this.backImage})
       : super(key: key);
 
@@ -283,9 +312,9 @@ class myAppBarDoubleImage extends StatelessWidget
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
-        Brightness.light, //<-- For Android SEE HERE (dark icons)
+            Brightness.dark, //<-- For Android SEE HERE (dark icons)
         statusBarBrightness:
-        Brightness.light, //<-- For iOS SEE HERE (dark icons)
+            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
       ),
       actions: [
         GestureDetector(
@@ -312,7 +341,7 @@ class myAppBarDoubleImage extends StatelessWidget
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30, right: 20),
+          padding: const EdgeInsets.only(top: 30),
           child: Image.asset(
             frontImage!,
             height: 25,
@@ -334,17 +363,20 @@ class myAppBarDoubleImage extends StatelessWidget
   }
 }
 
-
-class myAppBarDoubleImageRichText extends StatelessWidget
+class MyAppBarDoubleImageRichText extends StatelessWidget
     implements PreferredSizeWidget {
   final String? frontImage;
   final String title;
   final String year;
   final String? backImage;
 
-  const myAppBarDoubleImageRichText(
-      {Key? key, this.frontImage, this.title = "", this.year = "", this.backImage,})
-      : super(key: key);
+  const MyAppBarDoubleImageRichText({
+    Key? key,
+    this.frontImage,
+    this.title = "",
+    this.year = "",
+    this.backImage,
+  }) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(70);
@@ -355,9 +387,9 @@ class myAppBarDoubleImageRichText extends StatelessWidget
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
-        Brightness.light, //<-- For Android SEE HERE (dark icons)
+            Brightness.dark, //<-- For Android SEE HERE (dark icons)
         statusBarBrightness:
-        Brightness.light, //<-- For iOS SEE HERE (dark icons)
+            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
       ),
       actions: [
         GestureDetector(
@@ -384,10 +416,10 @@ class myAppBarDoubleImageRichText extends StatelessWidget
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30, right: 20),
+          padding: const EdgeInsets.only(top: 30),
           child: Image.asset(
             frontImage!,
-             color: kWhite,
+            color: kWhite,
             height: 25,
             width: 25,
           ),
@@ -400,16 +432,20 @@ class myAppBarDoubleImageRichText extends StatelessWidget
           children: [
             Row(
               children: [
-                Text(title,
-              style: TextStyle(
-                  fontSize: 20, fontFamily: poppinBold, color: kWhite),),
-                Text(year, style: TextStyle(
-                    fontSize: 20, fontFamily: poppinRegular, color: kWhite),),
+                Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 20, fontFamily: poppinBold, color: kWhite),
+                ),
+                Text(
+                  year,
+                  style: TextStyle(
+                      fontSize: 20, fontFamily: poppinRegular, color: kWhite),
+                ),
               ],
             ),
           ],
         ),
-
       ),
       backgroundColor: appBgColor,
       elevation: 0.0,
@@ -418,3 +454,58 @@ class myAppBarDoubleImageRichText extends StatelessWidget
   }
 }
 
+class MyAppBarDoubleImageforChats extends StatelessWidget
+    implements PreferredSizeWidget {
+  final String? frontImage;
+  final String title;
+  final String? profileImage;
+  const MyAppBarDoubleImageforChats(
+      {Key? key, this.frontImage, this.profileImage, this.title = ""})
+      : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(70);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // <-- SEE HERE
+        statusBarIconBrightness:
+            Brightness.dark, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+      ),
+      leading: GestureDetector(
+        onTap: () {
+          print("clicked");
+          Navigator.pop(context);
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30),
+          child: Image.asset(
+            frontImage!,
+            height: 25,
+            width: 25,
+          ),
+        ),
+      ),
+      title: Padding(
+        padding: const EdgeInsets.only(top: 30, left: 50),
+        child: Row(
+          children: [
+            Image.asset(profileImage!, width: 24, height: 24),
+            const SizedBox(width: 5),
+            Text(title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack)),
+          ],
+        ),
+      ),
+      backgroundColor: homeBgColor,
+      elevation: 0.0,
+      centerTitle: true,
+    );
+  }
+}

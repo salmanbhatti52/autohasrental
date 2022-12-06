@@ -17,7 +17,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const myAppBarDoubleImage(
+      appBar: const MyAppBarDoubleImage(
           frontImage: "assets/home_page/back_arrow.png",
           title: "Driving Experiences",
           backImage: "assets/home_page/notification_image.png"),
@@ -28,7 +28,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Row(
                 children: [
                   Expanded(
@@ -43,7 +43,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding:
-                          const EdgeInsets.fromLTRB(20, 12, 10, 0),
+                              const EdgeInsets.fromLTRB(20, 12, 10, 0),
                           hintText: 'Search for Cars',
                           hintStyle: const TextStyle(
                               color: Color(0xffD4DCE1),
@@ -90,7 +90,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
               children: [
                 Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Text(
                     "Top Experiences",
                     style: TextStyle(
@@ -104,7 +104,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                 topExperienceWidget(context),
                 Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Text(
                     "Other Best Experiences",
                     style: TextStyle(
@@ -180,7 +180,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                       horizontal: 15),
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -224,13 +224,14 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                       ),
                                       SizedBox(
                                         height:
-                                        MediaQuery.of(context).size.height *
-                                            0.01,
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
                                       ),
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 04),
+                                            padding:
+                                                const EdgeInsets.only(top: 04),
                                             child: Text(
                                               "RM",
                                               style: TextStyle(
@@ -246,7 +247,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             style: TextStyle(
                                               color: kRed,
                                               decoration:
-                                              TextDecoration.lineThrough,
+                                                  TextDecoration.lineThrough,
                                               decorationColor: kRed,
                                               decorationThickness: 3,
                                               fontSize: 10,
@@ -257,7 +258,8 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                           ),
                                           const SizedBox(width: 5),
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 06),
+                                            padding:
+                                                const EdgeInsets.only(top: 06),
                                             child: Text(
                                               "RM",
                                               style: TextStyle(
@@ -288,16 +290,16 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                           ),
                                           SizedBox(
                                             width: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.01,
                                           ),
                                           Image.asset(
                                               "assets/car_bookings_images/rating_stars.png"),
                                           SizedBox(
                                             width: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.01,
                                           ),
                                           Text(
@@ -313,8 +315,8 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.01),
                                       Row(
                                         children: [
@@ -341,7 +343,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             decoration: BoxDecoration(
                                                 color: kBlack,
                                                 borderRadius:
-                                                BorderRadius.circular(10)),
+                                                    BorderRadius.circular(10)),
                                             child: Center(
                                               child: Text(
                                                 "New",
