@@ -1,7 +1,6 @@
 import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:get/get.dart';
 import '../../../../../Widget/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'ChangePassword/change_password_screen.dart';
@@ -24,38 +23,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       GestureDetector(
-          //         onTap:(){
-          //           print("clicked");
-          //           Navigator.push(context, MaterialPageRoute(builder: (context) => const DrawerScreen()));
-          //         },
-          //         child: Image.asset(
-          //           "assets/home_page/Side_Menu.png", height: 25, width: 25,),),
-          //
-          //       Text("Settings",
-          //         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kBlack),),
-          //
-          //       Container(),
-          //     ],
-          //   ),
-          // ),
-
-          // SizedBox(height: MediaQuery.of(context).size.height * 0.07,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 05),
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.075,
+              height: MediaQuery.of(context).size.height * 0.08,
               decoration: BoxDecoration(
                   color: kWhite,
                   borderRadius: BorderRadius.circular(10)
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 05),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,11 +41,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                      Text("Notifications", style: TextStyle(fontSize: 14,
-                          fontWeight: FontWeight.bold, fontFamily: 'Poppins', color: kBlack),),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.007,),
-                      Text("Enable your notifications", style: TextStyle(fontSize: 10,
-                          fontWeight: FontWeight.w400, fontFamily: 'Poppins', color: kBlack),),
+                      Text("Notifications", textAlign: TextAlign.left,
+                        style: TextStyle(fontSize: 14, fontFamily: poppinBold, color: kBlack),),
+                      Text("Enable your notifications", textAlign: TextAlign.left,
+                        style: TextStyle(fontSize: 10, fontFamily: poppinRegular, color: kBlack),),
                     ],),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -97,17 +73,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
           
           GestureDetector(
             onTap: (){
-              Get.to(()=> const PaymentScreen());
+              // Get.to(()=> const PaymentScreen());
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PaymentScreen()));
             },
               child: settingWidget("Payment Details", kBlack, "Add your cards for quick payments", Icons.arrow_forward_ios_rounded, kBlack)),
           GestureDetector(
               onTap: (){
-                Get.to(()=>const ChangePasswordScreen());
+                // Get.to(()=>const ChangePasswordScreen());
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ChangePasswordScreen()));
               },
               child: settingWidget("Change Password", kBlack,"Update your password", Icons.arrow_forward_ios_rounded, kBlack)),
           GestureDetector(
               onTap: (){
-                Get.to(() => const EditProfileScreen());
+                // Get.to(() => const EditProfileScreen());
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EditProfileScreen()));
               },
               child: settingWidget("Profile", kBlack, "Update your profile", Icons.arrow_forward_ios_rounded, const Color(0xffD4DCE1) )),
           GestureDetector(
@@ -208,8 +187,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 borderRadius: BorderRadius.circular(10)
             ),
             child: ListTile(
-                title: Text(titleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 14, fontFamily: 'Poppins-Bold', color: textColor),),
-                subtitle: Text(subTitleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 10, fontFamily: 'Poppins-Regular', color: kBlack),),
+                title: Text(titleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 14, fontFamily: poppinBold, color: textColor),),
+                subtitle: Text(subTitleText, textAlign: TextAlign.left, style: TextStyle(fontSize: 10, fontFamily: poppinRegular, color: kBlack),),
                 trailing: Icon(iconData, color: iconColor, size: 20,),
             ),
           ),

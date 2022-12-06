@@ -73,24 +73,24 @@ class _DrawerScreenState extends State<DrawerScreen> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
                 // Get.to(const SettingsScreen());
               },
                 child: myListTile("assets/drawer_images/settings_icon.png", "Setting")),
             GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const LiveChatPage1()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LiveChatPage1()));
                 },
                 child: myListTile("assets/drawer_images/call_phone_icon.png", "Live Chat")),
             GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const AboutUsPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const AboutUsPage()));
                 },
                 child: myListTile("assets/drawer_images/customer_help_icon.png", "About Us")),
             SizedBox(height: MediaQuery.of(context).size.height * 0.25),
             GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const TabBarPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const TabBarPage()));
                 },
                 child: myListTile("assets/drawer_images/logout_icon.png", "Logout")),
 
