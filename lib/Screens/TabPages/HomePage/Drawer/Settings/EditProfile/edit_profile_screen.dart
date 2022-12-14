@@ -2,11 +2,10 @@ import 'dart:io';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../../../Utils/colors.dart';
 import '../../../../../../Widget/TextFields/address_text_field.dart';
-import '../../../../../../Widget/colors.dart';
-import '../../../../../Authentication/ForgetPassword/myTextWidget.dart';
+import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 import '../settings_screen.dart';
 

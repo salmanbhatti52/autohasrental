@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../Widget/colors.dart';
+import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../tabbar_bookings_detail_page.dart';
 import 'bookings_details_upcoming.dart';

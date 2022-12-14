@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../BrowseCardForRent/browse_car_logo_container.dart';
-import '../../../../../Widget/colors.dart';
+import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Filter/filter_screen.dart';
 import 'driving_details_page.dart';

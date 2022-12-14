@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../Widget/colors.dart';
-import '../../../../../Widget/fontFamily.dart';
+import '../../../../../Utils/colors.dart';
+import '../../../../../Utils/fontFamily.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'AddressTabs/address_tabbar.dart';
 

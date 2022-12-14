@@ -1,7 +1,7 @@
-import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../Widget/colors.dart';
+import '../../../Utils/colors.dart';
 import '../HomePage/Drawer/drawer_screen.dart';
 import '../HomePage/Notifications/notification_screen.dart';
 

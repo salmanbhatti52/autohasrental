@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../../Widget/colors.dart';
-import '../../../../../../Widget/fontFamily.dart';
+import '../../../../../../Utils/colors.dart';
+import '../../../../../../Utils/fontFamily.dart';
 import 'CartDetails/cart_details_page.dart';
 
 class BillingAddressPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../Widget/colors.dart';
+import '../../../../../Utils/colors.dart';
 import 'bookings_details_page2.dart';
 
 class UpcomingPage extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../Widget/colors.dart';
+import '../../../../../Utils/colors.dart';
 
 class BookingsDetailsPrevious extends StatefulWidget {
   const BookingsDetailsPrevious({super.key});

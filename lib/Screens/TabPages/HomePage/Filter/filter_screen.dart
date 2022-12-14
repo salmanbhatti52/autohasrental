@@ -1,8 +1,8 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:flutter/material.dart';
+import '../../../../Utils/fontFamily.dart';
 import '../../../../Widget/button.dart';
-import '../../../../Widget/colors.dart';
-import '../../../../Widget/fontFamily.dart';
+import '../../../../Utils/colors.dart';
+import '../../tab_page.dart';
 import 'choose_filter_mileage.dart';
 import 'choose_filter_price.dart';
 import 'filter_logo_container.dart';

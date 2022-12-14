@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Screens/TabPages/HomePage/Home/home_page_details.dart';
-import 'colors.dart';
+import '../Utils/colors.dart';
 
 class HomeCardTopRented extends StatefulWidget {
   const HomeCardTopRented({Key? key}) : super(key: key);

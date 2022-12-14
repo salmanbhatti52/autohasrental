@@ -38,7 +38,6 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   introduction_screen: ^3.0.2
-  shared_preferences: ^2.0.5
   pin_code_fields: ^7.4.0
   pinput: ^2.2.16
   country_picker:
@@ -48,6 +47,12 @@ dependencies:
   flutter_switch: ^0.3.2
   image_picker: ^0.8.5+3
   flutter_launcher_icons: ^0.11.0
+
+  shared_preferences: ^2.0.15
+  http: ^0.13.5
+  fluttertoast: ^8.1.2
+  modal_progress_hud_nsn: ^0.3.0
+  dio: ^4.0.6
 
 
 flutter_icons:

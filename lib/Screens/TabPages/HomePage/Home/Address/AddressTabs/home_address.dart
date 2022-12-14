@@ -1,11 +1,8 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../../Widget/TextFields/address_text_field.dart';
-import '../../../../../../Widget/colors.dart';
-import '../../../../../../Widget/fontFamily.dart';
-import '../../../../../Authentication/ForgetPassword/myTextWidget.dart';
-
+import '../../../../../../Utils/colors.dart';
+import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 
 class HomeAddressPage extends StatefulWidget {
   const HomeAddressPage({Key? key}) : super(key: key);

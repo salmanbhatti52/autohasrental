@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../Widget/colors.dart';
+import '../../Utils/colors.dart';
 import '../Authentication/LoginPage/login_page.dart';
 import '../Introduction_screens/introduction_page.dart';
 

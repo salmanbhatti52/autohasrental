@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Screens/Splash/splash_screen.dart';
-import 'Widget/colors.dart';
+import 'Utils/colors.dart';
 
 void main() {
   runApp(const MyApp());

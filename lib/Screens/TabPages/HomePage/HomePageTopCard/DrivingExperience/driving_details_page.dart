@@ -1,7 +1,7 @@
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Widget/button.dart';
-import '../../../../../Widget/colors.dart';
+import '../../../../../Utils/colors.dart';
 import '../EvSubscriptions/EvTabbar/tabbar_description_page.dart';
 
 class DrivingDetailsPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../Widget/colors.dart';
+import '../../../../Utils/colors.dart';
 
 Widget allNotificationList(){
   return ListView.builder(

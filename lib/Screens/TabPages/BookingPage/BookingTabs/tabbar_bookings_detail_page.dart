@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../Widget/colors.dart';
+import '../../../../Utils/colors.dart';
 import 'PreviousTab/bookingsdetail/description_page/description.dart';
 import 'PreviousTab/bookingsdetail/feature_page/features.dart';
 import 'PreviousTab/bookingsdetail/rating_page.dart/rating.dart';

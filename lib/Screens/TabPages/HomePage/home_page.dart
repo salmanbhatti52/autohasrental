@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../Widget/colors.dart';
+import '../../../Utils/colors.dart';
 import '../../../Widget/home_card.dart';
 import 'Drawer/Settings/EditProfile/edit_profile_screen.dart';
 import 'HomePageTopCard/home_top_card.dart';

@@ -1,7 +1,7 @@
-import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import '../../../../../Widget/colors.dart';
+import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'ChangePassword/change_password_screen.dart';
 import 'EditProfile/edit_profile_screen.dart';

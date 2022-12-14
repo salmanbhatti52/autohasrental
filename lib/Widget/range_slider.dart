@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import '../Utils/colors.dart';
 
 class CustomRangeSlider extends StatefulWidget {
   const CustomRangeSlider({super.key});

@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../../../../../Widget/TextFields/address_text_field.dart';
 import '../../../../../../../Widget/TextFields/text_form_field.dart';
 import '../../../../../../../Widget/button.dart';
-import '../../../../../../../Widget/colors.dart';
-import '../../../../../../../Widget/fontFamily.dart';
-import '../../../../../../Authentication/ForgetPassword/myTextWidget.dart';
+import '../../../../../../../Utils/colors.dart';
+import '../../../../../../../Utils/fontFamily.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
+import '../../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 import '../../../../../MyAppBarHeader/app_bar_header.dart';
-
 
 class CartDetailsPage extends StatefulWidget {
   const CartDetailsPage({Key? key}) : super(key: key);
@@ -676,6 +674,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                               paymentTextWidget("Email"),
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(
+                                color: Colors.transparent,
                                 height: MediaQuery.of(context).size.height * 0.06,
                                 child: TextField(
                                   keyboardType: TextInputType.emailAddress,
@@ -712,6 +711,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.06,
+                                color: Colors.transparent,
                                 child: TextField(
                                   cursorColor: borderColor,
                                   keyboardType: TextInputType.number,
@@ -758,7 +758,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                         cursorColor: borderColor,
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
+                                          contentPadding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
                                           enabledBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(30.0),
                                               borderSide: BorderSide(color: textLabelColor)
@@ -793,6 +793,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                     SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.06,
+                                      color: Colors.transparent,
                                       child: TextField(
                                         cursorColor: borderColor,
                                         keyboardType: TextInputType.number,
@@ -878,6 +879,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.06,
+                                color: Colors.transparent,
                                 child: TextField(
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(

@@ -1,9 +1,9 @@
 import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/colors.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../Widget/TextFields/password_text_field.dart';
-import '../../TabPages/MyAppBarHeader/app_bar_header.dart';
+import '../../../../Widget/TextFields/password_text_field.dart';
+import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'myTextWidget.dart';
 import 'privacy_policy_page.dart';
 

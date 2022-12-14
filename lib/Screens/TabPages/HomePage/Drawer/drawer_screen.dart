@@ -1,6 +1,6 @@
-import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-import '../../../../Widget/colors.dart';
+import '../../../../Utils/colors.dart';
 import '../../tab_page.dart';
 import 'Settings/AboutUs/about_us.dart';
 import 'Settings/LiveChat/live_chat_page_1.dart';

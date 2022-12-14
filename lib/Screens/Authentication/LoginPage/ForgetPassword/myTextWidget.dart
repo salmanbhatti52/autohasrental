@@ -1,7 +1,7 @@
-import 'package:auto_haus_rental_app/Widget/colors.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Widget/fontFamily.dart';
+import '../../../../Utils/fontFamily.dart';
 
 textWidget(myText){
   return Text(myText, style: TextStyle(

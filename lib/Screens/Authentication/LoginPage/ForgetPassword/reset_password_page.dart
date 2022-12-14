@@ -1,10 +1,10 @@
 import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/colors.dart';
-import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../Widget/TextFields/text_form_field.dart';
-import '../../TabPages/MyAppBarHeader/app_bar_header.dart';
+import '../../../../Widget/TextFields/text_form_field.dart';
+import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'myTextWidget.dart';
 import 'set_new_password_page.dart';
 
@@ -88,38 +88,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       keyboardType: TextInputType.emailAddress,
                       // errorTextMsg: "Please Enter Email",
                     ),
-
-                    // TextField(
-                    //   cursorColor: borderColor,
-                    //   keyboardType: TextInputType.emailAddress,
-                    //   decoration: InputDecoration(
-                    //     contentPadding: const EdgeInsets.only(top: 15, left: 20, bottom: 15),
-                    //     enabledBorder: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(30.0),
-                    //         borderSide: BorderSide(color: textLabelColor)
-                    //     ),
-                    //     border: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: textLabelColor),
-                    //         borderRadius: BorderRadius.circular(30)
-                    //     ),
-                    //     focusedBorder: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(30.0),
-                    //         borderSide: BorderSide(color: borderColor)
-                    //     ),
-                    //     hintText: "rose.matthews@mail.com",
-                    //     hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular,),
-                    //
-                    //     // labelStyle: TextStyle(color: textLabelColor),
-                    //     focusColor: borderColor,
-                    //     // errorText: "error_msg"
-                    //   ),
-                    //   style: TextStyle(color: borderColor, fontSize: 14),
-                    // ),
                   ],
                 ),
               ],
             ),
           ),
-        ));
+        ),
+    );
   }
 }

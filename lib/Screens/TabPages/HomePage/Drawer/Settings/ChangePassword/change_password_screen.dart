@@ -1,12 +1,9 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/Settings/settings_screen.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/colors.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../Widget/TextFields/change_password_text_field.dart';
-import '../../../../../../Widget/TextFields/password_text_field.dart';
-import '../../../../../Authentication/ForgetPassword/myTextWidget.dart';
+import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
+import '../settings_screen.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);

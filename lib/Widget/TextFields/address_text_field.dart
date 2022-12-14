@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../colors.dart';
-import '../fontFamily.dart';
+import '../../Utils/colors.dart';
+import '../../Utils/fontFamily.dart';
 
 class AddressTextUtils {
   TextField getCustomEditTextArea(

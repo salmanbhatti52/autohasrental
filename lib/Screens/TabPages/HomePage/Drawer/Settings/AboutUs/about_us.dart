@@ -1,6 +1,6 @@
-import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Widget/colors.dart';
+import '../../../../../../Utils/colors.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 
 class AboutUsPage extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:auto_haus_rental_app/Widget/colors.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'BrowseCardForRent/browse_car_page.dart';
 import 'DrivingExperience/driving_experience_page.dart';

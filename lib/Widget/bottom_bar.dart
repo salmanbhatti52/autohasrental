@@ -3,7 +3,7 @@ import '../Screens/TabPages/BookingPage/booking_page.dart';
 import '../Screens/TabPages/FavouritePage/favourite_page.dart';
 import '../Screens/TabPages/HomePage/home_page.dart';
 import '../Screens/TabPages/MessagePage/message_page.dart';
-import 'colors.dart';
+import '../Utils/colors.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   MyBottomNavigationBar({Key? key}) : super(key: key);

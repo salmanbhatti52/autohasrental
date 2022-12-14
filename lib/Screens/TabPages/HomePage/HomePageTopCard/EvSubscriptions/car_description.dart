@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../Widget/button.dart';
-import '../../../../../Widget/colors.dart';
+import '../../../../../Utils/colors.dart';
 import 'EvTabbar/description_page/description_page_top_card.dart';
 import 'EvTabbar/tabbar_description_page.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';

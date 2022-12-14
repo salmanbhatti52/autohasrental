@@ -1,8 +1,9 @@
-import 'package:auto_haus_rental_app/Widget/colors.dart';
-import 'package:auto_haus_rental_app/Widget/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-import '../../../Widget/button.dart';
-import '../LoginPage/login_page.dart';
+
+import '../../../../Widget/button.dart';
+import '../login_page.dart';
 
 class PrivacyPolicyPage extends StatefulWidget {
   const PrivacyPolicyPage({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Widget/colors.dart';
+import '../../../../../../Utils/colors.dart';
 
 class LiveChatPage2 extends StatefulWidget {
   const LiveChatPage2({super.key});

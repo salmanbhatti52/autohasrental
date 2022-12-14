@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../Widget/colors.dart';
+import '../../../../../Utils/colors.dart';
 import 'bookings_detail_page.dart';
 
 class PreviousPage extends StatefulWidget {
