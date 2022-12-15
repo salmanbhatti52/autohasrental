@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // sharedPrefs();
+    sharedPrefs();
   }
 
   bool progress = false;
@@ -172,6 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                           print("LogIn Success");
                           SharedPreferences sharedPref = await SharedPreferences.getInstance();
                           await sharedPref.setString('userid', userLoginModel.data!.usersCustomersId.toString());
+                          await sharedPref.setString('email', userLoginModel.data!.email.toString());
                           await sharedPref.setString('token', userLoginModel.data!.firstName!);
                           await sharedPref.setString('username', userLoginModel.data!.lastName!);
                           print("userId: ${userLoginModel.data!.usersCustomersId.toString()}");

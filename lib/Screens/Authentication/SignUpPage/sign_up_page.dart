@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:auto_haus_rental_app/Model/Auth/user_sign_up_model.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
@@ -236,13 +235,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             isInAsyncCall = true;
                           });
                          await registerUser();
-                          // SharedPreferences prefs = await SharedPreferences.getInstance();
-                          // await prefs.setString('verify_code', signUpModel.data![0].verifyCode.toString());
-                          // await prefs.setInt('userid', signUpModel.data![0].usersCustomersId!);
-                          // print("verificationCode: ${signUpModel.data![0].verifyCode}");
-                          // print("userId: ${signUpModel.data![0].usersCustomersId}");
-                              // .then((){
-                            // setState(() {
                               toastSuccessMessage("success", Colors.green);
 
                           Future.delayed(const Duration(seconds: 3), () {
