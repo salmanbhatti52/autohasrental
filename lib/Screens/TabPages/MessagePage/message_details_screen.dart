@@ -75,7 +75,6 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
           title: "Jeanie"),
       backgroundColor: homeBgColor,
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             Container(

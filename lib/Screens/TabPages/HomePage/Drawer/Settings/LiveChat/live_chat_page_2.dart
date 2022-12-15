@@ -73,7 +73,6 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
           title: "Live Chat"),
       backgroundColor: homeBgColor,
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             Container(
