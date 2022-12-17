@@ -51,6 +51,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
     print("object123 ${widget.userId} ${widget.verifyCode}");
     // sharedPrefs();
   }
+
   VerifyOtpModel verifyOtpModel = VerifyOtpModel();
   verifyOTP() async {
     try {

@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   bool checkBoxValue = false;
   SharedPreferences? prefs;
-  String? userId;
+  String? userId, userEmail;
   UserLoginModel userLoginModel = UserLoginModel();
 
   bool loading = true;
@@ -42,9 +42,11 @@ class _LoginPageState extends State<LoginPage> {
     print('in LoginPage shared prefs');
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
+    userEmail = (prefs!.getString('user_email'));
     print("userId in  LoginPrefs is = $userId");
+    print("userEmail in  LoginPrefs is = $userEmail");
     if (userId != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const TabBarPage()));
     }
     else{
       loading = false;
@@ -162,43 +164,49 @@ class _LoginPageState extends State<LoginPage> {
                 GestureDetector(
                     onTap: () async {
                       if(loginFormKey.currentState!.validate()){
-                        // await userLogin();
+                        if (loginEmailController.text.isEmpty) {
+                          toastFailedMessage('email cannot be empty', Colors.red);
+                        } else if (loginPasswordController.text.isEmpty) {
+                          toastFailedMessage('password cannot be empty',Colors.red);
+                        }
+                        else{
+                          setState(() {
+                            progress = true;
+                          });
+                          await userLogin();
+                          if (userLoginModel.status == "success") {
+                            print("LogIn Success");
+                            SharedPreferences sharedPref = await SharedPreferences.getInstance();
+                            await sharedPref.setString('userid', userLoginModel.data!.usersCustomersId.toString());
+                            await sharedPref.setString('token', userLoginModel.data!.firstName!);
+                            await sharedPref.setString('user_email', userLoginModel.data!.email!);
+                            await sharedPref.setString('username', userLoginModel.data!.lastName!);
+                            print("userId: ${userLoginModel.data!.usersCustomersId.toString()}");
+                            print("userEmail: ${userLoginModel.data!.email!}");
+                            print("userFirstName: ${userLoginModel.data!.firstName!}");
+                            print("userLastName: ${userLoginModel.data!.lastName!}");
 
-                        setState(() {
-                          progress = true;
-                        });
-                        await userLogin();
-                        if (userLoginModel.status == "success") {
-                          print("LogIn Success");
-                          SharedPreferences sharedPref = await SharedPreferences.getInstance();
-                          await sharedPref.setString('userid', userLoginModel.data!.usersCustomersId.toString());
-                          await sharedPref.setString('token', userLoginModel.data!.firstName!);
-                          await sharedPref.setString('username', userLoginModel.data!.lastName!);
-                          print("userId: ${userLoginModel.data!.usersCustomersId.toString()}");
-                          print("userFirstName: ${userLoginModel.data!.firstName!}");
-                          print("userLastName: ${userLoginModel.data!.lastName!}");
+                            Future.delayed(const Duration(seconds: 3), () {
+                              toastSuccessMessage("${userLoginModel.status}", Colors.green);
 
-                          Future.delayed(const Duration(seconds: 3), () {
-                            toastSuccessMessage("${userLoginModel.status}", Colors.green);
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) => const TabBarPage()));
 
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => const TabBarPage()));
-
+                              setState(() {
+                                progress = false;
+                              });
+                              print("false: $progress");
+                            });
+                          }
+                          if (userLoginModel.status != "success") {
                             setState(() {
                               progress = false;
                             });
-                            print("false: $progress");
-                          });
-                        }
-                        if (userLoginModel.status != "success") {
-                          setState(() {
-                            progress = false;
-                          });
-                          print("LoginMessage: loginError");
-                          toastFailedMessage("LoginError", Colors.red);
+                            print("LoginMessage: loginError");
+                            toastFailedMessage("LoginError", Colors.red);
+                          }
                         }
                       }
-
                       // Navigator.push(context, MaterialPageRoute(builder: (context)=> const TabBarPage()));
                     },
                     child: loginButton("Login", context)),

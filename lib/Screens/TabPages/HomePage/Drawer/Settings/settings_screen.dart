@@ -1,11 +1,16 @@
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../Model/Auth/delete_account_model.dart';
+import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/colors.dart';
+import '../../../../../Widget/toast_message.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'ChangePassword/change_password_screen.dart';
 import 'EditProfile/edit_profile_screen.dart';
 import 'Payment/payment_screen.dart';
+import 'package:http/http.dart' as http;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -15,6 +20,26 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+
+  bool loading = true;
+  SharedPreferences? prefs;
+  String? userEmail;
+
+  sharedPrefs() async {
+    loading = true;
+    setState(() {});
+    print('in sharedPrefs');
+    prefs = await SharedPreferences.getInstance();
+    userEmail = (prefs!.getString('user_email'));
+    print("userEmail in sharedPrefs is = $userEmail");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    sharedPrefs();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,10 +196,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       ],
                                     ),
 
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05),
+                                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                                     Text(
                                       "Delete Account",
                                       textAlign: TextAlign.center,
@@ -184,10 +206,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         fontFamily: poppinSemiBold,
                                       ),
                                     ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.01),
+                                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                     Text(
                                       "Are you sure you want to delete your account?",
                                       textAlign: TextAlign.center,
@@ -197,11 +216,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         fontFamily: poppinMedium,
                                       ),
                                     ),
-                                    // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                                     GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
+                                        onTap: () async {
+                                          await deleteAccountWidget();
+                                          if(deleteAccountModel.status == "success"){
+                                            toastSuccessMessage(deleteAccountModel.message, colorGreen);
+                                            Navigator.pop(context);
+                                          }
+                                          if(deleteAccountModel.status != "success"){
+                                            toastFailedMessage(deleteAccountModel.message, kRed);
+                                          }
+                                          },
                                         child: yesButton()),
                                     GestureDetector(
                                         onTap: () {
@@ -231,6 +256,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  DeleteAccountModel deleteAccountModel = DeleteAccountModel();
+  deleteAccountWidget() async {
+    try {
+      String apiUrl = deleteAccountApiUrl;
+      print("api: $apiUrl");
+      print("deleteEmail: $userEmail");
+      final response = await http.post(Uri.parse(apiUrl),
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: {
+          'user_email': userEmail,
+          'delete_reason': "test delete",
+          'comments': "Hello",
+        },
+      );
+      final responseString = response.body;
+      print("deleteAccountModelResponse: $responseString");
+
+      print("status Code deleteAccountModel: ${response.statusCode}");
+      if (response.statusCode == 200) {
+        print("in 200 signUp");
+        // print("resS $responseString");
+        if (responseString != 'false') {
+          deleteAccountModel = deleteAccountModelFromJson(responseString);
+          setState(() {});
+          print('deleteAccountModel status: ${deleteAccountModel.status}');
+        }
+      }
+    } catch (e) {
+      print('deleteAccountModel error in catch = ${e.toString()}');
+      return null;
+    }
   }
 
   bool isSwitched = false;

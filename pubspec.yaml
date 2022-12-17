@@ -47,6 +47,7 @@ dependencies:
   flutter_switch: ^0.3.2
   image_picker: ^0.8.5+3
   flutter_launcher_icons: ^0.11.0
+  cron: ^0.5.1
 
   shared_preferences: ^2.0.15
   http: ^0.13.5
@@ -99,6 +100,7 @@ flutter:
     - assets/car_bookings_images/
     - assets/car_description_images/
     - assets/live_chat_images/
+    - assets/icon/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

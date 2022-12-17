@@ -1,14 +1,20 @@
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../../../Model/Auth/modify_password_model.dart';
 import '../../../../Widget/TextFields/password_text_field.dart';
+import '../../../../Widget/toast_message.dart';
 import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'myTextWidget.dart';
 import 'privacy_policy_page.dart';
+import 'package:http/http.dart'as http;
 
 class SetNewPasswordPage extends StatefulWidget {
-  const SetNewPasswordPage({Key? key}) : super(key: key);
+  final String? email, verifyCode;
+  const SetNewPasswordPage({Key? key, this.email, this.verifyCode}) : super(key: key);
 
   @override
   State<SetNewPasswordPage> createState() => _SetNewPasswordPageState();
@@ -23,42 +29,128 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("resetEmail & code${widget.email} ${widget.verifyCode}");
+  }
+
+  ModifyPasswordModel modifyPasswordModel = ModifyPasswordModel();
+  modifyNewPasswordWidget() async {
+    try {
+      String apiUrl = modifyNewPasswordApiUrl;
+      print("modifyNewPasswordApiUrl: $apiUrl");
+      print("email: ${widget.email}");
+      print("verifyCode: ${widget.verifyCode}");
+      print("password: ${newPassController.text}");
+      print("passwordConfirm: ${confirmNewPassController.text}");
+      final response = await http.post(Uri.parse(apiUrl),
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: {
+          'email': widget.email,
+          'otp': widget.verifyCode,
+          'password': newPassController.text,
+          'confirm_password': confirmNewPassController.text,
+        },
+      );
+      final responseString = response.body;
+      print("modifyPasswordResponse: $responseString");
+
+      print("status Code modifyPassword: ${response.statusCode}");
+      if (response.statusCode == 200) {
+        print("in 200 modifyPassword");
+        if (responseString != 'false') {
+          modifyPasswordModel = modifyPasswordModelFromJson(responseString);
+          setState(() {});
+          print('modifyPassword status: ${modifyPasswordModel.status}');
+        }
+      }
+    } catch (e) {
+      print('modifyPassword error in catch = ${e.toString()}');
+      return null;
+    }
+  }
+
+  bool progress = false;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
       appBar: const MyAppBarSignUp(title: "Set a New Password"),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+      body: ModalProgressHUD(
+        inAsyncCall: progress,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
 
-              // Text("Set a New Password", textAlign: TextAlign.center,
-              //   style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', fontWeight: FontWeight.bold, color: kWhite),),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
+                // Text("Set a New Password", textAlign: TextAlign.center,
+                //   style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', fontWeight: FontWeight.bold, color: kWhite),),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text("Enter your new password, and confirm it by entering it a second time.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontFamily: 'Poppins-Regular', color: kWhite),),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text("Enter your new password, and confirm it by entering it a second time.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, fontFamily: 'Poppins-Regular', color: kWhite),),
+                ),
 
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
 
-              buildTextFields(),
+                buildTextFields(),
 
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
-              GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const PrivacyPolicyPage()));
-                  },
-                  child: loginButton("Next", context)),
-            ],
+                GestureDetector(
+                    onTap: () async {
+                      if(loginFormKey.currentState!.validate()){
+                        if (newPassController.text.isEmpty) {
+                          toastFailedMessage('new password cannot be empty', Colors.red);
+                        } else if (confirmNewPassController.text.isEmpty) {
+                          toastFailedMessage('confirm new password cannot be empty',Colors.red);
+                        }
+                        else if(newPassController.text != confirmNewPassController.text){
+                          toastFailedMessage('password did not matched', Colors.red);
+                        } else if(newPassController.text == confirmNewPassController.text) {
+                          print("password matched");
+                          setState(() {
+                            progress = true;
+                          });
+                          await modifyNewPasswordWidget();
+                          if (modifyPasswordModel.status == "success") {
+                            print("passwordModify Success");
+
+                            Future.delayed(const Duration(seconds: 3), () {
+                              toastSuccessMessage("${modifyPasswordModel.status}", Colors.green);
+
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) => const PrivacyPolicyPage()));
+
+                              setState(() {
+                                progress = false;
+                              });
+                              print("false: $progress");
+                            });
+                          }
+                          if (modifyPasswordModel.status != "success") {
+                            setState(() {
+                              progress = false;
+                            });
+                            print("passwordModify error");
+                            toastFailedMessage("passwordModify error ", Colors.red);
+                          }
+                        }
+                      }
+                      },
+                    child: loginButton("Next", context)),
+              ],
+            ),
           ),
         ),
       ),

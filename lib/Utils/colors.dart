@@ -14,3 +14,4 @@ Color detailsTextColor = const Color(0xff7E7E7E);
 Color homeBgColor = const Color(0xffF5F5F5);
 Color appBgColor = const Color(0xff0F172A);
 Color unSelectedTabColor = const Color(0xff1E2D50);
+Color colorGreen = Colors.green;

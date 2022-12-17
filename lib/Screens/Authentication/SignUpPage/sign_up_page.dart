@@ -224,7 +224,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         } else if (lastNameController.text.isEmpty) {
                           toastFailedMessage('lastName cannot be empty',Colors.red);
                         } else if (phoneController.text.isEmpty) {
-                          toastFailedMessage('phone number cant be empty', Colors.red);
+                          toastFailedMessage('phone number cannot be empty', Colors.red);
                         } else if (emailController.text.isEmpty) {
                           toastFailedMessage('email cannot be empty', Colors.red);
                         } else if (passwordController.text.isEmpty) {
@@ -236,14 +236,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             isInAsyncCall = true;
                           });
                          await registerUser();
-                          // SharedPreferences prefs = await SharedPreferences.getInstance();
-                          // await prefs.setString('verify_code', signUpModel.data![0].verifyCode.toString());
-                          // await prefs.setInt('userid', signUpModel.data![0].usersCustomersId!);
-                          // print("verificationCode: ${signUpModel.data![0].verifyCode}");
-                          // print("userId: ${signUpModel.data![0].usersCustomersId}");
-                              // .then((){
-                            // setState(() {
-                              toastSuccessMessage("success", Colors.green);
+                         toastSuccessMessage("success", Colors.green);
 
                           Future.delayed(const Duration(seconds: 3), () {
                             Navigator.push(context, MaterialPageRoute(
@@ -287,46 +280,6 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
   bool isLoggedIn = false;
-  // void submit() {
-  //   if (singUpFormKey.currentState!.validate()) {
-  //     singUpFormKey.currentState!.save();
-  //
-  //     // dismiss keyboard during async call
-  //     FocusScope.of(context).requestFocus(FocusNode());
-  //
-  //     // start the modal progress HUD
-  //     setState(() {
-  //       isInAsyncCall = true;
-  //     });
-  //
-  //     // Simulate a service call
-  //     Future.delayed(const Duration(seconds: 3), () async {
-  //       setState(() {
-  //         if (firstNameController.text.isEmpty) {
-  //           toastFailedMessage('firstName cannot be empty', Colors.red);
-  //         } else if (lastNameController.text.isEmpty) {
-  //           toastFailedMessage('lastName cannot be empty',Colors.red);
-  //         } else if (phoneController.text.isEmpty) {
-  //           toastFailedMessage('phone number cant be empty', Colors.red);
-  //         } else if (emailController.text.isEmpty) {
-  //           toastFailedMessage('email cannot be empty', Colors.red);
-  //         } else if (passwordController.text.isEmpty) {
-  //           toastFailedMessage('password cannot be empty', Colors.red);
-  //         } else if (passwordController.text.length < 6) {
-  //           toastFailedMessage('password must be 6 digit', Colors.red);
-  //         }
-  //         // stop the modal progress HUD
-  //         isInAsyncCall = false;
-  //       });
-  //       if (isLoggedIn) {
-  //         await registerUser();
-  //         toastSuccessMessage("success", Colors.green);
-  //         Navigator.push(context,
-  //             MaterialPageRoute(builder: (context) => const VerifyPhonePage()));
-  //       }
-  //     });
-  //   }
-  // }
 
   Widget buildTextFields() {
     return Padding(

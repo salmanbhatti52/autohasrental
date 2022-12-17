@@ -189,12 +189,10 @@ class _PreviousPageState extends State<PreviousPage> {
                                                   textAlign: TextAlign.left,
                                                 ),
                                               ),
-                                              Text(
-                                                previousItemsList[index]
-                                                    .newPrice,
+                                              Text(previousItemsList[index].newPrice,
                                                 style: TextStyle(
                                                   color: borderColor,
-                                                  fontSize: 20,
+                                                  fontSize: 16,
                                                   fontFamily:
                                                   'Poppins-SemiBold',
                                                 ),
