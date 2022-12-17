@@ -32,10 +32,6 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
-              // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-
-              // Text("Set a New Password", textAlign: TextAlign.center,
-              //   style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', fontWeight: FontWeight.bold, color: kWhite),),
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
               SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
