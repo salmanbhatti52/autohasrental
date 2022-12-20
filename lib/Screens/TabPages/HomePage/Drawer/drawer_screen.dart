@@ -3,7 +3,6 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../Utils/colors.dart';
-import '../../tab_page.dart';
 import 'Settings/AboutUs/about_us.dart';
 import 'Settings/LiveChat/live_chat_page_1.dart';
 import 'Settings/settings_screen.dart';
@@ -122,6 +121,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
+
       title: const Text("Sign Out"),
       content: const Text("Are you sure you want to Sign Out ?"),
       actions: [

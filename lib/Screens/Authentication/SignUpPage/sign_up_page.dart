@@ -59,12 +59,11 @@ class _SignUpPageState extends State<SignUpPage> {
         },
       );
       final responseString = response.body;
-      print("response String: $responseString");
+      print("response SignUpApi: $responseString");
 
       print("status Code SignUp: ${response.statusCode}");
       if (response.statusCode == 200) {
         print("in 200 signUp");
-        print("resS $responseString");
         if (responseString != 'false') {
           signUpModel = signUpModelFromJson(responseString);
           setState(() {});
@@ -191,9 +190,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             isInAsyncCall = true;
                           });
                          await registerUser();
-                              toastSuccessMessage("success", Colors.green);
+
                           Future.delayed(const Duration(seconds: 3), () {
-                            toastSuccessMessage("success", Colors.green);
+                            toastSuccessMessage("success", colorGreen);
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => VerifyPhonePage(
                                   userId: signUpModel.data![0].usersCustomersId.toString(),
