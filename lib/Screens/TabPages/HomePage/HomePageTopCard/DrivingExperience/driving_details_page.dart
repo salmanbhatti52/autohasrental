@@ -2,6 +2,7 @@ import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_hea
 import 'package:flutter/material.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
+import '../../Home/home_page_details.dart';
 import '../EvSubscriptions/EvTabbar/tabbar_description_page.dart';
 
 class DrivingDetailsPage extends StatefulWidget {
@@ -184,7 +185,14 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             const TabbarCarDescription(),
-            loginButton('Book Me', context),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomePageDetails()));
+                },
+                child: loginButton('Book Now', context)),
           ],
         ),
       ),

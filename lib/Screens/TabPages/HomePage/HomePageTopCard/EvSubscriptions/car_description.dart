@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Home/home_page_details.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
@@ -17,8 +18,11 @@ class _CarDescriptionState extends State<CarDescription> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarDoubleImageRichText(frontImage: "assets/live_chat_images/back_arrow.png",
-        title: "Tesla S series, ", year: "2022", backImage: "assets/car_description_images/chat.png",
+      appBar: const MyAppBarDoubleImageRichText(
+        frontImage: "assets/live_chat_images/back_arrow.png",
+        title: "Tesla S series, ",
+        year: "2022",
+        backImage: "assets/car_description_images/chat.png",
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -91,7 +95,14 @@ class _CarDescriptionState extends State<CarDescription> {
             ),
             myHorizontalCard2(context),
             const TabbarCarDescription(),
-            loginButton('Book Me', context),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomePageDetails()));
+                },
+                child: loginButton('Book Now', context)),
           ],
         ),
       ),
