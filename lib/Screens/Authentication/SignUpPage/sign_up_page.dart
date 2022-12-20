@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import 'dart:convert';
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
 import 'package:auto_haus_rental_app/Model/Auth/user_sign_up_model.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
@@ -195,6 +199,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             isInAsyncCall = true;
                           });
                          await registerUser();
+<<<<<<< HEAD
+=======
+                              toastSuccessMessage("success", Colors.green);
+
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                           Future.delayed(const Duration(seconds: 3), () {
                             toastSuccessMessage("success", Colors.green);
                             Navigator.push(context, MaterialPageRoute(

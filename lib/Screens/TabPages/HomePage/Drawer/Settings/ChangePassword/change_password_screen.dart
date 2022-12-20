@@ -1,9 +1,16 @@
+<<<<<<< HEAD
+=======
+import 'package:auto_haus_rental_app/Model/Auth/Settings/change_passwod_model.dart';
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+<<<<<<< HEAD
 import '../../../../../../Model/SettingsModel/change_passwod_model.dart';
+=======
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
 import '../../../../../../Widget/toast_message.dart';
 import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
@@ -106,9 +113,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       print("Password Changed");
 
                       Future.delayed(const Duration(seconds: 3), () {
+<<<<<<< HEAD
                         toastSuccessMessage("${changePasswordModel.status}", Colors.green);
 
                         Navigator.pushReplacement(context, MaterialPageRoute(
+=======
+                        toastSuccessMessage(
+                            "${changePasswordModel.status}", Colors.green);
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                                 builder: (context) => const SettingsScreen()));
 
                         setState(() {
@@ -148,7 +164,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+<<<<<<< HEAD
                         textWidget("Enter Old Password"),
+=======
+                        changePasswordTextWidget("Enter Old Password"),
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.005),
                         Container(
@@ -173,7 +193,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               focusColor: borderColor,
                               suffixIcon: Padding(
                                 padding:
+<<<<<<< HEAD
                                 const EdgeInsetsDirectional.only(end: 12.0),
+=======
+                                    const EdgeInsetsDirectional.only(end: 12.0),
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                                 child: IconButton(
                                   icon: Icon(
                                       obscureOldPass
@@ -189,7 +213,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               ),
                             ),
                             style:
+<<<<<<< HEAD
                             TextStyle(color: textLabelColor, fontSize: 14),
+=======
+                                TextStyle(color: textLabelColor, fontSize: 14),
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                           ),
                         ),
                       ],
@@ -198,7 +226,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+<<<<<<< HEAD
                         textWidget("Enter New Password"),
+=======
+                        changePasswordTextWidget("Enter New Password"),
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.005),
                         Container(
@@ -223,7 +255,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               focusColor: borderColor,
                               suffixIcon: Padding(
                                 padding:
+<<<<<<< HEAD
                                 const EdgeInsetsDirectional.only(end: 12.0),
+=======
+                                    const EdgeInsetsDirectional.only(end: 12.0),
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                                 child: IconButton(
                                   icon: Icon(
                                       obscureNewPass
@@ -239,7 +275,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               ),
                             ),
                             style:
+<<<<<<< HEAD
                             TextStyle(color: textLabelColor, fontSize: 14),
+=======
+                                TextStyle(color: textLabelColor, fontSize: 14),
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                           ),
                         ),
                       ],
@@ -248,7 +288,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+<<<<<<< HEAD
                         textWidget("Enter Confirm Password"),
+=======
+                        changePasswordTextWidget("Enter Confirm Password"),
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.005),
                         Container(
@@ -273,7 +317,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               focusColor: borderColor,
                               suffixIcon: Padding(
                                 padding:
+<<<<<<< HEAD
                                 const EdgeInsetsDirectional.only(end: 12.0),
+=======
+                                    const EdgeInsetsDirectional.only(end: 12.0),
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                                 child: IconButton(
                                   icon: Icon(
                                       obscureConfirmPass
@@ -289,7 +337,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               ),
                             ),
                             style:
+<<<<<<< HEAD
                             TextStyle(color: textLabelColor, fontSize: 14),
+=======
+                                TextStyle(color: textLabelColor, fontSize: 14),
+>>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
                           ),
                         ),
                       ],
