@@ -1,16 +1,10 @@
-<<<<<<< HEAD
-=======
 import 'package:auto_haus_rental_app/Model/Auth/Settings/change_passwod_model.dart';
->>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-<<<<<<< HEAD
 import '../../../../../../Model/SettingsModel/change_passwod_model.dart';
-=======
->>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
 import '../../../../../../Widget/toast_message.dart';
 import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
