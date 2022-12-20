@@ -234,6 +234,12 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
       messageDetailsModelObject.isEmpty? const Center(child: Text("no chat history")):
           ModalProgressHUD(
             inAsyncCall: progress,
+            opacity: 0.02,
+            blur: 0.5,
+            color: Colors.transparent,
+            progressIndicator: CircularProgressIndicator(
+              color: borderColor,
+            ),
             child: SingleChildScrollView(
               child: Column(
                 children: [

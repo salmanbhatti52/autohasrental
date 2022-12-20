@@ -4,8 +4,7 @@ import '../../Utils/colors.dart';
 import '../../Utils/fontFamily.dart';
 
 class EditTextUtils {
-  TextField getCustomEditTextArea(
-      {
+  TextField getCustomEditTextArea({
         // String labelValue = "",
         String hintValue = "",
         String helperText = "",
@@ -17,6 +16,7 @@ class EditTextUtils {
         // String? validationErrorLength,
         String? validationErrorMsg}) {
     TextField textField = TextField(
+      maxLength: ,
       controller: textController,
       cursorColor: borderColor,
       keyboardType: keyboardType,

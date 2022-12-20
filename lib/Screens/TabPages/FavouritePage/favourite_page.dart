@@ -1,6 +1,12 @@
+import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_favorite_cars_model.dart';
+
+import '../../../Model/HomePageModels/FavoritesModel/favorite_cars_model.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:flutter/material.dart';
 import '../../../Utils/colors.dart';
+import '../../../Utils/fontFamily.dart';
 import '../MyAppBarHeader/app_bar_header.dart';
+import 'package:http/http.dart' as  http;
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({Key? key}) : super(key: key);
@@ -10,15 +16,55 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
+
+  FavoriteCarModel favoriteCarModelObject = FavoriteCarModel();
+
+  bool loadingP = true;
+
+  getFavoriteCarWidget() async {
+    loadingP = true;
+    setState(() {});
+    print('in favoriteCarModel api');
+
+    try {
+      String apiUrl = favoriteCarsApiUrl;
+      print("favoriteCarModelApi: $apiUrl");
+      final response = await http.get(Uri.parse(apiUrl),
+        //   body:{
+        //
+        // }
+        );
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("response String: ${responseString.toString()}");
+        favoriteCarModelObject = favoriteCarModelFromJson(responseString);
+        print("favoriteCarModelLength is: ${favoriteCarModelObject.data!.length}");
+      }
+    } catch (e) {
+      print('Error: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getFavoriteCarWidget();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
       body: Column(
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.04,
-          ),
+          SizedBox(height: screenHeight * 0.04,),
           myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Favorite",
               "assets/home_page/notification_image.png"),
           allFavItem(),
@@ -28,11 +74,13 @@ class _FavoritePageState extends State<FavoritePage> {
   }
 
   Widget allFavItem() {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: Container(
         color: Colors.transparent,
-        height: MediaQuery.of(context).size.height * 0.75,
+        height: screenHeight * 0.75,
         child: ListView.builder(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
@@ -44,7 +92,7 @@ class _FavoritePageState extends State<FavoritePage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.33,
+                      height: screenHeight * 0.33,
                     ),
                   ),
                   Positioned(
@@ -52,7 +100,7 @@ class _FavoritePageState extends State<FavoritePage> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 9),
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.24,
+                        height: screenHeight * 0.24,
                         width: 343,
                         decoration: BoxDecoration(
                           color: kWhite,
@@ -68,28 +116,21 @@ class _FavoritePageState extends State<FavoritePage> {
                         ),
                         child: Column(
                           children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.1,
-                            ),
+                            Container(height: screenHeight * 0.1,),
                             Row(
                               children: [
                                 const SizedBox(height: 93.6),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(horizontal: 15),
                                   child: Column(
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
-                                          Text(
-                                            "${favoriteItemsList[index].carCompanyName} | ",
-                                            style: TextStyle(
-                                              color: kBlack,
-                                              fontSize: 14,
-                                              fontFamily: 'Poppins-Bold',
-                                            ),
+                                          Text("${favoriteItemsList[index].carCompanyName} | ",
+                                            style: TextStyle(color: kBlack,
+                                              fontSize: 14, fontFamily: poppinBold,),
                                             textAlign: TextAlign.left,
                                           ),
                                           Text(
@@ -97,59 +138,41 @@ class _FavoritePageState extends State<FavoritePage> {
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 12,
-                                              fontFamily: 'Poppins-Regular',
+                                              fontFamily: poppinRegular,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
-                                          Text(
-                                            "${favoriteItemsList[index].carModelYear} ",
-                                            style: TextStyle(
-                                              color: kBlack,
-                                              fontSize: 14,
-                                              fontFamily: 'Poppins-Medium',
-                                            ),
+                                          Text("${favoriteItemsList[index].carModelYear} ",
+                                            style: TextStyle(color: kBlack,
+                                              fontSize: 14, fontFamily: poppinMedium,),
                                             textAlign: TextAlign.left,
                                           ),
-                                          Text(
-                                            favoriteItemsList[index].range,
-                                            style: TextStyle(
-                                              color: kBlack,
-                                              fontSize: 10,
-                                              fontFamily: 'Poppins-Regular',
-                                            ),
+                                          Text(favoriteItemsList[index].range,
+                                            style: TextStyle(color: kBlack,
+                                              fontSize: 10, fontFamily: poppinRegular,),
                                             textAlign: TextAlign.left,
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
-                                        height:
-                                        MediaQuery.of(context).size.height *
-                                            0.01,
-                                      ),
+                                      SizedBox(height: screenHeight * 0.01,),
                                       Row(
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(top: 04),
-                                            child: Text(
-                                              "RM",
-                                              style: TextStyle(
-                                                color: kRed,
-                                                fontSize: 5,
-                                                fontFamily: 'Poppins-Regular',
-                                              ),
+                                            child: Text("RM",
+                                              style: TextStyle(color: kRed,
+                                                fontSize: 5, fontFamily: poppinRegular,),
                                               textAlign: TextAlign.left,
                                             ),
                                           ),
-                                          Text(
-                                            favoriteItemsList[index].oldPrice,
+                                          Text(favoriteItemsList[index].oldPrice,
                                             style: TextStyle(
                                               color: kRed,
-                                              decoration:
-                                              TextDecoration.lineThrough,
+                                              decoration: TextDecoration.lineThrough,
                                               decorationColor: kRed,
                                               decorationThickness: 3,
                                               fontSize: 10,
-                                              fontFamily: 'Poppins-Light',
+                                              fontFamily: poppinLight,
                                               height: 2,
                                             ),
                                             textAlign: TextAlign.left,
@@ -157,98 +180,54 @@ class _FavoritePageState extends State<FavoritePage> {
                                           const SizedBox(width: 5),
                                           Padding(
                                             padding: const EdgeInsets.only(top: 06),
-                                            child: Text(
-                                              "RM",
-                                              style: TextStyle(
-                                                color: borderColor,
-                                                fontSize: 7,
-                                                fontFamily: 'Poppins-SemiBold',
-                                              ),
+                                            child: Text("RM",
+                                              style: TextStyle(color: borderColor,
+                                                fontSize: 7, fontFamily: poppinSemiBold,),
                                               textAlign: TextAlign.left,
                                             ),
                                           ),
-                                          Text(
-                                            favoriteItemsList[index].newPrice,
-                                            style: TextStyle(
-                                              color: borderColor,
-                                              fontSize: 20,
-                                              fontFamily: 'Poppins-SemiBold',
-                                            ),
+                                          Text(favoriteItemsList[index].newPrice,
+                                            style: TextStyle(color: borderColor,
+                                              fontSize: 16, fontFamily: poppinSemiBold,),
                                             textAlign: TextAlign.left,
                                           ),
-                                          Text(
-                                            "/ Month",
-                                            style: TextStyle(
-                                              color: kBlack,
-                                              fontSize: 8,
-                                              fontFamily: 'Poppins-Regular',
-                                            ),
+                                          Text("/ Month",
+                                            style: TextStyle(color: kBlack,
+                                              fontSize: 8, fontFamily: poppinRegular,),
                                             textAlign: TextAlign.left,
                                           ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.01,
-                                          ),
-                                          Image.asset(
-                                              "assets/car_bookings_images/rating_stars.png"),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.01,
-                                          ),
-                                          Text(
-                                            "4.0",
-                                            style: TextStyle(
-                                              color: kBlack,
-                                              fontSize: 12,
-                                              fontFamily: 'Poppins-Regular',
-                                            ),
+                                          SizedBox(width: screenWidth * 0.01,),
+                                          Image.asset("assets/car_bookings_images/rating_stars.png"),
+                                          SizedBox(width: screenWidth * 0.01,),
+                                          Text("4.0",
+                                            style: TextStyle(color: kBlack,
+                                              fontSize: 12, fontFamily: poppinRegular,),
                                             textAlign: TextAlign.left,
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.01),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                       Row(
                                         children: [
-                                          Image.asset(
-                                              "assets/car_bookings_images/promoted.png"),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Verified Dealer",
-                                            style: TextStyle(
-                                              color: textLabelColor,
-                                              fontSize: 10,
-                                              fontFamily: 'Poppins-Regular',
-                                            ),
+                                          Image.asset("assets/car_bookings_images/promoted.png"),
+                                          const SizedBox(width: 5,),
+                                          Text("Verified Dealer",
+                                            style: TextStyle(color: textLabelColor,
+                                              fontSize: 10, fontFamily: poppinRegular,),
                                             textAlign: TextAlign.left,
                                           ),
-                                          const SizedBox(
-                                            width: 05,
-                                          ),
+                                          const SizedBox(width: 05,),
                                           Container(
                                             height: 20,
                                             width: 40,
                                             decoration: BoxDecoration(
                                                 color: kBlack,
-                                                borderRadius:
-                                                BorderRadius.circular(10)),
+                                                borderRadius: BorderRadius.circular(10)),
                                             child: Center(
-                                              child: Text(
-                                                "New",
+                                              child: Text("New",
                                                 style: TextStyle(
-                                                  color: kWhite,
-                                                  fontSize: 8,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
+                                                  color: kWhite, fontSize: 8,
+                                                  fontFamily: poppinRegular,),
                                                 textAlign: TextAlign.left,
                                               ),
                                             ),
@@ -262,8 +241,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Image.asset(
-                                        "assets/car_bookings_images/more_button.png"),
+                                    Image.asset("assets/car_bookings_images/more_button.png"),
                                   ],
                                 ),
                               ],
@@ -288,35 +266,37 @@ class _FavoritePageState extends State<FavoritePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              favoriteItemsList[index].discountText,
+                            Text(favoriteItemsList[index].discountText,
                               style: TextStyle(
-                                color: kWhite,
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Poppins',
-                              ),
-                            ),
-                            Text(" OFF ",
-                                style: TextStyle(
-                                  color: kWhite,
-                                  fontSize: 8,
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: 'Poppins',
-                                )),
+                                color: kWhite, fontSize: 13,
+                                fontWeight: FontWeight.bold, fontFamily: 'Poppins',),),
+                            Text(" OFF ", style: TextStyle(
+                                  color: kWhite, fontSize: 8,
+                              fontWeight: FontWeight.w300, fontFamily: 'Poppins',)),
                           ],
                         ),
                       )),
                   Positioned(
-                    child: Image.asset(
-                      favoriteItemsList[index].carImage,
-                    ),
+                    child: Image.asset(favoriteItemsList[index].carImage,),
                   ),
                   Positioned(
                       top: 10,
                       right: 15,
-                      child: Image.asset(
-                        "assets/home_page/heart.png",
+                      child: GestureDetector(
+                        onTap: () async {
+                          // isPostLiked? Image.asset("assets/home_page/heart.png"):
+                          //     Image.asset("assets/home_page/heart_transparent.png");
+                          if (isPostLiked) {
+                           await likeUnlikeCarsWidget();
+                            // add your code
+                            print('unlike');
+                          } else {
+                            // add your code
+                            print('like');
+                          }
+                          isPostLiked = !isPostLiked;
+                        },
+                        child: Image.asset("assets/home_page/heart.png",),
                       )),
                 ],
               );
@@ -324,15 +304,53 @@ class _FavoritePageState extends State<FavoritePage> {
       ),
     );
   }
+  bool isPostLiked = true;
+  LikeUnlikeFavoriteCarModel likeUnlikeFavoriteCarModel = LikeUnlikeFavoriteCarModel();
+  likeUnlikeCarsWidget() async {
+    try {
+      String apiUrl = likeUnlikeFavoriteCarsApiUrl;
+      print("likeUnlikeFavoriteCarModelApi: $apiUrl");
+      print("email: 1");
+      print("carId: 1");
+      final response = await http.post(Uri.parse(apiUrl),
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: {
+          'users_customers_id': "userId",
+          'cars_id': "1",
+        },
+      );
+      final responseString = response.body;
+      print("likeUnlikeFavoriteCarModelResponse: $responseString");
+
+      print("status Code likeUnlikeFavoriteCarModel: ${response.statusCode}");
+      if (response.statusCode == 200) {
+        print("in 200 signUp");
+        // print("resS $responseString");
+        if (responseString != 'false') {
+          likeUnlikeFavoriteCarModel = likeUnlikeFavoriteCarModelFromJson(responseString);
+          setState(() {});
+          print('likeUnlikeFavoriteCarModel status: ${likeUnlikeFavoriteCarModel.status}');
+        }
+      }
+    } catch (e) {
+      print('likeUnlikeFavoriteCarModel error in catch = ${e.toString()}');
+      return null;
+    }
+  }
 }
 
 List favoriteItemsList = [
-  FavoriteItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA',
-      "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
-  FavoriteItemsClass("assets/home_page/bmw_car_image.png", "5%", 'TESLA',
-      "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
-  FavoriteItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA',
-      "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  FavoriteItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  FavoriteItemsClass("assets/home_page/bmw_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  FavoriteItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  FavoriteItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  FavoriteItemsClass("assets/home_page/bmw_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  FavoriteItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  FavoriteItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  FavoriteItemsClass("assets/home_page/bmw_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
+  FavoriteItemsClass("assets/home_page/tesla_car_image.png", "5%", 'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
 ];
 
 class FavoriteItemsClass {

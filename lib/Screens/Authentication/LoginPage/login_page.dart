@@ -99,25 +99,33 @@ class _LoginPageState extends State<LoginPage> {
   bool progress = false;
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: appBgColor,
       body: ModalProgressHUD(
           inAsyncCall: progress,
+        opacity: 0.02,
+        blur: 0.5,
+        color: Colors.transparent,
+        progressIndicator: CircularProgressIndicator(
+          color: borderColor,
+        ),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(0.0),
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.13),
+                SizedBox(height: screenHeight * 0.13),
                 SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.09,),
+                SizedBox(height: screenHeight * 0.09,),
                 Text("Hey there, \nwelcome back", textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, fontFamily: poppinMedium, color: kWhite),),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
+                SizedBox(height: screenHeight * 0.03,),
                 Text("Please login your account.",
                   style: TextStyle(fontSize: 16, fontFamily: poppinLight, color: kWhite),),
 
-                SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
+                SizedBox(height: screenHeight * 0.03,),
 
                 buildTextFields(),
 
@@ -147,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                           ), //Text
                         ], //<Widget>[]
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.2),
+                      SizedBox(width: screenWidth * 0.2),
                       GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) => const ResetPasswordPage()));
@@ -159,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                SizedBox(height: screenHeight * 0.07),
 
                 GestureDetector(
                     onTap: () async {
@@ -210,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
                       // Navigator.push(context, MaterialPageRoute(builder: (context)=> const TabBarPage()));
                     },
                     child: loginButton("Login", context)),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                SizedBox(height: screenHeight * 0.05),
                 RichText(
                   text: TextSpan(
                       text: "Don't have an account? ",
@@ -226,7 +234,7 @@ class _LoginPageState extends State<LoginPage> {
                         )
                       ]),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: screenHeight * 0.02),
               ],
             ),
           ),
@@ -236,8 +244,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget buildTextFields() {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth*0.05),
+        // padding: EdgeInsets.symmetric(horizontal: 20),
         child: Container(
           color: Colors.transparent,
           child: Column(
@@ -251,9 +262,9 @@ class _LoginPageState extends State<LoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         textWidget("Email"),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                        SizedBox(height: screenHeight * 0.005),
                         EditTextUtils().getCustomEditTextArea(
-                            hintValue: "rose.matthews@mail.com",
+                            hintValue: "rose.matthews@gmail.com",
                             validation: true,
                             // autoFocus: true,
                             textController: loginEmailController,
@@ -262,12 +273,12 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
 
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                    SizedBox(height: screenHeight * 0.03),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         textWidget("Password"),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                        SizedBox(height: screenHeight* 0.005),
                         PasswordEditTextUtils().getPasswordTextField(
                           hintValue: "••••••••",
                           validation: true,
@@ -288,48 +299,7 @@ class _LoginPageState extends State<LoginPage> {
                               });
                             },
                           ),
-                          // errorTextMsg: "Please Enter Email",
                         ),
-
-                        // SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                        // TextField(
-                        //   controller: passwordController,
-                        //   keyboardType: TextInputType.visiblePassword,
-                        //   decoration: InputDecoration(
-                        //     contentPadding: const EdgeInsets.fromLTRB(20, 15, 10, 0),
-                        //     enabledBorder: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(30.0),
-                        //         borderSide: BorderSide(color: textLabelColor)
-                        //     ),
-                        //     border: OutlineInputBorder(
-                        //         borderSide: BorderSide(color: textLabelColor),
-                        //         borderRadius: BorderRadius.circular(30)
-                        //     ),
-                        //     focusedBorder: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(30.0),
-                        //         borderSide: BorderSide(color: borderColor)
-                        //     ),
-                        //     hintText: 'password',
-                        //     hintStyle: TextStyle(color: textLabelColor),
-                        //     // labelStyle: TextStyle(color: textLabelColor),
-                        //     focusColor: borderColor,
-                        //     suffixIcon: Padding(
-                        //       padding: const EdgeInsetsDirectional.only(end: 12.0),
-                        //       child: IconButton(
-                        //         icon: Icon(
-                        //           _obscureText ?  Icons.visibility :Icons.visibility_off,
-                        //           color: textLabelColor, size: 24,),
-                        //         onPressed: () {
-                        //           setState(() {
-                        //             _obscureText = !_obscureText;
-                        //           });
-                        //         },
-                        //       ),
-                        //     ),
-                        //   ),
-                        //   style: TextStyle(color: borderColor, fontSize: 14, fontFamily: "Poppins-Regular"),
-                        // ),
-
                       ],
                     ),
                   ],

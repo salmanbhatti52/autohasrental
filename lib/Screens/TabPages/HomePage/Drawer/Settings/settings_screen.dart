@@ -2,7 +2,7 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../Model/Auth/delete_account_model.dart';
+import '../../../../../Model/SettingsModel/delete_account_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Widget/toast_message.dart';

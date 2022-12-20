@@ -32,6 +32,7 @@ class Datum {
   Datum({
     this.usersCustomersId,
     this.oneSignalId,
+    this.verifiedBadge,
     this.firstName,
     this.lastName,
     this.phone,
@@ -51,6 +52,7 @@ class Datum {
 
   int? usersCustomersId;
   String? oneSignalId;
+  String? verifiedBadge;
   String? firstName;
   String? lastName;
   String? phone;
@@ -61,7 +63,7 @@ class Datum {
   String? googleAccessToken;
   dynamic location;
   dynamic about;
-  String? profilePic;
+  dynamic profilePic;
   DateTime? dateAdded;
   String? verifyCode;
   String? notifications;
@@ -70,6 +72,7 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     usersCustomersId: json["users_customers_id"],
     oneSignalId: json["one_signal_id"],
+    verifiedBadge: json["verified_badge"],
     firstName: json["first_name"],
     lastName: json["last_name"],
     phone: json["phone"],
@@ -90,6 +93,7 @@ class Datum {
   Map<String, dynamic> toJson() => {
     "users_customers_id": usersCustomersId,
     "one_signal_id": oneSignalId,
+    "verified_badge": verifiedBadge,
     "first_name": firstName,
     "last_name": lastName,
     "phone": phone,

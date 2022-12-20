@@ -81,6 +81,12 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
       appBar: const MyAppBarSignUp(title: "Set a New Password"),
       body: ModalProgressHUD(
         inAsyncCall: progress,
+        opacity: 0.02,
+        blur: 0.5,
+        color: Colors.transparent,
+        progressIndicator: CircularProgressIndicator(
+          color: borderColor,
+        ),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -124,9 +130,11 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                           });
                           await modifyNewPasswordWidget();
                           if (modifyPasswordModel.status == "success") {
-                            print("passwordModify Success");
+
 
                             Future.delayed(const Duration(seconds: 3), () {
+                              print("passwordModify");
+                              print("${modifyPasswordModel.status}");
                               toastSuccessMessage("${modifyPasswordModel.status}", Colors.green);
 
                               Navigator.pushReplacement(context,

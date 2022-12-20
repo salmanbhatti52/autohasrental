@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../../Model/update_profile_model.dart';
+import '../../../../../../Model/SettingsModel/update_profile_model.dart';
 import '../../../../../../Utils/api_urls.dart';
 import '../../../../../../Utils/colors.dart';
 import '../../../../../../Widget/TextFields/address_text_field.dart';
@@ -50,7 +50,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   UpdateProfileModel updateProfileModel = UpdateProfileModel();
 
-  var resJson;
   bool loader = false;
   updateUserWidget() async {
     setState(() {
@@ -76,25 +75,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         filename: image!.path.split('/').last,
       ),
     );
-
-    // request.files.add(http.MultipartFile.fromBytes('profile_pic',
-    //     await File.fromUri("<path/to/file>").readAsBytes(),
-    //     contentType: MediaType('image', 'jpeg')));
-
-
     request.headers.addAll(headers);
     print("request: $request");
     var res = await request.send();
 
     http.Response response = await http.Response.fromStream(res);
-    resJson = jsonDecode(response.body);
+    final resJson = jsonDecode(response.body);
     print("jsonResponse $resJson");
     print("responseStatusCode ${response.statusCode}");
     // response.stream
 
-    request.send().then((response) {
-      if (response.statusCode == 200) print("Uploaded!");
-    });
+    // request.send().then((response) {
+    //   if (response.statusCode == 200) print("Uploaded!");
+    // });
 
     setState(() {
       loader = false;
@@ -130,6 +123,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         title: "Edit Profile", backImage: "assets/messages_images/Back.png",),
       body:ModalProgressHUD(
         inAsyncCall: progress,
+        opacity: 0.02,
+        blur: 0.5,
+        color: Colors.transparent,
+        progressIndicator: CircularProgressIndicator(
+          color: borderColor),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
@@ -240,7 +238,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        changePasswordTextWidget("First Name"),
+                        textWidget("First Name"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
@@ -261,7 +259,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        changePasswordTextWidget("Last Name"),
+                        textWidget("Last Name"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
@@ -282,7 +280,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        changePasswordTextWidget("About"),
+                        textWidget("About"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
@@ -303,7 +301,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        changePasswordTextWidget("Email"),
+                        textWidget("Email"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
@@ -324,7 +322,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        changePasswordTextWidget("Location"),
+                        textWidget("Location"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(

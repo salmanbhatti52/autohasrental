@@ -94,6 +94,12 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
       backgroundColor: appBgColor,
       body: ModalProgressHUD(
         inAsyncCall: progress,
+        opacity: 0.02,
+        blur: 0.5,
+        color: Colors.transparent,
+        progressIndicator: CircularProgressIndicator(
+          color: borderColor,
+        ),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),

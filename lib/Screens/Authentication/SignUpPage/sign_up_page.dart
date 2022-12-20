@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:auto_haus_rental_app/Model/Auth/user_sign_up_model.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Widget/TextFields/text_form_field.dart';
 import '../../../Utils/api_urls.dart';
 import '../../../Widget/button.dart';
@@ -16,7 +13,6 @@ import '../../TabPages/MyAppBarHeader/app_bar_header.dart';
 import '../LoginPage/ForgetPassword/myTextWidget.dart';
 import '../LoginPage/login_page.dart';
 import 'package:http/http.dart'as http;
-
 import 'verify_phone_page.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -81,46 +77,6 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  // var userId;
-  // getSignup() async {
-  //   Map body = {
-  //     'one_signal_id': "123456",
-  //     'first_name': firstNameController.text.trim(),
-  //     'last_name': lastNameController.text.trim(),
-  //     'phone': phoneController.text.trim(),
-  //     'email': emailController.text.trim(),
-  //     'password': passwordController.text,
-  //     'account_type': "SignupWithApp",
-  //   };
-  //   http.Response response = await http.post(Uri.parse(signUpUrl),
-  //       body: body,
-  //       headers: {
-  //     'Accept': 'application/json'
-  //   });
-  //   print('response==' + response.body.toString());
-  //   var jsonData = jsonDecode(response.body);
-  //   userId = (jsonData['data']);
-  //   //
-  //   print("userId $userId");
-  //   // print("signUpApiUrl: $signUpUrl");
-  //   // userToken = (jsonData['token']);
-  //
-  //   if(jsonData["status"] == "success"){
-  //     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //     sharedPreferences.setString('userId', userId.toString());
-  //     sharedPreferences.setString('userToken', signUpModel.verifyCode.toString());
-  //
-  //     print("userId ${signUpModel.usersCustomersId.toString()}");
-  //     print("userToken ${signUpModel.verifyCode.toString()}");
-  //     Navigator.push(context,
-  //         MaterialPageRoute(builder: (context) => const VerifyPhonePage()));
-  //     toastSuccessMessage("SignUp Successfully...", Colors.green);
-  //   }
-  //   // setState(() {
-  //   //   isSignUp = false;
-  //   // });
-  // }
-
   bool isInAsyncCall = false;
   @override
   Widget build(BuildContext context) {
@@ -129,9 +85,12 @@ class _SignUpPageState extends State<SignUpPage> {
       appBar: const MyAppBarSignUp(title: "Create Your New Account "),
       body: ModalProgressHUD(
         inAsyncCall: isInAsyncCall,
-        // opacity: 0.5,
-        // blur: 0.5,
-        // progressIndicator: const CircularProgressIndicator(),
+        opacity: 0.02,
+        blur: 0.5,
+        color: Colors.transparent,
+        progressIndicator: CircularProgressIndicator(
+          color: borderColor,
+        ),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
@@ -236,9 +195,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             isInAsyncCall = true;
                           });
                          await registerUser();
-                         toastSuccessMessage("success", Colors.green);
-
                           Future.delayed(const Duration(seconds: 3), () {
+                            toastSuccessMessage("success", Colors.green);
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => VerifyPhonePage(
                                   userId: signUpModel.data![0].usersCustomersId.toString(),
@@ -335,6 +293,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                       EditTextUtils().getCustomEditTextArea(
                         hintValue: "+971 | Mobile number",
+
                         validation: true,
                         textController: phoneController,
                         keyboardType: TextInputType.phone,
@@ -348,15 +307,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: [
                       textWidget("Email"),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-
-                      // EditTextUtils().getCustomEditTextArea(
-                      //   hintValue: "Legal first name",
-                      //   validation: true,
-                      //   textController: firstNameController,
-                      //   keyboardType: TextInputType.text,
-                      // ),
                       EditTextUtils().getCustomEditTextArea(
-                        hintValue: "rose.matthews@mail.com",
+                        hintValue: "rose.matthews@gmail.com",
                         validation: true,
                         textController: emailController,
                         keyboardType: TextInputType.text,

@@ -43,7 +43,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                changePasswordTextWidget("State"),
+                textWidget("State"),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                 Container(
                   height: MediaQuery.of(context).size.height *0.06,
@@ -91,7 +91,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                changePasswordTextWidget("Country"),
+                textWidget("Country"),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 GestureDetector(
                   onTap: () {
@@ -206,7 +206,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        changePasswordTextWidget("Street address Line 1"),
+                        textWidget("Street address Line 1"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           height: MediaQuery.of(context).size.height * 0.06,
@@ -249,7 +249,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        changePasswordTextWidget("Street address Line 2"),
+                        textWidget("Street address Line 2"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           height: MediaQuery.of(context).size.height * 0.06,
@@ -275,7 +275,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              changePasswordTextWidget("City"),
+                              textWidget("City"),
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.06,
@@ -299,7 +299,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              changePasswordTextWidget("Post Code"),
+                              textWidget("Post Code"),
 
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(

@@ -1,5 +1,7 @@
+import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../Utils/colors.dart';
 import '../../tab_page.dart';
 import 'Settings/AboutUs/about_us.dart';
@@ -90,7 +92,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.25),
             GestureDetector(
                 onTap: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const TabBarPage()));
+                  showLogoutAlertDialog(context);
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const TabBarPage()));
                 },
                 child: myListTile("assets/drawer_images/logout_icon.png", "Logout")),
 
@@ -98,6 +101,46 @@ class _DrawerScreenState extends State<DrawerScreen> {
         ),
       ),
     );
+  }
+  showLogoutAlertDialog(BuildContext context) {
+    Widget cancelButton = TextButton(
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop();
+      },
+      child: const Text('Cancel'),
+    );
+    Widget continueButton = TextButton(
+      child: const Text('Yes, Continue'),
+      onPressed: () {
+        removeDataFormSharedPreferences();
+        setState(() {});
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Sign Out"),
+      content: const Text("Are you sure you want to Sign Out ?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+  removeDataFormSharedPreferences() async {
+    SharedPreferences prefs;
+    prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    setState(() {});
   }
 
   Widget myListTile(myImage, myTitle){

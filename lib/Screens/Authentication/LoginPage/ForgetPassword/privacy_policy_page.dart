@@ -1,9 +1,11 @@
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-
+import '../../../../Model/privacy_policy_model.dart';
 import '../../../../Widget/button.dart';
 import '../login_page.dart';
+import 'package:http/http.dart'as http;
 
 class PrivacyPolicyPage extends StatefulWidget {
   const PrivacyPolicyPage({Key? key}) : super(key: key);
@@ -13,6 +15,40 @@ class PrivacyPolicyPage extends StatefulWidget {
 }
 
 class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
+
+  PrivacyPolicyModel privacyPolicyModelObject = PrivacyPolicyModel();
+
+  bool loadingP = true;
+
+  privacyPolicyWidget() async {
+    loadingP = true;
+    setState(() {});
+    print('in privacyPolicyApi');
+
+    try {
+      String apiUrl = privacyPolicyApiUrl;
+      print("privacyPolicyApi: $apiUrl");
+      final response = await http.get(Uri.parse(apiUrl));
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("response String: ${responseString.toString()}");
+        privacyPolicyModelObject = privacyPolicyModelFromJson(responseString);
+        print("privacyPolicyLength: ${privacyPolicyModelObject.data!.length}");
+      }
+    } catch (e) {
+      print('Error in privacyPolicy: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    privacyPolicyWidget();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +83,14 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             ),
           ),
 
+          loadingP? const Center(child: CircularProgressIndicator()):
+          privacyPolicyModelObject == null? Container():
+          privacyPolicyModelObject.data!.isEmpty ? const Center(
+            child: Text('Nothing to show...',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ):
+
           Container(
             // width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.74,
@@ -54,43 +98,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              child: Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, "
-                  "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
-                  "aliquyam erat, sed diam voluptua. At vero eos et accusam et justo "
-                  "duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata "
-                  "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-                  "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
-                  "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero "
-                  "eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, "
-                  "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor "
-                  "sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
-                  "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et "
-                  "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea "
-                  "takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-                  "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore "
-                  "et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et "
-                  "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus "
-                  "est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing.\n\n"
-
-                  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, "
-                  "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
-                  "aliquyam erat, sed diam voluptua. At vero eos et accusam et justo "
-                  "duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata "
-                  "sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-                  "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
-                  "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero "
-                  "eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, "
-                  "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor "
-                  "sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
-                  "ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et "
-                  "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea "
-                  "takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-                  "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore "
-                  "et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et "
-                  "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus "
-                  "est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing."
-                , textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, fontFamily: poppinLight, color: kWhite),),
+              child: Text(privacyPolicyModelObject.data![0].description.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14,
+                    fontFamily: poppinLight, color: kWhite),),
             ),
           ),
           GestureDetector(
@@ -98,10 +109,8 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginPage()));
               },
               child: loginButton("Accept", context)),
-
         ],
       ),
-
     );
   }
 }

@@ -67,6 +67,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       appBar: const MyAppBarSignUp(title: "Reset Password"),
       body: ModalProgressHUD(
         inAsyncCall: progress,
+        opacity: 0.02,
+        blur: 0.5,
+        color: Colors.transparent,
+        progressIndicator: CircularProgressIndicator(
+          color: borderColor,
+        ),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(0.0),
@@ -105,7 +111,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           if (forgetPasswordModel.status == "success") {
                             print("reset Success");
                             Future.delayed(const Duration(seconds: 3), () {
-                              toastSuccessMessage("${forgetPasswordModel.status}", Colors.green);
+                              toastSuccessMessage("${forgetPasswordModel.data!.message}", Colors.green);
 
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) => SetNewPasswordPage(

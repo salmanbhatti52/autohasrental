@@ -343,7 +343,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
-                                  paymentTextWidget("Email"),
+                                  textWidget("Email"),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                   EditTextUtils().getCustomEditTextArea(
                                     hintValue: "rose.matthews@mail.com",
@@ -359,7 +359,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  paymentTextWidget("Card Information"),
+                                  textWidget("Card Information"),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                   Container(
                                     height: MediaQuery.of(context).size.height * 0.06,
@@ -399,7 +399,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
 
-                                        paymentTextWidget("Expire date"),
+                                        textWidget("Expire date"),
                                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                         Container(
                                           height: MediaQuery.of(context).size.height * 0.06,
@@ -434,7 +434,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        paymentTextWidget("CVC"),
+                                        textWidget("CVC"),
                                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                         Container(
                                           height: MediaQuery.of(context).size.height * 0.06,
@@ -471,7 +471,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  paymentTextWidget("Country or Region"),
+                                  textWidget("Country or Region"),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                   Container(
                                     height: MediaQuery.of(context).size.height *0.06,
@@ -513,7 +513,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  paymentTextWidget("Zip"),
+                                  textWidget("Zip"),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                   Container(
                                     height: MediaQuery.of(context).size.height * 0.06,
@@ -671,7 +671,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
-                              paymentTextWidget("Email"),
+                              textWidget("Email"),
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(
                                 color: Colors.transparent,
@@ -707,7 +707,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              paymentTextWidget("Card Information"),
+                              textWidget("Card Information"),
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.06,
@@ -749,7 +749,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
 
-                                    paymentTextWidget("Expire date"),
+                                    textWidget("Expire date"),
                                     SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.06,
@@ -789,7 +789,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    paymentTextWidget("CVC"),
+                                    textWidget("CVC"),
                                     SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.06,
@@ -875,7 +875,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              paymentTextWidget("Zip"),
+                              textWidget("Zip"),
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.06,
