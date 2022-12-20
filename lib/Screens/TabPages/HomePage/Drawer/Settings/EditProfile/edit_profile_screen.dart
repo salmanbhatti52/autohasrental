@@ -238,7 +238,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("First Name"),
+                        textWidgetBlack("First Name"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
@@ -259,7 +259,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("Last Name"),
+                        textWidgetBlack("Last Name"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
@@ -280,7 +280,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("About"),
+                        textWidgetBlack("About"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
@@ -301,7 +301,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("Email"),
+                        textWidgetBlack("Email"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
@@ -322,7 +322,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("Location"),
+                        textWidgetBlack("Location"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(

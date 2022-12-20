@@ -43,7 +43,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                textWidget("State"),
+                textWidgetBlack("State"),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                 Container(
                   height: MediaQuery.of(context).size.height *0.06,
@@ -91,7 +91,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                textWidget("Country"),
+                textWidgetBlack("Country"),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 GestureDetector(
                   onTap: () {
@@ -206,7 +206,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("Street address Line 1"),
+                        textWidgetBlack("Street address Line 1"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           height: MediaQuery.of(context).size.height * 0.06,
@@ -221,27 +221,6 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                             // textController: resetEmailController,
                             keyboardType: TextInputType.text,
                           ),
-
-                          // TextField(
-                          //   keyboardType: TextInputType.text,
-                          //   decoration: InputDecoration(
-                          //     border: InputBorder.none,
-                          //     contentPadding: const EdgeInsets.all(20),
-                          //     focusedBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(30.0),
-                          //         borderSide: BorderSide(color: borderColor)
-                          //     ),
-                          //     hintText: 'Street address line 1',
-                          //     hintStyle: TextStyle(color: textLabelColor),
-                          //     // labelStyle: TextStyle(color: textLabelColor),
-                          //     focusColor: borderColor,
-                          //     // errorText: "error_msg"
-                          //     fillColor: kWhite,
-                          //
-                          //     // prefixIcon:
-                          //   ),
-                          //   style: TextStyle(color: borderColor, fontSize: 14),
-                          // ),
                         ),
                       ],
                     ),
@@ -249,7 +228,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("Street address Line 2"),
+                        textWidgetBlack("Street address Line 2"),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           height: MediaQuery.of(context).size.height * 0.06,
@@ -275,7 +254,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              textWidget("City"),
+                              textWidgetBlack("City"),
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.06,
@@ -299,7 +278,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              textWidget("Post Code"),
+                              textWidgetBlack("Post Code"),
 
                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                               Container(

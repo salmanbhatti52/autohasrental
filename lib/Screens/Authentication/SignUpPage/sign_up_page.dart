@@ -97,11 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
             padding: const EdgeInsets.all(0.0),
             child: Column(
               children: [
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.09,),
-                // Text("Create Your \nNew Account ", textAlign: TextAlign.center,
-                //   style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
-
                 Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

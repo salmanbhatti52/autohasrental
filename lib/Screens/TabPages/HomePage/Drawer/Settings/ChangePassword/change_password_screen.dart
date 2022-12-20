@@ -149,7 +149,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("Enter Old Password"),
+                        textWidgetBlack("Enter Old Password"),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.005),
                         Container(
@@ -199,7 +199,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("Enter New Password"),
+                        textWidgetBlack("Enter New Password"),
 
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.005),
@@ -250,7 +250,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget("Enter Confirm Password"),
+                        textWidgetBlack("Enter Confirm Password"),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.005),
                         Container(
