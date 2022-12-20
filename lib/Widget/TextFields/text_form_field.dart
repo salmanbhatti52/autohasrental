@@ -16,7 +16,6 @@ class EditTextUtils {
         // String? validationErrorLength,
         String? validationErrorMsg}) {
     TextField textField = TextField(
-      maxLength: ,
       controller: textController,
       cursorColor: borderColor,
       keyboardType: keyboardType,

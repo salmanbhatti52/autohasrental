@@ -194,28 +194,18 @@ class _LoginPageState extends State<LoginPage> {
                             print("userFirstName: ${userLoginModel.data!.firstName!}");
                             print("userLastName: ${userLoginModel.data!.lastName!}");
 
-<<<<<<< HEAD
-                            Future.delayed(const Duration(seconds: 3), () {
-                              toastSuccessMessage("${userLoginModel.status}", Colors.green);
-=======
-                        setState(() {
-                          progress = true;
-                        });
-                        await userLogin();
-                        if (userLoginModel.status == "success") {
-                          print("LogIn Success");
-                          SharedPreferences sharedPref = await SharedPreferences.getInstance();
-                          await sharedPref.setString('userid', userLoginModel.data!.usersCustomersId.toString());
-                          await sharedPref.setString('email', userLoginModel.data!.email.toString());
-                          await sharedPref.setString('token', userLoginModel.data!.firstName!);
-                          await sharedPref.setString('username', userLoginModel.data!.lastName!);
-                          print("userId: ${userLoginModel.data!.usersCustomersId.toString()}");
-                          print("userFirstName: ${userLoginModel.data!.firstName!}");
-                          print("userLastName: ${userLoginModel.data!.lastName!}");
->>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
+                            Future.delayed(const Duration(seconds: 3), () async {
+                              toastSuccessMessage(
+                                  "${userLoginModel.status}", Colors.green);
+                              setState(() {
+                                progress = true;
+                              });
+                              await userLogin();
+                              print("LogIn Success");
 
                               Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => const TabBarPage()));
+                                  MaterialPageRoute(builder: (
+                                      context) => const TabBarPage()));
 
                               setState(() {
                                 progress = false;

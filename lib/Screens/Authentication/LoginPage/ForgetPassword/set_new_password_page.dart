@@ -79,7 +79,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
     return Scaffold(
       backgroundColor: appBgColor,
       appBar: const MyAppBarSignUp(title: "Set a New Password"),
-<<<<<<< HEAD
+
       body: ModalProgressHUD(
         inAsyncCall: progress,
         opacity: 0.02,
@@ -93,24 +93,9 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-
-                // Text("Set a New Password", textAlign: TextAlign.center,
-                //   style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', fontWeight: FontWeight.bold, color: kWhite),),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
-=======
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
->>>>>>> c95d34f8c526074319b30367ef497a8336d2d89d
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text("Enter your new password, and confirm it by entering it a second time.",
