@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../Utils/colors.dart';
 
 class BookingsDetailsUpcoming extends StatefulWidget {
@@ -50,40 +49,6 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                       ),
                       child: Column(
                         children: [
-                          // Container(
-                          //   height: MediaQuery.of(context).size.height * 0.1,
-                          //   child: Padding(
-                          //     padding:
-                          //     const EdgeInsets.only(top: 40, right: 20),
-                          //     child: Align(
-                          //       alignment: Alignment.centerRight,
-                          //       child: GestureDetector(
-                          //         onTap: () {
-                          //           canceldialogbox(context);
-                          //         },
-                          //         child: Container(
-                          //           width: 102,
-                          //           height: 25,
-                          //           decoration: BoxDecoration(
-                          //             color: kRed,
-                          //             borderRadius: BorderRadius.circular(30),
-                          //           ),
-                          //           child: Center(
-                          //             child: Text(
-                          //               'Cancel',
-                          //               style: TextStyle(
-                          //                 fontSize: 12,
-                          //                 fontFamily: 'Poppins-Regular',
-                          //                 color: kWhite,
-                          //               ),
-                          //               textAlign: TextAlign.center,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                           Row(
                             children: [
                               const SizedBox(height: 93.6),
@@ -146,7 +111,8 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                                     Row(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 04),
+                                          padding:
+                                              const EdgeInsets.only(top: 04),
                                           child: Text(
                                             "RM",
                                             style: TextStyle(
@@ -172,7 +138,8 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                                         ),
                                         const SizedBox(width: 5),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 06),
+                                          padding:
+                                              const EdgeInsets.only(top: 06),
                                           child: Text(
                                             "RM",
                                             style: TextStyle(
@@ -270,17 +237,6 @@ class _BookingsDetailsUpcomingState extends State<BookingsDetailsUpcoming> {
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 100),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Image.asset(
-                                        "assets/car_bookings_images/more_button.png"),
                                   ],
                                 ),
                               ),
