@@ -6,7 +6,7 @@ import '../Screens/TabPages/MessagePage/message_page.dart';
 import '../Utils/colors.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
-  MyBottomNavigationBar({Key? key}) : super(key: key);
+  const MyBottomNavigationBar({Key? key}) : super(key: key);
 
   @override
   State<MyBottomNavigationBar> createState() => _MyBottomNavigationBarState();
@@ -80,54 +80,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
                       color: currentIndex == 3 ? borderColor : unSelectedTabColor,
                       width: 30),
                   label: 'Favorities'),
-
-              // BottomNavigationBarItem(
-              //   activeIcon: Image.asset("assets/home.png",
-              //     height: 20, width: 20,
-              //     color: Colors.white,),
-              //   icon: Image.asset("assets/home.png",
-              //     height: 20, width: 20,
-              //     //color: Colors.black,
-              //   ),
-              //   label: '',
-              // ),
-              // BottomNavigationBarItem(
-              //   activeIcon: Image.asset("assets/search.png",
-              //     height: 20, width: 20,
-              //     color: Colors.white,),
-              //   icon: Image.asset("assets/search.png",
-              //     height: 20, width: 20,
-              //     //color: Colors.black,
-              //   ),
-              //   label: '',),
-              // BottomNavigationBarItem(
-              //   activeIcon: Image.asset("assets/notification.png",
-              //     height: 20, width: 20,
-              //     color: Colors.white,),
-              //   icon: Image.asset("assets/notification.png",
-              //     height: 20, width: 20,
-              //     //color: Colors.black,
-              //   ),
-              //   label: '',),
-              // BottomNavigationBarItem(
-              //   activeIcon: Image.asset("assets/msg.png",
-              //     height: 20, width: 20,
-              //     color: Colors.white,),
-              //   icon: Image.asset("assets/msg.png",
-              //     height: 20, width: 20,
-              //     //color: Colors.black,
-              //   ),
-              //   label: '',
-              // ),
-              // BottomNavigationBarItem(
-              //   activeIcon: Image.asset("assets/profile.png",
-              //     height: 20, width: 20,
-              //     color: Colors.white,),
-              //   icon: Image.asset("assets/profile.png",
-              //     height: 20, width: 20,
-              //     //color: Colors.black,
-              //   ),
-              //   label: '',),
             ]),
       ),
     );

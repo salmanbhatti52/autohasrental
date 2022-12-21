@@ -230,7 +230,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
           profileImage: 'assets/live_chat_images/user.png',
           title: "name"),
       backgroundColor: homeBgColor,
-      body: loading? const Center(child: CircularProgressIndicator()):
+      body: loading? Center(child: CircularProgressIndicator(color: borderColor)):
       messageDetailsModelObject.isEmpty? const Center(child: Text("no chat history")):
           ModalProgressHUD(
             inAsyncCall: progress,

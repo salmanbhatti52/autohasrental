@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Utils/colors.dart';
-import '../../../Widget/home_card.dart';
+import '../../../Utils/fontFamily.dart';
+import '../../../Widget/home_card_top_rented.dart';
 import 'Drawer/Settings/EditProfile/edit_profile_screen.dart';
 import 'HomePageTopCard/home_top_card.dart';
 import 'Drawer/drawer_screen.dart';
@@ -110,8 +111,14 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 05, vertical: 0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   myHorizontalCard(context),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text("Top Rented",
+                      style: TextStyle(fontSize: 20,  fontFamily: poppinBold,  color: kBlack),),
+                  ),
                   const HomeCardTopRented(),
                 ],
               ),

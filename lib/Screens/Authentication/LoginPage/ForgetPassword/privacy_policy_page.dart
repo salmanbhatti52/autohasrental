@@ -85,7 +85,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             ),
           ),
 
-          loadingP? const Center(child: CircularProgressIndicator()):
+          loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
           privacyPolicyModelObject == null? Container():
           privacyPolicyModelObject.data!.isEmpty ? const Center(
             child: Text('Nothing to show...',

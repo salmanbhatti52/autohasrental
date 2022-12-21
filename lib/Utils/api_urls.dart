@@ -26,6 +26,7 @@ String updateMessageApiUrl = '${baseUrl}user_chat';
 
 
 ///TabBar
+String topRentedCarsApiUrl = '${baseUrl}cars';
 String favoriteCarsApiUrl = '${baseUrl}cars_favourite';
 String likeUnlikeFavoriteCarsApiUrl = '${baseUrl}cars_favourite_like_unlike';
 

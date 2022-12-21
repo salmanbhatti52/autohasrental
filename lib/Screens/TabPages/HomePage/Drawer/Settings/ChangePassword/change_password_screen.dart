@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../../Model/SettingsModel/change_passwod_model.dart';
+import '../../../../../../Model/SettingsModel/change_password_model.dart';
 import '../../../../../../Widget/toast_message.dart';
 import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
@@ -30,17 +33,35 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   SharedPreferences? prefs;
   ChangePasswordModel changePasswordModel = ChangePasswordModel();
 
+  String? userEmail;
+
+  sharedPrefs() async {
+    loading = true;
+    setState(() {});
+    print('in sharedPrefs');
+    prefs = await SharedPreferences.getInstance();
+    userEmail = (prefs!.getString('user_email'));
+    print("userEmail in sharedPrefs is = $userEmail");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    sharedPrefs();
+  }
+
   changePassword() async {
     String apiUrl = changePasswordApiUrl;
     print("api: $apiUrl");
+    print("userEmail: $userEmail");
     print("old_password: ${oldPassController.text}");
-    print("password: ${newPassController.text}");
-    print("confirm_password: ${confirmNewPassController.text}");
+    print("newPassword: ${newPassController.text}");
+    print("confirmPassword: ${confirmNewPassController.text}");
     final response = await http.post(
       Uri.parse(apiUrl),
       headers: {'Accept': 'application/json'},
       body: {
-        'email': email,
+        'email': userEmail,
         'old_password': oldPassController.text,
         'password': newPassController.text,
         'confirm_password': confirmNewPassController.text,
@@ -48,7 +69,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
     final responseString = response.body;
     print("changePasswordResponse: $responseString");
-
     print("status Code changePassword: ${response.statusCode}");
     if (response.statusCode == 200) {
       print("in 200 changePassword");
@@ -60,23 +80,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     }
   }
 
-  String? email;
-
-  sharedPrefs() async {
-    loading = true;
-    setState(() {});
-    print('in LoginPage shared prefs');
-    prefs = await SharedPreferences.getInstance();
-    email = (prefs!.getString('email'));
-    print("Email in  LoginPrefs is = $email");
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    sharedPrefs();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,50 +88,66 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         title: "Change Password",
         backImage: "assets/messages_images/Back.png",
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.07,
-            ),
-            buildTextFields(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-            ),
-            GestureDetector(
-                onTap: () async {
-                  if (changePasswordFormKey.currentState!.validate()) {
-                    setState(() {
-                      progress = true;
-                    });
-                    await changePassword();
-                    if (changePasswordModel.status == "success") {
-                      print("Password Changed");
-
-                      Future.delayed(const Duration(seconds: 3), () {
-                        toastSuccessMessage("${changePasswordModel.status}", Colors.green);
-
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => const SettingsScreen()));
-
+      body: ModalProgressHUD(
+        inAsyncCall: progress,
+        opacity: 0.02,
+        blur: 0.5,
+        color: Colors.transparent,
+        progressIndicator: CircularProgressIndicator(
+          color: borderColor,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.07,),
+              buildTextFields(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
+              GestureDetector(
+                  onTap: () async {
+                    if (changePasswordFormKey.currentState!.validate()) {
+                      if (oldPassController.text.isEmpty) {
+                        toastFailedMessage('old password cannot be empty', Colors.red);
+                      } else if (newPassController.text.isEmpty) {
+                        toastFailedMessage('new password cannot be empty', Colors.red);
+                      } else if (confirmNewPassController.text.isEmpty) {
+                        toastFailedMessage('confirm new password cannot be empty',Colors.red);
+                      } else if(newPassController.text != confirmNewPassController.text){
+                        toastFailedMessage('password did not matched', Colors.red);
+                      } else if(newPassController.text == confirmNewPassController.text) {
+                        print("password matched");
                         setState(() {
-                          progress = false;
+                          progress = true;
                         });
-                        print("false: $progress");
-                      });
+                        await changePassword();
+                        if (changePasswordModel.status == "success") {
+                          print("Password Changed");
+
+                          Future.delayed(const Duration(seconds: 3), () {
+                            toastSuccessMessage("${changePasswordModel.status}", Colors.green);
+
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => const SettingsScreen()));
+
+                            setState(() {
+                              progress = false;
+                            });
+                            print("false: $progress");
+                          });
+                        }
+                        if (changePasswordModel.status != "success") {
+                          setState(() {
+                            progress = false;
+                          });
+                          print("Password Not Changed");
+                          toastFailedMessage("Error", Colors.red);
+                        }
+                      }
                     }
-                    if (changePasswordModel.status != "success") {
-                      setState(() {
-                        progress = false;
-                      });
-                      print("Password Not Changed");
-                      toastFailedMessage("Error", Colors.red);
-                    }
-                  }
-                },
-                child: loginButton("Reset", context)),
-          ],
+                  },
+                  child: loginButton("Reset", context)),
+            ],
+          ),
         ),
       ),
     );

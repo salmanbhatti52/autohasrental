@@ -31,10 +31,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   sharedPrefs() async {
     loading = true;
     setState(() {});
-    print('in sharedPrefs');
+    print('in settings sharedPrefs');
     prefs = await SharedPreferences.getInstance();
     userEmail = (prefs!.getString('user_email'));
-    print("userEmail in sharedPrefs is = $userEmail");
+    print("userEmail in sharedPrefs $userEmail");
   }
 
   @override

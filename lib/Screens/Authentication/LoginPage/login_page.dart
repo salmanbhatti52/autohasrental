@@ -76,7 +76,6 @@ class _LoginPageState extends State<LoginPage> {
       print("status Code SignIn: ${response.statusCode}");
       if (response.statusCode == 200) {
         print("in 200 signUp");
-        // print("resS $responseString");
         if (responseString != 'false') {
           userLoginModel = userLoginModelFromJson(responseString);
           setState(() {});
@@ -104,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: appBgColor,
       body: ModalProgressHUD(
-          inAsyncCall: progress,
+        inAsyncCall: progress,
         opacity: 0.02,
         blur: 0.5,
         color: Colors.transparent,
@@ -204,8 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                               print("LogIn Success");
 
                               Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (
-                                      context) => const TabBarPage()));
+                                  MaterialPageRoute(builder: (context) => const TabBarPage()));
 
                               setState(() {
                                 progress = false;

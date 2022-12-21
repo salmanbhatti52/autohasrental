@@ -50,7 +50,7 @@ class _MessagePageState extends State<MessagePage> {
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
           myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Messages",
               "assets/home_page/notification_image.png"),
-          loading ? const Center(child: CircularProgressIndicator()):
+          loading ? Center(child: CircularProgressIndicator(color: borderColor)):
           allChatModel.isEmpty? const Center(
             child: Text('No Chat found...',
               style: TextStyle(fontWeight: FontWeight.bold),

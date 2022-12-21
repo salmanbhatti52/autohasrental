@@ -1,4 +1,5 @@
 import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_favorite_cars_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Model/HomePageModels/FavoritesModel/favorite_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
@@ -20,27 +21,46 @@ class _FavoritePageState extends State<FavoritePage> {
   FavoriteCarModel favoriteCarModelObject = FavoriteCarModel();
 
   bool loadingP = true;
+  SharedPreferences? prefs;
+  String? userId;
+
+  sharedPrefs() async {
+    loadingP = true;
+    setState(() {});
+    print('in LoginPage shared prefs');
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    print("userId in favoriteCar Prefs is = $userId");
+    setState(() {
+      getFavoriteCarWidget();
+    });
+  }
 
   getFavoriteCarWidget() async {
     loadingP = true;
     setState(() {});
+
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
     print('in favoriteCarModel api');
 
     try {
       String apiUrl = favoriteCarsApiUrl;
       print("favoriteCarModelApi: $apiUrl");
-      final response = await http.get(Uri.parse(apiUrl),
-        //   body:{
-        //
-        // }
-        );
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: {
+        "users_customers_id": userId
+        });
       print('${response.statusCode}');
       print(response);
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("response String: ${responseString.toString()}");
         favoriteCarModelObject = favoriteCarModelFromJson(responseString);
-        print("favoriteCarModelLength is: ${favoriteCarModelObject.data!.length}");
+        print("favoriteCarModelLength is: ${favoriteCarModelObject.status}");
       }
     } catch (e) {
       print('Error: ${e.toString()}');
@@ -53,7 +73,7 @@ class _FavoritePageState extends State<FavoritePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getFavoriteCarWidget();
+    sharedPrefs();
   }
 
   @override
@@ -67,6 +87,13 @@ class _FavoritePageState extends State<FavoritePage> {
           SizedBox(height: screenHeight * 0.04,),
           myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Favorite",
               "assets/home_page/notification_image.png"),
+
+          loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
+          favoriteCarModelObject.message == "no data found."? const Center(
+            child: Text('no data found...',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ):
           allFavItem(),
         ],
       ),

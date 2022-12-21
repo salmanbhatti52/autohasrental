@@ -1,6 +1,11 @@
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../Model/HomePageModels/top_rented_cars_model.dart';
 import '../Screens/TabPages/HomePage/Home/home_page_details.dart';
 import '../Utils/colors.dart';
+import 'package:http/http.dart'as http;
 
 class HomeCardTopRented extends StatefulWidget {
   const HomeCardTopRented({Key? key}) : super(key: key);
@@ -10,18 +15,61 @@ class HomeCardTopRented extends StatefulWidget {
 }
 
 class _HomeCardTopRentedState extends State<HomeCardTopRented> {
+
+  TopRentedCarsModel topRentedCarsModelObject = TopRentedCarsModel();
+
+  bool loadingP = true;
+  SharedPreferences? prefs;
+
+
+  @override
+  void initState() {
+    super.initState();
+    getTopRentedCarsWidget();
+  }
+
+  getTopRentedCarsWidget() async {
+    loadingP = true;
+    setState(() {});
+
+    prefs = await SharedPreferences.getInstance();
+    print('in topRenterCarModelApi');
+
+    try {
+      String apiUrl = topRentedCarsApiUrl;
+      print("topRenterCarModelApi: $apiUrl");
+      final response = await http.get(Uri.parse(apiUrl),
+          headers: {
+            'Accept': 'application/json'
+          });
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("topRenterCarResponse : ${responseString.toString()}");
+        topRentedCarsModelObject = topRentedCarsModelFromJson(responseString);
+        print("topRenterCarModelApiStatus is: ${topRentedCarsModelObject.status}");
+      }
+    } catch (e) {
+      print('Error: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
-      child: Column(
+      child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor,)):
+      topRentedCarsModelObject.status != "success"? const Center(
+        child: Text('no data found...',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ):
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text("Top Rented",
-              style: TextStyle(fontSize: 20,  fontFamily: 'Poppins-Bold',  color: kBlack),),
-          ),
           Container(
             height: MediaQuery.of(context).size.height* 0.55,
             color: Colors.transparent,
@@ -33,7 +81,8 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 0,
                 ),
-                itemCount: topRentedItemsList.length,
+                // itemCount: topRentedItemsList.length,
+                itemCount: topRentedCarsModelObject.data!.length,
                 itemBuilder: (BuildContext context, int index){
                   return GestureDetector(
                     onTap: (){
@@ -65,17 +114,17 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                       children: [
                                         Row(
                                           children: [
-                                            Text("${topRentedItemsList[index].carCompanyName} ", style: TextStyle(color: kBlack,
-                                              fontSize: 14, fontFamily: 'Poppins-Bold',),),
-                                            Text(topRentedItemsList[index].carModelYear, style: TextStyle(color: kBlack,
-                                              fontSize: 10, fontFamily: 'Poppins-Regular',)),
+                                            Text("${topRentedCarsModelObject.data![index].vehicalName} ", style: TextStyle(color: kBlack,
+                                              fontSize: 14, fontFamily: poppinBold,),),
+                                            Text("${topRentedCarsModelObject.data![index].year}", style: TextStyle(color: kBlack,
+                                              fontSize: 10, fontFamily: poppinRegular,)),
                                           ],
                                         ),
                                         Row(
                                           children: [
                                             Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                                             SizedBox(width: MediaQuery.of(context).size.height * 0.005,),
-                                            Text("4.0", style: TextStyle(color: kBlack,
+                                            Text("${topRentedCarsModelObject.data![index].rating}", style: TextStyle(color: kBlack,
                                               fontSize: 10, fontFamily: 'Poppins-Medium',),),
                                           ],
                                         ),
@@ -90,11 +139,11 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                             Padding(
                                               padding: const EdgeInsets.only(top: 04),
                                               child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: kRed,
-                                                fontSize: 5, fontFamily: 'Poppins-Light',),),
+                                                fontSize: 5, fontFamily: poppinLight,),),
                                             ),
-                                            Text(topRentedItemsList[index].oldPrice, textAlign: TextAlign.left, style: TextStyle(color: kRed,
+                                            Text("${topRentedCarsModelObject.data![index].oldRentCostDay}", textAlign: TextAlign.left, style: TextStyle(color: kRed,
                                               decoration: TextDecoration.lineThrough,
-                                              fontSize: 10, fontFamily: 'Poppins-Light',),),
+                                              fontSize: 10, fontFamily: poppinLight,),),
                                           ],
                                         ),
                                         Row(
@@ -102,12 +151,12 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                             Padding(
                                               padding: const EdgeInsets.only(top: 06),
                                               child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
-                                                fontSize: 7, fontFamily: 'Poppins-SemiBold',),),
+                                                fontSize: 7, fontFamily: poppinSemiBold,),),
                                             ),
-                                            Text(topRentedItemsList[index].newPrice, textAlign: TextAlign.left, style: TextStyle(color: borderColor,
-                                              fontSize: 16, fontFamily: 'Poppins-SemiBold',),),
+                                            Text("${topRentedCarsModelObject.data![index].rentCostMonth}", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
+                                              fontSize: 14, fontFamily: poppinSemiBold,),),
                                             Text("/ Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
-                                              fontSize: 8, fontFamily: 'Poppins-Regular',),),
+                                              fontSize: 8, fontFamily: poppinRegular,),),
                                           ],
                                         ),
                                       ],
@@ -120,8 +169,9 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                           children: [
                                             Image.asset("assets/home_page/Promoted.png"),
                                             const SizedBox(width: 05,),
-                                            Text("Verified Dealer", textAlign: TextAlign.left, style: TextStyle(color: textLabelColor,
-                                              fontSize: 10, fontFamily: 'Poppins-Regular',),),
+                                            Text("Verified Dealer", textAlign: TextAlign.left,
+                                              style: TextStyle(color: textLabelColor,
+                                              fontSize: 10, fontFamily: poppinRegular,),),
                                           ],
                                         ),
                                         Container(
@@ -132,7 +182,7 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                           ),
                                           child: Center(
                                             child: Text("New", textAlign: TextAlign.left, style: TextStyle(color: kWhite,
-                                              fontSize: 8, fontFamily: 'Poppins-Regular',),),
+                                              fontSize: 8, fontFamily: poppinRegular,),),
                                           ),
                                         ),
                                       ],
@@ -187,8 +237,8 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(topRentedItemsList[index].discountText, textAlign: TextAlign.left,
-                                    style: TextStyle(color: kWhite, fontSize: 13, fontFamily: 'Poppins-SemiBold',),),
-                                  Text(" OFF", textAlign: TextAlign.left, style: TextStyle(color: kWhite, fontSize: 8, fontFamily: 'Poppins-Regular',)),
+                                    style: TextStyle(color: kWhite, fontSize: 13, fontFamily: poppinSemiBold,),),
+                                  Text(" OFF", textAlign: TextAlign.left, style: TextStyle(color: kWhite, fontSize: 8, fontFamily: poppinRegular,)),
                                 ],
                               ),
                             )
