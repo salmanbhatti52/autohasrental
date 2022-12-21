@@ -1,5 +1,5 @@
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../Utils/colors.dart';
 import 'bookings_detail_page.dart';
 
@@ -60,11 +60,10 @@ class _PreviousPageState extends State<PreviousPage> {
                             child: Column(
                               children: [
                                 Container(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.1,
+                                  height: MediaQuery.of(context).size.height * 0.1,
+                                  color: Colors.transparent,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 40, right: 20),
+                                    padding: const EdgeInsets.only(top: 40, right: 20),
                                     child: Align(
                                       alignment: Alignment.centerRight,
                                       child: Container(
@@ -72,15 +71,13 @@ class _PreviousPageState extends State<PreviousPage> {
                                         height: 25,
                                         decoration: BoxDecoration(
                                           color: borderColor,
-                                          borderRadius:
-                                          BorderRadius.circular(30),
+                                          borderRadius: BorderRadius.circular(30),
                                         ),
                                         child: Center(
-                                          child: Text(
-                                            'Rebook',
+                                          child: Text('Rebook',
                                             style: TextStyle(
                                               fontSize: 12,
-                                              fontFamily: 'Poppins-Regular',
+                                              fontFamily: poppinRegular,
                                               color: kWhite,
                                             ),
                                             textAlign: TextAlign.center,
@@ -102,71 +99,42 @@ class _PreviousPageState extends State<PreviousPage> {
                                         children: [
                                           Row(
                                             children: [
-                                              Text(
-                                                "${previousItemsList[index].carCompanyName} | ",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 14,
-                                                  fontFamily: 'Poppins-Bold',
-                                                ),
+                                              Text("${previousItemsList[index].carCompanyName} | ",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 14, fontFamily: poppinBold),
                                                 textAlign: TextAlign.left,
                                               ),
-                                              Text(
-                                                "${previousItemsList[index].textModel} ",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 12,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
+                                              Text("${previousItemsList[index].textModel} ",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 12, fontFamily: poppinRegular),
                                                 textAlign: TextAlign.left,
                                               ),
-                                              Text(
-                                                "${previousItemsList[index].carModelYear} ",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 14,
-                                                  fontFamily: 'Poppins-Medium',
-                                                ),
+                                              Text("${previousItemsList[index].carModelYear} ",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 14, fontFamily: poppinMedium),
                                                 textAlign: TextAlign.left,
                                               ),
-                                              Text(
-                                                previousItemsList[index].range,
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 10,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
+                                              Text(previousItemsList[index].range,
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 10, fontFamily: poppinRegular),
                                                 textAlign: TextAlign.left,
                                               ),
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.01,
-                                          ),
+                                          SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                                           Row(
                                             children: [
                                               Padding(
                                                 padding: const EdgeInsets.only(top: 04),
-                                                child: Text(
-                                                  "RM",
-                                                  style: TextStyle(
-                                                    color: kRed,
-                                                    fontSize: 5,
-                                                    fontFamily: 'Poppins-Regular',
-                                                  ),
+                                                child: Text("RM",
+                                                  style: TextStyle(color: kRed,
+                                                    fontSize: 5, fontFamily: poppinRegular),
                                                   textAlign: TextAlign.left,
                                                 ),
                                               ),
-                                              Text(
-                                                previousItemsList[index]
-                                                    .oldPrice,
-                                                style: TextStyle(
-                                                  color: kRed,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
+                                              Text(previousItemsList[index].oldPrice,
+                                                style: TextStyle(color: kRed,
+                                                  decoration: TextDecoration.lineThrough,
                                                   decorationColor: kRed,
                                                   decorationThickness: 3,
                                                   fontSize: 10,
@@ -178,43 +146,24 @@ class _PreviousPageState extends State<PreviousPage> {
                                               const SizedBox(width: 5),
                                               Padding(
                                                 padding: const EdgeInsets.only(top: 06),
-                                                child: Text(
-                                                  "RM",
-                                                  style: TextStyle(
-                                                    color: borderColor,
-                                                    fontSize: 7,
-                                                    fontFamily:
-                                                    'Poppins-SemiBold',
-                                                  ),
+                                                child: Text("RM",
+                                                  style: TextStyle(color: borderColor,
+                                                    fontSize: 7, fontFamily: poppinSemiBold,),
                                                   textAlign: TextAlign.left,
                                                 ),
                                               ),
                                               Text(previousItemsList[index].newPrice,
-                                                style: TextStyle(
-                                                  color: borderColor,
-                                                  fontSize: 16,
-                                                  fontFamily:
-                                                  'Poppins-SemiBold',
-                                                ),
+                                                style: TextStyle(color: borderColor,
+                                                  fontSize: 16, fontFamily: poppinSemiBold,),
                                                 textAlign: TextAlign.left,
                                               ),
-                                              Text(
-                                                "/ Month",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 8,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
+                                              Text("/ Month",
+                                                style: TextStyle(color: kBlack,
+                                                    fontSize: 8, fontFamily: poppinRegular),
                                                 textAlign: TextAlign.left,
                                               ),
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.01,
-                                              ),
-                                              Image.asset(
-                                                  "assets/car_bookings_images/rating_stars.png"),
+                                              SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+                                              Image.asset("assets/car_bookings_images/rating_stars.png"),
                                               SizedBox(
                                                 width: MediaQuery.of(context)
                                                     .size
@@ -226,7 +175,7 @@ class _PreviousPageState extends State<PreviousPage> {
                                                 style: TextStyle(
                                                   color: kBlack,
                                                   fontSize: 12,
-                                                  fontFamily: 'Poppins-Regular',
+                                                  fontFamily: poppinRegular,
                                                 ),
                                                 textAlign: TextAlign.left,
                                               ),
@@ -249,7 +198,7 @@ class _PreviousPageState extends State<PreviousPage> {
                                                 style: TextStyle(
                                                   color: textLabelColor,
                                                   fontSize: 10,
-                                                  fontFamily: 'Poppins-Regular',
+                                                  fontFamily: poppinRegular,
                                                 ),
                                                 textAlign: TextAlign.left,
                                               ),
@@ -271,7 +220,7 @@ class _PreviousPageState extends State<PreviousPage> {
                                                       color: kWhite,
                                                       fontSize: 8,
                                                       fontFamily:
-                                                      'Poppins-Regular',
+                                                      poppinRegular,
                                                     ),
                                                     textAlign: TextAlign.left,
                                                   ),

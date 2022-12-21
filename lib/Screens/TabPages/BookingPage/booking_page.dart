@@ -50,7 +50,7 @@ class _BookingPageState extends State<BookingPage> {
                 ],
               ),
             ),
-            const TabbarCarBooings(),
+            const TabbarCarBookings(),
           ],
         ),
       ),

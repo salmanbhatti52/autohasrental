@@ -221,7 +221,6 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     cron.schedule(Schedule.parse('*/60 * * * * *'), () async {
       print('auto refresh after 10 seconds allChatMessageApi');
       allChatMessageApi();
-
     });
 
     return Scaffold(

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
@@ -7,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../Model/SettingsModel/change_password_model.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
 import '../../../../../../Widget/toast_message.dart';
 import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
@@ -59,7 +59,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     print("confirmPassword: ${confirmNewPassController.text}");
     final response = await http.post(
       Uri.parse(apiUrl),
-      headers: {'Accept': 'application/json'},
+      headers: {
+        'Accept': 'application/json',
+        'Cookie': cookieChangePassword,
+      },
       body: {
         'email': userEmail,
         'old_password': oldPassController.text,
@@ -125,8 +128,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           Future.delayed(const Duration(seconds: 3), () {
                             toastSuccessMessage("${changePasswordModel.status}", Colors.green);
 
-                            Navigator.pushReplacement(
-                                context,
+                            Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) => const SettingsScreen()));
 
                             setState(() {
@@ -169,8 +171,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         textWidgetBlack("Enter Old Password"),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.005),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
                             color: kWhite,
@@ -183,8 +184,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  top: 15, left: 20, bottom: 15),
+                              contentPadding: const EdgeInsets.only(top: 15, left: 20, bottom: 15),
                               hintText: '••••••••',
                               hintStyle: TextStyle(
                                   color: textLabelColor,
@@ -196,9 +196,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
                                 child: IconButton(
                                   icon: Icon(
-                                      obscureOldPass
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
+                                      obscureOldPass ? Icons.visibility : Icons.visibility_off,
                                       color: textLabelColor),
                                   onPressed: () {
                                     setState(() {
@@ -208,7 +206,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 ),
                               ),
                             ),
-                            style:     TextStyle(color: textLabelColor, fontSize: 14),
+                            style: TextStyle(color: textLabelColor, fontSize: 14),
 
                           ),
                         ),
@@ -220,8 +218,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       children: [
                         textWidgetBlack("Enter New Password"),
 
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.005),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                         Container(
                           decoration: BoxDecoration(
                             color: kWhite,
@@ -234,22 +231,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  top: 15, left: 20, bottom: 15),
+                              contentPadding: const EdgeInsets.only(top: 15, left: 20, bottom: 15),
                               hintText: '••••••••',
-                              hintStyle: TextStyle(
-                                  color: textLabelColor,
-                                  letterSpacing: 3,
-                                  fontFamily: 'Poppins-Bold'),
+                              hintStyle: TextStyle(color: textLabelColor,
+                                  letterSpacing: 3, fontFamily: poppinBold),
                               focusColor: borderColor,
                               suffixIcon: Padding(
                                 padding: const EdgeInsetsDirectional.only(end: 12.0),
 
                                 child: IconButton(
                                   icon: Icon(
-                                      obscureNewPass
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
+                                      obscureNewPass ? Icons.visibility : Icons.visibility_off,
                                       color: textLabelColor),
                                   onPressed: () {
                                     setState(() {

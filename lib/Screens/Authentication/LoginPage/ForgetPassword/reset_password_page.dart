@@ -5,7 +5,6 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../Model/Auth/forget_password_model.dart';
 import '../../../../Widget/TextFields/text_form_field.dart';
 import '../../../../Widget/toast_message.dart';
@@ -111,7 +110,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           if (forgetPasswordModel.status == "success") {
                             print("reset Success");
                             Future.delayed(const Duration(seconds: 3), () {
-                              toastSuccessMessage("${forgetPasswordModel.data!.message}", Colors.green);
+                              toastSuccessMessage("${forgetPasswordModel.data!.message}", colorGreen);
 
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) => SetNewPasswordPage(

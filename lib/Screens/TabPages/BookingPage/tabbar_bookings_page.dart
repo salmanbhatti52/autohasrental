@@ -3,23 +3,23 @@ import '../../../Utils/colors.dart';
 import 'BookingTabs/PreviousTab/previous_page.dart';
 import 'BookingTabs/UpcomingTab/upcoming_page.dart';
 
-class TabbarCarBooings extends StatefulWidget {
-  const TabbarCarBooings({super.key});
+class TabbarCarBookings extends StatefulWidget {
+  const TabbarCarBookings({super.key});
 
   @override
-  State<TabbarCarBooings> createState() => _TabbarCarBooingsState();
+  State<TabbarCarBookings> createState() => _TabbarCarBookingsState();
 }
 
 abstract class TickerProvider {}
 
-class _TabbarCarBooingsState extends State<TabbarCarBooings>
+class _TabbarCarBookingsState extends State<TabbarCarBookings>
     with TickerProviderStateMixin {
   List<String> tabs = ["Previous", "Upcoming"];
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    TabController tabcontroller = TabController(length: 2, vsync: this);
+    TabController tabController = TabController(length: 2, vsync: this);
 
     return Column(
       children: [
@@ -34,7 +34,7 @@ class _TabbarCarBooingsState extends State<TabbarCarBooings>
               child: Padding(
                 padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
                 child: TabBar(
-                  controller: tabcontroller,
+                  controller: tabController,
                   indicator: BoxDecoration(
                     color: kWhite,
                     borderRadius: BorderRadius.circular(30.0),
@@ -60,7 +60,7 @@ class _TabbarCarBooingsState extends State<TabbarCarBooings>
           width: double.maxFinite,
           height: MediaQuery.of(context).size.height,
           child: TabBarView(
-            controller: tabcontroller,
+            controller: tabController,
             children: const [
               PreviousPage(),
               UpcomingPage(),

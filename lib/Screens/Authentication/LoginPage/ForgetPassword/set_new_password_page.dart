@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../Model/Auth/modify_password_model.dart';
+import '../../../../Utils/cookies_utils.dart';
 import '../../../../Widget/TextFields/password_text_field.dart';
 import '../../../../Widget/toast_message.dart';
 import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
@@ -46,7 +47,8 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
       print("passwordConfirm: ${confirmNewPassController.text}");
       final response = await http.post(Uri.parse(apiUrl),
         headers: {
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'Cookie': cookieModifyPassword,
         },
         body: {
           'email': widget.email,
@@ -116,8 +118,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                           toastFailedMessage('new password cannot be empty', Colors.red);
                         } else if (confirmNewPassController.text.isEmpty) {
                           toastFailedMessage('confirm new password cannot be empty',Colors.red);
-                        }
-                        else if(newPassController.text != confirmNewPassController.text){
+                        } else if(newPassController.text != confirmNewPassController.text){
                           toastFailedMessage('password did not matched', Colors.red);
                         } else if(newPassController.text == confirmNewPassController.text) {
                           print("password matched");
@@ -126,12 +127,10 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                           });
                           await modifyNewPasswordWidget();
                           if (modifyPasswordModel.status == "success") {
-
-
                             Future.delayed(const Duration(seconds: 3), () {
                               print("passwordModify");
                               print("${modifyPasswordModel.status}");
-                              toastSuccessMessage("${modifyPasswordModel.status}", Colors.green);
+                              toastSuccessMessage("${modifyPasswordModel.status}", colorGreen);
 
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) => const PrivacyPolicyPage()));

@@ -8,7 +8,11 @@ import 'choose_mileage_plan.dart';
 import 'choose_subscription_plan.dart';
 
 class HomePageDetails extends StatefulWidget {
-  const HomePageDetails({Key? key}) : super(key: key);
+  final String? vehicalName, rentCostMonth, oldRent, carRating, discount;
+  final int? modelYear;
+  const HomePageDetails({Key? key,
+  this.vehicalName, this.rentCostMonth, this.discount,
+    this.oldRent, this.carRating, this.modelYear}) : super(key: key);
 
   @override
   State<HomePageDetails> createState() => _HomePageDetailsState();
@@ -21,17 +25,18 @@ class _HomePageDetailsState extends State<HomePageDetails> {
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: const MyAppBarSingleImagewithText(
-        title: "BMW 2 series, ", subtitle: "2022", backImage: "assets/messages_images/Back.png",),
+        title: "BMW 2 series, ", subtitle: "2022",
+        // title: "${widget.vehicalName}", subtitle: "${widget.modelYear}",
+        backImage: "assets/messages_images/Back.png",),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SingleChildScrollView(
-
                 child: Column(
                   children: [
-                    card(),
+                    homePageDetailsCard(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
@@ -51,9 +56,9 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Start Fee", textAlign: TextAlign.left, style: TextStyle(
-                                  fontSize: 14, fontFamily: 'Poppins-Medium', color: kBlack),),
+                                  fontSize: 14, fontFamily: poppinMedium, color: kBlack),),
                               Text("RM 8,471.94", textAlign: TextAlign.right, style: TextStyle(
-                                  fontSize: 14, fontFamily: 'Poppins-Medium', color: kBlack),),
+                                  fontSize: 14, fontFamily: poppinMedium, color: kBlack),),
                             ],
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height * 0.015),
@@ -223,7 +228,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
     );
   }
 
-  Widget card(){
+  Widget homePageDetailsCard(){
     return Stack(
       children: [
         Padding(
@@ -258,13 +263,13 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                   ),
                   Row(
                     children: [
-                      Text("TESLA | ", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
-                        fontSize: 14, fontFamily: 'Poppins-Bold',),),
+                      Text("${widget.vehicalName} | ", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
+                        fontSize: 14, fontFamily: poppinBold,),),
                       Text("MODEL", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
                         fontSize: 12, fontFamily: poppinRegular,),),
                       Text("Y LONG RANGE ", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
-                        fontSize: 14, fontFamily: 'Poppins-Medium',)),
-                      Text("2022", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
+                        fontSize: 14, fontFamily: poppinMedium,)),
+                      Text("${widget.modelYear}", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
                         fontSize: 10, fontFamily: poppinRegular,)),
                     ],
                   ),
@@ -273,18 +278,18 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 04),
-                        child: Text("RM", textAlign: TextAlign.left, style: TextStyle(color: kRed,
-                          fontSize: 5, fontFamily: 'Poppins-Light',),),
+                        child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: kRed,
+                          fontSize: 5, fontFamily: poppinLight,),),
                       ),
-                      Text(" 9,000", textAlign: TextAlign.left, style: TextStyle(color: kRed, decoration: TextDecoration.lineThrough,
-                        fontSize: 10,  fontFamily: 'Poppins-Light',),),
+                      Text("${widget.oldRent}", textAlign: TextAlign.left, style: TextStyle(color: kRed, decoration: TextDecoration.lineThrough,
+                        fontSize: 10,  fontFamily: poppinLight,),),
                       SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
                       Padding(
                         padding: const EdgeInsets.only(top: 06),
                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
                           fontSize: 7, fontFamily: poppinSemiBold,),),
                       ),
-                      Text("8,500", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
+                      Text("${widget.rentCostMonth}", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
                         fontSize: 20, fontFamily: poppinSemiBold,),),
                       Text("/ Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
                         fontSize: 8, fontFamily: poppinRegular,),),
@@ -321,11 +326,11 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                         children:  [
                           Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                           SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                          Text("4.0", textAlign: TextAlign.left, style: TextStyle(
+                          Text("${widget.carRating}", textAlign: TextAlign.left, style: TextStyle(
                             color: kBlack, fontSize: 14, fontFamily: poppinRegular,),),
                         ],
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.height * 0.2,),
+                      SizedBox(width: MediaQuery.of(context).size.height * 0.2),
                       Container(
                         height: 25, width: 65,
                         decoration: BoxDecoration(
@@ -334,7 +339,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                         ),
                         child: Center(
                           child: Text("Pre book", textAlign: TextAlign.left, style: TextStyle(color: kWhite,
-                            fontSize: 12, fontFamily: 'Poppins-Medium',),),
+                            fontSize: 12, fontFamily: poppinMedium,),),
                         ),
                       ),
                     ],
@@ -367,8 +372,8 @@ class _HomePageDetailsState extends State<HomePageDetails> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("5%", textAlign: TextAlign.left, style: TextStyle(color: kWhite,
-                    fontSize: 13, fontFamily: poppinSemiBold,),),
+                  Text("${double.parse(widget.discount.toString()).toStringAsFixed(1)}% ", textAlign: TextAlign.left,
+                    style: TextStyle(color: kWhite, fontSize: 13, fontFamily: poppinSemiBold,),),
                   Text("OFF", textAlign: TextAlign.left, style: TextStyle(color: kWhite, fontSize: 8, fontFamily: poppinRegular,)),
                 ],
               ),
@@ -382,7 +387,6 @@ class _HomePageDetailsState extends State<HomePageDetails> {
         Positioned(
             top: 28, right: 27,
             child: Image.asset("assets/home_page/heart_transparent.png", color: kBlack,)),
-
       ],
     );
   }

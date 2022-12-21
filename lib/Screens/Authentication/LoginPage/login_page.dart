@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    sharedPrefs();
+    // sharedPrefs();
   }
 
   bool progress = false;

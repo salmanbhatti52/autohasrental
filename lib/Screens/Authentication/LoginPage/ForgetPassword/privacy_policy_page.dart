@@ -70,13 +70,6 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   },
                   child: Image.asset('assets/live_chat_images/back_arrow.png', color: kWhite,),
                 ),
-                // GestureDetector(
-                //   onTap: (){
-                //     Navigator.pop(context);
-                //   },
-                //   child: Icon(Icons.arrow_back_ios_new_outlined, color: kWhite,),
-                //  // child: Image.asset("assets/messages_images/Back.png", color: kWhite,),
-                // ),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.1),
                 Text("Review Terms of \nService & Privacy Policy",
                   maxLines: 2, textAlign: TextAlign.center,

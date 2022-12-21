@@ -131,8 +131,7 @@ class _MessagePageState extends State<MessagePage> {
             child: Column(
               children: [
                 ListTile(
-                  leading:
-                  allChatModel[index].companyLogo == null? ClipRRect(
+                  leading: allChatModel[index].companyLogo == null? ClipRRect(
                       borderRadius: BorderRadius.circular(80),
                       child: Image.asset('assets/icon/fade_in_image.jpeg')):
                   ClipRRect(

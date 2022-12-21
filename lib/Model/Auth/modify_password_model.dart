@@ -63,7 +63,7 @@ class Datum {
   String? googleAccessToken;
   dynamic location;
   dynamic about;
-  dynamic profilePic;
+  String? profilePic;
   DateTime? dateAdded;
   String? verifyCode;
   String? notifications;
