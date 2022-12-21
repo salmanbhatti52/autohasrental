@@ -193,14 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                             print("userFirstName: ${userLoginModel.data!.firstName!}");
                             print("userLastName: ${userLoginModel.data!.lastName!}");
 
-                            Future.delayed(const Duration(seconds: 3), () async {
-                              toastSuccessMessage(
-                                  "${userLoginModel.status}", Colors.green);
-                              setState(() {
-                                progress = true;
-                              });
-                              await userLogin();
-                              print("LogIn Success");
+                            Future.delayed(const Duration(seconds: 3), () {
+                              toastSuccessMessage("${userLoginModel.status}", Colors.green);
 
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) => const TabBarPage()));

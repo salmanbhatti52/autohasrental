@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Home/home_page_details.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
 
@@ -51,29 +52,10 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                       children: [
                         Container(
                           height: MediaQuery.of(context).size.height * 0.1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 40, right: 20),
+                          child: const Padding(
+                            padding: EdgeInsets.only(top: 40, right: 20),
                             child: Align(
                               alignment: Alignment.centerRight,
-                              child: Container(
-                                width: 102,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  color: borderColor,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Rebook',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'Poppins-Regular',
-                                      color: kWhite,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
                             ),
                           ),
                         ),
@@ -258,14 +240,6 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                 ],
                               ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Image.asset(
-                                    "assets/car_bookings_images/more_button.png"),
-                              ],
-                            ),
                           ],
                         ),
                       ],
@@ -320,6 +294,37 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                 right: 15,
                 child: Image.asset(
                   "assets/car_bookings_images/heart.png",
+                ),
+              ),
+              Positioned(
+                top: 135,
+                right: 15,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePageDetails()));
+                  },
+                  child: Container(
+                    width: 102,
+                    height: 25,
+                    decoration: BoxDecoration(
+                      color: borderColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Rebook',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Poppins-Regular',
+                          color: kWhite,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
