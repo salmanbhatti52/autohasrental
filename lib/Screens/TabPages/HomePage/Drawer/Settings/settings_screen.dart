@@ -4,6 +4,7 @@ import 'dart:core';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../Model/SettingsModel/delete_account_model.dart';
 import '../../../../../Utils/api_urls.dart';
@@ -23,7 +24,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-
   bool loading = true;
   SharedPreferences? prefs;
   String? userEmail;
@@ -198,8 +198,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         ),
                                       ],
                                     ),
-
-                                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.05),
                                     Text(
                                       "Delete Account",
                                       textAlign: TextAlign.center,
@@ -209,7 +211,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         fontFamily: poppinSemiBold,
                                       ),
                                     ),
-                                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.01),
                                     Text(
                                       "Are you sure you want to delete your account?",
                                       textAlign: TextAlign.center,
@@ -222,14 +227,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     GestureDetector(
                                         onTap: () async {
                                           await deleteAccountWidget();
-                                          if(deleteAccountModel.status == "success"){
-                                            toastSuccessMessage(deleteAccountModel.message, colorGreen);
+                                          if (deleteAccountModel.status ==
+                                              "success") {
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "${deleteAccountModel.message}",
+                                                toastLength: Toast.LENGTH_LONG,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: colorGreen,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
                                             Navigator.pop(context);
                                           }
-                                          if(deleteAccountModel.status != "success"){
-                                            toastFailedMessage(deleteAccountModel.message, kRed);
+                                          if (deleteAccountModel.status !=
+                                              "success") {
+                                            toastFailedMessage(
+                                                deleteAccountModel.message,
+                                                kRed);
                                           }
-                                          },
+                                        },
                                         child: yesButton()),
                                     GestureDetector(
                                         onTap: () {
@@ -267,10 +284,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       String apiUrl = deleteAccountApiUrl;
       print("api: $apiUrl");
       print("deleteEmail: $userEmail");
-      final response = await http.post(Uri.parse(apiUrl),
-        headers: {
-          'Accept': 'application/json'
-        },
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Accept': 'application/json'},
         body: {
           'user_email': userEmail,
           'delete_reason': "test delete",
