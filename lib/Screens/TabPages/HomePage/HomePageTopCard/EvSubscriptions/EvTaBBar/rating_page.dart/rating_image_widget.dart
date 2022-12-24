@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../../Utils/colors.dart';
+import '../../../../../../../Utils/fontFamily.dart';
 
 Widget allRatingList() {
   return ListView.builder(
@@ -28,18 +29,18 @@ Widget allRatingList() {
               title: Padding(
                 padding: const EdgeInsets.only(top: 5, bottom: 2),
                 child: Text(ratingItemsList[index].name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
-                      fontFamily: 'Poppins-Medium',
+                      fontFamily: poppinMedium,
                     )),
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Text(
                   ratingItemsList[index].description,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 10,
-                    fontFamily: 'Poppins-Regular',
+                    fontFamily: poppinRegular,
                   ),
                 ),
               ),

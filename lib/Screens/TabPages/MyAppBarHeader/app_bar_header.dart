@@ -27,7 +27,7 @@ Widget myHeaderDrawer(BuildContext context, backImage, titleText, rightImage) {
           titleText,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack),
+              fontSize: 20, fontFamily: poppinBold, color: kBlack),
         ),
         GestureDetector(
             onTap: () {
@@ -81,7 +81,7 @@ class MyAppBarSingleImage extends StatelessWidget
         child: Text(title,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack)),
+                fontSize: 20, fontFamily: poppinBold, color: kBlack)),
       ),
       backgroundColor: homeBgColor,
       elevation: 0.0,
@@ -135,13 +135,13 @@ class MyAppBarSingleImagewithText extends StatelessWidget
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack),
+                  fontSize: 20, fontFamily: poppinBold, color: kBlack),
             ),
             Text(
               subtitle,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 20, fontFamily: 'Poppins-Regular', color: kBlack),
+                  fontSize: 20, fontFamily: poppinRegular, color: kBlack),
             ),
           ],
         ),
@@ -354,7 +354,7 @@ class MyAppBarDoubleImage extends StatelessWidget
         child: Text(title,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack)),
+                fontSize: 20, fontFamily: poppinBold, color: kBlack)),
       ),
       backgroundColor: homeBgColor,
       elevation: 0.0,
@@ -499,7 +499,7 @@ class MyAppBarDoubleImageforChats extends StatelessWidget
             Text(title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 20, fontFamily: 'Poppins-Bold', color: kBlack)),
+                    fontSize: 20, fontFamily: poppinBold, color: kBlack)),
           ],
         ),
       ),

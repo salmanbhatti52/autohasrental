@@ -4,6 +4,7 @@ import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:flutter/material.dart';
 import '../../../Model/HomePageModels/FavoritesModel/like_unlike_favorite_cars_model.dart';
 import '../../../Utils/colors.dart';
+import '../../../Utils/constants.dart';
 import '../../../Utils/fontFamily.dart';
 import '../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart' as  http;
@@ -20,8 +21,6 @@ class _FavoritePageState extends State<FavoritePage> {
   FavoriteCarModel favoriteCarModelObject = FavoriteCarModel();
 
   bool loadingP = true;
-  SharedPreferences? prefs;
-  String? userId;
 
   sharedPrefs() async {
     loadingP = true;

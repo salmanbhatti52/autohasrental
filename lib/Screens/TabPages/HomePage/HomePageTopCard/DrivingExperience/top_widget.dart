@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../Utils/colors.dart';
+import '../../../../../Utils/fontFamily.dart';
 
 Widget topExperienceWidget(BuildContext context) {
   return Container(
@@ -49,7 +49,7 @@ Widget topExperienceWidget(BuildContext context) {
                                           style: TextStyle(
                                             color: kBlack,
                                             fontSize: 14,
-                                            fontFamily: 'Poppins-Bold',
+                                            fontFamily: poppinBold,
                                           ),
                                           textAlign: TextAlign.left,
                                         ),
@@ -59,7 +59,7 @@ Widget topExperienceWidget(BuildContext context) {
                                           style: TextStyle(
                                             color: kBlack,
                                             fontSize: 10,
-                                            fontFamily: 'Poppins-Regular',
+                                            fontFamily: poppinRegular,
                                           ),
                                           textAlign: TextAlign.left,
                                         ),
@@ -80,7 +80,7 @@ Widget topExperienceWidget(BuildContext context) {
                                           style: TextStyle(
                                             color: kBlack,
                                             fontSize: 10,
-                                            fontFamily: 'Poppins-Medium',
+                                            fontFamily: poppinMedium,
                                           ),
                                           textAlign: TextAlign.left,
                                         ),
@@ -98,7 +98,7 @@ Widget topExperienceWidget(BuildContext context) {
                                         style: TextStyle(
                                           color: kRed,
                                           fontSize: 5,
-                                          fontFamily: 'Poppins-Light',
+                                          fontFamily: poppinLight,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -111,7 +111,7 @@ Widget topExperienceWidget(BuildContext context) {
                                         decorationColor: kRed,
                                         decorationThickness: 3,
                                         fontSize: 10,
-                                        fontFamily: 'Poppins-Light',
+                                        fontFamily: poppinLight,
                                         height: 2,
                                       ),
                                       textAlign: TextAlign.left,
@@ -122,7 +122,7 @@ Widget topExperienceWidget(BuildContext context) {
                                       style: TextStyle(
                                         color: kBlack,
                                         fontSize: 8,
-                                        fontFamily: 'Poppins-Regular',
+                                        fontFamily: poppinRegular,
                                       ),
                                       textAlign: TextAlign.left,
                                     ),
@@ -147,11 +147,11 @@ Widget topExperienceWidget(BuildContext context) {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Text(
+                                      Text(
                                         "Click to see Details",
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontFamily: 'Poppins-Medium',
+                                            fontFamily: poppinMedium,
                                             fontSize: 10),
                                         textAlign: TextAlign.left,
                                       ),

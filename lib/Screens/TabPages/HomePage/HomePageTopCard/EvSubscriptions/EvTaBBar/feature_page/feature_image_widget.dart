@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../../Utils/colors.dart';
+import '../../../../../../../Utils/fontFamily.dart';
 
 Widget myHorizontalCard3(BuildContext context) {
   return Container(
@@ -36,7 +37,7 @@ Widget myHorizontalCard3(BuildContext context) {
                       cardItemsList[index].title,
                       style: TextStyle(
                           fontSize: 13,
-                          fontFamily: 'Poppins-Medium',
+                          fontFamily: poppinMedium,
                           color: kBlack),
                       textAlign: TextAlign.left,
                     ),

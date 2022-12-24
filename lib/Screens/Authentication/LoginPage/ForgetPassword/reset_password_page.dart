@@ -5,7 +5,7 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../../../Model/Auth/forget_password_model.dart';
+import '../../../../Model/AuthModels/forget_password_model.dart';
 import '../../../../Widget/TextFields/text_form_field.dart';
 import '../../../../Widget/toast_message.dart';
 import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
@@ -80,7 +80,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
 
                 // Text("Reset Password", textAlign: TextAlign.center,
-                //   style: TextStyle(fontSize: 20, fontFamily: 'Poppins-Bold', color: kWhite),),
+                //   style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
                 SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1,),

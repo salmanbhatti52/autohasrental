@@ -1,14 +1,15 @@
+import 'package:auto_haus_rental_app/Model/AuthModels/modify_password_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/password_text_field.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../../../Model/Auth/modify_password_model.dart';
-import '../../../../Utils/cookies_utils.dart';
-import '../../../../Widget/TextFields/password_text_field.dart';
-import '../../../../Widget/toast_message.dart';
-import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
+import '../../../../Utils/fontFamily.dart';
 import 'myTextWidget.dart';
 import 'privacy_policy_page.dart';
 import 'package:http/http.dart'as http;
@@ -102,7 +103,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text("Enter your new password, and confirm it by entering it a second time.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, fontFamily: 'Poppins-Regular', color: kWhite),),
+                    style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
                 ),
 
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
@@ -197,47 +198,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                               });
                             },
                           ),
-                          // errorTextMsg: "Please Enter Email",
                         ),
-
-                        // TextField(
-                        //   controller: newPassController,
-                        //   keyboardType: TextInputType.visiblePassword,
-                        //   decoration: InputDecoration(
-                        //     contentPadding: const EdgeInsets.only(
-                        //         top: 15, left: 20, bottom: 15),
-                        //     enabledBorder: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(30.0),
-                        //         borderSide: BorderSide(color: textLabelColor)
-                        //     ),
-                        //     border: OutlineInputBorder(
-                        //         borderSide: BorderSide(color: textLabelColor),
-                        //         borderRadius: BorderRadius.circular(30)
-                        //     ),
-                        //     focusedBorder: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(30.0),
-                        //         borderSide: BorderSide(color: borderColor)
-                        //     ),
-                        //     hintText: '••••••••',
-                        //     hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
-                        //         fontFamily: 'Poppins-Bold'),
-                        //     // labelStyle: TextStyle(color: textLabelColor),
-                        //     focusColor: borderColor,
-                        //     suffixIcon: IconButton(
-                        //       icon: Icon(
-                        //         // _obscureText ? Icons.visibility_off : Icons.visibility,
-                        //           obscurePass ?  Icons.visibility :Icons.visibility_off,
-                        //           color: textLabelColor),
-                        //       onPressed: () {
-                        //         setState(() {
-                        //           obscurePass = !obscurePass;
-                        //         });
-                        //       },
-                        //     ),
-                        //   ),
-                        //   style: TextStyle(color: borderColor, fontSize: 14),
-                        // ),
-
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -267,47 +228,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                               });
                             },
                           ),
-                          // errorTextMsg: "Please Enter Email",
                         ),
-
-                        // TextField(
-                        //   cursorColor: borderColor,
-                        //   controller: confirmNewPassController,
-                        //   keyboardType: TextInputType.visiblePassword,
-                        //   decoration: InputDecoration(
-                        //     contentPadding: const EdgeInsets.only(
-                        //         top: 15, left: 20, bottom: 15),
-                        //     enabledBorder: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(30.0),
-                        //         borderSide: BorderSide(color: textLabelColor)
-                        //     ),
-                        //     border: OutlineInputBorder(
-                        //         borderSide: BorderSide(color: textLabelColor),
-                        //         borderRadius: BorderRadius.circular(30)
-                        //     ),
-                        //     focusedBorder: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(30.0),
-                        //         borderSide: BorderSide(color: borderColor)
-                        //     ),
-                        //     hintText: '••••••••',
-                        //     hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
-                        //         fontFamily: 'Poppins-Bold'),
-                        //     // labelStyle: TextStyle(color: textLabelColor),
-                        //     focusColor: borderColor,
-                        //     suffixIcon: IconButton(
-                        //       icon: Icon(
-                        //         // _obscureText ? Icons.visibility_off : Icons.visibility,
-                        //           obscureConfirmPass ?  Icons.visibility :Icons.visibility_off,
-                        //           color: textLabelColor),
-                        //       onPressed: () {
-                        //         setState(() {
-                        //           obscureConfirmPass = !obscureConfirmPass;
-                        //         });
-                        //       },
-                        //     ),
-                        //   ),
-                        //   style: TextStyle(color: borderColor, fontSize: 14),
-                        // ),
                       ],
                     ),
                   ],

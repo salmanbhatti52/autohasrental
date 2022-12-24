@@ -1,6 +1,7 @@
 import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Home/home_page_details.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
+import '../../../../../Utils/fontFamily.dart';
 
 class BookingsDetailsPrevious extends StatefulWidget {
   const BookingsDetailsPrevious({super.key});
@@ -75,7 +76,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 14,
-                                          fontFamily: 'Poppins-Bold',
+                                          fontFamily: poppinBold,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -84,7 +85,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 12,
-                                          fontFamily: 'Poppins-Regular',
+                                          fontFamily: poppinRegular,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -93,7 +94,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 14,
-                                          fontFamily: 'Poppins-Medium',
+                                          fontFamily: poppinMedium,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -102,7 +103,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 10,
-                                          fontFamily: 'Poppins-Regular',
+                                          fontFamily: poppinRegular,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -121,7 +122,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                           style: TextStyle(
                                             color: kRed,
                                             fontSize: 5,
-                                            fontFamily: 'Poppins-Regular',
+                                            fontFamily: poppinRegular,
                                           ),
                                           textAlign: TextAlign.left,
                                         ),
@@ -135,7 +136,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                             decorationColor: kRed,
                                             decorationThickness: 3,
                                             fontSize: 10,
-                                            fontFamily: 'Poppins-Light',
+                                            fontFamily: poppinLight,
                                             height: 2),
                                         textAlign: TextAlign.left,
                                       ),
@@ -147,7 +148,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                           style: TextStyle(
                                             color: borderColor,
                                             fontSize: 7,
-                                            fontFamily: 'Poppins-SemiBold',
+                                            fontFamily: poppinSemiBold,
                                           ),
                                           textAlign: TextAlign.left,
                                         ),
@@ -157,7 +158,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         style: TextStyle(
                                           color: borderColor,
                                           fontSize: 20,
-                                          fontFamily: 'Poppins-SemiBold',
+                                          fontFamily: poppinSemiBold,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -166,7 +167,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 8,
-                                          fontFamily: 'Poppins-Regular',
+                                          fontFamily: poppinRegular,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -187,7 +188,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 12,
-                                          fontFamily: 'Poppins-Regular',
+                                          fontFamily: poppinRegular,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -209,7 +210,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         style: TextStyle(
                                           color: textLabelColor,
                                           fontSize: 10,
-                                          fontFamily: 'Poppins-Regular',
+                                          fontFamily: poppinRegular,
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
@@ -229,7 +230,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                             style: TextStyle(
                                               color: kWhite,
                                               fontSize: 8,
-                                              fontFamily: 'Poppins-Regular',
+                                              fontFamily: poppinRegular,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -318,7 +319,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                         'Rebook',
                         style: TextStyle(
                           fontSize: 12,
-                          fontFamily: 'Poppins-Regular',
+                          fontFamily: poppinRegular,
                           color: kWhite,
                         ),
                         textAlign: TextAlign.center,

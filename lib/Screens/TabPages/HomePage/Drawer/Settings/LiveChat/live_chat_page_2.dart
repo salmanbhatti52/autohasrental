@@ -1,6 +1,7 @@
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../Utils/colors.dart';
+import '../../../../../../Utils/fontFamily.dart';
 
 class LiveChatPage2 extends StatefulWidget {
   const LiveChatPage2({super.key});
@@ -108,7 +109,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontSize: 14,
-                                        fontFamily: 'Poppins-Light',
+                                        fontFamily: poppinLight,
                                         color: kBlack),
                                     textAlign: TextAlign.left,
                                   )
@@ -118,7 +119,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontSize: 14,
-                                        fontFamily: 'Poppins-Light',
+                                        fontFamily: poppinLight,
                                         color: kWhite),
                                     textAlign: TextAlign.left,
                                   ),
@@ -151,10 +152,10 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
                               contentPadding:
                                   const EdgeInsets.only(left: 10, bottom: 3),
                               hintText: "Type your message here.....",
-                              hintStyle: const TextStyle(
+                              hintStyle: TextStyle(
                                   fontSize: 14,
-                                  fontFamily: 'Poppins-Light',
-                                  color: Color(0xffD4DCE1)),
+                                  fontFamily: poppinLight,
+                                  color: const Color(0xffD4DCE1)),
                               fillColor: kWhite,
                               border: InputBorder.none),
                         ),
@@ -193,7 +194,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
       //         child: Text(
       //           "Phasellus finibus enim nulla, quis ornare odio facilisis eu. Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. Ut turpis eros, aliquet non ante id, interdum placerat erat. Curabitur sit amet eros vel orci venenatis hendrerit. Cras sagittis sagittis sagittis. In hac habitasse platea dictumst. Phasellus diam erat, porttitor sed ligula at, ultricies auctor tellus. Donec ut sem in turpis ultrices suscipit ut auctor tellus. Quisque a tincidunt ipsum.",
       //           style: TextStyle(
-      //               fontSize: 14, fontFamily: 'Poppins-Light', color: kBlack),
+      //               fontSize: 14, fontFamily: poppinLight, color: kBlack),
       //           textAlign: TextAlign.left,
       //         ),
       //       ),
@@ -203,7 +204,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
       //       "09:41 AM",
       //       style: TextStyle(
       //           fontSize: 12,
-      //           fontFamily: 'Poppins-Light',
+      //           fontFamily: poppinLight,
       //           color: detailsTextColor),
       //       textAlign: TextAlign.left,
       //     ),
@@ -224,7 +225,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
       //               "Hi, Mardin",
       //               style: TextStyle(
       //                   fontSize: 14,
-      //                   fontFamily: 'Poppins-Light',
+      //                   fontFamily: poppinLight,
       //                   color: kWhite),
       //               textAlign: TextAlign.left,
       //             ),
@@ -249,7 +250,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
       //               "What you want?",
       //               style: TextStyle(
       //                   fontSize: 14,
-      //                   fontFamily: 'Poppins-Light',
+      //                   fontFamily: poppinLight,
       //                   color: kWhite),
       //               textAlign: TextAlign.left,
       //             ),
@@ -265,7 +266,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
       //         child: Text(
       //           "Hi, Jeanie",
       //           style: TextStyle(
-      //               fontSize: 14, fontFamily: 'Poppins-Light', color: kBlack),
+      //               fontSize: 14, fontFamily: poppinLight, color: kBlack),
       //           textAlign: TextAlign.left,
       //         ),
       //       ),
@@ -289,7 +290,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
       //                 "Phasellus finibus enim nulla, quis ornare odio facilisis eu. Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. Ut turpis eros, aliquet non ante id, interdum placerat erat. Curabitur sit amet eros vel orci venenatis hendrerit. Cras sagittis sagittis sagittis. In hac habitasse platea dictumst. Phasellus diam erat, porttitor sed ligula at, ultricies auctor tellus. Donec ut sem in turpis ultrices suscipit ut auctor tellus. Quisque a tincidunt ipsum.",
       //                 style: TextStyle(
       //                     fontSize: 14,
-      //                     fontFamily: 'Poppins-Light',
+      //                     fontFamily: poppinLight,
       //                     color: kWhite),
       //                 textAlign: TextAlign.left,
       //               ),
@@ -317,7 +318,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
       //               hintText: "Type your message here.....",
       //               hintStyle: const TextStyle(
       //                 fontSize: 14,
-      //                 fontFamily: 'Poppins-Light',
+      //                 fontFamily: poppinLight,
       //                 color: Color(0xffd4dce1),
       //               ),
       //               fillColor: const Color(0xfffbfbfb),

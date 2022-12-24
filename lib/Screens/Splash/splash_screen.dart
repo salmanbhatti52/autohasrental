@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Utils/colors.dart';
+import '../../Utils/constants.dart';
 import '../Authentication/LoginPage/login_page.dart';
 import '../Introduction_screens/introduction_page.dart';
 import '../TabPages/tab_page.dart';
@@ -15,8 +16,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  SharedPreferences? prefs;
-  String? userId, userEmail;
   bool loading = true;
   sharedPrefs() async {
     loading = true;

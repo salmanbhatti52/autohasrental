@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Utils/colors.dart';
 import '../../../Utils/fontFamily.dart';
-import '../../../Widget/home_card_top_rented.dart';
 import 'Drawer/Settings/EditProfile/edit_profile_screen.dart';
+import 'HomePageTopCard/home_card_top_rented.dart';
 import 'HomePageTopCard/home_top_card.dart';
 import 'Drawer/drawer_screen.dart';
 import 'Filter/filter_screen.dart';
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                       child: Image.asset(
                         "assets/home_page/Side_Menu.png", height: 25, width: 25,),),
                   Text("Home",
-                    style: TextStyle(fontSize: 20, fontFamily: "Poppins-Bold", color: kBlack),),
+                    style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack),),
                   Row(
                     children: [
                       GestureDetector(
@@ -78,10 +78,10 @@ class _HomePageState extends State<HomePage> {
                           contentPadding:
                           const EdgeInsets.fromLTRB(20, 12, 10, 0),
                           hintText: 'Search for Cars',
-                          hintStyle: const TextStyle(
-                              color: Color(0xffD4DCE1),
+                          hintStyle: TextStyle(
+                              color: const Color(0xffD4DCE1),
                               fontSize: 14,
-                              fontFamily: 'Poppins-Light'),
+                              fontFamily: poppinLight),
                           focusColor: borderColor,
                           suffixIcon: const Icon(
                             Icons.search_outlined,

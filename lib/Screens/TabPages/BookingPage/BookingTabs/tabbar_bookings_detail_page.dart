@@ -20,7 +20,7 @@ class _TabbarBookingsDetailsState extends State<TabbarBookingsDetails>
 
   @override
   Widget build(BuildContext context) {
-    TabController tabcontroller = TabController(length: 3, vsync: this);
+    TabController tabController = TabController(length: 3, vsync: this);
 
     return Column(
       children: [
@@ -35,7 +35,7 @@ class _TabbarBookingsDetailsState extends State<TabbarBookingsDetails>
               child: Padding(
                 padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
                 child: TabBar(
-                  controller: tabcontroller,
+                  controller: tabController,
                   indicator: BoxDecoration(
                     color: kWhite,
                     borderRadius: BorderRadius.circular(30.0),
@@ -66,7 +66,7 @@ class _TabbarBookingsDetailsState extends State<TabbarBookingsDetails>
           width: double.maxFinite,
           height: MediaQuery.of(context).size.height * 0.35,
           child: TabBarView(
-            controller: tabcontroller,
+            controller: tabController,
             children: const [
               DescriptionBookingsDetails(),
               FeaturesBookingsDetails(),

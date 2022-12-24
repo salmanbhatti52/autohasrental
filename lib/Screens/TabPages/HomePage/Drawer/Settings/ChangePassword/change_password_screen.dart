@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../Model/SettingsModel/change_password_model.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
+import '../../../../../../Utils/constants.dart';
 import '../../../../../../Widget/toast_message.dart';
 import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
@@ -30,10 +31,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool obscureConfirmPass = true;
   bool loading = true;
   bool progress = false;
-  SharedPreferences? prefs;
   ChangePasswordModel changePasswordModel = ChangePasswordModel();
-
-  String? userEmail;
 
   sharedPrefs() async {
     loading = true;
@@ -189,7 +187,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               hintStyle: TextStyle(
                                   color: textLabelColor,
                                   letterSpacing: 3,
-                                  fontFamily: 'Poppins-Bold'),
+                                  fontFamily: poppinBold),
                               focusColor: borderColor,
                               suffixIcon: Padding(
                                 padding: const EdgeInsetsDirectional.only(end: 12.0),
@@ -282,7 +280,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               hintStyle: TextStyle(
                                   color: textLabelColor,
                                   letterSpacing: 3,
-                                  fontFamily: 'Poppins-Bold'),
+                                  fontFamily: poppinBold),
                               focusColor: borderColor,
                               suffixIcon: Padding(
                                 padding:

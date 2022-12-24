@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../../Utils/colors.dart';
+import '../../../../Utils/fontFamily.dart';
 
 Widget allNotificationList(){
   return ListView.builder(
@@ -23,10 +23,11 @@ Widget allNotificationList(){
               child: ListTile(
                 leading: Image.asset(notificationItemsList[index].image, height: 30, width: 30,),
                 title: Text(notificationItemsList[index].sendName, textAlign: TextAlign.left,
-                    style: const TextStyle(fontSize: 14, fontFamily: 'Poppins-Medium',)),
+                    style: TextStyle(fontSize: 14, fontFamily: poppinMedium,)),
                 subtitle: Text(notificationItemsList[index].messageDescription, textAlign: TextAlign.left,
-                  style: const TextStyle(fontSize: 12, fontFamily: 'Poppins-Regular',),),
-                trailing: Text(notificationItemsList[index].msgTime, textAlign: TextAlign.left, style: const TextStyle(fontSize: 10,fontFamily: 'Poppins-Regular',)),
+                  style: TextStyle(fontSize: 12, fontFamily: poppinRegular,),),
+                trailing: Text(notificationItemsList[index].msgTime, textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 10,fontFamily: poppinRegular,)),
               ),
             ),
           ),

@@ -1,7 +1,12 @@
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../Model/HomePageModels/BookingModels/booking_upcoming_model.dart';
 import '../../../../../Utils/colors.dart';
-import 'bookings_details_page2.dart';
+import '../../../../../Utils/constants.dart';
+import 'upcoming_bookings_details_page.dart';
+import 'package:http/http.dart'as http;
 
 class UpcomingPage extends StatefulWidget {
   const UpcomingPage({super.key});
@@ -11,13 +16,78 @@ class UpcomingPage extends StatefulWidget {
 }
 
 class _UpcomingPageState extends State<UpcomingPage> {
+
+  UpcomingBookingModel upcomingBookingModelObject = UpcomingBookingModel();
+
+  bool loadingP = true;
+
+  sharedPrefs() async {
+    loadingP = true;
+    setState(() {});
+    print('in UpcomingBookingCar sharedPrefs');
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    print("userId in UpcomingBookingCar is = $userId");
+    setState(() {
+      getUpcomingBookingCarWidget();
+    });
+  }
+
+  getUpcomingBookingCarWidget() async {
+    loadingP = true;
+    setState(() {});
+
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    print('in upcomingBookingCarApi');
+
+    try {
+      String apiUrl = bookingUpcomingCarsApiUrl;
+      print("upcomingBookingCarModelApi: $apiUrl");
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: {
+            "users_customers_id": userId
+            // "users_customers_id": "1"
+          });
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("responseUpcomingBookingCar: ${responseString.toString()}");
+        upcomingBookingModelObject = upcomingBookingModelFromJson(responseString);
+        print("upcomingBookingCarLength is: ${upcomingBookingModelObject.data!.length}");
+      }
+    } catch (e) {
+      print('Error in upcomingBookingCar: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sharedPrefs();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor,)):
+      upcomingBookingModelObject.status != "success"? const Center(
+        child: Text('booking unavailable....',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+      ):
+
+      GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(
-                builder: (context) => const BookingDetailPage2()));
+        Navigator.push(context, MaterialPageRoute(
+                builder: (context) => const UpcomingBookingDetailPage()));
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 15),
@@ -29,15 +99,13 @@ class _UpcomingPageState extends State<UpcomingPage> {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                itemCount: upcomingItemsList.length,
+                itemCount: upcomingBookingModelObject.data!.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Stack(
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.33,
-                        ),
+                        child: Container(height: MediaQuery.of(context).size.height * 0.33),
                       ),
                       Positioned(
                         top: 90,
@@ -61,7 +129,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                             child: Column(
                               children: [
                                 Container(
-                                  height: MediaQuery.of(context).size.height * 0.1,
+                                  height: MediaQuery.of(context).size.height*0.1,
                                   color: Colors.transparent,
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 40, right: 20),
@@ -80,13 +148,9 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                             BorderRadius.circular(30),
                                           ),
                                           child: Center(
-                                            child: Text(
-                                              'Cancel',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontFamily: 'Poppins-Regular',
-                                                  color: kWhite),
-                                            ),
+                                            child: Text('Cancel',
+                                              style: TextStyle(fontSize: 12,
+                                                  fontFamily: poppinRegular, color: kWhite)),
                                           ),
                                         ),
                                       ),
@@ -97,83 +161,52 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                   children: [
                                     const SizedBox(height: 93.6),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15),
+                                      padding: const EdgeInsets.symmetric(horizontal: 15),
                                       child: Column(
                                         crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            children: [
+                                          Row(children: [
                                               Text(
-                                                "${upcomingItemsList[index].carCompanyName} | ",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 14,
-                                                  fontFamily: 'Poppins-Bold',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
+                                                "${upcomingBookingModelObject.data![index].carsDetails![0].vehicalName}| ",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 14, fontFamily: poppinBold,),
+                                                textAlign: TextAlign.left,),
                                               Text(
-                                                "${upcomingItemsList[index].textModel} ",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 12,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
+                                                "${upcomingBookingModelObject.data![index].carsDetails![0].year} ",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 12, fontFamily: poppinRegular,),
+                                                textAlign: TextAlign.left,),
                                               Text(
-                                                "${upcomingItemsList[index].carModelYear} ",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 14,
-                                                  fontFamily: 'Poppins-Medium',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
+                                                "${upcomingBookingModelObject.data![index].carsDetails![0].year} ",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 14, fontFamily: poppinMedium,),
+                                                textAlign: TextAlign.left,),
                                               Text(
-                                                upcomingItemsList[index].range,
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 10,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
+                                                "${upcomingBookingModelObject.data![index].carsDetails![0].year}",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 10, fontFamily: poppinRegular,),
+                                                textAlign: TextAlign.left,),
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.01,
-                                          ),
+                                          SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                                           Row(
                                             children: [
                                               Padding(
                                                 padding: const EdgeInsets.only(top: 04),
-                                                child: Text(
-                                                  "RM",
-                                                  style: TextStyle(
-                                                    color: kRed,
-                                                    fontSize: 5,
-                                                    fontFamily: 'Poppins-Regular',
-                                                  ),
-                                                  textAlign: TextAlign.left,
-                                                ),
+                                                child: Text("RM",
+                                                  style: TextStyle(color: kRed,
+                                                    fontSize: 5, fontFamily: poppinRegular,),
+                                                  textAlign: TextAlign.left,),
                                               ),
                                               Text(
-                                                upcomingItemsList[index]
-                                                    .oldPrice,
-                                                style: TextStyle(
-                                                  color: kRed,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
+                                               "${upcomingBookingModelObject.data![index].carsDetails![0].oldRentCostMonth}",
+                                                style: TextStyle(color: kRed,
+                                                  decoration: TextDecoration.lineThrough,
                                                   decorationColor: kRed,
                                                   decorationThickness: 3,
                                                   fontSize: 10,
-                                                  fontFamily: 'Poppins-Light',
+                                                  fontFamily: poppinLight,
                                                   height: 2,
                                                 ),
                                                 textAlign: TextAlign.left,
@@ -181,105 +214,50 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                               const SizedBox(width: 5),
                                               Padding(
                                                 padding: const EdgeInsets.only(top: 06),
-                                                child: Text(
-                                                  "RM",
-                                                  style: TextStyle(
-                                                    color: borderColor,
-                                                    fontSize: 7,
-                                                    fontFamily:
-                                                    'Poppins-SemiBold',
-                                                  ),
-                                                  textAlign: TextAlign.left,
-                                                ),
+                                                child: Text("RM",
+                                                  style: TextStyle(color: borderColor,
+                                                    fontSize: 7, fontFamily: poppinSemiBold,),
+                                                  textAlign: TextAlign.left,),
                                               ),
+                                              Text("${upcomingBookingModelObject.data![index].carsDetails![0].rentCostMonth}",
+                                                style: TextStyle(color: borderColor,
+                                                  fontSize: 16, fontFamily: poppinSemiBold,),
+                                                textAlign: TextAlign.left,),
+                                              Text("/ Month",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 8, fontFamily: poppinRegular,),
+                                                textAlign: TextAlign.left,),
+                                              SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+                                              Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                              SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
                                               Text(
-                                                upcomingItemsList[index]
-                                                    .newPrice,
-                                                style: TextStyle(
-                                                  color: borderColor,
-                                                  fontSize: 20,
-                                                  fontFamily:
-                                                  'Poppins-SemiBold',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
-                                              Text(
-                                                "/ Month",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 8,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.01,
-                                              ),
-                                              Image.asset(
-                                                  "assets/car_bookings_images/rating_stars.png"),
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.01,
-                                              ),
-                                              Text(
-                                                "4.0",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 12,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
+                                                "${upcomingBookingModelObject.data![index].carsDetails![0].oldRentCostMonth}",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 12, fontFamily: poppinRegular,),
+                                                textAlign: TextAlign.left),
                                             ],
                                           ),
-                                          SizedBox(
-                                              height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.01),
+                                          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                           Row(
                                             children: [
-                                              Image.asset(
-                                                  "assets/car_bookings_images/promoted.png"),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "Verified Dealer",
-                                                style: TextStyle(
-                                                  color: textLabelColor,
-                                                  fontSize: 10,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
-                                              const SizedBox(
-                                                width: 05,
-                                              ),
+                                              Image.asset("assets/car_bookings_images/promoted.png"),
+                                              const SizedBox(width: 5),
+                                              Text("Verified Dealer",
+                                                style: TextStyle(color: textLabelColor,
+                                                  fontSize: 10, fontFamily: poppinRegular,),
+                                                textAlign: TextAlign.left),
+                                              const SizedBox(width: 05),
                                               Container(
                                                 height: 20,
                                                 width: 40,
                                                 decoration: BoxDecoration(
                                                     color: kBlack,
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        10)),
+                                                    borderRadius: BorderRadius.circular(10)),
                                                 child: Center(
-                                                  child: Text(
-                                                    "New",
-                                                    style: TextStyle(
-                                                      color: kWhite,
-                                                      fontSize: 8,
-                                                      fontFamily:
-                                                      'Poppins-Regular',
-                                                    ),
-                                                    textAlign: TextAlign.left,
-                                                  ),
+                                                  child: Text("New",
+                                                    style: TextStyle(color: kWhite,
+                                                      fontSize: 8, fontFamily: poppinRegular,),
+                                                    textAlign: TextAlign.left,),
                                                 ),
                                               ),
                                             ],
@@ -289,11 +267,9 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                     ),
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
-                                        Image.asset(
-                                            "assets/car_bookings_images/more_button.png"),
+                                        Image.asset("assets/car_bookings_images/more_button.png"),
                                       ],
                                     ),
                                   ],
@@ -319,30 +295,38 @@ class _UpcomingPageState extends State<UpcomingPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  upcomingItemsList[index].discountText,
-                                  style: TextStyle(
-                                    color: kWhite,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Poppins',
+                                  "${upcomingBookingModelObject.data![index].carsDetails![0].discountPercentage}",
+                                  style: TextStyle(color: kWhite,
+                                    fontSize: 13,fontFamily: poppinSemiBold,
                                   ),
                                 ),
-                                Text(" OFF ",
-                                    style: TextStyle(
-                                      color: kWhite,
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: 'Poppins',
-                                    )),
+                                Text(" OFF ", textAlign: TextAlign.left,
+                                    style: TextStyle(color: kWhite,
+                                      fontSize: 8, fontFamily: poppinRegular,)),
                               ],
                             ),
                           )),
                       Positioned(
-                        child: Image.asset(
-                          upcomingItemsList[index].carImage,
-                          width: 332,
-                          height: 180,
+                        child: upcomingBookingModelObject.data![index].carsDetails![0].image1 == null? ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset('assets/icon/fade_in_image.jpeg')):
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: FadeInImage(
+                            placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                            // fit: BoxFit.fill,
+                            width: 332,
+                            height: 120,
+                            image: NetworkImage("$baseUrlImage${upcomingBookingModelObject.data![index].carsDetails![0].image1}"),
+                          ),
                         ),
+
+                        // Image.asset(
+                        //   upcomingItemsList[index].carImage,
+                        //   width: 332,
+                        //   height: 180,
+                        // ),
+
                       ),
                       Positioned(
                           top: 10,
@@ -358,36 +342,4 @@ class _UpcomingPageState extends State<UpcomingPage> {
       ),
     );
   }
-}
-
-List upcomingItemsList = [
-  UpcomingItemsClass("assets/car_bookings_images/tesla_car_image.png", "5%",
-      'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
-  UpcomingItemsClass("assets/car_bookings_images/bmw_car_image.png", "5%",
-      'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
-  UpcomingItemsClass("assets/car_bookings_images/tesla_car_image.png", "5%",
-      'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
-  UpcomingItemsClass("assets/car_bookings_images/bmw_car_image.png", "5%",
-      'TESLA', "MODEL", "Y LONG RANGE ", "2022", "9,000", "8,500"),
-];
-
-class UpcomingItemsClass {
-  final String carImage;
-  final String discountText;
-  final String carCompanyName;
-  final String textModel;
-  final String range;
-  final String carModelYear;
-  final String oldPrice;
-  final String newPrice;
-
-  UpcomingItemsClass(
-      this.carImage,
-      this.discountText,
-      this.carCompanyName,
-      this.textModel,
-      this.carModelYear,
-      this.range,
-      this.oldPrice,
-      this.newPrice);
 }

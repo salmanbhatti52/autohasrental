@@ -1,5 +1,6 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/EvSubscriptions/car_description.dart';
 import 'package:flutter/material.dart';
+import '../../../../../Utils/fontFamily.dart';
+import '../EvSubscriptions/car_description.dart';
 import 'browse_car_logo_container.dart';
 import '../../../../../Utils/colors.dart';
 import '../../Filter/filter_screen.dart';
@@ -42,7 +43,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                     "Brows Cars",
                     style: TextStyle(
                         fontSize: 20,
-                        fontFamily: 'Poppins-Bold',
+                        fontFamily: poppinBold,
                         color: kBlack),
                   ),
                   GestureDetector(
@@ -86,7 +87,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                         style: TextStyle(
                           color: borderColor,
                           fontSize: 14,
-                          fontFamily: 'Poppins-Light',
+                          fontFamily: poppinLight,
                         ),
                       ),
                     ),
@@ -137,9 +138,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
+                  Navigator.push(context, MaterialPageRoute(
                           builder: (context) => const CarDescription()));
                 },
                 child: Stack(
@@ -192,7 +191,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                               style: TextStyle(
                                                 color: kBlack,
                                                 fontSize: 14,
-                                                fontFamily: 'Poppins-Bold',
+                                                fontFamily: poppinBold,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -201,7 +200,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                               style: TextStyle(
                                                 color: kBlack,
                                                 fontSize: 12,
-                                                fontFamily: 'Poppins-Regular',
+                                                fontFamily: poppinRegular,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -211,7 +210,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                                 color: kBlack,
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400,
-                                                fontFamily: 'Poppins-Medium',
+                                                fontFamily: poppinMedium,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -220,7 +219,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                               style: TextStyle(
                                                 color: kBlack,
                                                 fontSize: 10,
-                                                fontFamily: 'Poppins-Regular',
+                                                fontFamily: poppinRegular,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -242,7 +241,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                                 style: TextStyle(
                                                   color: kRed,
                                                   fontSize: 5,
-                                                  fontFamily: 'Poppins-Regular',
+                                                  fontFamily: poppinRegular,
                                                 ),
                                                 textAlign: TextAlign.left,
                                               ),
@@ -257,7 +256,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                                 decorationColor: kRed,
                                                 decorationThickness: 3,
                                                 fontSize: 10,
-                                                fontFamily: 'Poppins-Light',
+                                                fontFamily: poppinLight,
                                                 height: 2,
                                               ),
                                               textAlign: TextAlign.left,
@@ -272,7 +271,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                                   color: borderColor,
                                                   fontSize: 7,
                                                   fontFamily:
-                                                      'Poppins-SemiBold',
+                                                      poppinSemiBold,
                                                 ),
                                                 textAlign: TextAlign.left,
                                               ),
@@ -283,7 +282,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                               style: TextStyle(
                                                 color: borderColor,
                                                 fontSize: 20,
-                                                fontFamily: 'Poppins-SemiBold',
+                                                fontFamily: poppinSemiBold,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -292,7 +291,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                               style: TextStyle(
                                                 color: kBlack,
                                                 fontSize: 8,
-                                                fontFamily: 'Poppins-Regular',
+                                                fontFamily: poppinRegular,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -315,7 +314,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                               style: TextStyle(
                                                 color: kBlack,
                                                 fontSize: 12,
-                                                fontFamily: 'Poppins-Regular',
+                                                fontFamily: poppinRegular,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -338,7 +337,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                               style: TextStyle(
                                                 color: textLabelColor,
                                                 fontSize: 10,
-                                                fontFamily: 'Poppins-Regular',
+                                                fontFamily: poppinRegular,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -360,7 +359,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                                     color: kWhite,
                                                     fontSize: 8,
                                                     fontFamily:
-                                                        'Poppins-Regular',
+                                                        poppinRegular,
                                                   ),
                                                   textAlign: TextAlign.left,
                                                 ),
@@ -406,7 +405,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                 style: TextStyle(
                                   color: kWhite,
                                   fontSize: 13,
-                                  fontFamily: 'Poppins-SemiBold',
+                                  fontFamily: poppinSemiBold,
                                 ),
                                 textAlign: TextAlign.left,
                               ),
@@ -415,7 +414,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                 style: TextStyle(
                                   color: kWhite,
                                   fontSize: 8,
-                                  fontFamily: 'Poppins-Regular',
+                                  fontFamily: poppinRegular,
                                 ),
                                 textAlign: TextAlign.left,
                               ),

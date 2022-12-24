@@ -1,15 +1,15 @@
 import 'dart:convert';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/Chats/messages_details_model.dart';
-import '../../../Model/Chats/send_message_model.dart';
-import '../../../Model/Chats/update_message_model.dart';
-import '../../../Utils/api_urls.dart';
-import '../../../Utils/colors.dart';
-import '../../../Widget/toast_message.dart';
+import '../../../Model/ChatsModels/messages_details_model.dart';
+import '../../../Model/ChatsModels/send_message_model.dart';
+import '../../../Model/ChatsModels/update_message_model.dart';
 import '../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart'as http;
 
@@ -30,48 +30,6 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
   List<UpdateMessageModel> updateMessageModelObject = [];
   SendMessageModel sendMessageModelObject = SendMessageModel();
   bool loading = true;
-
-  // chatDetailsHistoryApi() async {
-  //   setState(() {
-  //     loading = true;
-  //   });
-  //   Map body = {
-  //     "requestType": "getMessages",
-  //     "users_customers_id": userId,
-  //     "other_users_customers_id": "1",
-  //   };
-  //   http.Response response = await http.post(Uri.parse(getUsersChatApiUrl),
-  //       body: body,
-  //       headers: {
-  //         "Accept": "application/json"
-  //       });
-  //   Map jsonData = jsonDecode(response.body);
-  //   print("chatDetailsApiUrl: $getUsersChatApiUrl");
-  //   print('chatDetailsApiResponse $jsonData');
-  //
-  //   if (jsonData['message'] == 'no chat history') {
-  //     toastSuccessMessage("no chat history", kRed);
-  //     print('Chat not found!');
-  //     setState(() {
-  //       loading = false;
-  //     });
-  //   }
-  //   else if (response.statusCode == 200) {
-  //     for (int i = 0; i < jsonData['data'].length; i++) {
-  //       Map<String, dynamic> obj = jsonData['data'][i];
-  //       print(obj['id']);
-  //       var pos = MessageDetailsModel();
-  //       pos = MessageDetailsModel.fromJson(obj);
-  //       messageDetailsModelObject.add(pos);
-  //       print("showDetailsMessagesLength: ${messageDetailsModelObject.length}");
-  //       print("detailsMessages: ${messageDetailsModelObject[i].message}");
-  //       print("detailsMessagesType: ${messageDetailsModelObject[i].msgType}");
-  //       setState(() {
-  //         loading = false;
-  //       });
-  //     }
-  //   }
-  // }
 
   Map jsonData = {};
   allChatMessageApi() async {
@@ -175,24 +133,6 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
         allChatMessageApi();
       });
     }
-    // else if (response.statusCode == 200) {
-    //   setState(() {
-    //     loading = false;
-    //   });
-    //   // for (int i = 0; i < jsonData['data'].length; i++) {
-    //   //   Map<String, dynamic> obj = jsonData['data'][i];
-    //   //   print(obj['id']);
-    //   //   var pos = SendMessageModel();
-    //   //   pos = SendMessageModel.fromJson(obj);
-    //   //   sendMessageModelObject.add(pos);
-    //   //   print("showDetailsMessagesLength: ${messageDetailsModelObject.length}");
-    //   //   print("detailsMessages: ${messageDetailsModelObject[i].message}");
-    //   //   print("detailsMessagesType: ${messageDetailsModelObject[i].msgType}");
-    //   //   setState(() {
-    //   //     loading = false;
-    //   //   });
-    //   // }
-    // }
   }
 
   sharedPrefs() async {

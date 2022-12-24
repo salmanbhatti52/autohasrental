@@ -1,17 +1,17 @@
-import 'package:auto_haus_rental_app/Model/Auth/user_sign_up_model.dart';
+import 'package:auto_haus_rental_app/Model/AuthModels/user_sign_up_model.dart';
+import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
+import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/password_text_field.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/text_form_field.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../../Widget/TextFields/text_form_field.dart';
-import '../../../Utils/api_urls.dart';
-import '../../../Widget/button.dart';
-import '../../../Utils/colors.dart';
-import '../../../Widget/TextFields/password_text_field.dart';
-import '../../TabPages/MyAppBarHeader/app_bar_header.dart';
-import '../LoginPage/ForgetPassword/myTextWidget.dart';
-import '../LoginPage/login_page.dart';
 import 'package:http/http.dart'as http;
 import 'verify_phone_page.dart';
 

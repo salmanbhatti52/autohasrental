@@ -2,10 +2,12 @@ import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Model/HomePageModels/top_rented_cars_model.dart';
-import '../Screens/TabPages/HomePage/Home/home_page_details.dart';
-import '../Utils/colors.dart';
 import 'package:http/http.dart'as http;
+import '../../../../Model/HomePageModels/top_rented_cars_model.dart';
+import '../../../../Utils/colors.dart';
+import '../../../../Utils/constants.dart';
+import '../Home/home_page_details.dart';
+
 
 class HomeCardTopRented extends StatefulWidget {
   const HomeCardTopRented({Key? key}) : super(key: key);
@@ -19,8 +21,6 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
   TopRentedCarsModel topRentedCarsModelObject = TopRentedCarsModel();
 
   bool loadingP = true;
-  SharedPreferences? prefs;
-
 
   @override
   void initState() {
@@ -34,7 +34,6 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
 
     prefs = await SharedPreferences.getInstance();
     print('in topRenterCarModelApi');
-
     try {
       String apiUrl = topRentedCarsApiUrl;
       print("topRenterCarModelApi: $apiUrl");
@@ -81,7 +80,6 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 0,
                 ),
-                // itemCount: topRentedItemsList.length,
                 itemCount: topRentedCarsModelObject.data!.length,
                 itemBuilder: (BuildContext context, int index){
                   return Padding(
@@ -151,7 +149,8 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                               child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
                                                 fontSize: 7, fontFamily: poppinSemiBold,),),
                                             ),
-                                            Text(double.parse(topRentedCarsModelObject.data![index].rentCostMonth!).toStringAsFixed(1),
+                                            // Text(double.parse(topRentedCarsModelObject.data![index].rentCostMonth!).toStringAsFixed(1),
+                                            Text(topRentedCarsModelObject.data![index].rentCostMonth!,
                                               textAlign: TextAlign.left, style: TextStyle(color: borderColor,
                                               fontSize: 14, fontFamily: poppinSemiBold,),),
                                             Text("/ Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
@@ -266,7 +265,8 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("${double.parse(topRentedCarsModelObject.data![index].discountPercentage!).toStringAsFixed(1)}% ",
+                                  // Text("${double.parse(topRentedCarsModelObject.data![index].discountPercentage!).toStringAsFixed(1)}% ",
+                                  Text("${topRentedCarsModelObject.data![index].discountPercentage}% ",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(color: kWhite, fontSize: 13, fontFamily: poppinSemiBold,),),
                                   Text("OFF", textAlign: TextAlign.left, style: TextStyle(color: kWhite, fontSize: 8, fontFamily: poppinRegular,)),

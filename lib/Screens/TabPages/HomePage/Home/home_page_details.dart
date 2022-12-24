@@ -22,6 +22,8 @@ class _HomePageDetailsState extends State<HomePageDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: const MyAppBarSingleImagewithText(
@@ -61,7 +63,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                                   fontSize: 14, fontFamily: poppinMedium, color: kBlack),),
                             ],
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                          SizedBox(height: screenHeight * 0.015),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -71,7 +73,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                                   fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor),),
                             ],
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                          SizedBox(height: screenHeight * 0.015),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -81,7 +83,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                                   fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor),),
                             ],
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                          SizedBox(height: screenHeight * 0.015),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -92,7 +94,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                             ],
                           ),
 
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                          SizedBox(height: screenHeight * 0.02),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -102,16 +104,16 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                                   fontSize: 16, fontFamily: poppinSemiBold, color: kBlack),),
                             ],
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                          SizedBox(height: screenHeight * 0.02),
 
                           Text("*A security deposit may be applicable, depending on your eligibility assessment.",
                             maxLines: 2, textAlign: TextAlign.left, style: TextStyle(
                                 fontSize: 14, fontFamily: poppinRegular, color: borderColor),),
 
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                          SizedBox(height: screenHeight * 0.02),
                           Container(
-                            height: MediaQuery.of(context).size.height *0.1,
-                            width: MediaQuery.of(context).size.height ,
+                            height: screenHeight *0.1,
+                            width: screenWidth,
                             decoration: BoxDecoration(
                                 color: kBlack,
                                 borderRadius: BorderRadius.circular(25)
@@ -121,7 +123,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                               child: Row(
                                 children: [
                                   Image.asset("assets/home_page/business-investment.png"),
-                                  SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                                  SizedBox(width: screenWidth * 0.02),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -131,10 +133,10 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                                         children: [
                                           Text("Save RM 37,538", textAlign: TextAlign.left, style: TextStyle(
                                               fontSize: 16, fontFamily: poppinSemiBold, color: kWhite),),
-                                          SizedBox(width: MediaQuery.of(context).size.width * 0.03),
+                                          SizedBox(width: screenWidth * 0.03),
                                           Container(
                                             height: 25,
-                                            width: MediaQuery.of(context).size.width * 0.24,
+                                            width: screenWidth * 0.24,
                                             decoration: BoxDecoration(
                                                 color: borderColor,
                                                 borderRadius: BorderRadius.circular(20)
@@ -146,27 +148,17 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                                      SizedBox(height: screenHeight * 0.02),
                                       Row(
                                         children: [
-                                          Text(
-                                            "in your first year with ",
+                                          Text("in your first year with ",
                                             textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              color: kWhite,
-                                              fontSize: 10,
-                                              fontFamily: poppinRegular,
-                                            ),
-                                          ),
-                                          Text(
-                                            "AutoHaus Rental",
+                                            style: TextStyle(color: kWhite,
+                                              fontSize: 10, fontFamily: poppinRegular)),
+                                          Text("AutoHaus Rental",
                                             textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              color: borderColor,
-                                              fontSize: 10,
-                                              fontFamily: poppinSemiBold,
-                                            ),
-                                          ),
+                                            style: TextStyle(color: borderColor,
+                                              fontSize: 10, fontFamily: poppinSemiBold)),
                                         ],
                                       ),
                                     ],
@@ -179,10 +171,10 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                           ),
 
 
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                          SizedBox(height: screenHeight * 0.02),
                           Text("What's Included", textAlign: TextAlign.left, style: TextStyle(
                               fontSize: 14, fontFamily: poppinSemiBold, color: kBlack),),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                          SizedBox(height: screenHeight * 0.02),
 
                           myList("assets/home_page/Path 2582.png", "Periodic maintenance package (including pick up and delivery)"),
                           myList("assets/home_page/Path 2582.png", "Wear & tear (including tyres, wipers, and brake pads replacement)"),
@@ -194,13 +186,13 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                           myList("assets/home_page/Path 2582.png", "Theft recovery services"),
                           myList("assets/home_page/Path 2582.png", "Emergency dispatch services"),
 
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                          SizedBox(height: screenHeight * 0.02),
                           GestureDetector(
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=> const DeliveryAddress()));
                               },
                               child: loginButton("Next", context)),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                          SizedBox(height: screenHeight * 0.03),
                         ],
                       ),
                     ),
@@ -229,12 +221,14 @@ class _HomePageDetailsState extends State<HomePageDetails> {
   }
 
   Widget homePageDetailsCard(){
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.43,
+            height: screenHeight * 0.43,
             decoration: BoxDecoration(
                 color: kWhite,
               borderRadius: BorderRadius.circular(20)
@@ -247,57 +241,56 @@ class _HomePageDetailsState extends State<HomePageDetails> {
           left: 10,
           child: Container(
             color: Colors.transparent,
-            // height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.width,
-            // decoration: BoxDecoration(
-            //     color: kWhite,
-            //     borderRadius: BorderRadius.circular(20)
-            // ),
+            width: screenWidth,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height* 0.1,
-                  ),
+                  Container(height: screenHeight* 0.1,),
                   Row(
                     children: [
-                      Text("${widget.vehicalName} | ", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
+                      Text("${widget.vehicalName} | ", textAlign: TextAlign.left,
+                        style: TextStyle(color: kBlack,
                         fontSize: 14, fontFamily: poppinBold,),),
-                      Text("MODEL", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
+                      Text("MODEL", textAlign: TextAlign.left,
+                        style: TextStyle(color: kBlack,
                         fontSize: 12, fontFamily: poppinRegular,),),
-                      Text("Y LONG RANGE ", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
+                      Text("Y LONG RANGE ", textAlign: TextAlign.left,
+                          style: TextStyle(color: kBlack,
                         fontSize: 14, fontFamily: poppinMedium,)),
-                      Text("${widget.modelYear}", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
+                      Text("${widget.modelYear}", textAlign: TextAlign.left,
+                          style: TextStyle(color: kBlack,
                         fontSize: 10, fontFamily: poppinRegular,)),
                     ],
                   ),
-                  // SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 04),
-                        child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: kRed,
+                        child: Text("RM ", textAlign: TextAlign.left,
+                          style: TextStyle(color: kRed,
                           fontSize: 5, fontFamily: poppinLight,),),
                       ),
-                      Text("${widget.oldRent}", textAlign: TextAlign.left, style: TextStyle(color: kRed, decoration: TextDecoration.lineThrough,
-                        fontSize: 10,  fontFamily: poppinLight,),),
-                      SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+                      Text("${widget.oldRent}", textAlign: TextAlign.left,
+                        style: TextStyle(color: kRed, fontFamily: poppinLight,
+                        fontSize: 10, decoration: TextDecoration.lineThrough),),
+                      SizedBox(width: screenWidth * 0.01),
                       Padding(
                         padding: const EdgeInsets.only(top: 06),
-                        child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
+                        child: Text("RM ", textAlign: TextAlign.left,
+                          style: TextStyle(color: borderColor,
                           fontSize: 7, fontFamily: poppinSemiBold,),),
                       ),
-                      Text("${widget.rentCostMonth}", textAlign: TextAlign.left, style: TextStyle(color: borderColor,
+                      Text("${widget.rentCostMonth}", textAlign: TextAlign.left,
+                        style: TextStyle(color: borderColor,
                         fontSize: 20, fontFamily: poppinSemiBold,),),
-                      Text("/ Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack,
+                      Text("/ Month", textAlign: TextAlign.left,
+                        style: TextStyle(color: kBlack,
                         fontSize: 8, fontFamily: poppinRegular,),),
-                      // SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-
                     ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                  SizedBox(height: screenHeight * 0.01,),
                   Row(
                     children:  [
                       Image.asset("assets/home_page/Promoted.png"),
@@ -312,15 +305,15 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                             borderRadius: BorderRadius.circular(10)
                         ),
                         child: Center(
-                          child: Text("New", textAlign: TextAlign.left, style: TextStyle(color: kWhite,
+                          child: Text("New", textAlign: TextAlign.left,
+                            style: TextStyle(color: kWhite,
                             fontSize: 8, fontFamily: poppinRegular,),),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                  SizedBox(height: screenHeight * 0.01,),
                   Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children:  [
@@ -330,7 +323,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                             color: kBlack, fontSize: 14, fontFamily: poppinRegular,),),
                         ],
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.height * 0.2),
+                      SizedBox(width: screenWidth * 0.2),
                       Container(
                         height: 25, width: 65,
                         decoration: BoxDecoration(
@@ -338,16 +331,17 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                             borderRadius: BorderRadius.circular(20)
                         ),
                         child: Center(
-                          child: Text("Pre book", textAlign: TextAlign.left, style: TextStyle(color: kWhite,
+                          child: Text("Pre book", textAlign: TextAlign.left,
+                            style: TextStyle(color: kWhite,
                             fontSize: 12, fontFamily: poppinMedium,),),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                  SizedBox(height: screenHeight * 0.01,),
                   Text("PRE-BOOK LISTING ", textAlign: TextAlign.left, style: TextStyle(
                     color: kBlack, fontSize: 14, fontFamily: poppinSemiBold,),),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                  SizedBox(height: screenHeight * 0.01,),
                   Text("This vehicle may take more than 7 days to deliver, based on vehicle’s availability",
                       textAlign: TextAlign.left, style: TextStyle(
                         color: kBlack, fontSize: 10, fontFamily: poppinRegular,)),
@@ -360,8 +354,8 @@ class _HomePageDetailsState extends State<HomePageDetails> {
         Positioned(
             top: 28, left: 27,
             child: Container(
-              height: MediaQuery.of(context).size.width* 0.07,
-              width: MediaQuery.of(context).size.width* 0.16,
+              height: screenHeight * 0.07,
+              width: screenWidth * 0.16,
               decoration: const BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.only(
@@ -372,7 +366,8 @@ class _HomePageDetailsState extends State<HomePageDetails> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("${double.parse(widget.discount.toString()).toStringAsFixed(1)}% ", textAlign: TextAlign.left,
+                  // Text("${double.parse(widget.discount.toString()).toStringAsFixed(1)}% ", textAlign: TextAlign.left,
+                  Text("${widget.discount.toString()}% ", textAlign: TextAlign.left,
                     style: TextStyle(color: kWhite, fontSize: 13, fontFamily: poppinSemiBold,),),
                   Text("OFF", textAlign: TextAlign.left, style: TextStyle(color: kWhite, fontSize: 8, fontFamily: poppinRegular,)),
                 ],

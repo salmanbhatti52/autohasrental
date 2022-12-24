@@ -21,7 +21,7 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
 
   @override
   Widget build(BuildContext context) {
-    TabController tabcontroller = TabController(length: 3, vsync: this);
+    TabController tabController = TabController(length: 3, vsync: this);
 
     return Column(
       children: [
@@ -36,16 +36,14 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: TabBar(
-                  controller: tabcontroller,
+                  controller: tabController,
                   indicator: BoxDecoration(
                     color: kWhite,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  //indicatorSize: TabBarIndicatorSize,
                   indicatorColor: kWhite,
                   // isScrollable: true,
                   labelColor: kBlack,
-                  // labelPadding: const EdgeInsets.only(left: 23, right: 22),
                   labelStyle: TextStyle(
                       fontSize: 12, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,
@@ -67,8 +65,12 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
           width: double.maxFinite,
           height: MediaQuery.of(context).size.height * 0.35,
           child: TabBarView(
-            controller: tabcontroller,
-            children: const [Description(), Features(), Rating()],
+            controller: tabController,
+            children: const [
+              Description(),
+              Features(),
+              Rating(),
+            ]
           ),
         ),
       ],

@@ -1,15 +1,13 @@
 import 'dart:convert';
-
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/Chats/all_chats_model.dart';
-import '../../../Utils/api_urls.dart';
-import '../../../Utils/colors.dart';
-import '../../../Utils/fontFamily.dart';
+import '../../../Model/ChatsModels/all_chats_model.dart';
 import '../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart'as http;
-
 import 'message_details_screen.dart';
 
 class MessagePage extends StatefulWidget {

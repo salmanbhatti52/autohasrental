@@ -1,17 +1,18 @@
-import 'package:auto_haus_rental_app/Model/Auth/user_login_model.dart';
+import 'package:auto_haus_rental_app/Model/AuthModels/user_login_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/password_text_field.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/text_form_field.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Widget/TextFields/text_form_field.dart';
-import '../../../Widget/button.dart';
-import '../../../Utils/colors.dart';
-import '../../../Widget/TextFields/password_text_field.dart';
-import '../../../Widget/toast_message.dart';
-import '../../TabPages/tab_page.dart';
+import '../../../Utils/constants.dart';
 import '../SignUpPage/sign_up_page.dart';
 import 'ForgetPassword/myTextWidget.dart';
 import 'ForgetPassword/reset_password_page.dart';
@@ -31,8 +32,6 @@ class _LoginPageState extends State<LoginPage> {
   var loginPasswordController = TextEditingController();
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   bool checkBoxValue = false;
-  SharedPreferences? prefs;
-  String? userId, userEmail;
   UserLoginModel userLoginModel = UserLoginModel();
 
   bool loading = true;

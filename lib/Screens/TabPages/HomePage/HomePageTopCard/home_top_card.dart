@@ -1,5 +1,6 @@
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
+import '../../../../Utils/fontFamily.dart';
 import 'BrowseCardForRent/browse_car_page.dart';
 import 'DrivingExperience/driving_experience_page.dart';
 import 'EvSubscriptions/ev_subscription_page.dart';
@@ -57,7 +58,7 @@ Widget myHorizontalCard(BuildContext context){
                         color: Colors.transparent,
                         width: MediaQuery.of(context).size.width* 0.35,
                         child: Text(cardItemsList[index].title, textAlign: TextAlign.left,
-                          style: TextStyle(color: kBlack, fontFamily: 'Poppins-Regular', fontSize: 14),)),
+                          style: TextStyle(color: kBlack, fontFamily: poppinRegular, fontSize: 14),)),
                   ],
                 ),
               ),

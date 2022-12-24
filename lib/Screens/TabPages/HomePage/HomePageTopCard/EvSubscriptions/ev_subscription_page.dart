@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
+import '../../../../../Utils/fontFamily.dart';
 import '../../Filter/filter_screen.dart';
 import '../../Notifications/notification_screen.dart';
 import 'car_description.dart';
@@ -18,9 +19,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
       backgroundColor: homeBgColor,
       body: Column(
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
             child: Row(
@@ -35,22 +34,15 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                         width: 30,
                         color: Colors.transparent,
                         child: Image.asset("assets/home_page/back_arrow.png"))),
-                Text(
-                  "EV Subscription",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'Poppins-Bold',
-                    color: kBlack,
-                  ),
+                Text("EV Subscription",
+                  style: TextStyle(fontSize: 20,
+                    fontFamily: poppinBold, color: kBlack,),
                   textAlign: TextAlign.center,
                 ),
                 GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const NotificationsScreen()));
+                      Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => const NotificationsScreen()));
                     },
                     child:
                         Image.asset("assets/home_page/notification_image.png")),
@@ -72,13 +64,11 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(20, 12, 10, 0),
+                        contentPadding: const EdgeInsets.fromLTRB(20, 12, 10, 0),
                         hintText: 'Search for Cars',
-                        hintStyle: const TextStyle(
-                            color: Color(0xffD4DCE1),
-                            fontSize: 14,
-                            fontFamily: 'Poppins-Light'),
+                        hintStyle: TextStyle(
+                            color: const Color(0xffD4DCE1),
+                            fontSize: 14, fontFamily: poppinLight),
                         focusColor: borderColor,
                         suffixIcon: const Icon(
                           Icons.search_outlined,
@@ -92,9 +82,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                 const SizedBox(width: 15),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
+                    Navigator.push(context, MaterialPageRoute(
                             builder: (context) => const FilterScreen()));
                   },
                   child: Container(
@@ -127,9 +115,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: (() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
+                  Navigator.push(context, MaterialPageRoute(
                           builder: (context) => const CarDescription()));
                 }),
                 child: Stack(
@@ -162,153 +148,85 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                           child: Column(
                             children: [
                               Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.1,
+                                height: MediaQuery.of(context).size.height * 0.1,
                               ),
                               Row(
                                 children: [
                                   const SizedBox(height: 93.6),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
-                                            Text(
-                                              "${browseCarItemsList[index].carCompanyName} | ",
-                                              style: TextStyle(
-                                                color: kBlack,
-                                                fontSize: 14,
-                                                fontFamily: 'Poppins-Bold',
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            Text(
-                                              "${browseCarItemsList[index].textModel} ",
-                                              style: TextStyle(
-                                                color: kBlack,
-                                                fontSize: 12,
-                                                fontFamily: 'Poppins-Regular',
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
+                                            Text("${browseCarItemsList[index].carCompanyName} | ",
+                                              style: TextStyle(color: kBlack,
+                                                fontSize: 14, fontFamily: poppinBold,),
+                                              textAlign: TextAlign.left,),
+                                            Text("${browseCarItemsList[index].textModel} ",
+                                              style: TextStyle(color: kBlack,
+                                                fontSize: 12, fontFamily: poppinRegular,),
+                                              textAlign: TextAlign.left,),
                                             Text(
                                               "${browseCarItemsList[index].carModelYear} ",
-                                              style: TextStyle(
-                                                color: kBlack,
-                                                fontSize: 14,
-                                                fontFamily: 'Poppins-Medium',
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
+                                              style: TextStyle(color: kBlack,
+                                                fontSize: 14, fontFamily: poppinMedium,),
+                                              textAlign: TextAlign.left,),
                                             Text(
                                               browseCarItemsList[index].range,
-                                              style: TextStyle(
-                                                color: kBlack,
-                                                fontSize: 10,
-                                                fontFamily: 'Poppins-Regular',
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
+                                              style: TextStyle(color: kBlack,
+                                                fontSize: 10, fontFamily: poppinRegular,),
+                                              textAlign: TextAlign.left),
                                           ],
                                         ),
                                         Row(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 04),
-                                              child: Text(
-                                                "RM",
-                                                style: TextStyle(
-                                                  color: kRed,
-                                                  fontSize: 5,
-                                                  fontFamily: 'Poppins-Regular',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
+                                              padding: const EdgeInsets.only(top: 04),
+                                              child: Text("RM",
+                                                style: TextStyle(color: kRed,
+                                                  fontSize: 5, fontFamily: poppinRegular),
+                                                textAlign: TextAlign.left),
                                             ),
-                                            Text(
-                                              browseCarItemsList[index]
-                                                  .oldPrice,
+                                            Text(browseCarItemsList[index].oldPrice,
                                               style: TextStyle(
                                                 color: kRed,
-                                                decoration:
-                                                    TextDecoration.lineThrough,
+                                                decoration: TextDecoration.lineThrough,
                                                 decorationColor: kRed,
                                                 decorationThickness: 3,
                                                 fontSize: 10,
-                                                fontFamily: 'Poppins-Light',
+                                                fontFamily: poppinLight,
                                                 height: 2,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
                                             const SizedBox(width: 5),
                                             Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 06),
-                                              child: Text(
-                                                "RM",
-                                                style: TextStyle(
-                                                  color: borderColor,
-                                                  fontSize: 7,
-                                                  fontFamily:
-                                                      'Poppins-SemiBold',
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
+                                              padding: const EdgeInsets.only(top: 06),
+                                              child: Text("RM",
+                                                style: TextStyle(color: borderColor,
+                                                  fontSize: 7, fontFamily: poppinSemiBold),
+                                                textAlign: TextAlign.left),
                                             ),
-                                            Text(
-                                              browseCarItemsList[index]
-                                                  .newPrice,
-                                              style: TextStyle(
-                                                color: borderColor,
-                                                fontSize: 20,
-                                                fontFamily: 'Poppins-SemiBold',
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            Text(
-                                              "/ Month",
-                                              style: TextStyle(
-                                                color: kBlack,
-                                                fontSize: 8,
-                                                fontFamily: 'Poppins-Regular',
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.01,
-                                            ),
-                                            Image.asset(
-                                                "assets/car_bookings_images/rating_stars.png"),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.01,
-                                            ),
-                                            Text(
-                                              "4.0",
-                                              style: TextStyle(
-                                                color: kBlack,
-                                                fontSize: 12,
-                                                fontFamily: 'Poppins-Regular',
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
+                                            Text(browseCarItemsList[index].newPrice,
+                                              style: TextStyle(color: borderColor,
+                                                fontSize: 20, fontFamily: poppinSemiBold,),
+                                              textAlign: TextAlign.left),
+                                            Text("/ Month",
+                                              style: TextStyle(color: kBlack,
+                                                fontSize: 8, fontFamily: poppinRegular,),
+                                              textAlign: TextAlign.left),
+                                            SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+                                            Image.asset("assets/car_bookings_images/rating_stars.png"),
+                                            SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+                                            Text("4.0",
+                                              style: TextStyle(color: kBlack,
+                                                fontSize: 12, fontFamily: poppinRegular),
+                                              textAlign: TextAlign.left),
                                           ],
                                         ),
-                                        SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.01),
+                                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                         Row(
                                           children: [
                                             Image.asset(
@@ -316,37 +234,22 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                             const SizedBox(
                                               width: 5,
                                             ),
-                                            Text(
-                                              "Verified Dealer",
-                                              style: TextStyle(
-                                                color: textLabelColor,
-                                                fontSize: 10,
-                                                fontFamily: 'Poppins-Regular',
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            const SizedBox(
-                                              width: 05,
-                                            ),
+                                            Text("Verified Dealer",
+                                              style: TextStyle(color: textLabelColor,
+                                                fontSize: 10, fontFamily: poppinRegular),
+                                              textAlign: TextAlign.left),
+                                            const SizedBox(width: 05),
                                             Container(
                                               height: 20,
                                               width: 40,
                                               decoration: BoxDecoration(
                                                   color: kBlack,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
+                                                  borderRadius: BorderRadius.circular(10)),
                                               child: Center(
-                                                child: Text(
-                                                  "New",
-                                                  style: TextStyle(
-                                                    color: kWhite,
-                                                    fontSize: 8,
-                                                    fontFamily:
-                                                        'Poppins-Regular',
-                                                  ),
-                                                  textAlign: TextAlign.left,
-                                                ),
+                                                child: Text("New",
+                                                  style: TextStyle(color: kWhite,
+                                                    fontSize: 8, fontFamily: poppinRegular),
+                                                  textAlign: TextAlign.left),
                                               ),
                                             ),
                                           ],
@@ -358,8 +261,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Image.asset(
-                                          "assets/car_bookings_images/more_button.png"),
+                                      Image.asset("assets/car_bookings_images/more_button.png"),
                                     ],
                                   ),
                                 ],
@@ -386,22 +288,13 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                             children: [
                               Text(
                                 browseCarItemsList[index].discountText,
-                                style: TextStyle(
-                                  color: kWhite,
-                                  fontSize: 13,
-                                  fontFamily: 'Poppins-SemiBold',
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                              Text(
-                                " OFF ",
-                                style: TextStyle(
-                                  color: kWhite,
-                                  fontSize: 8,
-                                  fontFamily: 'Poppins-Regular',
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
+                                style: TextStyle(color: kWhite,
+                                  fontSize: 13, fontFamily: poppinSemiBold),
+                                textAlign: TextAlign.left),
+                              Text(" OFF ",
+                                style: TextStyle(color: kWhite,
+                                  fontSize: 8, fontFamily: poppinRegular,),
+                                textAlign: TextAlign.left),
                             ],
                           ),
                         )),
@@ -415,9 +308,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                     Positioned(
                         top: 10,
                         right: 15,
-                        child: Image.asset(
-                          "assets/car_bookings_images/heart.png",
-                        )),
+                        child: Image.asset("assets/car_bookings_images/heart.png"),
+                    ),
                   ],
                 ),
               );

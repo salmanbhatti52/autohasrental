@@ -1,7 +1,12 @@
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../Model/HomePageModels/BookingModels/booking_previous_model.dart';
 import '../../../../../Utils/colors.dart';
+import '../../../../../Utils/constants.dart';
 import 'bookings_detail_page.dart';
+import 'package:http/http.dart'as http;
 
 class PreviousPage extends StatefulWidget {
   const PreviousPage({super.key});
@@ -11,9 +16,72 @@ class PreviousPage extends StatefulWidget {
 }
 
 class _PreviousPageState extends State<PreviousPage> {
+
+  PreviousBookingModel previousBookingModelObject = PreviousBookingModel();
+
+  bool loadingP = true;
+
+  sharedPrefs() async {
+    loadingP = true;
+    setState(() {});
+    print('in PreviousBookingCar sharedPrefs');
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    print("userId in PreviousBookingCar is = $userId");
+    setState(() {
+      getUpcomingBookingCarWidget();
+    });
+  }
+
+  getUpcomingBookingCarWidget() async {
+    loadingP = true;
+    setState(() {});
+
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    print('in upcomingBookingCarApi');
+
+    try {
+      String apiUrl = bookingPreviousCarsApiUrl;
+      print("upcomingBookingCarModelApi: $apiUrl");
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: {
+            "users_customers_id": userId
+            // "users_customers_id": "1"
+          });
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("responseUpcomingBookingCar: ${responseString.toString()}");
+        previousBookingModelObject = previousBookingModelFromJson(responseString);
+        // print("upcomingBookingCarLength: ${previousBookingModelObject.status}");
+      }
+    } catch (e) {
+      print('Error in upcomingBookingCar: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sharedPrefs();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor,)):
+      previousBookingModelObject.status == "error"? const Center(
+        child: Text('booking unavailable...',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))):
+      GestureDetector(
       onTap: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const BookingDetailPage()));
@@ -74,14 +142,9 @@ class _PreviousPageState extends State<PreviousPage> {
                                           borderRadius: BorderRadius.circular(30),
                                         ),
                                         child: Center(
-                                          child: Text('Rebook',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: poppinRegular,
-                                              color: kWhite,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                          child: Text('Rebook', textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 12,
+                                              fontFamily: poppinRegular, color: kWhite,)),
                                         ),
                                       ),
                                     ),
@@ -91,11 +154,9 @@ class _PreviousPageState extends State<PreviousPage> {
                                   children: [
                                     const SizedBox(height: 93.6),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15),
+                                      padding: const EdgeInsets.symmetric(horizontal: 15),
                                       child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
@@ -138,7 +199,7 @@ class _PreviousPageState extends State<PreviousPage> {
                                                   decorationColor: kRed,
                                                   decorationThickness: 3,
                                                   fontSize: 10,
-                                                  fontFamily: 'Poppins-Light',
+                                                  fontFamily: poppinLight,
                                                   height: 2,
                                                 ),
                                                 textAlign: TextAlign.left,

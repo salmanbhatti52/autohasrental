@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../Utils/fontFamily.dart';
 import '../BrowseCardForRent/browse_car_logo_container.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
@@ -45,10 +46,10 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                           contentPadding:
                               const EdgeInsets.fromLTRB(20, 12, 10, 0),
                           hintText: 'Search for Cars',
-                          hintStyle: const TextStyle(
-                              color: Color(0xffD4DCE1),
+                          hintStyle: TextStyle(
+                              color: const Color(0xffD4DCE1),
                               fontSize: 14,
-                              fontFamily: 'Poppins-Light'),
+                              fontFamily: poppinLight),
                           focusColor: borderColor,
                           suffixIcon: const Icon(
                             Icons.search_outlined,
@@ -95,7 +96,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                     "Top Experiences",
                     style: TextStyle(
                       fontSize: 16,
-                      fontFamily: 'Poppins-Bold',
+                      fontFamily: poppinBold,
                       color: kBlack,
                     ),
                     textAlign: TextAlign.left,
@@ -109,7 +110,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                     "Other Best Experiences",
                     style: TextStyle(
                         fontSize: 16,
-                        fontFamily: 'Poppins-Bold',
+                        fontFamily: poppinBold,
                         color: kBlack),
                     textAlign: TextAlign.left,
                   ),
@@ -189,7 +190,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 14,
-                                              fontFamily: 'Poppins-Bold',
+                                              fontFamily: poppinBold,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -198,7 +199,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 12,
-                                              fontFamily: 'Poppins-Regular',
+                                              fontFamily: poppinRegular,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -207,7 +208,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 14,
-                                              fontFamily: 'Poppins-Medium',
+                                              fontFamily: poppinMedium,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -216,7 +217,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 10,
-                                              fontFamily: 'Poppins-Regular',
+                                              fontFamily: poppinRegular,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -237,7 +238,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                               style: TextStyle(
                                                 color: kRed,
                                                 fontSize: 5,
-                                                fontFamily: 'Poppins-Regular',
+                                                fontFamily: poppinRegular,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -251,7 +252,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                               decorationColor: kRed,
                                               decorationThickness: 3,
                                               fontSize: 10,
-                                              fontFamily: 'Poppins-Light',
+                                              fontFamily: poppinLight,
                                               height: 2,
                                             ),
                                             textAlign: TextAlign.left,
@@ -265,7 +266,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                               style: TextStyle(
                                                 color: borderColor,
                                                 fontSize: 7,
-                                                fontFamily: 'Poppins-SemiBold',
+                                                fontFamily: poppinSemiBold,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
@@ -275,7 +276,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             style: TextStyle(
                                               color: borderColor,
                                               fontSize: 20,
-                                              fontFamily: 'Poppins-SemiBold',
+                                              fontFamily: poppinSemiBold,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -284,7 +285,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 8,
-                                              fontFamily: 'Poppins-Regular',
+                                              fontFamily: poppinRegular,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -307,7 +308,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 12,
-                                              fontFamily: 'Poppins-Regular',
+                                              fontFamily: poppinRegular,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -330,7 +331,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             style: TextStyle(
                                               color: textLabelColor,
                                               fontSize: 10,
-                                              fontFamily: 'Poppins-Regular',
+                                              fontFamily: poppinRegular,
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
@@ -350,7 +351,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                                 style: TextStyle(
                                                   color: kWhite,
                                                   fontSize: 8,
-                                                  fontFamily: 'Poppins-Regular',
+                                                  fontFamily: poppinRegular,
                                                 ),
                                                 textAlign: TextAlign.left,
                                               ),
@@ -396,7 +397,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                               style: TextStyle(
                                 color: kWhite,
                                 fontSize: 13,
-                                fontFamily: 'Poppins-SemiBold',
+                                fontFamily: poppinSemiBold,
                               ),
                               textAlign: TextAlign.left,
                             ),
@@ -405,7 +406,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                               style: TextStyle(
                                 color: kWhite,
                                 fontSize: 8,
-                                fontFamily: 'Poppins-Regular',
+                                fontFamily: poppinRegular,
                               ),
                               textAlign: TextAlign.left,
                             ),

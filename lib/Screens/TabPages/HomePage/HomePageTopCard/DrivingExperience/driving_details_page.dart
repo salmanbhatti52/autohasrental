@@ -1,7 +1,8 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:flutter/material.dart';
+import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
+import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Home/home_page_details.dart';
 import '../EvSubscriptions/EvTabbar/tabbar_description_page.dart';
 
@@ -60,7 +61,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                           '4.0',
                           style: TextStyle(
                               fontSize: 16,
-                              fontFamily: 'Poppins-SemiBold',
+                              fontFamily: poppinSemiBold,
                               color: kWhite),
                         ),
                       ],
@@ -123,7 +124,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                           "Driving Experiences",
                           style: TextStyle(
                               fontSize: 17,
-                              fontFamily: 'Poppins-Medium',
+                              fontFamily: poppinMedium,
                               color: kWhite),
                           textAlign: TextAlign.left,
                         ),
@@ -131,7 +132,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                           "\$250",
                           style: TextStyle(
                               fontSize: 24,
-                              fontFamily: 'Poppins-Bold',
+                              fontFamily: poppinBold,
                               color: kWhite),
                           textAlign: TextAlign.left,
                         ),
@@ -144,35 +145,30 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                       text: 'Track Day Session \n',
                       style: TextStyle(
                           fontSize: 25,
-                          fontFamily: 'Poppins-Medium',
+                          fontFamily: poppinMedium,
                           color: kWhite),
                       children: [
                         TextSpan(
                           text: 'Get driven around by \n',
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontFamily: 'Poppins-Regular',
-                              color: kWhite),
-                        ),
+                          style: TextStyle(fontSize: 25,
+                              fontFamily: poppinRegular, color: kWhite)),
                         TextSpan(
                           text: "\" Alex Yoong \"",
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontFamily: 'Poppins-Bold',
-                              color: kWhite),
+                          style: TextStyle(fontSize: 25,
+                              fontFamily: poppinBold, color: kWhite),
                         ),
                         TextSpan(
                           text: ' at \n',
                           style: TextStyle(
                               fontSize: 25,
-                              fontFamily: 'Poppins-Regular',
+                              fontFamily: poppinRegular,
                               color: kWhite),
                         ),
                         TextSpan(
                           text: 'Sepang Circuit for \n RMx,xxx',
                           style: TextStyle(
                               fontSize: 25,
-                              fontFamily: 'Poppins-Regular',
+                              fontFamily: poppinRegular,
                               color: kWhite),
                         ),
                       ],

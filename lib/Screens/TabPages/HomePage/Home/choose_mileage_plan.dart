@@ -1,7 +1,6 @@
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../Utils/colors.dart';
 
 class ChooseMileagePlan extends StatefulWidget {
   const ChooseMileagePlan({Key? key}) : super(key: key);
@@ -59,7 +58,7 @@ class MileageRadioItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 05),
+      margin: const EdgeInsets.only(right: 05, top: 05),
       // height: MediaQuery.of(context).size.height * 0.02,
       // width: MediaQuery.of(context).size.width * 0.28,
       decoration: BoxDecoration(
@@ -68,7 +67,7 @@ class MileageRadioItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Center(
           child: Text(_item.buttonText,
                   textAlign: TextAlign.left, style: TextStyle(

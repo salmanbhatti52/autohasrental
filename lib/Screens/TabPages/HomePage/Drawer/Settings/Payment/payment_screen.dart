@@ -1,6 +1,7 @@
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../Utils/colors.dart';
+import '../../../../../../Utils/fontFamily.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     "Saved Payment Methods",
                     style: TextStyle(
                         fontSize: 20,
-                        fontFamily: 'Poppins-Bold',
+                        fontFamily: poppinBold,
                         color: kBlack),
                   ),
                   SizedBox(
@@ -80,16 +81,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         color: kBlack,
-                        fontFamily: 'Poppins-Medium',
+                        fontFamily: poppinMedium,
                         fontSize: 17)),
                 const SizedBox(
                   height: 05,
                 ),
                 Text(subTitleText,
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
-                        color: Color(0xffB0B0B0),
-                        fontFamily: 'Poppins-Regular',
+                    style: TextStyle(
+                        color: const Color(0xffB0B0B0),
+                        fontFamily: poppinRegular,
                         fontSize: 14)),
               ],
             ),
@@ -99,11 +100,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   children: [
                     Image.asset("assets/payment_card_images/recycle_icon.png"),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-                    const Text("Delete",
+                    Text("Delete",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            color: Color(0xFFD93A3A),
-                            fontFamily: 'Poppins-Medium',
+                            color: const Color(0xFFD93A3A),
+                            fontFamily: poppinMedium,
                             fontSize: 14)),
                   ],
                 ),

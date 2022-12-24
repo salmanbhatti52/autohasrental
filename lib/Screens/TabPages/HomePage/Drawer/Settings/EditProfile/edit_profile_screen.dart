@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../Model/SettingsModel/update_profile_model.dart';
 import '../../../../../../Utils/api_urls.dart';
 import '../../../../../../Utils/colors.dart';
+import '../../../../../../Utils/constants.dart';
 import '../../../../../../Widget/TextFields/address_text_field.dart';
 import '../../../../../../Widget/toast_message.dart';
 import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
@@ -95,9 +96,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   bool loading = true;
-  SharedPreferences? prefs;
 
-  String? userId;
   sharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('in LoginPage shared prefs');

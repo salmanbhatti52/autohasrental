@@ -1,15 +1,15 @@
 import 'dart:async';
+import 'package:auto_haus_rental_app/Model/AuthModels/verify_otp_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/Auth/verify_otp_model.dart';
-import '../../../Widget/button.dart';
-import '../../../Utils/fontFamily.dart';
-import '../../../Widget/toast_message.dart';
 import '../LoginPage/login_page.dart';
 import 'package:http/http.dart' as http;
 
