@@ -30,10 +30,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       String apiUrl = forgetPasswordApiUrl;
       print("api: $apiUrl");
       print("email: ${resetEmailController.text}");
-      final response = await http.post(Uri.parse(apiUrl),
-        headers: {
-          'Accept': 'application/json'
-        },
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Accept': 'application/json'},
         body: {
           'email': resetEmailController.text,
         },
@@ -78,31 +77,32 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-
-                // Text("Reset Password", textAlign: TextAlign.center,
-                //   style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
-                SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
+                SvgPicture.asset(
+                  'assets/splash/login_image.svg',
+                  fit: BoxFit.fill,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("Enter the email address associated with your account. We'll send you a link to reset your password.",
+                  child: Text(
+                    "Enter the email address associated with your account. We'll send you a link to reset your password.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
+                    style: TextStyle(
+                        fontSize: 16, fontFamily: poppinRegular, color: kWhite),
+                  ),
                 ),
-
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-
                 buildTextFields(),
-
                 SizedBox(height: MediaQuery.of(context).size.height * 0.07),
-
                 GestureDetector(
                     onTap: () async {
-                      if(loginFormKey.currentState!.validate()){
+                      if (loginFormKey.currentState!.validate()) {
                         if (resetEmailController.text.isEmpty) {
-                          toastFailedMessage('email cannot be empty', Colors.red);
-                        } else{
+                          toastFailedMessage(
+                              'email cannot be empty', Colors.red);
+                        } else {
                           setState(() {
                             progress = true;
                           });
@@ -110,15 +110,22 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           if (forgetPasswordModel.status == "success") {
                             print("reset Success");
                             Future.delayed(const Duration(seconds: 3), () {
-                              toastSuccessMessage("${forgetPasswordModel.data!.message}", colorGreen);
+                              toastSuccessMessage(
+                                  "${forgetPasswordModel.data!.message}",
+                                  colorGreen);
 
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => SetNewPasswordPage(
-                                    email: resetEmailController.text,
-                                    verifyCode: forgetPasswordModel.data!.otp.toString(),
-                                  )));
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SetNewPasswordPage(
+                                            email: resetEmailController.text,
+                                            verifyCode: forgetPasswordModel
+                                                .data!.otp
+                                                .toString(),
+                                          )));
                               print("resetEmail: ${resetEmailController.text}");
-                              print("resetCode: ${forgetPasswordModel.data!.otp.toString()}");
+                              print(
+                                  "resetCode: ${forgetPasswordModel.data!.otp.toString()}");
 
                               setState(() {
                                 progress = false;
@@ -131,7 +138,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               progress = false;
                             });
                             print("forgetPasswordModel: loginError");
-                            toastFailedMessage("forgetPasswordModel", Colors.red);
+                            toastFailedMessage(
+                                "forgetPasswordModel", Colors.red);
                           }
                         }
                       }
@@ -152,34 +160,33 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   Widget buildTextFields() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Container(
-          color: Colors.transparent,
-          child: Form(
-            key: loginFormKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    textWidget("Email"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-
-                    EditTextUtils().getCustomEditTextArea(
-                      hintValue: "rose.matthews@mail.com",
-                      validation: true,
-                      // autoFocus: true,
-                      textController: resetEmailController,
-                      keyboardType: TextInputType.emailAddress,
-                      // errorTextMsg: "Please Enter Email",
-                    ),
-                  ],
-                ),
-              ],
-            ),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        color: Colors.transparent,
+        child: Form(
+          key: loginFormKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  textWidget("Email"),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  EditTextUtils().getCustomEditTextArea(
+                    hintValue: "rose.matthews@mail.com",
+                    validation: true,
+                    // autoFocus: true,
+                    textController: resetEmailController,
+                    keyboardType: TextInputType.emailAddress,
+                    // errorTextMsg: "Please Enter Email",
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
