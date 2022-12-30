@@ -1,9 +1,8 @@
 import 'package:auto_haus_rental_app/Model/HomePageModels/HomePageTopWidgetModels/car_photography_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BrowseCardForRent/browse_car_description.dart';
 import 'package:flutter/material.dart';
-import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/browse_cars_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/fontFamily.dart';
-import '../EvSubscriptions/car_description.dart';
 import 'browse_car_logo_container.dart';
 import '../../../../../Utils/colors.dart';
 import '../../Filter/filter_screen.dart';
@@ -173,7 +172,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
               return GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => const CarDescription()));
+                      builder: (context) => const BrowseCarDescription()));
                 },
                 child: Stack(
                   children: [

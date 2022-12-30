@@ -1,10 +1,10 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/Homepage/HomePageTopCard/EvSubscriptions/EvTabbar/tabbar_description_page.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Widget/month_slot.dart';
 import '../../Home/home_page_details.dart';
-import 'EvTabbar/tabbar_description_page.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 
 class EVCarDescription extends StatefulWidget {
@@ -100,7 +100,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> {
                 child: const MonthSlotContainer(),
               ),
             ),
-            const TabbarEVCarDescription(),
+            const TabbarCarDescription(),
             GestureDetector(
                 onTap: () {
                   Navigator.push(

@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/Homepage/HomePageTopCard/EvSubscriptions/EvTabbar/tabbar_description_page.dart';
 import 'package:auto_haus_rental_app/Widget/day_slot.dart';
 import 'package:auto_haus_rental_app/Widget/time_slot.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Home/home_page_details.dart';
-import '../EvSubscriptions/EvTabbar/tabbar_description_page.dart';
+
 
 class DrivingDetailsPage extends StatefulWidget {
   const DrivingDetailsPage({Key? key}) : super(key: key);
@@ -209,7 +210,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                   child: const TimeSlotContainer()),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            const TabbarEVCarDescription(),
+            const TabbarCarDescription(),
             GestureDetector(
                 onTap: () {
                   Navigator.push(
