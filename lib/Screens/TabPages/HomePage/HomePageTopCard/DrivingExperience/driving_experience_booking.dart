@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../../../Widget/button.dart';
-import '../../../../Utils/colors.dart';
-import '../../../../Utils/fontFamily.dart';
-import '../../MyAppBarHeader/app_bar_header.dart';
-import 'Address/delivery_address.dart';
-import 'choose_mileage_plan.dart';
-import 'choose_subscription_plan.dart';
+import '../../../../../Utils/colors.dart';
+import '../../../../../Utils/fontFamily.dart';
+import '../../../../../Widget/button.dart';
+import '../../../MyAppBarHeader/app_bar_header.dart';
+import '../../Home/Address/delivery_address.dart';
+import '../../Home/choose_mileage_plan.dart';
+import '../../Home/choose_subscription_plan.dart';
 
-class HomePageDetails extends StatefulWidget {
+class BookForWeddingBooking extends StatefulWidget {
   final String? vehicalName, rentCostMonth, oldRent, carRating, discount;
   final int? modelYear;
-  const HomePageDetails(
+  const BookForWeddingBooking(
       {Key? key,
       this.vehicalName,
       this.rentCostMonth,
@@ -21,10 +21,10 @@ class HomePageDetails extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<HomePageDetails> createState() => _HomePageDetailsState();
+  State<BookForWeddingBooking> createState() => _BookForWeddingBookingState();
 }
 
-class _HomePageDetailsState extends State<HomePageDetails> {
+class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -44,7 +44,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  homePageDetailsCard(),
+                  bookForWeddingBookingCard(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
@@ -335,7 +335,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
     );
   }
 
-  Widget homePageDetailsCard() {
+  Widget bookForWeddingBookingCard() {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Stack(

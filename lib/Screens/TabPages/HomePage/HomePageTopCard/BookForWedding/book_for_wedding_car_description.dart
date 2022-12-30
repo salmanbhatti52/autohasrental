@@ -1,10 +1,10 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/book_for_wedding_booking.dart';
 import 'package:auto_haus_rental_app/Widget/day_slot.dart';
 import 'package:auto_haus_rental_app/Widget/hour_slot.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
-import '../../Home/home_page_details.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'BookForWeddingTabbar/tabbar_book_for_wedding.dart';
 
@@ -12,10 +12,12 @@ class BookForWeddingCarDescription extends StatefulWidget {
   const BookForWeddingCarDescription({super.key});
 
   @override
-  State<BookForWeddingCarDescription> createState() => _BookForWeddingCarDescriptionState();
+  State<BookForWeddingCarDescription> createState() =>
+      _BookForWeddingCarDescriptionState();
 }
 
-class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescription> {
+class _BookForWeddingCarDescriptionState
+    extends State<BookForWeddingCarDescription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,7 +168,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomePageDetails()));
+                          builder: (context) => const BookForWeddingBooking()));
                 },
                 child: loginButton('Book Now', context)),
           ],

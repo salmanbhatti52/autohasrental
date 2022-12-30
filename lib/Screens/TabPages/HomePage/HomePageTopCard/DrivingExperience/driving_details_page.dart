@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/book_for_wedding_booking.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/Homepage/HomePageTopCard/EvSubscriptions/EvTabbar/tabbar_description_page.dart';
 import 'package:auto_haus_rental_app/Widget/day_slot.dart';
 import 'package:auto_haus_rental_app/Widget/time_slot.dart';
@@ -6,8 +7,6 @@ import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
-import '../../Home/home_page_details.dart';
-
 
 class DrivingDetailsPage extends StatefulWidget {
   const DrivingDetailsPage({Key? key}) : super(key: key);
@@ -216,7 +215,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomePageDetails()));
+                          builder: (context) => const BookForWeddingBooking()));
                 },
                 child: loginButton('Book Now', context)),
           ],
