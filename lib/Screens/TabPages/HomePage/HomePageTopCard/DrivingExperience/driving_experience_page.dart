@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/driving_experience_cars_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/fontFamily.dart';
-import '../BrowseCardForRent/browse_car_logo_container.dart';
+import '../BookforWedding/browse_car_logo_container.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Filter/filter_screen.dart';
