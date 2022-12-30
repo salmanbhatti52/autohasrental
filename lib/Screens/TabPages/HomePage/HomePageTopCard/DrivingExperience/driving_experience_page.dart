@@ -5,7 +5,7 @@ import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Filter/filter_screen.dart';
-import '../BrowseCardForRent/browse_car_logo_container.dart';
+import '../BookForWedding/book_for_wedding_car_logo_container.dart';
 import 'driving_details_page.dart';
 import 'top_widget.dart';
 import 'package:http/http.dart'as http;
@@ -123,7 +123,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  child: const BrowseCarLogoContainer()),
+                  child: const BookForWeddingCarLogoContainer()),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

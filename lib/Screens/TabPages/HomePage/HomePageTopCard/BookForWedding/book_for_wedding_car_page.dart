@@ -1,22 +1,22 @@
 import 'package:auto_haus_rental_app/Model/HomePageModels/HomePageTopWidgetModels/car_photography_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BrowseCardForRent/browse_car_description.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/book_for_wedding_car_description.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/fontFamily.dart';
-import 'browse_car_logo_container.dart';
+import 'book_for_wedding_car_logo_container.dart';
 import '../../../../../Utils/colors.dart';
 import '../../Filter/filter_screen.dart';
 import '../../Notifications/notification_screen.dart';
 import 'package:http/http.dart'as http;
 
-class BrowseCarPage extends StatefulWidget {
-  const BrowseCarPage({Key? key}) : super(key: key);
+class BookForWeddingPage extends StatefulWidget {
+  const BookForWeddingPage({Key? key}) : super(key: key);
 
   @override
-  State<BrowseCarPage> createState() => _BrowseCarPageState();
+  State<BookForWeddingPage> createState() => _BookForWeddingPageState();
 }
 
-class _BrowseCarPageState extends State<BrowseCarPage> {
+class _BookForWeddingPageState extends State<BookForWeddingPage> {
 
   CarsPhotoGraphyModel carsPhotoGraphyModelObject = CarsPhotoGraphyModel();
 
@@ -142,7 +142,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  child: const BrowseCarLogoContainer()),
+                  child: const BookForWeddingCarLogoContainer()),
             ),
             browseCarsListWidget(),
           ],
@@ -172,7 +172,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
               return GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => const BrowseCarDescription()));
+                      builder: (context) => const BookForWeddingCarDescription()));
                 },
                 child: Stack(
                   children: [

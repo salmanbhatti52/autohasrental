@@ -5,16 +5,16 @@ import 'description_page/description.dart';
 import 'feature_page/features.dart';
 import 'rating_page.dart/rating.dart';
 
-class TabbarBrowseCarDescription extends StatefulWidget {
-  const TabbarBrowseCarDescription({super.key});
+class TabbarBookForWedding extends StatefulWidget {
+  const TabbarBookForWedding({super.key});
 
   @override
-  State<TabbarBrowseCarDescription> createState() => _TabbarBrowseCarDescriptionState();
+  State<TabbarBookForWedding> createState() => _TabbarBookForWeddingState();
 }
 
 abstract class TickerProvider {}
 
-class _TabbarBrowseCarDescriptionState extends State<TabbarBrowseCarDescription>
+class _TabbarBookForWeddingState extends State<TabbarBookForWedding>
     with TickerProviderStateMixin {
   List<String> tabs = ["Description", "Features", "Ratings"];
   int selectedIndex = 0;

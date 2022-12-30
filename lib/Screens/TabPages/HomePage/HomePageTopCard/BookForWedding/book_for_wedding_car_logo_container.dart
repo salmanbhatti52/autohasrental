@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
 
-class BrowseCarLogoContainer extends StatefulWidget {
-  const BrowseCarLogoContainer({super.key});
+class BookForWeddingCarLogoContainer extends StatefulWidget {
+  const BookForWeddingCarLogoContainer({super.key});
 
   @override
-  State<BrowseCarLogoContainer> createState() => _BrowseCarLogoContainerState();
+  State<BookForWeddingCarLogoContainer> createState() => _BookForWeddingCarLogoContainerState();
 }
 
-class _BrowseCarLogoContainerState extends State<BrowseCarLogoContainer> {
+class _BookForWeddingCarLogoContainerState extends State<BookForWeddingCarLogoContainer> {
   List<FilterRadioModel> filterData = <FilterRadioModel>[];
 
   @override

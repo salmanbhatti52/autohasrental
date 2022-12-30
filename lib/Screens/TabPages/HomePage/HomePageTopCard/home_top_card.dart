@@ -1,7 +1,7 @@
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import '../../../../Utils/fontFamily.dart';
-import 'BrowseCardForRent/browse_car_page.dart';
+import 'BookForWedding/book_for_wedding_car_page.dart';
 import 'DrivingExperience/driving_experience_page.dart';
 import 'EvSubscriptions/ev_subscription_page.dart';
 
@@ -27,7 +27,7 @@ Widget myHorizontalCard(BuildContext context){
                       break;
                     case 1:
                       Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const BrowseCarPage()));
+                        MaterialPageRoute(builder: (context) => const BookForWeddingPage()));
                       break;
                     case 2:
                       Navigator.push(context,

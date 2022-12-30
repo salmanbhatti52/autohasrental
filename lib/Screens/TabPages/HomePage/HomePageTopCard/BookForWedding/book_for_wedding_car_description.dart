@@ -5,17 +5,17 @@ import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../Home/home_page_details.dart';
-import 'BrowseCarTabbar/tabbar_description_page.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
+import 'BookForWeddingTabbar/tabbar_book_for_wedding.dart';
 
-class BrowseCarDescription extends StatefulWidget {
-  const BrowseCarDescription({super.key});
+class BookForWeddingCarDescription extends StatefulWidget {
+  const BookForWeddingCarDescription({super.key});
 
   @override
-  State<BrowseCarDescription> createState() => _BrowseCarDescriptionState();
+  State<BookForWeddingCarDescription> createState() => _BookForWeddingCarDescriptionState();
 }
 
-class _BrowseCarDescriptionState extends State<BrowseCarDescription> {
+class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,7 +160,7 @@ class _BrowseCarDescriptionState extends State<BrowseCarDescription> {
                   child: const HourSlotContainer()),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            const TabbarBrowseCarDescription(),
+            const TabbarBookForWedding(),
             GestureDetector(
                 onTap: () {
                   Navigator.push(
