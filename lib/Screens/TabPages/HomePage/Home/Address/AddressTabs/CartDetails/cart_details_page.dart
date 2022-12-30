@@ -5,7 +5,7 @@ import '../../../../../../../Widget/button.dart';
 import '../../../../../../../Utils/colors.dart';
 import '../../../../../../../Utils/fontFamily.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import '../../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
+import '../../../../../../../Widget/myTextWidget.dart';
 import '../../../../../MyAppBarHeader/app_bar_header.dart';
 
 class CartDetailsPage extends StatefulWidget {

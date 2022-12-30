@@ -7,9 +7,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../Model/AuthModels/forget_password_model.dart';
 import '../../../../Widget/TextFields/text_form_field.dart';
+import '../../../../Widget/myTextWidget.dart';
 import '../../../../Widget/toast_message.dart';
 import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
-import 'myTextWidget.dart';
 import 'set_new_password_page.dart';
 import 'package:http/http.dart' as http;
 

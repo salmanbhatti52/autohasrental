@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
-import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/browse_cars_model.dart';
+import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/car_photography_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../EvSubscriptions/car_description.dart';
-import 'browse_car_logo_container.dart';
+import 'photography_car_logo_container.dart';
 import '../../../../../Utils/colors.dart';
 import '../../Filter/filter_screen.dart';
 import '../../Notifications/notification_screen.dart';
 import 'package:http/http.dart'as http;
 
-class BrowseCarPage extends StatefulWidget {
-  const BrowseCarPage({Key? key}) : super(key: key);
+class PhotoGraphyPage extends StatefulWidget {
+  const PhotoGraphyPage({Key? key}) : super(key: key);
 
   @override
-  State<BrowseCarPage> createState() => _BrowseCarPageState();
+  State<PhotoGraphyPage> createState() => _PhotoGraphyPageState();
 }
 
-class _BrowseCarPageState extends State<BrowseCarPage> {
+class _PhotoGraphyPageState extends State<PhotoGraphyPage> {
 
-  BrowseCarsModel browseCarsModelObject = BrowseCarsModel();
+
+  CarsPhotoGraphyModel carsPhotoGraphyModelObject = CarsPhotoGraphyModel();
 
   bool loadingP = true;
 
   @override
   void initState() {
     super.initState();
-    getBrowseCarsWidget();
+    getCarsPhotoGraphyWidget();
   }
 
-  getBrowseCarsWidget() async {
+  getCarsPhotoGraphyWidget() async {
     loadingP = true;
     setState(() {});
     try {
-      String apiUrl = browseCarsApiUrl;
-      print("browseCarsApi: $apiUrl");
+      String apiUrl = carsPhotoGraphyApiUrl;
+      print("carsPhotographyApi: $apiUrl");
       final response = await http.get(Uri.parse(apiUrl),
           headers: {
             'Accept': 'application/json'
@@ -43,8 +44,8 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("browseCarsResponse: ${responseString.toString()}");
-        browseCarsModelObject = browseCarsModelFromJson(responseString);
-        print("browseCarsModelObjectLength: ${browseCarsModelObject.data!.length}");
+        carsPhotoGraphyModelObject = carsPhotoGraphyModelFromJson(responseString);
+        print("browseCarsModelObjectLength: ${carsPhotoGraphyModelObject.status}");
       }
     } catch (e) {
       print('Error: ${e.toString()}');
@@ -75,7 +76,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                           width: 40,
                           color: Colors.transparent,
                           child: Image.asset("assets/home_page/back_arrow.png"))),
-                  Text("Brows Cars",
+                  Text("Photography Cars",
                     style: TextStyle(fontSize: 20,
                         fontFamily: poppinBold, color: kBlack)),
                   GestureDetector(
@@ -142,7 +143,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  child: const BrowseCarLogoContainer()),
+                  child: const PhotoGraphyCarLogoContainer()),
             ),
             browseCarsListWidget(),
           ],
@@ -154,7 +155,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
   Widget browseCarsListWidget() {
     return SingleChildScrollView(
       child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor,)):
-      browseCarsModelObject.status != "success"? const Center(
+      carsPhotoGraphyModelObject.status != "success"? const Center(
         child: Text('no data found...',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -167,7 +168,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
             // itemCount: browseCarItemsList.length,
-            itemCount: browseCarsModelObject.data!.length,
+            itemCount: carsPhotoGraphyModelObject.data!.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
@@ -214,18 +215,18 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                       children: [
                                         Row(
                                           children: [
-                                            Text("${browseCarsModelObject.data![index].vehicalName} | ",
+                                            Text("${carsPhotoGraphyModelObject.data![index].vehicalName} | ",
                                               style: TextStyle(color: kBlack,
                                                 fontSize: 14, fontFamily: poppinBold),
                                               textAlign: TextAlign.left),
                                             Text("MODEL ", style: TextStyle(color: kBlack,
                                                 fontSize: 12, fontFamily: poppinRegular,),
                                               textAlign: TextAlign.left),
-                                            Text("${browseCarsModelObject.data![index].year} ",
+                                            Text("${carsPhotoGraphyModelObject.data![index].year} ",
                                               style: TextStyle(color: kBlack,
                                                 fontSize: 14, fontFamily: poppinMedium,),
                                               textAlign: TextAlign.left),
-                                            Text("${browseCarsModelObject.data![index].year} ",
+                                            Text("${carsPhotoGraphyModelObject.data![index].year} ",
                                               style: TextStyle(color: kBlack,
                                                 fontSize: 10, fontFamily: poppinRegular,),
                                               textAlign: TextAlign.left),
@@ -241,7 +242,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                                 textAlign: TextAlign.left),
                                             ),
                                             Text(
-                                              "${browseCarsModelObject.data![index].carsDiscountRatePerYear}",
+                                              "${carsPhotoGraphyModelObject.data![index].carsPlans![0].pricePerHour}",
                                               style: TextStyle(
                                                 color: kRed,
                                                 decoration: TextDecoration.lineThrough,
@@ -260,7 +261,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                                   fontSize: 7, fontFamily: poppinSemiBold,),
                                                 textAlign: TextAlign.left),
                                             ),
-                                            Text("${browseCarsModelObject.data![index].carsDiscountRatePerMonth}",
+                                            Text("${carsPhotoGraphyModelObject.data![index].carsPlans![0].pricePerHour}",
                                               style: TextStyle(
                                                 color: borderColor,
                                                 fontSize: 16,
@@ -285,7 +286,10 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                             ),
                                             Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                                             SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
-                                            Text("${browseCarsModelObject.data![index].rating}",
+                                            carsPhotoGraphyModelObject.data![index].rating == null?
+                                            Text("0.0", style: TextStyle(color: kBlack,
+                                                fontSize: 10, fontFamily: poppinMedium),):
+                                            Text("${carsPhotoGraphyModelObject.data![index].rating}",
                                               style: TextStyle(color: kBlack,
                                                 fontSize: 12, fontFamily: poppinRegular,),
                                               textAlign: TextAlign.left),
@@ -324,13 +328,13 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                                       ],
                                     ),
                                   ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Image.asset("assets/car_bookings_images/more_button.png"),
-                                    ],
-                                  ),
+                                  // Column(
+                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                  //   crossAxisAlignment: CrossAxisAlignment.end,
+                                  //   children: [
+                                  //     Image.asset("assets/car_bookings_images/more_button.png"),
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                             ],
@@ -353,7 +357,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("${browseCarsModelObject.data![index].discountPercentage}",
+                              Text("${carsPhotoGraphyModelObject.data![index].discountPercentage}",
                                 style: TextStyle(color: kWhite,
                                   fontSize: 13, fontFamily: poppinSemiBold,),
                                 textAlign: TextAlign.left,),
@@ -366,7 +370,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                         )),
                     Positioned(
                       top: 10, left: 10, right: 10,
-                      child: browseCarsModelObject.data![index].image1 == null? ClipRRect(
+                      child: carsPhotoGraphyModelObject.data![index].image1 == null? ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.asset('assets/icon/fade_in_image.jpeg')):
                       ClipRRect(
@@ -376,7 +380,7 @@ class _BrowseCarPageState extends State<BrowseCarPage> {
                           // fit: BoxFit.fill,
                           width: 350,
                           height: 150,
-                          image: NetworkImage("$baseUrlImage${browseCarsModelObject.data![index].image1}"),
+                          image: NetworkImage("$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}"),
                         ),
                       ),
                     ),

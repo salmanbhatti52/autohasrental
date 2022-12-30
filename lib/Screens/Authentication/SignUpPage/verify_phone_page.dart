@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:auto_haus_rental_app/Model/AuthModels/verify_otp_model.dart';
+import 'package:auto_haus_rental_app/Screens/Authentication/SignUpPage/privacy_policy_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -114,7 +115,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("We sent you an SMS with a 6 digit code. Enter the code to verify your mobile.",
+                  child: Text("We sent you an SMS with a 4 digit code. Enter the code to verify your mobile.",
                    textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite,),),
                 ),
@@ -124,7 +125,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                 Form(
                   key: formKeyVerifyCode,
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60),
                       child: PinCodeTextField(
                         appContext: context,
                         textStyle: TextStyle(color: borderColor),
@@ -133,7 +134,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                           fontWeight: FontWeight.bold,
                           // backgroundColor: Colors.transparent,
                         ),
-                        length: 6,
+                        length: 4,
                         // obscureText: true,
                         hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular),
                         hintCharacter: "0",
@@ -216,8 +217,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                           Future.delayed(const Duration(seconds: 3), () {
                             toastSuccessMessage("success", Colors.green);
                             Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => const LoginPage()));
-
+                                MaterialPageRoute(builder: (context) => const PrivacyPolicyPage()));
                             setState(() {
                               progress = false;
                             });

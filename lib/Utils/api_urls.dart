@@ -12,6 +12,7 @@ String modifyNewPasswordApiUrl = '${baseUrl}modify_password';
 
 /// Setting Page API Urls
 String deleteAccountApiUrl = '${baseUrl}delete_account';
+String getUserProfileApiUrl = '${baseUrl}users_customers_profile';
 String updateProfileApiUrl = '${baseUrl}update_profile';
 String changePasswordApiUrl = '${baseUrl}change_password';
 String privacyPolicyApiUrl = '${baseUrl}system_settings/17';
@@ -33,3 +34,10 @@ String bookingUpcomingCarsApiUrl = '${baseUrl}bookings_upcoming';
 
 String cancelBookingUpcomingCarsApiUrl = '${baseUrl}bookings_cancelled';
 String cancelBookingDialogBoxApiUrl = '${baseUrl}bookings_cancel';
+
+
+/// HomePage Top Widgets API Urls
+String browseCarsApiUrl = '${baseUrl}cars';
+String carsPhotoGraphyApiUrl = '${baseUrl}cars_photography';
+String carDrivingExperienceApiUrl = '${baseUrl}cars_drivings';
+String carsEvSubscriptionApiUrl = '${baseUrl}cars_ev_subscriptions';

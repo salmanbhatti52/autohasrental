@@ -1,18 +1,20 @@
-import 'package:auto_haus_rental_app/Model/AuthModels/modify_password_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
-import 'package:auto_haus_rental_app/Widget/TextFields/password_text_field.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../../../Model/AuthModels/modify_password_model.dart';
 import '../../../../Utils/fontFamily.dart';
-import 'myTextWidget.dart';
-import 'privacy_policy_page.dart';
+import '../../../../Widget/TextFields/password_text_field.dart';
+import '../../../../Widget/myTextWidget.dart';
+import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
+import '../../SignUpPage/privacy_policy_page.dart';
 import 'package:http/http.dart'as http;
+
+import '../login_page.dart';
 
 class SetNewPasswordPage extends StatefulWidget {
   final String? email, verifyCode;
@@ -134,7 +136,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                               toastSuccessMessage("${modifyPasswordModel.status}", colorGreen);
 
                               Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => const PrivacyPolicyPage()));
+                                  MaterialPageRoute(builder: (context) => const LoginPage()));
 
                               setState(() {
                                 progress = false;

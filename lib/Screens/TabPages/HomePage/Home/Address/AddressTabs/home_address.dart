@@ -1,8 +1,9 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Widget/TextFields/address_text_field.dart';
+
 import '../../../../../../Utils/colors.dart';
-import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
+import '../../../../../../Widget/TextFields/address_text_field.dart';
+import '../../../../../../Widget/myTextWidget.dart';
 
 class HomeAddressPage extends StatefulWidget {
   const HomeAddressPage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
   String _country = 'United Kingdom';
 
   // Initial Selected Value
-  String dropdownvalue = 'Select state';
+  String dropdownValue = 'Select state';
 
   // List of items in our dropdown menu
   var items = [
@@ -58,7 +59,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                       padding: const EdgeInsets.only(left: 10),
                       child: DropdownButton(
                         // Initial Value
-                        value: dropdownvalue,
+                        value: dropdownValue,
                         // hint: Text("Select state", style: TextStyle(color: textLabelColor, fontFamily: poppinRegular,
                         // ),
                         // ),
@@ -77,7 +78,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                         // change button value to selected value
                         onChanged: (String? newValue) {
                           setState(() {
-                            dropdownvalue = newValue!;
+                            dropdownValue = newValue!;
                           });
                         },
                       ),

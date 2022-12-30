@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:auto_haus_rental_app/Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../../Model/SettingsModel/update_profile_model.dart';
+import '../../../../../../Model/SettingsModel/ProfileModels/update_profile_model.dart';
 import '../../../../../../Utils/api_urls.dart';
 import '../../../../../../Utils/colors.dart';
 import '../../../../../../Utils/constants.dart';
 import '../../../../../../Widget/TextFields/address_text_field.dart';
+import '../../../../../../Widget/myTextWidget.dart';
 import '../../../../../../Widget/toast_message.dart';
-import '../../../../../Authentication/LoginPage/ForgetPassword/myTextWidget.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 import '../settings_screen.dart';
 import 'package:http/http.dart' as http;
@@ -103,12 +104,44 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
     print("userId in Prefs is = $userId");
+    getUserProfileWidget();
   }
 
   @override
   void initState() {
     super.initState();
     sharedPrefs();
+  }
+
+  GetUserProfileModel getUserProfileModelObject = GetUserProfileModel();
+  getUserProfileWidget() async {
+    loader = true;
+    setState(() {});
+    try {
+      String apiUrl = getUserProfileApiUrl;
+      print("getUserProfileApi: $apiUrl");
+      final response = await http.post(Uri.parse(apiUrl),
+          body: {
+        "users_customers_id" : userId,
+          },
+          headers: {
+            'Accept': 'application/json'
+          });
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("getUserProfileResponse: ${responseString.toString()}");
+        getUserProfileModelObject = getUserProfileModelFromJson(responseString);
+        print("getUserName: ${getUserProfileModelObject.data!.lastName}");
+        print("getUserProfileImage: ${baseUrlImage+ getUserProfileModelObject.data!.profilePic.toString()}");
+        print("getUserProfileImage: $baseUrlImage${getUserProfileModelObject.data!.profilePic}");
+      }
+    } catch (e) {
+      print('Error in getUserProfileWidget: ${e.toString()}');
+    }
+    loader = false;
+    setState(() {});
   }
 
   bool progress = false;
@@ -120,7 +153,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       backgroundColor: homeBgColor,
       appBar: const MyAppBarSingleImage(
         title: "Edit Profile", backImage: "assets/messages_images/Back.png",),
-      body:ModalProgressHUD(
+      body: loader ? Center(child: CircularProgressIndicator(color: borderColor,)):
+      getUserProfileModelObject.status != "success"? const Center(
+        child: Text('no data found...',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ):
+      ModalProgressHUD(
         inAsyncCall: progress,
         opacity: 0.02,
         blur: 0.5,
@@ -141,13 +180,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         decoration: BoxDecoration(
                             color: kWhite,
                             shape: BoxShape.circle,
-                            border: Border.all(
-                                color: kWhite, width: 3)),
-                        child: CircleAvatar(
+                            border: Border.all(color: kWhite, width: 3)),
+                        child: getUserProfileModelObject.data!.profilePic == null?
+                        CircleAvatar(
                           radius: (screenWidth > 600) ? 90 : 70,
                           backgroundColor: Colors.transparent,
                           backgroundImage: image == null?
                           const AssetImage("assets/home_page/user.png",)
+                          // NetworkImage(baseUrlImage+ getUserProfileModelObject.data!.profilePic!)
+                              : Image.file(image!, height: 50, width: 50, fit: BoxFit.contain,).image,
+                        ):
+                        CircleAvatar(
+                          radius: (screenWidth > 600) ? 90 : 70,
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: image == null?
+                          NetworkImage(baseUrlImage+ getUserProfileModelObject.data!.profilePic!)
                               : Image.file(image!, height: 50, width: 50, fit: BoxFit.contain,).image,
                         ),
                       ),
@@ -187,8 +234,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         progress = true;
                       });
                       await updateUserWidget();
-                      if (updateProfileModel.status == "success") {
-                        print("LogIn Success");
+                      // if (updateProfileModel.status == "success") {
+                        print("updated Success");
                         Future.delayed(const Duration(seconds: 3), () {
                           toastSuccessMessage("updated Successfully...!", Colors.green);
 
@@ -200,14 +247,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           });
                           print("false: $progress");
                         });
-                      }
-                      if (updateProfileModel.status != "success") {
-                        setState(() {
-                          progress = false;
-                        });
-                        print("updateProfileModel");
-                        toastFailedMessage("updateProfile Error", Colors.red);
-                      }
+                      // }
+                      // if (updateProfileModel.status != "success") {
+                      //   setState(() {
+                      //     progress = false;
+                      //   });
+                      //   print("updateProfileModel");
+                      //   toastFailedMessage("updateProfile Error", Colors.red);
+                      // }
                     }
                   }
 
@@ -245,7 +292,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: AddressTextUtils().getCustomEditTextArea(
-                            hintValue: "John",
+                            // hintValue: "John",
+                            hintValue: getUserProfileModelObject.data!.firstName.toString(),
                             validation: true,
                             // autoFocus: true,
                             textController: firstNameController,
@@ -266,7 +314,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: AddressTextUtils().getCustomEditTextArea(
-                            hintValue: "Doe",
+                            // hintValue: "Doe",
+                            hintValue: getUserProfileModelObject.data!.lastName.toString(),
                             validation: true,
                             // autoFocus: true,
                             textController: lastNameController,
@@ -287,7 +336,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: AddressTextUtils().getCustomEditTextArea(
-                            hintValue: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.",
+                            // hintValue: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.",
+                            hintValue: getUserProfileModelObject.data!.about == null? "nothing to show":
+                            getUserProfileModelObject.data!.about.toString(),
                             validation: true,
                             // autoFocus: true,
                             textController: aboutController,
@@ -308,7 +359,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: AddressTextUtils().getCustomEditTextArea(
-                            hintValue: "rose.matthews@mail.com",
+                            // hintValue: "rose.matthews@mail.com",
+                            hintValue: getUserProfileModelObject.data!.email.toString(),
                             validation: true,
                             // autoFocus: true,
                             textController: emailController,
@@ -329,7 +381,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                           child: AddressTextUtils().getCustomEditTextArea(
-                            hintValue: "Enter your location here",
+                            // hintValue: "Enter your location here",
+                            hintValue: getUserProfileModelObject.data!.location == null? "no location":
+                            getUserProfileModelObject.data!.location.toString(),
                             validation: true,
                             // autoFocus: true,
                             textController: locationController,

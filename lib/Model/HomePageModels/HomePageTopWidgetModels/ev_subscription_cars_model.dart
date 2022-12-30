@@ -1,12 +1,12 @@
 
 import 'dart:convert';
 
-TopRentedCarsModel topRentedCarsModelFromJson(String str) => TopRentedCarsModel.fromJson(json.decode(str));
+EvSubscriptionCarsModel evSubscriptionCarsModelFromJson(String str) => EvSubscriptionCarsModel.fromJson(json.decode(str));
 
-String topRentedCarsModelToJson(TopRentedCarsModel data) => json.encode(data.toJson());
+String evSubscriptionCarsModelToJson(EvSubscriptionCarsModel data) => json.encode(data.toJson());
 
-class TopRentedCarsModel {
-  TopRentedCarsModel({
+class EvSubscriptionCarsModel {
+  EvSubscriptionCarsModel({
     this.status,
     this.data,
   });
@@ -14,7 +14,7 @@ class TopRentedCarsModel {
   String? status;
   List<Datum>? data;
 
-  factory TopRentedCarsModel.fromJson(Map<String, dynamic> json) => TopRentedCarsModel(
+  factory EvSubscriptionCarsModel.fromJson(Map<String, dynamic> json) => EvSubscriptionCarsModel(
     status: json["status"],
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
   );
@@ -81,18 +81,18 @@ class Datum {
   String? featuresElectric;
   String? featuresTbd;
   String? featuresNewCars;
-  String? rating;
+  dynamic rating;
   String? image1;
   String? image2;
   String? image3;
   String? image4;
   String? image5;
   DateTime? dateAdded;
-  DateTime? dateModified;
+  dynamic dateModified;
   String? status;
   CarsM? carsMakes;
   CarsM? carsModels;
-  List<CarsRating>? carsRatings;
+  List<dynamic>? carsRatings;
   int? totalBookings;
   List<CarsPlan>? carsPlans;
 
@@ -116,18 +116,18 @@ class Datum {
     featuresElectric: json["features_electric"],
     featuresTbd: json["features_tbd"],
     featuresNewCars: json["features_new_cars"],
-    rating: json["rating"] == null ? null : json["rating"],
+    rating: json["rating"],
     image1: json["image1"],
     image2: json["image2"],
     image3: json["image3"],
     image4: json["image4"],
     image5: json["image5"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: json["date_modified"] == null ? null : DateTime.parse(json["date_modified"]),
+    dateModified: json["date_modified"],
     status: json["status"],
     carsMakes: CarsM.fromJson(json["cars_makes"]),
     carsModels: CarsM.fromJson(json["cars_models"]),
-    carsRatings: List<CarsRating>.from(json["cars_ratings"].map((x) => CarsRating.fromJson(x))),
+    carsRatings: List<dynamic>.from(json["cars_ratings"].map((x) => x)),
     totalBookings: json["total_bookings"],
     carsPlans: List<CarsPlan>.from(json["cars_plans"].map((x) => CarsPlan.fromJson(x))),
   );
@@ -152,18 +152,18 @@ class Datum {
     "features_electric": featuresElectric,
     "features_tbd": featuresTbd,
     "features_new_cars": featuresNewCars,
-    "rating": rating == null ? null : rating,
+    "rating": rating,
     "image1": image1,
     "image2": image2,
     "image3": image3,
     "image4": image4,
     "image5": image5,
     "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified == null ? null : dateModified!.toIso8601String(),
+    "date_modified": dateModified,
     "status": status,
     "cars_makes": carsMakes!.toJson(),
     "cars_models": carsModels!.toJson(),
-    "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x.toJson())),
+    "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x)),
     "total_bookings": totalBookings,
     "cars_plans": List<dynamic>.from(carsPlans!.map((x) => x.toJson())),
   };
@@ -203,92 +203,28 @@ class CarsM {
 
 class CarsPlan {
   CarsPlan({
-    this.carsPlansDeId,
-    this.carsId,
-    this.planDate,
-    this.startTime,
-    this.endTime,
-    this.pricePerSlot,
     this.carsPlansEvId,
+    this.carsId,
     this.months,
     this.pricePerMonth,
-    this.carsPlansPgId,
-    this.pricePerHour,
   });
 
-  int? carsPlansDeId;
-  int? carsId;
-  DateTime? planDate;
-  String? startTime;
-  String? endTime;
-  String? pricePerSlot;
   int? carsPlansEvId;
+  int? carsId;
   int? months;
   String? pricePerMonth;
-  int? carsPlansPgId;
-  String? pricePerHour;
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
-    carsPlansDeId: json["cars_plans_de_id"] == null ? null : json["cars_plans_de_id"],
+    carsPlansEvId: json["cars_plans_ev_id"],
     carsId: json["cars_id"],
-    planDate: json["plan_date"] == null ? null : DateTime.parse(json["plan_date"]),
-    startTime: json["start_time"] == null ? null : json["start_time"],
-    endTime: json["end_time"] == null ? null : json["end_time"],
-    pricePerSlot: json["price_per_slot"] == null ? null : json["price_per_slot"],
-    carsPlansEvId: json["cars_plans_ev_id"] == null ? null : json["cars_plans_ev_id"],
-    months: json["months"] == null ? null : json["months"],
-    pricePerMonth: json["price_per_month"] == null ? null : json["price_per_month"],
-    carsPlansPgId: json["cars_plans_pg_id"] == null ? null : json["cars_plans_pg_id"],
-    pricePerHour: json["price_per_hour"] == null ? null : json["price_per_hour"],
+    months: json["months"],
+    pricePerMonth: json["price_per_month"],
   );
 
   Map<String, dynamic> toJson() => {
-    "cars_plans_de_id": carsPlansDeId == null ? null : carsPlansDeId,
+    "cars_plans_ev_id": carsPlansEvId,
     "cars_id": carsId,
-    "plan_date": planDate == null ? null : "${planDate!.year.toString().padLeft(4, '0')}-${planDate!.month.toString().padLeft(2, '0')}-${planDate!.day.toString().padLeft(2, '0')}",
-    "start_time": startTime == null ? null : startTime,
-    "end_time": endTime == null ? null : endTime,
-    "price_per_slot": pricePerSlot == null ? null : pricePerSlot,
-    "cars_plans_ev_id": carsPlansEvId == null ? null : carsPlansEvId,
-    "months": months == null ? null : months,
-    "price_per_month": pricePerMonth == null ? null : pricePerMonth,
-    "cars_plans_pg_id": carsPlansPgId == null ? null : carsPlansPgId,
-    "price_per_hour": pricePerHour == null ? null : pricePerHour,
-  };
-}
-
-class CarsRating {
-  CarsRating({
-    this.carsRatingsId,
-    this.carsId,
-    this.usersCustomersId,
-    this.comments,
-    this.rateStars,
-    this.dateAdded,
-  });
-
-  int? carsRatingsId;
-  int? carsId;
-  int? usersCustomersId;
-  String? comments;
-  String? rateStars;
-  DateTime? dateAdded;
-
-  factory CarsRating.fromJson(Map<String, dynamic> json) => CarsRating(
-    carsRatingsId: json["cars_ratings_id"],
-    carsId: json["cars_id"],
-    usersCustomersId: json["users_customers_id"],
-    comments: json["comments"],
-    rateStars: json["rate_stars"],
-    dateAdded: DateTime.parse(json["date_added"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "cars_ratings_id": carsRatingsId,
-    "cars_id": carsId,
-    "users_customers_id": usersCustomersId,
-    "comments": comments,
-    "rate_stars": rateStars,
-    "date_added": dateAdded!.toIso8601String(),
+    "months": months,
+    "price_per_month": pricePerMonth,
   };
 }

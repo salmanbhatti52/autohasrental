@@ -1,6 +1,6 @@
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../Utils/colors.dart';
+import '../../../../../../Utils/fontFamily.dart';
 import 'description_page/description.dart';
 import 'feature_page/features.dart';
 import 'rating_page.dart/rating.dart';
@@ -44,19 +44,12 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
                   indicatorColor: kWhite,
                   // isScrollable: true,
                   labelColor: kBlack,
-                  labelStyle: TextStyle(
-                      fontSize: 12, fontFamily: poppinRegular),
+                  labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,
                   tabs: const [
-                    Tab(
-                      text: "Description",
-                    ),
-                    Tab(
-                      text: "Features",
-                    ),
-                    Tab(
-                      text: "Ratings",
-                    ),
+                    Tab(text: "Description",),
+                    Tab(text: "Features",),
+                    Tab(text: "Ratings",),
                   ],
                 ),
               )),

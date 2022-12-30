@@ -4,6 +4,7 @@ import '../../../../Utils/fontFamily.dart';
 import 'BrowseCardForRent/browse_car_page.dart';
 import 'DrivingExperience/driving_experience_page.dart';
 import 'EvSubscriptions/ev_subscription_page.dart';
+import 'Photography/photography_page.dart';
 
 Widget myHorizontalCard(BuildContext context){
   return Container(
@@ -23,23 +24,19 @@ Widget myHorizontalCard(BuildContext context){
                   switch(index) {
                     case 0:
                       Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const BrowseCarPage()),
-                      );
+                        MaterialPageRoute(builder: (context) => const EvSubscriptionPage()));
                       break;
                     case 1:
-                      // Navigator.push(context,
-                      //   MaterialPageRoute(builder: (context) => DrDetails()),
-                      // );
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const PhotoGraphyPage()));
                       break;
                     case 2:
                       Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const DrivingExperiencePage()),
-                      );
+                        MaterialPageRoute(builder: (context) => const DrivingExperiencePage()));
                       break;
                     case 3:
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const EvSubscriptionPage()),
-                      );
+                      // Navigator.push(context,
+                      //   MaterialPageRoute(builder: (context) => const EvSubscriptionPage()));
                       break;
                   }
                 },
@@ -69,10 +66,11 @@ Widget myHorizontalCard(BuildContext context){
 }
 
 List cardItemsList = [
-  _CardItems( "assets/home_page/browse_car_for_rent.png", 'Browse Cars for Renting', const Color(0xffFFF6DC)),
+  _CardItems( "assets/home_page/pin.png", 'Get Ev Subscription', const Color(0xffF9E7EF)),
+  // _CardItems( "assets/home_page/browse_car_for_rent.png", 'Browse Cars for Renting', const Color(0xffFFF6DC)),
   _CardItems( "assets/home_page/camera.png", 'Book for Wedding & Photography', const Color(0xffD2EEFF)),
   _CardItems( "assets/home_page/steering.png", 'Get Driving Experiences', const Color(0xffFFE2DB)),
-  _CardItems( "assets/home_page/pin.png", 'Get Ev Subscription', const Color(0xffF9E7EF)),
+
 ];
 
 class _CardItems {

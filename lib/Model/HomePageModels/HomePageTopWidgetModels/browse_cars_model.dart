@@ -1,12 +1,15 @@
+// To parse this JSON data, do
+//
+//     final browseCarsModel = browseCarsModelFromJson(jsonString);
 
 import 'dart:convert';
 
-TopRentedCarsModel topRentedCarsModelFromJson(String str) => TopRentedCarsModel.fromJson(json.decode(str));
+BrowseCarsModel browseCarsModelFromJson(String str) => BrowseCarsModel.fromJson(json.decode(str));
 
-String topRentedCarsModelToJson(TopRentedCarsModel data) => json.encode(data.toJson());
+String browseCarsModelToJson(BrowseCarsModel data) => json.encode(data.toJson());
 
-class TopRentedCarsModel {
-  TopRentedCarsModel({
+class BrowseCarsModel {
+  BrowseCarsModel({
     this.status,
     this.data,
   });
@@ -14,7 +17,7 @@ class TopRentedCarsModel {
   String? status;
   List<Datum>? data;
 
-  factory TopRentedCarsModel.fromJson(Map<String, dynamic> json) => TopRentedCarsModel(
+  factory BrowseCarsModel.fromJson(Map<String, dynamic> json) => BrowseCarsModel(
     status: json["status"],
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
   );
@@ -36,6 +39,8 @@ class Datum {
     this.year,
     this.vehicalName,
     this.licensePlate,
+    this.mileagePlanMonth,
+    this.mileagePlanYear,
     this.discountPercentage,
     this.description,
     this.featuresSuv,
@@ -58,8 +63,8 @@ class Datum {
     this.carsMakes,
     this.carsModels,
     this.carsRatings,
-    this.totalBookings,
-    this.carsPlans,
+    this.carsDiscountRatePerMonth,
+    this.carsDiscountRatePerYear,
   });
 
   int? carsId;
@@ -71,6 +76,8 @@ class Datum {
   int? year;
   String? vehicalName;
   String? licensePlate;
+  String? mileagePlanMonth;
+  String? mileagePlanYear;
   String? discountPercentage;
   String? description;
   String? featuresSuv;
@@ -93,8 +100,8 @@ class Datum {
   CarsM? carsMakes;
   CarsM? carsModels;
   List<CarsRating>? carsRatings;
-  int? totalBookings;
-  List<CarsPlan>? carsPlans;
+  String? carsDiscountRatePerMonth;
+  String? carsDiscountRatePerYear;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     carsId: json["cars_id"],
@@ -106,6 +113,8 @@ class Datum {
     year: json["year"],
     vehicalName: json["vehical_name"],
     licensePlate: json["license_plate"],
+    mileagePlanMonth: json["mileage_plan_month"],
+    mileagePlanYear: json["mileage_plan_year"],
     discountPercentage: json["discount_percentage"],
     description: json["description"],
     featuresSuv: json["features_suv"],
@@ -128,8 +137,8 @@ class Datum {
     carsMakes: CarsM.fromJson(json["cars_makes"]),
     carsModels: CarsM.fromJson(json["cars_models"]),
     carsRatings: List<CarsRating>.from(json["cars_ratings"].map((x) => CarsRating.fromJson(x))),
-    totalBookings: json["total_bookings"],
-    carsPlans: List<CarsPlan>.from(json["cars_plans"].map((x) => CarsPlan.fromJson(x))),
+    carsDiscountRatePerMonth: json["cars_discount_rate_per_month"],
+    carsDiscountRatePerYear: json["cars_discount_rate_per_year"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -142,6 +151,8 @@ class Datum {
     "year": year,
     "vehical_name": vehicalName,
     "license_plate": licensePlate,
+    "mileage_plan_month": mileagePlanMonth,
+    "mileage_plan_year": mileagePlanYear,
     "discount_percentage": discountPercentage,
     "description": description,
     "features_suv": featuresSuv,
@@ -164,8 +175,8 @@ class Datum {
     "cars_makes": carsMakes!.toJson(),
     "cars_models": carsModels!.toJson(),
     "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x.toJson())),
-    "total_bookings": totalBookings,
-    "cars_plans": List<dynamic>.from(carsPlans!.map((x) => x.toJson())),
+    "cars_discount_rate_per_month": carsDiscountRatePerMonth,
+    "cars_discount_rate_per_year": carsDiscountRatePerYear,
   };
 }
 
@@ -173,21 +184,18 @@ class CarsM {
   CarsM({
     this.carsMakesId,
     this.name,
-    this.image,
     this.status,
     this.carsModelsId,
   });
 
   int? carsMakesId;
   String? name;
-  String? image;
   String? status;
   int? carsModelsId;
 
   factory CarsM.fromJson(Map<String, dynamic> json) => CarsM(
     carsMakesId: json["cars_makes_id"],
     name: json["name"],
-    image: json["image"],
     status: json["status"],
     carsModelsId: json["cars_models_id"] == null ? null : json["cars_models_id"],
   );
@@ -195,65 +203,8 @@ class CarsM {
   Map<String, dynamic> toJson() => {
     "cars_makes_id": carsMakesId,
     "name": name,
-    "image": image,
     "status": status,
     "cars_models_id": carsModelsId == null ? null : carsModelsId,
-  };
-}
-
-class CarsPlan {
-  CarsPlan({
-    this.carsPlansDeId,
-    this.carsId,
-    this.planDate,
-    this.startTime,
-    this.endTime,
-    this.pricePerSlot,
-    this.carsPlansEvId,
-    this.months,
-    this.pricePerMonth,
-    this.carsPlansPgId,
-    this.pricePerHour,
-  });
-
-  int? carsPlansDeId;
-  int? carsId;
-  DateTime? planDate;
-  String? startTime;
-  String? endTime;
-  String? pricePerSlot;
-  int? carsPlansEvId;
-  int? months;
-  String? pricePerMonth;
-  int? carsPlansPgId;
-  String? pricePerHour;
-
-  factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
-    carsPlansDeId: json["cars_plans_de_id"] == null ? null : json["cars_plans_de_id"],
-    carsId: json["cars_id"],
-    planDate: json["plan_date"] == null ? null : DateTime.parse(json["plan_date"]),
-    startTime: json["start_time"] == null ? null : json["start_time"],
-    endTime: json["end_time"] == null ? null : json["end_time"],
-    pricePerSlot: json["price_per_slot"] == null ? null : json["price_per_slot"],
-    carsPlansEvId: json["cars_plans_ev_id"] == null ? null : json["cars_plans_ev_id"],
-    months: json["months"] == null ? null : json["months"],
-    pricePerMonth: json["price_per_month"] == null ? null : json["price_per_month"],
-    carsPlansPgId: json["cars_plans_pg_id"] == null ? null : json["cars_plans_pg_id"],
-    pricePerHour: json["price_per_hour"] == null ? null : json["price_per_hour"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "cars_plans_de_id": carsPlansDeId == null ? null : carsPlansDeId,
-    "cars_id": carsId,
-    "plan_date": planDate == null ? null : "${planDate!.year.toString().padLeft(4, '0')}-${planDate!.month.toString().padLeft(2, '0')}-${planDate!.day.toString().padLeft(2, '0')}",
-    "start_time": startTime == null ? null : startTime,
-    "end_time": endTime == null ? null : endTime,
-    "price_per_slot": pricePerSlot == null ? null : pricePerSlot,
-    "cars_plans_ev_id": carsPlansEvId == null ? null : carsPlansEvId,
-    "months": months == null ? null : months,
-    "price_per_month": pricePerMonth == null ? null : pricePerMonth,
-    "cars_plans_pg_id": carsPlansPgId == null ? null : carsPlansPgId,
-    "price_per_hour": pricePerHour == null ? null : pricePerHour,
   };
 }
 

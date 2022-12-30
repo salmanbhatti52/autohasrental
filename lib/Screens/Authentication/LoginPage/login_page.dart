@@ -1,20 +1,19 @@
-import 'package:auto_haus_rental_app/Model/AuthModels/user_login_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Widget/TextFields/password_text_field.dart';
-import 'package:auto_haus_rental_app/Widget/TextFields/text_form_field.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Utils/constants.dart';
+import '../../../Model/AuthModels/user_login_model.dart';
+import '../../../Widget/TextFields/password_text_field.dart';
+import '../../../Widget/TextFields/text_form_field.dart';
+import '../../../Widget/myTextWidget.dart';
+import '../../../Widget/toast_message.dart';
+import '../../TabPages/tab_page.dart';
 import '../SignUpPage/sign_up_page.dart';
-import 'ForgetPassword/myTextWidget.dart';
 import 'ForgetPassword/reset_password_page.dart';
 import 'package:http/http.dart' as http;
 
@@ -35,24 +34,24 @@ class _LoginPageState extends State<LoginPage> {
   UserLoginModel userLoginModel = UserLoginModel();
 
   bool loading = true;
-  sharedPrefs() async {
-    loading = true;
-    setState(() {});
-    print('in LoginPage shared prefs');
-    prefs = await SharedPreferences.getInstance();
-    userId = (prefs!.getString('userid'));
-    userEmail = (prefs!.getString('user_email'));
-    print("userId in  LoginPrefs is = $userId");
-    print("userEmail in  LoginPrefs is = $userEmail");
-    if (userId != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const TabBarPage()));
-    }
-    else{
-      loading = false;
-      setState(() {});
-      print("userId value is = $userId");
-    }
-  }
+  // sharedPrefs() async {
+  //   loading = true;
+  //   setState(() {});
+  //   print('in LoginPage shared prefs');
+  //   prefs = await SharedPreferences.getInstance();
+  //   userId = (prefs!.getString('userid'));
+  //   userEmail = (prefs!.getString('user_email'));
+  //   print("userId in  LoginPrefs is = $userId");
+  //   print("userEmail in  LoginPrefs is = $userEmail");
+  //   if (userId != null) {
+  //     Navigator.push(context, MaterialPageRoute(builder: (context) => const TabBarPage()));
+  //   }
+  //   else{
+  //     loading = false;
+  //     setState(() {});
+  //     print("userId value is = $userId");
+  //   }
+  // }
 
   userLogin() async {
     try {
@@ -135,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         children: <Widget>[
                           Theme(
-                            data: ThemeData(unselectedWidgetColor: borderColor,),
+                            data: ThemeData(unselectedWidgetColor: borderColor),
                             child: Checkbox(
                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               activeColor: kWhite,
@@ -149,7 +148,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           Text('Remember me', textAlign: TextAlign.left,
-                            style: TextStyle(color: kWhite, fontSize: 12, fontFamily: poppinRegular),
+                            style: TextStyle(color: kWhite,
+                                fontSize: 12, fontFamily: poppinRegular),
                           ), //Text
                         ], //<Widget>[]
                       ),
@@ -226,9 +226,8 @@ class _LoginPageState extends State<LoginPage> {
                           text: 'SignUp',
                           style: TextStyle(fontFamily: poppinBold,
                               decoration: TextDecoration.underline, fontSize: 16, color: kWhite),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const SignUpPage())),
+                          recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
+                              context, MaterialPageRoute(builder: (context) => const SignUpPage())),
                         )
                       ]),
                 ),
