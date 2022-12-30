@@ -1,3 +1,5 @@
+import 'package:auto_haus_rental_app/Widget/day_slot.dart';
+import 'package:auto_haus_rental_app/Widget/time_slot.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
@@ -149,13 +151,17 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                           color: kWhite),
                       children: [
                         TextSpan(
-                          text: 'Get driven around by \n',
-                          style: TextStyle(fontSize: 25,
-                              fontFamily: poppinRegular, color: kWhite)),
+                            text: 'Get driven around by \n',
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: poppinRegular,
+                                color: kWhite)),
                         TextSpan(
                           text: "\" Alex Yoong \"",
-                          style: TextStyle(fontSize: 25,
-                              fontFamily: poppinBold, color: kWhite),
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontFamily: poppinBold,
+                              color: kWhite),
                         ),
                         TextSpan(
                           text: ' at \n',
@@ -179,8 +185,31 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                 ],
               ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            const Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                'Available Time Slot',
+                style: TextStyle(fontSize: 14, fontFamily: 'Poppins-Bold'),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  child: const DaySlotContainer()),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.14,
+                  child: const TimeSlotContainer()),
+            ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            const TabbarCarDescription(),
+            const TabbarEVCarDescription(),
             GestureDetector(
                 onTap: () {
                   Navigator.push(
