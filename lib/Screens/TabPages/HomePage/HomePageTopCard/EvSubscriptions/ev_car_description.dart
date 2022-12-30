@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
+import '../../../../../Widget/month_slot.dart';
 import '../../Home/home_page_details.dart';
-import 'EvTabbar/description_page/description_page_top_card.dart';
 import 'EvTabbar/tabbar_description_page.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 
-class CarDescription extends StatefulWidget {
-  const CarDescription({super.key});
+class EVCarDescription extends StatefulWidget {
+  const EVCarDescription({super.key});
 
   @override
-  State<CarDescription> createState() => _CarDescriptionState();
+  State<EVCarDescription> createState() => _EVCarDescriptionState();
 }
 
-class _CarDescriptionState extends State<CarDescription> {
+class _EVCarDescriptionState extends State<EVCarDescription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,9 +46,11 @@ class _CarDescriptionState extends State<CarDescription> {
                       Image.asset('assets/car_description_images/rating.png',
                           width: 75, height: 12),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text('4.0', style: TextStyle(
-                            fontSize: 16, color: kWhite,
-                            fontFamily: poppinSemiBold)),
+                      Text('4.0',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: kWhite,
+                              fontFamily: poppinSemiBold)),
                     ],
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
@@ -57,26 +59,32 @@ class _CarDescriptionState extends State<CarDescription> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Image.asset('assets/car_description_images/tesla.png',
-                            width: 41, height: 41),
+                        child: Image.asset(
+                            'assets/car_description_images/tesla.png',
+                            width: 41,
+                            height: 41),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
-                        child: Image.asset('assets/car_description_images/heart.png',
-                            width: 24, height: 20),
+                        child: Image.asset(
+                            'assets/car_description_images/heart.png',
+                            width: 24,
+                            height: 20),
                       ),
                     ],
                   ),
                   Stack(
                     children: [
                       Positioned(
-                        child: Image.asset('assets/car_description_images/car.png',
+                        child: Image.asset(
+                            'assets/car_description_images/car.png',
                             width: 307,
                             height: 192),
                       ),
                       Positioned(
                         bottom: 0,
-                        child: Image.asset('assets/car_description_images/circle.png',
+                        child: Image.asset(
+                          'assets/car_description_images/circle.png',
                         ),
                       ),
                     ],
@@ -84,11 +92,20 @@ class _CarDescriptionState extends State<CarDescription> {
                 ],
               ),
             ),
-            myHorizontalCard2(context),
-            const TabbarCarDescription(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.092,
+                child: const MonthSlotContainer(),
+              ),
+            ),
+            const TabbarEVCarDescription(),
             GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
                           builder: (context) => const HomePageDetails()));
                 },
                 child: loginButton('Book Now', context)),
