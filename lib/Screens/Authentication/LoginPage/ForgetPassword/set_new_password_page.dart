@@ -1,3 +1,7 @@
+
+import 'package:auto_haus_rental_app/Model/AuthModels/modify_password_model.dart';
+import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
@@ -6,19 +10,15 @@ import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../../../Model/AuthModels/modify_password_model.dart';
 import '../../../../Utils/fontFamily.dart';
 import '../../../../Widget/TextFields/password_text_field.dart';
 import '../../../../Widget/myTextWidget.dart';
-import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
-import '../../SignUpPage/privacy_policy_page.dart';
 import 'package:http/http.dart'as http;
-
-import '../login_page.dart';
 
 class SetNewPasswordPage extends StatefulWidget {
   final String? email, verifyCode;
-  const SetNewPasswordPage({Key? key, this.email, this.verifyCode}) : super(key: key);
+  const SetNewPasswordPage({Key? key, this.email, this.verifyCode})
+      : super(key: key);
 
   @override
   State<SetNewPasswordPage> createState() => _SetNewPasswordPageState();
@@ -27,8 +27,8 @@ class SetNewPasswordPage extends StatefulWidget {
 class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
   var newPassController = TextEditingController();
   var confirmNewPassController = TextEditingController();
-  bool obscureConfirmPass  = true;
-  bool obscurePass  = true;
+  bool obscureConfirmPass = true;
+  bool obscurePass = true;
   bool checkBoxValue = false;
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
@@ -48,7 +48,8 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
       print("verifyCode: ${widget.verifyCode}");
       print("password: ${newPassController.text}");
       print("passwordConfirm: ${confirmNewPassController.text}");
-      final response = await http.post(Uri.parse(apiUrl),
+      final response = await http.post(
+        Uri.parse(apiUrl),
         headers: {
           'Accept': 'application/json',
           'Cookie': cookieModifyPassword,
@@ -84,7 +85,6 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
     return Scaffold(
       backgroundColor: appBgColor,
       appBar: const MyAppBarSignUp(title: "Set a New Password"),
-
       body: ModalProgressHUD(
         inAsyncCall: progress,
         opacity: 0.02,
@@ -99,31 +99,43 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
+                SvgPicture.asset(
+                  'assets/splash/login_image.svg',
+                  fit: BoxFit.fill,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Text("Enter your new password, and confirm it by entering it a second time.",
+                  child: Text(
+                    "Enter your new password, and confirm it by entering it a second time.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
+                    style: TextStyle(
+                        fontSize: 16, fontFamily: poppinRegular, color: kWhite),
+                  ),
                 ),
-
-                SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
-
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
+                ),
                 buildTextFields(),
-
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
                 GestureDetector(
                     onTap: () async {
-                      if(loginFormKey.currentState!.validate()){
+                      if (loginFormKey.currentState!.validate()) {
                         if (newPassController.text.isEmpty) {
-                          toastFailedMessage('new password cannot be empty', Colors.red);
+                          toastFailedMessage(
+                              'new password cannot be empty', Colors.red);
                         } else if (confirmNewPassController.text.isEmpty) {
-                          toastFailedMessage('confirm new password cannot be empty',Colors.red);
-                        } else if(newPassController.text != confirmNewPassController.text){
-                          toastFailedMessage('password did not matched', Colors.red);
-                        } else if(newPassController.text == confirmNewPassController.text) {
+                          toastFailedMessage(
+                              'confirm new password cannot be empty',
+                              Colors.red);
+                        } else if (newPassController.text !=
+                            confirmNewPassController.text) {
+                          toastFailedMessage(
+                              'password did not matched', Colors.red);
+                        } else if (newPassController.text ==
+                            confirmNewPassController.text) {
                           print("password matched");
                           setState(() {
                             progress = true;
@@ -134,10 +146,8 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                               print("passwordModify");
                               print("${modifyPasswordModel.status}");
                               toastSuccessMessage("${modifyPasswordModel.status}", colorGreen);
-
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) => const LoginPage()));
-
                               setState(() {
                                 progress = false;
                               });
@@ -149,11 +159,12 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                               progress = false;
                             });
                             print("passwordModify error");
-                            toastFailedMessage("passwordModify error ", Colors.red);
+                            toastFailedMessage(
+                                "passwordModify error ", Colors.red);
                           }
                         }
                       }
-                      },
+                    },
                     child: loginButton("Next", context)),
               ],
             ),
@@ -179,7 +190,8 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         textWidget("New Password"),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.005),
                         PasswordEditTextUtils().getPasswordTextField(
                           hintValue: "••••••••",
                           validation: true,
@@ -189,10 +201,15 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                           obscureText: obscurePass,
                           suffixIcon: IconButton(
                             icon: Padding(
-                              padding: const EdgeInsetsDirectional.only(end: 12.0),
+                              padding:
+                                  const EdgeInsetsDirectional.only(end: 12.0),
                               child: Icon(
-                                obscurePass ?  Icons.visibility :Icons.visibility_off,
-                                color: textLabelColor, size: 24,),
+                                obscurePass
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: textLabelColor,
+                                size: 24,
+                              ),
                             ),
                             onPressed: () {
                               setState(() {
@@ -204,12 +221,12 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         textWidget("Confirm new password"),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.005),
                         PasswordEditTextUtils().getPasswordTextField(
                           hintValue: "••••••••",
                           validation: true,
@@ -219,10 +236,15 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                           obscureText: obscureConfirmPass,
                           suffixIcon: IconButton(
                             icon: Padding(
-                              padding: const EdgeInsetsDirectional.only(end: 12.0),
+                              padding:
+                                  const EdgeInsetsDirectional.only(end: 12.0),
                               child: Icon(
-                                obscureConfirmPass ?  Icons.visibility :Icons.visibility_off,
-                                color: textLabelColor, size: 24,),
+                                obscureConfirmPass
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: textLabelColor,
+                                size: 24,
+                              ),
                             ),
                             onPressed: () {
                               setState(() {
