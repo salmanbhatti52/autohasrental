@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/BookForWeddingTabbar/b_f_w_choose_subscription_paln.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/fontFamily.dart';
@@ -5,7 +6,6 @@ import '../../../../../Widget/button.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Home/Address/delivery_address.dart';
 import '../../Home/choose_mileage_plan.dart';
-import '../../Home/choose_subscription_plan.dart';
 
 class BookForWeddingBooking extends StatefulWidget {
   final String? vehicalName, rentCostMonth, oldRent, carRating, discount;
@@ -59,7 +59,7 @@ class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
                             fontFamily: poppinSemiBold,
                           ),
                         ),
-                        const ChooseSubscriptionPlan(),
+                        const BFWChooseSubscriptionPlan(),
                         Text(
                           "Choose Mileage Package",
                           textAlign: TextAlign.left,
@@ -476,8 +476,8 @@ class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
                         width: 05,
                       ),
                       Container(
-                        height: 20,
-                        width: 40,
+                        height: 15,
+                        width: 35,
                         decoration: BoxDecoration(
                             color: kBlack,
                             borderRadius: BorderRadius.circular(10)),
@@ -518,10 +518,10 @@ class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
                           ),
                         ],
                       ),
-                      SizedBox(width: screenWidth * 0.2),
+                      SizedBox(width: screenWidth * 0.45),
                       Container(
                         height: 25,
-                        width: 65,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: kBlack,
                             borderRadius: BorderRadius.circular(20)),

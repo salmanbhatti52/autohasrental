@@ -476,8 +476,8 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                         width: 05,
                       ),
                       Container(
-                        height: 20,
-                        width: 40,
+                        height: 15,
+                        width: 35,
                         decoration: BoxDecoration(
                             color: kBlack,
                             borderRadius: BorderRadius.circular(10)),
@@ -518,10 +518,10 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                           ),
                         ],
                       ),
-                      SizedBox(width: screenWidth * 0.2),
+                      SizedBox(width: screenWidth * 0.45),
                       Container(
                         height: 25,
-                        width: 65,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: kBlack,
                             borderRadius: BorderRadius.circular(20)),

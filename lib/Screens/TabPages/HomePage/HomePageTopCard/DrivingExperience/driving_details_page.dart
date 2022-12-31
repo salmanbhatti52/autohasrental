@@ -1,4 +1,4 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/book_for_wedding_booking.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/DrivingExperience/driving_experience_booking.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/Homepage/HomePageTopCard/EvSubscriptions/EvTabbar/tabbar_description_page.dart';
 import 'package:auto_haus_rental_app/Widget/day_slot.dart';
 import 'package:auto_haus_rental_app/Widget/time_slot.dart';
@@ -215,7 +215,8 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const BookForWeddingBooking()));
+                          builder: (context) =>
+                              const DrivingExperinceBooking()));
                 },
                 child: loginButton('Book Now', context)),
           ],

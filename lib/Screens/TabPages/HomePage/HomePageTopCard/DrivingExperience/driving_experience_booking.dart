@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/DrivingExperience/d_e_choose_subscription_paln.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/fontFamily.dart';
@@ -5,12 +6,11 @@ import '../../../../../Widget/button.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Home/Address/delivery_address.dart';
 import '../../Home/choose_mileage_plan.dart';
-import '../../Home/choose_subscription_plan.dart';
 
-class BookForWeddingBooking extends StatefulWidget {
+class DrivingExperinceBooking extends StatefulWidget {
   final String? vehicalName, rentCostMonth, oldRent, carRating, discount;
   final int? modelYear;
-  const BookForWeddingBooking(
+  const DrivingExperinceBooking(
       {Key? key,
       this.vehicalName,
       this.rentCostMonth,
@@ -21,10 +21,11 @@ class BookForWeddingBooking extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<BookForWeddingBooking> createState() => _BookForWeddingBookingState();
+  State<DrivingExperinceBooking> createState() =>
+      _DrivingExperinceBookingState();
 }
 
-class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
+class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -44,7 +45,7 @@ class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  bookForWeddingBookingCard(),
+                  drivingExperinceBookingCard(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
@@ -59,7 +60,7 @@ class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
                             fontFamily: poppinSemiBold,
                           ),
                         ),
-                        const ChooseSubscriptionPlan(),
+                        const DEChooseSubscriptionPlan(),
                         Text(
                           "Choose Mileage Package",
                           textAlign: TextAlign.left,
@@ -335,7 +336,7 @@ class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
     );
   }
 
-  Widget bookForWeddingBookingCard() {
+  Widget drivingExperinceBookingCard() {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Stack(
@@ -476,8 +477,8 @@ class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
                         width: 05,
                       ),
                       Container(
-                        height: 20,
-                        width: 40,
+                        height: 15,
+                        width: 35,
                         decoration: BoxDecoration(
                             color: kBlack,
                             borderRadius: BorderRadius.circular(10)),
@@ -518,10 +519,10 @@ class _BookForWeddingBookingState extends State<BookForWeddingBooking> {
                           ),
                         ],
                       ),
-                      SizedBox(width: screenWidth * 0.2),
+                      SizedBox(width: screenWidth * 0.45),
                       Container(
                         height: 25,
-                        width: 65,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: kBlack,
                             borderRadius: BorderRadius.circular(20)),
