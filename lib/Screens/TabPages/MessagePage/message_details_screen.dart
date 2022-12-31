@@ -164,7 +164,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     });
 
     return Scaffold(
-      appBar: const MyAppBarDoubleImageforChats(
+      appBar: const MyAppBarDoubleImageForChats(
           frontImage: 'assets/live_chat_images/back_arrow.png',
           profileImage: 'assets/live_chat_images/user.png',
           title: "name"),

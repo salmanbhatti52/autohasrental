@@ -9,17 +9,17 @@ class HourSlotContainer extends StatefulWidget {
 }
 
 class _HourSlotContainerState extends State<HourSlotContainer> {
-  List<HourSlotRadioModel> hourslotData = <HourSlotRadioModel>[];
+  List<HourSlotRadioModel> hourSlotData = <HourSlotRadioModel>[];
 
   @override
   void initState() {
     super.initState();
 
-    hourslotData.add(HourSlotRadioModel(true, '4 hours'));
-    hourslotData.add(HourSlotRadioModel(false, '8 hours'));
-    hourslotData.add(HourSlotRadioModel(false, '12 hours'));
-    hourslotData.add(HourSlotRadioModel(false, '16 hours'));
-    hourslotData.add(HourSlotRadioModel(false, '24 hours'));
+    hourSlotData.add(HourSlotRadioModel(true, '4 hours'));
+    hourSlotData.add(HourSlotRadioModel(false, '8 hours'));
+    hourSlotData.add(HourSlotRadioModel(false, '12 hours'));
+    hourSlotData.add(HourSlotRadioModel(false, '16 hours'));
+    hourSlotData.add(HourSlotRadioModel(false, '24 hours'));
   }
 
   @override
@@ -32,19 +32,18 @@ class _HourSlotContainerState extends State<HourSlotContainer> {
         mainAxisSpacing: 10,
         crossAxisSpacing: 5,
       ),
-      itemCount: hourslotData.length,
+      itemCount: hourSlotData.length,
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
             setState(
               () {
-                hourslotData
-                    .forEach((element) => element.isSelectedHourSlot = false);
-                hourslotData[index].isSelectedHourSlot = true;
+                hourSlotData.forEach((element) => element.isSelectedHourSlot = false);
+                hourSlotData[index].isSelectedHourSlot = true;
               },
             );
           },
-          child: HourSlotRadioItem(hourslotData[index]),
+          child: HourSlotRadioItem(hourSlotData[index]),
         );
       },
     );

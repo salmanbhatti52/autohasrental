@@ -8,21 +8,33 @@ import '../../Home/home_page_details.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 
 class EVCarDescription extends StatefulWidget {
-  const EVCarDescription({super.key});
+  final String? carName, carImage, carRating;
+  final int? carYear;
+
+  const EVCarDescription({super.key, this.carName, this.carYear, this.carImage, this.carRating});
 
   @override
   State<EVCarDescription> createState() => _EVCarDescriptionState();
 }
 
 class _EVCarDescriptionState extends State<EVCarDescription> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("myCarRating ${widget.carRating}");
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarDoubleImageRichText(
+      appBar: EvSubscriptionsAppBar(
         frontImage: "assets/live_chat_images/back_arrow.png",
-        title: "Tesla S series, ",
-        year: "2022",
+        title: "${widget.carName} ",
+        year: "${widget.carYear}",
+        // title: "Tesla S series, ",
+        // year: "2022",
         backImage: "assets/car_description_images/chat.png",
       ),
       body: SingleChildScrollView(
@@ -46,11 +58,11 @@ class _EVCarDescriptionState extends State<EVCarDescription> {
                       Image.asset('assets/car_description_images/rating.png',
                           width: 75, height: 12),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text('4.0',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: kWhite,
-                              fontFamily: poppinSemiBold)),
+
+                      widget.carRating == null? Text('0.0', style: TextStyle(fontSize: 16,
+                          color: kWhite, fontFamily: poppinSemiBold)):
+                      Text('${widget.carRating}', style: TextStyle(fontSize: 16,
+                          color: kWhite, fontFamily: poppinSemiBold)),
                     ],
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
@@ -59,27 +71,24 @@ class _EVCarDescriptionState extends State<EVCarDescription> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Image.asset(
-                            'assets/car_description_images/tesla.png',
-                            width: 41,
-                            height: 41),
+                        child: Image.asset('assets/car_description_images/tesla.png', width: 41, height: 41),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
-                        child: Image.asset(
-                            'assets/car_description_images/heart.png',
-                            width: 24,
-                            height: 20),
+                        child: Image.asset('assets/car_description_images/heart.png',
+                            width: 24, height: 20),
                       ),
                     ],
                   ),
                   Stack(
                     children: [
                       Positioned(
-                        child: Image.asset(
-                            'assets/car_description_images/car.png',
-                            width: 307,
-                            height: 192),
+                        child:
+                        Image.network("${widget.carImage}", height: 190, width: 310),
+                        // Image.asset(
+                        //     'assets/car_description_images/car.png',
+                        //     width: 307,
+                        //     height: 192),
                       ),
                       Positioned(
                         bottom: 0,
@@ -103,9 +112,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> {
             const TabbarCarDescription(),
             GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
+                  Navigator.push(context, MaterialPageRoute(
                           builder: (context) => const HomePageDetails()));
                 },
                 child: loginButton('Book Now', context)),

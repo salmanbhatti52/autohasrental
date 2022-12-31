@@ -5,6 +5,7 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import '../../../Model/privacy_policy_model.dart';
+import '../../../Utils/constants.dart';
 import '../../../Widget/button.dart';
 import '../LoginPage/login_page.dart';
 import 'package:http/http.dart'as http;
@@ -19,8 +20,6 @@ class PrivacyPolicyPage extends StatefulWidget {
 class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
 
   PrivacyPolicyModel privacyPolicyModelObject = PrivacyPolicyModel();
-
-  bool loadingP = true;
 
   privacyPolicyWidget() async {
     loadingP = true;

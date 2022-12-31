@@ -18,8 +18,6 @@ class HomeCardTopRented extends StatefulWidget {
 class _HomeCardTopRentedState extends State<HomeCardTopRented> {
   TopRentedCarsModel topRentedCarsModelObject = TopRentedCarsModel();
 
-  bool loadingP = true;
-
   @override
   void initState() {
     super.initState();
@@ -35,8 +33,7 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
     try {
       String apiUrl = topRentedCarsApiUrl;
       print("topRenterCarModelApi: $apiUrl");
-      final response = await http
-          .get(Uri.parse(apiUrl), headers: {'Accept': 'application/json'});
+      final response = await http.get(Uri.parse(apiUrl), headers: {'Accept': 'application/json'});
       print('${response.statusCode}');
       print(response);
       if (response.statusCode == 200) {

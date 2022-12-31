@@ -100,8 +100,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     onTap: () async {
                       if (loginFormKey.currentState!.validate()) {
                         if (resetEmailController.text.isEmpty) {
-                          toastFailedMessage(
-                              'email cannot be empty', Colors.red);
+                          toastFailedMessage('email cannot be empty', Colors.red);
                         } else {
                           setState(() {
                             progress = true;
@@ -110,9 +109,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           if (forgetPasswordModel.status == "success") {
                             print("reset Success");
                             Future.delayed(const Duration(seconds: 3), () {
-                              toastSuccessMessage(
-                                  "${forgetPasswordModel.data!.message}",
-                                  colorGreen);
+                              toastSuccessMessage("${forgetPasswordModel.data!.message}", colorGreen);
 
                               Navigator.pushReplacement(
                                   context,

@@ -1,4 +1,3 @@
-
 class MessageDetailsModel {
   String? senderType;
   String? date;
@@ -43,6 +42,7 @@ class MessageDetailsModel {
 class UsersData {
   int? usersCustomersId;
   String? oneSignalId;
+  String? verifiedBadge;
   String? firstName;
   String? lastName;
   String? phone;
@@ -52,7 +52,7 @@ class UsersData {
   String? socialAccType;
   String? googleAccessToken;
   Null? location;
-  String? about;
+  Null? about;
   String? profilePic;
   String? dateAdded;
   String? verifyCode;
@@ -60,19 +60,20 @@ class UsersData {
   String? status;
   int? usersCompaniesId;
   String? companyName;
-  String? companyRegistrationNumber;
+  String? bankName;
+  String? bankAccountNumber;
   String? companyLocation;
+  String? companyRegistrationNumber;
   String? companyLogo;
-  Null? emailOtp;
-  Null? forgotPasswrodOtp;
-  Null? bankName;
-  Null? bankAccountNumber;
-  Null? paypalEmail;
-  Null? dateModified;
+  String? paypalEmail;
+  int? verifyEmailOtp;
+  int? forgotPasswordOtp;
+  String? dateModified;
 
   UsersData(
       {this.usersCustomersId,
         this.oneSignalId,
+        this.verifiedBadge,
         this.firstName,
         this.lastName,
         this.phone,
@@ -90,19 +91,20 @@ class UsersData {
         this.status,
         this.usersCompaniesId,
         this.companyName,
-        this.companyRegistrationNumber,
-        this.companyLocation,
-        this.companyLogo,
-        this.emailOtp,
-        this.forgotPasswrodOtp,
         this.bankName,
         this.bankAccountNumber,
+        this.companyLocation,
+        this.companyRegistrationNumber,
+        this.companyLogo,
         this.paypalEmail,
+        this.verifyEmailOtp,
+        this.forgotPasswordOtp,
         this.dateModified});
 
   UsersData.fromJson(Map<String, dynamic> json) {
     usersCustomersId = json['users_customers_id'];
     oneSignalId = json['one_signal_id'];
+    verifiedBadge = json['verified_badge'];
     firstName = json['first_name'];
     lastName = json['last_name'];
     phone = json['phone'];
@@ -120,14 +122,14 @@ class UsersData {
     status = json['status'];
     usersCompaniesId = json['users_companies_id'];
     companyName = json['company_name'];
-    companyRegistrationNumber = json['company_registration_number'];
-    companyLocation = json['company_location'];
-    companyLogo = json['company_logo'];
-    emailOtp = json['emailOtp'];
-    forgotPasswrodOtp = json['forgotPasswrodOtp'];
     bankName = json['bank_name'];
     bankAccountNumber = json['bank_account_number'];
+    companyLocation = json['company_location'];
+    companyRegistrationNumber = json['company_registration_number'];
+    companyLogo = json['company_logo'];
     paypalEmail = json['paypal_email'];
+    verifyEmailOtp = json['verify_email_otp'];
+    forgotPasswordOtp = json['forgotPasswordOtp'];
     dateModified = json['date_modified'];
   }
 
@@ -135,6 +137,7 @@ class UsersData {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['users_customers_id'] = this.usersCustomersId;
     data['one_signal_id'] = this.oneSignalId;
+    data['verified_badge'] = this.verifiedBadge;
     data['first_name'] = this.firstName;
     data['last_name'] = this.lastName;
     data['phone'] = this.phone;
@@ -152,14 +155,14 @@ class UsersData {
     data['status'] = this.status;
     data['users_companies_id'] = this.usersCompaniesId;
     data['company_name'] = this.companyName;
-    data['company_registration_number'] = this.companyRegistrationNumber;
-    data['company_location'] = this.companyLocation;
-    data['company_logo'] = this.companyLogo;
-    data['emailOtp'] = this.emailOtp;
-    data['forgotPasswrodOtp'] = this.forgotPasswrodOtp;
     data['bank_name'] = this.bankName;
     data['bank_account_number'] = this.bankAccountNumber;
+    data['company_location'] = this.companyLocation;
+    data['company_registration_number'] = this.companyRegistrationNumber;
+    data['company_logo'] = this.companyLogo;
     data['paypal_email'] = this.paypalEmail;
+    data['verify_email_otp'] = this.verifyEmailOtp;
+    data['forgotPasswordOtp'] = this.forgotPasswordOtp;
     data['date_modified'] = this.dateModified;
     return data;
   }
