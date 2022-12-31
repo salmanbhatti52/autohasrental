@@ -218,8 +218,8 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         width: 05,
                                       ),
                                       Container(
-                                        height: 20,
-                                        width: 40,
+                                        height: 15,
+                                        width: 35,
                                         decoration: BoxDecoration(
                                             color: kBlack,
                                             borderRadius:

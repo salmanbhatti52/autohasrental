@@ -33,7 +33,8 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
     try {
       String apiUrl = topRentedCarsApiUrl;
       print("topRenterCarModelApi: $apiUrl");
-      final response = await http.get(Uri.parse(apiUrl), headers: {'Accept': 'application/json'});
+      final response = await http
+          .get(Uri.parse(apiUrl), headers: {'Accept': 'application/json'});
       print('${response.statusCode}');
       print(response);
       if (response.statusCode == 200) {
@@ -327,8 +328,8 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                                     ],
                                                   ),
                                                   Container(
-                                                    height: 20,
-                                                    width: 40,
+                                                    height: 15,
+                                                    width: 35,
                                                     decoration: BoxDecoration(
                                                         color: kBlack,
                                                         borderRadius:

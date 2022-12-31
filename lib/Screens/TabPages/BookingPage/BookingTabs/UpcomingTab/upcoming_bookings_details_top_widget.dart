@@ -6,7 +6,7 @@ import '../../../../../Model/HomePageModels/BookingModels/cancelled_booking_mode
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/constants.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/toast_message.dart';
 
@@ -14,11 +14,12 @@ class UpcomingBookingsDetailsTopWidget extends StatefulWidget {
   const UpcomingBookingsDetailsTopWidget({super.key});
 
   @override
-  State<UpcomingBookingsDetailsTopWidget> createState() => _UpcomingBookingsDetailsTopWidgetState();
+  State<UpcomingBookingsDetailsTopWidget> createState() =>
+      _UpcomingBookingsDetailsTopWidgetState();
 }
 
-class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetailsTopWidget> {
-
+class _UpcomingBookingsDetailsTopWidgetState
+    extends State<UpcomingBookingsDetailsTopWidget> {
   sharedPrefs() async {
     loadingP = true;
     setState(() {});
@@ -26,8 +27,7 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
     print("userId in UpcomingBookingCarDetails $userId");
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -37,8 +37,11 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
     sharedPrefs();
   }
 
-  CancelUpcomingBookingDetailsPageModel cancelUpcomingBookingDetailsPageModelObject = CancelUpcomingBookingDetailsPageModel();
-  BookingCancelDialogModel bookingCancelDialogModelObject = BookingCancelDialogModel();
+  CancelUpcomingBookingDetailsPageModel
+      cancelUpcomingBookingDetailsPageModelObject =
+      CancelUpcomingBookingDetailsPageModel();
+  BookingCancelDialogModel bookingCancelDialogModelObject =
+      BookingCancelDialogModel();
 
   cancelUpcomingBookingDetailsPageModelWidget() async {
     loadingP = true;
@@ -51,21 +54,22 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
     try {
       String apiUrl = cancelBookingUpcomingCarsApiUrl;
       print("cancelUpcomingBookingDetailsPageModelApi: $apiUrl");
-      final response = await http.post(Uri.parse(apiUrl),
-          headers: {
-            'Accept': 'application/json'
-          },
-          body: {
-            // "users_customers_id": userId
-            "users_customers_id": "1"
-          });
+      final response = await http.post(Uri.parse(apiUrl), headers: {
+        'Accept': 'application/json'
+      }, body: {
+        // "users_customers_id": userId
+        "users_customers_id": "1"
+      });
       print('${response.statusCode}');
       print(response);
       if (response.statusCode == 200) {
         final responseString = response.body;
-        print("responseCancelUpcomingBookingDetailsPageModel: ${responseString.toString()}");
-        cancelUpcomingBookingDetailsPageModelObject = cancelledBookingModelFromJson(responseString);
-        print("cancelUpcomingBookingDetailsPageModelStatus: ${cancelUpcomingBookingDetailsPageModelObject.status}");
+        print(
+            "responseCancelUpcomingBookingDetailsPageModel: ${responseString.toString()}");
+        cancelUpcomingBookingDetailsPageModelObject =
+            cancelledBookingModelFromJson(responseString);
+        print(
+            "cancelUpcomingBookingDetailsPageModelStatus: ${cancelUpcomingBookingDetailsPageModelObject.status}");
       }
     } catch (e) {
       print('Error in cancelUpcomingBookingDetailsPageModel: ${e.toString()}');
@@ -131,12 +135,14 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                                     horizontal: 15,
                                   ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                          height:
-                                              MediaQuery.of(context).size.height *
-                                                  0.12),
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.12),
                                       Row(
                                         children: [
                                           Text(
@@ -166,27 +172,43 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
-                                          Text(previousItemsList[index].range,
-                                            style: TextStyle(color: kBlack,
-                                              fontSize: 10, fontFamily: poppinRegular,),
-                                            textAlign: TextAlign.left,),
+                                          Text(
+                                            previousItemsList[index].range,
+                                            style: TextStyle(
+                                              color: kBlack,
+                                              fontSize: 10,
+                                              fontFamily: poppinRegular,
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
                                         ],
                                       ),
-                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
+                                      ),
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 04),
-                                            child: Text("RM",
-                                              style: TextStyle(color: kRed,
-                                                fontSize: 5, fontFamily: poppinRegular,),
-                                              textAlign: TextAlign.left,),
+                                            padding:
+                                                const EdgeInsets.only(top: 04),
+                                            child: Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: kRed,
+                                                fontSize: 5,
+                                                fontFamily: poppinRegular,
+                                              ),
+                                              textAlign: TextAlign.left,
+                                            ),
                                           ),
                                           Text(
                                             previousItemsList[index].oldPrice,
                                             style: TextStyle(
                                                 color: kRed,
-                                                decoration: TextDecoration.lineThrough,
+                                                decoration:
+                                                    TextDecoration.lineThrough,
                                                 decorationColor: kRed,
                                                 decorationThickness: 3,
                                                 fontSize: 10,
@@ -198,19 +220,33 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                                           Padding(
                                             padding:
                                                 const EdgeInsets.only(top: 06),
-                                            child: Text("RM",
-                                              style: TextStyle(color: borderColor,
-                                                fontSize: 7, fontFamily: poppinSemiBold,),
-                                              textAlign: TextAlign.left,),
+                                            child: Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: borderColor,
+                                                fontSize: 7,
+                                                fontFamily: poppinSemiBold,
+                                              ),
+                                              textAlign: TextAlign.left,
+                                            ),
                                           ),
-                                          Text(previousItemsList[index].newPrice,
-                                            style: TextStyle(color: borderColor,
-                                              fontSize: 20, fontFamily: poppinSemiBold,),
-                                            textAlign: TextAlign.left),
-                                          Text("/ Month",
-                                            style: TextStyle(color: kBlack,
-                                              fontSize: 8, fontFamily: poppinRegular,),
-                                            textAlign: TextAlign.left,),
+                                          Text(
+                                              previousItemsList[index].newPrice,
+                                              style: TextStyle(
+                                                color: borderColor,
+                                                fontSize: 20,
+                                                fontFamily: poppinSemiBold,
+                                              ),
+                                              textAlign: TextAlign.left),
+                                          Text(
+                                            "/ Month",
+                                            style: TextStyle(
+                                              color: kBlack,
+                                              fontSize: 8,
+                                              fontFamily: poppinRegular,
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
                                           SizedBox(
                                             width: MediaQuery.of(context)
                                                     .size
@@ -237,9 +273,10 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                                         ],
                                       ),
                                       SizedBox(
-                                          height:
-                                              MediaQuery.of(context).size.height *
-                                                  0.01),
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.01),
                                       Row(
                                         children: [
                                           Image.asset(
@@ -260,8 +297,8 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                                             width: 05,
                                           ),
                                           Container(
-                                            height: 20,
-                                            width: 40,
+                                            height: 15,
+                                            width: 35,
                                             decoration: BoxDecoration(
                                                 color: kBlack,
                                                 borderRadius:
@@ -373,7 +410,6 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                               // }
 
                               cancelDialogBox(context);
-
                             },
                             child: Container(
                               width: 102,
@@ -383,7 +419,8 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               child: Center(
-                                child: Text('Cancel',
+                                child: Text(
+                                  'Cancel',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontFamily: poppinRegular,
@@ -410,14 +447,14 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
         context: context,
         builder: (BuildContext context) {
           return ModalProgressHUD(
-              inAsyncCall: progress,
-              opacity: 0.02,
-              blur: 0.5,
-              color: Colors.transparent,
-              progressIndicator: CircularProgressIndicator(
-                color: borderColor,
-              ),
-              child: Container(
+            inAsyncCall: progress,
+            opacity: 0.02,
+            blur: 0.5,
+            color: Colors.transparent,
+            progressIndicator: CircularProgressIndicator(
+              color: borderColor,
+            ),
+            child: Container(
               color: const Color(0xffb0b0b0),
               child: Container(
                 color: const Color(0xff0f172a).withOpacity(0.5),
@@ -437,11 +474,12 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child:
-                              Image.asset('assets/car_bookings_images/close.png'),
+                          child: Image.asset(
+                              'assets/car_bookings_images/close.png'),
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
                       Text(
                         "Cancel?",
                         style: TextStyle(
@@ -449,7 +487,8 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                             fontWeight: FontWeight.bold,
                             color: borderColor),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
                       Text(
                         "Are you sure you want \n to cancel your booking?",
                         style: TextStyle(
@@ -459,7 +498,8 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
                       const Text(
                         "* Cancelling booking will result in \n 10% cut of your payment.",
                         style: TextStyle(
@@ -469,7 +509,8 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
                       const Text(
                         "* Booking can not be cancelled if \n 24 hours are remaining in starting.",
                         style: TextStyle(
@@ -479,18 +520,25 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.015),
                       Padding(
                         padding: const EdgeInsets.only(top: 15),
                         child: GestureDetector(
                           onTap: () async {
                             await cancelBookingDialogBoxModelWidget();
-                            if(bookingCancelDialogModelObject.status == "success"){
-                              toastSuccessMessage(bookingCancelDialogModelObject.message, colorGreen);
+                            if (bookingCancelDialogModelObject.status ==
+                                "success") {
+                              toastSuccessMessage(
+                                  bookingCancelDialogModelObject.message,
+                                  colorGreen);
                               Navigator.pop(context);
                             }
-                            if(bookingCancelDialogModelObject.status != "success"){
-                              toastFailedMessage("booking not updated or its its already in cancelled status", kRed);
+                            if (bookingCancelDialogModelObject.status !=
+                                "success") {
+                              toastFailedMessage(
+                                  "booking not updated or its its already in cancelled status",
+                                  kRed);
                               Navigator.pop(context);
                             }
                             // Navigator.pop(context);
@@ -539,8 +587,8 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
                   ),
                 ),
               ),
-          ),
-            );
+            ),
+          );
         });
   }
 
@@ -555,22 +603,22 @@ class _UpcomingBookingsDetailsTopWidgetState extends State<UpcomingBookingsDetai
     try {
       String apiUrl = cancelBookingDialogBoxApiUrl;
       print("cancelBookingDialogModelModelApi: $apiUrl");
-      final response = await http.post(Uri.parse(apiUrl),
-          headers: {
-            'Accept': 'application/json'
-          },
-          body: {
-            // "users_customers_id": "1",
-            "users_customers_id": userId,
-            "bookings_id": "1",
-            "status": "Cancelled",
-          });
+      final response = await http.post(Uri.parse(apiUrl), headers: {
+        'Accept': 'application/json'
+      }, body: {
+        // "users_customers_id": "1",
+        "users_customers_id": userId,
+        "bookings_id": "1",
+        "status": "Cancelled",
+      });
       print('statusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("responseCancelBookingDialogModel: ${responseString.toString()}");
-        bookingCancelDialogModelObject = bookingCancelDialogModelFromJson(responseString);
-        print("cancelBookingDialogModelStatus: ${bookingCancelDialogModelObject.status}");
+        bookingCancelDialogModelObject =
+            bookingCancelDialogModelFromJson(responseString);
+        print(
+            "cancelBookingDialogModelStatus: ${bookingCancelDialogModelObject.status}");
       }
     } catch (e) {
       print('Error in cancelBookingDialogModel: ${e.toString()}');
