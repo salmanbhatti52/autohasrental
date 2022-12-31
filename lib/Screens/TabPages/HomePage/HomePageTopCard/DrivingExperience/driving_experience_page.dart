@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/driving_experience_cars_model.dart';
 import '../../../../../Utils/api_urls.dart';
+import '../../../../../Utils/constants.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
@@ -20,8 +21,6 @@ class DrivingExperiencePage extends StatefulWidget {
 class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
 
   DrivingExperienceCarsModel drivingExperienceCarsModelObject = DrivingExperienceCarsModel();
-
-  bool loadingP = true;
 
   @override
   void initState() {

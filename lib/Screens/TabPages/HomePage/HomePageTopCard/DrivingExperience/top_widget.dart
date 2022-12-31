@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/driving_experience_cars_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/colors.dart';
+import '../../../../../Utils/constants.dart';
 import '../../../../../Utils/fontFamily.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,10 +14,7 @@ class TopExperienceWidget extends StatefulWidget {
 }
 
 class _TopExperienceWidgetState extends State<TopExperienceWidget> {
-  DrivingExperienceCarsModel drivingExperienceCarsModelObject =
-      DrivingExperienceCarsModel();
-
-  bool loadingP = true;
+  DrivingExperienceCarsModel drivingExperienceCarsModelObject = DrivingExperienceCarsModel();
 
   @override
   void initState() {

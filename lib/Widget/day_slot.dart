@@ -9,37 +9,36 @@ class DaySlotContainer extends StatefulWidget {
 }
 
 class _DaySlotContainerState extends State<DaySlotContainer> {
-  List<DaySlotRadioModel> dayslotData = <DaySlotRadioModel>[];
+  List<DaySlotRadioModel> daySlotData = <DaySlotRadioModel>[];
 
   @override
   void initState() {
     super.initState();
 
-    dayslotData.add(DaySlotRadioModel(true, 'Mon'));
-    dayslotData.add(DaySlotRadioModel(false, 'Tue'));
-    dayslotData.add(DaySlotRadioModel(false, 'Wed'));
-    dayslotData.add(DaySlotRadioModel(false, 'Thu'));
-    dayslotData.add(DaySlotRadioModel(false, 'Fri'));
-    dayslotData.add(DaySlotRadioModel(false, 'Sat'));
-    dayslotData.add(DaySlotRadioModel(false, 'Sun'));
+    daySlotData.add(DaySlotRadioModel(true, 'Mon'));
+    daySlotData.add(DaySlotRadioModel(false, 'Tue'));
+    daySlotData.add(DaySlotRadioModel(false, 'Wed'));
+    daySlotData.add(DaySlotRadioModel(false, 'Thu'));
+    daySlotData.add(DaySlotRadioModel(false, 'Fri'));
+    daySlotData.add(DaySlotRadioModel(false, 'Sat'));
+    daySlotData.add(DaySlotRadioModel(false, 'Sun'));
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: dayslotData.length,
+      itemCount: daySlotData.length,
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
             setState(() {
-              dayslotData
-                  .forEach((element) => element.isSelectedDaySlot = false);
-              dayslotData[index].isSelectedDaySlot = true;
+              daySlotData.forEach((element) => element.isSelectedDaySlot = false);
+              daySlotData[index].isSelectedDaySlot = true;
             });
           },
-          child: DaySlotRadioItem(dayslotData[index]),
+          child: DaySlotRadioItem(daySlotData[index]),
         );
       },
     );

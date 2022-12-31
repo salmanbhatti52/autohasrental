@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_page.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -90,12 +91,12 @@ class MyAppBarSingleImage extends StatelessWidget
   }
 }
 
-class MyAppBarSingleImagewithText extends StatelessWidget
+class MyAppBarSingleImageWithText extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final String subtitle;
   final String? backImage;
-  const MyAppBarSingleImagewithText(
+  const MyAppBarSingleImageWithText(
       {Key? key, this.title = "", this.subtitle = "", this.backImage})
       : super(key: key);
 
@@ -363,8 +364,7 @@ class MyAppBarDoubleImage extends StatelessWidget
   }
 }
 
-class MyAppBarDoubleImageRichText extends StatelessWidget
-    implements PreferredSizeWidget {
+class MyAppBarDoubleImageRichText extends StatelessWidget implements PreferredSizeWidget {
   final String? frontImage;
   final String title;
   final String year;
@@ -395,17 +395,13 @@ class MyAppBarDoubleImageRichText extends StatelessWidget
         GestureDetector(
           onTap: () {
             print("clicked");
-            Navigator.push(
-                context,
-                MaterialPageRoute(
+            Navigator.push(context, MaterialPageRoute(
                     builder: (context) => const NotificationsScreen()));
           },
           child: Padding(
             padding: const EdgeInsets.only(top: 30, right: 20),
-            child: Image.asset(
-              backImage!,
-              height: 25,
-              width: 25,
+            child: Image.asset(backImage!,
+              height: 25, width: 25,
             ),
           ),
         ),
@@ -417,11 +413,8 @@ class MyAppBarDoubleImageRichText extends StatelessWidget
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 30),
-          child: Image.asset(
-            frontImage!,
-            color: kWhite,
-            height: 25,
-            width: 25,
+          child: Image.asset(frontImage!,
+            color: kWhite, height: 25, width: 25,
           ),
         ),
       ),
@@ -432,15 +425,9 @@ class MyAppBarDoubleImageRichText extends StatelessWidget
           children: [
             Row(
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                      fontSize: 20, fontFamily: poppinBold, color: kWhite),
+                Text(title, style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),
                 ),
-                Text(
-                  year,
-                  style: TextStyle(
-                      fontSize: 20, fontFamily: poppinRegular, color: kWhite),
+                Text(year, style: TextStyle(fontSize: 20, fontFamily: poppinRegular, color: kWhite),
                 ),
               ],
             ),
@@ -454,12 +441,87 @@ class MyAppBarDoubleImageRichText extends StatelessWidget
   }
 }
 
-class MyAppBarDoubleImageforChats extends StatelessWidget
+class EvSubscriptionsAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String? frontImage;
+  final String title;
+  final String year;
+  final String? backImage;
+
+  const EvSubscriptionsAppBar({
+    Key? key,
+    this.frontImage,
+    this.title = "",
+    this.year = "",
+    this.backImage,
+  }) : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(70);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // <-- SEE HERE
+        statusBarIconBrightness:
+            Brightness.dark, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+      ),
+      actions: [
+        GestureDetector(
+          onTap: () {
+            print("clicked");
+            Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => const MessagePage()));
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30, right: 20),
+            child: Image.asset(backImage!,
+              height: 25, width: 25,
+            ),
+          ),
+        ),
+      ],
+      leading: GestureDetector(
+        onTap: () {
+          print("clicked");
+          Navigator.pop(context);
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30),
+          child: Image.asset(frontImage!,
+            color: kWhite, height: 25, width: 25,
+          ),
+        ),
+      ),
+      // leadingWidth: 80,
+      title: Padding(
+        padding: const EdgeInsets.only(top: 30, right: 10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(title, style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),),
+                Text(year, style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
+              ],
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: appBgColor,
+      elevation: 0.0,
+      centerTitle: true,
+    );
+  }
+}
+
+class MyAppBarDoubleImageForChats extends StatelessWidget
     implements PreferredSizeWidget {
   final String? frontImage;
   final String title;
   final String? profileImage;
-  const MyAppBarDoubleImageforChats(
+  const MyAppBarDoubleImageForChats(
       {Key? key, this.frontImage, this.profileImage, this.title = ""})
       : super(key: key);
 

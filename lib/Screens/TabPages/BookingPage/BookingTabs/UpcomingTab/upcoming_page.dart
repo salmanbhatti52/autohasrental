@@ -19,8 +19,6 @@ class _UpcomingPageState extends State<UpcomingPage> {
 
   UpcomingBookingModel upcomingBookingModelObject = UpcomingBookingModel();
 
-  bool loadingP = true;
-
   sharedPrefs() async {
     loadingP = true;
     setState(() {});

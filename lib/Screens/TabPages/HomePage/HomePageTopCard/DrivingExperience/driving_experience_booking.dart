@@ -32,7 +32,7 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImagewithText(
+      appBar: const MyAppBarSingleImageWithText(
         title: "BMW 2 series, ", subtitle: "2022",
         // title: "${widget.vehicalName}", subtitle: "${widget.modelYear}",
         backImage: "assets/messages_images/Back.png",

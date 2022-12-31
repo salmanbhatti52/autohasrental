@@ -2,6 +2,7 @@ import 'package:auto_haus_rental_app/Model/HomePageModels/HomePageTopWidgetModel
 import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/book_for_wedding_car_description.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/api_urls.dart';
+import '../../../../../Utils/constants.dart';
 import '../../../../../Utils/fontFamily.dart';
 import 'book_for_wedding_car_logo_container.dart';
 import '../../../../../Utils/colors.dart';
@@ -19,8 +20,6 @@ class BookForWeddingPage extends StatefulWidget {
 class _BookForWeddingPageState extends State<BookForWeddingPage> {
 
   CarsPhotoGraphyModel carsPhotoGraphyModelObject = CarsPhotoGraphyModel();
-
-  bool loadingP = true;
 
   @override
   void initState() {

@@ -63,6 +63,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     };
 
     print("apiRequest: $request");
+    print("firstName: ${firstNameController.text}");
+    print("lastName: ${lastNameController.text}");
+    print("email: ${emailController.text}");
+    print("profileImage: ${image!.path.split('/').last}");
     request.fields['users_customers_id'] = userId!;
     request.fields['first_name'] = firstNameController.text;
     request.fields['last_name'] = lastNameController.text;
@@ -280,7 +284,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

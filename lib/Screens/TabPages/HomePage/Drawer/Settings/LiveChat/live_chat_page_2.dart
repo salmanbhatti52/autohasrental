@@ -68,7 +68,7 @@ class _LiveChatPage2State extends State<LiveChatPage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBarDoubleImageforChats(
+      appBar: const MyAppBarDoubleImageForChats(
           frontImage: 'assets/live_chat_images/back_arrow.png',
           profileImage: 'assets/live_chat_images/user.png',
           title: "Live Chat"),

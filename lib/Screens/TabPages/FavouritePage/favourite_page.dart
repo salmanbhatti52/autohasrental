@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
 import '../../../Model/HomePageModels/FavoritesModel/favorite_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +9,7 @@ import '../../../Model/HomePageModels/FavoritesModel/like_unlike_favorite_cars_m
 import '../../../Utils/colors.dart';
 import '../../../Utils/constants.dart';
 import '../../../Utils/fontFamily.dart';
+import '../../../Widget/toast_message.dart';
 import '../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart' as  http;
 
@@ -18,9 +22,9 @@ class FavoritePage extends StatefulWidget {
 
 class _FavoritePageState extends State<FavoritePage> {
 
-  FavoriteCarModel favoriteCarModelObject = FavoriteCarModel();
+  // FavoriteCarModel favoriteCarModelObject = FavoriteCarModel();
 
-  bool loadingP = true;
+
 
   sharedPrefs() async {
     loadingP = true;
@@ -30,35 +34,104 @@ class _FavoritePageState extends State<FavoritePage> {
     userId = (prefs!.getString('userid'));
     print("userId in favoriteCar Prefs is = $userId");
     setState(() {
+      getLikeUnlikeCarWidget();
       getFavoriteCarWidget();
     });
   }
 
+  // getFavoriteCarWidget() async {
+  //   loadingP = true;
+  //   setState(() {});
+  //
+  //   prefs = await SharedPreferences.getInstance();
+  //   userId = (prefs!.getString('userid'));
+  //   print('in favoriteCarModel api');
+  //
+  //   // try {
+  //     String apiUrl = favoriteCarsApiUrl;
+  //     print("favoriteCarModelApi: $apiUrl");
+  //     final response = await http.post(Uri.parse(apiUrl),
+  //         headers: {
+  //           'Accept': 'application/json'
+  //         },
+  //         body: {
+  //       "users_customers_id": userId
+  //       });
+  //     print('${response.statusCode}');
+  //     print(response);
+  //     if (response.statusCode == 200) {
+  //       final responseString = response.body;
+  //       print("responseFavoriteCars: ${responseString.toString()}");
+  //       favoriteCarModelObject = favoriteCarModelFromJson(responseString);
+  //       print("favoriteCarModelLength is: ${favoriteCarModelObject.data!.length}");
+  //     }
+  //   // } catch (e) {
+  //   //   print('Error in favoriteCarModel: ${e.toString()}');
+  //   // }
+  //   loadingP = false;
+  //   setState(() {});
+  // }
+
+  List<FavoriteCarModel> favoriteCarModelObject = [];
   getFavoriteCarWidget() async {
+    setState(() {
+      loadingP = true;
+    });
+    Map body = {
+      "users_customers_id": userId
+    };
+    http.Response response = await http.post(Uri.parse(favoriteCarsApiUrl),
+        body: body,
+        headers: {
+          "Accept": "application/json"
+        });
+    Map jsonData = jsonDecode(response.body);
+    print("favoriteCarsApiUrl: $favoriteCarsApiUrl");
+    print('favoriteCarsResponse $jsonData');
+    if (jsonData['message'] == 'no data found.') {
+      toastFailedMessage("no data found.", kRed);
+      print('no data found.');
+      setState(() {
+        loadingP = false;
+      });
+    }
+    else if (response.statusCode == 200) {
+      for (int i = 0; i < jsonData['data'].length; i++) {
+        Map<String, dynamic> obj = jsonData['data'][i];
+        print(obj['id']);
+        var pos = FavoriteCarModel();
+        pos = FavoriteCarModel.fromJson(obj);
+        favoriteCarModelObject.add(pos);
+        print("favoriteCarsLength: ${favoriteCarModelObject.length}");
+        setState(() {
+          loadingP = false;
+        });
+      }
+    }
+  }
+
+  CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
+  getLikeUnlikeCarWidget() async {
     loadingP = true;
     setState(() {});
-
-    prefs = await SharedPreferences.getInstance();
-    userId = (prefs!.getString('userid'));
-    print('in favoriteCarModel api');
-
     try {
-      String apiUrl = favoriteCarsApiUrl;
-      print("favoriteCarModelApi: $apiUrl");
+      String apiUrl = likeUnlikeFavoriteCarsApiUrl;
+      print("carLikeUnlikeModelApi: $apiUrl");
       final response = await http.post(Uri.parse(apiUrl),
-          headers: {
-            'Accept': 'application/json'
-          },
-          body: {
-        "users_customers_id": userId
-        });
+        body: {
+          "users_customers_id" : userId,
+          "cars_id" : "1",
+        },
+        headers: {
+          'Accept': 'application/json'
+        },
+      );
       print('${response.statusCode}');
-      print(response);
       if (response.statusCode == 200) {
         final responseString = response.body;
-        print("response String: ${responseString.toString()}");
-        favoriteCarModelObject = favoriteCarModelFromJson(responseString);
-        print("favoriteCarModelLength is: ${favoriteCarModelObject.status}");
+        print("carLikeUnlikeModelResponse: ${responseString.toString()}");
+        carLikeUnlikeModelObject = carLikeUnlikeModelFromJson(responseString);
+        print("carLikeUnlikeModelMessage: ${carLikeUnlikeModelObject.message}");
       }
     } catch (e) {
       print('Error: ${e.toString()}');
@@ -85,13 +158,6 @@ class _FavoritePageState extends State<FavoritePage> {
           SizedBox(height: screenHeight * 0.04,),
           myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Favorite",
               "assets/home_page/notification_image.png"),
-
-          loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
-          favoriteCarModelObject.message == "no data found."? const Center(
-            child: Text('no data found...',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ):
           allFavItem(),
         ],
       ),
@@ -103,14 +169,18 @@ class _FavoritePageState extends State<FavoritePage> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 15),
-      child: Container(
+      child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor,)) :
+      favoriteCarModelObject.isEmpty
+          ? const Center(child: Text('no data found...',
+          style: TextStyle(fontWeight: FontWeight.bold))) :
+      Container(
         color: Colors.transparent,
         height: screenHeight * 0.75,
         child: ListView.builder(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
-            itemCount: favoriteItemsList.length,
+            itemCount: favoriteCarModelObject.length,
             itemBuilder: (BuildContext context, int index) {
               return Stack(
                 children: [
@@ -153,13 +223,13 @@ class _FavoritePageState extends State<FavoritePage> {
                                     children: [
                                       Row(
                                         children: [
-                                          Text("${favoriteItemsList[index].carCompanyName} | ",
+                                          Text("${favoriteCarModelObject[index].vehicalName} | ",
                                             style: TextStyle(color: kBlack,
                                               fontSize: 14, fontFamily: poppinBold,),
                                             textAlign: TextAlign.left,
                                           ),
                                           Text(
-                                            "${favoriteItemsList[index].textModel} ",
+                                            "MODEL ",
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 12,
@@ -167,12 +237,12 @@ class _FavoritePageState extends State<FavoritePage> {
                                             ),
                                             textAlign: TextAlign.left,
                                           ),
-                                          Text("${favoriteItemsList[index].carModelYear} ",
+                                          Text("${favoriteCarModelObject[index].year} ",
                                             style: TextStyle(color: kBlack,
                                               fontSize: 14, fontFamily: poppinMedium,),
                                             textAlign: TextAlign.left,
                                           ),
-                                          Text(favoriteItemsList[index].range,
+                                          Text("${favoriteCarModelObject[index].year}",
                                             style: TextStyle(color: kBlack,
                                               fontSize: 10, fontFamily: poppinRegular,),
                                             textAlign: TextAlign.left,
@@ -190,7 +260,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                               textAlign: TextAlign.left,
                                             ),
                                           ),
-                                          Text(favoriteItemsList[index].oldPrice,
+                                          Text("0.0",
                                             style: TextStyle(
                                               color: kRed,
                                               decoration: TextDecoration.lineThrough,
@@ -211,7 +281,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                               textAlign: TextAlign.left,
                                             ),
                                           ),
-                                          Text(favoriteItemsList[index].newPrice,
+                                          Text("0.0",
                                             style: TextStyle(color: borderColor,
                                               fontSize: 16, fontFamily: poppinSemiBold,),
                                             textAlign: TextAlign.left,
@@ -291,7 +361,7 @@ class _FavoritePageState extends State<FavoritePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(favoriteItemsList[index].discountText,
+                            Text("${favoriteCarModelObject[index].discountPercentage}",
                               style: TextStyle(
                                 color: kWhite, fontSize: 13,
                                 fontWeight: FontWeight.bold, fontFamily: 'Poppins',),),
@@ -302,7 +372,23 @@ class _FavoritePageState extends State<FavoritePage> {
                         ),
                       )),
                   Positioned(
-                    child: Image.asset(favoriteItemsList[index].carImage,),
+                    child: favoriteCarModelObject[index].image1 == null ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset('assets/icon/fade_in_image.jpeg'))
+                        : ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: FadeInImage(
+                        placeholder: const AssetImage(
+                            "assets/icon/fade_in_image.jpeg"),
+                        // fit: BoxFit.fill,
+                        width: 350,
+                        height: 150,
+                        image: NetworkImage(
+                            "$baseUrlImage${favoriteCarModelObject[index].image1}"),
+                      ),
+                    ),
+
+                    // Image.asset(favoriteItemsList[index].carImage,),
                   ),
                   Positioned(
                       top: 10,
