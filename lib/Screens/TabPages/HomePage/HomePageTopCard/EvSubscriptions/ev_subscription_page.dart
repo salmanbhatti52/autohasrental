@@ -268,10 +268,16 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                                       ),
                                                       textAlign: TextAlign.left,
                                                     ),
-                                                    // Text("${evSubscriptionCarsModelObject.data![index].year}",
-                                                    //     style: TextStyle(color: kBlack,
-                                                    //       fontSize: 10, fontFamily: poppinRegular,),
-                                                    //     textAlign: TextAlign.left),
+                                                    Text(
+                                                        "${evSubscriptionCarsModelObject.data![index].year}",
+                                                        style: TextStyle(
+                                                          color: kBlack,
+                                                          fontSize: 10,
+                                                          fontFamily:
+                                                              poppinRegular,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.left),
                                                   ],
                                                 ),
                                                 Row(
@@ -422,51 +428,51 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                               ],
                                             ),
                                           ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  print("clickedddd");
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              EVCarDescription(
-                                                                carName: evSubscriptionCarsModelObject
-                                                                    .data![
-                                                                        index]
-                                                                    .vehicalName,
-                                                                carYear:
-                                                                    evSubscriptionCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .year,
-                                                                carImage:
-                                                                    "$baseUrlImage${evSubscriptionCarsModelObject.data![index].image1}",
-                                                                carRating:
-                                                                    "${evSubscriptionCarsModelObject.data![index].rating}",
-                                                              )));
-                                                  print(
-                                                      "evCarName ${evSubscriptionCarsModelObject.data![index].vehicalName}");
-                                                  print(
-                                                      "evCarYear ${evSubscriptionCarsModelObject.data![index].year}");
-                                                  print(
-                                                      "evCarImage $baseUrlImage${evSubscriptionCarsModelObject.data![index].image1}");
-                                                },
-                                                child: Image.asset(
-                                                    "assets/car_bookings_images/more_button.png"),
-                                              ),
-                                            ],
-                                          ),
                                         ],
                                       ),
                                     ],
                                   ),
                                 ),
+                              ),
+                            ),
+                            Positioned(
+                              right: 30,
+                              bottom: 35,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      print("clickedddd");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EVCarDescription(
+                                                    carName:
+                                                        evSubscriptionCarsModelObject
+                                                            .data![index]
+                                                            .vehicalName,
+                                                    carYear:
+                                                        evSubscriptionCarsModelObject
+                                                            .data![index].year,
+                                                    carImage:
+                                                        "$baseUrlImage${evSubscriptionCarsModelObject.data![index].image1}",
+                                                    carRating:
+                                                        "${evSubscriptionCarsModelObject.data![index].rating}",
+                                                  )));
+                                      print(
+                                          "evCarName ${evSubscriptionCarsModelObject.data![index].vehicalName}");
+                                      print(
+                                          "evCarYear ${evSubscriptionCarsModelObject.data![index].year}");
+                                      print(
+                                          "evCarImage $baseUrlImage${evSubscriptionCarsModelObject.data![index].image1}");
+                                    },
+                                    child: Image.asset(
+                                        "assets/car_bookings_images/more_button.png"),
+                                  ),
+                                ],
                               ),
                             ),
                             Positioned(
