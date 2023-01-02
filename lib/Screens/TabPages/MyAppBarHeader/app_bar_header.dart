@@ -497,7 +497,7 @@ class EvSubscriptionsAppBar extends StatelessWidget implements PreferredSizeWidg
       ),
       // leadingWidth: 80,
       title: Padding(
-        padding: const EdgeInsets.only(top: 30, right: 10),
+        padding: const EdgeInsets.only(top: 30, right: 0),
         child: Column(
           children: [
             Row(

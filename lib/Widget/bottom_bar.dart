@@ -38,7 +38,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       body: Container(
         child: pages[currentIndex],
       ),
-      //currentTab[provider.currentIndex],
       bottomNavigationBar: Container(
         height: MediaQuery.of(context).size.height * 0.1,
         width: MediaQuery.of(context).size.width,

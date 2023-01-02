@@ -21,7 +21,9 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  // FavoriteCarModel favoriteCarModelObject = FavoriteCarModel();
+
+  CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
+  List<FavoriteCarModel> favoriteCarModelObject = [];
 
   sharedPrefs() async {
     loadingP = true;
@@ -36,40 +38,7 @@ class _FavoritePageState extends State<FavoritePage> {
     });
   }
 
-  // getFavoriteCarWidget() async {
-  //   loadingP = true;
-  //   setState(() {});
-  //
-  //   prefs = await SharedPreferences.getInstance();
-  //   userId = (prefs!.getString('userid'));
-  //   print('in favoriteCarModel api');
-  //
-  //   // try {
-  //     String apiUrl = favoriteCarsApiUrl;
-  //     print("favoriteCarModelApi: $apiUrl");
-  //     final response = await http.post(Uri.parse(apiUrl),
-  //         headers: {
-  //           'Accept': 'application/json'
-  //         },
-  //         body: {
-  //       "users_customers_id": userId
-  //       });
-  //     print('${response.statusCode}');
-  //     print(response);
-  //     if (response.statusCode == 200) {
-  //       final responseString = response.body;
-  //       print("responseFavoriteCars: ${responseString.toString()}");
-  //       favoriteCarModelObject = favoriteCarModelFromJson(responseString);
-  //       print("favoriteCarModelLength is: ${favoriteCarModelObject.data!.length}");
-  //     }
-  //   // } catch (e) {
-  //   //   print('Error in favoriteCarModel: ${e.toString()}');
-  //   // }
-  //   loadingP = false;
-  //   setState(() {});
-  // }
 
-  List<FavoriteCarModel> favoriteCarModelObject = [];
   getFavoriteCarWidget() async {
     setState(() {
       loadingP = true;
@@ -101,7 +70,6 @@ class _FavoritePageState extends State<FavoritePage> {
     }
   }
 
-  CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
   getLikeUnlikeCarWidget() async {
     loadingP = true;
     setState(() {});
