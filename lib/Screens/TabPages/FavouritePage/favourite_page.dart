@@ -379,22 +379,18 @@ class _FavoritePageState extends State<FavoritePage> {
                                               ],
                                             ),
                                           ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Image.asset(
-                                                  "assets/car_bookings_images/more_button.png"),
-                                            ],
-                                          ),
                                         ],
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
+                            ),
+                            Positioned(
+                              right: 30,
+                              bottom: 35,
+                              child: Image.asset(
+                                  "assets/car_bookings_images/more_button.png"),
                             ),
                             Positioned(
                                 top: 10,
