@@ -30,7 +30,8 @@ class _MonthSlotContainerState extends State<MonthSlotContainer> {
         return InkWell(
           onTap: () {
             setState(() {
-              monthSlotData.forEach((element) => element.isSelectedMonthSlot = false);
+              monthSlotData
+                  .forEach((element) => element.isSelectedMonthSlot = false);
               monthSlotData[index].isSelectedMonthSlot = true;
             });
           },
@@ -50,15 +51,18 @@ class MonthSlotRadioItem extends StatelessWidget {
       padding: const EdgeInsets.all(2.0),
       child: Container(
         height: 70,
-        width: 182,
+        width: 165,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
             color: _item.isSelectedMonthSlot ? borderColor : kWhite,
             borderRadius: BorderRadius.circular(15)),
         child: Row(
           children: [
-            Icon(Icons.check_circle, size: 22,
-              color: _item.isSelectedMonthSlot ? kWhite : const Color(0xffd4dce1),
+            Icon(
+              Icons.check_circle,
+              size: 22,
+              color:
+                  _item.isSelectedMonthSlot ? kWhite : const Color(0xffd4dce1),
             ),
             const SizedBox(width: 15),
             Padding(
@@ -67,17 +71,25 @@ class MonthSlotRadioItem extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.3,
-                    child: Text(_item.title, style: TextStyle(
-                        fontSize: 17, fontFamily: poppinMedium,
+                    child: Text(
+                      _item.title,
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontFamily: poppinMedium,
                         color: _item.isSelectedMonthSlot ? kWhite : kBlack,
                       ),
                     ),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.3,
-                    child: Text(_item.subtitle, style: TextStyle(
-                        fontSize: 14, fontFamily: poppinRegular,
-                        color: _item.isSelectedMonthSlot ? kWhite : const Color(0xffd4dce1),
+                    child: Text(
+                      _item.subtitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: poppinRegular,
+                        color: _item.isSelectedMonthSlot
+                            ? kWhite
+                            : const Color(0xffd4dce1),
                       ),
                     ),
                   ),
