@@ -10,8 +10,8 @@ import '../../../../Widget/TextFields/text_form_field.dart';
 import '../../../../Widget/myTextWidget.dart';
 import '../../../../Widget/toast_message.dart';
 import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
-import 'set_new_password_page.dart';
 import 'package:http/http.dart' as http;
+import 'verify_email_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
@@ -111,18 +111,19 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             Future.delayed(const Duration(seconds: 3), () {
                               toastSuccessMessage("${forgetPasswordModel.data!.message}", colorGreen);
 
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SetNewPasswordPage(
-                                            email: resetEmailController.text,
-                                            verifyCode: forgetPasswordModel
-                                                .data!.otp
-                                                .toString(),
-                                          )));
+                              // Navigator.pushReplacement(context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => SetNewPasswordPage(
+                              //               email: resetEmailController.text,
+                              //               verifyCode: forgetPasswordModel.data!.otp.toString(),
+                              //             )));
+                              Navigator.pushReplacement(context, MaterialPageRoute(
+                                      builder: (context) => VerifyEmailPage(
+                                        email: resetEmailController.text,
+                                        verifyCode: forgetPasswordModel.data!.otp.toString(),
+                                      )));
                               print("resetEmail: ${resetEmailController.text}");
-                              print(
-                                  "resetCode: ${forgetPasswordModel.data!.otp.toString()}");
+                              print("resetCode: ${forgetPasswordModel.data!.otp.toString()}");
 
                               setState(() {
                                 progress = false;

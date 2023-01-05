@@ -33,6 +33,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var emailController = TextEditingController();
   var locationController = TextEditingController();
 
+
   File? image;
 
   Future pickCoverImage() async {
@@ -111,6 +112,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     getUserProfileWidget();
   }
 
+  setData() {
+    firstNameController.text = "${getUserProfileModelObject.data!.firstName}";
+    lastNameController.text = "${getUserProfileModelObject.data!.lastName}";
+    aboutController.text =  getUserProfileModelObject.data!.about == null? "no about": "${getUserProfileModelObject.data!.about}" ;
+    emailController.text = "${getUserProfileModelObject.data!.email}";
+    locationController.text = getUserProfileModelObject.data!.location == null? "no location": "${getUserProfileModelObject.data!.location}";
+
+    print("firstName ${firstNameController.text}");
+    print("lastName ${lastNameController.text}");
+    print("aboutName ${aboutController.text}");
+    print("emailName ${emailController.text}");
+    print("locationName ${locationController.text}");
+  }
+
   @override
   void initState() {
     super.initState();
@@ -138,14 +153,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         print("getUserProfileResponse: ${responseString.toString()}");
         getUserProfileModelObject = getUserProfileModelFromJson(responseString);
         print("getUserName: ${getUserProfileModelObject.data!.lastName}");
-        print("getUserProfileImage: ${baseUrlImage+ getUserProfileModelObject.data!.profilePic.toString()}");
+        // setData();
         print("getUserProfileImage: $baseUrlImage${getUserProfileModelObject.data!.profilePic}");
       }
     } catch (e) {
       print('Error in getUserProfileWidget: ${e.toString()}');
     }
     loader = false;
-    setState(() {});
+    setState(() {
+      setData();
+    });
   }
 
   bool progress = false;
@@ -191,7 +208,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           backgroundColor: Colors.transparent,
                           backgroundImage: image == null?
                           const AssetImage("assets/home_page/user.png",)
-                          // NetworkImage(baseUrlImage+ getUserProfileModelObject.data!.profilePic!)
                               : Image.file(image!, height: 50, width: 50, fit: BoxFit.contain,).image,
                         ):
                         CircleAvatar(

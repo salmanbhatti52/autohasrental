@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_details_screen.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_page.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
@@ -473,7 +474,7 @@ class EvSubscriptionsAppBar extends StatelessWidget implements PreferredSizeWidg
           onTap: () {
             print("clicked");
             Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => const MessagePage()));
+                    builder: (context) => const MessageDetailsScreen()));
           },
           child: Padding(
             padding: const EdgeInsets.only(top: 30, right: 20),

@@ -59,6 +59,7 @@ class Datum {
     this.carsModels,
     this.carsRatings,
     this.totalBookings,
+    this.favouriteStatus,
     this.carsPlans,
   });
 
@@ -94,6 +95,7 @@ class Datum {
   CarsM? carsModels;
   List<dynamic>? carsRatings;
   int? totalBookings;
+  String? favouriteStatus;
   List<CarsPlan>? carsPlans;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -129,6 +131,7 @@ class Datum {
     carsModels: CarsM.fromJson(json["cars_models"]),
     carsRatings: List<dynamic>.from(json["cars_ratings"].map((x) => x)),
     totalBookings: json["total_bookings"],
+    favouriteStatus: json["favourite_status"],
     carsPlans: List<CarsPlan>.from(json["cars_plans"].map((x) => CarsPlan.fromJson(x))),
   );
 
@@ -165,6 +168,7 @@ class Datum {
     "cars_models": carsModels!.toJson(),
     "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x)),
     "total_bookings": totalBookings,
+    "favourite_status": favouriteStatus,
     "cars_plans": List<dynamic>.from(carsPlans!.map((x) => x.toJson())),
   };
 }
@@ -207,18 +211,21 @@ class CarsPlan {
     this.carsId,
     this.months,
     this.pricePerMonth,
+    this.discountedPricePerMonth,
   });
 
   int? carsPlansEvId;
   int? carsId;
   int? months;
   String? pricePerMonth;
+  int? discountedPricePerMonth;
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
     carsPlansEvId: json["cars_plans_ev_id"],
     carsId: json["cars_id"],
     months: json["months"],
     pricePerMonth: json["price_per_month"],
+    discountedPricePerMonth: json["discounted_price_per_month"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -226,5 +233,6 @@ class CarsPlan {
     "cars_id": carsId,
     "months": months,
     "price_per_month": pricePerMonth,
+    "discounted_price_per_month": discountedPricePerMonth,
   };
 }

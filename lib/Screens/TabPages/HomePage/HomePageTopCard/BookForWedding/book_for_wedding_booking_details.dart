@@ -1,39 +1,71 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/BookForWeddingTabbar/b_f_w_choose_subscription_paln.dart';
 import 'package:flutter/material.dart';
-import '../../../../Widget/button.dart';
-import '../../../../Utils/colors.dart';
-import '../../../../Utils/fontFamily.dart';
-import '../../MyAppBarHeader/app_bar_header.dart';
-import 'Address/delivery_address.dart';
-import 'choose_mileage_plan.dart';
-import 'choose_subscription_plan.dart';
+import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/car_photography_model.dart';
+import '../../../../../Utils/api_urls.dart';
+import '../../../../../Utils/colors.dart';
+import '../../../../../Utils/constants.dart';
+import '../../../../../Utils/fontFamily.dart';
+import '../../../../../Widget/button.dart';
+import '../../../MyAppBarHeader/app_bar_header.dart';
+import '../../Home/Address/delivery_address.dart';
+import '../../Home/choose_mileage_plan.dart';
+import 'package:http/http.dart' as http;
 
-class HomePageDetails extends StatefulWidget {
-  final String? vehicalName, rentCostMonth, oldRent, carRating, discount;
-  final int? modelYear;
-  const HomePageDetails(
-      {Key? key,
-      this.vehicalName,
-      this.rentCostMonth,
-      this.discount,
-      this.oldRent,
-      this.carRating,
-      this.modelYear})
-      : super(key: key);
+class BookForWeddingBookingDetails extends StatefulWidget {
+  final String? carName;
+  final int? carYear;
+  const BookForWeddingBookingDetails({Key? key, this.carName, this.carYear}) : super(key: key);
 
   @override
-  State<HomePageDetails> createState() => _HomePageDetailsState();
+  State<BookForWeddingBookingDetails> createState() => _BookForWeddingBookingDetailsState();
 }
 
-class _HomePageDetailsState extends State<HomePageDetails> {
+class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDetails> {
+
+  CarsPhotoGraphyModel carsPhotoGraphyModelObject = CarsPhotoGraphyModel();
+  bool loadingP = true;
+
+  @override
+  void initState() {
+    super.initState();
+    getCarsPhotoGraphyWidget();
+  }
+
+  getCarsPhotoGraphyWidget() async {
+    loadingP = true;
+    setState(() {});
+    try {
+      String apiUrl = carsPhotoGraphyApiUrl;
+      print("carsPhotographyApi: $apiUrl");
+      final response = await http.post(Uri.parse(apiUrl),
+          body: {
+            "users_customers_id" : userId
+          },
+          headers: {'Accept': 'application/json'});
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("carsPhotoGraphyResponse: ${responseString.toString()}");
+        carsPhotoGraphyModelObject = carsPhotoGraphyModelFromJson(responseString);
+        print("carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.status}");
+      }
+    } catch (e) {
+      print('Error: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImageWithText(
-        title: "BMW 2 series, ", subtitle: "2022",
-        // title: "${widget.vehicalName}", subtitle: "${widget.modelYear}",
+      appBar: MyAppBarSingleImageWithText(
+        // title: "BMW 2 series, ", subtitle: "2022",
+        title: "${widget.carName}, ", subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png",
       ),
       body: SingleChildScrollView(
@@ -44,50 +76,33 @@ class _HomePageDetailsState extends State<HomePageDetails> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  homePageDetailsCard(),
+                  bookForWeddingBookingCard(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Choose Subscription plan",
+                        Text("Choose Subscription plan",
                           textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: kBlack,
-                            fontSize: 14,
-                            fontFamily: poppinSemiBold,
-                          ),
-                        ),
-                        const ChooseSubscriptionPlan(),
-                        Text(
-                          "Choose Mileage Package",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: kBlack,
-                            fontSize: 14,
-                            fontFamily: poppinSemiBold,
-                          ),
-                        ),
-                        const ChooseMileagePlan(),
+                          style: TextStyle(color: kBlack,
+                            fontSize: 14, fontFamily: poppinSemiBold)),
+                        SizedBox(height: MediaQuery.of(context).size.height* 0.01),
+                        const BFWChooseSubscriptionPlan(),
+                        SizedBox(height: MediaQuery.of(context).size.height* 0.01),
+                        // Text("Choose Mileage Package",
+                        //   textAlign: TextAlign.left, style: TextStyle(
+                        //     color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
+                        //
+                        // const ChooseMileagePlan(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Start Fee",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: poppinMedium,
-                                  color: kBlack),
-                            ),
-                            Text(
-                              "RM 8,471.94",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: poppinMedium,
-                                  color: kBlack),
+                            Text("Start Fee", textAlign: TextAlign.left,
+                              style: TextStyle(fontSize: 14,
+                                  fontFamily: poppinMedium, color: kBlack)),
+                            Text("RM 8,471.94",
+                              textAlign: TextAlign.right, style: TextStyle(
+                                  fontSize: 14, fontFamily: poppinMedium, color: kBlack),
                             ),
                           ],
                         ),
@@ -95,13 +110,10 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "12 Months Plan",
+                            Text("12 Months Plan",
                               textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: poppinRegular,
-                                  color: detailsTextColor),
+                              style: TextStyle(fontSize: 14,
+                                  fontFamily: poppinRegular, color: detailsTextColor),
                             ),
                             Text(
                               "RM 8,120.00",
@@ -335,10 +347,11 @@ class _HomePageDetailsState extends State<HomePageDetails> {
     );
   }
 
-  Widget homePageDetailsCard() {
+  Widget bookForWeddingBookingCard() {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    return Stack(
+    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+      Stack(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -365,7 +378,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                   Row(
                     children: [
                       Text(
-                        "${widget.vehicalName} | ",
+                        "${carsPhotoGraphyModelObject.data![0].vehicalName} | ",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: kBlack,
@@ -374,7 +387,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                         ),
                       ),
                       Text(
-                        "MODEL",
+                        "${carsPhotoGraphyModelObject.data![0].carsModels!.name}",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: kBlack,
@@ -382,14 +395,14 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                           fontFamily: poppinRegular,
                         ),
                       ),
-                      Text("Y LONG RANGE ",
+                      Text("${carsPhotoGraphyModelObject.data![0].carsModels!.name}",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: kBlack,
                             fontSize: 14,
                             fontFamily: poppinMedium,
                           )),
-                      Text("${widget.modelYear}",
+                      Text("${carsPhotoGraphyModelObject.data![0].year}",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: kBlack,
@@ -413,7 +426,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                         ),
                       ),
                       Text(
-                        "${widget.oldRent}",
+                        "${carsPhotoGraphyModelObject.data![0].carsPlans![0].pricePerHour}",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             color: kRed,
@@ -435,7 +448,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                         ),
                       ),
                       Text(
-                        "${widget.rentCostMonth}",
+                        "${carsPhotoGraphyModelObject.data![0].carsPlans![0].discountedPricePerHour}",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: borderColor,
@@ -502,20 +515,17 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                     children: [
                       Row(
                         children: [
-                          Image.asset(
-                              "assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                          Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                           SizedBox(
                             width: MediaQuery.of(context).size.height * 0.01,
                           ),
-                          Text(
-                            "${widget.carRating}",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: kBlack,
-                              fontSize: 14,
-                              fontFamily: poppinRegular,
-                            ),
-                          ),
+
+                          carsPhotoGraphyModelObject.data![0].rating == null?
+                          Text("0.0", textAlign: TextAlign.left, style: TextStyle(
+                                color: kBlack, fontSize: 14, fontFamily: poppinRegular)):
+                          Text("${carsPhotoGraphyModelObject.data![0].rating}",
+                            textAlign: TextAlign.left, style: TextStyle(
+                              color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                         ],
                       ),
                       SizedBox(width: screenWidth * 0.45),
@@ -582,9 +592,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Text("${double.parse(widget.discount.toString()).toStringAsFixed(1)}% ", textAlign: TextAlign.left,
-                  Text(
-                    "${widget.discount.toString()}% ",
+                  Text("${carsPhotoGraphyModelObject.data![0].discountPercentage}% ",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: kWhite,
@@ -603,15 +611,29 @@ class _HomePageDetailsState extends State<HomePageDetails> {
               ),
             )),
         Positioned(
-          child: Image.asset("assets/home_page/tesla_car_image.png"),
+          left: 20, right: 20, top: 10,
+          child: carsPhotoGraphyModelObject.data![0].image1 == null ?
+          ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset('assets/icon/fade_in_image.jpeg')) :
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: FadeInImage(
+              placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+              width: 350,
+              height: 150,
+              image: NetworkImage("$baseUrlImage${carsPhotoGraphyModelObject.data![0].image1}"),
+            ),
+          ),
+          // Image.asset("assets/home_page/tesla_car_image.png"),
         ),
         Positioned(
             top: 28,
             right: 27,
-            child: Image.asset(
-              "assets/home_page/heart_transparent.png",
-              color: kBlack,
-            )),
+            child: carsPhotoGraphyModelObject.data![0].favouriteStatus == "like"?
+            Image.asset("assets/home_page/heart.png"):
+            Image.asset("assets/home_page/heart_transparent.png", color: kBlack),
+        ),
       ],
     );
   }

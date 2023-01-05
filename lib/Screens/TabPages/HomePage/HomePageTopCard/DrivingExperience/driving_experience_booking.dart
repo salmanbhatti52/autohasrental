@@ -1,22 +1,22 @@
 import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/DrivingExperience/d_e_choose_subscription_paln.dart';
 import 'package:flutter/material.dart';
+import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/driving_experience_cars_model.dart';
+import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/colors.dart';
+import '../../../../../Utils/constants.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Home/Address/delivery_address.dart';
 import '../../Home/choose_mileage_plan.dart';
+import 'package:http/http.dart'as http;
 
 class DrivingExperinceBooking extends StatefulWidget {
-  final String? vehicalName, rentCostMonth, oldRent, carRating, discount;
+  final String? vehicalName;
   final int? modelYear;
   const DrivingExperinceBooking(
       {Key? key,
       this.vehicalName,
-      this.rentCostMonth,
-      this.discount,
-      this.oldRent,
-      this.carRating,
       this.modelYear})
       : super(key: key);
 
@@ -26,6 +26,43 @@ class DrivingExperinceBooking extends StatefulWidget {
 }
 
 class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
+
+  DrivingExperienceCarsModel drivingExperienceCarsModelObject = DrivingExperienceCarsModel();
+  @override
+  void initState() {
+    super.initState();
+    getDrivingExperienceCarsWidget();
+  }
+  bool loadingP = true;
+
+  getDrivingExperienceCarsWidget() async {
+    loadingP = true;
+    setState(() {});
+    try {
+      String apiUrl = carDrivingExperienceApiUrl;
+      print("drivingExperienceCarsApi: $apiUrl");
+      final response = await http.post(Uri.parse(apiUrl),
+          body: {
+            "users_customers_id" : userId
+          },
+          headers: {'Accept': 'application/json'});
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("drivingExperienceCarsResponse: ${responseString.toString()}");
+        drivingExperienceCarsModelObject =
+            drivingExperienceCarsModelFromJson(responseString);
+        print(
+            "drivingExperienceCarsLength: ${drivingExperienceCarsModelObject.data!.length}");
+      }
+    } catch (e) {
+      print('Error: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -51,26 +88,14 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Choose Subscription plan",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: kBlack,
-                            fontSize: 14,
-                            fontFamily: poppinSemiBold,
-                          ),
-                        ),
+                        Text("Choose Subscription plan", textAlign: TextAlign.left,
+                          style: TextStyle(color: kBlack,
+                            fontSize: 14, fontFamily: poppinSemiBold)),
                         const DEChooseSubscriptionPlan(),
-                        Text(
-                          "Choose Mileage Package",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: kBlack,
-                            fontSize: 14,
-                            fontFamily: poppinSemiBold,
-                          ),
-                        ),
-                        const ChooseMileagePlan(),
+                        // Text("Choose Mileage Package", textAlign: TextAlign.left,
+                        //   style: TextStyle(color: kBlack, fontSize: 14,
+                        //     fontFamily: poppinSemiBold)),
+                        // const ChooseMileagePlan(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -339,7 +364,9 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
   Widget drivingExperinceBookingCard() {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    return Stack(
+    return
+      loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+      Stack(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -366,7 +393,7 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
                   Row(
                     children: [
                       Text(
-                        "${widget.vehicalName} | ",
+                        "${drivingExperienceCarsModelObject.data![0].vehicalName} | ",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: kBlack,
@@ -374,8 +401,7 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
                           fontFamily: poppinBold,
                         ),
                       ),
-                      Text(
-                        "MODEL",
+                      Text("MODEL ",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: kBlack,
@@ -383,14 +409,14 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
                           fontFamily: poppinRegular,
                         ),
                       ),
-                      Text("Y LONG RANGE ",
+                      Text("${drivingExperienceCarsModelObject.data![0].carsModels!.name} ",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: kBlack,
                             fontSize: 14,
                             fontFamily: poppinMedium,
                           )),
-                      Text("${widget.modelYear}",
+                      Text("${drivingExperienceCarsModelObject.data![0].year}",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: kBlack,
@@ -414,7 +440,7 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
                         ),
                       ),
                       Text(
-                        "${widget.oldRent}",
+                        "${drivingExperienceCarsModelObject.data![0].carsPlans![0].pricePerSlot}",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             color: kRed,
@@ -436,7 +462,7 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
                         ),
                       ),
                       Text(
-                        "${widget.rentCostMonth}",
+                        "${drivingExperienceCarsModelObject.data![0].carsPlans![0].discountedPricePerSlot}",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: borderColor,
@@ -509,7 +535,7 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
                             width: MediaQuery.of(context).size.height * 0.01,
                           ),
                           Text(
-                            "${widget.carRating}",
+                            "${drivingExperienceCarsModelObject.data![0].rating}",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: kBlack,
@@ -583,9 +609,7 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Text("${double.parse(widget.discount.toString()).toStringAsFixed(1)}% ", textAlign: TextAlign.left,
-                  Text(
-                    "${widget.discount.toString()}% ",
+                  Text("${drivingExperienceCarsModelObject.data![0].discountPercentage}% ",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: kWhite,
@@ -604,13 +628,13 @@ class _DrivingExperinceBookingState extends State<DrivingExperinceBooking> {
               ),
             )),
         Positioned(
-          child: Image.asset("assets/home_page/tesla_car_image.png"),
+          left: 20, right: 20,
+          child: Image.network("$baseUrlImage${drivingExperienceCarsModelObject.data![0].image1}",
+          height: 170,),
         ),
         Positioned(
-            top: 28,
-            right: 27,
-            child: Image.asset(
-              "assets/home_page/heart_transparent.png",
+            top: 28, right: 27,
+            child: Image.asset("assets/home_page/heart_transparent.png",
               color: kBlack,
             )),
       ],

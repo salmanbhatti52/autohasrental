@@ -20,6 +20,7 @@ class UpcomingBookingsDetailsTopWidget extends StatefulWidget {
 
 class _UpcomingBookingsDetailsTopWidgetState
     extends State<UpcomingBookingsDetailsTopWidget> {
+  bool loadingP = true;
   sharedPrefs() async {
     loadingP = true;
     setState(() {});

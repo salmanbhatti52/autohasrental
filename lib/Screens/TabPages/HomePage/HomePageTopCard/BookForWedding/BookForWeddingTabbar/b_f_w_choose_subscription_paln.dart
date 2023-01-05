@@ -12,8 +12,7 @@ class BFWChooseSubscriptionPlan extends StatefulWidget {
   const BFWChooseSubscriptionPlan({Key? key}) : super(key: key);
 
   @override
-  State<BFWChooseSubscriptionPlan> createState() =>
-      _BFWChooseSubscriptionPlanState();
+  State<BFWChooseSubscriptionPlan> createState() => _BFWChooseSubscriptionPlanState();
 }
 
 class _BFWChooseSubscriptionPlanState extends State<BFWChooseSubscriptionPlan> {
@@ -26,18 +25,21 @@ class _BFWChooseSubscriptionPlanState extends State<BFWChooseSubscriptionPlan> {
         children: [
           Container(
             height: 30.0,
-            width: 220.0,
+            // width: 220.0,
             decoration: BoxDecoration(
               color: borderColor,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Center(
-              child: Text('3 days 26 Dec 2022 - 28 Dec 2022',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontFamily: poppinRegular,
-                      fontSize: 12.0,
-                      color: kWhite)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text('3 days 26 Dec 2022 - 28 Dec 2022',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontFamily: poppinRegular,
+                        fontSize: 12.0,
+                        color: kWhite)),
+              ),
             ),
           ),
           SizedBox(width: MediaQuery.of(context).size.width * 0.01),

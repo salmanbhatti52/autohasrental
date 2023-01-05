@@ -25,18 +25,20 @@ class _DEChooseSubscriptionPlanState extends State<DEChooseSubscriptionPlan> {
         children: [
           Container(
             height: 30.0,
-            width: 235.0,
             decoration: BoxDecoration(
               color: borderColor,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Center(
-              child: Text('26 Dec 2022, Monday - 09:00 to 10:00',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontFamily: poppinRegular,
-                      fontSize: 12.0,
-                      color: kWhite)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text('26 Dec 2022, Monday - 09:00 to 10:00',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontFamily: poppinRegular,
+                        fontSize: 12.0,
+                        color: kWhite)),
+              ),
             ),
           ),
           SizedBox(width: MediaQuery.of(context).size.width * 0.01),

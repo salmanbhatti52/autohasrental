@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:auto_haus_rental_app/Model/AuthModels/verify_otp_model.dart';
-import 'package:auto_haus_rental_app/Screens/Authentication/SignUpPage/privacy_policy_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -11,8 +10,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../LoginPage/login_page.dart';
 import 'package:http/http.dart' as http;
+
+import 'privacy_policy_page.dart';
 
 class VerifyPhonePage extends StatefulWidget {
   final String? userId, verifyCode;
@@ -108,14 +108,14 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 Text("Verify Phone", textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
+                  style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.12),
                 SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("We sent you an SMS with a 4 digit code. Enter the code to verify your mobile.",
+                  child: Text("We sent you an SMS with a 6 digit code. Enter the code to verify your mobile.",
                    textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite,),),
                 ),
@@ -134,7 +134,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                           fontWeight: FontWeight.bold,
                           // backgroundColor: Colors.transparent,
                         ),
-                        length: 4,
+                        length: 6,
                         // obscureText: true,
                         hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular),
                         hintCharacter: "0",
@@ -223,8 +223,6 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                             });
                             print("false: $progress");
                           });
-
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginPage()));
                         }
                       }
 

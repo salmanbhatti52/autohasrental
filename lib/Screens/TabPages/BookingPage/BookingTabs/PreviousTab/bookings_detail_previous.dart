@@ -1,4 +1,4 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Home/home_page_details.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/EvSubscriptions/ev_descripiton_details_page.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/fontFamily.dart';
@@ -305,7 +305,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const HomePageDetails()));
+                            builder: (context) => const EvDescriptionDetailsPage()));
                   },
                   child: Container(
                     width: 102,

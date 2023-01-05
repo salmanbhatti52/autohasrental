@@ -9,7 +9,8 @@ import '../../../../../Utils/colors.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 
 class DrivingDetailsPage extends StatefulWidget {
-  const DrivingDetailsPage({Key? key}) : super(key: key);
+  final String? carName, carYear, carImage;
+  const DrivingDetailsPage({Key? key, this.carName, this.carYear, this.carImage}) : super(key: key);
 
   @override
   State<DrivingDetailsPage> createState() => _DrivingDetailsPageState();
@@ -29,10 +30,12 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarDoubleImageRichText(
+      appBar: MyAppBarDoubleImageRichText(
         frontImage: "assets/home_page/back_arrow.png",
-        title: "Tesla S series, ",
-        year: "2022",
+        // title: "Tesla S series, ",
+        // year: "2022",
+        title: "${widget.carName}, ",
+        year: "${widget.carYear}",
         backImage: "assets/car_description_images/chat.png",
       ),
       body: SingleChildScrollView(
@@ -55,17 +58,11 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/car_description_images/rating.png',
-                            width: 75, height: 12),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        Text(
-                          '4.0',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: poppinSemiBold,
-                              color: kWhite),
-                        ),
+                        Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                        Text('4.0',
+                          style: TextStyle(fontSize: 16,
+                              fontFamily: poppinSemiBold, color: kWhite)),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -81,18 +78,19 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 20),
-                          child: Image.asset(
+                          child:
+
+                          Image.asset(
                               'assets/car_description_images/heart.png',
-                              width: 24,
-                              height: 20),
+                              width: 24, height: 20),
                         ),
                       ],
                     ),
                     Stack(
                       children: [
                         Positioned(
-                          child: Image.asset('assets/home_page/tesla.png',
-                              width: 307, height: 192),
+                          child: Image.network("${widget.carImage}", width: 307, height: 192),
+                          // child: Image.asset('assets/home_page/tesla.png', width: 307, height: 192),
                         ),
                         Positioned(
                           bottom: 0,
@@ -212,11 +210,10 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
             const TabbarCarDescription(),
             GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const DrivingExperinceBooking()));
+                  Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => const DrivingExperinceBooking(
+
+                          )));
                 },
                 child: loginButton('Book Now', context)),
           ],

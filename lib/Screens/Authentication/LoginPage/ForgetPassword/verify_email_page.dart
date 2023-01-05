@@ -14,8 +14,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class VerifyEmailPage extends StatefulWidget {
-  final String? userId, verifyCode;
-  const VerifyEmailPage({Key? key, this.userId, this.verifyCode})
+  final String? email, verifyCode;
+  const VerifyEmailPage({Key? key, this.email, this.verifyCode})
       : super(key: key);
 
   @override
@@ -48,7 +48,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("object123 ${widget.userId} ${widget.verifyCode}");
+    print("object123 $userId ${widget.verifyCode}");
     // sharedPrefs();
   }
 
@@ -57,13 +57,13 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     try {
       String apiUrl = verifyOtpSignUpApiUrl;
       print("api: $apiUrl");
-      print("users_customers_id: ${widget.userId}");
+      print("users_customers_id: $userId");
       print("users_customers_id: ${widget.verifyCode}");
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: {'Accept': 'application/json'},
         body: {
-          'users_customers_id': widget.userId,
+          'users_customers_id': userId,
           'verify_otp': textEditingController.text,
         },
       );
@@ -205,12 +205,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     onTap: () {
                       if (formKeyVerifyCode.currentState!.validate()) {
                         if (textEditingController.text.isEmpty) {
-                          toastFailedMessage(
-                              'pinController cannot be empty', Colors.red);
-                        } else if (textEditingController.text !=
-                            widget.verifyCode) {
-                          toastFailedMessage(
-                              'pin code did not matched', Colors.red);
+                          toastFailedMessage('pinController cannot be empty', Colors.red);
+                        } else if (textEditingController.text != widget.verifyCode) {
+                          toastFailedMessage('pin code did not matched', Colors.red);
                         } else {
                           setState(() {
                             progress = true;
@@ -220,11 +217,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
                           Future.delayed(const Duration(seconds: 3), () {
                             toastSuccessMessage("success", Colors.green);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SetNewPasswordPage()));
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) => SetNewPasswordPage(
+                                  email: widget.email,
+                                  verifyCode: widget.verifyCode)));
+                            print("email verifyCode ${widget.email} ${widget.verifyCode}");
 
                             setState(() {
                               progress = false;

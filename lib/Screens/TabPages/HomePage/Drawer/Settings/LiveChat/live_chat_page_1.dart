@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../Widget/button.dart';
 import '../../../../../../Utils/colors.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
-import 'live_chat_page_2.dart';
+import 'live_chat_details_page.dart';
 
 class LiveChatPage1 extends StatefulWidget {
   const LiveChatPage1({super.key});
@@ -111,7 +111,7 @@ class _LiveChatPage1State extends State<LiveChatPage1> {
           GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => const LiveChatPage2()));
+                        builder: (context) => const LiveChatDetailsPage()));
               },
               child: loginButton('Chat with us', context),
           ),

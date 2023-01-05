@@ -1,22 +1,22 @@
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Utils/colors.dart';
-import '../../../../../../Utils/fontFamily.dart';
-import 'description_page/description.dart';
-import 'feature_page/features.dart';
-import 'rating_page.dart/rating.dart';
+import '12MonthsPlan/12_months_plan.dart';
+import '24MonthsPlan/24_months_plan.dart';
+import '36MonthsPlan/36_months_plan.dart';
 
-class TabbarCarDescription extends StatefulWidget {
-  const TabbarCarDescription({super.key});
+class EvSubscriptionTabbarPage extends StatefulWidget {
+  const EvSubscriptionTabbarPage({super.key});
 
   @override
-  State<TabbarCarDescription> createState() => _TabbarCarDescriptionState();
+  State<EvSubscriptionTabbarPage> createState() => _EvSubscriptionTabbarPageState();
 }
 
 abstract class TickerProvider {}
 
-class _TabbarCarDescriptionState extends State<TabbarCarDescription>
+class _EvSubscriptionTabbarPageState extends State<EvSubscriptionTabbarPage>
     with TickerProviderStateMixin {
-  List<String> tabs = ["Description", "Features", "Ratings"];
+  List<String> tabs = ["12 Months", "24 Months", "36 Months"];
   int selectedIndex = 0;
 
   @override
@@ -31,38 +31,38 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
               width: 344,
               height: 48,
               decoration: BoxDecoration(
-                  color: const Color(0xffd4dce1),
+                  color: homeBgColor,
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(vertical: 09, horizontal: 0),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
-                    color: kWhite,
+                    color: borderColor,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   indicatorColor: kWhite,
                   // isScrollable: true,
-                  labelColor: kBlack,
+                  labelColor: kWhite,
                   labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,
                   tabs: const [
-                    Tab(text: "Description",),
-                    Tab(text: "Features",),
-                    Tab(text: "Ratings",),
+                    Tab(text: "12 Months"),
+                    Tab(text: "24 Months"),
+                    Tab(text: "36 Months"),
                   ],
                 ),
               )),
         ),
         SizedBox(
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height * 0.28,
+          height: MediaQuery.of(context).size.height * 0.14,
           child: TabBarView(
             controller: tabController,
             children: const [
-              Description(),
-              Features(),
-              Rating(),
+              TwelveMonthsPlan(),
+              TwentyFourMonthsPlan(),
+              ThirtySixMonthsPlan(),
             ]
           ),
         ),

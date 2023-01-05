@@ -7,16 +7,25 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart'as http;
 
-class Description extends StatefulWidget {
-  const Description({super.key});
+class TwentyFourMonthsPlan extends StatefulWidget {
+  const TwentyFourMonthsPlan({super.key});
 
   @override
-  State<Description> createState() => _DescriptionState();
+  State<TwentyFourMonthsPlan> createState() => _TwentyFourMonthsPlanState();
 }
 
-class _DescriptionState extends State<Description> {
+class _TwentyFourMonthsPlanState extends State<TwentyFourMonthsPlan> {
   EvSubscriptionCarsModel evSubscriptionCarsModelObject = EvSubscriptionCarsModel();
   bool loadingP = true;
+
+  double? totalAmount = 0.0;
+  double serviceFee = 487.20;
+
+  myTotal(){
+    totalAmount = double.parse(evSubscriptionCarsModelObject.data![0].carsPlans![1].pricePerMonth!) + serviceFee;
+    print("my24MonthsTotal: $totalAmount");
+  }
+
   getEvSubscriptionCarsWidget() async {
     loadingP = true;
     setState(() {});
@@ -42,6 +51,7 @@ class _DescriptionState extends State<Description> {
         print("evSubscriptionResponse: ${responseString.toString()}");
         evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
         print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
+        myTotal();
       }
     } catch (e) {
       print('Error in evSubscription: ${e.toString()}');
@@ -56,26 +66,46 @@ class _DescriptionState extends State<Description> {
     getEvSubscriptionCarsWidget();
   }
 
+
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
           : evSubscriptionCarsModelObject.status != "success" ?
       const Center(child: Text('no data found...',
           style: TextStyle(fontWeight: FontWeight.bold))) :
-      Column(
+    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
-          child: Text(
-            "${evSubscriptionCarsModelObject.data![0].description}",
-            style: TextStyle(
-                fontSize: 12,
-                fontFamily: poppinRegular,
-                color: Colors.black),
-            textAlign: TextAlign.left,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("24 Months Plan", textAlign: TextAlign.left, style: TextStyle(
+                fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+            Text("RM ${evSubscriptionCarsModelObject.data![0].carsPlans![1].pricePerMonth}", textAlign: TextAlign.right, style: TextStyle(
+                fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+          ],
+        ),
+        SizedBox(height: screenHeight * 0.015),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
+                fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+            Text("RM 487.20", textAlign: TextAlign.right, style: TextStyle(
+                fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+          ],
+        ),
+        SizedBox(height: screenHeight * 0.02),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Monthly Total Fee", textAlign: TextAlign.left, style: TextStyle(
+                fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
+            Text("RM $totalAmount", textAlign: TextAlign.left, style: TextStyle(
+                fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
+          ],
         ),
       ],
     );

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
 import '../../../Model/HomePageModels/FavoritesModel/favorite_cars_model.dart';
@@ -24,6 +23,8 @@ class _FavoritePageState extends State<FavoritePage> {
 
   CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
   List<FavoriteCarModel> favoriteCarModelObject = [];
+  String? myCarsIndexId;
+  bool loadingP = true;
 
   sharedPrefs() async {
     loadingP = true;
@@ -35,6 +36,7 @@ class _FavoritePageState extends State<FavoritePage> {
     setState(() {
       getLikeUnlikeCarWidget();
       getFavoriteCarWidget();
+
     });
   }
 
@@ -43,7 +45,9 @@ class _FavoritePageState extends State<FavoritePage> {
     setState(() {
       loadingP = true;
     });
-    Map body = {"users_customers_id": userId};
+    Map body = {
+      "users_customers_id": userId
+    };
     http.Response response = await http.post(Uri.parse(favoriteCarsApiUrl),
         body: body, headers: {"Accept": "application/json"});
     Map jsonData = jsonDecode(response.body);
@@ -80,9 +84,11 @@ class _FavoritePageState extends State<FavoritePage> {
         Uri.parse(apiUrl),
         body: {
           "users_customers_id": userId,
-          "cars_id": "1",
+          "cars_id": myCarsIndexId,
         },
-        headers: {'Accept': 'application/json'},
+        headers: {
+          'Accept': 'application/json'
+        },
       );
       print('${response.statusCode}');
       if (response.statusCode == 200) {
@@ -113,9 +119,7 @@ class _FavoritePageState extends State<FavoritePage> {
       backgroundColor: homeBgColor,
       body: Column(
         children: [
-          SizedBox(
-            height: screenHeight * 0.04,
-          ),
+          SizedBox(height: screenHeight * 0.04),
           myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Favorite",
               "assets/home_page/notification_image.png"),
           allFavItem(),
@@ -129,15 +133,9 @@ class _FavoritePageState extends State<FavoritePage> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 15),
-      child: loadingP
-          ? Center(
-              child: CircularProgressIndicator(
-              color: borderColor,
-            ))
-          : favoriteCarModelObject.isEmpty
-              ? const Center(
-                  child: Text('no data found...',
-                      style: TextStyle(fontWeight: FontWeight.bold)))
+      child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
+          : favoriteCarModelObject.isEmpty ? const Center(child: Text('no data found...',
+              style: TextStyle(fontWeight: FontWeight.bold)))
               : Container(
                   color: Colors.transparent,
                   height: screenHeight * 0.75,
@@ -147,6 +145,8 @@ class _FavoritePageState extends State<FavoritePage> {
                       scrollDirection: Axis.vertical,
                       itemCount: favoriteCarModelObject.length,
                       itemBuilder: (BuildContext context, int index) {
+                        myCarsIndexId = favoriteCarModelObject[index].carsId.toString();
+                        print("myCarsIndexIds $myCarsIndexId");
                         return Stack(
                           children: [
                             Padding(
@@ -176,9 +176,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                   ),
                                   child: Column(
                                     children: [
-                                      Container(
-                                        height: screenHeight * 0.1,
-                                      ),
+                                      Container(height: screenHeight * 0.1),
                                       Row(
                                         children: [
                                           const SizedBox(height: 93.6),
@@ -186,158 +184,77 @@ class _FavoritePageState extends State<FavoritePage> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 15),
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Text(
-                                                      "${favoriteCarModelObject[index].vehicalName} | ",
-                                                      style: TextStyle(
-                                                        color: kBlack,
-                                                        fontSize: 14,
-                                                        fontFamily: poppinBold,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
-                                                    Text(
-                                                      "MODEL ",
-                                                      style: TextStyle(
-                                                        color: kBlack,
-                                                        fontSize: 12,
-                                                        fontFamily:
-                                                            poppinRegular,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
-                                                    Text(
-                                                      "${favoriteCarModelObject[index].year} ",
-                                                      style: TextStyle(
-                                                        color: kBlack,
-                                                        fontSize: 14,
-                                                        fontFamily:
-                                                            poppinMedium,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
-                                                    Text(
-                                                      "${favoriteCarModelObject[index].year}",
-                                                      style: TextStyle(
-                                                        color: kBlack,
-                                                        fontSize: 10,
-                                                        fontFamily:
-                                                            poppinRegular,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
+                                                    Text("${favoriteCarModelObject[index].vehicalName} | ",
+                                                      style: TextStyle(color: kBlack,
+                                                        fontSize: 14, fontFamily: poppinBold),
+                                                      textAlign: TextAlign.left),
+                                                    Text("MODEL ",
+                                                      style: TextStyle(color: kBlack,
+                                                        fontSize: 12, fontFamily: poppinRegular),
+                                                      textAlign: TextAlign.left),
+                                                    Text("${favoriteCarModelObject[index].year} ",
+                                                      style: TextStyle(color: kBlack,
+                                                        fontSize: 14, fontFamily: poppinMedium),
+                                                      textAlign: TextAlign.left),
+                                                    Text("${favoriteCarModelObject[index].year}",
+                                                      style: TextStyle(color: kBlack,
+                                                        fontSize: 10, fontFamily: poppinRegular),
+                                                      textAlign: TextAlign.left),
                                                   ],
                                                 ),
-                                                SizedBox(
-                                                  height: screenHeight * 0.01,
-                                                ),
+                                                SizedBox(height: screenHeight * 0.01),
                                                 Row(
                                                   children: [
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 04),
-                                                      child: Text(
-                                                        "RM",
-                                                        style: TextStyle(
-                                                          color: kRed,
-                                                          fontSize: 5,
-                                                          fontFamily:
-                                                              poppinRegular,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                      ),
+                                                      padding: const EdgeInsets.only(top: 04),
+                                                      child: Text("RM",
+                                                        style: TextStyle(color: kRed,
+                                                          fontSize: 5, fontFamily: poppinRegular,),
+                                                        textAlign: TextAlign.left),
                                                     ),
-                                                    Text(
-                                                      "0.0",
-                                                      style: TextStyle(
-                                                        color: kRed,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .lineThrough,
+                                                    Text("0.0",
+                                                      style: TextStyle(color: kRed,
+                                                        decoration: TextDecoration.lineThrough,
                                                         decorationColor: kRed,
                                                         decorationThickness: 3,
                                                         fontSize: 10,
                                                         fontFamily: poppinLight,
-                                                        height: 2,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
+                                                        height: 2),
+                                                      textAlign: TextAlign.left),
                                                     const SizedBox(width: 5),
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 06),
-                                                      child: Text(
-                                                        "RM",
-                                                        style: TextStyle(
-                                                          color: borderColor,
-                                                          fontSize: 7,
-                                                          fontFamily:
-                                                              poppinSemiBold,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                      ),
+                                                      padding: const EdgeInsets.only(top: 06),
+                                                      child: Text("RM",
+                                                        style: TextStyle(color: borderColor,
+                                                          fontSize: 7, fontFamily: poppinSemiBold),
+                                                        textAlign: TextAlign.left),
                                                     ),
-                                                    Text(
-                                                      "0.0",
-                                                      style: TextStyle(
-                                                        color: borderColor,
-                                                        fontSize: 16,
-                                                        fontFamily:
-                                                            poppinSemiBold,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
-                                                    Text(
-                                                      "/ Month",
-                                                      style: TextStyle(
-                                                        color: kBlack,
-                                                        fontSize: 8,
-                                                        fontFamily:
-                                                            poppinRegular,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
-                                                    SizedBox(
-                                                      width: screenWidth * 0.01,
-                                                    ),
-                                                    Image.asset(
-                                                        "assets/car_bookings_images/rating_stars.png"),
-                                                    SizedBox(
-                                                      width: screenWidth * 0.01,
-                                                    ),
-                                                    Text(
-                                                      "4.0",
-                                                      style: TextStyle(
-                                                        color: kBlack,
-                                                        fontSize: 12,
-                                                        fontFamily:
-                                                            poppinRegular,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
+                                                    Text("0.0",
+                                                      style: TextStyle(color: borderColor,
+                                                        fontSize: 16, fontFamily: poppinSemiBold),
+                                                      textAlign: TextAlign.left),
+                                                    Text("/ Month",
+                                                      style: TextStyle(color: kBlack,
+                                                        fontSize: 8, fontFamily: poppinRegular),
+                                                      textAlign: TextAlign.left),
+                                                    SizedBox(width: screenWidth * 0.01),
+                                                    Image.asset("assets/car_bookings_images/rating_stars.png"),
+                                                    SizedBox(width: screenWidth * 0.01),
+                                                    Text("4.0",
+                                                      style: TextStyle(color: kBlack,
+                                                        fontSize: 12, fontFamily: poppinRegular),
+                                                      textAlign: TextAlign.left),
                                                   ],
                                                 ),
-                                                SizedBox(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.01),
+                                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                                 Row(
                                                   children: [
-                                                    Image.asset(
-                                                        "assets/car_bookings_images/promoted.png"),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
+                                                    Image.asset("assets/car_bookings_images/promoted.png"),
+                                                    const SizedBox(width: 5),
                                                     Text(
                                                       "Verified Dealer",
                                                       style: TextStyle(
@@ -348,30 +265,17 @@ class _FavoritePageState extends State<FavoritePage> {
                                                       ),
                                                       textAlign: TextAlign.left,
                                                     ),
-                                                    const SizedBox(
-                                                      width: 05,
-                                                    ),
+                                                    const SizedBox(width: 05),
                                                     Container(
-                                                      height: 15,
-                                                      width: 35,
+                                                      height: 15, width: 35,
                                                       decoration: BoxDecoration(
                                                           color: kBlack,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
+                                                          borderRadius: BorderRadius.circular(10)),
                                                       child: Center(
-                                                        child: Text(
-                                                          "New",
-                                                          style: TextStyle(
-                                                            color: kWhite,
-                                                            fontSize: 8,
-                                                            fontFamily:
-                                                                poppinRegular,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                        ),
+                                                        child: Text("New",
+                                                          style: TextStyle(color: kWhite,
+                                                            fontSize: 8, fontFamily: poppinRegular),
+                                                          textAlign: TextAlign.left),
                                                       ),
                                                     ),
                                                   ],
@@ -389,17 +293,14 @@ class _FavoritePageState extends State<FavoritePage> {
                             Positioned(
                               right: 30,
                               bottom: 35,
-                              child: Image.asset(
-                                  "assets/car_bookings_images/more_button.png"),
+                              child: Image.asset("assets/car_bookings_images/more_button.png"),
                             ),
                             Positioned(
                                 top: 10,
                                 left: 15,
                                 child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.07,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.16,
+                                  height: MediaQuery.of(context).size.width * 0.07,
+                                  width: MediaQuery.of(context).size.width * 0.16,
                                   decoration: BoxDecoration(
                                     color: kRed.withOpacity(0.8),
                                     borderRadius: const BorderRadius.only(
@@ -409,22 +310,14 @@ class _FavoritePageState extends State<FavoritePage> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        "${favoriteCarModelObject[index].discountPercentage}",
-                                        style: TextStyle(
-                                          color: kWhite,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Poppins',
-                                        ),
-                                      ),
+                                      Text("${favoriteCarModelObject[index].discountPercentage}",
+                                        style: TextStyle(color: kWhite,
+                                          fontSize: 13, fontFamily: poppinSemiBold),
+                                          textAlign: TextAlign.left),
                                       Text(" OFF ",
-                                          style: TextStyle(
-                                            color: kWhite,
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.w300,
-                                            fontFamily: 'Poppins',
-                                          )),
+                                          style: TextStyle(color: kWhite,
+                                            fontSize: 8, fontFamily: poppinSemiBold),
+                                          textAlign: TextAlign.left),
                                     ],
                                   ),
                                 )),
@@ -433,18 +326,14 @@ class _FavoritePageState extends State<FavoritePage> {
                                       null
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.asset(
-                                          'assets/icon/fade_in_image.jpeg'))
+                                      child: Image.asset('assets/icon/fade_in_image.jpeg'))
                                   : ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: FadeInImage(
-                                        placeholder: const AssetImage(
-                                            "assets/icon/fade_in_image.jpeg"),
-                                        // fit: BoxFit.fill,
+                                        placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
                                         width: 350,
                                         height: 150,
-                                        image: NetworkImage(
-                                            "$baseUrlImage${favoriteCarModelObject[index].image1}"),
+                                        image: NetworkImage("$baseUrlImage${favoriteCarModelObject[index].image1}"),
                                       ),
                                     ),
 
@@ -455,21 +344,19 @@ class _FavoritePageState extends State<FavoritePage> {
                                 right: 15,
                                 child: GestureDetector(
                                   onTap: () async {
-                                    // isPostLiked? Image.asset("assets/home_page/heart.png"):
-                                    //     Image.asset("assets/home_page/heart_transparent.png");
-                                    if (isPostLiked) {
-                                      await likeUnlikeCarsWidget();
-                                      // add your code
-                                      print('unlike');
-                                    } else {
-                                      // add your code
-                                      print('like');
+                                    await getLikeUnlikeCarWidget();
+                                    if (carLikeUnlikeModelObject.message == "Liked") {
+                                      print("isLiked");
+                                      toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
                                     }
-                                    isPostLiked = !isPostLiked;
-                                  },
-                                  child: Image.asset(
-                                    "assets/home_page/heart.png",
-                                  ),
+                                    if (carLikeUnlikeModelObject.message == "Unliked") {
+                                      print("isUnLiked");
+                                      toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                                    }
+                                    },
+                                  child: carLikeUnlikeModelObject.message == "Liked"
+                                  ? Image.asset("assets/home_page/heart.png")
+                                      : Image.asset("assets/car_bookings_images/heart.png"),
                                 )),
                           ],
                         );

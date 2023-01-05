@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -14,7 +15,8 @@ import '../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart'as http;
 
 class MessageDetailsScreen extends StatefulWidget {
-  const MessageDetailsScreen({Key? key}) : super(key: key);
+  final String? senderImage, senderName;
+  const MessageDetailsScreen({Key? key, this.senderName, this.senderImage}) : super(key: key);
 
   @override
   State<MessageDetailsScreen> createState() => _MessageDetailsScreenState();
@@ -164,10 +166,54 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     });
 
     return Scaffold(
-      appBar: const MyAppBarDoubleImageForChats(
-          frontImage: 'assets/live_chat_images/back_arrow.png',
-          profileImage: 'assets/live_chat_images/user.png',
-          title: "name"),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            print("clicked");
+            // Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => const MessagePage()));
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Image.asset('assets/live_chat_images/back_arrow.png',
+              height: 25, width: 25),
+          ),
+        ),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 30, left: 50),
+          child: Row(
+            children: [
+              widget.senderImage == null? ClipRRect(
+                  borderRadius: BorderRadius.circular(80),
+                  child: Image.asset('assets/icon/fade_in_image.jpeg')):
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: FadeInImage(
+                  placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                  fit: BoxFit.fill,
+                  height: 27,
+                  width: 27,
+                  image: NetworkImage("${widget.senderImage}"),
+                ),
+              ),
+              const SizedBox(width: 5),
+              Text("${widget.senderName}",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16, fontFamily: poppinBold, color: kBlack)),
+            ],
+          ),
+        ),
+        backgroundColor: homeBgColor,
+        elevation: 0.0,
+        centerTitle: true,
+      ),
+
+      // appBar: const MyAppBarDoubleImageForChats(
+      //     frontImage: 'assets/live_chat_images/back_arrow.png',
+      //     profileImage: 'assets/live_chat_images/user.png',
+      //     title: "name"),
       backgroundColor: homeBgColor,
       body: loading? Center(child: CircularProgressIndicator(color: borderColor)):
       messageDetailsModelObject.isEmpty? const Center(child: Text("no chat history")):
@@ -176,9 +222,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
             opacity: 0.02,
             blur: 0.5,
             color: Colors.transparent,
-            progressIndicator: CircularProgressIndicator(
-              color: borderColor,
-            ),
+            progressIndicator: CircularProgressIndicator(color: borderColor),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -243,11 +287,6 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                 progress = true;
                               });
                               await sendMessageApiWidget();
-                              //     .then((){
-                              //   setState(() {
-                              //     allChatMessageApi();
-                              //   });
-                              // });
                                 Future.delayed(const Duration(seconds: 3), () {
                                   print("sendMessage Success");
                                   // toastSuccessMessage("Message sent successfully2.", colorGreen);

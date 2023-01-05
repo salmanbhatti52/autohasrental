@@ -124,7 +124,11 @@ class _MessagePageState extends State<MessagePage> {
           return GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => const MessageDetailsScreen()));
+                  builder: (context) => MessageDetailsScreen(
+                    senderName: allChatModel[index].companyName,
+                    senderImage: "$baseUrlImage${allChatModel[index].companyLogo}",
+                  )));
+              print("send Name & image ${allChatModel[index].companyName} $baseUrlImage${allChatModel[index].companyLogo}");
             },
             child: Column(
               children: [

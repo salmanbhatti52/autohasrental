@@ -20,7 +20,7 @@ class PrivacyPolicyPage extends StatefulWidget {
 class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
 
   PrivacyPolicyModel privacyPolicyModelObject = PrivacyPolicyModel();
-
+  bool loadingP = true;
   privacyPolicyWidget() async {
     loadingP = true;
     setState(() {});

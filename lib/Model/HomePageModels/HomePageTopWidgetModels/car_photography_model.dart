@@ -3,7 +3,7 @@ import 'dart:convert';
 
 CarsPhotoGraphyModel carsPhotoGraphyModelFromJson(String str) => CarsPhotoGraphyModel.fromJson(json.decode(str));
 
-String updateProfileModelToJson(CarsPhotoGraphyModel data) => json.encode(data.toJson());
+String carsPhotoGraphyModelToJson(CarsPhotoGraphyModel data) => json.encode(data.toJson());
 
 class CarsPhotoGraphyModel {
   CarsPhotoGraphyModel({
@@ -59,6 +59,7 @@ class Datum {
     this.carsModels,
     this.carsRatings,
     this.totalBookings,
+    this.favouriteStatus,
     this.carsPlans,
   });
 
@@ -94,6 +95,7 @@ class Datum {
   CarsM? carsModels;
   List<dynamic>? carsRatings;
   int? totalBookings;
+  String? favouriteStatus;
   List<CarsPlan>? carsPlans;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -129,6 +131,7 @@ class Datum {
     carsModels: CarsM.fromJson(json["cars_models"]),
     carsRatings: List<dynamic>.from(json["cars_ratings"].map((x) => x)),
     totalBookings: json["total_bookings"],
+    favouriteStatus: json["favourite_status"],
     carsPlans: List<CarsPlan>.from(json["cars_plans"].map((x) => CarsPlan.fromJson(x))),
   );
 
@@ -165,6 +168,7 @@ class Datum {
     "cars_models": carsModels!.toJson(),
     "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x)),
     "total_bookings": totalBookings,
+    "favourite_status": favouriteStatus,
     "cars_plans": List<dynamic>.from(carsPlans!.map((x) => x.toJson())),
   };
 }
@@ -207,18 +211,21 @@ class CarsPlan {
     this.carsId,
     this.planDate,
     this.pricePerHour,
+    this.discountedPricePerHour,
   });
 
   int? carsPlansPgId;
   int? carsId;
   DateTime? planDate;
   String? pricePerHour;
+  int? discountedPricePerHour;
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
     carsPlansPgId: json["cars_plans_pg_id"],
     carsId: json["cars_id"],
     planDate: DateTime.parse(json["plan_date"]),
     pricePerHour: json["price_per_hour"],
+    discountedPricePerHour: json["discounted_price_per_hour"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -226,5 +233,6 @@ class CarsPlan {
     "cars_id": carsId,
     "plan_date": "${planDate!.year.toString().padLeft(4, '0')}-${planDate!.month.toString().padLeft(2, '0')}-${planDate!.day.toString().padLeft(2, '0')}",
     "price_per_hour": pricePerHour,
+    "discounted_price_per_hour": discountedPricePerHour,
   };
 }

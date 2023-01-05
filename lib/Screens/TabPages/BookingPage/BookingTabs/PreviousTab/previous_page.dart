@@ -17,7 +17,7 @@ class PreviousPage extends StatefulWidget {
 
 class _PreviousPageState extends State<PreviousPage> {
   PreviousBookingModel previousBookingModelObject = PreviousBookingModel();
-
+  bool loadingP = true;
   sharedPrefs() async {
     loadingP = true;
     setState(() {});

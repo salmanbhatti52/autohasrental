@@ -1,4 +1,4 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/book_for_wedding_booking.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/book_for_wedding_booking_details.dart';
 import 'package:auto_haus_rental_app/Widget/day_slot.dart';
 import 'package:auto_haus_rental_app/Widget/hour_slot.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,10 @@ import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'BookForWeddingTabbar/tabbar_book_for_wedding.dart';
 
 class BookForWeddingCarDescription extends StatefulWidget {
-  const BookForWeddingCarDescription({super.key});
+  final String? carName, carImage, carRating, carDescription;
+  final int? carYear;
+  const BookForWeddingCarDescription({super.key, this.carName,
+    this.carYear, this.carImage, this.carRating, this.carDescription});
 
   @override
   State<BookForWeddingCarDescription> createState() =>
@@ -22,10 +25,12 @@ class _BookForWeddingCarDescriptionState
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarDoubleImageRichText(
+      appBar: MyAppBarDoubleImageRichText(
         frontImage: "assets/live_chat_images/back_arrow.png",
-        title: "Tesla S series, ",
-        year: "2022",
+        title: "${widget.carName} ", year: "${widget.carYear}",
+        // title: "Tesla S series, ",
+        // year: "2022",
+
         backImage: "assets/car_description_images/chat.png",
       ),
       body: SingleChildScrollView(
@@ -46,14 +51,13 @@ class _BookForWeddingCarDescriptionState
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset('assets/car_description_images/rating.png',
-                          width: 75, height: 12),
+                      Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text('4.0',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: kWhite,
-                              fontFamily: poppinSemiBold)),
+                      widget.carRating == null?
+                          Text("0.0", style: TextStyle(fontSize: 16,
+                              color: kWhite, fontFamily: poppinSemiBold)):
+                      Text('${widget.carRating}', style: TextStyle(fontSize: 16,
+                          color: kWhite, fontFamily: poppinSemiBold)),
                     ],
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
@@ -62,27 +66,18 @@ class _BookForWeddingCarDescriptionState
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Image.asset(
-                            'assets/car_description_images/tesla.png',
-                            width: 41,
-                            height: 41),
+                        child: Image.asset('assets/car_description_images/tesla.png', width: 41, height: 41),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
-                        child: Image.asset(
-                            'assets/car_description_images/heart.png',
-                            width: 24,
-                            height: 20),
+                        child: Image.asset('assets/car_description_images/heart.png', width: 24, height: 20),
                       ),
                     ],
                   ),
                   Stack(
                     children: [
                       Positioned(
-                        child: Image.asset(
-                            'assets/car_description_images/car.png',
-                            width: 307,
-                            height: 192),
+                        child: Image.network("${widget.carImage}", height: 190, width: 310),
                       ),
                       Positioned(
                         bottom: 0,
@@ -165,10 +160,11 @@ class _BookForWeddingCarDescriptionState
             const TabbarBookForWedding(),
             GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BookForWeddingBooking()));
+                  Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => BookForWeddingBookingDetails(
+                            carName: widget.carName,
+                            carYear: widget.carYear,
+                          )));
                 },
                 child: loginButton('Book Now', context)),
           ],
