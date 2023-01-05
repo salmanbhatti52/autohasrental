@@ -30,21 +30,16 @@ class _ChooseSubscriptionPlanState extends State<ChooseSubscriptionPlan> {
       child: ListView.builder(
         itemCount: sampleData.length,
         scrollDirection: Axis.horizontal,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            //highlightColor: Colors.red,
-            // splashColor: Colors.blueAccent,
             onTap: () {
-              setState(() {
-                sampleData.forEach((element) => element.isSelected = false);
-                sampleData[index].isSelected = true;
-
-                // for (var element in sampleData) {
-                //   element.isSelected = false;
-                // }
-                // sampleData[index].isSelected = true;
-
-              });
+              setState(
+                () {
+                  sampleData.forEach((element) => element.isSelected = false);
+                  sampleData[index].isSelected = true;
+                },
+              );
             },
             child: SubscriptionRadioItem(sampleData[index]),
           );
@@ -53,6 +48,7 @@ class _ChooseSubscriptionPlanState extends State<ChooseSubscriptionPlan> {
     );
   }
 }
+
 class SubscriptionRadioItem extends StatelessWidget {
   final SubscriptionRadioModel _item;
   const SubscriptionRadioItem(this._item, {super.key});
@@ -62,21 +58,20 @@ class SubscriptionRadioItem extends StatelessWidget {
       margin: const EdgeInsets.all(5.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
+        children: [
           Container(
             height: 30.0,
-            width: 100.0,
+            width: 97.0,
             decoration: BoxDecoration(
               color: _item.isSelected ? borderColor : kWhite,
-              border: Border.all(width: 1.0,
-                  color: _item.isSelected ? borderColor : kWhite),
               borderRadius: BorderRadius.circular(20),
-              // border: Border.all(color: borderColor)
             ),
             child: Center(
               child: Text(_item.buttonText,
-                      textAlign: TextAlign.left, style: TextStyle(
-                      fontFamily: poppinRegular, fontSize: 12.0,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontFamily: poppinRegular,
+                      fontSize: 12.0,
                       color: _item.isSelected ? kWhite : textLabelColor)),
             ),
           ),
@@ -90,6 +85,8 @@ class SubscriptionRadioModel {
   bool isSelected;
   final String buttonText;
 
-  SubscriptionRadioModel(this.isSelected, this.buttonText,);
+  SubscriptionRadioModel(
+    this.isSelected,
+    this.buttonText,
+  );
 }
-
