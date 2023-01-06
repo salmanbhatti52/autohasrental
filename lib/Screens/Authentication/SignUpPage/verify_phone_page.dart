@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:auto_haus_rental_app/Model/AuthModels/verify_otp_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -9,9 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
+import '../../../Model/AuthModels/verify_otp_model.dart';
 import 'privacy_policy_page.dart';
 
 class VerifyPhonePage extends StatefulWidget {
@@ -34,26 +32,15 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
 
   final focusNode = FocusNode();
 
-  String? userId, verifyCode;
-  sharedPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('in LoginPage shared prefs');
-    prefs = await SharedPreferences.getInstance();
-    userId = prefs.getString('userid');
-    verifyCode = prefs.getString('verify_code');
-    print("userId in Prefs is = $userId");
-    print("verifyCode in Prefs is = $verifyCode");
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     print("object123 ${widget.userId} ${widget.verifyCode}");
-    // sharedPrefs();
   }
 
   VerifyOtpModel verifyOtpModel = VerifyOtpModel();
+
   verifyOTP() async {
     try {
       String apiUrl = verifyOtpSignUpApiUrl;

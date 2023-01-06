@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:auto_haus_rental_app/Model/AuthModels/verify_otp_model.dart';
-import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/ForgetPassword/set_new_password_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
@@ -12,6 +12,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'set_new_password_page.dart';
 
 class VerifyEmailPage extends StatefulWidget {
   final String? email, verifyCode;
@@ -24,8 +25,6 @@ class VerifyEmailPage extends StatefulWidget {
 
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
   bool checkBoxValue = false;
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  bool hasError = false;
   String currentText = "";
   final formKeyVerifyCode = GlobalKey<FormState>();
   StreamController<ErrorAnimationType>? errorController;
@@ -33,7 +32,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   final focusNode = FocusNode();
 
-  String? userId, verifyCode;
+  String? verifyCode;
   sharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('in LoginPage shared prefs');
@@ -57,7 +56,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     try {
       String apiUrl = verifyOtpSignUpApiUrl;
       print("api: $apiUrl");
-      print("users_customers_id: $userId");
+      print("users_customers_id in verifyEmail: $userId");
       print("users_customers_id: ${widget.verifyCode}");
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -105,12 +104,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                Text(
-                  "Verify Email",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 20, fontFamily: poppinBold, color: kWhite),
-                ),
+                Text("Verify Email", textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20,
+                      fontFamily: poppinBold, color: kWhite)),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.12),
                 SvgPicture.asset('assets/splash/login_image.svg',
                     fit: BoxFit.fill),
@@ -122,31 +118,22 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                   child: Text(
                     "We sent you an email with a 4 digit code. Enter the code to change your password.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(fontSize: 16,
                       fontFamily: poppinRegular,
-                      color: kWhite,
-                    ),
-                  ),
+                      color: kWhite)),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Form(
                   key: formKeyVerifyCode,
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 80),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
                       child: PinCodeTextField(
                         appContext: context,
                         textStyle: TextStyle(color: borderColor),
                         pastedTextStyle: TextStyle(
-                          color: borderColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                          color: borderColor, fontWeight: FontWeight.bold),
                         length: 4,
-                        hintStyle: TextStyle(
-                            color: textLabelColor, fontFamily: poppinRegular),
+                        hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular),
                         hintCharacter: "0",
                         animationType: AnimationType.fade,
                         validator: (v) {
@@ -202,7 +189,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (formKeyVerifyCode.currentState!.validate()) {
                         if (textEditingController.text.isEmpty) {
                           toastFailedMessage('pinController cannot be empty', Colors.red);
@@ -213,14 +200,15 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                             progress = true;
                           });
 
-                          verifyOTP();
+                         await verifyOTP();
 
                           Future.delayed(const Duration(seconds: 3), () {
                             toastSuccessMessage("success", Colors.green);
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) => SetNewPasswordPage(
                                   email: widget.email,
-                                  verifyCode: widget.verifyCode)));
+                                  verifyCode: widget.verifyCode,
+                                )));
                             print("email verifyCode ${widget.email} ${widget.verifyCode}");
 
                             setState(() {
@@ -228,41 +216,25 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                             });
                             print("false: $progress");
                           });
-
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginPage()));
                         }
                       }
                     },
                     child: loginButton("Next", context)),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        "assets/images/timer.png",
-                      ),
+                      Image.asset("assets/images/timer.png"),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text(
-                        " Expire on 02:00",
-                        style: TextStyle(
-                          color: const Color(0xffFF6666),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: poppinMedium,
-                        ),
-                      ),
+                      Text(" Expire on 02:00",
+                        style: TextStyle(color: const Color(0xffFF6666),
+                          fontSize: 12, fontFamily: poppinMedium)),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text(
-                        "Resend Code (4)",
-                        style: TextStyle(
-                            color: borderColor,
-                            fontSize: 16,
-                            fontFamily: poppinSemiBold,
-                            fontWeight: FontWeight.w500),
-                      ),
+                      Text("Resend Code (4)",
+                        style: TextStyle(color: borderColor,
+                            fontSize: 16, fontFamily: poppinSemiBold)),
                     ],
                   ),
                 ),

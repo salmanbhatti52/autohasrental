@@ -240,7 +240,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
       children: [
         Image.asset(myImage),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 07),
+          padding: const EdgeInsets.symmetric(horizontal: 05),
           width: MediaQuery.of(context).size.width * 0.8,
           color: Colors.transparent,
           child: Text(myText, textAlign: TextAlign.left,
