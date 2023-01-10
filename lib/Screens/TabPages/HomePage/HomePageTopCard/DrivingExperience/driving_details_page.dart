@@ -3,6 +3,7 @@ import 'package:auto_haus_rental_app/Screens/TabPages/Homepage/HomePageTopCard/E
 import 'package:auto_haus_rental_app/Widget/day_slot.dart';
 import 'package:auto_haus_rental_app/Widget/time_slot.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
@@ -10,7 +11,9 @@ import '../../../MyAppBarHeader/app_bar_header.dart';
 
 class DrivingDetailsPage extends StatefulWidget {
   final String? carName, carYear, carImage;
-  const DrivingDetailsPage({Key? key, this.carName, this.carYear, this.carImage}) : super(key: key);
+  const DrivingDetailsPage(
+      {Key? key, this.carName, this.carYear, this.carImage})
+      : super(key: key);
 
   @override
   State<DrivingDetailsPage> createState() => _DrivingDetailsPageState();
@@ -58,11 +61,16 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                        Image.asset(
+                          'assets/home_page/9004787_star_favorite_award_like_icon.png',
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.02),
                         Text('4.0',
-                          style: TextStyle(fontSize: 16,
-                              fontFamily: poppinSemiBold, color: kWhite)),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: poppinSemiBold,
+                                color: kWhite)),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -78,18 +86,18 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 20),
-                          child:
-
-                          Image.asset(
+                          child: Image.asset(
                               'assets/car_description_images/heart.png',
-                              width: 24, height: 20),
+                              width: 24,
+                              height: 20),
                         ),
                       ],
                     ),
                     Stack(
                       children: [
                         Positioned(
-                          child: Image.network("${widget.carImage}", width: 307, height: 192),
+                          child: Image.network("${widget.carImage}",
+                              width: 307, height: 192),
                           // child: Image.asset('assets/home_page/tesla.png', width: 307, height: 192),
                         ),
                         Positioned(
@@ -188,10 +196,49 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
               padding: EdgeInsets.only(left: 20),
               child: Text(
                 'Available Time Slot',
-                style: TextStyle(fontSize: 14, fontFamily: 'Poppins-Bold'),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'Poppins-Bold',
+                ),
                 textAlign: TextAlign.left,
               ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.keyboard_arrow_left,
+                  color: Color(0xffa5a5a5),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    DatePicker.showDatePicker(context,
+                        showTitleActions: true,
+                        minTime: DateTime(2000, 1, 1),
+                        maxTime: DateTime(2030, 1, 1), onChanged: (date) {
+                      print('change $date');
+                    }, onConfirm: (date) {
+                      print('confirm $date');
+                    }, currentTime: DateTime.now(), locale: LocaleType.en);
+                  },
+                  child: Text(
+                    'December 2022',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Poppins-SemiBold',
+                      color: borderColor,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                const Icon(
+                  Icons.keyboard_arrow_right,
+                  color: Color(0xffa5a5a5),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: SizedBox(
@@ -210,10 +257,11 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage>
             const TabbarCarDescription(),
             GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => const DrivingExperinceBooking(
-
-                          )));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const DrivingExperinceBooking()));
                 },
                 child: loginButton('Book Now', context)),
           ],
