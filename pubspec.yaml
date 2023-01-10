@@ -44,6 +44,7 @@ dependencies:
   get: ^4.6.5
   flutter_switch: ^0.3.2
   image_picker: ^0.8.5+3
+  flutter_datetime_picker: ^1.5.1
   flutter_launcher_icons: ^0.11.0
   cron: ^0.5.1
 
