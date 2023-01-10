@@ -20,10 +20,10 @@ class _ThirtySixMonthsPlanState extends State<ThirtySixMonthsPlan> {
   bool loadingP = true;
 
   double? totalAmount = 0.0;
-  double serviceFee = 487.20;
+  double serviceFee = 50.0;
 
   myTotal(){
-    totalAmount = double.parse(evSubscriptionCarsModelObject.data![0].carsPlans![2].pricePerMonth!) + serviceFee;
+    totalAmount = double.parse(evSubscriptionCarsModelObject.data![0].carsPlans![2].discountedPricePerMonth.toString()) + serviceFee;
     print("my36MonthsTotal: $totalAmount");
   }
 
@@ -83,7 +83,7 @@ class _ThirtySixMonthsPlanState extends State<ThirtySixMonthsPlan> {
           children: [
             Text("36 Months Plan", textAlign: TextAlign.left, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-            Text("RM ${evSubscriptionCarsModelObject.data![0].carsPlans![2].pricePerMonth}", textAlign: TextAlign.right, style: TextStyle(
+            Text("RM ${evSubscriptionCarsModelObject.data![0].carsPlans![2].discountedPricePerMonth}", textAlign: TextAlign.right, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
           ],
         ),
@@ -93,7 +93,7 @@ class _ThirtySixMonthsPlanState extends State<ThirtySixMonthsPlan> {
           children: [
             Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-            Text("RM 487.20", textAlign: TextAlign.right, style: TextStyle(
+            Text("RM $serviceFee", textAlign: TextAlign.right, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
           ],
         ),

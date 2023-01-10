@@ -50,6 +50,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
         print("evSubscriptionResponse: ${responseString.toString()}");
         evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
         print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
+        // monthList();
       }
     } catch (e) {
       print('Error in evSubscription: ${e.toString()}');
@@ -64,6 +65,14 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
     getEvSubscriptionCarsWidget();
   }
 
+  List monthNumber = [];
+  monthList(){
+    for(int i = 0; i< evSubscriptionCarsModelObject.data!.length; i++){
+      monthNumber.add(evSubscriptionCarsModelObject.data![i].carsPlans![i].months);
+      print("monthNumber $monthNumber");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -75,7 +84,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
         // title: "${widget.carName}", subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png",
       ),
-      body: SingleChildScrollView(
+      body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor,)):
+      SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,12 +101,35 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                       children: [
                         Text("Choose Subscription plan", textAlign: TextAlign.left,
                           style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
+
+                        // Container(
+                        //   height: MediaQuery.of(context).size.height * 0.05,
+                        //   width: double.infinity,
+                        //   color: Colors.transparent,
+                        //   child: ListView.builder(
+                        //       physics: const BouncingScrollPhysics(),
+                        //       shrinkWrap: true,
+                        //       scrollDirection: Axis.horizontal,
+                        //     itemCount: evSubscriptionCarsModelObject.data!.length,
+                        //       itemBuilder: (context, index){
+                        //         print("months: ${evSubscriptionCarsModelObject.data![index].carsPlans![index].months}");
+                        //     return Container(
+                        //       height: MediaQuery.of(context).size.height* 0.05,
+                        //       width: MediaQuery.of(context).size.width*0.2,
+                        //       decoration: BoxDecoration(
+                        //         color: kRed,
+                        //         borderRadius: BorderRadius.circular(20)
+                        //       ),
+                        //       child: Center(child: Text("${evSubscriptionCarsModelObject.data![index].carsPlans![index].months}")),
+                        //     );
+                        //   }),
+                        // ),
+                        const EvSubscriptionTabbarPage(),
+
                         // const ChooseSubscriptionPlan(),
                         // Text("Choose Mileage Package", textAlign: TextAlign.left,
                         //   style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
                         // const ChooseMileagePlan(),
-
-                        const EvSubscriptionTabbarPage(),
 
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,7 +252,16 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                         GestureDetector(
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) => const DeliveryAddress()));
+                                      builder: (context) => DeliveryAddress(
+                                        carName: evSubscriptionCarsModelObject.data![0].vehicalName,
+                                        carYear: evSubscriptionCarsModelObject.data![0].year,
+                                        carModel: evSubscriptionCarsModelObject.data![0].carsModels!.name,
+                                        carImage: "$baseUrlImage${evSubscriptionCarsModelObject.data![0].image1}",
+                                        discountedAmount: evSubscriptionCarsModelObject.data![0].carsPlans![0].discountedPricePerMonth,
+                                        amount: evSubscriptionCarsModelObject.data![0].carsPlans![0].pricePerMonth,
+                                        discountPercentage: evSubscriptionCarsModelObject.data![0].discountPercentage,
+                                        carRating: evSubscriptionCarsModelObject.data![0].rating,
+                                      )));
                             },
                             child: loginButton("Next", context)),
                         SizedBox(height: screenHeight * 0.03),
@@ -266,8 +308,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
           ),
         ),
         Positioned(
-          top: 90,
-          left: 10,
+          top: 90, left: 10,
           child: Container(
             color: Colors.transparent,
             width: screenWidth,
@@ -276,9 +317,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: screenHeight * 0.1,
-                  ),
+                  Container(height: screenHeight * 0.1,),
                   Row(
                     children: [
                       Text("${evSubscriptionCarsModelObject.data![0].vehicalName} | ",
@@ -416,8 +455,6 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
               image: NetworkImage("$baseUrlImage${evSubscriptionCarsModelObject.data![0].image1}"),
             ),
           ),
-
-          // Image.asset("assets/home_page/tesla_car_image.png"),
         ),
         Positioned(
             top: 28, right: 27,

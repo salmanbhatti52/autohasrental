@@ -9,7 +9,6 @@ import '../../../../../Utils/constants.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Filter/filter_screen.dart';
-import '../../Notifications/notification_screen.dart';
 import 'package:http/http.dart' as http;
 import 'ev_car_description.dart';
 
@@ -197,32 +196,26 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                                       width: MediaQuery.of(context).size.width * 0.4,
                                                       color: Colors.transparent,
                                                       child: Text("${evSubscriptionCarsModelObject.data![index].vehicalName} | ",
-                                                        style: TextStyle(color: kBlack,
-                                                          fontSize: 14, fontFamily: poppinBold),
-                                                        textAlign: TextAlign.left),
+                                                        style: TextStyle(color: kBlack, fontSize: 14,
+                                                            fontFamily: poppinBold), textAlign: TextAlign.left),
                                                     ),
-                                                    Text("MODEL ",
+                                                    Text("MODEL ", textAlign: TextAlign.left,
                                                         style: TextStyle(color: kBlack,
-                                                          fontSize: 12, fontFamily: poppinRegular),
-                                                        textAlign: TextAlign.left),
+                                                          fontSize: 12, fontFamily: poppinRegular)),
                                                     Text("${evSubscriptionCarsModelObject.data![index].carsModels!.name} ",
-                                                      style: TextStyle(color: kBlack,
-                                                        fontSize: 14, fontFamily: poppinMedium),
-                                                      textAlign: TextAlign.left),
+                                                        textAlign: TextAlign.left, style: TextStyle(
+                                                          color: kBlack, fontSize: 14, fontFamily: poppinMedium),),
                                                     Text("${evSubscriptionCarsModelObject.data![index].year}",
-                                                        style: TextStyle(color: kBlack,
-                                                          fontSize: 10, fontFamily: poppinRegular),
-                                                        textAlign: TextAlign.left),
+                                                        textAlign: TextAlign.left, style: TextStyle(
+                                                          color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
                                                   ],
                                                 ),
                                                 Row(
                                                   children: [
                                                     Padding(
                                                       padding: const EdgeInsets.only(top: 04),
-                                                      child: Text("RM",
-                                                          style: TextStyle(color: kRed,
-                                                              fontSize: 5, fontFamily: poppinRegular),
-                                                          textAlign: TextAlign.left),
+                                                      child: Text("RM",  textAlign: TextAlign.left,
+                                                          style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinRegular),),
                                                     ),
                                                     Text("${evSubscriptionCarsModelObject.data![index].carsPlans![0].pricePerMonth}",
                                                       style: TextStyle(
@@ -237,20 +230,14 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                                     const SizedBox(width: 5),
                                                     Padding(
                                                       padding: const EdgeInsets.only(top: 06),
-                                                      child: Text("RM",
-                                                          style: TextStyle(color: borderColor,
-                                                              fontSize: 7, fontFamily: poppinSemiBold),
-                                                          textAlign: TextAlign.left),
+                                                      child: Text("RM",  textAlign: TextAlign.left,
+                                                          style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                                     ),
                                                     Text("${evSubscriptionCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}",
-                                                        style: TextStyle(color: borderColor,
-                                                            fontSize: 16, fontFamily: poppinSemiBold),
-                                                        textAlign: TextAlign.left),
-                                                    Text("/ Month",
-                                                        style: TextStyle(color: kBlack,
-                                                          fontSize: 8, fontFamily: poppinRegular,
-                                                        ),
-                                                        textAlign: TextAlign.left),
+                                                        textAlign: TextAlign.left, style: TextStyle(
+                                                          color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+                                                    Text("/ Month", textAlign: TextAlign.left, style: TextStyle(
+                                                            color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                                     SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
                                                     Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                                                     SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
@@ -267,22 +254,19 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                                   children: [
                                                     Image.asset("assets/car_bookings_images/promoted.png"),
                                                     const SizedBox(width: 5),
-                                                    Text("Verified Dealer",
+                                                    Text("Verified Dealer", textAlign: TextAlign.left,
                                                         style: TextStyle(color: textLabelColor,
-                                                            fontSize: 10, fontFamily: poppinRegular),
-                                                        textAlign: TextAlign.left),
+                                                            fontSize: 10, fontFamily: poppinRegular)),
                                                     const SizedBox(width: 05),
                                                     Container(
-                                                      height: 15,
-                                                      width: 35,
+                                                      height: 15, width: 35,
                                                       decoration: BoxDecoration(
                                                           color: kBlack,
                                                           borderRadius: BorderRadius.circular(10)),
                                                       child: Center(
-                                                        child: Text("New",
+                                                        child: Text("New",  textAlign: TextAlign.left,
                                                             style: TextStyle(color: kWhite,
-                                                                fontSize: 8, fontFamily: poppinRegular),
-                                                            textAlign: TextAlign.left),
+                                                                fontSize: 8, fontFamily: poppinRegular)),
                                                       ),
                                                     ),
                                                   ],
@@ -298,8 +282,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                               ),
                             ),
                             Positioned(
-                              right: 30,
-                              bottom: 35,
+                              right: 30, bottom: 35,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -341,13 +324,10 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text("${evSubscriptionCarsModelObject.data![index].discountPercentage}",
-                                          style: TextStyle(color: kWhite,
-                                              fontSize: 13, fontFamily: poppinSemiBold),
-                                          textAlign: TextAlign.left),
-                                      Text(" OFF ",
-                                          style: TextStyle(color: kWhite,
-                                              fontSize: 8, fontFamily: poppinRegular),
-                                          textAlign: TextAlign.left),
+                                        textAlign: TextAlign.left, style: TextStyle(color: kWhite,
+                                              fontSize: 13, fontFamily: poppinSemiBold)),
+                                      Text(" OFF ", textAlign: TextAlign.left, style: TextStyle(
+                                              color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
                                     ],
                                   ),
                                 )),
@@ -361,8 +341,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                 borderRadius: BorderRadius.circular(10),
                                 child: FadeInImage(
                                   placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
-                                  width: 350,
-                                  height: 150,
+                                  height: 150,  width: 350,
                                   image: NetworkImage("$baseUrlImage${evSubscriptionCarsModelObject.data![index].image1}"),
                                 ),
                               ),

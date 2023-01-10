@@ -4,7 +4,13 @@ import 'billing_address_page.dart';
 import 'home_address.dart';
 
 class AddressTabBar extends StatefulWidget {
-  const AddressTabBar({super.key});
+  final String? carImage, discountPercentage, carName, carModel, amount, carRating;
+  final int? carYear, discountedAmount;
+
+  const AddressTabBar({Key? key,
+    this.carImage, this.discountPercentage,
+    this.carName, this.carModel, this.carYear, this.carRating,
+    this.amount, this.discountedAmount}): super(key: key);
 
   @override
   State<AddressTabBar> createState() => _AddressTabBarState();
@@ -13,6 +19,26 @@ class AddressTabBar extends StatefulWidget {
 abstract class TickerProvider {}
 
 class _AddressTabBarState extends State<AddressTabBar> with TickerProviderStateMixin {
+
+  mySelectedData(){
+    print("carName1: ${widget.carName}");
+    print("carImage1: ${widget.carImage}");
+    print("carDiscount1: ${widget.discountPercentage}");
+    print("carModel1: ${widget.carModel}");
+    print("carYear1: ${widget.carYear}");
+    print("carDiscountAmount1: ${widget.discountedAmount}");
+    print("carDiscountAmount1: ${widget.amount}");
+    print("carDiscountAmount1: ${widget.carRating}");
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    mySelectedData();
+  }
+
+
   List<String> tabs = ["Home Address", "Billing Address",];
   int selectedIndex = 0;
 
@@ -59,10 +85,18 @@ class _AddressTabBarState extends State<AddressTabBar> with TickerProviderStateM
           height: MediaQuery.of(context).size.height*0.8,
           child: TabBarView(
             controller: tabController,
-            children: const [
-              HomeAddressPage(),
-              BillingAddressPage(),
-              // Description(),
+            children: [
+              const HomeAddressPage(),
+              BillingAddressPage(
+                carName: widget.carName,
+                carYear: widget.carYear,
+                carModel: widget.carModel,
+                carImage: widget.carImage,
+                discountedAmount: widget.discountedAmount,
+                amount: widget.amount,
+                discountPercentage: widget.discountPercentage,
+                carRatings: widget.carRating,
+              ),
             ],
           ),
         ),

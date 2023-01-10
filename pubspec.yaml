@@ -52,6 +52,7 @@ dependencies:
   fluttertoast: ^8.1.2
   modal_progress_hud_nsn: ^0.3.0
   dio: ^4.0.6
+  intl_utils: ^2.8.1
 
 
 flutter_icons:

@@ -5,7 +5,7 @@ import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Widget/month_slot.dart';
 import '../../../MessagePage/message_details_screen.dart';
-import 'ev_descripiton_details_page.dart';
+import 'ev_description_details_page.dart';
 import 'EvTaBBar/tabbar_description_page.dart';
 
 class EVCarDescription extends StatefulWidget {
@@ -97,15 +97,14 @@ class _EVCarDescriptionState extends State<EVCarDescription> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',
-                          width: 75, height: 12),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.0),
+                      Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
 
-                      widget.carRating == null?
+                      // widget.carRating == null?
                       Text('0.0', style: TextStyle(fontSize: 16,
-                          color: kWhite, fontFamily: poppinSemiBold)) :
-                      Text('${widget.carRating}', style: TextStyle(fontSize: 16,
                           color: kWhite, fontFamily: poppinSemiBold)),
+                          // : Text('${widget.carRating}', style: TextStyle(fontSize: 16,
+                          // color: kWhite, fontFamily: poppinSemiBold)),
                     ],
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),

@@ -13,6 +13,13 @@ class HomeAddressPage extends StatefulWidget {
 }
 
 class _HomeAddressPageState extends State<HomeAddressPage> {
+
+  final GlobalKey<FormState> homeAddressFormKey = GlobalKey<FormState>();
+  var streetAddressLineOneController = TextEditingController();
+  var streetAddressLineTwoController = TextEditingController();
+  var cityController = TextEditingController();
+  var postCodeController = TextEditingController();
+
   String _country = 'United Kingdom';
 
   // Initial Selected Value
@@ -168,7 +175,6 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
               ],
             ),
 
-
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             Container(
               height: MediaQuery.of(context).size.height * 0.06,
@@ -200,7 +206,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
           child: Column(
             children: [
               Form(
-                // key: loginFormKey,
+                key: homeAddressFormKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -219,7 +225,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                             hintValue: "Street address line 1",
                             validation: true,
                             // autoFocus: true,
-                            // textController: resetEmailController,
+                            textController: streetAddressLineOneController,
                             keyboardType: TextInputType.text,
                           ),
                         ),
@@ -241,7 +247,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                             hintValue: "Street address line 2",
                             validation: true,
                             // autoFocus: true,
-                            // textController: resetEmailController,
+                            textController: streetAddressLineTwoController,
                             keyboardType: TextInputType.text,
                           ),
                         ),
@@ -267,7 +273,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                                   hintValue: "City",
                                   validation: true,
                                   // autoFocus: true,
-                                  // textController: resetEmailController,
+                                  textController: cityController,
                                   keyboardType: TextInputType.text,
                                 ),
                               ),
@@ -292,7 +298,7 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
                                   hintValue: "Post Code",
                                   validation: true,
                                   // autoFocus: true,
-                                  // textController: resetEmailController,
+                                  textController: postCodeController,
                                   keyboardType: TextInputType.text,
                                 ),
                               ),
@@ -302,7 +308,6 @@ class _HomeAddressPageState extends State<HomeAddressPage> {
 
                       ],
                     ),
-
                   ],
                 ),
               ),

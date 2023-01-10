@@ -1,4 +1,4 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/EvSubscriptions/ev_descripiton_details_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/EvSubscriptions/ev_description_details_page.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/fontFamily.dart';

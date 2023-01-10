@@ -57,11 +57,11 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
     getEvSubscriptionCarsWidget();
   }
   double? totalAmount = 0.0;
-  double serviceFee = 487.20;
+  double serviceFee = 50.0;
 
   myTotal(){
-    totalAmount = double.parse(evSubscriptionCarsModelObject.data![0].carsPlans![0].pricePerMonth!) + serviceFee;
-    print("my36MonthsTotal: $totalAmount");
+    totalAmount = double.parse(evSubscriptionCarsModelObject.data![0].carsPlans![0].discountedPricePerMonth.toString()) + serviceFee;
+    print("my12MonthsTotal: $totalAmount");
   }
 
   @override
@@ -80,7 +80,7 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
           children: [
             Text("12 Months Plan", textAlign: TextAlign.left, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-            Text("RM ${evSubscriptionCarsModelObject.data![0].carsPlans![0].pricePerMonth}",
+            Text("RM ${evSubscriptionCarsModelObject.data![0].carsPlans![0].discountedPricePerMonth}",
                 textAlign: TextAlign.right, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
           ],
@@ -91,7 +91,7 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
           children: [
             Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-            Text("RM 487.20", textAlign: TextAlign.right, style: TextStyle(
+            Text("RM $serviceFee", textAlign: TextAlign.right, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
           ],
         ),
