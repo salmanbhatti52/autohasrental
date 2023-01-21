@@ -8,7 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart'as http;
 
 class TwelveMonthsPlan extends StatefulWidget {
-  const TwelveMonthsPlan({super.key});
+  String months;
+  String price_per_months;
+  // String dsi_price_per_months;
+  String discountPricePerMonths;
+   TwelveMonthsPlan({super.key, required this.months, required this.price_per_months, required this.discountPricePerMonths});
 
   @override
   State<TwelveMonthsPlan> createState() => _TwelveMonthsPlanState();
@@ -54,23 +58,30 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getEvSubscriptionCarsWidget();
+    evSelectedMonth = widget.months;
+    // print('selectedTabMonth ${widget.months}');
+    print('selectedTabMonth $evSelectedMonth');
+    print(widget.price_per_months);
+    print(widget.discountPricePerMonths);
+    myTotal();
   }
   double? totalAmount = 0.0;
   double serviceFee = 50.0;
 
   myTotal(){
-    totalAmount = double.parse(evSubscriptionCarsModelObject.data![0].carsPlans![0].discountedPricePerMonth.toString()) + serviceFee;
+    totalAmount = double.parse(widget.discountPricePerMonths) + serviceFee;
     print("my12MonthsTotal: $totalAmount");
+
   }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
-          : evSubscriptionCarsModelObject.status != "success" ?
-      const Center(child: Text('no data found...',
-          style: TextStyle(fontWeight: FontWeight.bold))) :
+    return
+      // loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
+      //     : evSubscriptionCarsModelObject.status != "success" ?
+      // const Center(child: Text('no data found...',
+      //     style: TextStyle(fontWeight: FontWeight.bold))) :
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -78,9 +89,9 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("12 Months Plan", textAlign: TextAlign.left, style: TextStyle(
+            Text("${widget.months} Plan", textAlign: TextAlign.left, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-            Text("RM ${evSubscriptionCarsModelObject.data![0].carsPlans![0].discountedPricePerMonth}",
+            Text("RM ${widget.discountPricePerMonths}",
                 textAlign: TextAlign.right, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
           ],

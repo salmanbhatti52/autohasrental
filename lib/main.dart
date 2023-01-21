@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 import 'Screens/Splash/splash_screen.dart';
 import 'Utils/colors.dart';
 
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return Sizer(builder: (context, orientation, deviceType){
+      return GetMaterialApp(
       title: 'AutoHausRental',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -21,5 +23,6 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
     );
+  });
   }
 }

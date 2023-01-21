@@ -33,7 +33,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var emailController = TextEditingController();
   var locationController = TextEditingController();
 
-
   File? image;
 
   Future pickCoverImage() async {

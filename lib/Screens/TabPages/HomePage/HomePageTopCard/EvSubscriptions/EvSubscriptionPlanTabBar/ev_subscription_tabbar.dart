@@ -5,9 +5,8 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../Model/HomePageModels/HomePageTopWidgetModels/ev_subscription_cars_model.dart';
+import '../../../../../../Model/custom_subscription_model.dart';
 import '12MonthsPlan/12_months_plan.dart';
-import '24MonthsPlan/24_months_plan.dart';
-import '36MonthsPlan/36_months_plan.dart';
 import 'package:http/http.dart'as http;
 
 class EvSubscriptionTabbarPage extends StatefulWidget {
@@ -49,7 +48,7 @@ class _EvSubscriptionTabbarPageState extends State<EvSubscriptionTabbarPage>
         print("evSubscriptionResponse: ${responseString.toString()}");
         evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
         print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
-        // myTotal();
+        monthList();
       }
     } catch (e) {
       print('Error in evSubscription: ${e.toString()}');
@@ -59,27 +58,36 @@ class _EvSubscriptionTabbarPageState extends State<EvSubscriptionTabbarPage>
   }
 
   List<String> tabs = ["12 Months", "24 Months", "36 Months" ];
-
-  // for(array){
-  //   obj = obj[i].month + "Month"
-  // }
-  //
-  // [{},{}]
-  //
-  // List<String> tabs = ["${evSubscriptionCarsModelObject.data![0].carsPlans!.length}"];
+  CustomSubscriptionModel? subscriptionModel;
+  List<CustomSubscriptionModel> monthNumber = [];
+  monthList(){
+    for (int i = 0; i< evSubscriptionCarsModelObject.data!.length; i++) {
+      print("OuterLoop:$i");
+      for (int j = 0; j < evSubscriptionCarsModelObject.data![i].carsPlans!.length; j++) {
+        if(evSubscriptionCarsModelObject.data![i].carsPlans![j].carsId == carID) {
+          monthNumber.add(CustomSubscriptionModel(
+              months: evSubscriptionCarsModelObject.data![i].carsPlans![j].months!.toString(),
+              price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].pricePerMonth!,
+              dis_price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString()));
+          print("monthNumber ${monthNumber[0].months}");
+          print("InnerLoop:$j");
+        }
+      }
+    }
+  }
 
   int selectedIndex = 0;
-
 
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getEvSubscriptionCarsWidget();
     // monthList();
   }
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 3, vsync: this);
+    TabController tabController = TabController(length: monthNumber.length, vsync: this);
     return Column(
       children: [
         Padding(
@@ -98,29 +106,42 @@ class _EvSubscriptionTabbarPageState extends State<EvSubscriptionTabbarPage>
                     color: borderColor,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
+
+                  tabs: List<Widget>.generate(
+                    monthNumber.length, (int index) {
+                      print("tabBar123 ${monthNumber.length}");
+                      return Container(
+                        color: Colors.transparent,
+                        child: Tab(
+                          child: Text("${monthNumber[index].months} month", style: TextStyle(color: kBlack),),
+                        ),
+                      );
+                    },
+                  ),
                   indicatorColor: kWhite,
-                  // isScrollable: true,
+                  isScrollable: true,
                   labelColor: kWhite,
                   labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,
-                  tabs: const [
-                    Tab(text: "12 Months"),
-                    Tab(text: "24 Months"),
-                    Tab(text: "36 Months"),
-                  ],
                 ),
               )),
         ),
         SizedBox(
           width: double.maxFinite,
           height: MediaQuery.of(context).size.height * 0.14,
+
+
           child: TabBarView(
             controller: tabController,
-            children: const [
-              TwelveMonthsPlan(),
-              TwentyFourMonthsPlan(),
-              ThirtySixMonthsPlan(),
-            ]
+            children: monthNumber.isEmpty
+                ? <Widget>[]
+                : monthNumber.map((bodyData) {
+                  print('c ${bodyData.months}');
+              return TwelveMonthsPlan(
+                months: bodyData.months,
+                price_per_months: bodyData.price_per_months,
+                discountPricePerMonths: bodyData.dis_price_per_months,);
+            }).toList(),
           ),
         ),
       ],

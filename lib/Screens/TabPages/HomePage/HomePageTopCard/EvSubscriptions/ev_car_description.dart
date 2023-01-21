@@ -9,11 +9,11 @@ import 'ev_description_details_page.dart';
 import 'EvTaBBar/tabbar_description_page.dart';
 
 class EVCarDescription extends StatefulWidget {
-  final String? carName, carImage, carRating, carDescription;
+  final String? carName, carImage, carRating, carDescription, ownerImage, ownerName, ownerId;
   final int? carYear;
 
-  const EVCarDescription({super.key, this.carName,
-    this.carYear, this.carImage, this.carRating, this.carDescription});
+  const EVCarDescription({super.key, this.carName, this.ownerImage, this.ownerName,
+    this.ownerId, this.carYear, this.carImage, this.carRating, this.carDescription});
 
   @override
   State<EVCarDescription> createState() => _EVCarDescriptionState();
@@ -21,11 +21,17 @@ class EVCarDescription extends StatefulWidget {
 
 class _EVCarDescriptionState extends State<EVCarDescription> {
 
+  mySelectedData(){
+    print("myCarRating ${widget.carRating}");
+    print("myCarOwnerName ${widget.ownerName}");
+    print("myCarOwnerImage ${widget.ownerImage}");
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("myCarRating ${widget.carRating}");
+    mySelectedData();
   }
   @override
   Widget build(BuildContext context) {
@@ -44,7 +50,10 @@ class _EVCarDescriptionState extends State<EVCarDescription> {
             onTap: () {
               print("clicked");
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => const MessageDetailsScreen()));
+                  builder: (context) => MessageDetailsScreen(
+                    senderName: widget.ownerName,
+                    senderImage: widget.ownerImage,
+                  )));
               },
             child: Padding(
               padding: const EdgeInsets.only(top: 30, right: 20),

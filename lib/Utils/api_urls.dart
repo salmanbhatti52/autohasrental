@@ -22,6 +22,7 @@ String getAllChatApiUrl = '${baseUrl}getAllChat';
 String getUsersChatApiUrl = '${baseUrl}user_chat';
 String sendMessageApiUrl = '${baseUrl}user_chat';
 String updateMessageApiUrl = '${baseUrl}user_chat';
+String startChatApiUrl = '${baseUrl}user_chat';
 
 /// TabBar Page API Urls
 String topRentedCarsApiUrl = '${baseUrl}cars_top_rented';
@@ -41,3 +42,7 @@ String browseCarsApiUrl = '${baseUrl}cars';
 String carsPhotoGraphyApiUrl = '${baseUrl}cars_photography';
 String carDrivingExperienceApiUrl = '${baseUrl}cars_drivings';
 String carsEvSubscriptionApiUrl = '${baseUrl}cars_ev_subscriptions';
+
+/// checkout API
+String checkOutApiUrl = '${baseUrl}bookings_new';
+String checkOutDrivingApiUrl = '${baseUrl}bookings_new';

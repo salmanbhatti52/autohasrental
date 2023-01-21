@@ -7,9 +7,10 @@ import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
-import 'EvSubscriptionPlanTabBar/ev_subscription_tabbar.dart';
 import '../../Home/Address/delivery_address.dart';
 import 'package:http/http.dart' as http;
+
+import 'EvSubscriptionPlanTabBar/ev_subscription_tabbar.dart';
 
 class EvDescriptionDetailsPage extends StatefulWidget {
   final String? carName;
@@ -65,13 +66,19 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
     getEvSubscriptionCarsWidget();
   }
 
-  List monthNumber = [];
-  monthList(){
-    for(int i = 0; i< evSubscriptionCarsModelObject.data!.length; i++){
-      monthNumber.add(evSubscriptionCarsModelObject.data![i].carsPlans![i].months);
-      print("monthNumber $monthNumber");
-    }
-  }
+  // List monthNumber = [];
+  // monthList(){
+  //   for (int i = 0; i< evSubscriptionCarsModelObject.data!.length; i++) {
+  //     print("OuterLoop:$i");
+  //     for (int j = 0; j < evSubscriptionCarsModelObject.data![i].carsPlans!.length; j++) {
+  //       if(evSubscriptionCarsModelObject.data![i].carsPlans![j].carsId == carID) {
+  //         monthNumber.add(evSubscriptionCarsModelObject.data![i].carsPlans![j].months);
+  //       print("monthNumber $monthNumber");
+  //       print("InnerLoop:$j");
+  //       }
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -79,12 +86,11 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImageWithText(
-        title: "BMW 2 series, ", subtitle: "2022",
-        // title: "${widget.carName}", subtitle: "${widget.carYear}",
+      appBar: MyAppBarSingleImageWithText(
+        title: "${widget.carName}, ", subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png",
       ),
-      body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor,)):
+      body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
       SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -102,29 +108,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                         Text("Choose Subscription plan", textAlign: TextAlign.left,
                           style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
 
-                        // Container(
-                        //   height: MediaQuery.of(context).size.height * 0.05,
-                        //   width: double.infinity,
-                        //   color: Colors.transparent,
-                        //   child: ListView.builder(
-                        //       physics: const BouncingScrollPhysics(),
-                        //       shrinkWrap: true,
-                        //       scrollDirection: Axis.horizontal,
-                        //     itemCount: evSubscriptionCarsModelObject.data!.length,
-                        //       itemBuilder: (context, index){
-                        //         print("months: ${evSubscriptionCarsModelObject.data![index].carsPlans![index].months}");
-                        //     return Container(
-                        //       height: MediaQuery.of(context).size.height* 0.05,
-                        //       width: MediaQuery.of(context).size.width*0.2,
-                        //       decoration: BoxDecoration(
-                        //         color: kRed,
-                        //         borderRadius: BorderRadius.circular(20)
-                        //       ),
-                        //       child: Center(child: Text("${evSubscriptionCarsModelObject.data![index].carsPlans![index].months}")),
-                        //     );
-                        //   }),
-                        // ),
                         const EvSubscriptionTabbarPage(),
+                        SizedBox(height: screenHeight * 0.02),
 
                         // const ChooseSubscriptionPlan(),
                         // Text("Choose Mileage Package", textAlign: TextAlign.left,
@@ -180,7 +165,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                         //           fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
                         //   ],
                         // ),
-                        SizedBox(height: screenHeight * 0.0),
+
+
                         Text("*A security deposit may be applicable, depending on your eligibility assessment.",
                           maxLines: 2, textAlign: TextAlign.left, style: TextStyle(
                               fontSize: 12, fontFamily: poppinRegular, color: borderColor)),

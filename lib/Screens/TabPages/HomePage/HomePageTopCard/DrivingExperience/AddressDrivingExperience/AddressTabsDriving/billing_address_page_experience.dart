@@ -1,29 +1,26 @@
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Utils/colors.dart';
-import '../../../../../../Utils/fontFamily.dart';
-import '../../../../../../Widget/TextFields/address_text_field.dart';
-import '../../../../../../Widget/myTextWidget.dart';
-import 'CartDetails/cart_details_page.dart';
+import '../../../../../../../Model/HomePageModels/HomePageTopWidgetModels/driving_experience_cars_model.dart';
+import 'CartDetails/cart_details_page_experience.dart';
 
-class BillingAddressPage extends StatefulWidget {
+class BillingAddressPageExperience extends StatefulWidget {
+  final String? startTime, endTime, selectedDate;
+  final double? totalPrice;
+  final ExperienceDatumList? myDatum;
 
-  final String? carImage, discountPercentage, carName, carModel, amount, myDate, myDay,
-      carRatings, selectedHours, carMakerName, selectedStartTime, selectedEndTime;
-  final int? carYear, discountedAmount, totalHoursInNumber;
-  final double? hoursAmount, totalAmount;
-
-  const BillingAddressPage({Key? key, this.carImage, this.carName, this.carModel, this.carMakerName,
-    this.myDate, this.myDay, this.totalHoursInNumber,
-    this.discountPercentage, this.selectedHours, this.hoursAmount, this.totalAmount, this.selectedStartTime,
-    this.selectedEndTime, this.carYear, this.carRatings, this.amount, this.discountedAmount}) : super(key: key);
+  const BillingAddressPageExperience({Key? key, this.selectedDate,
+    this.totalPrice, this.myDatum, this.startTime, this.endTime}) : super(key: key);
 
   @override
-  State<BillingAddressPage> createState() => _BillingAddressPageState();
+  State<BillingAddressPageExperience> createState() => _BillingAddressPageExperienceState();
 }
 
-class _BillingAddressPageState extends State<BillingAddressPage> {
+class _BillingAddressPageExperienceState extends State<BillingAddressPageExperience> {
 
 
   final GlobalKey<FormState> billingAddressFormKey = GlobalKey<FormState>();
@@ -46,23 +43,10 @@ class _BillingAddressPageState extends State<BillingAddressPage> {
     'Select state 4',
     'Select state 5',
   ];
-
-
   mySelectedData(){
-    print("carName2: ${widget.carName}");
-    print("carImage2: ${widget.carImage}");
-    print("carDiscount2: ${widget.discountPercentage}");
-    print("carModel2: ${widget.carModel}");
-    print("carYear2: ${widget.carYear}");
-    print("carDiscountAmount2: ${widget.discountedAmount}");
-    print("carDiscountAmount2: ${widget.amount}");
-    print("carRatings2: ${widget.carRatings}");
-    print("carDayDate2: ${widget.myDay} ${widget.myDate}");
-    print("carMakersName2: ${widget.carMakerName} ${widget.totalHoursInNumber}");
-    print("carStartEndTime2: ${widget.selectedStartTime} ${widget.selectedEndTime}");
-    print("carHours2: ${widget.selectedHours} ${widget.hoursAmount} ${widget.totalAmount}");
+    print("carDayDate: ${widget.selectedDate}");
+    print("carStartEndTime: ${widget.startTime} ${widget.endTime}");
   }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -114,24 +98,12 @@ class _BillingAddressPageState extends State<BillingAddressPage> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartDetailsPage(
-                      carName: widget.carName,
-                      carYear: widget.carYear,
-                      carModel: widget.carModel,
-                      carImage: widget.carImage,
-                      discountedAmount: widget.discountedAmount,
-                      amount: widget.amount,
-                      discountPercentage: widget.discountPercentage,
-                      carRatings: widget.carRatings,
-                      selectedHours: widget.selectedHours,
-                      hoursAmount: widget.hoursAmount,
-                      totalAmount: widget.totalAmount,
-                      carMakerName: widget.carMakerName,
-                      selectedStartTime: widget.selectedStartTime,
-                      selectedEndTime: widget.selectedEndTime,
-                      myDate: widget.myDate,
-                      myDay: widget.myDay,
-                      totalHoursInNumber: widget.totalHoursInNumber,
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartDetailsPageExperience(
+                      myDatum: widget.myDatum,
+                      startTime: widget.startTime,
+                      endTime: widget.endTime,
+                      selectedDate: widget.selectedDate,
+                      totalPrice: widget.totalPrice,
                     )));
                   },
                   child: Container(

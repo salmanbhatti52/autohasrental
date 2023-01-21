@@ -4,13 +4,15 @@ import 'billing_address_page.dart';
 import 'home_address.dart';
 
 class AddressTabBar extends StatefulWidget {
-  final String? carImage, discountPercentage, carName, carModel, amount, carRating;
-  final int? carYear, discountedAmount;
+  final String? carImage, discountPercentage, carName, carModel, amount, myDate, myDay,
+      carRating, selectedHours, carMakerName, selectedStartTime, selectedEndTime;
+  final int? carYear, discountedAmount, totalHoursInNumber;
+  final double? hoursAmount, totalAmount;
 
-  const AddressTabBar({Key? key,
-    this.carImage, this.discountPercentage,
-    this.carName, this.carModel, this.carYear, this.carRating,
-    this.amount, this.discountedAmount}): super(key: key);
+  const AddressTabBar({Key? key, this.carImage, this.carName, this.carModel, this.discountPercentage,
+    this.carMakerName, this.selectedHours, this.myDate, this.myDay, this.totalHoursInNumber,
+    this.hoursAmount, this.totalAmount, this.selectedStartTime, this.selectedEndTime,
+    this.carYear, this.carRating, this.amount, this.discountedAmount}): super(key: key);
 
   @override
   State<AddressTabBar> createState() => _AddressTabBarState();
@@ -27,8 +29,12 @@ class _AddressTabBarState extends State<AddressTabBar> with TickerProviderStateM
     print("carModel1: ${widget.carModel}");
     print("carYear1: ${widget.carYear}");
     print("carDiscountAmount1: ${widget.discountedAmount}");
-    print("carDiscountAmount1: ${widget.amount}");
-    print("carDiscountAmount1: ${widget.carRating}");
+    print("carOriginalAmount1: ${widget.amount}");
+    print("carRatings1: ${widget.carRating}");
+    print("carDayDate1: ${widget.myDay} ${widget.myDate}");
+    print("carMakersName1: ${widget.carMakerName} ${widget.totalHoursInNumber}");
+    print("carStartEndTime1: ${widget.selectedStartTime} ${widget.selectedEndTime}");
+    print("carHours1: ${widget.selectedHours} ${widget.hoursAmount} ${widget.totalAmount}");
   }
 
   @override
@@ -96,6 +102,15 @@ class _AddressTabBarState extends State<AddressTabBar> with TickerProviderStateM
                 amount: widget.amount,
                 discountPercentage: widget.discountPercentage,
                 carRatings: widget.carRating,
+                selectedHours: widget.selectedHours,
+                hoursAmount: widget.hoursAmount,
+                totalAmount: widget.totalAmount,
+                carMakerName: widget.carMakerName,
+                selectedStartTime: widget.selectedStartTime,
+                selectedEndTime: widget.selectedEndTime,
+                myDate: widget.myDate,
+                myDay: widget.myDay,
+                totalHoursInNumber: widget.totalHoursInNumber,
               ),
             ],
           ),

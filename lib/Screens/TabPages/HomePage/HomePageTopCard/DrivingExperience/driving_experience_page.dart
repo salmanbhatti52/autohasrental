@@ -50,8 +50,8 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
         print("drivingExperienceCarsResponse: ${responseString.toString()}");
         drivingExperienceCarsModelObject =
             drivingExperienceCarsModelFromJson(responseString);
-        print(
-            "drivingExperienceCarsLength: ${drivingExperienceCarsModelObject.data!.length}");
+        print("drivingExperienceCarsLength: ${drivingExperienceCarsModelObject.data!.length}");
+        // myCarPlansList();
       }
     } catch (e) {
       print('Error: ${e.toString()}');
@@ -137,18 +137,11 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Text(
-                    "Top Experiences",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: poppinBold,
-                      color: kBlack,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
+                  child: Text("Top Experiences",
+                      textAlign: TextAlign.left, style: TextStyle(
+                        fontSize: 16, fontFamily: poppinBold, color: kBlack)),
                 ),
                 const TopExperienceWidget(),
-                // topExperienceWidget(context),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Text("Other Best Experiences",
@@ -191,7 +184,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 9),
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.24,
+                      height: MediaQuery.of(context).size.height * 0.26,
                       width: 343,
                       decoration: BoxDecoration(
                         color: kWhite,
@@ -222,67 +215,38 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  Text(
-                                                    "${drivingExperienceCarsModelObject.data![index].vehicalName} | ",
-                                                    style: TextStyle(
-                                                      color: kBlack,
-                                                      fontSize: 14,
-                                                      fontFamily: poppinBold,
-                                                    ),
-                                                    textAlign: TextAlign.left,
-                                                  ),
-                                                  Text(
-                                                    "MODEL ",
-                                                    style: TextStyle(
-                                                      color: kBlack,
-                                                      fontSize: 12,
-                                                      fontFamily:
-                                                          poppinRegular,
-                                                    ),
-                                                    textAlign: TextAlign.left,
-                                                  ),
-                                                  Text(
-                                                    "${drivingExperienceCarsModelObject.data![index].carsModels!.name} ",
-                                                    style: TextStyle(
-                                                      color: kBlack,
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          poppinMedium,
-                                                    ),
-                                                    textAlign: TextAlign.left,
-                                                  ),
-                                                  Text(
-                                                      "${drivingExperienceCarsModelObject.data![index].year}",
-                                                      style: TextStyle(
-                                                        color: kBlack,
-                                                        fontSize: 10,
-                                                        fontFamily:
-                                                            poppinRegular,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.left),
+                                                  Text("${drivingExperienceCarsModelObject.data![index].vehicalName} ",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                      color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+                                                  Text("${drivingExperienceCarsModelObject.data![index].year}",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
                                                 ],
-                                              ),
-                                              SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.01,
                                               ),
                                               Row(
                                                 children: [
+                                                  Text("${drivingExperienceCarsModelObject.data![index].carsMakes!.name} ",
+                                                      style: TextStyle(color: kBlack,
+                                                          fontSize: 14, fontFamily: poppinRegular),
+                                                      textAlign: TextAlign.left),
+                                                  Text("${drivingExperienceCarsModelObject.data![index].carsModels!.name} ",
+                                                      style: TextStyle(color: kBlack,
+                                                          fontSize: 10, fontFamily: poppinRegular),
+                                                      textAlign: TextAlign.left),
+                                                  Text("${drivingExperienceCarsModelObject.data![index].carsColors!.name}",
+                                                      style: TextStyle(color: kBlack,
+                                                          fontSize: 10, fontFamily: poppinRegular),
+                                                      textAlign: TextAlign.left),
+                                                ],
+                                              ),
+
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                              Row(
+                                                children: [
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 04),
-                                                    child: Text("RM",
-                                                        style: TextStyle(
-                                                          color: kRed,
-                                                          fontSize: 5,
-                                                          fontFamily: poppinRegular,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.left),
+                                                    padding: const EdgeInsets.only(top: 04),
+                                                    child: Text("RM",  textAlign: TextAlign.left,                                                       style: TextStyle(
+                                                          color: kRed, fontSize: 5, fontFamily: poppinRegular)),
                                                   ),
                                                   Text(
                                                     "${drivingExperienceCarsModelObject.data![index].carsPlans![0].pricePerSlot}",
@@ -418,12 +382,20 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                             bottom: 35,
                             child: GestureDetector(
                               onTap: () {
+
+                                carID = drivingExperienceCarsModelObject.data![index].carsId;
+                                print("selectedCarId $carID");
+
+
+                                // myList = List<CarsPlan>;
+                                // myCarPlansList();
+
+
                                 Navigator.push(context, MaterialPageRoute(
                                     builder: (context) => DrivingDetailsPage(
-                                      carName: "${drivingExperienceCarsModelObject.data![index].vehicalName}",
-                                      carYear: "${drivingExperienceCarsModelObject.data![index].year}",
-                                      carImage: "$baseUrlImage${drivingExperienceCarsModelObject.data![index].image1}",
+                                      datum: drivingExperienceCarsModelObject.data![index],
                                     )));
+                                print("carPlanSelected ${drivingExperienceCarsModelObject.data![index].carsPlans![index]}");
                               },
                               child: Image.asset(
                                   "assets/car_bookings_images/more_button.png"),
@@ -446,19 +418,12 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                        "${drivingExperienceCarsModelObject.data![index].discountPercentage}",
-                                        style: TextStyle(
-                                            color: kWhite,
-                                            fontSize: 13,
-                                            fontFamily: poppinSemiBold),
-                                        textAlign: TextAlign.left),
-                                    Text(" OFF ",
-                                        style: TextStyle(
-                                            color: kWhite,
-                                            fontSize: 8,
-                                            fontFamily: poppinRegular),
-                                        textAlign: TextAlign.left),
+                                    Text("${drivingExperienceCarsModelObject.data![index].discountPercentage}",
+                                        textAlign: TextAlign.left, style: TextStyle(
+                                        color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
+                                    Text(" OFF ", textAlign: TextAlign.left,
+                                        style: TextStyle(color: kWhite,
+                                            fontSize: 8, fontFamily: poppinRegular)),
                                   ],
                                 ),
                               )),
@@ -486,7 +451,10 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                           Positioned(
                             top: 10,
                             right: 15,
-                            child: GestureDetector(
+                            child:
+                            drivingExperienceCarsModelObject.data![index].favouriteStatus == "like"?
+                            Image.asset("assets/home_page/heart.png"):
+                            GestureDetector(
                               onTap: () async {
                                 myCurrentCarIndex = "${drivingExperienceCarsModelObject.data![index].carsId}";
                                 print("drivingExperienceCarId $myCurrentCarIndex");
@@ -509,6 +477,23 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                       );
                     }),
               );
+  }
+
+  List myCarPlansStartTime = [];
+  List myCarPlansEndTime = [];
+  myCarPlansList(){
+    for (int i = 0; i< drivingExperienceCarsModelObject.data!.length; i++) {
+      print("OuterLoop :$i");
+      for (int j = 0; j < drivingExperienceCarsModelObject.data![i].carsPlans!.length; j++) {
+        if(drivingExperienceCarsModelObject.data![i].carsPlans![j].carsId==carID) {
+          print("asdf123");
+          myCarPlansStartTime.add(drivingExperienceCarsModelObject.data![i].carsPlans![j].startTime);
+          myCarPlansEndTime.add(drivingExperienceCarsModelObject.data![i].carsPlans![j].endTime);
+          print("myCarPlansStartTime $myCarPlansStartTime");
+          print("myCarPlansEndTime $myCarPlansEndTime");
+        }
+      }
+    }
   }
 
   getLikeUnlikeCarWidget() async {

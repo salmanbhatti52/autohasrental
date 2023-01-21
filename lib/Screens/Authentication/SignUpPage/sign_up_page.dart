@@ -34,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   SignUpModel signUpModel = SignUpModel();
   registerUser() async {
-    try {
+    // try {
       String apiUrl = signUpApiUrl;
       print("api: $apiUrl");
       print("one_signal_id: 123456");
@@ -70,10 +70,10 @@ class _SignUpPageState extends State<SignUpPage> {
           print('signUpModel status: ${signUpModel.status}');
         }
       }
-    } catch (e) {
-      print('singUp error in catch = ${e.toString()}');
-      return null;
-    }
+    // } catch (e) {
+    //   print('singUp error in catch = ${e.toString()}');
+    //   return null;
+    // }
   }
 
   bool isInAsyncCall = false;
@@ -174,35 +174,45 @@ class _SignUpPageState extends State<SignUpPage> {
                       //     builder: (context) => const VerifyPhonePage()));
                       if(singUpFormKey.currentState!.validate()){
                         if (firstNameController.text.isEmpty) {
-                          toastFailedMessage('firstName cannot be empty', Colors.red);
+                          toastFailedMessage('firstName cannot be empty', kRed);
                         } else if (lastNameController.text.isEmpty) {
-                          toastFailedMessage('lastName cannot be empty',Colors.red);
+                          toastFailedMessage('lastName cannot be empty', kRed);
                         } else if (phoneController.text.isEmpty) {
-                          toastFailedMessage('phone number cannot be empty', Colors.red);
+                          toastFailedMessage('phone number cannot be empty', kRed);
                         } else if (emailController.text.isEmpty) {
-                          toastFailedMessage('email cannot be empty', Colors.red);
+                          toastFailedMessage('email cannot be empty', kRed);
                         } else if (passwordController.text.isEmpty) {
-                          toastFailedMessage('password cannot be empty', Colors.red);
+                          toastFailedMessage('password cannot be empty', kRed);
                         } else if (passwordController.text.length < 6) {
-                          toastFailedMessage('password must be 6 digit', Colors.red);
+                          toastFailedMessage('password must be 6 digit', kRed);
                         } else {
                           setState(() {
                             isInAsyncCall = true;
                           });
                          await registerUser();
 
-                          Future.delayed(const Duration(seconds: 3), () {
-                            toastSuccessMessage("success", colorGreen);
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => VerifyPhonePage(
-                                  userId: signUpModel.data![0].usersCustomersId.toString(),
-                                  verifyCode: signUpModel.data![0].verifyCode,
-                                )));
-                            setState(() {
-                              isInAsyncCall = false;
-                            });
-                            print("false: $isInAsyncCall");
-                          });
+                         if(signUpModel.status == "success"){
+                           Future.delayed(const Duration(seconds: 3), () {
+                             toastSuccessMessage("success", colorGreen);
+                             Navigator.push(context, MaterialPageRoute(
+                                 builder: (context) => VerifyPhonePage(
+                                   userId: signUpModel.data![0].usersCustomersId.toString(),
+                                   verifyCode: signUpModel.data![0].verifyCode,
+                                 )));
+                             setState(() {
+                               isInAsyncCall = false;
+                             });
+                             print("false: $isInAsyncCall");
+                           });
+                         }
+                         if(signUpModel.status != "success"){
+                           toastFailedMessage("error", kRed);
+                           setState(() {
+                             isInAsyncCall = false;
+                           });
+                         }
+
+
                         }
                       }
                     },

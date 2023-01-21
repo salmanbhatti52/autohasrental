@@ -1,27 +1,27 @@
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../Utils/colors.dart';
-import '../../../../../Utils/fontFamily.dart';
-import '../../../MyAppBarHeader/app_bar_header.dart';
-import 'AddressTabs/address_tabbar.dart';
+import '../../../../MyAppBarHeader/app_bar_header.dart';
+import '../../../Home/Address/AddressTabs/address_tabbar.dart';
 
-class DeliveryAddress extends StatefulWidget {
+class EvDeliveryAddress extends StatefulWidget {
   final String? carImage, discountPercentage, carName, myDate, myDay,
       carModel, amount, carRating, selectedHoursInString, carMakerName,
   selectedStartTime, selectedEndTime;
   final int? carYear, discountedAmount, totalHoursInNumber;
   final double? hoursAmount, totalAmount;
-  const DeliveryAddress({Key? key, this.carImage, this.carName, this.carModel,
+  const EvDeliveryAddress({Key? key, this.carImage, this.carName, this.carModel,
     this.totalHoursInNumber, this.carYear, this.discountPercentage,
     this.carMakerName, this.selectedHoursInString, this.myDate, this.hoursAmount,
     this.totalAmount, this.selectedStartTime, this.selectedEndTime, this.myDay,
     this.amount, this.carRating, this.discountedAmount}) : super(key: key);
 
   @override
-  State<DeliveryAddress> createState() => _DeliveryAddressState();
+  State<EvDeliveryAddress> createState() => _EvDeliveryAddressState();
 }
 
-class _DeliveryAddressState extends State<DeliveryAddress> {
+class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
 
   mySelectedData(){
     print("carName: ${widget.carName}");

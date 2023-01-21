@@ -53,6 +53,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
         headers: {
           'Accept': 'application/json',
           'Cookie': cookieModifyPassword,
+
         },
         body: {
           'email': widget.email,

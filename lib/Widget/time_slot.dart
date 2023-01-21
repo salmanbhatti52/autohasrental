@@ -77,16 +77,13 @@ class TimeSlotRadioItem extends StatelessWidget {
           //   _item.image,
           // ),
           SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-          Text(
-            _item.text,
+          Text(_item.text,
             style: TextStyle(
               fontSize: 10,
               fontFamily: _item.isSelectedTimeSlot
-                  ? 'Poppins-Medium'
-                  : 'Poppins-Regular',
+                  ? 'Poppins-Medium' : 'Poppins-Regular',
               color: _item.isSelectedTimeSlot
-                  ? unSelectedTabColor
-                  : const Color(0xffd4dce1),
+                  ? unSelectedTabColor : const Color(0xffd4dce1),
             ),
           ),
         ],

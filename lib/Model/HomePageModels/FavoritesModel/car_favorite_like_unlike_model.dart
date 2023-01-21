@@ -1,6 +1,28 @@
-// To parse this JSON data, do
+// import 'dart:convert';
 //
-//     final carLikeUnlikeModel = carLikeUnlikeModelFromJson(jsonString);
+// CarLikeUnlikeModel carLikeUnlikeModelFromJson(String str) => CarLikeUnlikeModel.fromJson(json.decode(str));
+//
+// String carLikeUnlikeModelToJson(CarLikeUnlikeModel data) => json.encode(data.toJson());
+//
+// class CarLikeUnlikeModel {
+//   CarLikeUnlikeModel({
+//     this.status,
+//     this.message,
+//   });
+//
+//   String? status;
+//   String? message;
+//
+//   factory CarLikeUnlikeModel.fromJson(Map<String, dynamic> json) => CarLikeUnlikeModel(
+//     status: json["status"],
+//     message: json["message"],
+//   );
+//
+//   Map<String, dynamic> toJson() => {
+//     "status": status,
+//     "message": message,
+//   };
+// }
 
 import 'dart:convert';
 

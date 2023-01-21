@@ -59,7 +59,7 @@ class _TopExperienceWidgetState extends State<TopExperienceWidget> {
             ? const Center(child: Text('no data found...',
       style: TextStyle(fontWeight: FontWeight.bold),)) :
     Container(
-      height: 210,
+      height: 250,
       width: double.infinity,
       color: Colors.transparent,
       child: ListView.builder(
@@ -71,14 +71,14 @@ class _TopExperienceWidgetState extends State<TopExperienceWidget> {
               padding: const EdgeInsets.only(left: 20),
               child: Container(
                 color: Colors.transparent,
-                height: 250,
-                width: 180,
+                height: 280,
+                width: 200,
                 child: Stack(
                   children: [
                     Positioned(
                       bottom: 0,
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.23,
+                        height: MediaQuery.of(context).size.height * 0.28,
                         width: MediaQuery.of(context).size.width * 0.5,
                         decoration: BoxDecoration(
                             color: kWhite,
@@ -87,58 +87,61 @@ class _TopExperienceWidgetState extends State<TopExperienceWidget> {
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.06,),
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 05),
-                                    child: Row(
-                                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.2,
-                                              color: Colors.transparent,
-                                              child: Text("${drivingExperienceCarsModelObject.data![index].vehicalName} | ",
-                                                  style: TextStyle(color: kBlack,
-                                                      fontSize: 14, fontFamily: poppinBold),
-                                                  textAlign: TextAlign.left),
-                                            ),
-                                            Text("${drivingExperienceCarsModelObject.data![index].year}",
-                                                style: TextStyle(color: kBlack,
-                                                    fontSize: 10, fontFamily: poppinRegular),
-                                                textAlign: TextAlign.left),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
-                                            SizedBox(
-                                              width: MediaQuery.of(context).size.height * 0.01,),
-                                            drivingExperienceCarsModelObject.data![index].rating == null
-                                                ? Text("0.0", style: TextStyle(color: kBlack,
-                                                fontSize: 10, fontFamily: poppinMedium),
-                                              textAlign: TextAlign.left,)
-                                                : Text("${drivingExperienceCarsModelObject.data![index].rating}",
-                                              style: TextStyle(color: kBlack,
-                                                fontSize: 10, fontFamily: poppinMedium),
-                                              textAlign: TextAlign.left,),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                  Row(
+                                    children: [
+                                      Text("${drivingExperienceCarsModelObject.data![index].vehicalName} ",
+                                          style: TextStyle(color: kBlack,
+                                              fontSize: 14, fontFamily: poppinBold),
+                                          textAlign: TextAlign.left),
+                                      Text("${drivingExperienceCarsModelObject.data![index].year}",
+                                          style: TextStyle(color: kBlack,
+                                              fontSize: 10, fontFamily: poppinRegular),
+                                          textAlign: TextAlign.left),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("${drivingExperienceCarsModelObject.data![index].carsMakes!.name} ",
+                                          style: TextStyle(color: kBlack,
+                                              fontSize: 14, fontFamily: poppinRegular),
+                                          textAlign: TextAlign.left),
+                                      Text("${drivingExperienceCarsModelObject.data![index].carsModels!.name} ",
+                                          style: TextStyle(color: kBlack,
+                                              fontSize: 10, fontFamily: poppinRegular),
+                                          textAlign: TextAlign.left),
+                                      Text("${drivingExperienceCarsModelObject.data![index].carsColors!.name}",
+                                          style: TextStyle(color: kBlack,
+                                              fontSize: 10, fontFamily: poppinRegular),
+                                          textAlign: TextAlign.left),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.height * 0.01,),
+                                      drivingExperienceCarsModelObject.data![index].rating == null
+                                          ? Text("0.0", style: TextStyle(color: kBlack,
+                                          fontSize: 10, fontFamily: poppinMedium),
+                                        textAlign: TextAlign.left,)
+                                          : Text("${drivingExperienceCarsModelObject.data![index].rating}",
+                                        style: TextStyle(color: kBlack,
+                                            fontSize: 10, fontFamily: poppinMedium),
+                                        textAlign: TextAlign.left,),
+                                    ],
                                   ),
                                   const Divider(),
                                   Row(
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(top: 04),
-                                        child: Text("RM",
+                                        child: Text("RM",  textAlign: TextAlign.left,
                                           style: TextStyle(color: kRed,
-                                            fontSize: 5, fontFamily: poppinLight,),
-                                          textAlign: TextAlign.left),
+                                            fontSize: 5, fontFamily: poppinLight)),
                                       ),
                                       Text("${drivingExperienceCarsModelObject.data![index].carsPlans![0].discountedPricePerSlot}",
                                         style: TextStyle(
@@ -153,7 +156,7 @@ class _TopExperienceWidgetState extends State<TopExperienceWidget> {
                                       const Spacer(),
                                       Text("/ Month",
                                         style: TextStyle(color: kBlack,
-                                          fontSize: 8, fontFamily: poppinRegular,),
+                                          fontSize: 8, fontFamily: poppinRegular),
                                         textAlign: TextAlign.left,),
                                       SizedBox(width: MediaQuery.of(context).size.height * 0.01),
                                     ],
@@ -163,9 +166,7 @@ class _TopExperienceWidgetState extends State<TopExperienceWidget> {
                                     onTap: () {
                                       Navigator.push(context, MaterialPageRoute(
                                           builder: (context) => DrivingDetailsPage(
-                                            carName: "${drivingExperienceCarsModelObject.data![index].vehicalName}",
-                                            carYear: "${drivingExperienceCarsModelObject.data![index].year}",
-                                            carImage: "$baseUrlImage${drivingExperienceCarsModelObject.data![index].image1}",
+                                            datum: drivingExperienceCarsModelObject.data![index],
                                           )));
                                     },
                                     child: Container(

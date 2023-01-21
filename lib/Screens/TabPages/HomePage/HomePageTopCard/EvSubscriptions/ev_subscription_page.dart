@@ -32,18 +32,26 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
   bool loadingP = true;
 
   sharedPrefs() async {
+    loadingP = true;
+    setState(() {});
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('in LoginPage shared prefs');
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
     print("userId in Prefs is = $userId");
+    // getLikeUnlikeCarWidget();
     getEvSubscriptionCarsWidget();
-    getLikeUnlikeCarWidget();
+
   }
 
   getEvSubscriptionCarsWidget() async {
     loadingP = true;
     setState(() {});
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print('in evSubscriptionPage shared prefs');
+    prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString('userid');
+    print("userId in Prefs is = $userId");
     try {
       String apiUrl = carsEvSubscriptionApiUrl;
       print("evSubscriptionApi: $apiUrl");
@@ -66,7 +74,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
       print('Error in evSubscription: ${e.toString()}');
     }
     loadingP = false;
-    setState(() {});
+    setState(() {
+    });
   }
 
   bool progress = false;
@@ -116,9 +125,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                 const SizedBox(width: 15),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
+                    Navigator.push(context, MaterialPageRoute(
                             builder: (context) => const FilterScreen()));
                   },
                   child: Container(
@@ -192,22 +199,26 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Container(
-                                                      width: MediaQuery.of(context).size.width * 0.4,
-                                                      color: Colors.transparent,
-                                                      child: Text("${evSubscriptionCarsModelObject.data![index].vehicalName} | ",
-                                                        style: TextStyle(color: kBlack, fontSize: 14,
-                                                            fontFamily: poppinBold), textAlign: TextAlign.left),
-                                                    ),
-                                                    Text("MODEL ", textAlign: TextAlign.left,
-                                                        style: TextStyle(color: kBlack,
-                                                          fontSize: 12, fontFamily: poppinRegular)),
-                                                    Text("${evSubscriptionCarsModelObject.data![index].carsModels!.name} ",
-                                                        textAlign: TextAlign.left, style: TextStyle(
-                                                          color: kBlack, fontSize: 14, fontFamily: poppinMedium),),
+                                                    Text("${evSubscriptionCarsModelObject.data![index].vehicalName}  ",
+                                                      style: TextStyle(color: kBlack, fontSize: 14,
+                                                          fontFamily: poppinBold), textAlign: TextAlign.left),
                                                     Text("${evSubscriptionCarsModelObject.data![index].year}",
                                                         textAlign: TextAlign.left, style: TextStyle(
-                                                          color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                                                          color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text("${evSubscriptionCarsModelObject.data![index].carsMakes!.name} ",
+                                                        style: TextStyle(color: kBlack, fontSize: 12,
+                                                            fontFamily: poppinRegular), textAlign: TextAlign.left),
+                                                    Text("${evSubscriptionCarsModelObject.data![index].carsModels!.name} ",
+                                                        textAlign: TextAlign.left, style: TextStyle(
+                                                            color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                                    Text("${evSubscriptionCarsModelObject.data![index].carsColors!.name} ",
+                                                      textAlign: TextAlign.left, style: TextStyle(
+                                                          color: kBlack, fontSize: 14, fontFamily: poppinRegular),),
+
                                                   ],
                                                 ),
                                                 Row(
@@ -290,6 +301,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                   GestureDetector(
                                     onTap: () {
                                       print("clickedddd");
+                                      carID = evSubscriptionCarsModelObject.data![index].carsId;
                                       Navigator.push(context, MaterialPageRoute(
                                               builder: (context) => EVCarDescription(
                                                 carName: evSubscriptionCarsModelObject.data![index].vehicalName,
@@ -297,10 +309,16 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                                 carImage: "$baseUrlImage${evSubscriptionCarsModelObject.data![index].image1}",
                                                 carRating: "${evSubscriptionCarsModelObject.data![index].rating}",
                                                 carDescription: "${evSubscriptionCarsModelObject.data![index].description}",
+                                                ownerImage: "$baseUrlImage${evSubscriptionCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                ownerName: "${evSubscriptionCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                ownerId: "${evSubscriptionCarsModelObject.data![index].usersCompanies!.usersCompaniesId}",
                                               )));
                                       print("evCarName ${evSubscriptionCarsModelObject.data![index].vehicalName}");
                                       print("evCarYear ${evSubscriptionCarsModelObject.data![index].year}");
                                       print("evCarImage $baseUrlImage${evSubscriptionCarsModelObject.data![index].image1}");
+                                      print("ownerImage $baseUrlImage${evSubscriptionCarsModelObject.data![index].usersCompanies!.companyLogo}");
+                                      print("ownerName ${evSubscriptionCarsModelObject.data![index].usersCompanies!.companyName}");
+                                      print("ownerId ${evSubscriptionCarsModelObject.data![index].usersCompanies!.usersCompaniesId}");
 
                                     },
                                     child: Image.asset("assets/car_bookings_images/more_button.png"),
@@ -350,8 +368,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                               top: 10,
                               right: 15,
                               child:
-                              // evSubscriptionCarsModelObject.data![index].favouriteStatus == "like"?
-                              // Image.asset("assets/home_page/heart.png"):
+                              evSubscriptionCarsModelObject.data![index].favouriteStatus == "like"?
+                              Image.asset("assets/home_page/heart.png"):
                               GestureDetector(
                                 onTap: () async {
                                   myCurrentCarIndex = "${evSubscriptionCarsModelObject.data![index].carsId}";
@@ -382,7 +400,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
   getLikeUnlikeCarWidget() async {
     loadingP = true;
     setState(() {});
-    try {
+    // try {
       String apiUrl = likeUnlikeFavoriteCarsApiUrl;
       print("carLikeUnlikeModelApi: $apiUrl");
       print("carLikeUnlikeUserId: $userId");
@@ -403,9 +421,9 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
         carLikeUnlikeModelObject = carLikeUnlikeModelFromJson(responseString);
         print("carLikeUnlikeModelMessage: ${carLikeUnlikeModelObject.message}");
       }
-    } catch (e) {
-      print('Error in carLikeUnlike: ${e.toString()}');
-    }
+    // } catch (e) {
+    //   print('Error in carLikeUnlike: ${e.toString()}');
+    // }
     loadingP = false;
     setState(() {});
   }

@@ -10,7 +10,6 @@ import 'book_for_wedding_car_description.dart';
 import 'book_for_wedding_car_logo_container.dart';
 import '../../../../../Utils/colors.dart';
 import '../../Filter/filter_screen.dart';
-import '../../Notifications/notification_screen.dart';
 import 'package:http/http.dart' as http;
 
 class BookForWeddingPage extends StatefulWidget {
@@ -42,7 +41,9 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
           body: {
             "users_customers_id" : userId
           },
-          headers: {'Accept': 'application/json'});
+          headers: {
+        'Accept': 'application/json'
+      });
       print('${response.statusCode}');
       print(response);
       if (response.statusCode == 200) {
@@ -177,270 +178,134 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
         color: Colors.transparent,
         height: MediaQuery.of(context).size.height * 0.70,
         child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      // itemCount: browseCarItemsList.length,
-                      itemCount: carsPhotoGraphyModelObject.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Stack(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 20),
-                              child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.33,
-                              ),
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemCount: carsPhotoGraphyModelObject.data!.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.33,),
+                  ),
+                  Positioned(
+                    top: 90,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 9),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.26,
+                        width: 343,
+                        decoration: BoxDecoration(
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 5,
+                              blurRadius: 5,
+                              offset: const Offset(3, 3),
                             ),
-                            Positioned(
-                              top: 90,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 9),
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.24,
-                                  width: 343,
-                                  decoration: BoxDecoration(
-                                    color: kWhite,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.1),
-                                        spreadRadius: 5,
-                                        blurRadius: 5,
-                                        offset: const Offset(3, 3),
-                                      ),
-                                    ],
-                                  ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Container(height: MediaQuery.of(context).size.height * 0.1),
+                            Row(
+                              children: [
+                                const SizedBox(height: 93.6),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15),
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                            0.1,
-                                      ),
                                       Row(
                                         children: [
-                                          const SizedBox(height: 93.6),
+                                          Text("${carsPhotoGraphyModelObject.data![index].vehicalName} ",
+                                            textAlign: TextAlign.left, style: TextStyle(
+                                                color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+                                          Text("${carsPhotoGraphyModelObject.data![index].year} ",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                        ],
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                      Row(
+                                        children: [
+
+                                          Text("${carsPhotoGraphyModelObject.data![index].carsMakes!.name} ",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
+                                          Text("${carsPhotoGraphyModelObject.data![index].carsModels!.name} ",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
+                                          Text("${carsPhotoGraphyModelObject.data![index].carsColors!.name} ",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
+
+                                        ],
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                      Row(
+                                        children: [
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 15),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                        "${carsPhotoGraphyModelObject.data![index].vehicalName} | ",
-                                                        style: TextStyle(
-                                                            color: kBlack,
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                poppinBold),
-                                                        textAlign:
-                                                            TextAlign.left),
-                                                    Text("MODEL ",
-                                                        style: TextStyle(
-                                                          color: kBlack,
-                                                          fontSize: 12,
-                                                          fontFamily:
-                                                              poppinRegular,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.left),
-                                                    Text(
-                                                        "${carsPhotoGraphyModelObject.data![index].carsModels!.name} ",
-                                                        style: TextStyle(
-                                                          color: kBlack,
-                                                          fontSize: 14,
-                                                          fontFamily:
-                                                              poppinMedium,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.left),
-                                                    Text(
-                                                        "${carsPhotoGraphyModelObject.data![index].year} ",
-                                                        style: TextStyle(
-                                                          color: kBlack,
-                                                          fontSize: 10,
-                                                          fontFamily:
-                                                              poppinRegular,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.left),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.01,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets
-                                                              .only(top: 04),
-                                                      child: Text("RM",
-                                                          style: TextStyle(
-                                                            color: kRed,
-                                                            fontSize: 5,
-                                                            fontFamily:
-                                                                poppinRegular,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.left),
-                                                    ),
-                                                    Text(
-                                                      "${carsPhotoGraphyModelObject.data![index].carsPlans![0].pricePerHour}",
-                                                      style: TextStyle(
-                                                        color: kRed,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .lineThrough,
-                                                        decorationColor: kRed,
-                                                        decorationThickness:
-                                                            3,
-                                                        fontSize: 10,
-                                                        fontFamily:
-                                                            poppinLight,
-                                                        height: 2,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.left,
-                                                    ),
-                                                    const SizedBox(width: 5),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets
-                                                              .only(top: 06),
-                                                      child: Text("RM",
-                                                          style: TextStyle(
-                                                            color: borderColor,
-                                                            fontSize: 7,
-                                                            fontFamily: poppinSemiBold,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.left),
-                                                    ),
-                                                    Text(
-                                                      "${carsPhotoGraphyModelObject.data![index].carsPlans![0].discountedPricePerHour}",
-                                                      style: TextStyle(
-                                                        color: borderColor,
-                                                        fontSize: 16,
-                                                        fontFamily:
-                                                            poppinSemiBold,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.left,
-                                                    ),
-                                                    Text(
-                                                      "/ Month",
-                                                      style: TextStyle(
-                                                        color: kBlack,
-                                                        fontSize: 8,
-                                                        fontFamily:
-                                                            poppinRegular,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.left,
-                                                    ),
-                                                    SizedBox(
-                                                      width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .height *
-                                                          0.01,
-                                                    ),
-                                                    Image.asset(
-                                                        "assets/home_page/9004787_star_favorite_award_like_icon.png"),
-                                                    SizedBox(
-                                                      width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width *
-                                                          0.01,
-                                                    ),
-                                                    carsPhotoGraphyModelObject
-                                                                .data![index]
-                                                                .rating ==
-                                                            null
-                                                        ? Text(
-                                                            "0.0",
-                                                            style: TextStyle(
-                                                                color: kBlack,
-                                                                fontSize: 10,
-                                                                fontFamily:
-                                                                    poppinMedium),
-                                                          )
-                                                        : Text(
-                                                            "${carsPhotoGraphyModelObject.data![index].rating}",
-                                                            style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 12,
-                                                              fontFamily:
-                                                                  poppinRegular,
-                                                            ),
-                                                            textAlign:
-                                                                TextAlign
-                                                                    .left),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.01),
-                                                Row(
-                                                  children: [
-                                                    Image.asset(
-                                                        "assets/car_bookings_images/promoted.png"),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      "Verified Dealer",
-                                                      style: TextStyle(
-                                                        color: textLabelColor,
-                                                        fontSize: 10,
-                                                        fontFamily:
-                                                            poppinRegular,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.left,
-                                                    ),
-                                                    const SizedBox(width: 05),
-                                                    Container(
-                                                      height: 15,
-                                                      width: 35,
-                                                      decoration: BoxDecoration(
-                                                          color: kBlack,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      child: Center(
-                                                        child: Text("New",
-                                                            style: TextStyle(
-                                                                color: kWhite,
-                                                                fontSize: 8,
-                                                                fontFamily:
-                                                                    poppinRegular),
-                                                            textAlign:
-                                                                TextAlign
-                                                                    .left),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                            padding: const EdgeInsets.only(top: 04),
+                                            child: Text("RM", textAlign: TextAlign.left,
+                                                style: TextStyle(color: kRed,
+                                                  fontSize: 5, fontFamily: poppinRegular)),
+                                          ),
+                                          Text("${carsPhotoGraphyModelObject.data![index].carsPlans![0].pricePerHour}",
+                                            textAlign: TextAlign.left, style: TextStyle(
+                                              color: kRed, decoration: TextDecoration.lineThrough,
+                                              decorationColor: kRed, decorationThickness: 3,
+                                              fontSize: 10, fontFamily: poppinLight, height: 2)),
+                                          const SizedBox(width: 5),
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 06),
+                                            child: Text("RM", textAlign: TextAlign.left,
+                                                style: TextStyle(color: borderColor,
+                                                  fontSize: 7, fontFamily: poppinSemiBold)),
+                                          ),
+                                          Text("${carsPhotoGraphyModelObject.data![index].carsPlans![0].discountedPricePerHour}",
+                                            textAlign: TextAlign.left, style: TextStyle(
+                                              color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+                                          Text("/ Month", textAlign: TextAlign.left,
+                                            style: TextStyle(color: kBlack, fontSize: 8,
+                                              fontFamily: poppinRegular)),
+                                          SizedBox(
+                                            width: MediaQuery.of(context).size.height * 0.01),
+                                          Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                          SizedBox(
+                                            width: MediaQuery.of(context).size.width * 0.01),
+                                          carsPhotoGraphyModelObject.data![index].rating == null
+                                              ? Text("0.0", style: TextStyle(
+                                                color: kBlack, fontSize: 10,
+                                                fontFamily: poppinMedium))
+                                              : Text("${carsPhotoGraphyModelObject.data![index].rating}",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                        ],
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                      Row(
+                                        children: [
+                                          Image.asset("assets/car_bookings_images/promoted.png"),
+                                          const SizedBox(width: 5,),
+                                          Text("Verified Dealer", textAlign: TextAlign.left,
+                                            style: TextStyle(color: textLabelColor,
+                                              fontSize: 10, fontFamily: poppinRegular)),
+                                          const SizedBox(width: 05),
+                                          Container(
+                                            height: 15,
+                                            width: 35,
+                                            decoration: BoxDecoration(
+                                                color: kBlack,
+                                                borderRadius: BorderRadius.circular(10)),
+                                            child: Center(
+                                              child: Text("New", textAlign: TextAlign.left,
+                                                  style: TextStyle(color: kWhite,
+                                                      fontSize: 8, fontFamily: poppinRegular)),
                                             ),
                                           ),
                                         ],
@@ -448,112 +313,112 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                                     ],
                                   ),
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              right: 30,
-                              bottom: 35,
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) => BookForWeddingCarDescription(
-                                        carName: carsPhotoGraphyModelObject.data![index].vehicalName,
-                                        carYear: carsPhotoGraphyModelObject.data![index].year,
-                                        carImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}",
-                                        carRating: "${carsPhotoGraphyModelObject.data![index].rating}",
-                                        carDescription: "${carsPhotoGraphyModelObject.data![index].description}",
-                                      )));
-                                  print("evCarName ${carsPhotoGraphyModelObject.data![index].vehicalName}");
-                                  print("evCarYear ${carsPhotoGraphyModelObject.data![index].year}");
-                                  print("evCarImage $baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}");
-                                },
-                                child: Image.asset("assets/car_bookings_images/more_button.png"),
-                              ),
-                            ),
-                            Positioned(
-                                top: 10,
-                                left: 15,
-                                child: Container(
-                                  height: MediaQuery.of(context).size.width *
-                                      0.07,
-                                  width: MediaQuery.of(context).size.width *
-                                      0.16,
-                                  decoration: BoxDecoration(
-                                    color: kRed.withOpacity(0.8),
-                                    borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(15),
-                                        bottomLeft: Radius.circular(15)),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "${carsPhotoGraphyModelObject.data![index].discountPercentage}",
-                                        style: TextStyle(
-                                          color: kWhite,
-                                          fontSize: 13,
-                                          fontFamily: poppinSemiBold,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                      Text(" OFF ",
-                                          style: TextStyle(
-                                              color: kWhite,
-                                              fontSize: 8,
-                                              fontFamily: poppinRegular),
-                                          textAlign: TextAlign.left),
-                                    ],
-                                  ),
-                                )),
-                            Positioned(
-                              top: 10,
-                              left: 10,
-                              right: 10,
-                              child: carsPhotoGraphyModelObject.data![index].image1 == null
-                                  ? ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.asset(
-                                          'assets/icon/fade_in_image.jpeg'))
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: FadeInImage(
-                                        placeholder: const AssetImage(
-                                            "assets/icon/fade_in_image.jpeg"),
-                                        // fit: BoxFit.fill,
-                                        width: 350,
-                                        height: 150,
-                                        image: NetworkImage(
-                                            "$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}"),
-                                      ),
-                                    ),
-                            ),
-                            Positioned(
-                              top: 10,
-                              right: 15,
-                              child: GestureDetector(
-                                onTap: () async {
-                                  myCurrentCarIndex = "${carsPhotoGraphyModelObject.data![index].carsId}";
-                                  print("carsPhotoGraphyIds $myCurrentCarIndex");
-                                  await getLikeUnlikeCarWidget();
-                                  if (carLikeUnlikeModelObject.message == "Liked") {
-                                    print("isLiked");
-                                    toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                                  }
-                                  if (carLikeUnlikeModelObject.message == "Unliked") {
-                                    print("isUnLiked");
-                                    toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                                  }
-                                },
-                                child: carLikeUnlikeModelObject.message == "Liked"
-                                    ? Image.asset("assets/home_page/heart.png")
-                                    : Image.asset("assets/car_bookings_images/heart.png"),
-                              ),
+                              ],
                             ),
                           ],
-                        );
-                      }),
-                ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 30,
+                    bottom: 35,
+                    child: GestureDetector(
+                      onTap: () {
+                        carID = carsPhotoGraphyModelObject.data![index].carsId;
+                        print("myCarId $carID");
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => BookForWeddingCarDescription(
+                              carName: carsPhotoGraphyModelObject.data![index].vehicalName,
+                              carYear: carsPhotoGraphyModelObject.data![index].year,
+                              carImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}",
+                              carRating: "${carsPhotoGraphyModelObject.data![index].rating}",
+                              carDescription: "${carsPhotoGraphyModelObject.data![index].description}",
+                              ownerImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyLogo}",
+                              ownerName: "${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyName}",
+                              ownerId: "${carsPhotoGraphyModelObject.data![index].usersCompaniesId}",
+                              pricePerHours: carsPhotoGraphyModelObject.data![index].carsPlans![0].pricePerHour,
+                            )));
+                        print("evCarName ${carsPhotoGraphyModelObject.data![index].vehicalName}");
+                        print("evCarYear ${carsPhotoGraphyModelObject.data![index].year}");
+                        print("evCarPerHours ${carsPhotoGraphyModelObject.data![index].carsPlans![0].pricePerHour}");
+                        print("evCarImage $baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}");
+                        print("evCarId ${carsPhotoGraphyModelObject.data![index].carsId}");
+                        },
+                      child: Image.asset("assets/car_bookings_images/more_button.png"),
+                    ),
+                  ),
+                  Positioned(
+                      top: 10, left: 15,
+                      child: Container(
+                        height: MediaQuery.of(context).size.width * 0.07,
+                        width: MediaQuery.of(context).size.width * 0.16,
+                        decoration: BoxDecoration(
+                          color: kRed.withOpacity(0.8),
+                          borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(15),
+                              bottomLeft: Radius.circular(15)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("${carsPhotoGraphyModelObject.data![index].discountPercentage}",
+                                textAlign: TextAlign.left, style: TextStyle(
+                                    color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
+                            Text(" OFF ", textAlign: TextAlign.left,
+                                style: TextStyle(color: kWhite,
+                                    fontSize: 8, fontFamily: poppinRegular)),
+                          ],
+                        ),
+                      )),
+                  Positioned(
+                    top: 10,
+                    left: 10,
+                    right: 10,
+                    child: carsPhotoGraphyModelObject.data![index].image1 == null
+                        ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                            'assets/icon/fade_in_image.jpeg'))
+                        : ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: FadeInImage(
+                        placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                        width: 350,
+                        height: 150,
+                        image: NetworkImage(
+                            "$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}"),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 15,
+                    child: carsPhotoGraphyModelObject.data![index].favouriteStatus == "like"?
+                    Image.asset("assets/home_page/heart.png"):
+                    GestureDetector(
+                      onTap: () async {
+                        myCurrentCarIndex = "${carsPhotoGraphyModelObject.data![index].carsId}";
+                        print("carsPhotoGraphyIds $myCurrentCarIndex");
+                        await getLikeUnlikeCarWidget();
+                        if (carLikeUnlikeModelObject.message == "Liked") {
+                          print("isLiked");
+                          toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                        }
+                        if (carLikeUnlikeModelObject.message == "Unliked") {
+                          print("isUnLiked");
+                          toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                        }
+                        },
+                      child: carLikeUnlikeModelObject.message == "Liked"
+                          ? Image.asset("assets/home_page/heart.png")
+                          : Image.asset("assets/car_bookings_images/heart.png"),
+                    ),
+                  ),
+                ],
+              );
+            }),
+      ),
     );
   }
 }

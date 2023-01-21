@@ -322,8 +322,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                   ),
                                 )),
                             Positioned(
-                              child: favoriteCarModelObject[index].image1 ==
-                                      null
+                              child: favoriteCarModelObject[index].image1 == null
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.asset('assets/icon/fade_in_image.jpeg'))
@@ -336,14 +335,14 @@ class _FavoritePageState extends State<FavoritePage> {
                                         image: NetworkImage("$baseUrlImage${favoriteCarModelObject[index].image1}"),
                                       ),
                                     ),
-
-                              // Image.asset(favoriteItemsList[index].carImage,),
                             ),
                             Positioned(
-                                top: 10,
-                                right: 15,
-                                child: GestureDetector(
+                                top: 10, right: 15,
+                                child: favoriteCarModelObject[index].status == "Active"?
+                                Image.asset("assets/home_page/heart.png"):
+                                GestureDetector(
                                   onTap: () async {
+                                    myCarsIndexId = "${favoriteCarModelObject[index].carsId}";
                                     await getLikeUnlikeCarWidget();
                                     if (carLikeUnlikeModelObject.message == "Liked") {
                                       print("isLiked");

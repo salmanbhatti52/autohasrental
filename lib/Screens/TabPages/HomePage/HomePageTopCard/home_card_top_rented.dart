@@ -30,7 +30,7 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
 
     prefs = await SharedPreferences.getInstance();
     print('in topRenterCarModelApi');
-    try {
+    // try {
       String apiUrl = topRentedCarsApiUrl;
       print("topRenterCarModelApi: $apiUrl");
       final response = await http.post(Uri.parse(apiUrl),
@@ -44,12 +44,11 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
         final responseString = response.body;
         print("topRenterCarResponse : ${responseString.toString()}");
         topRentedCarsModelObject = topRentedCarsModelFromJson(responseString);
-        print("topRenterCarName: ${topRentedCarsModelObject.data![0].vehicalName}");
-        print("topRenterCarPrice: ${topRentedCarsModelObject.data![0].carsPlans![0].pricePerMonth}");
+        print("topRenterCarLength: ${topRentedCarsModelObject.data!.length}");
       }
-    } catch (e) {
-      print('Error: ${e.toString()}');
-    }
+    // } catch (e) {
+    //   print('Error: ${e.toString()}');
+    // }
     loadingP = false;
     setState(() {});
   }
@@ -73,7 +72,7 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 1 / 1.42,
+                            childAspectRatio: 1 / 1.5,
                             mainAxisSpacing: 0,
                             crossAxisSpacing: 0,
                           ),
@@ -90,7 +89,7 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 10),
                                       child: Container(
-                                        height: MediaQuery.of(context).size.height * 0.24,
+                                        height: MediaQuery.of(context).size.height * 0.275,
                                         width: MediaQuery.of(context).size.width * 0.47,
                                         decoration: BoxDecoration(
                                             color: kWhite,
@@ -102,37 +101,39 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                             children: [
                                               SizedBox(height: MediaQuery.of(context).size.height * 0.06),
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        color: Colors.transparent,
-                                                        width: MediaQuery.of(context).size.width * 0.2,
-                                                        child: Text("${topRentedCarsModelObject.data![index].vehicalName} ",
-                                                          style: TextStyle(color: kBlack,
-                                                            fontSize: 7, fontFamily: poppinBold)),
-                                                      ),
-                                                      Text("${topRentedCarsModelObject.data![index].year}",
-                                                          style: TextStyle(color: kBlack,
-                                                            fontSize: 10, fontFamily: poppinRegular)),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
-                                                      SizedBox(
-                                                        width: MediaQuery.of(context).size.height * 0.005,
-                                                      ),
-                                                      topRentedCarsModelObject.data![index].rating == null
-                                                          ? Text("0.0", style: TextStyle(
-                                                                  color: kBlack, fontSize: 10, fontFamily: poppinMedium))
-                                                          : Text("${topRentedCarsModelObject.data![index].rating}",
-                                                              style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinMedium))
-                                                    ],
-                                                  ),
+                                                  Text("${topRentedCarsModelObject.data![index].vehicalName} ",
+                                                    style: TextStyle(color: kBlack,
+                                                      fontSize: 10, fontFamily: poppinBold)),
+                                                  Text("${topRentedCarsModelObject.data![index].year}",
+                                                      style: TextStyle(color: kBlack,
+                                                        fontSize: 10, fontFamily: poppinRegular)),
                                                 ],
                                               ),
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                                              Row(
+                                                children: [
+                                                  Text("${topRentedCarsModelObject.data![index].carsMakes!.name} ",
+                                                      style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                                                  Text("${topRentedCarsModelObject.data![index].carsModels!.name} ",
+                                                      style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                                                  Text("${topRentedCarsModelObject.data![index].carsColors!.name} ",
+                                                      style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                                                ],
+                                              ),
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                                              Row(
+                                                children: [
+                                                  Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                                  SizedBox(width: MediaQuery.of(context).size.height * 0.005),
+                                                  topRentedCarsModelObject.data![index].rating == null
+                                                      ? Text("0.0", style: TextStyle(
+                                                      color: kBlack, fontSize: 10, fontFamily: poppinMedium))
+                                                      : Text("${topRentedCarsModelObject.data![index].rating}",
+                                                      style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinMedium))
+                                                ],
+                                              ),
+
                                               const Divider(),
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -198,7 +199,7 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(height: MediaQuery.of(context).size.width * 0.02),
+                                              SizedBox(height: MediaQuery.of(context).size.width * 0.03),
                                               GestureDetector(
                                                 onTap: () {
                                                   // Navigator.push(
@@ -284,8 +285,8 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                       top: 03,
                                       left: 05,
                                       child: Container(
-                                        height: MediaQuery.of(context).size.width * 0.06,
-                                        width: MediaQuery.of(context).size.width * 0.18,
+                                        height: MediaQuery.of(context).size.width * 0.065,
+                                        width: MediaQuery.of(context).size.width * 0.19,
                                         decoration: BoxDecoration(
                                           color: kRed.withOpacity(0.8),
                                           borderRadius: const BorderRadius.only(

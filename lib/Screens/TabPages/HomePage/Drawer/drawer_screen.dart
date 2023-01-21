@@ -1,11 +1,16 @@
-import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
 import '../../../../Utils/colors.dart';
+import '../../../Authentication/LoginPage/login_page.dart';
 import 'Settings/AboutUs/about_us.dart';
 import 'Settings/LiveChat/live_chat_page_1.dart';
 import 'Settings/settings_screen.dart';
+import 'package:http/http.dart'as http;
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -15,11 +20,55 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+
+  GetUserProfileModel getUserProfileModelObject = GetUserProfileModel();
+  bool loadingP = true;
+  getUserProfileWidget() async {
+    loadingP = true;
+    setState(() {});
+    try {
+      String apiUrl = getUserProfileApiUrl;
+      print("getUserProfileApi: $apiUrl");
+      final response = await http.post(Uri.parse(apiUrl),
+          body: {
+            "users_customers_id" : userId,
+          },
+          headers: {
+            'Accept': 'application/json'
+          });
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("getUserProfileResponse: ${responseString.toString()}");
+        getUserProfileModelObject = getUserProfileModelFromJson(responseString);
+        print("getUserName: ${getUserProfileModelObject.data!.lastName}");
+        // setData();
+        print("getUserProfileImage: $baseUrlImage${getUserProfileModelObject.data!.profilePic}");
+      }
+    } catch (e) {
+      print('Error in getUserProfileWidget: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {
+      // setData();
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserProfileWidget();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
-      body: Container(
+      body:
+      // loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
+      Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: appBgColor,
@@ -27,6 +76,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: GestureDetector(
@@ -47,8 +97,42 @@ class _DrawerScreenState extends State<DrawerScreen> {
               padding: const EdgeInsets.only(left: 40),
               child: Row(
                 children: [
-                  Column(children: [
-                    Image.asset("assets/home_page/user.png", height: 70, width: 70,),
+                  Column(
+                    children: [
+                    // CachedNetworkImage(
+                    //   imageUrl: "$baseUrlImage${getUserProfileModelObject.data!.profilePic}",
+                    //   height: 75,
+                    //   width: 75,
+                    //   fit: BoxFit.fill,
+                    // ),
+                    //   getUserProfileModelObject.data!.profilePic == null? ClipRRect(
+                    //       borderRadius: BorderRadius.circular(80),
+                    //       child: Image.asset('assets/icons/fade_in_image.jpeg')):
+                    //   CachedNetworkImage(
+                    //     imageUrl: "$baseUrlImage${getUserProfileModelObject.data!.profilePic}",
+                    //     height: 75,
+                    //     width: 75,
+                    //     // placeholder: Image.asset('assets/icon/fade_in_image.jpeg'),
+                    //     fit: BoxFit.fill,
+                    //   ),
+
+                      Image.asset("assets/home_page/user.png", height: 70, width: 70,),
+
+                      // Image.network(
+                      //   '$baseUrlImage${getUserProfileModelObject.data!.profilePic}',
+                      //   loadingBuilder: (ctx, i, k) => Container(
+                      //       alignment: Alignment.center,
+                      //       width: 75,
+                      //       height: 75,
+                      //       child: const Center(child: CircularProgressIndicator())),
+                      //     errorBuilder: (ctx, o, n) {
+                      //     print("image error $o");
+                      //     // return const Icon(Icons.error);
+                      //     return ClipRRect(
+                      //         borderRadius: BorderRadius.circular(80),
+                      //         child: Image.asset('assets/icon/fade_in_image.jpeg', height: 70, width: 70,));
+                      //     }),
+
                   ],
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.04,),

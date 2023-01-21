@@ -63,7 +63,7 @@ class _TabbarBookForWeddingState extends State<TabbarBookForWedding>
         ),
         SizedBox(
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height * 0.35,
+          height: MediaQuery.of(context).size.height * 0.25,
           child: TabBarView(
             controller: tabController,
             children: const [

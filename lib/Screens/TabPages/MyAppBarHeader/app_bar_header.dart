@@ -1,11 +1,10 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_details_screen.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_page.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../Utils/colors.dart';
 import '../HomePage/Drawer/drawer_screen.dart';
 import '../HomePage/Notifications/notification_screen.dart';
+import '../MessagePage/message_details_screen.dart';
 
 Widget myHeaderDrawer(BuildContext context, backImage, titleText, rightImage) {
   return Padding(
@@ -120,7 +119,7 @@ class MyAppBarSingleImageWithText extends StatelessWidget
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30, right: 30),
+          padding: const EdgeInsets.only(top: 30, right: 0),
           child: Image.asset(
             backImage!,
             height: 25,
@@ -128,7 +127,7 @@ class MyAppBarSingleImageWithText extends StatelessWidget
           ),
         ),
       ),
-      leadingWidth: 80,
+      // leadingWidth: 80,
       title: Padding(
         padding: const EdgeInsets.only(top: 30),
         child: Row(

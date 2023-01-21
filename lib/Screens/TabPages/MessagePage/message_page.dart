@@ -26,11 +26,7 @@ class _MessagePageState extends State<MessagePage> {
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
     print("userId in Prefs is = $userId");
-
-    // getAllChatWidget();
-
     userChatHistoryApi();
-
   }
 
   @override
@@ -181,105 +177,4 @@ class _MessagePageState extends State<MessagePage> {
           );
         });
   }
-}
-
-List messageItemsList = [
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Josh Gibson',
-    "Subject line comes here",
-    "10 min ago",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Miss Mindy Kub',
-    "Subject line comes here",
-    "Yesterday",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Roxanne Nitzsche',
-    "Subject line comes here",
-    "Yesterday",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Deanna Stamm',
-    "Subject line comes here",
-    "29 August 2022",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Nettie Dicki V',
-    "Subject line comes here",
-    "29 August 2022",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Eula Mitchell',
-    "Subject line comes here",
-    "29 August 2022",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Lorium',
-    "Subject line comes here",
-    "29 August 2022",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Josh Gibson',
-    "Subject line comes here",
-    "10 min ago",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Miss Mindy Kub',
-    "Subject line comes here",
-    "Yesterday",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Roxanne Nitzsche',
-    "Subject line comes here",
-    "29 August 2022",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Deanna Stamm',
-    "Subject line comes here",
-    "29 August 2022",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Nettie Dicki V',
-    "Subject line comes here",
-    "29 August 2022",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Eula Mitchell',
-    "Subject line comes here",
-    "29 August 2022",
-  ),
-  MessageItemList(
-    "assets/home_page/user.png",
-    'Lorium',
-    "Subject line comes here",
-    "29 August 2022",
-  ),
-];
-
-class MessageItemList {
-  final String image;
-  final String sendName;
-  final String messageDescription;
-  final String msgTime;
-
-  MessageItemList(
-      this.image,
-      this.sendName,
-      this.messageDescription,
-      this.msgTime,
-      );
 }

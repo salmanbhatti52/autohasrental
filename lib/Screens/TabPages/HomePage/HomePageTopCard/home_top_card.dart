@@ -23,11 +23,13 @@ Widget myHorizontalCard(BuildContext context){
                   switch(index) {
                     case 0:
                       Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const EvSubscriptionPage()));
+                        MaterialPageRoute(builder: (context) => const EvSubscriptionPage( )));
                       break;
                     case 1:
                       Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const BookForWeddingPage()));
+                        MaterialPageRoute(builder: (context) => const BookForWeddingPage(
+
+                        )));
                       break;
                     case 2:
                       Navigator.push(context,

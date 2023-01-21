@@ -56,7 +56,7 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
         ),
         SizedBox(
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height * 0.28,
+          height: MediaQuery.of(context).size.height * 0.2,
           child: TabBarView(
             controller: tabController,
             children: const [

@@ -12,11 +12,11 @@ class EvSubscriptionCarsModel {
   });
 
   String? status;
-  List<Datum>? data;
+  List<EvDatum>? data;
 
   factory EvSubscriptionCarsModel.fromJson(Map<String, dynamic> json) => EvSubscriptionCarsModel(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<EvDatum>.from(json["data"].map((x) => EvDatum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -25,8 +25,8 @@ class EvSubscriptionCarsModel {
   };
 }
 
-class Datum {
-  Datum({
+class EvDatum {
+  EvDatum({
     this.carsId,
     this.carsUsageType,
     this.usersCompaniesId,
@@ -34,6 +34,7 @@ class Datum {
     this.carsMakesId,
     this.carsModelsId,
     this.year,
+    this.carsColorsId,
     this.vehicalName,
     this.licensePlate,
     this.discountPercentage,
@@ -57,8 +58,10 @@ class Datum {
     this.status,
     this.carsMakes,
     this.carsModels,
+    this.carsColors,
     this.carsRatings,
     this.totalBookings,
+    this.usersCompanies,
     this.favouriteStatus,
     this.carsPlans,
   });
@@ -70,6 +73,7 @@ class Datum {
   int? carsMakesId;
   int? carsModelsId;
   int? year;
+  int? carsColorsId;
   String? vehicalName;
   String? licensePlate;
   String? discountPercentage;
@@ -93,12 +97,14 @@ class Datum {
   String? status;
   CarsM? carsMakes;
   CarsM? carsModels;
+  CarsColors? carsColors;
   List<dynamic>? carsRatings;
   int? totalBookings;
+  UsersCompanies? usersCompanies;
   String? favouriteStatus;
   List<CarsPlan>? carsPlans;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory EvDatum.fromJson(Map<String, dynamic> json) => EvDatum(
     carsId: json["cars_id"],
     carsUsageType: json["cars_usage_type"],
     usersCompaniesId: json["users_companies_id"],
@@ -106,6 +112,7 @@ class Datum {
     carsMakesId: json["cars_makes_id"],
     carsModelsId: json["cars_models_id"],
     year: json["year"],
+    carsColorsId: json["cars_colors_id"],
     vehicalName: json["vehical_name"],
     licensePlate: json["license_plate"],
     discountPercentage: json["discount_percentage"],
@@ -129,8 +136,10 @@ class Datum {
     status: json["status"],
     carsMakes: CarsM.fromJson(json["cars_makes"]),
     carsModels: CarsM.fromJson(json["cars_models"]),
+    carsColors: CarsColors.fromJson(json["cars_colors"]),
     carsRatings: List<dynamic>.from(json["cars_ratings"].map((x) => x)),
     totalBookings: json["total_bookings"],
+    usersCompanies: UsersCompanies.fromJson(json["users_companies"]),
     favouriteStatus: json["favourite_status"],
     carsPlans: List<CarsPlan>.from(json["cars_plans"].map((x) => CarsPlan.fromJson(x))),
   );
@@ -143,6 +152,7 @@ class Datum {
     "cars_makes_id": carsMakesId,
     "cars_models_id": carsModelsId,
     "year": year,
+    "cars_colors_id": carsColorsId,
     "vehical_name": vehicalName,
     "license_plate": licensePlate,
     "discount_percentage": discountPercentage,
@@ -166,10 +176,36 @@ class Datum {
     "status": status,
     "cars_makes": carsMakes!.toJson(),
     "cars_models": carsModels!.toJson(),
+    "cars_colors": carsColors!.toJson(),
     "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x)),
     "total_bookings": totalBookings,
+    "users_companies": usersCompanies!.toJson(),
     "favourite_status": favouriteStatus,
     "cars_plans": List<dynamic>.from(carsPlans!.map((x) => x.toJson())),
+  };
+}
+
+class CarsColors {
+  CarsColors({
+    this.carsColorsId,
+    this.name,
+    this.status,
+  });
+
+  int? carsColorsId;
+  String? name;
+  String? status;
+
+  factory CarsColors.fromJson(Map<String, dynamic> json) => CarsColors(
+    carsColorsId: json["cars_colors_id"],
+    name: json["name"],
+    status: json["status"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "cars_colors_id": carsColorsId,
+    "name": name,
+    "status": status,
   };
 }
 
@@ -193,7 +229,7 @@ class CarsM {
     name: json["name"],
     image: json["image"],
     status: json["status"],
-    carsModelsId: json["cars_models_id"] == null ? null : json["cars_models_id"],
+    carsModelsId: json["cars_models_id"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -201,17 +237,17 @@ class CarsM {
     "name": name,
     "image": image,
     "status": status,
-    "cars_models_id": carsModelsId == null ? null : carsModelsId,
+    "cars_models_id": carsModelsId,
   };
 }
 
 class CarsPlan {
   CarsPlan({
-    this.carsPlansEvId,
-    this.carsId,
-    this.months,
-    this.pricePerMonth,
-    this.discountedPricePerMonth,
+   this.carsPlansEvId,
+   this.carsId,
+   this.months,
+   this.pricePerMonth,
+   this.discountedPricePerMonth,
   });
 
   int? carsPlansEvId;
@@ -234,5 +270,89 @@ class CarsPlan {
     "months": months,
     "price_per_month": pricePerMonth,
     "discounted_price_per_month": discountedPricePerMonth,
+  };
+}
+
+class UsersCompanies {
+  UsersCompanies({
+    this.usersCompaniesId,
+    this.companyName,
+    this.email,
+    this.password,
+    this.phone,
+    this.about,
+    this.bankName,
+    this.bankAccountNumber,
+    this.companyLocation,
+    this.companyRegistrationNumber,
+    this.companyLogo,
+    this.paypalEmail,
+    this.verifyEmailOtp,
+    this.forgotPasswordOtp,
+    this.verified,
+    this.dateAdded,
+    this.dateModified,
+    this.status,
+  });
+
+  int? usersCompaniesId;
+  String? companyName;
+  String? email;
+  String? password;
+  String? phone;
+  dynamic about;
+  String? bankName;
+  String? bankAccountNumber;
+  String? companyLocation;
+  String? companyRegistrationNumber;
+  String? companyLogo;
+  String? paypalEmail;
+  int? verifyEmailOtp;
+  int? forgotPasswordOtp;
+  String? verified;
+  DateTime? dateAdded;
+  DateTime? dateModified;
+  String? status;
+
+  factory UsersCompanies.fromJson(Map<String, dynamic> json) => UsersCompanies(
+    usersCompaniesId: json["users_companies_id"],
+    companyName: json["company_name"],
+    email: json["email"],
+    password: json["password"],
+    phone: json["phone"],
+    about: json["about"],
+    bankName: json["bank_name"],
+    bankAccountNumber: json["bank_account_number"],
+    companyLocation: json["company_location"],
+    companyRegistrationNumber: json["company_registration_number"],
+    companyLogo: json["company_logo"],
+    paypalEmail: json["paypal_email"],
+    verifyEmailOtp: json["verify_email_otp"],
+    forgotPasswordOtp: json["forgotPasswordOtp"],
+    verified: json["verified"],
+    dateAdded: DateTime.parse(json["date_added"]),
+    dateModified: DateTime.parse(json["date_modified"]),
+    status: json["status"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "users_companies_id": usersCompaniesId,
+    "company_name": companyName,
+    "email": email,
+    "password": password,
+    "phone": phone,
+    "about": about,
+    "bank_name": bankName,
+    "bank_account_number": bankAccountNumber,
+    "company_location": companyLocation,
+    "company_registration_number": companyRegistrationNumber,
+    "company_logo": companyLogo,
+    "paypal_email": paypalEmail,
+    "verify_email_otp": verifyEmailOtp,
+    "forgotPasswordOtp": forgotPasswordOtp,
+    "verified": verified,
+    "date_added": dateAdded!.toIso8601String(),
+    "date_modified": dateModified!.toIso8601String(),
+    "status": status,
   };
 }
