@@ -48,8 +48,9 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImageWithText(
-        title: "BMW 2 series, ", subtitle: "2022",
+      appBar: MyAppBarSingleImageWithText(
+        // title: "BMW 2 series, ", subtitle: "2022",
+        title: "${widget.carName}, ", subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png"),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),

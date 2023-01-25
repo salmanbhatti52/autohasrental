@@ -228,6 +228,9 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                                           Text("${carsPhotoGraphyModelObject.data![index].year} ",
                                               textAlign: TextAlign.left, style: TextStyle(
                                                   color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                          Text("${carsPhotoGraphyModelObject.data![index].carsColors!.name} ",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                                         ],
                                       ),
                                       SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -240,10 +243,6 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                                           Text("${carsPhotoGraphyModelObject.data![index].carsModels!.name} ",
                                               textAlign: TextAlign.left, style: TextStyle(
                                                   color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
-                                          Text("${carsPhotoGraphyModelObject.data![index].carsColors!.name} ",
-                                              textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
-
                                         ],
                                       ),
                                       SizedBox(height: MediaQuery.of(context).size.height * 0.01),
