@@ -19,19 +19,44 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../../../../Widget/myTextWidget.dart';
 import '../../../../../MyAppBarHeader/app_bar_header.dart';
 import '../../../../HomePageTopCard/BookForWedding/book_for_wedding_booking_details.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 
 class CartDetailsPage extends StatefulWidget {
-
-  final String? carImage, discountPercentage, carName, carModel, amount, myDate, myDay,
-      discountedAmount, selectedStartTime, selectedEndTime, carRatings, selectedHours, carMakerName;
+  final String? carImage,
+      discountPercentage,
+      carName,
+      carModel,
+      amount,
+      myDate,
+      myDay,
+      discountedAmount,
+      selectedStartTime,
+      selectedEndTime,
+      carRatings,
+      selectedHours,
+      carMakerName;
   final int? carYear, totalHoursInNumber;
   final double? hoursAmount, totalAmount;
-  const CartDetailsPage({Key? key, this.carImage, this.carName, this.carModel,
-    this.discountPercentage, this.carMakerName, this.selectedHours, this.hoursAmount,
-    this.totalAmount, this.selectedStartTime, this.selectedEndTime,
-    this.myDate, this.myDay, this.totalHoursInNumber,
-    this.carYear, this.carRatings, this.amount, this.discountedAmount}) : super(key: key);
+  const CartDetailsPage(
+      {Key? key,
+      this.carImage,
+      this.carName,
+      this.carModel,
+      this.discountPercentage,
+      this.carMakerName,
+      this.selectedHours,
+      this.hoursAmount,
+      this.totalAmount,
+      this.selectedStartTime,
+      this.selectedEndTime,
+      this.myDate,
+      this.myDay,
+      this.totalHoursInNumber,
+      this.carYear,
+      this.carRatings,
+      this.amount,
+      this.discountedAmount})
+      : super(key: key);
 
   @override
   State<CartDetailsPage> createState() => _CartDetailsPageState();
@@ -42,7 +67,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
 
   var emailController = TextEditingController();
 
-  mySelectedData(){
+  mySelectedData() {
     print("carId3 $carID $userId");
     print("carName3: ${widget.carName}");
     print("carImage3: ${widget.carImage}");
@@ -54,16 +79,20 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
     print("carRatings3: ${widget.carRatings}");
     print("carMakersName3: ${widget.carMakerName}");
     print("carDayDate3: ${widget.myDay} ${widget.myDate}");
-    print("carMakersName3: ${widget.carMakerName} ${widget.totalHoursInNumber}");
-    print("carStartEndTime3: ${widget.selectedStartTime} ${widget.selectedEndTime}");
-    print("carHours3: ${widget.selectedHours} ${widget.hoursAmount} ${widget.totalAmount}");
+    print(
+        "carMakersName3: ${widget.carMakerName} ${widget.totalHoursInNumber}");
+    print(
+        "carStartEndTime3: ${widget.selectedStartTime} ${widget.selectedEndTime}");
+    print(
+        "carHours3: ${widget.selectedHours} ${widget.hoursAmount} ${widget.totalAmount}");
   }
 
   File? image;
 
   Future pickCoverImage() async {
     try {
-      final selectedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final selectedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
       if (selectedImage == null) return;
       final imageTemporary = File(selectedImage.path);
       setState(() {
@@ -75,9 +104,11 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
       print('Failed to pick image: ${e.toString()}');
     }
   }
+
   bool isInAsyncCall = false;
 
-  PhotographyCheckOutModel photographyCheckOutModelObject = PhotographyCheckOutModel();
+  PhotographyCheckOutModel photographyCheckOutModelObject =
+      PhotographyCheckOutModel();
   bool loader = false;
   checkOutWidget() async {
     setState(() {
@@ -86,7 +117,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
     var request = http.MultipartRequest('POST', Uri.parse(checkOutApiUrl));
 
     Map<String, String> headers = {
-      'Accept' : 'application/json',
+      'Accept': 'application/json',
       'Cookie': cookieCheckOutApi,
     };
 
@@ -130,7 +161,6 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
     setState(() {
       loader = false;
     });
-
   }
 
   @override
@@ -177,7 +207,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               Container(
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: MediaQuery.of(context).size.height * 0.9,
                 color: Colors.transparent,
                 child: Stack(
                   children: [
@@ -188,7 +218,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.72,
+                          height: MediaQuery.of(context).size.height * 0.75,
                           width: MediaQuery.of(context).size.width * 0.47,
                           decoration: BoxDecoration(
                               color: kWhite,
@@ -198,105 +228,177 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.13),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.13),
                                 Row(
                                   children: [
-                                    Text("${widget.carName} | ", textAlign: TextAlign.left,
-                                      style: TextStyle(color: kBlack,
-                                        fontSize: 14, fontFamily: poppinBold)),
-                                    Text("${widget.carMakerName} ", textAlign: TextAlign.left,
-                                      style: TextStyle(color: kBlack,
-                                        fontSize: 12, fontFamily: poppinRegular)),
-                                    Text("${widget.carModel} ", textAlign: TextAlign.left,
-                                        style: TextStyle(color: kBlack,
-                                            fontSize: 14, fontFamily: poppinMedium)),
-                                    Text("${widget.carYear}", textAlign: TextAlign.left,
-                                        style: TextStyle(color: kBlack,
-                                            fontSize: 10, fontFamily: poppinRegular)),
+                                    Text("${widget.carName} | ",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinBold)),
+                                    Text("${widget.carMakerName} ",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 12,
+                                            fontFamily: poppinRegular)),
+                                    Text("${widget.carModel} ",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinMedium)),
+                                    Text("${widget.carYear}",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 10,
+                                            fontFamily: poppinRegular)),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
                                 Row(
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(top: 04),
-                                      child: Text("RM ", textAlign: TextAlign.left,
-                                        style: TextStyle(color: kRed,
-                                            fontSize: 5, fontFamily: poppinLight)),
+                                      child: Text("RM ",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: kRed,
+                                              fontSize: 5,
+                                              fontFamily: poppinLight)),
                                     ),
-                                    Text("${widget.amount}", textAlign: TextAlign.left,
-                                      style: TextStyle(color: kRed,
-                                          decoration: TextDecoration.lineThrough,
-                                          fontSize: 10, fontFamily: poppinLight),
+                                    Text(
+                                      "${widget.amount}",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          color: kRed,
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          fontSize: 10,
+                                          fontFamily: poppinLight),
                                     ),
-                                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.02),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 06),
-                                      child: Text("RM ", textAlign: TextAlign.left,
-                                        style: TextStyle(color: borderColor,
-                                            fontSize: 7, fontFamily: poppinSemiBold)),
+                                      child: Text("RM ",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: borderColor,
+                                              fontSize: 7,
+                                              fontFamily: poppinSemiBold)),
                                     ),
                                     Text("${widget.discountedAmount}",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: borderColor,
+                                            fontSize: 20,
+                                            fontFamily: poppinSemiBold)),
+                                    Text(
+                                      "/ hour",
                                       textAlign: TextAlign.left,
-                                      style: TextStyle(color: borderColor,
-                                          fontSize: 20, fontFamily: poppinSemiBold)),
-                                    Text("/ hour", textAlign: TextAlign.left,
-                                      style: TextStyle(color: kBlack,
-                                          fontSize: 8, fontFamily: poppinRegular),
+                                      style: TextStyle(
+                                          color: kBlack,
+                                          fontSize: 8,
+                                          fontFamily: poppinRegular),
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
                                 Row(
                                   children: [
-                                    Image.asset("assets/home_page/Promoted.png"),
+                                    Image.asset(
+                                        "assets/home_page/Promoted.png"),
                                     const SizedBox(width: 05),
-                                    Text("Verified Dealer", textAlign: TextAlign.left,
-                                      style: TextStyle(color: textLabelColor,
-                                        fontSize: 10, fontFamily: poppinRegular)),
-                                    const SizedBox(width: 05,),
+                                    Text("Verified Dealer",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: textLabelColor,
+                                            fontSize: 10,
+                                            fontFamily: poppinRegular)),
+                                    const SizedBox(
+                                      width: 05,
+                                    ),
                                     Container(
-                                      height: 20, width: 40,
+                                      height: 20,
+                                      width: 40,
                                       decoration: BoxDecoration(
                                           color: kBlack,
-                                          borderRadius: BorderRadius.circular(20)),
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
                                       child: Center(
-                                        child: Text("New", textAlign: TextAlign.left,
-                                          style: TextStyle(color: kWhite,
-                                              fontSize: 8, fontFamily: poppinRegular)),
+                                        child: Text("New",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                color: kWhite,
+                                                fontSize: 8,
+                                                fontFamily: poppinRegular)),
                                       ),
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
                                 Row(
                                   children: [
                                     Row(
                                       children: [
-                                        SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                                        Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                                         SizedBox(
-                                          width: MediaQuery.of(context).size.height * 0.01),
-
-                                        widget.carRatings == null?
-                                        Text("0.0", textAlign: TextAlign.left,
-                                          style: TextStyle(color: kBlack,
-                                              fontSize: 12, fontFamily: poppinRegular)):
-                                        Text("${widget.carRatings}", textAlign: TextAlign.left,
-                                            style: TextStyle(color: kBlack,
-                                                fontSize: 12, fontFamily: poppinRegular))
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01),
+                                        Image.asset(
+                                            "assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01),
+                                        widget.carRatings == null
+                                            ? Text("0.0",
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: kBlack,
+                                                    fontSize: 12,
+                                                    fontFamily: poppinRegular))
+                                            : Text("${widget.carRatings}",
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: kBlack,
+                                                    fontSize: 12,
+                                                    fontFamily: poppinRegular))
                                       ],
                                     ),
-                                    SizedBox(width: MediaQuery.of(context).size.height * 0.2),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                0.2),
                                     Container(
-                                      height: 25, width: 80,
+                                      height: 25,
+                                      width: 80,
                                       decoration: BoxDecoration(
                                           color: kBlack,
-                                          borderRadius: BorderRadius.circular(20)),
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
                                       child: Center(
-                                        child: Text("Pre book", textAlign: TextAlign.left,
-                                          style: TextStyle(color: kWhite,
-                                              fontSize: 12, fontFamily: poppinMedium)),
+                                        child: Text("Pre book",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                color: kWhite,
+                                                fontSize: 12,
+                                                fontFamily: poppinMedium)),
                                       ),
                                     ),
                                   ],
@@ -364,16 +466,25 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                 //   ],
                                 // ),
 
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("${widget.selectedHours} Plan", textAlign: TextAlign.left,
-                                      style: TextStyle(color: textLabelColor,
-                                          fontSize: 14, fontFamily: poppinRegular)),
-                                    Text("RM ${widget.hoursAmount}", textAlign: TextAlign.right,
-                                      style: TextStyle(color: textLabelColor,
-                                          fontSize: 14, fontFamily: poppinRegular)),
+                                    Text("${widget.selectedHours} Plan",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: textLabelColor,
+                                            fontSize: 14,
+                                            fontFamily: poppinRegular)),
+                                    Text("RM ${widget.hoursAmount}",
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: textLabelColor,
+                                            fontSize: 14,
+                                            fontFamily: poppinRegular)),
                                   ],
                                 ),
 
@@ -400,32 +511,51 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                 //   ],
                                 // ),
 
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Service Fee (6%)",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(color: textLabelColor,
-                                          fontSize: 14, fontFamily: poppinRegular)),
-                                    Text("RM $serviceFee", textAlign: TextAlign.right,
-                                      style: TextStyle(color: textLabelColor,
-                                          fontSize: 14, fontFamily: poppinRegular)),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: textLabelColor,
+                                            fontSize: 14,
+                                            fontFamily: poppinRegular)),
+                                    Text("RM $serviceFee",
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: textLabelColor,
+                                            fontSize: 14,
+                                            fontFamily: poppinRegular)),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Total Fee", textAlign: TextAlign.left,
-                                      style: TextStyle(color: kBlack,
-                                          fontSize: 16, fontFamily: poppinSemiBold)),
-                                    Text("RM ${widget.totalAmount}", textAlign: TextAlign.right,
-                                      style: TextStyle(color: kBlack,
-                                          fontSize: 16, fontFamily: poppinSemiBold)),
+                                    Text("Total Fee",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 16,
+                                            fontFamily: poppinSemiBold)),
+                                    Text("RM ${widget.totalAmount}",
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 16,
+                                            fontFamily: poppinSemiBold)),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
 
                                 Form(
                                   key: formKeyCheckOut,
@@ -438,24 +568,34 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                             decoration: BoxDecoration(
                                                 color: kWhite,
                                                 shape: BoxShape.circle,
-                                                border: Border.all(color: kWhite, width: 3)),
+                                                border: Border.all(
+                                                    color: kWhite, width: 3)),
                                             child: CircleAvatar(
-                                              radius: (screenWidth > 600) ? 90 : 70,
-                                              backgroundColor: Colors.transparent,
-                                              backgroundImage: image == null?
-                                              const AssetImage("assets/home_page/user.png",)
-                                                  : Image.file(image!, height: 50, width: 50, fit: BoxFit.contain,).image,
+                                              radius:
+                                                  (screenWidth > 600) ? 90 : 70,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              backgroundImage: image == null
+                                                  ? const AssetImage(
+                                                      "assets/home_page/user.png",
+                                                    )
+                                                  : Image.file(
+                                                      image!,
+                                                      height: 50,
+                                                      width: 50,
+                                                      fit: BoxFit.contain,
+                                                    ).image,
                                             ),
                                           ),
-
                                           Positioned(
                                             right: 0,
                                             bottom: 18,
                                             child: GestureDetector(
-                                                onTap: (){
+                                                onTap: () {
                                                   pickCoverImage();
                                                 },
-                                                child: Image.asset("assets/payment_card_images/edit_profile_icon.png")),
+                                                child: Image.asset(
+                                                    "assets/payment_card_images/edit_profile_icon.png")),
                                           ),
                                         ],
                                       ),
@@ -463,40 +603,62 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                   ),
                                 ),
 
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
 
                                 Center(
                                   child: Text(
-                                    "*A security deposit may be applicable, depending on your eligibility assessment.",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(fontSize: 12,
-                                        fontFamily: poppinRegular, color: borderColor)),
+                                      "*A security deposit may be applicable, depending on your eligibility assessment.",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontFamily: poppinRegular,
+                                          color: borderColor)),
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.02),
                                 Center(
                                   child: GestureDetector(
-                                    onTap: (){
-                                      Navigator.pushReplacement(context, MaterialPageRoute(
-                                          builder: (context) => BookForWeddingBookingDetails(
-                                            // carName: widget.carName,
-                                            // carYear: widget.carYear,
-                                            selectedStartTime: widget.selectedStartTime,
-                                            selectedEndTime: widget.selectedEndTime,
-                                            selectedHours: widget.selectedHours,
-                                            hours: widget.totalHoursInNumber,
-                                            selectedDate: widget.myDate,
-                                            selectedDay: widget.myDay,)));
+                                    onTap: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BookForWeddingBookingDetails(
+                                                    // carName: widget.carName,
+                                                    // carYear: widget.carYear,
+                                                    selectedStartTime: widget
+                                                        .selectedStartTime,
+                                                    selectedEndTime:
+                                                        widget.selectedEndTime,
+                                                    selectedHours:
+                                                        widget.selectedHours,
+                                                    hours: widget
+                                                        .totalHoursInNumber,
+                                                    selectedDate: widget.myDate,
+                                                    selectedDay: widget.myDay,
+                                                  )));
                                     },
                                     child: Container(
-                                      height: MediaQuery.of(context).size.height*0.03,
-                                      width: MediaQuery.of(context).size.width *0.3,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.03,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.3,
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          border: Border.all(color: borderColor)),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          border:
+                                              Border.all(color: borderColor)),
                                       child: Center(
-                                          child: Text("Edit", textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize: 12,
-                                                  fontFamily: poppinRegular, color: borderColor))),
+                                          child: Text("Edit",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontFamily: poppinRegular,
+                                                  color: borderColor))),
                                     ),
                                   ),
                                 ),
@@ -507,10 +669,12 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                       ),
                     ),
                     Positioned(
-                      child: Image.network("${widget.carImage}", width: 400, height: 150),
+                      child: Image.network("${widget.carImage}",
+                          width: 400, height: 150),
                     ),
                     Positioned(
-                        top: 0, left: 20,
+                        top: 0,
+                        left: 20,
                         child: Container(
                           height: MediaQuery.of(context).size.width * 0.07,
                           width: MediaQuery.of(context).size.width * 0.2,
@@ -523,66 +687,76 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("${widget.discountPercentage}% ", textAlign: TextAlign.left,
-                                style: TextStyle(color: kWhite,
-                                    fontSize: 12, fontFamily: poppinSemiBold)),
+                              Text("${widget.discountPercentage}% ",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: kWhite,
+                                      fontSize: 12,
+                                      fontFamily: poppinSemiBold)),
                               Padding(
                                 padding: const EdgeInsets.only(top: 03),
-                                child: Text("OFF ", textAlign: TextAlign.left,
-                                    style: TextStyle(color: kWhite,
-                                        fontSize: 8, fontFamily: poppinRegular)),
+                                child: Text("OFF ",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: kWhite,
+                                        fontSize: 8,
+                                        fontFamily: poppinRegular)),
                               ),
                             ],
                           ),
                         )),
                     Positioned(
-                        top: 0, right: 20,
-                        child: Image.asset("assets/home_page/heart_transparent.png", color: kBlack),
+                      top: 0,
+                      right: 20,
+                      child: Image.asset(
+                          "assets/home_page/heart_transparent.png",
+                          color: kBlack),
                     ),
                   ],
                 ),
               ),
               GestureDetector(
                   onTap: () async {
-                  // bottomSheetWidget();
+                    // bottomSheetWidget();
 
-
-
-                    if(formKeyCheckOut.currentState!.validate()){
-
+                    if (formKeyCheckOut.currentState!.validate()) {
                       setState(() {
                         isInAsyncCall = true;
                       });
 
-                      if(image == null){
+                      if (image == null) {
                         toastFailedMessage("image error", kRed);
                         setState(() {
                           isInAsyncCall = false;
                         });
                       }
                       await checkOutWidget();
-                        Future.delayed(const Duration(seconds: 3), () {
-                          toastSuccessMessage("successfully", Colors.green);
+                      Future.delayed(const Duration(seconds: 3), () {
+                        toastSuccessMessage("successfully", Colors.green);
 
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => const TabBarPage()));
-                          setState(() {
-                            isInAsyncCall = false;
-                          });
-                          print("false: $isInAsyncCall");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TabBarPage()));
+                        setState(() {
+                          isInAsyncCall = false;
                         });
+                        print("false: $isInAsyncCall");
+                      });
                     }
-
                   },
                   child: loginButton("Check out", context)),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
       ),
     );
   }
-  bottomSheetWidget(){
+
+  bottomSheetWidget() {
     return showMaterialModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
@@ -601,35 +775,42 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
               children: [
                 const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.05,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: kBlack,
-                        borderRadius: BorderRadius.circular(30)),
+                        color: kBlack, borderRadius: BorderRadius.circular(30)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset("assets/payment_card_images/apple_image.png",
+                        Image.asset(
+                            "assets/payment_card_images/apple_image.png",
                             color: kWhite),
                         const SizedBox(width: 10),
-                        Text("Pay", textAlign: TextAlign.center,
-                            style: TextStyle(color: kWhite,
-                                fontFamily: poppinRegular, fontSize: 18)),
+                        Text("Pay",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: kWhite,
+                                fontFamily: poppinRegular,
+                                fontSize: 18)),
                       ],
                     ),
                   ),
                 ),
                 Text("Or pay with card",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: detailsTextColor,
-                        fontFamily: poppinSemiBold, fontSize: 16)),
+                    style: TextStyle(
+                        color: detailsTextColor,
+                        fontFamily: poppinSemiBold,
+                        fontSize: 16)),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     textWidgetBlack("Email"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.005),
                     EditTextUtils().getCustomEditTextArea(
                       hintValue: "rose.matthews@mail.com",
                       validation: true,
@@ -644,7 +825,8 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     textWidgetBlack("Card Information"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.005),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.06,
                       decoration: BoxDecoration(
@@ -663,11 +845,13 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                           hintStyle: TextStyle(color: textLabelColor),
                           focusColor: borderColor,
                           fillColor: kWhite,
-                          prefixIcon: Image.asset("assets/payment_card_images/card_prefix.png"),
-                          suffixIcon: Image.asset("assets/payment_card_images/visa_icon.png",),
+                          prefixIcon: Image.asset(
+                              "assets/payment_card_images/card_prefix.png"),
+                          suffixIcon: Image.asset(
+                            "assets/payment_card_images/visa_icon.png",
+                          ),
                         ),
-                        style: TextStyle(
-                            color: borderColor, fontSize: 14),
+                        style: TextStyle(color: borderColor, fontSize: 14),
                       ),
                     ),
                   ],
@@ -680,7 +864,9 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           textWidgetBlack("Expire date"),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.005),
                           Container(
                             height: MediaQuery.of(context).size.height * 0.06,
                             decoration: BoxDecoration(
@@ -697,9 +883,12 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                 hintText: 'MM/YY',
                                 hintStyle: TextStyle(color: textLabelColor),
                                 focusColor: borderColor,
-                                prefixIcon: Image.asset("assets/payment_card_images/calendar.png",),
+                                prefixIcon: Image.asset(
+                                  "assets/payment_card_images/calendar.png",
+                                ),
                               ),
-                              style: TextStyle(color: borderColor, fontSize: 14),
+                              style:
+                                  TextStyle(color: borderColor, fontSize: 14),
                             ),
                           ),
                         ],
@@ -711,7 +900,9 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           textWidgetBlack("CVC"),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.005),
                           Container(
                             height: MediaQuery.of(context).size.height * 0.06,
                             decoration: BoxDecoration(
@@ -729,9 +920,11 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                 hintText: 'CVC',
                                 hintStyle: TextStyle(color: textLabelColor),
                                 focusColor: borderColor,
-                                prefixIcon: Image.asset("assets/payment_card_images/cvc.png"),
+                                prefixIcon: Image.asset(
+                                    "assets/payment_card_images/cvc.png"),
                               ),
-                              style: TextStyle(color: borderColor, fontSize: 14),
+                              style:
+                                  TextStyle(color: borderColor, fontSize: 14),
                             ),
                           ),
                         ],
@@ -744,7 +937,8 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     textWidgetBlack("Country or Region"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.005),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.06,
                       width: MediaQuery.of(context).size.width,
@@ -781,7 +975,8 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     textWidgetBlack("Zip"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.005),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.06,
                       decoration: BoxDecoration(
@@ -817,42 +1012,67 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                         color: homeBgColor,
-                                        borderRadius: BorderRadius.circular(20)),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(12.0),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child:
-                                                Image.asset("assets/payment_card_images/cancle.png"),
+                                                child: Image.asset(
+                                                    "assets/payment_card_images/cancle.png"),
                                               ),
                                             ],
                                           ),
-                                          Image.asset("assets/payment_card_images/alert_dialog_image.png"),
-                                          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                          Text("Congratulation!", textAlign: TextAlign.center,
-                                              style: TextStyle(color: borderColor,
-                                                  fontSize: 24, fontFamily: poppinSemiBold)),
-                                          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                          Text("Your Ride is Booked.", textAlign: TextAlign.center,
-                                              style: TextStyle(color: textLabelColor,
-                                                  fontSize: 20, fontFamily: poppinMedium)),
-                                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                                          Image.asset(
+                                              "assets/payment_card_images/alert_dialog_image.png"),
+                                          SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.01),
+                                          Text("Congratulation!",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: borderColor,
+                                                  fontSize: 24,
+                                                  fontFamily: poppinSemiBold)),
+                                          SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.01),
+                                          Text("Your Ride is Booked.",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: textLabelColor,
+                                                  fontSize: 20,
+                                                  fontFamily: poppinMedium)),
+                                          SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.02),
                                           GestureDetector(
                                               onTap: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: loginButton("Okay", context)),
+                                              child:
+                                                  loginButton("Okay", context)),
                                         ],
                                       ),
                                     ),

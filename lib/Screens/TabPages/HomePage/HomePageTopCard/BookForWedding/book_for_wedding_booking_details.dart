@@ -16,18 +16,32 @@ import '../../Home/Address/delivery_address.dart';
 import 'package:http/http.dart' as http;
 
 class BookForWeddingBookingDetails extends StatefulWidget {
-  final String? carName, selectedDate, selectedHours, selectedDay, selectedStartTime, selectedEndTime;
+  final String? carName,
+      selectedDate,
+      selectedHours,
+      selectedDay,
+      selectedStartTime,
+      selectedEndTime;
   final int? carYear, hours;
-  const BookForWeddingBookingDetails({Key? key, this.selectedStartTime,
-    this.selectedEndTime, this.carName, this.carYear, this.selectedDay,
-    this.hours, this.selectedHours, this.selectedDate}) : super(key: key);
+  const BookForWeddingBookingDetails(
+      {Key? key,
+      this.selectedStartTime,
+      this.selectedEndTime,
+      this.carName,
+      this.carYear,
+      this.selectedDay,
+      this.hours,
+      this.selectedHours,
+      this.selectedDate})
+      : super(key: key);
 
   @override
-  State<BookForWeddingBookingDetails> createState() => _BookForWeddingBookingDetailsState();
+  State<BookForWeddingBookingDetails> createState() =>
+      _BookForWeddingBookingDetailsState();
 }
 
-class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDetails> {
-
+class _BookForWeddingBookingDetailsState
+    extends State<BookForWeddingBookingDetails> {
   CarsPhotoGraphyModel carsPhotoGraphyModelObject = CarsPhotoGraphyModel();
   String? valueTimeStart;
   String? valueTimeEnd;
@@ -35,13 +49,14 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   final GlobalKey<FormState> formKeyPhotography = GlobalKey<FormState>();
   bool loadingP = true;
 
-  mySelectedData(){
+  mySelectedData() {
     valueDate = "${widget.selectedDate}";
     print("mySelectedDate: $valueDate");
     print("mySelectedDay: ${widget.selectedDay}");
     print("mySelectedTime: ${widget.selectedHours}");
     print("mySelectedHours: ${widget.hours}");
-    print("mySelected Time: ${widget.selectedStartTime} ${widget.selectedEndTime}");
+    print(
+        "mySelected Time: ${widget.selectedStartTime} ${widget.selectedEndTime}");
   }
 
   selectDate(BuildContext context) async {
@@ -79,17 +94,17 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
       String apiUrl = carsPhotoGraphyApiUrl;
       print("carsPhotographyApi: $apiUrl");
       final response = await http.post(Uri.parse(apiUrl),
-          body: {
-            "users_customers_id" : userId
-          },
+          body: {"users_customers_id": userId},
           headers: {'Accept': 'application/json'});
       print('${response.statusCode}');
       print(response);
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("carsPhotoGraphyResponse: ${responseString.toString()}");
-        carsPhotoGraphyModelObject = carsPhotoGraphyModelFromJson(responseString);
-        print("carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.status}");
+        carsPhotoGraphyModelObject =
+            carsPhotoGraphyModelFromJson(responseString);
+        print(
+            "carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.status}");
       }
     } catch (e) {
       print('Error: ${e.toString()}');
@@ -107,13 +122,15 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
 
   int? myHours;
 
-  calculatePricePerHour(){
-    pricePerHrs = double.parse(carsPhotoGraphyModelObject.data![0].carsPlans![0].discountedPricePerHour.toString())
-        * int.parse(myHours.toString());
+  calculatePricePerHour() {
+    pricePerHrs = double.parse(carsPhotoGraphyModelObject
+            .data![0].carsPlans![0].discountedPricePerHour
+            .toString()) *
+        int.parse(myHours.toString());
     print("perHourPrice: $pricePerHrs");
   }
 
-  myTotal(){
+  myTotal() {
     totalPricePerHrs = pricePerHrs + serviceFee;
     print("totalPerHour: $totalPricePerHrs");
   }
@@ -125,7 +142,8 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: MyAppBarSingleImageWithText(
-        title: "${widget.carName}, ", subtitle: "${widget.carYear}",
+        title: "${widget.carName}, ",
+        subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png",
       ),
       body: SingleChildScrollView(
@@ -142,9 +160,12 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Choose Subscription plan", textAlign: TextAlign.left,
-                          style: TextStyle(color: kBlack,
-                              fontSize: 14, fontFamily: poppinSemiBold)),
+                        Text("Choose Subscription plan",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: kBlack,
+                                fontSize: 14,
+                                fontFamily: poppinSemiBold)),
                         // SizedBox(height: MediaQuery.of(context).size.height* 0.01),
                         // const BFWChooseSubscriptionPlan(),
                         Padding(
@@ -160,19 +181,27 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                                 ),
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                                    child: Text('${widget.selectedDay} - $dropdownValueTime',
-                                        textAlign: TextAlign.left, style: TextStyle(fontSize: 12.0,
-                                            fontFamily: poppinRegular, color: kWhite)),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Text(
+                                        '${widget.selectedDay} - $dropdownValueTime',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 12.0,
+                                            fontFamily: poppinRegular,
+                                            color: kWhite)),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.01),
                               GestureDetector(
                                   onTap: () {
                                     showMyBottomSheet(context);
                                   },
-                                  child: SvgPicture.asset('assets/icon/edit_booking_icoon.svg')),
+                                  child: SvgPicture.asset(
+                                      'assets/icon/edit_booking_icoon.svg')),
                             ],
                           ),
                         ),
@@ -186,13 +215,20 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("$dropdownValueTime Plan", textAlign: TextAlign.left,
-                              style: TextStyle(fontFamily: poppinRegular,
-                                  fontSize: 14, color: detailsTextColor),
+                            Text(
+                              "$dropdownValueTime Plan",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontFamily: poppinRegular,
+                                  fontSize: 14,
+                                  color: detailsTextColor),
                             ),
-                            Text("RM $pricePerHrs", textAlign: TextAlign.right,
-                              style: TextStyle(fontFamily: poppinRegular,
-                                  fontSize: 14, color: detailsTextColor)),
+                            Text("RM $pricePerHrs",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: poppinRegular,
+                                    fontSize: 14,
+                                    color: detailsTextColor)),
                           ],
                         ),
 
@@ -200,33 +236,49 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Service Fee (6%)", textAlign: TextAlign.left,
-                              style: TextStyle(fontFamily: poppinRegular,
-                                  fontSize: 14, color: detailsTextColor)),
-                            Text("RM $serviceFee", textAlign: TextAlign.right,
-                              style: TextStyle(fontFamily: poppinRegular,
-                                  fontSize: 14, color: detailsTextColor)),
+                            Text("Service Fee (6%)",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontFamily: poppinRegular,
+                                    fontSize: 14,
+                                    color: detailsTextColor)),
+                            Text("RM $serviceFee",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: poppinRegular,
+                                    fontSize: 14,
+                                    color: detailsTextColor)),
                           ],
                         ),
                         SizedBox(height: screenHeight * 0.02),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Total Amount", textAlign: TextAlign.left,
-                              style: TextStyle(fontSize: 16,
-                                  fontFamily: poppinSemiBold, color: kBlack),
+                            Text(
+                              "Total Amount",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: poppinSemiBold,
+                                  color: kBlack),
                             ),
-                            Text("RM $totalPricePerHrs", textAlign: TextAlign.left,
-                              style: TextStyle(fontSize: 16,
-                                  fontFamily: poppinSemiBold, color: kBlack)),
+                            Text("RM $totalPricePerHrs",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: poppinSemiBold,
+                                    color: kBlack)),
                           ],
                         ),
                         SizedBox(height: screenHeight * 0.02),
                         Text(
-                          "*A security deposit may be applicable, depending on your eligibility assessment.",
-                          maxLines: 2, textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 12,
-                              fontFamily: poppinRegular, color: borderColor)),
+                            "*A security deposit may be applicable, depending on your eligibility assessment.",
+                            maxLines: 2,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: poppinRegular,
+                                color: borderColor)),
                         SizedBox(height: screenHeight * 0.02),
                         Container(
                           height: screenHeight * 0.1,
@@ -238,31 +290,38 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                             padding: const EdgeInsets.only(left: 10),
                             child: Row(
                               children: [
-                                Image.asset("assets/home_page/business-investment.png"),
+                                Image.asset(
+                                    "assets/home_page/business-investment.png"),
                                 SizedBox(width: screenWidth * 0.02),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text("Save RM 37,538",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(fontSize: 16,
-                                              fontFamily: poppinSemiBold, color: kWhite)),
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: poppinSemiBold,
+                                                color: kWhite)),
                                         SizedBox(width: screenWidth * 0.03),
                                         Container(
                                           height: 25,
                                           width: screenWidth * 0.24,
                                           decoration: BoxDecoration(
                                               color: borderColor,
-                                              borderRadius: BorderRadius.circular(20)),
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
                                           child: Center(
                                             child: Text("Learn more",
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(fontSize: 12,
-                                                  fontFamily: poppinRegular, color: kWhite)),
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontFamily: poppinRegular,
+                                                    color: kWhite)),
                                           ),
                                         ),
                                       ],
@@ -272,12 +331,16 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                                       children: [
                                         Text("in your first year with ",
                                             textAlign: TextAlign.left,
-                                            style: TextStyle(color: kWhite,
-                                                fontSize: 10, fontFamily: poppinRegular)),
+                                            style: TextStyle(
+                                                color: kWhite,
+                                                fontSize: 10,
+                                                fontFamily: poppinRegular)),
                                         Text("AutoHaus Rental",
                                             textAlign: TextAlign.left,
-                                            style: TextStyle(color: borderColor,
-                                                fontSize: 10, fontFamily: poppinSemiBold)),
+                                            style: TextStyle(
+                                                color: borderColor,
+                                                fontSize: 10,
+                                                fontFamily: poppinSemiBold)),
                                       ],
                                     ),
                                   ],
@@ -287,45 +350,78 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                           ),
                         ),
                         SizedBox(height: screenHeight * 0.02),
-                        Text("What's Included",
+                        Text(
+                          "What's Included",
                           textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 14,
-                              fontFamily: poppinSemiBold, color: kBlack),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: poppinSemiBold,
+                              color: kBlack),
                         ),
                         SizedBox(height: screenHeight * 0.02),
-                        myList("assets/home_page/Path 2582.png", "Periodic maintenance package (including pick up and delivery)"),
-                        myList("assets/home_page/Path 2582.png", "Wear & tear (including tyres, wipers, and brake pads replacement)"),
-                        myList("assets/home_page/Path 2582.png", "Comprehensive insurance coverage"),
-                        myList("assets/home_page/Path 2582.png", "Personal accident coverage for driver and passengers"),
-                        myList("assets/home_page/Path 2582.png", "24-hour roadside assistance (with unlimited towing and minor roadside repairs)"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Periodic maintenance package (including pick up and delivery)"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Wear & tear (including tyres, wipers, and brake pads replacement)"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Comprehensive insurance coverage"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Personal accident coverage for driver and passengers"),
+                        myList("assets/home_page/Path 2582.png",
+                            "24-hour roadside assistance (with unlimited towing and minor roadside repairs)"),
                         myList("assets/home_page/Path 2582.png", "Road tax"),
-                        myList("assets/home_page/Path 2582.png", "Flux Concierge Service"),
-                        myList("assets/home_page/Path 2582.png", "Theft recovery services"),
-                        myList("assets/home_page/Path 2582.png", "Emergency dispatch services"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Flux Concierge Service"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Theft recovery services"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Emergency dispatch services"),
                         SizedBox(height: screenHeight * 0.02),
                         GestureDetector(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
                                       builder: (context) => DeliveryAddress(
-                                        carName: carsPhotoGraphyModelObject.data![0].vehicalName,
-                                        carYear: carsPhotoGraphyModelObject.data![0].year,
-                                        carModel: carsPhotoGraphyModelObject.data![0].carsModels!.name,
-                                        carImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![0].image1}",
-                                        discountedAmount: carsPhotoGraphyModelObject.data![0].carsPlans![0].discountedPricePerHour,
-                                        amount: carsPhotoGraphyModelObject.data![0].carsPlans![0].pricePerHour,
-                                        discountPercentage: carsPhotoGraphyModelObject.data![0].discountPercentage,
-                                        carMakerName: carsPhotoGraphyModelObject.data![0].carsMakes!.name,
-                                        selectedHoursInString: dropdownValueTime,
-                                        totalHoursInNumber: myHours,
-                                        hoursAmount: pricePerHrs,
-                                        totalAmount: totalPricePerHrs,
-                                        myDate: valueDate,
-                                        myDay: valueDay,
-                                        carRating: carsPhotoGraphyModelObject.data![0].rating,
-                                        selectedStartTime: valueTimeStart,
-                                        selectedEndTime: valueTimeEnd,
-                                      )));
-                              print("startAndEndTime $valueTimeStart $valueTimeEnd");
+                                            carName: carsPhotoGraphyModelObject
+                                                .data![0].vehicalName,
+                                            carYear: carsPhotoGraphyModelObject
+                                                .data![0].year,
+                                            carModel: carsPhotoGraphyModelObject
+                                                .data![0].carsModels!.name,
+                                            carImage:
+                                                "$baseUrlImage${carsPhotoGraphyModelObject.data![0].image1}",
+                                            discountedAmount:
+                                                carsPhotoGraphyModelObject
+                                                    .data![0]
+                                                    .carsPlans![0]
+                                                    .discountedPricePerHour,
+                                            amount: carsPhotoGraphyModelObject
+                                                .data![0]
+                                                .carsPlans![0]
+                                                .pricePerHour,
+                                            discountPercentage:
+                                                carsPhotoGraphyModelObject
+                                                    .data![0]
+                                                    .discountPercentage,
+                                            carMakerName:
+                                                carsPhotoGraphyModelObject
+                                                    .data![0].carsMakes!.name,
+                                            selectedHoursInString:
+                                                dropdownValueTime,
+                                            totalHoursInNumber: myHours,
+                                            hoursAmount: pricePerHrs,
+                                            totalAmount: totalPricePerHrs,
+                                            myDate: valueDate,
+                                            myDay: valueDay,
+                                            carRating:
+                                                carsPhotoGraphyModelObject
+                                                    .data![0].rating,
+                                            selectedStartTime: valueTimeStart,
+                                            selectedEndTime: valueTimeEnd,
+                                          )));
+                              print(
+                                  "startAndEndTime $valueTimeStart $valueTimeEnd");
                               print("valueDate $valueDate");
                             },
                             child: loginButton("Next", context)),
@@ -350,9 +446,13 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
           padding: const EdgeInsets.symmetric(horizontal: 07),
           width: MediaQuery.of(context).size.width * 0.8,
           color: Colors.transparent,
-          child: Text(myText, textAlign: TextAlign.left,
-            maxLines: 2, style: TextStyle(fontSize: 10,
-                fontFamily: poppinRegular, color: detailsTextColor)),
+          child: Text(myText,
+              textAlign: TextAlign.left,
+              maxLines: 2,
+              style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: poppinRegular,
+                  color: detailsTextColor)),
         )
       ],
     );
@@ -361,193 +461,268 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   Widget bookForWeddingBookingCard() {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-      Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Container(
-            height: screenHeight * 0.43,
-            decoration: BoxDecoration(
-                color: kWhite, borderRadius: BorderRadius.circular(20)),
-          ),
-        ),
-        Positioned(
-          top: 90,
-          left: 10,
-          child: Container(
-            color: Colors.transparent,
-            width: screenWidth,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(height: screenHeight * 0.1),
-                  Row(
-                    children: [
-                      Text("${carsPhotoGraphyModelObject.data![0].vehicalName} | ",
-                        textAlign: TextAlign.left, style: TextStyle(color: kBlack,
-                          fontSize: 14, fontFamily: poppinBold)),
-                      Text("${carsPhotoGraphyModelObject.data![0].carsMakes!.name} ",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: kBlack,
-                          fontSize: 12, fontFamily: poppinRegular)),
-                      Text("${carsPhotoGraphyModelObject.data![0].carsModels!.name} ",
-                          textAlign: TextAlign.left, style: TextStyle(
-                            color: kBlack, fontSize: 14, fontFamily: poppinMedium)),
-                      Text("${carsPhotoGraphyModelObject.data![0].year}",
-                          textAlign: TextAlign.left, style: TextStyle(
-                            color: kBlack, fontSize: 10, fontFamily: poppinRegular,)),
-                    ],
+    return loadingP
+        ? Center(child: CircularProgressIndicator(color: borderColor))
+        : Stack(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Container(
+                  height: screenHeight * 0.43,
+                  decoration: BoxDecoration(
+                      color: kWhite, borderRadius: BorderRadius.circular(20)),
+                ),
+              ),
+              Positioned(
+                top: 90,
+                left: 10,
+                child: Container(
+                  color: Colors.transparent,
+                  width: screenWidth,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(height: screenHeight * 0.1),
+                        Row(
+                          children: [
+                            Text(
+                                "${carsPhotoGraphyModelObject.data![0].vehicalName} | ",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: kBlack,
+                                    fontSize: 14,
+                                    fontFamily: poppinBold)),
+                            Text(
+                                "${carsPhotoGraphyModelObject.data![0].carsMakes!.name} ",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: kBlack,
+                                    fontSize: 12,
+                                    fontFamily: poppinRegular)),
+                            Text(
+                                "${carsPhotoGraphyModelObject.data![0].carsModels!.name} ",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: kBlack,
+                                    fontSize: 14,
+                                    fontFamily: poppinMedium)),
+                            Text("${carsPhotoGraphyModelObject.data![0].year}",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: kBlack,
+                                  fontSize: 10,
+                                  fontFamily: poppinRegular,
+                                )),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 04),
+                              child: Text("RM ",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: kRed,
+                                      fontSize: 5,
+                                      fontFamily: poppinLight)),
+                            ),
+                            Text(
+                                "${carsPhotoGraphyModelObject.data![0].carsPlans![0].pricePerHour}",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: kRed,
+                                    fontFamily: poppinLight,
+                                    fontSize: 10,
+                                    decoration: TextDecoration.lineThrough)),
+                            SizedBox(width: screenWidth * 0.01),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 06),
+                              child: Text("RM ",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: borderColor,
+                                      fontSize: 7,
+                                      fontFamily: poppinSemiBold)),
+                            ),
+                            Text(
+                                "${carsPhotoGraphyModelObject.data![0].carsPlans![0].discountedPricePerHour}",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: borderColor,
+                                    fontSize: 20,
+                                    fontFamily: poppinSemiBold)),
+                            Text("/ Hour",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: kBlack,
+                                    fontSize: 8,
+                                    fontFamily: poppinRegular)),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.01),
+                        Row(
+                          children: [
+                            Image.asset("assets/home_page/Promoted.png"),
+                            const SizedBox(width: 05),
+                            Text("Verified Dealer",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: textLabelColor,
+                                    fontSize: 10,
+                                    fontFamily: poppinRegular)),
+                            const SizedBox(width: 05),
+                            Container(
+                              height: 15,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  color: kBlack,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: Text("New",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: kWhite,
+                                        fontSize: 8,
+                                        fontFamily: poppinRegular)),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.01),
+                        Row(
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                    "assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.height *
+                                        0.01),
+                                carsPhotoGraphyModelObject.data![0].rating ==
+                                        null
+                                    ? Text("0.0",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinRegular))
+                                    : Text(
+                                        "${carsPhotoGraphyModelObject.data![0].rating}",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinRegular)),
+                              ],
+                            ),
+                            SizedBox(width: screenWidth * 0.45),
+                            Container(
+                              height: 25,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                  color: kBlack,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Center(
+                                child: Text("Pre book",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: kWhite,
+                                        fontSize: 12,
+                                        fontFamily: poppinMedium)),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.01),
+                        Text("PRE-BOOK LISTING ",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: kBlack,
+                                fontSize: 14,
+                                fontFamily: poppinSemiBold)),
+                        SizedBox(height: screenHeight * 0.01),
+                        Text(
+                            "This vehicle may take more than 7 days to deliver, based on vehicle’s availability",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: kBlack,
+                                fontSize: 10,
+                                fontFamily: poppinRegular)),
+                      ],
+                    ),
                   ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 04),
-                        child: Text("RM ", textAlign: TextAlign.left,
-                          style: TextStyle(color: kRed,
-                            fontSize: 5, fontFamily: poppinLight)),
-                      ),
-                      Text("${carsPhotoGraphyModelObject.data![0].carsPlans![0].pricePerHour}",
-                        textAlign: TextAlign.left, style: TextStyle(
-                            color: kRed, fontFamily: poppinLight,
-                            fontSize: 10, decoration: TextDecoration.lineThrough)),
-                      SizedBox(width: screenWidth * 0.01),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 06),
-                        child: Text("RM ", textAlign: TextAlign.left,
-                          style: TextStyle(color: borderColor,
-                            fontSize: 7, fontFamily: poppinSemiBold)),
-                      ),
-                      Text("${carsPhotoGraphyModelObject.data![0].carsPlans![0].discountedPricePerHour}",
-                          textAlign: TextAlign.left, style: TextStyle(
-                              color: borderColor, fontSize: 20, fontFamily: poppinSemiBold)),
-                      Text("/ Hour", textAlign: TextAlign.left,
-                        style: TextStyle(color: kBlack,
-                          fontSize: 8, fontFamily: poppinRegular)),
-                    ],
-                  ),
-                  SizedBox(height: screenHeight * 0.01),
-                  Row(
-                    children: [
-                      Image.asset("assets/home_page/Promoted.png"),
-                      const SizedBox(width: 05),
-                      Text("Verified Dealer", textAlign: TextAlign.left,
-                        style: TextStyle(color: textLabelColor,
-                          fontSize: 10, fontFamily: poppinRegular)),
-                      const SizedBox(width: 05),
-                      Container(
-                        height: 15,
-                        width: 35,
-                        decoration: BoxDecoration(
-                            color: kBlack,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text("New", textAlign: TextAlign.left,
-                            style: TextStyle(color: kWhite,
-                              fontSize: 8, fontFamily: poppinRegular)),
+                ),
+              ),
+              Positioned(
+                  top: 28,
+                  left: 27,
+                  child: Container(
+                    height: screenHeight * 0.04,
+                    width: screenWidth * 0.18,
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                            "${carsPhotoGraphyModelObject.data![0].discountPercentage}% ",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: kWhite,
+                                fontSize: 13,
+                                fontFamily: poppinSemiBold)),
+                        Text("OFF",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: kWhite,
+                                fontSize: 8,
+                                fontFamily: poppinRegular)),
+                      ],
+                    ),
+                  )),
+              Positioned(
+                left: 20,
+                right: 20,
+                top: 10,
+                child: carsPhotoGraphyModelObject.data![0].image1 == null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset('assets/icon/fade_in_image.jpeg'))
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: FadeInImage(
+                          placeholder: const AssetImage(
+                              "assets/icon/fade_in_image.jpeg"),
+                          width: 350,
+                          height: 150,
+                          image: NetworkImage(
+                              "$baseUrlImage${carsPhotoGraphyModelObject.data![0].image1}"),
                         ),
                       ),
-                    ],
-                  ),
-                  SizedBox(height: screenHeight * 0.01),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
-                          SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-
-                          carsPhotoGraphyModelObject.data![0].rating == null?
-                          Text("0.0", textAlign: TextAlign.left, style: TextStyle(
-                                color: kBlack, fontSize: 14, fontFamily: poppinRegular)):
-                          Text("${carsPhotoGraphyModelObject.data![0].rating}",
-                            textAlign: TextAlign.left, style: TextStyle(
-                              color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
-                        ],
-                      ),
-                      SizedBox(width: screenWidth * 0.45),
-                      Container(
-                        height: 25,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            color: kBlack,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Center(
-                          child: Text("Pre book", textAlign: TextAlign.left,
-                            style: TextStyle(color: kWhite,
-                              fontSize: 12, fontFamily: poppinMedium)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: screenHeight * 0.01),
-                  Text("PRE-BOOK LISTING ", textAlign: TextAlign.left,
-                    style: TextStyle(color: kBlack,
-                      fontSize: 14, fontFamily: poppinSemiBold)),
-                  SizedBox(height: screenHeight * 0.01),
-                  Text("This vehicle may take more than 7 days to deliver, based on vehicle’s availability",
-                      textAlign: TextAlign.left, style: TextStyle(
-                          color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                ],
               ),
-            ),
-          ),
-        ),
-        Positioned(
-            top: 28,
-            left: 27,
-            child: Container(
-              height: screenHeight * 0.04,
-              width: screenWidth * 0.18,
-              decoration: const BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(15),
-                    bottomLeft: Radius.circular(15)),
+              Positioned(
+                top: 28,
+                right: 27,
+                child: carsPhotoGraphyModelObject.data![0].favouriteStatus ==
+                        "like"
+                    ? Image.asset("assets/home_page/heart.png")
+                    : Image.asset("assets/home_page/heart_transparent.png",
+                        color: kBlack),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("${carsPhotoGraphyModelObject.data![0].discountPercentage}% ",
-                    textAlign: TextAlign.left, style: TextStyle(color: kWhite,
-                      fontSize: 13, fontFamily: poppinSemiBold)),
-                  Text("OFF", textAlign: TextAlign.left,
-                      style: TextStyle(color: kWhite,
-                        fontSize: 8, fontFamily: poppinRegular)),
-                ],
-              ),
-            )),
-        Positioned(
-          left: 20, right: 20, top: 10,
-          child: carsPhotoGraphyModelObject.data![0].image1 == null ?
-          ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset('assets/icon/fade_in_image.jpeg')) :
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: FadeInImage(
-              placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
-              width: 350,
-              height: 150,
-              image: NetworkImage("$baseUrlImage${carsPhotoGraphyModelObject.data![0].image1}"),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 28, right: 27,
-          child: carsPhotoGraphyModelObject.data![0].favouriteStatus == "like"?
-          Image.asset("assets/home_page/heart.png"):
-          Image.asset("assets/home_page/heart_transparent.png", color: kBlack),
-        ),
-      ],
-    );
+            ],
+          );
   }
 
   var totalHours;
   var minutes;
-  calculateTimeInterval(){
+  calculateTimeInterval() {
     var format = DateFormat("HH:mm");
     var start = format.parse("$valueTimeStart");
     var end = format.parse("$valueTimeEnd");
@@ -561,299 +736,346 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
     print('$totalHours hours $minutes minutes');
   }
 
-  compareTime(){
-    if(formKeyPhotography.currentState!.validate()){
+  compareTime() {
+    if (formKeyPhotography.currentState!.validate()) {
       print("value $myHours $totalHours");
-      if(myHours == totalHours){
+      if (myHours == totalHours) {
         toastSuccessMessage("time compare success", colorGreen);
         print("success");
-      }
-      else{
+      } else {
         toastFailedMessage("time compare failed", kRed);
         print("no success");
       }
     }
   }
 
-  showMyBottomSheet(context){
+  showMyBottomSheet(context) {
     var size = MediaQuery.of(context).size;
     return showMaterialModalBottomSheet(
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
           return StatefulBuilder(
-              builder: (BuildContext context, StateSetter stateSetterObject){
-                return Container(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: homeBgColor,
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20)
+              builder: (BuildContext context, StateSetter stateSetterObject) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.55,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: homeBgColor,
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20)),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Text('Change Available Time Slot',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: poppinBold,
+                              color: appBgColor)),
                     ),
                   ),
-                  child: Column(
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  Column(
                     children: [
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Text('Change Available Time Slot',
-                        textAlign: TextAlign.left, style: TextStyle(
-                            fontSize: 14, fontFamily: poppinBold, color: appBgColor)),
-                  ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        DateTime? picked = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1980),
-                          lastDate: DateTime(2050),
-                        );
-                        if (picked != null && picked != pickDate) {
-                          // valueDate = DateFormat('yyyy-MM-dd').format(picked);
-                          // valueDay = DateFormat('EE, d').format(picked);
-                          valueDate = DateFormat('yyyy-MM-dd').format(picked);
-                          valueDay = DateFormat('EEEE, dd MMMM').format(picked);
+                      GestureDetector(
+                        onTap: () async {
+                          DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1980),
+                            lastDate: DateTime(2050),
+                          );
+                          if (picked != null && picked != pickDate) {
+                            // valueDate = DateFormat('yyyy-MM-dd').format(picked);
+                            // valueDay = DateFormat('EE, d').format(picked);
+                            valueDate = DateFormat('yyyy-MM-dd').format(picked);
+                            valueDay =
+                                DateFormat('EEEE, dd MMMM').format(picked);
 
-                          stateSetterObject(() {
-                            print("Selected date in bottomSheet : $valueDate");
-                            print("Selected Day in bottomSheet : $valueDay");
-                          });
-                        }
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.keyboard_arrow_left, color: borderColor),
-                          Text("$valueDate", textAlign: TextAlign.left,
-                            style: TextStyle(fontSize: 14,
-                                fontFamily: poppinSemiBold, color: borderColor),
-                          ),
-                          Icon(Icons.keyboard_arrow_right, color: borderColor),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height* 0.02),
-
-                    valueDay == null?
-                    Container(
-                      width: 200,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: kWhite,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                        child: Text("${widget.selectedDay}",
-                          style: TextStyle(fontSize: 14,
-                              fontFamily: poppinMedium, color: kBlack),
+                            stateSetterObject(() {
+                              print(
+                                  "Selected date in bottomSheet : $valueDate");
+                              print("Selected Day in bottomSheet : $valueDay");
+                            });
+                          }
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.keyboard_arrow_left, color: borderColor),
+                            Text(
+                              "$valueDate",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: poppinSemiBold,
+                                  color: borderColor),
+                            ),
+                            Icon(Icons.keyboard_arrow_right,
+                                color: borderColor),
+                          ],
                         ),
                       ),
-                    ):
-                    Container(
-                      width: 200,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color:  borderColor,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                        child: Text("$valueDay", style: TextStyle(
-                            fontSize: 14, fontFamily: poppinMedium, color: kWhite)),
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Container(
-                        height: size.height * 0.055,
-                        width: MediaQuery.of(context).size.width * 01.3,
-                        decoration: BoxDecoration(
-                            color: kWhite,
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: const Color(0xff7E7E7E))
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton2(
-                              hint: Text('Select Hours', style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(fontSize: 12,
-                                          color: kBlack, fontWeight: FontWeight.w400))),
-                              icon: Icon(Icons.keyboard_arrow_down_rounded, size: 30, color: kBlack),
-                              items: timeHoursList.map((item) => DropdownMenuItem<String>(
-                                value: item,
-                                child: Text(item, style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(fontSize: 14,
-                                        color: kBlack, fontWeight: FontWeight.w400))),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                      valueDay == null
+                          ? Container(
+                              width: 200,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: kWhite,
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                              ).toList(),
-                              value: dropdownValueTime,
-                              onChanged: (String? newValue) {
-                                stateSetterObject(() {
-                                  dropdownValueTime = newValue!.split(" hour").first;
-                                  myHours = int.parse(dropdownValueTime);
-                                  dropdownValueTime = newValue;
-                                  print("selectedTime in bottomSheet: $dropdownValueTime");
-                                  print("selectedHour in bottomSheet: $myHours");
-
-                                });
-                              },
-                              buttonWidth: MediaQuery.of(context).size.width * 0.2,
-                              dropdownDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10)),
-                              dropdownMaxHeight: MediaQuery.of(context).size.height * 0.25,
-                              scrollbarThickness: 0,
-                              itemHeight: 30,
+                              child: Center(
+                                child: Text(
+                                  "${widget.selectedDay}",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: poppinMedium,
+                                      color: kBlack),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              width: 200,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: borderColor,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(
+                                child: Text("$valueDay",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: poppinMedium,
+                                        color: kWhite)),
+                              ),
+                            ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Container(
+                          height: size.height * 0.055,
+                          width: MediaQuery.of(context).size.width * 01.3,
+                          decoration: BoxDecoration(
+                              color: kWhite,
+                              borderRadius: BorderRadius.circular(15),
+                              border:
+                                  Border.all(color: const Color(0xff7E7E7E))),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton2(
+                                hint: Text('Select Hours',
+                                    style: GoogleFonts.poppins(
+                                        textStyle: TextStyle(
+                                            fontSize: 12,
+                                            color: kBlack,
+                                            fontWeight: FontWeight.w400))),
+                                icon: Icon(Icons.keyboard_arrow_down_rounded,
+                                    size: 30, color: kBlack),
+                                items: timeHoursList
+                                    .map(
+                                      (item) => DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(item,
+                                            style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                    fontSize: 14,
+                                                    color: kBlack,
+                                                    fontWeight:
+                                                        FontWeight.w400))),
+                                      ),
+                                    )
+                                    .toList(),
+                                value: dropdownValueTime,
+                                onChanged: (String? newValue) {
+                                  stateSetterObject(() {
+                                    dropdownValueTime =
+                                        newValue!.split(" hour").first;
+                                    myHours = int.parse(dropdownValueTime);
+                                    dropdownValueTime = newValue;
+                                    print(
+                                        "selectedTime in bottomSheet: $dropdownValueTime");
+                                    print(
+                                        "selectedHour in bottomSheet: $myHours");
+                                  });
+                                },
+                                buttonWidth:
+                                    MediaQuery.of(context).size.width * 0.2,
+                                dropdownDecoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10)),
+                                dropdownMaxHeight:
+                                    MediaQuery.of(context).size.height * 0.25,
+                                scrollbarThickness: 0,
+                                itemHeight: 30,
+                              ),
                             ),
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                  onTap: () async {
+                                    TimeOfDay? picked;
+                                    picked = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.now(),
+                                    );
+                                    if (picked == null) {
+                                      picked = startTime;
+                                    } else {
+                                      valueTimeStart =
+                                          picked.format(context).toString();
+                                      setState(() {
+                                        print(
+                                            "Selected startTime is : $valueTimeStart");
+                                      });
+                                      valueTimeStart =
+                                          '${picked.hour}:${picked.minute}:00';
+                                      setState(() {
+                                        print(
+                                            "Selected startTime is : $valueTimeStart");
+                                        print("myTime $valueTimeStart");
+                                      });
+                                    }
 
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                                onTap: () async {
-                                  TimeOfDay? picked;
-                                  picked = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-                                  if (picked == null) {
-                                    picked = startTime;
-                                  } else {
-                                    valueTimeStart = picked.format(context).toString();
-                                    setState(() {
-                                      print("Selected startTime is : $valueTimeStart");
-                                    });
-                                    valueTimeStart = '${picked.hour}:${picked.minute}:00';
-                                    setState(() {
-                                      print("Selected startTime is : $valueTimeStart");
-                                      print("myTime $valueTimeStart");
-                                    });
-
-                                  }
-
-                                  // if (picked == null) {
-                                  //   picked = startTime;
-                                  // } else {
-                                  //   valueTimeStart = picked.format(context).toString();
-                                  //   stateSetterObject(() {
-                                  //     print("startTime in bottomSheet: $valueTimeStart");
-                                  //   });
-                                  // }
-                                },
-                                child: Container(
-                                  height: 40,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                      color: valueTimeStart == "Start Time" ? kWhite : borderColor,
-                                      borderRadius: BorderRadius.circular(10)
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "$valueTimeStart",
-                                      style: TextStyle(
-                                          color: valueTimeStart == "Start Time" ? kBlack : kWhite, fontSize: 16),
+                                    // if (picked == null) {
+                                    //   picked = startTime;
+                                    // } else {
+                                    //   valueTimeStart = picked.format(context).toString();
+                                    //   stateSetterObject(() {
+                                    //     print("startTime in bottomSheet: $valueTimeStart");
+                                    //   });
+                                    // }
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                        color: valueTimeStart == "Start Time"
+                                            ? kWhite
+                                            : borderColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Center(
+                                      child: Text(
+                                        "$valueTimeStart",
+                                        style: TextStyle(
+                                            color:
+                                                valueTimeStart == "Start Time"
+                                                    ? kBlack
+                                                    : kWhite,
+                                            fontSize: 16),
+                                      ),
                                     ),
-                                  ),
-                                )),
+                                  )),
+                              InkWell(
+                                  onTap: () async {
+                                    // selectTimeEnd(context);
 
-                            InkWell(
-                                onTap: () async {
-                                  // selectTimeEnd(context);
-
-                                  TimeOfDay? picked;
-                                  picked = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-                                  if (picked == null) {
-                                    picked = startTime;
-                                  } else {
-
-                                    valueTimeEnd = picked.format(context).toString();
-                                    setState(() {
-                                      print("Selected endTime is : $valueTimeEnd");
-                                    });
-                                    valueTimeEnd = '${picked.hour}:${picked.minute}:00';
-                                    setState(() {
-                                      print("Selected endTime is : $valueTimeEnd");
-                                      calculateTimeInterval();
-                                      // compareTime();
-                                    });
-                                    print("myEndTime $valueTimeEnd");
-                                  }
-
-                                },
-                                child: Container(
-                                  height: 40,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                    color: valueTimeEnd == "End Time" ? kWhite : borderColor,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(
-                                    child: Text("$valueTimeEnd",
-                                      style: TextStyle(
-                                          color: valueTimeEnd == "End Time" ? kBlack : kWhite, fontSize: 16),
+                                    TimeOfDay? picked;
+                                    picked = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.now(),
+                                    );
+                                    if (picked == null) {
+                                      picked = startTime;
+                                    } else {
+                                      valueTimeEnd =
+                                          picked.format(context).toString();
+                                      setState(() {
+                                        print(
+                                            "Selected endTime is : $valueTimeEnd");
+                                      });
+                                      valueTimeEnd =
+                                          '${picked.hour}:${picked.minute}:00';
+                                      setState(() {
+                                        print(
+                                            "Selected endTime is : $valueTimeEnd");
+                                        calculateTimeInterval();
+                                        // compareTime();
+                                      });
+                                      print("myEndTime $valueTimeEnd");
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      color: valueTimeEnd == "End Time"
+                                          ? kWhite
+                                          : borderColor,
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                  ),
-                                )),
+                                    child: Center(
+                                      child: Text(
+                                        "$valueTimeEnd",
+                                        style: TextStyle(
+                                            color: valueTimeEnd == "End Time"
+                                                ? kBlack
+                                                : kWhite,
+                                            fontSize: 16),
+                                      ),
+                                    ),
+                                  )),
+                            ]),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  GestureDetector(
+                      onTap: () {
+                        // compareTime();
+                        getCarsPhotoGraphyWidget();
 
-                          ]),
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                GestureDetector(
+                        Navigator.pop(context);
+                      },
+                      child: loginButton('Update', context)),
+                  GestureDetector(
                     onTap: () {
-                      // compareTime();
-                      getCarsPhotoGraphyWidget();
-
                       Navigator.pop(context);
                     },
-                    child: loginButton('Update', context)),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Center(
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(width: 1, color: borderColor),
-                        ),
-                        child: Center(
-                          child: Text('Cancel', textAlign: TextAlign.center,
-                              style: TextStyle(color: borderColor,
-                                  fontFamily: poppinRegular, fontSize: 18)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Center(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.06,
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(width: 1, color: borderColor),
+                          ),
+                          child: Center(
+                            child: Text('Cancel',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: borderColor,
+                                    fontFamily: poppinRegular,
+                                    fontSize: 18)),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
+                ],
+              ),
+            );
+          });
         });
-    });
   }
 }
