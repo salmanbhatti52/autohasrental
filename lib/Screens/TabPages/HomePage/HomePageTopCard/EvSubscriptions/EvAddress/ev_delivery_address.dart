@@ -1,15 +1,14 @@
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 import '../../../Home/Address/AddressTabs/address_tabbar.dart';
 
 class EvDeliveryAddress extends StatefulWidget {
   final String? carImage, discountPercentage, carName, myDate, myDay,
       carModel, amount, carRating, selectedHoursInString, carMakerName,
-  selectedStartTime, selectedEndTime;
-  final int? carYear, discountedAmount, totalHoursInNumber;
+      discountedAmount, selectedStartTime, selectedEndTime;
+  final int? carYear,  totalHoursInNumber;
   final double? hoursAmount, totalAmount;
   const EvDeliveryAddress({Key? key, this.carImage, this.carName, this.carModel,
     this.totalHoursInNumber, this.carYear, this.discountPercentage,

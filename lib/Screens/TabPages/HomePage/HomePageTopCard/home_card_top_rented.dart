@@ -111,15 +111,19 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                                 ],
                                               ),
                                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                                              Row(
-                                                children: [
-                                                  Text("${topRentedCarsModelObject.data![index].carsMakes!.name} ",
-                                                      style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                                                  Text("${topRentedCarsModelObject.data![index].carsModels!.name} ",
-                                                      style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                                                  Text("${topRentedCarsModelObject.data![index].carsColors!.name} ",
-                                                      style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                                                ],
+                                              Container(
+                                                width: MediaQuery.of(context).size.width* 0.4,
+                                                color: Colors.transparent,
+                                                child: Row(
+                                                  children: [
+                                                    Text("${topRentedCarsModelObject.data![index].carsMakes!.name} ",
+                                                        style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+                                                    Text("${topRentedCarsModelObject.data![index].carsModels!.name} ",
+                                                        style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+                                                    Text("${topRentedCarsModelObject.data![index].carsColors!.name} ",
+                                                        style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+                                                  ],
+                                                ),
                                               ),
                                               SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                               Row(
@@ -145,10 +149,10 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                                                             color: kRed, fontSize: 5, fontFamily: poppinLight)),
                                                       ),
-                                                      topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth == null
+                                                      topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour == null
                                                           ? Text("0.0", style: TextStyle(color: kBlack,
                                                                   fontSize: 10, fontFamily: poppinMedium)) :
-                                                      Text("${topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth}",
+                                                      Text("${topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour}",
                                                               textAlign: TextAlign.left, style: TextStyle(
                                                                 color: kRed, decoration: TextDecoration.lineThrough,
                                                                 fontSize: 10, fontFamily: poppinLight)),
@@ -161,10 +165,10 @@ class _HomeCardTopRentedState extends State<HomeCardTopRented> {
                                                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                                                             color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                                       ),
-                                                      topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth == null
+                                                      topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour == null
                                                           ? Text("0.0", style: TextStyle(color: kBlack,
                                                           fontSize: 10, fontFamily: poppinMedium)) :
-                                                      Text("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}",
+                                                      Text("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour}",
                                                           textAlign: TextAlign.left, style: TextStyle(
                                                               color: borderColor, fontSize: 14, fontFamily: poppinSemiBold)),
                                                       Text("/ Month", textAlign: TextAlign.left, style: TextStyle(

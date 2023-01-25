@@ -6,7 +6,10 @@ CarsPhotoGraphyModel carsPhotoGraphyModelFromJson(String str) => CarsPhotoGraphy
 String carsPhotoGraphyModelToJson(CarsPhotoGraphyModel data) => json.encode(data.toJson());
 
 class CarsPhotoGraphyModel {
-  CarsPhotoGraphyModel({this.status, this.data});
+  CarsPhotoGraphyModel({
+    this.status,
+    this.data,
+  });
 
   String? status;
   List<Datum>? data;
@@ -251,7 +254,7 @@ class CarsPlan {
   int? carsId;
   DateTime? planDate;
   String? pricePerHour;
-  int? discountedPricePerHour;
+  String? discountedPricePerHour;
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
     carsPlansPgId: json["cars_plans_pg_id"],
@@ -298,17 +301,17 @@ class UsersCompanies {
   String? password;
   String? phone;
   dynamic about;
-  String? bankName;
-  String? bankAccountNumber;
+  dynamic bankName;
+  dynamic bankAccountNumber;
   String? companyLocation;
   String? companyRegistrationNumber;
   String? companyLogo;
-  String? paypalEmail;
+  dynamic paypalEmail;
   int? verifyEmailOtp;
-  int? forgotPasswordOtp;
+  dynamic forgotPasswordOtp;
   String? verified;
   DateTime? dateAdded;
-  DateTime? dateModified;
+  dynamic dateModified;
   String? status;
 
   factory UsersCompanies.fromJson(Map<String, dynamic> json) => UsersCompanies(
@@ -328,7 +331,7 @@ class UsersCompanies {
     forgotPasswordOtp: json["forgotPasswordOtp"],
     verified: json["verified"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: DateTime.parse(json["date_modified"]),
+    dateModified: json["date_modified"],
     status: json["status"],
   );
 
@@ -349,7 +352,7 @@ class UsersCompanies {
     "forgotPasswordOtp": forgotPasswordOtp,
     "verified": verified,
     "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified!.toIso8601String(),
+    "date_modified": dateModified,
     "status": status,
   };
 }

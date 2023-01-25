@@ -6,10 +6,10 @@ import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'AddressTabs/address_tabbar.dart';
 
 class DeliveryAddress extends StatefulWidget {
-  final String? carImage, discountPercentage, carName, myDate, myDay,
+  final String? carImage, discountPercentage, carName, myDate, myDay, discountedAmount,
       carModel, amount, carRating, selectedHoursInString, carMakerName,
   selectedStartTime, selectedEndTime;
-  final int? carYear, discountedAmount, totalHoursInNumber;
+  final int? carYear, totalHoursInNumber;
   final double? hoursAmount, totalAmount;
   const DeliveryAddress({Key? key, this.carImage, this.carName, this.carModel,
     this.totalHoursInNumber, this.carYear, this.discountPercentage,

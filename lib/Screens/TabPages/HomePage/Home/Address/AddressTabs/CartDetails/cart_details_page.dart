@@ -24,8 +24,8 @@ import 'package:http/http.dart'as http;
 class CartDetailsPage extends StatefulWidget {
 
   final String? carImage, discountPercentage, carName, carModel, amount, myDate, myDay,
-      selectedStartTime, selectedEndTime, carRatings, selectedHours, carMakerName;
-  final int? carYear, discountedAmount, totalHoursInNumber;
+      discountedAmount, selectedStartTime, selectedEndTime, carRatings, selectedHours, carMakerName;
+  final int? carYear, totalHoursInNumber;
   final double? hoursAmount, totalAmount;
   const CartDetailsPage({Key? key, this.carImage, this.carName, this.carModel,
     this.discountPercentage, this.carMakerName, this.selectedHours, this.hoursAmount,

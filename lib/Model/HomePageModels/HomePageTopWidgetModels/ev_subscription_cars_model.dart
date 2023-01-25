@@ -254,7 +254,7 @@ class CarsPlan {
   int? carsId;
   int? months;
   String? pricePerMonth;
-  int? discountedPricePerMonth;
+  String? discountedPricePerMonth;
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
     carsPlansEvId: json["cars_plans_ev_id"],

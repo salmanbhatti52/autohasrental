@@ -5,8 +5,8 @@ import 'home_address.dart';
 
 class AddressTabBar extends StatefulWidget {
   final String? carImage, discountPercentage, carName, carModel, amount, myDate, myDay,
-      carRating, selectedHours, carMakerName, selectedStartTime, selectedEndTime;
-  final int? carYear, discountedAmount, totalHoursInNumber;
+      discountedAmount, carRating, selectedHours, carMakerName, selectedStartTime, selectedEndTime;
+  final int? carYear, totalHoursInNumber;
   final double? hoursAmount, totalAmount;
 
   const AddressTabBar({Key? key, this.carImage, this.carName, this.carModel, this.discountPercentage,
