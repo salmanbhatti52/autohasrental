@@ -14,14 +14,14 @@ import 'privacy_policy_page.dart';
 
 class VerifyPhonePage extends StatefulWidget {
   final String? userId, verifyCode;
-  const VerifyPhonePage({Key? key, this.userId, this.verifyCode}) : super(key: key);
+  const VerifyPhonePage({Key? key, this.userId, this.verifyCode})
+      : super(key: key);
 
   @override
   State<VerifyPhonePage> createState() => _VerifyPhonePageState();
 }
 
 class _VerifyPhonePageState extends State<VerifyPhonePage> {
-
   bool checkBoxValue = false;
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   bool hasError = false;
@@ -47,10 +47,9 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
       print("api: $apiUrl");
       print("users_customers_id: ${widget.userId}");
       print("users_customers_id: ${widget.verifyCode}");
-      final response = await http.post(Uri.parse(apiUrl),
-        headers: {
-          'Accept': 'application/json'
-        },
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Accept': 'application/json'},
         body: {
           'users_customers_id': widget.userId,
           'verify_otp': textEditingController.text,
@@ -94,25 +93,36 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                Text("Verify Phone", textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
+                Text("Verify Phone",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20, fontFamily: poppinBold, color: kWhite)),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.12),
-                SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
-
+                SvgPicture.asset('assets/splash/login_image.svg',
+                    fit: BoxFit.fill),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("We sent you an SMS with a 6 digit code. Enter the code to verify your mobile.",
-                   textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite,),),
+                  child: Text(
+                    "We sent you an SMS with a 6 digit code. Enter the code to verify your mobile.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: poppinRegular,
+                      color: kWhite,
+                    ),
+                  ),
                 ),
-
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
-
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
                 Form(
                   key: formKeyVerifyCode,
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 30),
                       child: PinCodeTextField(
                         appContext: context,
                         textStyle: TextStyle(color: borderColor),
@@ -123,7 +133,8 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                         ),
                         length: 6,
                         // obscureText: true,
-                        hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular),
+                        hintStyle: TextStyle(
+                            color: textLabelColor, fontFamily: poppinRegular),
                         hintCharacter: "0",
                         // obscuringCharacter: '*',
                         // obscuringWidget: const FlutterLogo(
@@ -180,21 +191,20 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                           //but you can show anything you want here, like your pop up saying wrong paste format or etc
                           return true;
                         },
-                      )
-                  ),
+                      )),
                 ),
-
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-
                 GestureDetector(
-                    onTap: (){
-                      if(formKeyVerifyCode.currentState!.validate()){
+                    onTap: () {
+                      if (formKeyVerifyCode.currentState!.validate()) {
                         if (textEditingController.text.isEmpty) {
-                          toastFailedMessage('pinController cannot be empty', Colors.red);
-                        } else if (textEditingController.text != widget.verifyCode ) {
-                          toastFailedMessage('pin code did not matched', Colors.red);
+                          toastFailedMessage(
+                              'pinController cannot be empty', Colors.red);
+                        } else if (textEditingController.text !=
+                            widget.verifyCode) {
+                          toastFailedMessage(
+                              'pin code did not matched', Colors.red);
                         } else {
-
                           setState(() {
                             progress = true;
                           });
@@ -203,8 +213,11 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
 
                           Future.delayed(const Duration(seconds: 3), () {
                             toastSuccessMessage("success", Colors.green);
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => const PrivacyPolicyPage()));
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PrivacyPolicyPage()));
                             setState(() {
                               progress = false;
                             });
@@ -212,25 +225,37 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                           });
                         }
                       }
-
                     },
                     child: loginButton("Next", context)),
-
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset("assets/images/timer.png",),
+                      Image.asset(
+                        "assets/images/timer.png",
+                      ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text(" Expire on 02:00",
-                      style: TextStyle(color: const Color(0xffFF6666), fontSize: 12, fontWeight: FontWeight.w500,
-                        fontFamily: poppinMedium,),),
+                      Text(
+                        " Expire on 02:00",
+                        style: TextStyle(
+                          color: const Color(0xffFF6666),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: poppinMedium,
+                        ),
+                      ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text("Resend Code (4)",
-                      style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold, fontWeight: FontWeight.w500),),
+                      Text(
+                        "Resend Code (4)",
+                        style: TextStyle(
+                            color: borderColor,
+                            fontSize: 16,
+                            fontFamily: poppinSemiBold,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ],
                   ),
                 ),
