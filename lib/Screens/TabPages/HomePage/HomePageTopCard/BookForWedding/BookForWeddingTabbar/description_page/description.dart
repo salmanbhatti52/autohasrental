@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../../../Model/HomePageModels/HomePageTopWidgetModels/car_photography_model.dart';
+import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
 import '../../../../../../../Utils/api_urls.dart';
 import '../../../../../../../Utils/colors.dart';
 import '../../../../../../../Utils/constants.dart';
@@ -14,7 +14,7 @@ class Description extends StatefulWidget {
 }
 
 class _DescriptionState extends State<Description> {
-  CarsPhotoGraphyModel carsPhotoGraphyModelObject = CarsPhotoGraphyModel();
+  PhotoGraphyModel carsPhotoGraphyModelObject = PhotoGraphyModel();
   bool loadingP = true;
   @override
   void initState() {

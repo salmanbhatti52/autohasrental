@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-
+import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'AddressTabs/address_tabbar.dart';
 
 class DeliveryAddress extends StatefulWidget {
-  final String? carImage, discountPercentage, carName, myDate, myDay, discountedAmount,
-      carModel, amount, carRating, selectedHoursInString, carMakerName,
-  selectedStartTime, selectedEndTime;
-  final int? carYear, totalHoursInNumber;
+  final DatumPhotography? myDatumPhotography;
+  final String? amount, myDate, myDay, discountedAmount, selectedHoursInString, selectedStartTime, selectedEndTime;
+  final int? totalHoursInNumber;
   final double? hoursAmount, totalAmount;
-  const DeliveryAddress({Key? key, this.carImage, this.carName, this.carModel,
-    this.totalHoursInNumber, this.carYear, this.discountPercentage,
-    this.carMakerName, this.selectedHoursInString, this.myDate, this.hoursAmount,
+  const DeliveryAddress({Key? key,
+    this.myDatumPhotography, this.selectedHoursInString, this.totalHoursInNumber,
+    this.myDate, this.hoursAmount,
     this.totalAmount, this.selectedStartTime, this.selectedEndTime, this.myDay,
-    this.amount, this.carRating, this.discountedAmount}) : super(key: key);
+    this.amount,  this.discountedAmount}) : super(key: key);
 
   @override
   State<DeliveryAddress> createState() => _DeliveryAddressState();
@@ -24,16 +23,10 @@ class DeliveryAddress extends StatefulWidget {
 class _DeliveryAddressState extends State<DeliveryAddress> {
 
   mySelectedData(){
-    print("carName: ${widget.carName}");
-    print("carImage: ${widget.carImage}");
-    print("carDiscount: ${widget.discountPercentage}");
-    print("carModel: ${widget.carModel}");
-    print("carYear: ${widget.carYear}");
     print("carOriginalAmount: ${widget.discountedAmount}");
     print("carDiscountAmount: ${widget.amount}");
-    print("carRatings: ${widget.carRating}");
     print("carDayDate: ${widget.myDay} ${widget.myDate}");
-    print("carMakersName: ${widget.carMakerName} ${widget.totalHoursInNumber}");
+    print("carTotalHours: ${widget.totalHoursInNumber}");
     print("carStartEndTime: ${widget.selectedStartTime} ${widget.selectedEndTime}");
     print("carRatings: ${widget.selectedHoursInString} ${widget.hoursAmount} ${widget.totalAmount}");
   }
@@ -50,7 +43,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
       backgroundColor: homeBgColor,
       appBar: MyAppBarSingleImageWithText(
         // title: "BMW 2 series, ", subtitle: "2022",
-        title: "${widget.carName}, ", subtitle: "${widget.carYear}",
+        title: "${widget.myDatumPhotography!.vehicalName}, ", subtitle: "${widget.myDatumPhotography!.year}",
         backImage: "assets/messages_images/Back.png"),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -70,21 +63,13 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
               AddressTabBar(
-                carName: widget.carName,
-                carYear: widget.carYear,
-                carModel: widget.carModel,
-                carImage: widget.carImage,
-                discountedAmount: widget.discountedAmount,
+                datumPhotography: widget.myDatumPhotography,
                 amount: widget.amount,
-                carRating: widget.carRating,
-                discountPercentage: widget.discountPercentage,
                 selectedHours: widget.selectedHoursInString,
                 hoursAmount: widget.hoursAmount,
                 totalAmount: widget.totalAmount,
-                carMakerName: widget.carMakerName,
                 selectedStartTime: widget.selectedStartTime,
                 selectedEndTime: widget.selectedEndTime,
-
                 myDate: widget.myDate,
                 myDay: widget.myDay,
                 totalHoursInNumber: widget.totalHoursInNumber,

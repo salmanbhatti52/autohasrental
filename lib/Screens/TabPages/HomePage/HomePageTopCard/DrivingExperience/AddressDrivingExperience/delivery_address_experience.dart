@@ -1,16 +1,17 @@
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Model/HomePageModels/HomePageTopWidgetModels/driving_experience_cars_model.dart';
+import '../../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_model.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 import 'AddressTabsDriving/address_tabbar_experience.dart';
 
 
 class DeliveryAddressExperience extends StatefulWidget {
   final String? startTime, endTime, selectedDate;
-  final double? totalPrice;
-  final ExperienceDatumList? myDatum;
-  const DeliveryAddressExperience({Key? key, this.selectedDate, this.totalPrice,
+  final double? totalPrice, selectedSlotPrice;
+  final Datum? myDatum;
+  const DeliveryAddressExperience({Key? key, this.selectedDate,
+    this.totalPrice, this.selectedSlotPrice,
     this.myDatum, this.startTime, this.endTime}) : super(key: key);
 
   @override
@@ -56,6 +57,7 @@ class _DeliveryAddressExperienceState extends State<DeliveryAddressExperience> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
               AddressTabBarExperience(
+                selectedSlotPrice: widget.selectedSlotPrice,
                 myDatum: widget.myDatum,
                 startTime: widget.startTime,
                 endTime: widget.endTime,

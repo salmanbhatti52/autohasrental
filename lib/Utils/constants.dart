@@ -1,19 +1,23 @@
-import 'package:auto_haus_rental_app/Model/HomePageModels/BookingModels/booking_upcoming_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences? prefs;
 String? userId, userEmail;
 String? currentDay;
+// String? currentDate;
 String dropdownValueTime = 'Select Hours';
 DateTime? pickDate;
 String? valueDate;
 String? valueDay;
-String? evSelectedMonth;
-String? evSelectedMonthPrice;
-String? evSelectedMonthTotalPrice;
+// String evStartDate = "Start Date";
+String? evStartDate, evEndDate;
+// String evEndDate = "End Date";
+int? evSelectedMonth, selectedMonthDays;
+int? tabNewValue;
+int count = 0;
+String? evSelectedMonthDiscountedPrice;
+double? evSelectedMonthTotalPrice = 0.0;
 int? carID;
 
-// List<CarsPlan> carPlans = [];
 double serviceFee = 50.0;
 
 List timeHoursList = [

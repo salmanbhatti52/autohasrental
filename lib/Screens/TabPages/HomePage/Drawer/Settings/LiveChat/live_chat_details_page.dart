@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:auto_haus_rental_app/Model/ChatsModels/messages_details_model.dart';
+import 'package:auto_haus_rental_app/Model/ChatsModels/get_messages_model.dart';
 import 'package:auto_haus_rental_app/Model/ChatsModels/send_message_model.dart';
 import 'package:auto_haus_rental_app/Model/ChatsModels/update_message_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
@@ -23,67 +23,67 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
 
   final GlobalKey<FormState> sendMessageFormKey = GlobalKey<FormState>();
   var sendMessageController = TextEditingController();
-  List<MessageDetailsModel> messageDetailsModelObject = [];
+  List<GetMessageDetailsModel> messageDetailsModelObject = [];
   List<UpdateMessageModel> updateMessageModelObject = [];
   bool progress = false;
   SendMessageModel sendMessageModelObject = SendMessageModel();
   bool loading = true;
 
 
-  List<LiveChatMessage> messages = [
-    LiveChatMessage(
-        messageContent:
-            "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
-            "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
-            "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
-            "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. Ut turpis "
-            "eros, aliquet non ante id, interdum placerat erat. Curabitur sit amet eros vel orci "
-            "venenatis hendrerit. Cras sagittis sagittis sagittis. In hac habitasse platea dictumst. "
-            "Phasellus diam erat, porttitor sed ligula at, ultricies auctor tellus. Donec ut sem in "
-            "turpis ultrices suscipit ut auctor tellus. Quisque a tincidunt ipsum.",
-        messageType: "receiver"),
-    LiveChatMessage(messageContent: "Hi, Mardin", messageType: "sender"),
-    LiveChatMessage(messageContent: "What you want?", messageType: "sender"),
-    LiveChatMessage(messageContent: "Hi, Jeanie", messageType: "receiver"),
-    LiveChatMessage(
-        messageContent:
-            "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
-            "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
-            "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
-            "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. "
-            "Ut turpis eros, aliquet non ante id, interdum placerat erat. Curabitur "
-            "sit amet eros vel orci venenatis hendrerit. Cras sagittis sagittis sagittis. "
-            "In hac habitasse platea dictumst. Phasellus diam erat, porttitor sed ligula at, "
-            "ultricies auctor tellus. Donec ut sem in turpis ultrices suscipit ut auctor tellus. "
-            "Quisque a tincidunt ipsum.",
-        messageType: "sender"),
-    LiveChatMessage(
-        messageContent:
-            "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
-            "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
-            "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
-            "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. Ut turpis "
-            "eros, aliquet non ante id, interdum placerat erat. Curabitur sit amet eros vel orci "
-            "venenatis hendrerit. Cras sagittis sagittis sagittis. In hac habitasse platea dictumst. "
-            "Phasellus diam erat, porttitor sed ligula at, ultricies auctor tellus. Donec ut sem in "
-            "turpis ultrices suscipit ut auctor tellus. Quisque a tincidunt ipsum.",
-        messageType: "receiver"),
-    LiveChatMessage(messageContent: "Hi, Mardin", messageType: "sender"),
-    LiveChatMessage(messageContent: "What you want?", messageType: "sender"),
-    LiveChatMessage(messageContent: "Hi, Jeanie", messageType: "receiver"),
-    LiveChatMessage(
-        messageContent:
-            "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
-            "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
-            "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
-            "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. "
-            "Ut turpis eros, aliquet non ante id, interdum placerat erat. Curabitur "
-            "sit amet eros vel orci venenatis hendrerit. Cras sagittis sagittis sagittis. "
-            "In hac habitasse platea dictumst. Phasellus diam erat, porttitor sed ligula at, "
-            "ultricies auctor tellus. Donec ut sem in turpis ultrices suscipit ut auctor tellus. "
-            "Quisque a tincidunt ipsum.",
-        messageType: "sender"),
-  ];
+  // List<LiveChatMessage> messages = [
+  //   LiveChatMessage(
+  //       messageContent:
+  //           "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
+  //           "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
+  //           "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
+  //           "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. Ut turpis "
+  //           "eros, aliquet non ante id, interdum placerat erat. Curabitur sit amet eros vel orci "
+  //           "venenatis hendrerit. Cras sagittis sagittis sagittis. In hac habitasse platea dictumst. "
+  //           "Phasellus diam erat, porttitor sed ligula at, ultricies auctor tellus. Donec ut sem in "
+  //           "turpis ultrices suscipit ut auctor tellus. Quisque a tincidunt ipsum.",
+  //       messageType: "receiver"),
+  //   LiveChatMessage(messageContent: "Hi, Mardin", messageType: "sender"),
+  //   LiveChatMessage(messageContent: "What you want?", messageType: "sender"),
+  //   LiveChatMessage(messageContent: "Hi, Jeanie", messageType: "receiver"),
+  //   LiveChatMessage(
+  //       messageContent:
+  //           "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
+  //           "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
+  //           "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
+  //           "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. "
+  //           "Ut turpis eros, aliquet non ante id, interdum placerat erat. Curabitur "
+  //           "sit amet eros vel orci venenatis hendrerit. Cras sagittis sagittis sagittis. "
+  //           "In hac habitasse platea dictumst. Phasellus diam erat, porttitor sed ligula at, "
+  //           "ultricies auctor tellus. Donec ut sem in turpis ultrices suscipit ut auctor tellus. "
+  //           "Quisque a tincidunt ipsum.",
+  //       messageType: "sender"),
+  //   LiveChatMessage(
+  //       messageContent:
+  //           "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
+  //           "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
+  //           "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
+  //           "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. Ut turpis "
+  //           "eros, aliquet non ante id, interdum placerat erat. Curabitur sit amet eros vel orci "
+  //           "venenatis hendrerit. Cras sagittis sagittis sagittis. In hac habitasse platea dictumst. "
+  //           "Phasellus diam erat, porttitor sed ligula at, ultricies auctor tellus. Donec ut sem in "
+  //           "turpis ultrices suscipit ut auctor tellus. Quisque a tincidunt ipsum.",
+  //       messageType: "receiver"),
+  //   LiveChatMessage(messageContent: "Hi, Mardin", messageType: "sender"),
+  //   LiveChatMessage(messageContent: "What you want?", messageType: "sender"),
+  //   LiveChatMessage(messageContent: "Hi, Jeanie", messageType: "receiver"),
+  //   LiveChatMessage(
+  //       messageContent:
+  //           "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
+  //           "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
+  //           "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
+  //           "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. "
+  //           "Ut turpis eros, aliquet non ante id, interdum placerat erat. Curabitur "
+  //           "sit amet eros vel orci venenatis hendrerit. Cras sagittis sagittis sagittis. "
+  //           "In hac habitasse platea dictumst. Phasellus diam erat, porttitor sed ligula at, "
+  //           "ultricies auctor tellus. Donec ut sem in turpis ultrices suscipit ut auctor tellus. "
+  //           "Quisque a tincidunt ipsum.",
+  //       messageType: "sender"),
+  // ];
 
   sharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -112,7 +112,8 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
           profileImage: 'assets/live_chat_images/user.png',
           title: "Live Chat"),
       backgroundColor: homeBgColor,
-      body: SingleChildScrollView(
+      body: loading? Center(child: CircularProgressIndicator(color: borderColor)):
+      SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -121,7 +122,7 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
               child: Stack(
                 children: [
                   ListView.builder(
-                    itemCount: messages.length,
+                    itemCount: messageDetailsModelObject.length,
                     shrinkWrap: true,
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     physics: const BouncingScrollPhysics(),
@@ -130,20 +131,18 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
                         padding: const EdgeInsets.only(
                             left: 14, right: 14, top: 10, bottom: 10),
                         child: Align(
-                          alignment: (messages[index].messageType == "receiver"
+                          alignment: (messageDetailsModelObject[index].senderType == "receiver"
                               ? Alignment.topLeft
                               : Alignment.topRight),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: (messages[index].messageType == "receiver"
-                                  ? kWhite
-                                  : borderColor),
+                              color: (messageDetailsModelObject[index].senderType == "receiver"
+                                  ? kWhite : borderColor),
                             ),
                             padding: const EdgeInsets.all(16),
-                            child: messages[index].messageType == "receiver"
-                                ? Text(
-                                    messages[index].messageContent!,
+                            child: messageDetailsModelObject[index].senderType == "receiver"
+                                ? Text(messageDetailsModelObject[index].message!,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -152,8 +151,7 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
                                         color: kBlack),
                                     textAlign: TextAlign.left,
                                   )
-                                : Text(
-                                    messages[index].messageContent!,
+                                : Text(messageDetailsModelObject[index].message!,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -263,8 +261,8 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
     if (response.statusCode == 200) {
       for (int i = 0; i < jsonData['data'].length; i++) {
         Map<String, dynamic> obj = jsonData['data'][i];
-        var pos = MessageDetailsModel();
-        pos = MessageDetailsModel.fromJson(obj);
+        var pos = GetMessageDetailsModel();
+        pos = GetMessageDetailsModel.fromJson(obj);
         messageDetailsModelObject.add(pos);
       }
       print("allChatLength: ${messageDetailsModelObject.length}");

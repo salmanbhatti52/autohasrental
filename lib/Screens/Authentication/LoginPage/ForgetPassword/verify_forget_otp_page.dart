@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:auto_haus_rental_app/Model/AuthModels/verify_otp_model.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -10,20 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 import 'set_new_password_page.dart';
 
-class VerifyEmailPage extends StatefulWidget {
+class VerifyForgetOTPPage extends StatefulWidget {
   final String? email, verifyCode;
-  const VerifyEmailPage({Key? key, this.email, this.verifyCode})
+  const VerifyForgetOTPPage({Key? key, this.email, this.verifyCode})
       : super(key: key);
 
   @override
-  State<VerifyEmailPage> createState() => _VerifyEmailPageState();
+  State<VerifyForgetOTPPage> createState() => _VerifyForgetOTPPageState();
 }
 
-class _VerifyEmailPageState extends State<VerifyEmailPage> {
+class _VerifyForgetOTPPageState extends State<VerifyForgetOTPPage> {
   bool checkBoxValue = false;
   String currentText = "";
   final formKeyVerifyCode = GlobalKey<FormState>();
@@ -32,57 +28,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   final focusNode = FocusNode();
 
-  String? verifyCode;
-  sharedPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('in LoginPage shared prefs');
-    prefs = await SharedPreferences.getInstance();
-    userId = prefs.getString('userid');
-    verifyCode = prefs.getString('verify_code');
-    print("userId in Prefs is = $userId");
-    print("verifyCode in Prefs is = $verifyCode");
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     print("object123 $userId ${widget.verifyCode}");
-    // sharedPrefs();
-  }
-
-  VerifyOtpModel verifyOtpModel = VerifyOtpModel();
-  verifyOTP() async {
-    try {
-      String apiUrl = verifyOtpSignUpApiUrl;
-      print("api: $apiUrl");
-      print("users_customers_id in verifyEmail: $userId");
-      print("users_customers_id: ${widget.verifyCode}");
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: {'Accept': 'application/json'},
-        body: {
-          'users_customers_id': userId,
-          'verify_otp': textEditingController.text,
-        },
-      );
-      final responseString = response.body;
-      print("response String: $responseString");
-
-      print("status Code verify: ${response.statusCode}");
-      if (response.statusCode == 200) {
-        print("in 200 signUp");
-        print("resS $responseString");
-        if (responseString != 'false') {
-          verifyOtpModel = verifyOtpModelFromJson(responseString);
-          setState(() {});
-          print('verifyModel status: ${verifyOtpModel.status}');
-        }
-      }
-    } catch (e) {
-      print('verify error in catch = ${e.toString()}');
-      return null;
-    }
   }
 
   bool progress = false;
@@ -200,7 +150,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                             progress = true;
                           });
 
-                         await verifyOTP();
+                         // await verifyOTP();
 
                           Future.delayed(const Duration(seconds: 3), () {
                             toastSuccessMessage("success", Colors.green);
@@ -209,7 +159,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                                   email: widget.email,
                                   verifyCode: widget.verifyCode,
                                 )));
-                            print("email verifyCode ${widget.email} ${widget.verifyCode}");
+                            print("email & verifyCode ${widget.email} ${widget.verifyCode}");
 
                             setState(() {
                               progress = false;
@@ -232,8 +182,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                         style: TextStyle(color: const Color(0xffFF6666),
                           fontSize: 12, fontFamily: poppinMedium)),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text("Resend Code (4)",
-                        style: TextStyle(color: borderColor,
+                      Text("Resend Code (4)", style: TextStyle(color: borderColor,
                             fontSize: 16, fontFamily: poppinSemiBold)),
                     ],
                   ),

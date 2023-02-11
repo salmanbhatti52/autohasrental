@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/car_photography_model.dart';
+import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/constants.dart';
@@ -13,38 +13,23 @@ import '../../../../../Widget/button.dart';
 import '../../../../../Widget/toast_message.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Home/Address/delivery_address.dart';
-import 'package:http/http.dart' as http;
 
 class BookForWeddingBookingDetails extends StatefulWidget {
-  final String? carName,
-      selectedDate,
-      selectedHours,
-      selectedDay,
-      selectedStartTime,
-      selectedEndTime;
-  final int? carYear, hours;
-  const BookForWeddingBookingDetails(
-      {Key? key,
-      this.selectedStartTime,
-      this.selectedEndTime,
-      this.carName,
-      this.carYear,
-      this.selectedDay,
-      this.hours,
-      this.selectedHours,
-      this.selectedDate})
-      : super(key: key);
+  final DatumPhotography? datumPhotography;
+  final String?selectedDate, selectedHours, selectedDay, selectedStartTime, selectedEndTime;
+  final int? hoursInNumber;
+  const BookForWeddingBookingDetails({Key? key,
+    this.datumPhotography, this.selectedStartTime,
+    this.selectedEndTime, this.selectedDay, this.hoursInNumber,
+    this.selectedHours, this.selectedDate}) : super(key: key);
 
   @override
   State<BookForWeddingBookingDetails> createState() =>
       _BookForWeddingBookingDetailsState();
 }
 
-class _BookForWeddingBookingDetailsState
-    extends State<BookForWeddingBookingDetails> {
-  CarsPhotoGraphyModel carsPhotoGraphyModelObject = CarsPhotoGraphyModel();
-  String? valueTimeStart;
-  String? valueTimeEnd;
+class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDetails> {
+  String? valueTimeStart, valueTimeEnd;
   TimeOfDay? startTime;
   final GlobalKey<FormState> formKeyPhotography = GlobalKey<FormState>();
   bool loadingP = true;
@@ -52,18 +37,20 @@ class _BookForWeddingBookingDetailsState
   mySelectedData() {
     valueDate = "${widget.selectedDate}";
     print("mySelectedDate: $valueDate");
-    print("mySelectedDay: ${widget.selectedDay}");
-    print("mySelectedTime: ${widget.selectedHours}");
-    print("mySelectedHours: ${widget.hours}");
-    print(
-        "mySelected Time: ${widget.selectedStartTime} ${widget.selectedEndTime}");
+    print("mySelectedDay: $valueDay");
+    print("mySelectedTime: $dropdownValueTime");
+    print("mySelectedHours: $myHours");
+    print("mySelected Time: ${widget.selectedStartTime} ${widget.selectedEndTime}");
+    calculatePricePerHour();
+    myTotal();
   }
 
   selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(1980),
+      // firstDate: DateTime(1980),
+      firstDate: DateTime.now().subtract(const Duration(days: 0)),
       lastDate: DateTime(2050),
     );
     if (picked != null && picked != pickDate) {
@@ -79,42 +66,12 @@ class _BookForWeddingBookingDetailsState
   @override
   void initState() {
     super.initState();
-    myHours = widget.hours;
+    myHours = widget.hoursInNumber;
+    valueDay = widget.selectedDay;
     dropdownValueTime = "${widget.selectedHours}";
-    getCarsPhotoGraphyWidget();
     mySelectedData();
     valueTimeStart = widget.selectedStartTime;
     valueTimeEnd = widget.selectedEndTime;
-  }
-
-  getCarsPhotoGraphyWidget() async {
-    loadingP = true;
-    setState(() {});
-    try {
-      String apiUrl = carsPhotoGraphyApiUrl;
-      print("carsPhotographyApi: $apiUrl");
-      final response = await http.post(Uri.parse(apiUrl),
-          body: {"users_customers_id": userId},
-          headers: {'Accept': 'application/json'});
-      print('${response.statusCode}');
-      print(response);
-      if (response.statusCode == 200) {
-        final responseString = response.body;
-        print("carsPhotoGraphyResponse: ${responseString.toString()}");
-        carsPhotoGraphyModelObject =
-            carsPhotoGraphyModelFromJson(responseString);
-        print(
-            "carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.status}");
-      }
-    } catch (e) {
-      print('Error: ${e.toString()}');
-    }
-    loadingP = false;
-    setState(() {});
-
-    print("hors1 $dropdownValueTime");
-    calculatePricePerHour();
-    myTotal();
   }
 
   double pricePerHrs = 0.0;
@@ -123,10 +80,9 @@ class _BookForWeddingBookingDetailsState
   int? myHours;
 
   calculatePricePerHour() {
-    pricePerHrs = double.parse(carsPhotoGraphyModelObject
-            .data![0].carsPlans![0].discountedPricePerHour
-            .toString()) *
-        int.parse(myHours.toString());
+    pricePerHrs = double.parse(
+        widget.datumPhotography!.carsPlans![0].discountedPricePerHour.toString()) * int.parse(myHours.toString());
+    setState(() {});
     print("perHourPrice: $pricePerHrs");
   }
 
@@ -142,8 +98,8 @@ class _BookForWeddingBookingDetailsState
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: MyAppBarSingleImageWithText(
-        title: "${widget.carName}, ",
-        subtitle: "${widget.carYear}",
+        title: "${widget.datumPhotography!.vehicalName}, ",
+        subtitle: "${widget.datumPhotography!.year}",
         backImage: "assets/messages_images/Back.png",
       ),
       body: SingleChildScrollView(
@@ -200,23 +156,14 @@ class _BookForWeddingBookingDetailsState
                                   onTap: () {
                                     showMyBottomSheet(context);
                                   },
-                                  child: SvgPicture.asset(
-                                      'assets/icon/edit_booking_icoon.svg')),
+                                  child: SvgPicture.asset('assets/icon/edit_booking_icoon.svg')),
                             ],
                           ),
                         ),
-
-                        // Text("Choose Mileage Package",
-                        //   textAlign: TextAlign.left, style: TextStyle(
-                        //     color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
-                        //
-                        // const ChooseMileagePlan(),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "$dropdownValueTime Plan",
+                            Text("$dropdownValueTime Plan",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   fontFamily: poppinRegular,
@@ -383,45 +330,27 @@ class _BookForWeddingBookingDetailsState
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => DeliveryAddress(
-                                            carName: carsPhotoGraphyModelObject
-                                                .data![0].vehicalName,
-                                            carYear: carsPhotoGraphyModelObject
-                                                .data![0].year,
-                                            carModel: carsPhotoGraphyModelObject
-                                                .data![0].carsModels!.name,
-                                            carImage:
-                                                "$baseUrlImage${carsPhotoGraphyModelObject.data![0].image1}",
-                                            discountedAmount:
-                                                carsPhotoGraphyModelObject
-                                                    .data![0]
-                                                    .carsPlans![0]
-                                                    .discountedPricePerHour,
-                                            amount: carsPhotoGraphyModelObject
-                                                .data![0]
-                                                .carsPlans![0]
-                                                .pricePerHour,
-                                            discountPercentage:
-                                                carsPhotoGraphyModelObject
-                                                    .data![0]
-                                                    .discountPercentage,
-                                            carMakerName:
-                                                carsPhotoGraphyModelObject
-                                                    .data![0].carsMakes!.name,
-                                            selectedHoursInString:
-                                                dropdownValueTime,
+                                        myDatumPhotography: widget.datumPhotography,
+
+                                            // carName: carsPhotoGraphyModelObject.data![0].vehicalName,
+                                            // carYear: carsPhotoGraphyModelObject.data![0].year,
+                                            // carModel: carsPhotoGraphyModelObject.data![0].carsModels!.name,
+                                            // carImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![0].image1}",
+                                            // discountedAmount: carsPhotoGraphyModelObject.data![0].carsPlans![0].discountedPricePerHour,
+                                            // amount: carsPhotoGraphyModelObject.data![0].carsPlans![0].pricePerHour,
+                                            // discountPercentage: carsPhotoGraphyModelObject.data![0].discountPercentage,
+                                            // carMakerName: carsPhotoGraphyModelObject.data![0].carsMakes!.name,
+                                            selectedHoursInString: dropdownValueTime,
                                             totalHoursInNumber: myHours,
                                             hoursAmount: pricePerHrs,
                                             totalAmount: totalPricePerHrs,
                                             myDate: valueDate,
                                             myDay: valueDay,
-                                            carRating:
-                                                carsPhotoGraphyModelObject
-                                                    .data![0].rating,
+                                            // carRating: carsPhotoGraphyModelObject.data![0].rating,
                                             selectedStartTime: valueTimeStart,
                                             selectedEndTime: valueTimeEnd,
                                           )));
-                              print(
-                                  "startAndEndTime $valueTimeStart $valueTimeEnd");
+                              print("startAndEndTime $valueTimeStart $valueTimeEnd");
                               print("valueDate $valueDate");
                             },
                             child: loginButton("Next", context)),
@@ -446,14 +375,9 @@ class _BookForWeddingBookingDetailsState
           padding: const EdgeInsets.symmetric(horizontal: 07),
           width: MediaQuery.of(context).size.width * 0.8,
           color: Colors.transparent,
-          child: Text(myText,
-              textAlign: TextAlign.left,
-              maxLines: 2,
-              style: TextStyle(
-                  fontSize: 10,
-                  fontFamily: poppinRegular,
-                  color: detailsTextColor)),
-        )
+          child: Text(myText, textAlign: TextAlign.left, maxLines: 2, style: TextStyle(
+                  fontSize: 10, fontFamily: poppinRegular, color: detailsTextColor)),
+        ),
       ],
     );
   }
@@ -461,105 +385,69 @@ class _BookForWeddingBookingDetailsState
   Widget bookForWeddingBookingCard() {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    return loadingP
-        ? Center(child: CircularProgressIndicator(color: borderColor))
-        : Stack(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Container(
-                  height: screenHeight * 0.43,
-                  decoration: BoxDecoration(
-                      color: kWhite, borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              Positioned(
-                top: 90,
-                left: 10,
-                child: Container(
-                  color: Colors.transparent,
-                  width: screenWidth,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(height: screenHeight * 0.1),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Container(
+            height: screenHeight * 0.45,
+            decoration: BoxDecoration(
+                color: kWhite, borderRadius: BorderRadius.circular(20)),
+          ),
+        ),
+        Positioned(
+          top: 90,
+          left: 10,
+          child: Container(
+            color: Colors.transparent,
+            width: screenWidth,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(height: screenHeight * 0.1),
+                  Row(
+                    children: [
+                      Text("${widget.datumPhotography!.vehicalName} ",
+                          textAlign: TextAlign.left, style: TextStyle(
+                              color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+                            Text("${widget.datumPhotography!.year}",
+                                textAlign: TextAlign.left, style: TextStyle(
+                                    color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                          ],
+                        ),
                         Row(
                           children: [
-                            Text(
-                                "${carsPhotoGraphyModelObject.data![0].vehicalName} | ",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: kBlack,
-                                    fontSize: 14,
-                                    fontFamily: poppinBold)),
-                            Text(
-                                "${carsPhotoGraphyModelObject.data![0].carsMakes!.name} ",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: kBlack,
-                                    fontSize: 12,
-                                    fontFamily: poppinRegular)),
-                            Text(
-                                "${carsPhotoGraphyModelObject.data![0].carsModels!.name} ",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: kBlack,
-                                    fontSize: 14,
-                                    fontFamily: poppinMedium)),
-                            Text("${carsPhotoGraphyModelObject.data![0].year}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: kBlack,
-                                  fontSize: 10,
-                                  fontFamily: poppinRegular,
-                                )),
+                            Text("${widget.datumPhotography!.carsMakes!.name} ",
+                                textAlign: TextAlign.left, style: TextStyle(
+                                    color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                            Text("${widget.datumPhotography!.carsModels!.name} ",
+                                textAlign: TextAlign.left, style: TextStyle(
+                                    color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                           ],
                         ),
                         Row(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 04),
-                              child: Text("RM ",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: kRed,
-                                      fontSize: 5,
-                                      fontFamily: poppinLight)),
+                              child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
+                                      color: kRed, fontSize: 5, fontFamily: poppinLight)),
                             ),
-                            Text(
-                                "${carsPhotoGraphyModelObject.data![0].carsPlans![0].pricePerHour}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: kRed,
-                                    fontFamily: poppinLight,
-                                    fontSize: 10,
-                                    decoration: TextDecoration.lineThrough)),
+                            Text("${widget.datumPhotography!.carsPlans![0].pricePerHour}",
+                                textAlign: TextAlign.left, style: TextStyle(color: kRed,
+                                    fontFamily: poppinLight, fontSize: 10, decoration: TextDecoration.lineThrough)),
                             SizedBox(width: screenWidth * 0.01),
                             Padding(
                               padding: const EdgeInsets.only(top: 06),
-                              child: Text("RM ",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: borderColor,
-                                      fontSize: 7,
-                                      fontFamily: poppinSemiBold)),
+                              child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
+                                      color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                             ),
-                            Text(
-                                "${carsPhotoGraphyModelObject.data![0].carsPlans![0].discountedPricePerHour}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: borderColor,
-                                    fontSize: 20,
-                                    fontFamily: poppinSemiBold)),
-                            Text("/ Hour",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: kBlack,
-                                    fontSize: 8,
-                                    fontFamily: poppinRegular)),
+                            Text("${widget.datumPhotography!.carsPlans![0].discountedPricePerHour}",
+                                textAlign: TextAlign.left, style: TextStyle(
+                                    color: borderColor, fontSize: 20, fontFamily: poppinSemiBold)),
+                            Text("/Hour", textAlign: TextAlign.left, style: TextStyle(
+                                    color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                           ],
                         ),
                         SizedBox(height: screenHeight * 0.01),
@@ -567,12 +455,8 @@ class _BookForWeddingBookingDetailsState
                           children: [
                             Image.asset("assets/home_page/Promoted.png"),
                             const SizedBox(width: 05),
-                            Text("Verified Dealer",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: textLabelColor,
-                                    fontSize: 10,
-                                    fontFamily: poppinRegular)),
+                            Text("Verified Dealer", textAlign: TextAlign.left, style: TextStyle(
+                                    color: textLabelColor, fontSize: 10, fontFamily: poppinRegular)),
                             const SizedBox(width: 05),
                             Container(
                               height: 15,
@@ -581,12 +465,8 @@ class _BookForWeddingBookingDetailsState
                                   color: kBlack,
                                   borderRadius: BorderRadius.circular(10)),
                               child: Center(
-                                child: Text("New",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        color: kWhite,
-                                        fontSize: 8,
-                                        fontFamily: poppinRegular)),
+                                child: Text("New", textAlign: TextAlign.left, style: TextStyle(
+                                        color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
                               ),
                             ),
                           ],
@@ -596,26 +476,13 @@ class _BookForWeddingBookingDetailsState
                           children: [
                             Row(
                               children: [
-                                Image.asset(
-                                    "assets/home_page/9004787_star_favorite_award_like_icon.png"),
-                                SizedBox(
-                                    width: MediaQuery.of(context).size.height *
-                                        0.01),
-                                carsPhotoGraphyModelObject.data![0].rating ==
-                                        null
-                                    ? Text("0.0",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                            color: kBlack,
-                                            fontSize: 14,
-                                            fontFamily: poppinRegular))
-                                    : Text(
-                                        "${carsPhotoGraphyModelObject.data![0].rating}",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                            color: kBlack,
-                                            fontSize: 14,
-                                            fontFamily: poppinRegular)),
+                                Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                SizedBox(width: MediaQuery.of(context).size.height * 0.01),
+                                widget.datumPhotography!.rating == null ?
+                                Text("0.0", textAlign: TextAlign.left, style: TextStyle(
+                                    color: kBlack, fontSize: 14, fontFamily: poppinRegular)) :
+                                Text("${widget.datumPhotography!.rating}", textAlign: TextAlign.left,
+                                    style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                               ],
                             ),
                             SizedBox(width: screenWidth * 0.45),
@@ -626,102 +493,77 @@ class _BookForWeddingBookingDetailsState
                                   color: kBlack,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Center(
-                                child: Text("Pre book",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        color: kWhite,
-                                        fontSize: 12,
-                                        fontFamily: poppinMedium)),
+                                child: Text("Pre book", textAlign: TextAlign.left, style: TextStyle(
+                                        color: kWhite, fontSize: 12, fontFamily: poppinMedium)),
                               ),
                             ),
                           ],
                         ),
                         SizedBox(height: screenHeight * 0.01),
-                        Text("PRE-BOOK LISTING ",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: kBlack,
-                                fontSize: 14,
-                                fontFamily: poppinSemiBold)),
+                        Text("PRE-BOOK LISTING ", textAlign: TextAlign.left, style: TextStyle(
+                                color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
                         SizedBox(height: screenHeight * 0.01),
-                        Text(
-                            "This vehicle may take more than 7 days to deliver, based on vehicle’s availability",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: kBlack,
-                                fontSize: 10,
-                                fontFamily: poppinRegular)),
+                        Text("This vehicle may take more than 7 days to deliver, based on vehicle’s availability",
+                            textAlign: TextAlign.left, style: TextStyle(
+                                color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
                       ],
                     ),
                   ),
                 ),
               ),
               Positioned(
-                  top: 28,
-                  left: 27,
-                  child: Container(
-                    height: screenHeight * 0.04,
-                    width: screenWidth * 0.18,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                          bottomLeft: Radius.circular(15)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                            "${carsPhotoGraphyModelObject.data![0].discountPercentage}% ",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: kWhite,
-                                fontSize: 13,
-                                fontFamily: poppinSemiBold)),
-                        Text("OFF",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: kWhite,
-                                fontSize: 8,
-                                fontFamily: poppinRegular)),
+                left: 45,
+                right: 20,
+                top: 10,
+                child: widget.datumPhotography!.image1 == null ?
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset('assets/icon/fade_in_image.jpeg')) :
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: FadeInImage(
+                    placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                    height: 130,
+                    image: NetworkImage("$baseUrlImage${widget.datumPhotography!.image1}"),
+                  ),
+                ),
+              ),
+        Positioned(
+            top: 28,
+            left: 27,
+            child: Container(
+              height: screenHeight * 0.04,
+              width: screenWidth * 0.18,
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    bottomLeft: Radius.circular(15)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("${widget.datumPhotography!.discountPercentage}% ",
+                      textAlign: TextAlign.left, style: TextStyle(
+                          color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
+                  Text("OFF", textAlign: TextAlign.left, style: TextStyle(
+                          color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
                       ],
                     ),
                   )),
-              Positioned(
-                left: 20,
-                right: 20,
-                top: 10,
-                child: carsPhotoGraphyModelObject.data![0].image1 == null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset('assets/icon/fade_in_image.jpeg'))
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: FadeInImage(
-                          placeholder: const AssetImage(
-                              "assets/icon/fade_in_image.jpeg"),
-                          width: 350,
-                          height: 150,
-                          image: NetworkImage(
-                              "$baseUrlImage${carsPhotoGraphyModelObject.data![0].image1}"),
-                        ),
-                      ),
-              ),
+
               Positioned(
                 top: 28,
                 right: 27,
-                child: carsPhotoGraphyModelObject.data![0].favouriteStatus ==
-                        "like"
-                    ? Image.asset("assets/home_page/heart.png")
-                    : Image.asset("assets/home_page/heart_transparent.png",
-                        color: kBlack),
+                child: widget.datumPhotography!.favouriteStatus == "like" ?
+                Image.asset("assets/home_page/heart.png") :
+                Image.asset("assets/home_page/heart_transparent.png", color: kBlack),
               ),
             ],
           );
   }
 
-  var totalHours;
-  var minutes;
+  dynamic totalHours, minutes;
   calculateTimeInterval() {
     var format = DateFormat("HH:mm");
     var start = format.parse("$valueTimeStart");
@@ -734,20 +576,62 @@ class _BookForWeddingBookingDetailsState
     minutes = diff.inMinutes % 60;
     print('selectedTime interval $totalHours');
     print('$totalHours hours $minutes minutes');
-  }
 
-  compareTime() {
-    if (formKeyPhotography.currentState!.validate()) {
-      print("value $myHours $totalHours");
-      if (myHours == totalHours) {
-        toastSuccessMessage("time compare success", colorGreen);
-        print("success");
-      } else {
-        toastFailedMessage("time compare failed", kRed);
-        print("no success");
-      }
+    myMinutes = int.parse(myHours.toString()) * 60;
+    selectedMinutes = (totalHours* 60)+ minutes;
+    print("myMinutesBottomSheet $myMinutes $selectedMinutes");
+    print("valueHours $myHours $totalHours");
+
+    if(myMinutes == selectedMinutes){
+      toastSuccessMessage("time matched successfully", colorGreen);
+      print("success");
+    }
+    else{
+      toastFailedMessage("time didn't matched", kRed);
+      print("no success");
     }
   }
+
+  // compareTime() {
+  //   if (formKeyPhotography.currentState!.validate()) {
+  //     print("value $myHours $totalHours");
+  //     if (myHours == totalHours) {
+  //       toastSuccessMessage("time compare success", colorGreen);
+  //       print("success");
+  //     } else {
+  //       toastFailedMessage("time compare failed", kRed);
+  //       print("no success");
+  //     }
+  //   }
+  // }
+
+  int? myMinutes, selectedMinutes;
+  // compareTime(){
+  //   if(formKeyPhotography.currentState!.validate()){
+  //     myMinutes = int.parse(myHours.toString()) * 60;
+  //     selectedMinutes = (totalHours* 60)+ minutes;
+  //     print("myMinutesBottomSheet $myMinutes $selectedMinutes");
+  //     print("valueHours $myHours $totalHours");
+  //
+  //     if(myMinutes == selectedMinutes){
+  //       toastSuccessMessage("time matched successfully", colorGreen);
+  //       print("success");
+  //     }
+  //     else{
+  //       toastFailedMessage("time didn't matched", kRed);
+  //       print("no success");
+  //     }
+  //
+  //     // if(myHours == hours){
+  //     //   toastSuccessMessage("time compare success", colorGreen);
+  //     //   print("success");
+  //     // }
+  //     // else{
+  //     //   toastFailedMessage("time compare failed", kRed);
+  //     //   print("no success");
+  //     // }
+  //   }
+  // }
 
   showMyBottomSheet(context) {
     var size = MediaQuery.of(context).size;
@@ -789,7 +673,8 @@ class _BookForWeddingBookingDetailsState
                           DateTime? picked = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
-                            firstDate: DateTime(1980),
+                            // firstDate: DateTime(1980),
+                            firstDate: DateTime.now().subtract(const Duration(days: 0)),
                             lastDate: DateTime(2050),
                           );
                           if (picked != null && picked != pickDate) {
@@ -823,24 +708,18 @@ class _BookForWeddingBookingDetailsState
                           ],
                         ),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02),
-                      valueDay == null
-                          ? Container(
-                              width: 200,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: kWhite,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "${widget.selectedDay}",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: poppinMedium,
-                                      color: kBlack),
-                                ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      valueDay == null ?
+                      Container(
+                        width: 200,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Center(
+                          child: Text("${widget.selectedDay}", style: TextStyle(
+                                fontSize: 14, fontFamily: poppinMedium, color: kBlack)),
                               ),
                             )
                           : Container(
@@ -851,69 +730,46 @@ class _BookForWeddingBookingDetailsState
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Center(
-                                child: Text("$valueDay",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: poppinMedium,
-                                        color: kWhite)),
+                                child: Text("$valueDay", style: TextStyle(
+                                    fontSize: 14, fontFamily: poppinMedium, color: kWhite)),
                               ),
                             ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         child: Container(
                           height: size.height * 0.055,
                           width: MediaQuery.of(context).size.width * 01.3,
                           decoration: BoxDecoration(
                               color: kWhite,
                               borderRadius: BorderRadius.circular(15),
-                              border:
-                                  Border.all(color: const Color(0xff7E7E7E))),
+                              border: Border.all(color: const Color(0xff7E7E7E))),
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2(
-                                hint: Text('Select Hours',
-                                    style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                            fontSize: 12,
-                                            color: kBlack,
-                                            fontWeight: FontWeight.w400))),
-                                icon: Icon(Icons.keyboard_arrow_down_rounded,
-                                    size: 30, color: kBlack),
-                                items: timeHoursList
-                                    .map(
-                                      (item) => DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(item,
-                                            style: GoogleFonts.poppins(
-                                                textStyle: TextStyle(
-                                                    fontSize: 14,
-                                                    color: kBlack,
-                                                    fontWeight:
-                                                        FontWeight.w400))),
+                                hint: Text('Select Hours', style: GoogleFonts.poppins(textStyle: TextStyle(
+                                            fontSize: 12, color: kBlack, fontWeight: FontWeight.w400))),
+                                icon: Icon(Icons.keyboard_arrow_down_rounded, size: 30, color: kBlack),
+                                items: timeHoursList.map(
+                                      (item) => DropdownMenuItem<String>(value: item,
+                                        child: Text(item, style: GoogleFonts.poppins(textStyle: TextStyle(
+                                            fontSize: 14, color: kBlack, fontWeight: FontWeight.w400))),
                                       ),
-                                    )
-                                    .toList(),
+                                    ).toList(),
                                 value: dropdownValueTime,
                                 onChanged: (String? newValue) {
                                   stateSetterObject(() {
-                                    dropdownValueTime =
-                                        newValue!.split(" hour").first;
+                                    dropdownValueTime = newValue!.split(" hour").first;
                                     myHours = int.parse(dropdownValueTime);
                                     dropdownValueTime = newValue;
-                                    print(
-                                        "selectedTime in bottomSheet: $dropdownValueTime");
-                                    print(
-                                        "selectedHour in bottomSheet: $myHours");
+                                    print("selectedTime in bottomSheet: $dropdownValueTime");
+                                    print("selectedHour in bottomSheet: $myHours");
                                   });
                                 },
-                                buttonWidth:
-                                    MediaQuery.of(context).size.width * 0.2,
+                                buttonWidth: MediaQuery.of(context).size.width * 0.2,
                                 dropdownDecoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10)),
-                                dropdownMaxHeight:
-                                    MediaQuery.of(context).size.height * 0.25,
+                                dropdownMaxHeight: MediaQuery.of(context).size.height * 0.25,
                                 scrollbarThickness: 0,
                                 itemHeight: 30,
                               ),
@@ -922,8 +778,7 @@ class _BookForWeddingBookingDetailsState
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -937,55 +792,31 @@ class _BookForWeddingBookingDetailsState
                                     if (picked == null) {
                                       picked = startTime;
                                     } else {
-                                      valueTimeStart =
-                                          picked.format(context).toString();
-                                      setState(() {
-                                        print(
-                                            "Selected startTime is : $valueTimeStart");
-                                      });
-                                      valueTimeStart =
-                                          '${picked.hour}:${picked.minute}:00';
-                                      setState(() {
-                                        print(
-                                            "Selected startTime is : $valueTimeStart");
+                                      valueTimeStart = picked.format(context).toString();
+                                      // setState(() {
+                                      //   print("Selected startTime is : $valueTimeStart");
+                                      // });
+                                      valueTimeStart = '${picked.hour}:${picked.minute}:00';
+                                      stateSetterObject(() {
+                                        print("Selected startTime is : $valueTimeStart");
                                         print("myTime $valueTimeStart");
                                       });
                                     }
-
-                                    // if (picked == null) {
-                                    //   picked = startTime;
-                                    // } else {
-                                    //   valueTimeStart = picked.format(context).toString();
-                                    //   stateSetterObject(() {
-                                    //     print("startTime in bottomSheet: $valueTimeStart");
-                                    //   });
-                                    // }
                                   },
                                   child: Container(
                                     height: 40,
                                     width: 120,
                                     decoration: BoxDecoration(
-                                        color: valueTimeStart == "Start Time"
-                                            ? kWhite
-                                            : borderColor,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                        color: valueTimeStart == "Start Time" ? kWhite : borderColor,
+                                        borderRadius: BorderRadius.circular(10)),
                                     child: Center(
-                                      child: Text(
-                                        "$valueTimeStart",
-                                        style: TextStyle(
-                                            color:
-                                                valueTimeStart == "Start Time"
-                                                    ? kBlack
-                                                    : kWhite,
-                                            fontSize: 16),
-                                      ),
+                                      child: Text("$valueTimeStart", style: TextStyle(fontSize: 16,
+                                          color: valueTimeStart == "Start Time" ? kBlack : kWhite)),
                                     ),
-                                  )),
+                                  ),
+                              ),
                               InkWell(
                                   onTap: () async {
-                                    // selectTimeEnd(context);
-
                                     TimeOfDay? picked;
                                     picked = await showTimePicker(
                                       context: context,
@@ -994,17 +825,13 @@ class _BookForWeddingBookingDetailsState
                                     if (picked == null) {
                                       picked = startTime;
                                     } else {
-                                      valueTimeEnd =
-                                          picked.format(context).toString();
-                                      setState(() {
-                                        print(
-                                            "Selected endTime is : $valueTimeEnd");
-                                      });
-                                      valueTimeEnd =
-                                          '${picked.hour}:${picked.minute}:00';
-                                      setState(() {
-                                        print(
-                                            "Selected endTime is : $valueTimeEnd");
+                                      valueTimeEnd = picked.format(context).toString();
+                                      // setState(() {
+                                      //   print("Selected endTime is: $valueTimeEnd");
+                                      // });
+                                      valueTimeEnd = '${picked.hour}:${picked.minute}:00';
+                                      stateSetterObject(() {
+                                        print("Selected endTime is : $valueTimeEnd");
                                         calculateTimeInterval();
                                         // compareTime();
                                       });
@@ -1015,20 +842,12 @@ class _BookForWeddingBookingDetailsState
                                     height: 40,
                                     width: 120,
                                     decoration: BoxDecoration(
-                                      color: valueTimeEnd == "End Time"
-                                          ? kWhite
-                                          : borderColor,
+                                      color: valueTimeEnd == "End Time" ? kWhite : borderColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Center(
-                                      child: Text(
-                                        "$valueTimeEnd",
-                                        style: TextStyle(
-                                            color: valueTimeEnd == "End Time"
-                                                ? kBlack
-                                                : kWhite,
-                                            fontSize: 16),
-                                      ),
+                                      child: Text("$valueTimeEnd", style: TextStyle(fontSize: 16,
+                                            color: valueTimeEnd == "End Time" ? kBlack : kWhite)),
                                     ),
                                   )),
                             ]),
@@ -1038,9 +857,7 @@ class _BookForWeddingBookingDetailsState
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   GestureDetector(
                       onTap: () {
-                        // compareTime();
-                        getCarsPhotoGraphyWidget();
-
+                        mySelectedData();
                         Navigator.pop(context);
                       },
                       child: loginButton('Update', context)),

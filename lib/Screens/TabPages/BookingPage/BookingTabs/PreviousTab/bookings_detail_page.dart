@@ -6,7 +6,10 @@ import '../tabbar_bookings_detail_page.dart';
 import 'bookings_detail_previous.dart';
 
 class BookingDetailPage extends StatefulWidget {
-  const BookingDetailPage({super.key});
+  final String? carName, carImage, carModel, carMakes, carYear, carPrice, carRatings;
+
+  const BookingDetailPage({super.key, this.carName, this.carModel,
+    this.carImage, this.carMakes, this.carYear, this.carPrice, this.carRatings});
 
   @override
   State<BookingDetailPage> createState() => _BookingDetailPageState();
@@ -23,7 +26,14 @@ class _BookingDetailPageState extends State<BookingDetailPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const BookingsDetailsPrevious(),
+             BookingsDetailsPrevious(
+              carName: widget.carName,
+              carImage: widget.carImage,
+              carYear: widget.carYear,
+              carModel: widget.carModel,
+              carMakes: widget.carMakes,
+              carRatings: widget.carRatings,
+            ),
             const TabbarBookingsDetails(),
             GestureDetector(
                 onTap: () {

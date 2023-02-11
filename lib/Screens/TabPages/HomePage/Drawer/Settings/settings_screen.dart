@@ -205,7 +205,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       );
                     });
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountPage()));
               },
               child: settingWidget("Delete Account", introColor, "Delete your account",
                   Icons.arrow_forward_ios_rounded, const Color(0xffD4DCE1))),
@@ -236,11 +235,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       if (response.statusCode == 200) {
         print("in 200 signUp");
         // print("resS $responseString");
-        if (responseString != 'false') {
+        // if (responseString != 'false') {
           deleteAccountModel = deleteAccountModelFromJson(responseString);
           setState(() {});
           print('deleteAccountModel status: ${deleteAccountModel.status}');
-        }
+        // }
       }
     } catch (e) {
       print('deleteAccountModel error in catch = ${e.toString()}');
@@ -269,19 +268,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         decoration: BoxDecoration(
             color: kWhite, borderRadius: BorderRadius.circular(10)),
         child: ListTile(
-          title: Text(
-            titleText,
-            textAlign: TextAlign.left,
-            style: TextStyle(fontSize: 14,
-                fontFamily: poppinBold, color: textColor),
+          title: Text(titleText, textAlign: TextAlign.left, style: TextStyle(
+                fontSize: 14, fontFamily: poppinBold, color: textColor)),
+          subtitle: Text(subTitleText, textAlign: TextAlign.left, style: TextStyle(
+                fontSize: 10, fontFamily: poppinRegular, color: kBlack),
           ),
-          subtitle: Text(
-            subTitleText,
-            textAlign: TextAlign.left,
-            style: TextStyle(fontSize: 10,
-                fontFamily: poppinRegular, color: kBlack),
-          ),
-          trailing: Icon(iconData, color: iconColor, size: 20,),
+          trailing: Icon(iconData, color: iconColor, size: 20),
         ),
       ),
     );
@@ -300,10 +292,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           borderRadius: BorderRadius.circular(30),
         ),
         child: Center(
-          child: Text("Yes",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white,
-                  fontFamily: poppinRegular, fontSize: 16)),
+          child: Text("Yes", textAlign: TextAlign.center, style: TextStyle(
+              color: kWhite, fontFamily: poppinRegular, fontSize: 16)),
         ),
       ),
     );
@@ -322,10 +312,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             borderRadius: BorderRadius.circular(30),
             border: Border.all(color: borderColor, width: 2)),
         child: Center(
-          child: Text("No",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: borderColor,
-                  fontFamily: poppinRegular, fontSize: 16)),
+          child: Text("No", textAlign: TextAlign.center, style: TextStyle(
+              color: borderColor, fontFamily: poppinRegular, fontSize: 16)),
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
-import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/driving_experience_cars_model.dart';
+import '../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/constants.dart';
 import '../../../../../Utils/fontFamily.dart';
@@ -21,7 +21,7 @@ class DrivingExperiencePage extends StatefulWidget {
 }
 
 class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
-  DrivingExperienceCarsModel drivingExperienceCarsModelObject = DrivingExperienceCarsModel();
+  DrivingCarsModel drivingExperienceCarsModelObject = DrivingCarsModel();
   CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
   String? myCurrentCarIndex;
   bool loadingP = true;
@@ -207,78 +207,62 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                             children: [
                               const SizedBox(height: 93.6),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text("${drivingExperienceCarsModelObject.data![index].vehicalName} ",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                      color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-                                                  Text("${drivingExperienceCarsModelObject.data![index].year}",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text("${drivingExperienceCarsModelObject.data![index].carsMakes!.name} ",
-                                                      style: TextStyle(color: kBlack,
-                                                          fontSize: 14, fontFamily: poppinRegular),
-                                                      textAlign: TextAlign.left),
-                                                  Text("${drivingExperienceCarsModelObject.data![index].carsModels!.name} ",
-                                                      style: TextStyle(color: kBlack,
-                                                          fontSize: 10, fontFamily: poppinRegular),
-                                                      textAlign: TextAlign.left),
-                                                  Text("${drivingExperienceCarsModelObject.data![index].carsColors!.name}",
-                                                      style: TextStyle(color: kBlack,
-                                                          fontSize: 10, fontFamily: poppinRegular),
-                                                      textAlign: TextAlign.left),
-                                                ],
-                                              ),
-
-                                              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                              Row(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(top: 04),
-                                                    child: Text("RM",  textAlign: TextAlign.left,                                                       style: TextStyle(
-                                                          color: kRed, fontSize: 5, fontFamily: poppinRegular)),
-                                                  ),
-                                                  Text(
-                                                    "${drivingExperienceCarsModelObject.data![index].carsPlans![0].pricePerSlot}",
-                                                    style: TextStyle(color: kRed,
-                                                      decoration: TextDecoration.lineThrough,
-                                                      decorationColor: kRed,
-                                                      decorationThickness: 3,
-                                                      fontSize: 10,
-                                                      fontFamily: poppinLight,
-                                                      height: 2),
-                                                    textAlign: TextAlign.left),
-                                                  const SizedBox(width: 5),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(top: 06),
-                                                    child: Text("RM",
-                                                        style: TextStyle(
-                                                          color: borderColor,
-                                                          fontSize: 7,
-                                                          fontFamily: poppinSemiBold),
-                                                        textAlign: TextAlign.left),
-                                                  ),
-                                                  Text(
-                                                      "${drivingExperienceCarsModelObject.data![index].carsPlans![0].discountedPricePerSlot}",
-                                                      style: TextStyle(
-                                                        color: borderColor,
-                                                        fontSize: 16,
-                                                        fontFamily:
-                                                            poppinSemiBold,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.left),
-                                                  Text("/ Month",
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text("${drivingExperienceCarsModelObject.data![index].vehicalName} ",
+                                            textAlign: TextAlign.left, style: TextStyle(
+                                                color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+                                        Text(drivingExperienceCarsModelObject.data![index].carsColors!.name,
+                                            style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinRegular),
+                                            textAlign: TextAlign.left),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("${drivingExperienceCarsModelObject.data![index].carsMakes!.name}, ",
+                                            style: TextStyle(color: kBlack,
+                                                fontSize: 12, fontFamily: poppinRegular),
+                                            textAlign: TextAlign.left),
+                                        Text("${drivingExperienceCarsModelObject.data![index].carsModels!.name}, ",
+                                            style: TextStyle(color: kBlack,
+                                                fontSize: 12, fontFamily: poppinSemiBold),
+                                            textAlign: TextAlign.left),
+                                        Text("${drivingExperienceCarsModelObject.data![index].year} ",
+                                            textAlign: TextAlign.left, style: TextStyle(
+                                                color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                      ],
+                                    ),
+                                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 04),
+                                          child: Text("RM",  textAlign: TextAlign.left,                                                       style: TextStyle(
+                                              color: kRed, fontSize: 5, fontFamily: poppinRegular)),
+                                        ),
+                                        Text("${drivingExperienceCarsModelObject.data![index].carsPlans![0].pricePerSlot}",
+                                            style: TextStyle(color: kRed,
+                                                decoration: TextDecoration.lineThrough,
+                                                decorationColor: kRed,
+                                                decorationThickness: 3,
+                                                fontSize: 10,
+                                                fontFamily: poppinLight,
+                                                height: 2),
+                                            textAlign: TextAlign.left),
+                                        const SizedBox(width: 5),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 06),
+                                          child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
+                                              color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
+                                        ),
+                                        Text("${drivingExperienceCarsModelObject.data![index].carsPlans![0].discountedPricePerSlot}",
+                                          textAlign: TextAlign.left, style: TextStyle(
+                                                color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+                                                  Text("/Slot",
                                                       style: TextStyle(
                                                           color: kBlack,
                                                           fontSize: 8,
@@ -318,18 +302,11 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                                           style: TextStyle(
                                                               color: kBlack,
                                                               fontSize: 12,
-                                                              fontFamily:
-                                                                  poppinRegular),
-                                                          textAlign:
-                                                              TextAlign.left),
+                                                              fontFamily: poppinRegular),
+                                                          textAlign: TextAlign.left),
                                                 ],
                                               ),
-                                              SizedBox(
-                                                  height:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.01),
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                               Row(
                                                 children: [
                                                   Image.asset(
@@ -337,8 +314,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                                   const SizedBox(width: 5),
                                                   Text("Verified Dealer",
                                                       style: TextStyle(
-                                                          color:
-                                                              textLabelColor,
+                                                          color: textLabelColor,
                                                           fontSize: 10,
                                                           fontFamily:
                                                               poppinRegular),
@@ -382,14 +358,8 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                             bottom: 35,
                             child: GestureDetector(
                               onTap: () {
-
                                 carID = drivingExperienceCarsModelObject.data![index].carsId;
                                 print("selectedCarId $carID");
-
-
-                                // myList = List<CarsPlan>;
-                                // myCarPlansList();
-
 
                                 Navigator.push(context, MaterialPageRoute(
                                     builder: (context) => DrivingDetailsPage(
@@ -401,82 +371,78 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                   "assets/car_bookings_images/more_button.png"),
                             ),
                           ),
-                          Positioned(
-                              top: 10,
-                              left: 15,
-                              child: Container(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.07,
-                                width:
-                                    MediaQuery.of(context).size.width * 0.16,
-                                decoration: BoxDecoration(
-                                  color: kRed.withOpacity(0.8),
-                                  borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(15),
-                                      bottomLeft: Radius.circular(15)),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("${drivingExperienceCarsModelObject.data![index].discountPercentage}",
-                                        textAlign: TextAlign.left, style: TextStyle(
-                                        color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
-                                    Text(" OFF ", textAlign: TextAlign.left,
-                                        style: TextStyle(color: kWhite,
-                                            fontSize: 8, fontFamily: poppinRegular)),
-                                  ],
-                                ),
-                              )),
-                          Positioned(
-                            child: drivingExperienceCarsModelObject
-                                        .data![index].image1 ==
-                                    null
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.asset(
-                                        'assets/icon/fade_in_image.jpeg'))
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: FadeInImage(
-                                      placeholder: const AssetImage(
-                                          "assets/icon/fade_in_image.jpeg"),
-                                      // fit: BoxFit.fill,
-                                      width: 350,
-                                      height: 120,
-                                      image: NetworkImage(
-                                          "$baseUrlImage${drivingExperienceCarsModelObject.data![index].image1}"),
-                                    ),
-                                  ),
-                          ),
-                          Positioned(
-                            top: 10,
-                            right: 15,
-                            child:
-                            drivingExperienceCarsModelObject.data![index].favouriteStatus == "like"?
-                            Image.asset("assets/home_page/heart.png"):
-                            GestureDetector(
-                              onTap: () async {
-                                myCurrentCarIndex = "${drivingExperienceCarsModelObject.data![index].carsId}";
-                                print("drivingExperienceCarId $myCurrentCarIndex");
-                                await getLikeUnlikeCarWidget();
-                                if (carLikeUnlikeModelObject.message == "Liked") {
-                                  print("isLiked");
-                                  toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                                }
-                                if (carLikeUnlikeModelObject.message == "Unliked") {
-                                  print("isUnLiked");
-                                  toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                                }
-                              },
-                              child: carLikeUnlikeModelObject.message == "Liked"
-                                  ? Image.asset("assets/home_page/heart.png")
-                                  : Image.asset("assets/car_bookings_images/heart.png"),
-                            ),
-                          ),
+
+                Positioned(
+                  top: 40,
+                  left: 20, right: 20,
+                  child: drivingExperienceCarsModelObject.data![index].image1 == null
+                      ? ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset('assets/icon/fade_in_image.jpeg'))
+                      : ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: FadeInImage(
+                      placeholder: const AssetImage(
+                          "assets/icon/fade_in_image.jpeg"),
+                      // fit: BoxFit.fill,
+                      height: 130, width: 350,
+                      image: NetworkImage("$baseUrlImage${drivingExperienceCarsModelObject.data![index].image1}"),
+                    ),
+                  ),
+                ),
+                Positioned(
+                    top: 10,
+                    left: 15,
+                    child: Container(
+                      height:
+                      MediaQuery.of(context).size.width * 0.07,
+                      width:
+                      MediaQuery.of(context).size.width * 0.16,
+                      decoration: BoxDecoration(
+                        color: kRed.withOpacity(0.8),
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("${drivingExperienceCarsModelObject.data![index].discountPercentage}",
+                              textAlign: TextAlign.left, style: TextStyle(
+                                  color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
+                          Text(" OFF ", textAlign: TextAlign.left,
+                              style: TextStyle(color: kWhite,
+                                  fontSize: 8, fontFamily: poppinRegular)),
                         ],
-                      );
-                    }),
-              );
+                      ),
+                    )),
+                Positioned(
+                  top: 10, right: 15,
+                  child:
+                  drivingExperienceCarsModelObject.data![index].favouriteStatus == "like"?
+                  Image.asset("assets/home_page/heart.png"):
+                  GestureDetector(
+                    onTap: () async {
+                      myCurrentCarIndex = "${drivingExperienceCarsModelObject.data![index].carsId}";
+                      print("drivingExperienceCarId $myCurrentCarIndex");
+                      await getLikeUnlikeCarWidget();
+                      if (carLikeUnlikeModelObject.message == "Liked") {
+                        print("isLiked");
+                        toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                      }
+                      if (carLikeUnlikeModelObject.message == "Unliked") {
+                        print("isUnLiked");
+                        toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                      }
+                      },
+                    child: carLikeUnlikeModelObject.message == "Liked"
+                        ? Image.asset("assets/home_page/heart.png")
+                        : Image.asset("assets/car_bookings_images/heart.png"),),
+                ),
+              ],
+            );
+          }),
+    );
   }
 
   List myCarPlansStartTime = [];

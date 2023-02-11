@@ -36,7 +36,8 @@ class _DaySlotContainerState extends State<DaySlotContainer> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(1980),
+      // firstDate: DateTime(1980),
+      firstDate: DateTime.now().subtract(const Duration(days: 0)),
       lastDate: DateTime(2050),
     );
     if (picked != null && picked != pickDate) {

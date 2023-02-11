@@ -11,7 +11,7 @@ import '../../../../Widget/myTextWidget.dart';
 import '../../../../Widget/toast_message.dart';
 import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart' as http;
-import 'verify_email_page.dart';
+import 'verify_forget_otp_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
@@ -44,11 +44,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       if (response.statusCode == 200) {
         print("in 200 resetPassModel");
         // print("resS $responseString");
-        if (responseString != 'false') {
+        // if (responseString != 'false') {
           forgetPasswordModel = forgetPasswordModelFromJson(responseString);
           setState(() {});
           print('forgetModel status: ${forgetPasswordModel.status}');
-        }
+        // }
       }
     } catch (e) {
       print('forgetModel error in catch = ${e.toString()}');
@@ -110,15 +110,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             print("reset Success");
                             Future.delayed(const Duration(seconds: 3), () {
                               toastSuccessMessage("${forgetPasswordModel.data!.message}", colorGreen);
-
-                              // Navigator.pushReplacement(context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => SetNewPasswordPage(
-                              //               email: resetEmailController.text,
-                              //               verifyCode: forgetPasswordModel.data!.otp.toString(),
-                              //             )));
                               Navigator.pushReplacement(context, MaterialPageRoute(
-                                      builder: (context) => VerifyEmailPage(
+                                      builder: (context) => VerifyForgetOTPPage(
                                         email: resetEmailController.text,
                                         verifyCode: forgetPasswordModel.data!.otp.toString(),
                                       )));
@@ -141,8 +134,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           }
                         }
                       }
-
-                      // Navigator.push(context, MaterialPageRoute(builder: (context)=> const SetNewPasswordPage()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 0),

@@ -1,10 +1,10 @@
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../Model/HomePageModels/BookingModels/booking_upcoming_model.dart';
-import '../../../../../Utils/colors.dart';
-import '../../../../../Utils/constants.dart';
 import 'upcoming_bookings_details_page.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +38,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
     userId = (prefs!.getString('userid'));
     print('in upcomingBookingCarApi');
 
-    try {
+    // try {
       String apiUrl = bookingUpcomingCarsApiUrl;
       print("upcomingBookingCarModelApi: $apiUrl");
       final response = await http.post(Uri.parse(apiUrl), headers: {
@@ -51,12 +51,14 @@ class _UpcomingPageState extends State<UpcomingPage> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("responseUpcomingBookingCar: ${responseString.toString()}");
+        loadingP = false;
+        setState(() {});
         upcomingBookingModelObject = upcomingBookingModelFromJson(responseString);
         print("upcomingBookingCarLength: ${upcomingBookingModelObject.data!.length}");
       }
-    } catch (e) {
-      print('Error in upcomingBookingCar: ${e.toString()}');
-    }
+    // } catch (e) {
+    //   print('Error in upcomingBookingCar: ${e.toString()}');
+    // }
     loadingP = false;
     setState(() {});
   }
@@ -77,8 +79,8 @@ class _UpcomingPageState extends State<UpcomingPage> {
           fontWeight: FontWeight.bold, fontSize: 20))) :
     GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) => const UpcomingBookingDetailPage()));
+        // Navigator.push(context, MaterialPageRoute(
+        //     builder: (context) => const UpcomingBookingDetailPage()));
         },
       child: Padding(
         padding: const EdgeInsets.only(top: 15),
@@ -186,57 +188,65 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                         children: [
                                           Row(
                                             children: [
-                                              Text("${upcomingBookingModelObject.data![index].carsDetails!.vehicalName}| ",
+                                              Text("${upcomingBookingModelObject.data![index].carsDetails!.vehicalName} ",
                                                 style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinBold,),
                                                 textAlign: TextAlign.left,
                                               ),
-                                              Text("${upcomingBookingModelObject.data![index].carsDetails!.carsMakes} ",
+
+                                              Text("${upcomingBookingModelObject.data![index].carsDetails!.carsColors!.name}",
+                                                style: TextStyle(color: kBlack,
+                                                  fontSize: 10, fontFamily: poppinRegular),
+                                                textAlign: TextAlign.left),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+
+                                              Text("${upcomingBookingModelObject.data![index].carsDetails!.carsMakes}, ",
                                                 style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinRegular),
                                                 textAlign: TextAlign.left,
                                               ),
-                                              Text("${upcomingBookingModelObject.data![index].carsDetails!.carsModels} ",
-                                                style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinMedium),
+                                              Text("${upcomingBookingModelObject.data![index].carsDetails!.carsModels}, ",
+                                                style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinMedium),
                                                 textAlign: TextAlign.left),
                                               Text("${upcomingBookingModelObject.data![index].carsDetails!.year}",
-                                                style: TextStyle(
-                                                  color: kBlack,
-                                                  fontSize: 10,
-                                                  fontFamily: poppinRegular),
-                                                textAlign: TextAlign.left),
+                                                textAlign: TextAlign.left, style: TextStyle(
+                                                      color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                             ],
                                           ),
                                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                           Row(
                                             children: [
-                                              // Padding(
-                                              //   padding: const EdgeInsets.only(top: 04),
-                                              //   child: Text("RM",  textAlign: TextAlign.left,
-                                              //     style: TextStyle(color: kRed,
-                                              //       fontSize: 5, fontFamily: poppinRegular)),
-                                              // ),
-                                              // Text("${upcomingBookingModelObject.data![index].carsPlans![0].pricePerHour}",
-                                              // // Text("amount",
-                                              //   textAlign: TextAlign.left, style: TextStyle(
-                                              //     color: kRed, decoration: TextDecoration.lineThrough,
-                                              //     decorationColor: kRed, decorationThickness: 3,
-                                              //     fontSize: 10, fontFamily: poppinLight, height: 2)),
-                                              //
-                                              // const SizedBox(width: 5),
                                               Padding(
                                                 padding: const EdgeInsets.only(top: 06),
                                                 child: Text("RM", textAlign: TextAlign.left,
                                                   style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
 
-                                              upcomingBookingModelObject.data![index].carsPlans![0].pricePerSlot == null?
-                                              Text("${upcomingBookingModelObject.data![index].carsPlans![0].pricePerHour}",
-                                                  style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold,),
+                                              // if(upcomingBookingModelObject.data![index].carsPlans![0].pricePerMonth == "1"){
+                                              //   Text("0.0", style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+                                              // }else if (upcomingBookingModelObject.data![index].carsPlans![0].pricePerMonth == "2"){
+                                              //   Text("0.0", textAlign: TextAlign.left,
+                                              //       style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+                                              // }
+                                              // else if (upcomingBookingModelObject.data![index].carsPlans![0].pricePerMonth == "3"){
+                                              //   Text("0.0", textAlign: TextAlign.left,
+                                              //       style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+                                              // }else{
+                                              //
+                                              //   },
+
+
+                                              upcomingBookingModelObject.data![index].carsPlans![0].pricePerMonth ==
+                                                  upcomingBookingModelObject.data![index].carsPlans![0].pricePerMonth?
+                                              Text("${upcomingBookingModelObject.data![index].carsPlans![0].pricePerMonth}",
+                                                  style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold),
                                                   textAlign: TextAlign.left):
                                               Text("${upcomingBookingModelObject.data![index].carsPlans![0].pricePerSlot}",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                              Text("/ Month",  textAlign: TextAlign.left, style: TextStyle(
-                                                      color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+                                              // Text("/ Month",  textAlign: TextAlign.left, style: TextStyle(
+                                              //     color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01),
                                               Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01),
@@ -284,6 +294,23 @@ class _UpcomingPageState extends State<UpcomingPage> {
                       Positioned(
                           right: 30, bottom: 35,
                           child: Image.asset("assets/car_bookings_images/more_button.png")),
+
+
+                      Positioned(
+                        left: 20, right: 20,
+                        child: upcomingBookingModelObject.data![index].carsDetails!.image1 == null ?
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset('assets/icon/fade_in_image.jpeg'))
+                            : ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: FadeInImage(
+                            placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                            width: 332, height: 120,
+                            image: NetworkImage("$baseUrlImage${upcomingBookingModelObject.data![index].carsDetails!.image1}"),
+                          ),
+                        ),
+                      ),
                       Positioned(
                           top: 10, left: 15,
                           child: Container(
@@ -306,21 +333,6 @@ class _UpcomingPageState extends State<UpcomingPage> {
                               ],
                             ),
                           )),
-
-                      Positioned(
-                        child: upcomingBookingModelObject.data![index].carsDetails!.image1 == null ?
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset('assets/icon/fade_in_image.jpeg'))
-                            : ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: FadeInImage(
-                            placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
-                            width: 332, height: 120,
-                            image: NetworkImage("$baseUrlImage${upcomingBookingModelObject.data![index].carsDetails!.image1}"),
-                          ),
-                        ),
-                      ),
                       Positioned(
                         top: 10, right: 15,
                         child: Image.asset("assets/car_bookings_images/heart.png"),
@@ -332,5 +344,24 @@ class _UpcomingPageState extends State<UpcomingPage> {
         ),
       ),
     );
+  }
+
+   showPrice(index){
+    if(upcomingBookingModelObject.data![index].carsPlans![0].pricePerMonth == "1"){
+      Text("0.0", style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold));
+    }else if (upcomingBookingModelObject.data![index].carsPlans![0].pricePerMonth == "2"){
+    Text("0.0", textAlign: TextAlign.left,
+    style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold));
+    }
+    else if (upcomingBookingModelObject.data![index].carsPlans![0].pricePerMonth == "3"){
+    Text("0.0", textAlign: TextAlign.left,
+    style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold));
+    }
+  }
+
+  myProductPriceText(myText){
+    return Text("$myText",
+        style: TextStyle(color: borderColor, fontSize: 16, fontFamily: poppinSemiBold,),
+        textAlign: TextAlign.left);
   }
 }

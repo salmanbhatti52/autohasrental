@@ -1,12 +1,12 @@
+import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
-import '../../../../Utils/colors.dart';
-import '../../../Authentication/LoginPage/login_page.dart';
 import 'Settings/AboutUs/about_us.dart';
 import 'Settings/LiveChat/live_chat_page_1.dart';
 import 'Settings/settings_screen.dart';
@@ -50,9 +50,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       print('Error in getUserProfileWidget: ${e.toString()}');
     }
     loadingP = false;
-    setState(() {
-      // setData();
-    });
+    setState(() {});
   }
 
   @override
@@ -66,8 +64,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
-      body:
-      // loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
+      body: loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
       Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -75,8 +72,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
-
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: GestureDetector(
@@ -99,54 +95,50 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 children: [
                   Column(
                     children: [
-                    // CachedNetworkImage(
-                    //   imageUrl: "$baseUrlImage${getUserProfileModelObject.data!.profilePic}",
-                    //   height: 75,
-                    //   width: 75,
-                    //   fit: BoxFit.fill,
-                    // ),
-                    //   getUserProfileModelObject.data!.profilePic == null? ClipRRect(
-                    //       borderRadius: BorderRadius.circular(80),
-                    //       child: Image.asset('assets/icons/fade_in_image.jpeg')):
-                    //   CachedNetworkImage(
-                    //     imageUrl: "$baseUrlImage${getUserProfileModelObject.data!.profilePic}",
-                    //     height: 75,
-                    //     width: 75,
-                    //     // placeholder: Image.asset('assets/icon/fade_in_image.jpeg'),
-                    //     fit: BoxFit.fill,
-                    //   ),
+                      // getUserProfileModelObject.data!.profilePic == null ?
+                      // ClipRRect(
+                      //     borderRadius: BorderRadius.circular(100),
+                      //     child: Image.asset('assets/icon/fade_in_image.jpeg', height: 70, width: 70,)) :
+                      // ClipRRect(
+                      //   borderRadius: BorderRadius.circular(100),
+                      //   child: FadeInImage(
+                      //     placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                      //     height: 70, width: 70,
+                      //     fit: BoxFit.fill,
+                      //     image: NetworkImage("$baseUrlImage${getUserProfileModelObject.data!.profilePic}"),
+                      //   ),
+                      // ),
 
-                      Image.asset("assets/home_page/user.png", height: 70, width: 70,),
-
-                      // Image.network(
-                      //   '$baseUrlImage${getUserProfileModelObject.data!.profilePic}',
-                      //   loadingBuilder: (ctx, i, k) => Container(
-                      //       alignment: Alignment.center,
-                      //       width: 75,
-                      //       height: 75,
-                      //       child: const Center(child: CircularProgressIndicator())),
-                      //     errorBuilder: (ctx, o, n) {
-                      //     print("image error $o");
-                      //     // return const Icon(Icons.error);
-                      //     return ClipRRect(
-                      //         borderRadius: BorderRadius.circular(80),
-                      //         child: Image.asset('assets/icon/fade_in_image.jpeg', height: 70, width: 70,));
-                      //     }),
-
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CachedNetworkImage(
+                          imageUrl: "$baseUrlImage${getUserProfileModelObject.data!.profilePic}",
+                          height: 70, width: 70,
+                          fit: BoxFit.fill,
+                          progressIndicatorBuilder: (context, url, downloadProgress) =>
+                              CircularProgressIndicator(strokeWidth: 2, value: downloadProgress.progress, color: borderColor,),
+                          errorWidget: (context, url, error) => Image.asset("assets/icon/fade_in_image.jpeg"),
+                          ),
+                      ),
                   ],
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.04,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Text("Daniel Jefferson", textAlign: TextAlign.left, style: TextStyle(
-                      color: kWhite, fontSize: 20, fontFamily: poppinRegular,),),
+                    Text("${getUserProfileModelObject.data!.firstName} ${getUserProfileModelObject.data!.lastName}",
+                      textAlign: TextAlign.left, style: TextStyle(
+                      color: kWhite, fontSize: 20, fontFamily: poppinRegular),),
                     Row(
                       children: [
-                        Image.asset("assets/drawer_images/location.png", color: borderColor,),
-                        Text("Dubai, UAE", textAlign: TextAlign.center,
-                          style: TextStyle(color: const Color(0xffB1A8B9),
-                            fontSize: 15, fontFamily: poppinRegular, ),),
+                        Image.asset("assets/drawer_images/location.png", color: borderColor),
+                       getUserProfileModelObject.data!.location == null?
+                        // Text(" Dubai, UAE", textAlign: TextAlign.center,
+                        Text(" No Location", textAlign: TextAlign.center, style: TextStyle(
+                              color: const Color(0xffB1A8B9), fontSize: 15, fontFamily: poppinRegular)):
+                       Text("${getUserProfileModelObject.data!.location}",
+                           textAlign: TextAlign.center, style: TextStyle(
+                               color: const Color(0xffB1A8B9), fontSize: 15, fontFamily: poppinRegular)),
                       ],
                     ),
                     ],
@@ -159,24 +151,22 @@ class _DrawerScreenState extends State<DrawerScreen> {
             GestureDetector(
               onTap: (){
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
-                // Get.to(const SettingsScreen());
-              },
+                },
                 child: myListTile("assets/drawer_images/settings_icon.png", "Setting")),
             GestureDetector(
                 onTap: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LiveChatPage1()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LiveChatPage1()));
                 },
                 child: myListTile("assets/drawer_images/call_phone_icon.png", "Live Chat")),
             GestureDetector(
                 onTap: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const AboutUsPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AboutUsPage()));
                 },
                 child: myListTile("assets/drawer_images/customer_help_icon.png", "About Us")),
             SizedBox(height: MediaQuery.of(context).size.height * 0.25),
             GestureDetector(
                 onTap: (){
                   showLogoutAlertDialog(context);
-                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const TabBarPage()));
                 },
                 child: myListTile("assets/drawer_images/logout_icon.png", "Logout")),
 
@@ -197,7 +187,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       onPressed: () {
         removeDataFormSharedPreferences();
         setState(() {});
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => const LoginPage()),
         );
       },
@@ -205,7 +195,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-
       title: const Text("Sign Out"),
       content: const Text("Are you sure you want to Sign Out ?"),
       actions: [
@@ -233,7 +222,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       child: ListTile(
         leading: Image.asset(myImage),
         title: Text(myTitle, textAlign: TextAlign.left, style: TextStyle(
-            color: kWhite, fontSize: 14, fontFamily: poppinRegular),),
+            color: kWhite, fontSize: 14, fontFamily: poppinRegular)),
       ),
     );
 

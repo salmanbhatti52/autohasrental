@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 
 UserLoginModel userLoginModelFromJson(String str) => UserLoginModel.fromJson(json.decode(str));
@@ -8,19 +9,24 @@ class UserLoginModel {
   UserLoginModel({
     this.status,
     this.data,
+    this.message
   });
 
   String? status;
+  String? message;
   Data? data;
 
   factory UserLoginModel.fromJson(Map<String, dynamic> json) => UserLoginModel(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
+    // data: Data.fromJson(json["data"]),
+    data : json["data"] != null ? Data.fromJson(json["data"]) : null,
+    message : json["message"] != null ? json["message"] : null,
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data!.toJson(),
+    "data": data?.toJson(),
+    'message' : message
   };
 }
 
@@ -28,6 +34,7 @@ class Data {
   Data({
     this.usersCustomersId,
     this.oneSignalId,
+    this.verifiedBadge,
     this.firstName,
     this.lastName,
     this.phone,
@@ -47,6 +54,7 @@ class Data {
 
   int? usersCustomersId;
   String? oneSignalId;
+  String? verifiedBadge;
   String? firstName;
   String? lastName;
   String? phone;
@@ -66,6 +74,7 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     usersCustomersId: json["users_customers_id"],
     oneSignalId: json["one_signal_id"],
+    verifiedBadge: json["verified_badge"],
     firstName: json["first_name"],
     lastName: json["last_name"],
     phone: json["phone"],
@@ -86,6 +95,7 @@ class Data {
   Map<String, dynamic> toJson() => {
     "users_customers_id": usersCustomersId,
     "one_signal_id": oneSignalId,
+    "verified_badge": verifiedBadge,
     "first_name": firstName,
     "last_name": lastName,
     "phone": phone,

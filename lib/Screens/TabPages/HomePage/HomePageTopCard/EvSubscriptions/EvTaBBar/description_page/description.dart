@@ -1,4 +1,3 @@
-import 'package:auto_haus_rental_app/Model/HomePageModels/HomePageTopWidgetModels/ev_subscription_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
@@ -6,6 +5,8 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart'as http;
+
+import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class Description extends StatefulWidget {
   const Description({super.key});
@@ -15,7 +16,7 @@ class Description extends StatefulWidget {
 }
 
 class _DescriptionState extends State<Description> {
-  EvSubscriptionCarsModel evSubscriptionCarsModelObject = EvSubscriptionCarsModel();
+  EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
   bool loadingP = true;
   getEvSubscriptionCarsWidget() async {
     loadingP = true;

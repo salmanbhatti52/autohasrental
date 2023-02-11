@@ -26,9 +26,9 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 05),
           child: Container(
-              width: 344,
+              width: MediaQuery.of(context).size.width,
               height: 48,
               decoration: BoxDecoration(
                   color: const Color(0xffd4dce1),

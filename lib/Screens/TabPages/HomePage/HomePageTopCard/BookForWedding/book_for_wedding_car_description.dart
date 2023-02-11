@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
+import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/constants.dart';
 import '../../../../../Utils/fontFamily.dart';
@@ -12,15 +14,13 @@ import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../MessagePage/message_details_screen.dart';
 import 'BookForWeddingTabbar/tabbar_book_for_wedding.dart';
-import 'book_for_wedding_booking_details.dart';
 import 'package:http/http.dart'as http;
+import 'book_for_wedding_booking_details.dart';
 
 class BookForWeddingCarDescription extends StatefulWidget {
-  final String? carName, carImage, carRating, carDescription, ownerImage, ownerName, ownerId, pricePerHours;
-  final int? carYear;
-  const BookForWeddingCarDescription({super.key,
-    this.carName, this.ownerImage, this.pricePerHours, this.ownerId,
-    this.ownerName, this.carYear, this.carImage, this.carRating, this.carDescription});
+  final DatumPhotography? datumPhotography;
+
+  const BookForWeddingCarDescription({super.key, this.datumPhotography});
 
   @override
   State<BookForWeddingCarDescription> createState() => _BookForWeddingCarDescriptionState();
@@ -29,12 +29,13 @@ class BookForWeddingCarDescription extends StatefulWidget {
 class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescription> {
   final GlobalKey<FormState> formKeyPhotography = GlobalKey<FormState>();
 
-  String valueDate = "Select Date";
+  String? valueDate;
   selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(1980),
+      // firstDate: DateTime(1980),
+      firstDate: DateTime.now().subtract(const Duration(days: 0)),
       lastDate: DateTime(2050),
     );
     if (picked != null && picked != pickDate) {
@@ -47,20 +48,31 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     }
   }
 
+  String? photoGraphyCarOwnerName, photoGraphyCarOwnerImage, photoGraphyCarOwnerId, carImage, pricePerHour;
+  // int? photoGraphyCarOwnerId;
   getToday() {
     currentDay = DateFormat('EEEE, d').format(DateTime.now());
     print('currentDay = $currentDay');
+
+    photoGraphyCarOwnerId = "${widget.datumPhotography!.usersCompaniesId}";
+    photoGraphyCarOwnerName = widget.datumPhotography!.usersCompanies!.companyName;
+    photoGraphyCarOwnerImage = "$baseUrlImage${widget.datumPhotography!.usersCompanies!.companyLogo}";
+    carImage = "$baseUrlImage${widget.datumPhotography!.image1}";
+    pricePerHour = widget.datumPhotography!.carsPlans![0].discountedPricePerHour;
+
+    print("ownerName: $photoGraphyCarOwnerName");
+    print("ownerImage: $photoGraphyCarOwnerImage");
+    print("ownerId: $photoGraphyCarOwnerId");
+    print("carImage: $carImage");
+    print("pricePerHours: $pricePerHour");
+
   }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getToday();
-    print("ownerName: ${widget.ownerName}");
-    print("ownerImage: ${widget.ownerImage}");
-    print("ownerId: ${widget.ownerId}");
-    print("carId: ${widget.carImage}");
-    print("pricePerHours: ${widget.pricePerHours}");
+
   }
 
   bool loadingP = true;
@@ -71,7 +83,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     Map body = {
       "requestType": "startChat",
       "users_customers_id": userId,
-      "other_users_customers_id": "${widget.ownerId}",
+      "other_users_customers_id": "$photoGraphyCarOwnerId",
     };
     http.Response response = await http.post(Uri.parse(startChatApiUrl),
         body: body,
@@ -79,7 +91,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
           "Accept": "application/json"
         });
     Map jsonData = jsonDecode(response.body);
-    print("startChatApiUrl: $sendMessageApiUrl");
+    print("startChatApiUrl: $startChatApiUrl");
     print('startChatApiResponse $jsonData');
 
     if (jsonData['message'] == 'chat already started') {
@@ -111,8 +123,13 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
 
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context) => MessageDetailsScreen(
-                      senderName: widget.ownerName,
-                      senderImage: widget.ownerImage)));
+                        carOwnerName: photoGraphyCarOwnerName,
+                        carOwnerImage: photoGraphyCarOwnerImage,
+                    carOwnerId: photoGraphyCarOwnerId
+                    )));
+                print("photoGraphyCarOwnerId: $photoGraphyCarOwnerId");
+                print("photoGraphyCarOwnerName: $photoGraphyCarOwnerName");
+                print("photoGraphyCarOwnerImage: $photoGraphyCarOwnerImage");
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 30, right: 20),
@@ -138,13 +155,11 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
           ),
           title: Padding(
             padding: const EdgeInsets.only(top: 30, right: 0),
-            child: Column(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                      children: [
-                        Text("${widget.carName}, ", style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),),
-                        Text("${widget.carYear}", style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
-                      ]),
+                  Text("${widget.datumPhotography!.vehicalName}, ", style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),),
+                  Text("${widget.datumPhotography!.year}", style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
                 ]),
           )),
       body: SingleChildScrollView(
@@ -180,23 +195,49 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Image.asset('assets/car_description_images/tesla.png', width: 41, height: 41),
+                        child: Image.network("$baseUrlImage${widget.datumPhotography!.carsMakes!.image}",
+                          height: 60, width: 50, fit: BoxFit.fill,
+                        )
+
+                        // Image.asset('assets/car_description_images/tesla.png', width: 41, height: 41),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
-                        child: Image.asset('assets/car_description_images/heart.png', width: 24, height: 20),
+                        child: widget.datumPhotography!.favouriteStatus == "like"?
+                        Image.asset("assets/home_page/heart.png"):
+                        GestureDetector(
+                          onTap: () async {
+                            // myCurrentCarIndex = "${carsPhotoGraphyModelObject.data![index].carsId}";
+                            // print("carsPhotoGraphyIds $myCurrentCarIndex");
+                            await getLikeUnlikeCarWidget();
+                            if (carLikeUnlikeModelObject.message == "Liked") {
+                              print("isLiked");
+                              toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                            }
+                            if (carLikeUnlikeModelObject.message == "Unliked") {
+                              print("isUnLiked");
+                              toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                            }
+                          },
+                          child: carLikeUnlikeModelObject.message == "Liked"
+                              ? Image.asset("assets/home_page/heart.png")
+                              : Image.asset("assets/car_bookings_images/heart.png"),
+                        ),
+
+                        // Image.asset('assets/car_description_images/heart.png', width: 24, height: 20),
                       ),
                     ],
                   ),
                   Stack(
                     children: [
                       Positioned(
-                        child: Image.network("${widget.carImage}", height: 190, width: 310),
+                        child: Image.network("$carImage", width: 307, height: 150),
                       ),
                       Positioned(
                         bottom: 0,
                         child: Image.asset(
                           'assets/car_description_images/circle.png',
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ],
@@ -210,32 +251,18 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Price', textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 17,
-                        fontFamily: 'Poppins-Medium',
-                        color: borderColor)),
+                  Text('Price', textAlign: TextAlign.left, style: TextStyle(
+                        fontSize: 17, fontFamily: poppinMedium, color: borderColor)),
                   RichText(
-                    text: TextSpan(
-                      text: 'RM',
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontFamily: poppinBold,
-                          color: borderColor),
+                    text: TextSpan(text: 'RM', style: TextStyle(
+                        fontSize: 14, fontFamily: poppinBold, color: borderColor),
                       children: [
                         TextSpan(
-                          text: '${widget.pricePerHours}',
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontFamily: poppinBold,
-                              color: borderColor),
-                        ),
+                          text: '$pricePerHour', style: TextStyle(
+                            fontSize: 24, fontFamily: poppinBold, color: borderColor)),
                         TextSpan(
-                          text: '/hrs',
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontFamily: poppinMedium,
-                              color: borderColor),
-                        ),
+                          text: '/hrs', style: TextStyle(
+                            fontSize: 14, fontFamily: poppinMedium, color: borderColor)),
                       ],
                     ),
                     textAlign: TextAlign.center,
@@ -244,13 +271,10 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            const Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Text(
-                'Select Booking Day and Time',
-                style: TextStyle(fontSize: 14, fontFamily: 'Poppins-Bold'),
-                textAlign: TextAlign.left,
-              ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text('Select Booking Day and Time',  textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 14, fontFamily: poppinBold)),
             ),
 
             Column(
@@ -259,18 +283,19 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                   key: formKeyPhotography,
                   child: Column(
                     children: [
-
                       GestureDetector(
                         onTap: () {
                           selectDate(context);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.keyboard_arrow_left, color: borderColor),
-                              Text(valueDate,  textAlign: TextAlign.left,
+                              valueDate == null? Text("Select Date", textAlign: TextAlign.left,
+                                style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: borderColor)):
+                              Text(valueDate!,  textAlign: TextAlign.left,
                                 style: TextStyle(fontSize: 14,
                                     fontFamily: poppinSemiBold, color: borderColor),
                               ),
@@ -280,21 +305,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                         ),
                       ),
 
-                      valueDay == null?
-                      Container(
-                        width: 200,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: kWhite,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Center(
-                          child: Text("$currentDay",
-                            style: TextStyle(fontSize: 14,
-                                fontFamily: poppinMedium, color: kBlack),
-                          ),
-                        ),
-                      ):
+                      valueDay == null? Container():
                       Container(
                         width: 200,
                         height: 40,
@@ -311,7 +322,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
 
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: timeWidget(),
+                        child: dropDownHourWidget(),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -321,43 +332,68 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                               InkWell(
                                   onTap: () {
                                     selectTimeStart(context);
-                                    // _selectTime(context);
                                   },
-
-                                  child: Container(
+                                  child:
+                                  valueTimeStart == null?
+                                  Container(
                                     height: 40,
                                     width: 120,
                                     decoration: BoxDecoration(
-                                        color: valueTimeStart == "Start Time" ? kWhite : borderColor,
+                                        color: kWhite,
                                         borderRadius: BorderRadius.circular(10)
                                     ),
                                     child: Center(
-                                      child: Text(
-                                        valueTimeStart,
-                                        style: TextStyle(
-                                            color: valueTimeStart == "Start Time" ? kBlack : kWhite, fontSize: 16),
+                                      child: Text("Start Time", style: TextStyle(color:  kBlack , fontSize: 16),
                                       ),
                                     ),
-                                  )),
+                                  ):
+
+                                  Container(
+                                    height: 40,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                        color:  borderColor,
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Center(
+                                      child: Text(valueTimeStart!, style: TextStyle(color: kWhite, fontSize: 16),
+                                      ),
+                                    ),
+                                  ),
+                              ),
 
                               InkWell(
                                   onTap: () {
                                     selectTimeEnd(context);
                                   },
-                                  child: Container(
+                                  child: valueTimeEnd == null?
+                                  Container(
                                     height: 40,
                                     width: 120,
                                     decoration: BoxDecoration(
-                                      color: valueTimeEnd == "End Time" ? kWhite : borderColor,
+                                      color: kWhite,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Center(
-                                      child: Text(valueTimeEnd,
+                                      child: Text("End Time",
+                                        style: TextStyle(color: kBlack, fontSize: 16)),
+                                    ),
+                                  ):
+                                  Container(
+                                    height: 40,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      color: borderColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                      child: Text(valueTimeEnd!,
                                         style: TextStyle(
-                                            color: valueTimeEnd == "End Time" ? kBlack : kWhite, fontSize: 16),
+                                            color: kWhite, fontSize: 16),
                                       ),
                                     ),
-                                  )),
+                                  )
+                              ),
 
                             ]),
                       ),
@@ -371,21 +407,32 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
             const TabbarBookForWedding(),
             GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => BookForWeddingBookingDetails(
-                        carName: widget.carName,
-                        carYear: widget.carYear,
-                        selectedDate: valueDate,
-                        selectedDay: valueDay,
-                        selectedHours: dropdownValueTime,
-                        selectedStartTime: valueTimeStart,
-                        selectedEndTime: valueTimeEnd,
-                        hours: myHours,)));
+                  if(formKeyPhotography.currentState!.validate()){
+                    if(valueDate == null){
+                      toastFailedMessage("Select date", kRed);
+                    }
+                    else if(myHours == null){
+                      toastFailedMessage("Select Hours", kRed);
+                    }
+                    else if(valueTimeStart == null || valueTimeEnd == null){
+                      toastFailedMessage("Select Time", kRed);
+                    }
+                    else{
+                      print("all okay");
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => BookForWeddingBookingDetails(
+                            datumPhotography: widget.datumPhotography,
+                            selectedDate: valueDate,
+                            selectedDay: valueDay,
+                            selectedHours: dropdownValueTime,
+                            selectedStartTime: valueTimeStart,
+                            selectedEndTime: valueTimeEnd,
+                            hoursInNumber: myHours)));
+                    }
+                  }
+
                   print("time1 $dropdownValueTime");
                   print("time12 $myHours");
-
-              // compareTime();
-
                 },
                 child: loginButton('Book Now', context)),
           ],
@@ -393,27 +440,10 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
       ),
     );
   }
-  var hours;
-  var minutes;
-  calculateTimeInterval(){
-    var format = DateFormat("HH:mm");
-    var start = format.parse(valueTimeStart);
-    var end = format.parse(valueTimeEnd);
-    // print("timeDifference ${end.difference(start)}");
-    print("startTime $start");
-    print("endTime $end");
 
-    Duration diff = start.difference(end).abs();
-    print("duration is $diff");
-    hours = diff.inHours;
-    minutes = diff.inMinutes / 60;
-    // minutes = diff.inMinutes % 60;
-    print('selectedTime interval $hours');
-    print('$hours hours $minutes minutes');
-  }
+  String? valueTimeStart;
+  String? valueTimeEnd ;
 
-  String valueTimeStart = "Start Time";
-  String valueTimeEnd = "End Time";
   TimeOfDay? startTime;
 
   selectTimeStart(BuildContext context) async {
@@ -441,6 +471,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
   selectTimeEnd(BuildContext context) async {
     TimeOfDay? picked;
     picked = await showTimePicker(
+
       context: context,
       initialTime: TimeOfDay.now(),
     );
@@ -459,32 +490,57 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
         compareTime();
       });
       print("myEndTime $valueTimeEnd");
-
-      // valueTimeEnd = picked.format(context).toString();
-      // setState(() {
-      //   print("Selected endTime is : $valueTimeEnd");
-      //   calculateTimeInterval();
-      //   compareTime();
-      // });
     }
   }
 
+  dynamic hours, minutes;
+  calculateTimeInterval(){
+    var format = DateFormat("HH:mm");
+    var start = format.parse(valueTimeStart!);
+    var end = format.parse(valueTimeEnd!);
+    // print("timeDifference ${end.difference(start)}");
+    print("startTime $start");
+    print("endTime $end");
+
+    Duration diff = start.difference(end).abs();
+    print("duration is $diff");
+    hours = diff.inHours;
+    // minutes = diff.inMinutes / 60;
+    minutes = diff.inMinutes % 60;
+    print('selectedTime interval $hours');
+    print('$hours hours $minutes minutes');
+  }
+  int? myMinutes, selectedMinutes;
+
   compareTime(){
     if(formKeyPhotography.currentState!.validate()){
+      myMinutes = int.parse(myHours.toString()) * 60;
+      selectedMinutes = (hours* 60)+ minutes;
+      print("myMinutes $myMinutes $selectedMinutes");
       print("value $myHours $hours");
-      if(myHours == hours){
-        toastSuccessMessage("time compare success", colorGreen);
+
+      if(myMinutes == selectedMinutes){
+        toastSuccessMessage("time matched successfully", colorGreen);
         print("success");
       }
       else{
-        toastFailedMessage("time compare failed", kRed);
+        toastFailedMessage("time didn't matched", kRed);
         print("no success");
       }
+
+      // if(myHours == hours){
+      //   toastSuccessMessage("time compare success", colorGreen);
+      //   print("success");
+      // }
+      // else{
+      //   toastFailedMessage("time compare failed", kRed);
+      //   print("no success");
+      // }
     }
   }
 
   int? myHours;
-  Widget timeWidget(){
+  Widget dropDownHourWidget(){
     var size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.055,
@@ -531,5 +587,38 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
         ),
       ),
     );
+  }
+
+  CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
+  String? myCurrentCarIndex;
+  getLikeUnlikeCarWidget() async {
+    loadingP = true;
+    setState(() {});
+    // try {
+    String apiUrl = likeUnlikeFavoriteCarsApiUrl;
+    print("carLikeUnlikeModelApi: $apiUrl");
+    print("carLikeUnlikeUserId: $userId");
+    print("carId: $myCurrentCarIndex");
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      body: {
+        "users_customers_id": userId,
+        "cars_id": myCurrentCarIndex,
+      },
+      headers: {'Accept': 'application/json'},
+    );
+    print('statusCodeLikeUnlike ${response.statusCode}');
+
+    if (response.statusCode == 200) {
+      final responseString = response.body;
+      print("carLikeUnlikeModelResponse: ${responseString.toString()}");
+      carLikeUnlikeModelObject = carLikeUnlikeModelFromJson(responseString);
+      print("carLikeUnlikeModelMessage: ${carLikeUnlikeModelObject.message}");
+    }
+    // } catch (e) {
+    //   print('Error in carLikeUnlike: ${e.toString()}');
+    // }
+    loadingP = false;
+    setState(() {});
   }
 }

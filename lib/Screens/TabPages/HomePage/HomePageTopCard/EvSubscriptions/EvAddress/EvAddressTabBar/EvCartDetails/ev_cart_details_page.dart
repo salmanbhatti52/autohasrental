@@ -13,23 +13,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:http/http.dart'as http;
-import '../../../../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_model.dart';
+import '../../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 import '../../../../../../MyAppBarHeader/app_bar_header.dart';
+import 'package:http/http.dart'as http;
 
-class CartDetailsPageExperience extends StatefulWidget {
-  final String? startTime, endTime, selectedDate;
+class EvCartDetailsPage extends StatefulWidget {
   final Datum? myDatum;
-  final double? totalPrice, selectedSlotPrice;
+  final String? mySelectedTabMonth, mySelectedTabPrice;
+  final double? totalAmount;
 
-  const CartDetailsPageExperience({Key? key, this.selectedDate, this.selectedSlotPrice,
-    this.totalPrice, this.myDatum, this.startTime, this.endTime}) : super(key: key);
+  const EvCartDetailsPage({Key? key, this.myDatum, this.totalAmount,
+  this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
-  State<CartDetailsPageExperience> createState() => _CartDetailsPageExperienceState();
+  State<EvCartDetailsPage> createState() => _EvCartDetailsPageState();
 }
 
-class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
+class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
   final GlobalKey<FormState> formKeyCheckOut = GlobalKey<FormState>();
 
   var emailController = TextEditingController();
@@ -55,16 +55,6 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
   PhotographyCheckOutModel photographyCheckOutModelObject = PhotographyCheckOutModel();
   bool loader = false;
 
-  mySelectedData(){
-    print("userId carId: $userId $carID");
-    print("planDate: ${widget.selectedDate}");
-    print("carStartEndTime: $myStartTime $myeEndTime");
-    print("pricePerSlot: ${widget.myDatum!.carsPlans![0].discountedPricePerSlot}");
-    print("carDiscountPercentage: ${widget.myDatum!.discountPercentage}");
-    print("totalCost: ${widget.totalPrice}");
-    print("slotPrice: ${widget.selectedSlotPrice}");
-  }
-
   checkOutWidget() async {
     setState(() {
       loader = true;
@@ -79,12 +69,12 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
     print("apiRequest: $request");
     request.fields['users_customers_id'] = '$userId';
     request.fields['cars_id'] = '$carID';
-    request.fields['plan_date'] = "${widget.selectedDate}";
-    request.fields['start_time'] = "$myStartTime";
-    request.fields['end_time'] = "$myeEndTime";
-    request.fields['price_per_slot'] = "${widget.myDatum!.carsPlans![0].discountedPricePerSlot}";
+    request.fields['plan_start_date'] = evStartDate!;
+    request.fields['plan_end_date'] = evEndDate!;
+    request.fields['months'] = "$myMonth";
+    request.fields['price_per_month'] = "$myDiscountedAmount";
     request.fields['discount_percentage'] = "${widget.myDatum!.discountPercentage}";
-    request.fields['total_cost'] = "${widget.totalPrice}";
+    request.fields['total_cost'] = "$myTotalAmount";
     request.files.add(
       http.MultipartFile(
         'driving_license',
@@ -96,14 +86,13 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
 
     request.headers.addAll(headers);
     print("request: $request");
-
     print('usersId: $userId');
     print('carsId: $carID');
-    print('planDate: ${widget.selectedDate}');
-    print('startTime: $myStartTime');
-    print('endTime: $myeEndTime');
-    print('totalCost: ${widget.totalPrice}');
-    print('pricePerHour: ${widget.myDatum!.carsPlans![0].discountedPricePerSlot}');
+    print('plan_start_date: $evStartDate');
+    print('plan_end_date: $evEndDate');
+    print('months: $myMonth');
+    print('totalCost: $myTotalAmount');
+    print('pricePerHour: $myDiscountedAmount');
     print('discountPercentage: ${widget.myDatum!.discountPercentage}');
     print('licenseImage: ${image!.path.split('/').last}');
 
@@ -116,21 +105,39 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
     });
 
   }
-
-  String? myStartTime, myeEndTime;
-  myData(){
-    myStartTime = widget.startTime!.substring(0, 5);
-    myeEndTime = widget.endTime!.substring(0, 5);
-    print("splitTime $myStartTime $myeEndTime");
-  }
+  String? myMonth, myDiscountedAmount;
+  double? myTotalAmount;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    myData();
+    myMonth = widget.mySelectedTabMonth;
+    myDiscountedAmount = widget.mySelectedTabPrice;
+    myTotalAmount = widget.totalAmount;
     mySelectedData();
   }
+  mySelectedData(){
+    print("userId carId: $userId $carID");
+    print("selectedTabMonth: $myMonth");
+    print("evTotalPrice: $myTotalAmount");
+    print('evStartEndDate: $evStartDate $evEndDate');
+    print("pricePerMonth: $myDiscountedAmount");
+    print("carDiscountPercentage: ${widget.myDatum!.discountPercentage}");
+  }
+
+  // Initial Selected Value
+  String dropdownValue = 'Select state';
+
+  // List of items in our dropdown menu
+  var items = [
+    'Select state',
+    'Select state 1',
+    'Select state 2',
+    'Select state 3',
+    'Select state 4',
+    'Select state 5',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +163,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               Container(
-                height: MediaQuery.of(context).size.height * 0.88,
+                height: MediaQuery.of(context).size.height * 0.9,
                 color: Colors.transparent,
                 child: Stack(
                   children: [
@@ -167,7 +174,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.78,
+                          height: MediaQuery.of(context).size.height * 0.8,
                           width: MediaQuery.of(context).size.width * 0.47,
                           decoration: BoxDecoration(
                               color: kWhite,
@@ -183,26 +190,28 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                     Text("${widget.myDatum!.vehicalName} ", textAlign: TextAlign.left,
                                       style: TextStyle(color: kBlack,
                                         fontSize: 14, fontFamily: poppinBold)),
-                                    Text("${widget.myDatum!.year}", textAlign: TextAlign.left,
+
+                                    Text("${widget.myDatum!.carsColors!.name}", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
-                                            fontSize: 10, fontFamily: poppinRegular)),
+                                            fontSize: 12, fontFamily: poppinRegular)),
                                   ],
                                 ),
                                 Row(
                                   children: [
 
-                                    Text("${widget.myDatum!.carsMakes!.name} ", textAlign: TextAlign.left,
+                                    Text("${widget.myDatum!.carsMakes!.name}, ", textAlign: TextAlign.left,
                                       style: TextStyle(color: kBlack,
                                         fontSize: 12, fontFamily: poppinRegular)),
-                                    Text("${widget.myDatum!.carsModels!.name} ", textAlign: TextAlign.left,
+                                    Text("${widget.myDatum!.carsModels!.name}, ", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
-                                            fontSize: 14, fontFamily: poppinMedium)),
-                                    Text("${widget.myDatum!.year}", textAlign: TextAlign.left,
+                                            fontSize: 12, fontFamily: poppinSemiBold)),
+                                    Text("${widget.myDatum!.year} ", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
-                                            fontSize: 10, fontFamily: poppinRegular)),
+                                            fontSize: 12, fontFamily: poppinRegular)),
+
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   children: [
                                     Padding(
@@ -211,7 +220,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                         style: TextStyle(color: kRed,
                                             fontSize: 5, fontFamily: poppinLight)),
                                     ),
-                                    Text("${widget.myDatum!.carsPlans![0].pricePerSlot}", textAlign: TextAlign.left,
+                                    Text("${widget.myDatum!.carsPlans![0].pricePerMonth}", textAlign: TextAlign.left,
                                       style: TextStyle(color: kRed,
                                           decoration: TextDecoration.lineThrough,
                                           fontSize: 10, fontFamily: poppinLight),
@@ -223,13 +232,13 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                         style: TextStyle(color: borderColor,
                                             fontSize: 7, fontFamily: poppinSemiBold)),
                                     ),
-                                    Text("${widget.myDatum!.carsPlans![0].discountedPricePerSlot}",
+                                    Text("${widget.myDatum!.carsPlans![0].discountedPricePerMonth}",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(color: borderColor,
                                           fontSize: 20, fontFamily: poppinSemiBold)),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 4),
-                                      child: Text("/slot", textAlign: TextAlign.left,
+                                      child: Text("/month", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
                                             fontSize: 8, fontFamily: poppinRegular),
                                       ),
@@ -299,10 +308,10 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("$myStartTime -- $myeEndTime Plan", textAlign: TextAlign.left,
+                                    Text("$myMonth month Plan", textAlign: TextAlign.left,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),
-                                    Text("RM ${widget.selectedSlotPrice}", textAlign: TextAlign.right,
+                                    Text("RM $myDiscountedAmount", textAlign: TextAlign.right,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),
                                   ],
@@ -328,7 +337,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                     Text("Total Fee", textAlign: TextAlign.left,
                                       style: TextStyle(color: kBlack,
                                           fontSize: 16, fontFamily: poppinSemiBold)),
-                                    Text("RM ${widget.totalPrice}", textAlign: TextAlign.right,
+                                    Text("RM $myTotalAmount", textAlign: TextAlign.right,
                                       style: TextStyle(color: kBlack,
                                           fontSize: 16, fontFamily: poppinSemiBold)),
                                   ],
@@ -359,7 +368,6 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                                   : Image.file(image!, height: 50, width: 50, fit: BoxFit.contain,).image,
                                             ),
                                           ),
-
 
                                           Positioned(
                                             right: 0,
@@ -420,11 +428,9 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                       ),
                     ),
                     Positioned(
-                      top: 35,
-                      left: 50, right: 50,
+                      left: 30, right: 20, top: 30,
                       child: Image.network("$baseUrlImage${widget.myDatum!.image1}",
-                          fit: BoxFit.fill,
-                          width: 100, height: 130),
+                          width: 400, height: 140),
                     ),
                     Positioned(
                         top: 0, left: 20,
@@ -461,7 +467,6 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
               ),
               GestureDetector(
                   onTap: () async {
-
                     // bottomSheetWidget(context);
 
                     if(formKeyCheckOut.currentState!.validate()){

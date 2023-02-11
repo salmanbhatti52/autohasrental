@@ -121,10 +121,12 @@ class _MessagePageState extends State<MessagePage> {
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
                   builder: (context) => MessageDetailsScreen(
-                    senderName: allChatModel[index].companyName,
-                    senderImage: "$baseUrlImage${allChatModel[index].companyLogo}",
+                    carOwnerName: allChatModel[index].companyName,
+                    carOwnerImage: "$baseUrlImage${allChatModel[index].companyLogo}",
+                    carOwnerId: "${allChatModel[index].receiverId}",
                   )));
-              print("send Name & image ${allChatModel[index].companyName} $baseUrlImage${allChatModel[index].companyLogo}");
+              print("company Name & Id ${allChatModel[index].companyName} ${allChatModel[index].receiverId}");
+              print("companyLogoImage $baseUrlImage${allChatModel[index].companyLogo}");
             },
             child: Column(
               children: [

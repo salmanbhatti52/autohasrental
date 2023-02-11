@@ -1,4 +1,3 @@
-import 'package:auto_haus_rental_app/Model/HomePageModels/HomePageTopWidgetModels/ev_subscription_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
@@ -6,21 +5,22 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart'as http;
+import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class TwelveMonthsPlan extends StatefulWidget {
-  String months;
-  String price_per_months;
-  // String dsi_price_per_months;
-  String discountPricePerMonths;
-   TwelveMonthsPlan({super.key, required this.months, required this.price_per_months, required this.discountPricePerMonths});
+  final String months, pricePerMonths, discountPricePerMonths;
+
+   const TwelveMonthsPlan({super.key, required this.months,
+     required this.pricePerMonths, required this.discountPricePerMonths});
 
   @override
   State<TwelveMonthsPlan> createState() => _TwelveMonthsPlanState();
 }
 
 class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
-  EvSubscriptionCarsModel evSubscriptionCarsModelObject = EvSubscriptionCarsModel();
+  EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
   bool loadingP = true;
+
   getEvSubscriptionCarsWidget() async {
     loadingP = true;
     setState(() {});
@@ -46,7 +46,7 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
         print("evSubscriptionResponse: ${responseString.toString()}");
         evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
         print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
-        myTotal();
+        myTotalAmount();
       }
     } catch (e) {
       print('Error in evSubscription: ${e.toString()}');
@@ -54,42 +54,46 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
     loadingP = false;
     setState(() {});
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    evSelectedMonth = widget.months;
-    // print('selectedTabMonth ${widget.months}');
-    print('selectedTabMonth $evSelectedMonth');
-    print(widget.price_per_months);
+    evSelectedMonth = int.parse(widget.months);
+    evSelectedMonthDiscountedPrice = widget.discountPricePerMonths;
+    print(widget.pricePerMonths);
     print(widget.discountPricePerMonths);
-    myTotal();
+    myTotalAmount();
   }
-  double? totalAmount = 0.0;
-  double serviceFee = 50.0;
 
-  myTotal(){
-    totalAmount = double.parse(widget.discountPricePerMonths) + serviceFee;
-    print("my12MonthsTotal: $totalAmount");
+  myTotalAmount(){
+    count +=1;
+    if(count ==1){
+      tabNewValue = evSelectedMonth;
+      print("count $count");
+    }
+    print("count11 $count");
 
+    print('selectedTabMonth: $evSelectedMonth');
+    print('tabNewValue: $tabNewValue');
+    print('selectedTabMonthPrice $evSelectedMonthDiscountedPrice');
+    evSelectedMonthTotalPrice = double.parse("$evSelectedMonthDiscountedPrice") + serviceFee;
+    print('selectedTabMonthTotalPrice $evSelectedMonthTotalPrice');
+    selectedMonthDays = evSelectedMonth! * 30;
+    print("selectedMonthDays: $selectedMonthDays");
   }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    return
-      // loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
-      //     : evSubscriptionCarsModelObject.status != "success" ?
-      // const Center(child: Text('no data found...',
-      //     style: TextStyle(fontWeight: FontWeight.bold))) :
-    Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("${widget.months} Plan", textAlign: TextAlign.left, style: TextStyle(
+            Text("${widget.months} month Plan", textAlign: TextAlign.left, style: TextStyle(
                 fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
             Text("RM ${widget.discountPricePerMonths}",
                 textAlign: TextAlign.right, style: TextStyle(
@@ -110,9 +114,9 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Monthly Total Fee", textAlign: TextAlign.left, style: TextStyle(
+            Text("Total Amount", textAlign: TextAlign.left, style: TextStyle(
                 fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
-            Text("RM $totalAmount", textAlign: TextAlign.left, style: TextStyle(
+            Text("RM $evSelectedMonthTotalPrice", textAlign: TextAlign.left, style: TextStyle(
                 fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
           ],
         ),

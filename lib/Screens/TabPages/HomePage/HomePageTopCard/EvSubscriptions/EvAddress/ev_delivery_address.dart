@@ -1,20 +1,17 @@
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
+import '../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
-import '../../../Home/Address/AddressTabs/address_tabbar.dart';
+import 'EvAddressTabBar/ev_address_tabbar.dart';
 
 class EvDeliveryAddress extends StatefulWidget {
-  final String? carImage, discountPercentage, carName, myDate, myDay,
-      carModel, amount, carRating, selectedHoursInString, carMakerName,
-      discountedAmount, selectedStartTime, selectedEndTime;
-  final int? carYear,  totalHoursInNumber;
-  final double? hoursAmount, totalAmount;
-  const EvDeliveryAddress({Key? key, this.carImage, this.carName, this.carModel,
-    this.totalHoursInNumber, this.carYear, this.discountPercentage,
-    this.carMakerName, this.selectedHoursInString, this.myDate, this.hoursAmount,
-    this.totalAmount, this.selectedStartTime, this.selectedEndTime, this.myDay,
-    this.amount, this.carRating, this.discountedAmount}) : super(key: key);
+  final Datum? evDatum;
+  final String? mySelectedTabMonth, mySelectedTabPrice;
+  final double? totalAmount;
+
+  const EvDeliveryAddress({Key? key, this.evDatum, this.totalAmount,
+    this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
   State<EvDeliveryAddress> createState() => _EvDeliveryAddressState();
@@ -22,26 +19,10 @@ class EvDeliveryAddress extends StatefulWidget {
 
 class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
 
-  mySelectedData(){
-    print("carName: ${widget.carName}");
-    print("carImage: ${widget.carImage}");
-    print("carDiscount: ${widget.discountPercentage}");
-    print("carModel: ${widget.carModel}");
-    print("carYear: ${widget.carYear}");
-    print("carOriginalAmount: ${widget.discountedAmount}");
-    print("carDiscountAmount: ${widget.amount}");
-    print("carRatings: ${widget.carRating}");
-    print("carDayDate: ${widget.myDay} ${widget.myDate}");
-    print("carMakersName: ${widget.carMakerName} ${widget.totalHoursInNumber}");
-    print("carStartEndTime: ${widget.selectedStartTime} ${widget.selectedEndTime}");
-    print("carRatings: ${widget.selectedHoursInString} ${widget.hoursAmount} ${widget.totalAmount}");
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    mySelectedData();
   }
   @override
   Widget build(BuildContext context) {
@@ -67,25 +48,28 @@ class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
-              AddressTabBar(
-                carName: widget.carName,
-                carYear: widget.carYear,
-                carModel: widget.carModel,
-                carImage: widget.carImage,
-                discountedAmount: widget.discountedAmount,
-                amount: widget.amount,
-                carRating: widget.carRating,
-                discountPercentage: widget.discountPercentage,
-                selectedHours: widget.selectedHoursInString,
-                hoursAmount: widget.hoursAmount,
+              EvAddressTabBar(
+                myDatum: widget.evDatum,
+                mySelectedTabMonth: widget.mySelectedTabMonth,
+                mySelectedTabPrice: widget.mySelectedTabPrice,
                 totalAmount: widget.totalAmount,
-                carMakerName: widget.carMakerName,
-                selectedStartTime: widget.selectedStartTime,
-                selectedEndTime: widget.selectedEndTime,
-
-                myDate: widget.myDate,
-                myDay: widget.myDay,
-                totalHoursInNumber: widget.totalHoursInNumber,
+                // carName: widget.carName,
+                // carYear: widget.carYear,
+                // carModel: widget.carModel,
+                // carImage: widget.carImage,
+                // discountedAmount: widget.discountedAmount,
+                // amount: widget.amount,
+                // carRating: widget.carRating,
+                // discountPercentage: widget.discountPercentage,
+                // selectedHours: widget.selectedHoursInString,
+                // hoursAmount: widget.hoursAmount,
+                // totalAmount: widget.totalAmount,
+                // carMakerName: widget.carMakerName,
+                // selectedStartTime: widget.selectedStartTime,
+                // selectedEndTime: widget.selectedEndTime,
+                // myDate: widget.myDate,
+                // myDay: widget.myDay,
+                // totalHoursInNumber: widget.totalHoursInNumber,
               ),
             ],
           ),

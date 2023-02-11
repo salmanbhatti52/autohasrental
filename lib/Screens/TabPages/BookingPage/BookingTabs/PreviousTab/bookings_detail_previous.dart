@@ -4,7 +4,9 @@ import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/fontFamily.dart';
 
 class BookingsDetailsPrevious extends StatefulWidget {
-  const BookingsDetailsPrevious({super.key});
+  final String? carName, carImage, carModel, carMakes, carYear, carPrice, carRatings;
+  const BookingsDetailsPrevious({super.key, this.carName, this.carModel,
+    this.carImage, this.carMakes, this.carYear, this.carPrice, this.carRatings});
 
   @override
   State<BookingsDetailsPrevious> createState() =>
@@ -72,7 +74,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                   Row(
                                     children: [
                                       Text(
-                                        "${previousItemsList[index].carCompanyName} | ",
+                                        "${widget.carName} ",
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 14,
@@ -81,7 +83,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         textAlign: TextAlign.left,
                                       ),
                                       Text(
-                                        "${previousItemsList[index].textModel} ",
+                                        "${widget.carModel} ",
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 12,
@@ -90,7 +92,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         textAlign: TextAlign.left,
                                       ),
                                       Text(
-                                        "${previousItemsList[index].carModelYear} ",
+                                        "${widget.carMakes} ",
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 14,
@@ -98,8 +100,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
-                                      Text(
-                                        previousItemsList[index].range,
+                                      Text("${widget.carName}",
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 10,
@@ -184,7 +185,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                                                 0.01,
                                       ),
                                       Text(
-                                        "4.0",
+                                        "${widget.carRatings}",
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 12,
@@ -249,6 +250,14 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                 ),
               ),
               Positioned(
+                left: 20,
+                child: Image.network(
+                  "${widget.carImage}",
+                  width: 325,
+                  height: 175,
+                ),
+              ),
+              Positioned(
                   top: 10,
                   left: 15,
                   child: Container(
@@ -282,14 +291,7 @@ class _BookingsDetailsPreviousState extends State<BookingsDetailsPrevious> {
                       ],
                     ),
                   )),
-              Positioned(
-                left: 20,
-                child: Image.asset(
-                  previousItemsList[index].carImage,
-                  width: 325,
-                  height: 175,
-                ),
-              ),
+
               Positioned(
                 top: 10,
                 right: 15,

@@ -194,6 +194,7 @@ class _SignUpPageState extends State<SignUpPage> {
                          if(signUpModel.status == "success"){
                            Future.delayed(const Duration(seconds: 3), () {
                              toastSuccessMessage("success", colorGreen);
+                             toastOTPMessage("${signUpModel.data![0].verifyCode}", colorGreen);
                              Navigator.push(context, MaterialPageRoute(
                                  builder: (context) => VerifyPhonePage(
                                    userId: signUpModel.data![0].usersCustomersId.toString(),
@@ -211,8 +212,6 @@ class _SignUpPageState extends State<SignUpPage> {
                              isInAsyncCall = false;
                            });
                          }
-
-
                         }
                       }
                     },
@@ -346,47 +345,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             });
                           },
                         ),
-                        // errorTextMsg: "Please Enter Email",
                       ),
 
-                      // TextField(
-                      //   cursorColor: borderColor,
-                      //   controller: passwordController,
-                      //   keyboardType: TextInputType.text,
-                      //   decoration: InputDecoration(
-                      //     contentPadding: const EdgeInsets.only(
-                      //         top: 15, left: 20, bottom: 15),
-                      //     enabledBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(30.0),
-                      //         borderSide: BorderSide(color: textLabelColor)
-                      //     ),
-                      //     border: OutlineInputBorder(
-                      //         borderSide: BorderSide(color: textLabelColor),
-                      //         borderRadius: BorderRadius.circular(30)
-                      //     ),
-                      //     focusedBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(30.0),
-                      //         borderSide: BorderSide(color: borderColor)
-                      //     ),
-                      //     hintText: '••••••••',
-                      //     hintStyle: TextStyle(color: textLabelColor, letterSpacing: 3,
-                      //         fontFamily: poppinBold),
-                      //     // labelStyle: TextStyle(color: textLabelColor),
-                      //     focusColor: borderColor,
-                      //     suffixIcon: IconButton(
-                      //       icon: Icon(
-                      //         // _obscureText ? Icons.visibility_off : Icons.visibility,
-                      //           _obscureText ?  Icons.visibility :Icons.visibility_off,
-                      //           color: textLabelColor),
-                      //       onPressed: () {
-                      //         setState(() {
-                      //           _obscureText = !_obscureText;
-                      //         });
-                      //       },
-                      //     ),
-                      //   ),
-                      //   style: TextStyle(color: borderColor, fontSize: 14),
-                      // ),
                     ],
                   ),
                 ],

@@ -1,6 +1,7 @@
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import '../../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
 import '../../../../../../Utils/colors.dart';
 import '../../../../../../Utils/fontFamily.dart';
 import '../../../../../../Widget/TextFields/address_text_field.dart';
@@ -8,41 +9,25 @@ import '../../../../../../Widget/myTextWidget.dart';
 import 'CartDetails/cart_details_page.dart';
 
 class BillingAddressPage extends StatefulWidget {
-  final String? carImage,
-      discountPercentage,
-      carName,
-      carModel,
-      amount,
-      myDate,
-      myDay,
-      discountedAmount,
-      carRatings,
-      selectedHours,
-      carMakerName,
-      selectedStartTime,
-      selectedEndTime;
-  final int? carYear, totalHoursInNumber;
+  final DatumPhotography? datumPhotography;
+  final String? amount, myDate, myDay, selectedHours,
+      selectedStartTime, selectedEndTime;
+  final int? totalHoursInNumber;
   final double? hoursAmount, totalAmount;
 
   const BillingAddressPage(
       {Key? key,
-      this.carImage,
-      this.carName,
-      this.carModel,
-      this.carMakerName,
+        this.datumPhotography,
+
       this.myDate,
       this.myDay,
       this.totalHoursInNumber,
-      this.discountPercentage,
       this.selectedHours,
       this.hoursAmount,
       this.totalAmount,
       this.selectedStartTime,
       this.selectedEndTime,
-      this.carYear,
-      this.carRatings,
-      this.amount,
-      this.discountedAmount})
+      this.amount,})
       : super(key: key);
 
   @override
@@ -72,17 +57,10 @@ class _BillingAddressPageState extends State<BillingAddressPage> {
   ];
 
   mySelectedData() {
-    print("carName2: ${widget.carName}");
-    print("carImage2: ${widget.carImage}");
-    print("carDiscount2: ${widget.discountPercentage}");
-    print("carModel2: ${widget.carModel}");
-    print("carYear2: ${widget.carYear}");
-    print("carDiscountAmount2: ${widget.discountedAmount}");
     print("carDiscountAmount2: ${widget.amount}");
-    print("carRatings2: ${widget.carRatings}");
     print("carDayDate2: ${widget.myDay} ${widget.myDate}");
     print(
-        "carMakersName2: ${widget.carMakerName} ${widget.totalHoursInNumber}");
+        "carMakersName2: ${widget.totalHoursInNumber}");
     print(
         "carStartEndTime2: ${widget.selectedStartTime} ${widget.selectedEndTime}");
     print(
@@ -156,28 +134,17 @@ class _BillingAddressPageState extends State<BillingAddressPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => CartDetailsPage(
-                                        carName: widget.carName,
-                                        carYear: widget.carYear,
-                                        carModel: widget.carModel,
-                                        carImage: widget.carImage,
-                                        discountedAmount:
-                                            widget.discountedAmount,
-                                        amount: widget.amount,
-                                        discountPercentage:
-                                            widget.discountPercentage,
-                                        carRatings: widget.carRatings,
-                                        selectedHours: widget.selectedHours,
-                                        hoursAmount: widget.hoursAmount,
-                                        totalAmount: widget.totalAmount,
-                                        carMakerName: widget.carMakerName,
-                                        selectedStartTime:
-                                            widget.selectedStartTime,
-                                        selectedEndTime: widget.selectedEndTime,
-                                        myDate: widget.myDate,
-                                        myDay: widget.myDay,
-                                        totalHoursInNumber:
-                                            widget.totalHoursInNumber,
-                                      )));
+                                    datumPhotography: widget.datumPhotography,
+                                    amount: widget.amount,
+                                    selectedHours: widget.selectedHours,
+                                    hoursAmount: widget.hoursAmount,
+                                    totalAmount: widget.totalAmount,
+                                    selectedStartTime: widget.selectedStartTime,
+                                    selectedEndTime: widget.selectedEndTime,
+                                    myDate: widget.myDate,
+                                    myDay: widget.myDay,
+                                    totalHoursInNumber: widget.totalHoursInNumber,
+                                  )));
                         },
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.06,

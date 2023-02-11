@@ -1,46 +1,41 @@
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
-import '../../../../../../Utils/colors.dart';
-import 'billing_address_page.dart';
-import 'home_address.dart';
+import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
+import 'ev_billing_address.dart';
+import 'ev_home_address.dart';
 
-class AddressTabBar extends StatefulWidget {
-  final DatumPhotography? datumPhotography;
-  final String? amount, myDate, myDay, selectedHours, selectedStartTime, selectedEndTime;
-  final int? totalHoursInNumber;
-  final double? hoursAmount, totalAmount;
+class EvAddressTabBar extends StatefulWidget {
+  final Datum? myDatum;
+  final String? mySelectedTabMonth, mySelectedTabPrice;
+  final double? totalAmount;
 
-  const AddressTabBar({Key? key,
-    this.datumPhotography,
-    this.selectedHours, this.myDate, this.myDay, this.totalHoursInNumber,
-    this.hoursAmount, this.totalAmount, this.selectedStartTime, this.selectedEndTime,
-    this.amount}): super(key: key);
+  const EvAddressTabBar({Key? key, this.myDatum, this.totalAmount,
+    this.mySelectedTabMonth, this.mySelectedTabPrice}): super(key: key);
 
   @override
-  State<AddressTabBar> createState() => _AddressTabBarState();
+  State<EvAddressTabBar> createState() => _EvAddressTabBarState();
 }
 
 abstract class TickerProvider {}
 
-class _AddressTabBarState extends State<AddressTabBar> with TickerProviderStateMixin {
+class _EvAddressTabBarState extends State<EvAddressTabBar> with TickerProviderStateMixin {
 
-  mySelectedData(){
-    print("carOriginalAmount1: ${widget.amount}");
-    print("carDayDate1: ${widget.myDay} ${widget.myDate}");
-    print("carMakersName1: ${widget.totalHoursInNumber}");
-    print("carStartEndTime1: ${widget.selectedStartTime} ${widget.selectedEndTime}");
-    print("carHours1: ${widget.selectedHours} ${widget.hoursAmount} ${widget.totalAmount}");
-  }
+  // mySelectedData(){
+  //   print("carDayDate: ${widget.selectedDate}");
+  //   print("carTotalPrice: ${widget.totalPrice}");
+  //   print("carStartEndTime: ${widget.startTime} ${widget.endTime}");
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    mySelectedData();
+    // mySelectedData();
   }
 
 
   List<String> tabs = ["Home Address", "Billing Address",];
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -86,18 +81,12 @@ class _AddressTabBarState extends State<AddressTabBar> with TickerProviderStateM
           child: TabBarView(
             controller: tabController,
             children: [
-              const HomeAddressPage(),
-              BillingAddressPage(
-                datumPhotography: widget.datumPhotography,
-                amount: widget.amount,
-                selectedHours: widget.selectedHours,
-                hoursAmount: widget.hoursAmount,
+              const EvHomeAddress(),
+              EvBillingAddress(
+                myDatum: widget.myDatum,
+                mySelectedTabMonth: widget.mySelectedTabMonth,
+                mySelectedTabPrice: widget.mySelectedTabPrice,
                 totalAmount: widget.totalAmount,
-                selectedStartTime: widget.selectedStartTime,
-                selectedEndTime: widget.selectedEndTime,
-                myDate: widget.myDate,
-                myDay: widget.myDay,
-                totalHoursInNumber: widget.totalHoursInNumber,
               ),
             ],
           ),

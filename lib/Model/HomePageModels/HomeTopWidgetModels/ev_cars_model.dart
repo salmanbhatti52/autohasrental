@@ -1,22 +1,22 @@
 
 import 'dart:convert';
 
-DrivingExperienceCarsModel drivingExperienceCarsModelFromJson(String str) => DrivingExperienceCarsModel.fromJson(json.decode(str));
+EvCarsModel evSubscriptionCarsModelFromJson(String str) => EvCarsModel.fromJson(json.decode(str));
 
-String drivingExperienceCarsModelToJson(DrivingExperienceCarsModel data) => json.encode(data.toJson());
+String evSubscriptionCarsModelToJson(EvCarsModel data) => json.encode(data.toJson());
 
-class DrivingExperienceCarsModel {
-  DrivingExperienceCarsModel({
+class EvCarsModel {
+  EvCarsModel({
     this.status,
     this.data,
   });
 
   String? status;
-  List<ExperienceDatumList>? data;
+  List<Datum>? data;
 
-  factory DrivingExperienceCarsModel.fromJson(Map<String, dynamic> json) => DrivingExperienceCarsModel(
+  factory EvCarsModel.fromJson(Map<String, dynamic> json) => EvCarsModel(
     status: json["status"],
-    data: List<ExperienceDatumList>.from(json["data"].map((x) => ExperienceDatumList.fromJson(x))),
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -25,8 +25,8 @@ class DrivingExperienceCarsModel {
   };
 }
 
-class ExperienceDatumList {
-  ExperienceDatumList({
+class Datum {
+  Datum({
     this.carsId,
     this.carsUsageType,
     this.usersCompaniesId,
@@ -86,25 +86,25 @@ class ExperienceDatumList {
   String? featuresElectric;
   String? featuresTbd;
   String? featuresNewCars;
-  String? rating;
-  String?image1;
-  String?image2;
-  String?image3;
-  String?image4;
-  String?image5;
+  dynamic rating;
+  String? image1;
+  String? image2;
+  String? image3;
+  String? image4;
+  String? image5;
   DateTime? dateAdded;
-  DateTime? dateModified;
+  dynamic dateModified;
   String? status;
   CarsM? carsMakes;
   CarsM? carsModels;
   CarsColors? carsColors;
-  List<CarsRating>? carsRatings;
+  List<dynamic>? carsRatings;
   int? totalBookings;
   UsersCompanies? usersCompanies;
   String? favouriteStatus;
   List<CarsPlan>? carsPlans;
 
-  factory ExperienceDatumList.fromJson(Map<String, dynamic> json) => ExperienceDatumList(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     carsId: json["cars_id"],
     carsUsageType: json["cars_usage_type"],
     usersCompaniesId: json["users_companies_id"],
@@ -132,12 +132,12 @@ class ExperienceDatumList {
     image4: json["image4"],
     image5: json["image5"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: json["date_modified"] == null ? null : DateTime.parse(json["date_modified"]),
+    dateModified: json["date_modified"],
     status: json["status"],
     carsMakes: CarsM.fromJson(json["cars_makes"]),
     carsModels: CarsM.fromJson(json["cars_models"]),
     carsColors: CarsColors.fromJson(json["cars_colors"]),
-    carsRatings: List<CarsRating>.from(json["cars_ratings"].map((x) => CarsRating.fromJson(x))),
+    carsRatings: List<dynamic>.from(json["cars_ratings"].map((x) => x)),
     totalBookings: json["total_bookings"],
     usersCompanies: UsersCompanies.fromJson(json["users_companies"]),
     favouriteStatus: json["favourite_status"],
@@ -172,12 +172,12 @@ class ExperienceDatumList {
     "image4": image4,
     "image5": image5,
     "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified?.toIso8601String(),
+    "date_modified": dateModified,
     "status": status,
     "cars_makes": carsMakes!.toJson(),
     "cars_models": carsModels!.toJson(),
     "cars_colors": carsColors!.toJson(),
-    "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x.toJson())),
+    "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x)),
     "total_bookings": totalBookings,
     "users_companies": usersCompanies!.toJson(),
     "favourite_status": favouriteStatus,
@@ -243,77 +243,33 @@ class CarsM {
 
 class CarsPlan {
   CarsPlan({
-    this.carsPlansDeId,
+    this.carsPlansEvId,
     this.carsId,
-    this.planDate,
-    this.startTime,
-    this.endTime,
-    this.pricePerSlot,
-    this.discountedPricePerSlot,
+    this.months,
+    this.pricePerMonth,
+    this.discountedPricePerMonth,
   });
 
-  int? carsPlansDeId;
+  int? carsPlansEvId;
   int? carsId;
-  DateTime? planDate;
-  String? startTime;
-  String? endTime;
-  String? pricePerSlot;
-  double? discountedPricePerSlot;
+  int? months;
+  String? pricePerMonth;
+  double? discountedPricePerMonth;
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
-    carsPlansDeId: json["cars_plans_de_id"],
+    carsPlansEvId: json["cars_plans_ev_id"],
     carsId: json["cars_id"],
-    planDate: DateTime.parse(json["plan_date"]),
-    startTime: json["start_time"],
-    endTime: json["end_time"],
-    pricePerSlot: json["price_per_slot"],
-    discountedPricePerSlot: json["discounted_price_per_slot"]?.toDouble(),
+    months: json["months"],
+    pricePerMonth: json["price_per_month"],
+    discountedPricePerMonth: json["discounted_price_per_month"]?.toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
-    "cars_plans_de_id": carsPlansDeId,
+    "cars_plans_ev_id": carsPlansEvId,
     "cars_id": carsId,
-    "plan_date": "${planDate!.year.toString().padLeft(4, '0')}-${planDate!.month.toString().padLeft(2, '0')}-${planDate!.day.toString().padLeft(2, '0')}",
-    "start_time": startTime,
-    "end_time": endTime,
-    "price_per_slot": pricePerSlot,
-    "discounted_price_per_slot": discountedPricePerSlot,
-  };
-}
-
-class CarsRating {
-  CarsRating({
-    this.carsRatingsId,
-    this.carsId,
-    this.usersCustomersId,
-    this.comments,
-    this.rateStars,
-    this.dateAdded,
-  });
-
-  int? carsRatingsId;
-  int? carsId;
-  int? usersCustomersId;
-  String? comments;
-  String? rateStars;
-  DateTime? dateAdded;
-
-  factory CarsRating.fromJson(Map<String, dynamic> json) => CarsRating(
-    carsRatingsId: json["cars_ratings_id"],
-    carsId: json["cars_id"],
-    usersCustomersId: json["users_customers_id"],
-    comments: json["comments"],
-    rateStars: json["rate_stars"],
-    dateAdded: DateTime.parse(json["date_added"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "cars_ratings_id": carsRatingsId,
-    "cars_id": carsId,
-    "users_customers_id": usersCustomersId,
-    "comments": comments,
-    "rate_stars": rateStars,
-    "date_added": dateAdded!.toIso8601String(),
+    "months": months,
+    "price_per_month": pricePerMonth,
+    "discounted_price_per_month": discountedPricePerMonth,
   };
 }
 
@@ -344,18 +300,18 @@ class UsersCompanies {
   String? email;
   String? password;
   String? phone;
-  String? about;
-  String? bankName;
-  String? bankAccountNumber;
+  dynamic about;
+  dynamic bankName;
+  dynamic bankAccountNumber;
   String? companyLocation;
   String? companyRegistrationNumber;
   String? companyLogo;
-  String? paypalEmail;
+  dynamic paypalEmail;
   int? verifyEmailOtp;
-  int? forgotPasswordOtp;
+  dynamic forgotPasswordOtp;
   String? verified;
   DateTime? dateAdded;
-  DateTime? dateModified;
+  dynamic dateModified;
   String? status;
 
   factory UsersCompanies.fromJson(Map<String, dynamic> json) => UsersCompanies(
@@ -375,7 +331,7 @@ class UsersCompanies {
     forgotPasswordOtp: json["forgotPasswordOtp"],
     verified: json["verified"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: DateTime.parse(json["date_modified"]),
+    dateModified: json["date_modified"],
     status: json["status"],
   );
 
@@ -396,7 +352,7 @@ class UsersCompanies {
     "forgotPasswordOtp": forgotPasswordOtp,
     "verified": verified,
     "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified!.toIso8601String(),
+    "date_modified": dateModified,
     "status": status,
   };
 }

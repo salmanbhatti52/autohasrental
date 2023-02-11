@@ -1,22 +1,22 @@
 
 import 'dart:convert';
 
-CarsPhotoGraphyModel carsPhotoGraphyModelFromJson(String str) => CarsPhotoGraphyModel.fromJson(json.decode(str));
+PhotoGraphyModel carsPhotoGraphyModelFromJson(String str) => PhotoGraphyModel.fromJson(json.decode(str));
 
-String carsPhotoGraphyModelToJson(CarsPhotoGraphyModel data) => json.encode(data.toJson());
+String carsPhotoGraphyModelToJson(PhotoGraphyModel data) => json.encode(data.toJson());
 
-class CarsPhotoGraphyModel {
-  CarsPhotoGraphyModel({
+class PhotoGraphyModel {
+  PhotoGraphyModel({
     this.status,
     this.data,
   });
 
   String? status;
-  List<Datum>? data;
+  List<DatumPhotography>? data;
 
-  factory CarsPhotoGraphyModel.fromJson(Map<String, dynamic> json) => CarsPhotoGraphyModel(
+  factory PhotoGraphyModel.fromJson(Map<String, dynamic> json) => PhotoGraphyModel(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<DatumPhotography>.from(json["data"].map((x) => DatumPhotography.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -25,8 +25,8 @@ class CarsPhotoGraphyModel {
   };
 }
 
-class Datum {
-  Datum({
+class DatumPhotography {
+  DatumPhotography({
     this.carsId,
     this.carsUsageType,
     this.usersCompaniesId,
@@ -104,7 +104,7 @@ class Datum {
   String? favouriteStatus;
   List<CarsPlan>? carsPlans;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DatumPhotography.fromJson(Map<String, dynamic> json) => DatumPhotography(
     carsId: json["cars_id"],
     carsUsageType: json["cars_usage_type"],
     usersCompaniesId: json["users_companies_id"],

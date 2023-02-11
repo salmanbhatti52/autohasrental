@@ -14,7 +14,7 @@ import '../../../Widget/myTextWidget.dart';
 import '../../../Widget/toast_message.dart';
 import '../../TabPages/tab_page.dart';
 import '../SignUpPage/sign_up_page.dart';
-import 'ForgetPassword/reset_password_page.dart';
+import 'ForgetPassword/forget_password_page.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
   // }
 
   userLogin() async {
-    try {
+    // try {
       String apiUrl = loginApiUrl;
       print("api: $apiUrl");
       print("email: ${loginEmailController.text}");
@@ -75,16 +75,16 @@ class _LoginPageState extends State<LoginPage> {
       print("status Code SignIn: ${response.statusCode}");
       if (response.statusCode == 200) {
         print("in 200 signUp");
-        if (responseString != 'false') {
+        // if (responseString != 'false') {
           userLoginModel = userLoginModelFromJson(responseString);
           setState(() {});
           print('signInModel status: ${userLoginModel.status}');
-        }
+        // }
       }
-    } catch (e) {
-      print('signIn error in catch = ${e.toString()}');
-      return null;
-    }
+    // } catch (e) {
+    //   print('signIn error in catch = ${e.toString()}');
+    //   return null;
+    // }
   }
 
   @override
@@ -188,6 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                             await sharedPref.setString('token', userLoginModel.data!.firstName!);
                             await sharedPref.setString('user_email', userLoginModel.data!.email!);
                             await sharedPref.setString('username', userLoginModel.data!.lastName!);
+                            await sharedPref.setString('profile_pic', userLoginModel.data!.profilePic!);
                             print("userId: ${userLoginModel.data!.usersCustomersId.toString()}");
                             print("userEmail: ${userLoginModel.data!.email!}");
                             print("userFirstName: ${userLoginModel.data!.firstName!}");
@@ -210,11 +211,11 @@ class _LoginPageState extends State<LoginPage> {
                               progress = false;
                             });
                             print("LoginMessage: loginError");
-                            toastFailedMessage("LoginError", Colors.red);
+                            // toastFailedMessage("LoginError", Colors.red);
+                            toastFailedMessage("${userLoginModel.message}", Colors.red);
                           }
                         }
                       }
-                      // Navigator.push(context, MaterialPageRoute(builder: (context)=> const TabBarPage()));
                     },
                     child: loginButton("Login", context)),
                 SizedBox(height: screenHeight * 0.05),

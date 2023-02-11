@@ -131,6 +131,7 @@ class MyAppBarSingleImageWithText extends StatelessWidget
       title: Padding(
         padding: const EdgeInsets.only(top: 30),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               title,

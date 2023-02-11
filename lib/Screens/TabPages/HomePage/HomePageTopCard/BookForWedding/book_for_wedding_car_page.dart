@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
-import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/car_photography_model.dart';
+import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/constants.dart';
 import '../../../../../Utils/fontFamily.dart';
@@ -20,7 +20,7 @@ class BookForWeddingPage extends StatefulWidget {
 }
 
 class _BookForWeddingPageState extends State<BookForWeddingPage> {
-  CarsPhotoGraphyModel carsPhotoGraphyModelObject = CarsPhotoGraphyModel();
+  PhotoGraphyModel carsPhotoGraphyModelObject = PhotoGraphyModel();
   CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
   String? myCurrentCarIndex;
   bool loadingP = true;
@@ -34,7 +34,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
   getCarsPhotoGraphyWidget() async {
     loadingP = true;
     setState(() {});
-    try {
+    // try {
       String apiUrl = carsPhotoGraphyApiUrl;
       print("carsPhotographyApi: $apiUrl");
       final response = await http.post(Uri.parse(apiUrl),
@@ -52,9 +52,9 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
         carsPhotoGraphyModelObject = carsPhotoGraphyModelFromJson(responseString);
         print("carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.status}");
       }
-    } catch (e) {
-      print('Error: ${e.toString()}');
-    }
+    // } catch (e) {
+    //   print('Error: ${e.toString()}');
+    // }
     loadingP = false;
     setState(() {});
   }
@@ -127,20 +127,14 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                             color: Color(0xffD4DCE1),
                           ),
                         ),
-                        style: TextStyle(
-                          color: borderColor,
-                          fontSize: 14,
-                          fontFamily: poppinLight,
-                        ),
-                      ),
+                        style: TextStyle(color: borderColor,
+                          fontSize: 14, fontFamily: poppinLight)),
                     ),
                   ),
                   const SizedBox(width: 15),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
+                      Navigator.push(context, MaterialPageRoute(
                               builder: (context) => const FilterScreen()));
                     },
                     child: Container(
@@ -161,14 +155,14 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                   height: 50,
                   child: const BookForWeddingCarLogoContainer()),
             ),
-            browseCarsListWidget(),
+            photographyCarsListWidget(),
           ],
         ),
       ),
     );
   }
 
-  Widget browseCarsListWidget() {
+  Widget photographyCarsListWidget() {
     return SingleChildScrollView(
       child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
           : carsPhotoGraphyModelObject.status != "success" ?
@@ -225,27 +219,27 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                                           Text("${carsPhotoGraphyModelObject.data![index].vehicalName} ",
                                             textAlign: TextAlign.left, style: TextStyle(
                                                 color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-                                          Text("${carsPhotoGraphyModelObject.data![index].year} ",
-                                              textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+
                                           Text("${carsPhotoGraphyModelObject.data![index].carsColors!.name} ",
                                               textAlign: TextAlign.left, style: TextStyle(
                                                   color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                                         ],
                                       ),
-                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                       Row(
                                         children: [
 
-                                          Text("${carsPhotoGraphyModelObject.data![index].carsMakes!.name} ",
+                                          Text("${carsPhotoGraphyModelObject.data![index].carsMakes!.name}, ",
                                               textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
-                                          Text("${carsPhotoGraphyModelObject.data![index].carsModels!.name} ",
+                                                  color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                          Text("${carsPhotoGraphyModelObject.data![index].carsModels!.name}, ",
                                               textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
+                                                  color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
+                                          Text("${carsPhotoGraphyModelObject.data![index].year} ",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                         ],
                                       ),
-                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                       Row(
                                         children: [
                                           Padding(
@@ -328,15 +322,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                         print("myCarId $carID");
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context) => BookForWeddingCarDescription(
-                              carName: carsPhotoGraphyModelObject.data![index].vehicalName,
-                              carYear: carsPhotoGraphyModelObject.data![index].year,
-                              carImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}",
-                              carRating: "${carsPhotoGraphyModelObject.data![index].rating}",
-                              carDescription: "${carsPhotoGraphyModelObject.data![index].description}",
-                              ownerImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyLogo}",
-                              ownerName: "${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyName}",
-                              ownerId: "${carsPhotoGraphyModelObject.data![index].usersCompaniesId}",
-                              pricePerHours: carsPhotoGraphyModelObject.data![index].carsPlans![0].pricePerHour,
+                              datumPhotography: carsPhotoGraphyModelObject.data![index],
                             )));
                         print("evCarName ${carsPhotoGraphyModelObject.data![index].vehicalName}");
                         print("evCarYear ${carsPhotoGraphyModelObject.data![index].year}");
@@ -345,6 +331,27 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                         print("evCarId ${carsPhotoGraphyModelObject.data![index].carsId}");
                         },
                       child: Image.asset("assets/car_bookings_images/more_button.png"),
+                    ),
+                  ),
+
+                  Positioned(
+                    top: 10,
+                    left: 10,
+                    right: 10,
+                    child: carsPhotoGraphyModelObject.data![index].image1 == null
+                        ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                            'assets/icon/fade_in_image.jpeg'))
+                        : ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: FadeInImage(
+                        placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                        // width: 300,
+                        height: 135,
+                        image: NetworkImage(
+                            "$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}"),
+                      ),
                     ),
                   ),
                   Positioned(
@@ -370,26 +377,6 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                           ],
                         ),
                       )),
-                  Positioned(
-                    top: 10,
-                    left: 10,
-                    right: 10,
-                    child: carsPhotoGraphyModelObject.data![index].image1 == null
-                        ? ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                            'assets/icon/fade_in_image.jpeg'))
-                        : ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: FadeInImage(
-                        placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
-                        width: 350,
-                        height: 150,
-                        image: NetworkImage(
-                            "$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}"),
-                      ),
-                    ),
-                  ),
                   Positioned(
                     top: 10,
                     right: 15,

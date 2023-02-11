@@ -1,31 +1,35 @@
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../Model/HomePageModels/HomePageTopWidgetModels/ev_subscription_cars_model.dart';
+import '../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
+import '../../../../../Model/custom_subscription_model.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../../../Utils/fontFamily.dart';
+import '../../../../../Widget/toast_message.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
-import '../../Home/Address/delivery_address.dart';
-import 'package:http/http.dart' as http;
-
-import 'EvSubscriptionPlanTabBar/ev_subscription_tabbar.dart';
+import 'EvAddress/ev_delivery_address.dart';
+import 'EvSubscriptionPlanTabBar/12MonthsPlan/12_months_plan.dart';
+import 'package:http/http.dart'as http;
 
 class EvDescriptionDetailsPage extends StatefulWidget {
-  final String? carName;
-  final int? carYear;
-  const EvDescriptionDetailsPage({Key? key, this.carName, this.carYear}) : super(key: key);
+  final Datum? evDatum;
+  final String? mySelectedTabMonth, mySelectedTabPrice;
+
+  const EvDescriptionDetailsPage({Key? key, this.evDatum,
+    this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
   State<EvDescriptionDetailsPage> createState() => _EvDescriptionDetailsPageState();
 }
 
-class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
-
-  EvSubscriptionCarsModel evSubscriptionCarsModelObject = EvSubscriptionCarsModel();
+// abstract class TickerProvider {}
+class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> with TickerProviderStateMixin {
+  EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
+  int selectedIndex = 0;
   bool loadingP = true;
-
   getEvSubscriptionCarsWidget() async {
     loadingP = true;
     setState(() {});
@@ -51,7 +55,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
         print("evSubscriptionResponse: ${responseString.toString()}");
         evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
         print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
-        // monthList();
+        monthList();
       }
     } catch (e) {
       print('Error in evSubscription: ${e.toString()}');
@@ -59,26 +63,45 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
     loadingP = false;
     setState(() {});
   }
+  String? tabMonth, tabPrice;
+
+  List<CustomSubscriptionModel> monthNumber = [];
+
+  monthList(){
+    for (int i = 0; i< evSubscriptionCarsModelObject.data!.length; i++) {
+      print("OuterLoop:$i");
+      for (int j = 0; j < evSubscriptionCarsModelObject.data![i].carsPlans!.length; j++) {
+        if(evSubscriptionCarsModelObject.data![i].carsPlans![j].carsId == carID) {
+          monthNumber.add(CustomSubscriptionModel(
+              months: evSubscriptionCarsModelObject.data![i].carsPlans![j].months!.toString(),
+              price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].pricePerMonth!,
+              dis_price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString()));
+          print("monthNumber123 ${monthNumber[0].months}");
+          print("InnerLoop:$j");
+        }
+      }
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getEvSubscriptionCarsWidget();
+    tabMonth = widget.mySelectedTabMonth;
+    tabPrice = widget.mySelectedTabPrice;
+    print("evCarID $carID");
+    print("tabMonthAndPrice $tabMonth $tabPrice");
+    myTotalAmount();
   }
+  double totalAmount = 0.0;
+  myTotalAmount(){
 
-  // List monthNumber = [];
-  // monthList(){
-  //   for (int i = 0; i< evSubscriptionCarsModelObject.data!.length; i++) {
-  //     print("OuterLoop:$i");
-  //     for (int j = 0; j < evSubscriptionCarsModelObject.data![i].carsPlans!.length; j++) {
-  //       if(evSubscriptionCarsModelObject.data![i].carsPlans![j].carsId == carID) {
-  //         monthNumber.add(evSubscriptionCarsModelObject.data![i].carsPlans![j].months);
-  //       print("monthNumber $monthNumber");
-  //       print("InnerLoop:$j");
-  //       }
-  //     }
-  //   }
-  // }
+    print('selectedTabMonth: $tabMonth');
+    print('selectedTabMonthPrice $tabPrice');
+    totalAmount = double.parse("$tabPrice") + serviceFee;
+    print("selectedMonthTotal: $totalAmount");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +110,10 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: MyAppBarSingleImageWithText(
-        title: "${widget.carName}, ", subtitle: "${widget.carYear}",
+        title: "${widget.evDatum!.vehicalName}, ", subtitle: "${widget.evDatum!.year}",
         backImage: "assets/messages_images/Back.png",
       ),
-      body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
-      SingleChildScrollView(
+      body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,67 +127,13 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Choose Subscription plan", textAlign: TextAlign.left,
+                        Text("Select Start and End Date Plan", textAlign: TextAlign.left,
                           style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
 
-                        const EvSubscriptionTabbarPage(),
-                        SizedBox(height: screenHeight * 0.02),
-
-                        // const ChooseSubscriptionPlan(),
-                        // Text("Choose Mileage Package", textAlign: TextAlign.left,
-                        //   style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
-                        // const ChooseMileagePlan(),
-
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     Text("Start Fee", textAlign: TextAlign.left,
-                        //       style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: kBlack)),
-                        //     Text("RM 8,471.94", textAlign: TextAlign.right,
-                        //       style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: kBlack)),
-                        //   ],
-                        // ),
-                        // SizedBox(height: screenHeight * 0.015),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     Text("12 Months Plan", textAlign: TextAlign.left, style: TextStyle(
-                        //           fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-                        //     Text("RM 8,120.00", textAlign: TextAlign.right, style: TextStyle(
-                        //           fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-                        //   ],
-                        // ),
-                        // SizedBox(height: screenHeight * 0.015),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     Text("Lite Package - 1,250KM", textAlign: TextAlign.left, style: TextStyle(
-                        //           fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-                        //     Text("RM 0.00", textAlign: TextAlign.right, style: TextStyle(
-                        //           fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-                        //   ],
-                        // ),
-                        // SizedBox(height: screenHeight * 0.015),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
-                        //           fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-                        //     Text("RM 487.20", textAlign: TextAlign.right, style: TextStyle(
-                        //           fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-                        //   ],
-                        // ),
-                        // SizedBox(height: screenHeight * 0.02),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     Text("Monthly Total Fee", textAlign: TextAlign.left, style: TextStyle(
-                        //           fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
-                        //     Text("RM 8,607.20", textAlign: TextAlign.left, style: TextStyle(
-                        //           fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
-                        //   ],
-                        // ),
-
+                        // evSubscriptionTabbarWidget(),
+                        choosedPlan(),
+                        // const EvSubscriptionTabbarPage(),
+                        SizedBox(height: screenHeight * 0.0),
 
                         Text("*A security deposit may be applicable, depending on your eligibility assessment.",
                           maxLines: 2, textAlign: TextAlign.left, style: TextStyle(
@@ -237,17 +205,28 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                         SizedBox(height: screenHeight * 0.02),
                         GestureDetector(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) => DeliveryAddress(
-                                        carName: evSubscriptionCarsModelObject.data![0].vehicalName,
-                                        carYear: evSubscriptionCarsModelObject.data![0].year,
-                                        carModel: evSubscriptionCarsModelObject.data![0].carsModels!.name,
-                                        carImage: "$baseUrlImage${evSubscriptionCarsModelObject.data![0].image1}",
-                                        discountedAmount: evSubscriptionCarsModelObject.data![0].carsPlans![0].discountedPricePerMonth,
-                                        amount: evSubscriptionCarsModelObject.data![0].carsPlans![0].pricePerMonth,
-                                        discountPercentage: evSubscriptionCarsModelObject.data![0].discountPercentage,
-                                        carRating: evSubscriptionCarsModelObject.data![0].rating,
+                              if(formKeyEvTabbar.currentState!.validate()){
+                                if(evStartDate == null ||  evEndDate == null){
+                                  toastFailedMessage("Please select Date", kRed);
+                                }
+                                else if(differenceInDays! != totalDays!){
+                                  toastFailedMessage("date didn't matched", kRed);
+                                }
+                                else{
+                                  print('selectedMonth: $tabMonth');
+                                  print('evStartEndDate: $evStartDate $evEndDate');
+                                  print('selectedMonthPrice $tabPrice');
+                                  print('selectedMonthTotalPrice $totalAmount');
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) => EvDeliveryAddress(
+                                          evDatum: widget.evDatum,
+                                        mySelectedTabMonth: tabMonth,
+                                        mySelectedTabPrice: tabPrice,
+                                        totalAmount: totalAmount,
                                       )));
+                                }
+
+                              }
                             },
                             child: loginButton("Next", context)),
                         SizedBox(height: screenHeight * 0.03),
@@ -272,8 +251,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
           width: MediaQuery.of(context).size.width * 0.8,
           color: Colors.transparent,
           child: Text(myText, textAlign: TextAlign.left,
-            maxLines: 2, style: TextStyle(fontSize: 10,
-                fontFamily: poppinRegular, color: detailsTextColor)),
+              maxLines: 2, style: TextStyle(fontSize: 10,
+                  fontFamily: poppinRegular, color: detailsTextColor)),
         )
       ],
     );
@@ -282,13 +261,12 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
   Widget homePageDetailsCard() {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-      Stack(
+    return Stack(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
-            height: screenHeight * 0.43,
+            height: screenHeight * 0.45,
             decoration: BoxDecoration(
                 color: kWhite, borderRadius: BorderRadius.circular(20)),
           ),
@@ -306,20 +284,25 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                   Container(height: screenHeight * 0.1,),
                   Row(
                     children: [
-                      Text("${evSubscriptionCarsModelObject.data![0].vehicalName} | ",
-                        textAlign: TextAlign.left, style: TextStyle(
-                            color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-                      Text("MODEL ", textAlign: TextAlign.left, style: TextStyle(
-                            color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                      Text("${evSubscriptionCarsModelObject.data![0].carsModels!.name} ",
+                      Text("${widget.evDatum!.vehicalName} ",
                           textAlign: TextAlign.left, style: TextStyle(
-                              color: kBlack, fontSize: 14, fontFamily: poppinMedium)),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 04),
-                        child: Text("${evSubscriptionCarsModelObject.data![0].year}",
-                            textAlign: TextAlign.left, style: TextStyle(
-                              color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                      ),
+                              color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+
+                      Text("${widget.evDatum!.carsColors!.name} ", textAlign: TextAlign.left, style: TextStyle(
+                          color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("${widget.evDatum!.carsMakes!.name}, ",
+                          textAlign: TextAlign.left, style: TextStyle(
+                              color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                      Text("${widget.evDatum!.carsModels!.name}, ",
+                          textAlign: TextAlign.left, style: TextStyle(
+                              color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
+                      Text("${widget.evDatum!.year} ",
+                          textAlign: TextAlign.left, style: TextStyle(
+                              color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                     ],
                   ),
                   Row(
@@ -329,7 +312,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                             color: kRed, fontSize: 5, fontFamily: poppinLight)),
                       ),
-                      Text("${evSubscriptionCarsModelObject.data![0].carsPlans![0].pricePerMonth}",
+                      Text("${widget.evDatum!.carsPlans![0].pricePerMonth}",
                         textAlign: TextAlign.left, style: TextStyle(color: kRed,
                             fontFamily: poppinLight, fontSize: 10, decoration: TextDecoration.lineThrough),
                       ),
@@ -339,10 +322,10 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                             color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                       ),
-                      Text("${evSubscriptionCarsModelObject.data![0].carsPlans![0].discountedPricePerMonth}",
-                        textAlign: TextAlign.left, style: TextStyle(
-                            color: borderColor, fontSize: 20, fontFamily: poppinSemiBold)),
-                      Text("/ Month", textAlign: TextAlign.left, style: TextStyle(
+                      Text("${widget.evDatum!.carsPlans![0].discountedPricePerMonth}",
+                          textAlign: TextAlign.left, style: TextStyle(
+                              color: borderColor, fontSize: 20, fontFamily: poppinSemiBold)),
+                      Text("/Month", textAlign: TextAlign.left, style: TextStyle(
                           color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                     ],
                   ),
@@ -373,11 +356,11 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                         children: [
                           Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                           SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                          evSubscriptionCarsModelObject.data![0].rating == null ?
+                          widget.evDatum!.rating == null ?
                           Text("0.0", textAlign: TextAlign.left, style: TextStyle(
-                                  color: kBlack, fontSize: 14, fontFamily: poppinRegular)):
-                          Text("${evSubscriptionCarsModelObject.data![0].rating}",
-                            textAlign: TextAlign.left, style: TextStyle(
+                              color: kBlack, fontSize: 14, fontFamily: poppinRegular)):
+                          Text("${widget.evDatum!.rating}",
+                              textAlign: TextAlign.left, style: TextStyle(
                                   color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                         ],
                       ),
@@ -388,7 +371,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                             borderRadius: BorderRadius.circular(20)),
                         child: Center(
                           child: Text("Pre book", textAlign: TextAlign.left,
-                            style: TextStyle(color: kWhite, fontSize: 12, fontFamily: poppinMedium)),
+                              style: TextStyle(color: kWhite, fontSize: 12, fontFamily: poppinMedium)),
                         ),
                       ),
                     ],
@@ -401,6 +384,23 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
                       textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
                 ],
               ),
+            ),
+          ),
+        ),
+        Positioned(
+          left: 25, right: 20,
+          top: 20,
+          child: widget.evDatum!.image1 == null ?
+          ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset('assets/icon/fade_in_image.jpeg')) :
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: FadeInImage(
+              placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+              width: 350,
+              height: 130,
+              image: NetworkImage("$baseUrlImage${widget.evDatum!.image1}"),
             ),
           ),
         ),
@@ -418,34 +418,339 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("${evSubscriptionCarsModelObject.data![0].discountPercentage}% ",
-                    textAlign: TextAlign.left, style: TextStyle(
-                        color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
+                  Text("${widget.evDatum!.discountPercentage}% ",
+                      textAlign: TextAlign.left, style: TextStyle(
+                          color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
                   Text("OFF", textAlign: TextAlign.left, style: TextStyle(
-                        color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                      color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
                 ],
               ),
             )),
         Positioned(
-          left: 20, right: 20,
-          child: evSubscriptionCarsModelObject.data![0].image1 == null ?
-          ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset('assets/icon/fade_in_image.jpeg')) :
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: FadeInImage(
-              placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
-              width: 350,
-              height: 150,
-              image: NetworkImage("$baseUrlImage${evSubscriptionCarsModelObject.data![0].image1}"),
-            ),
-          ),
-        ),
-        Positioned(
             top: 28, right: 27,
             child: Image.asset("assets/home_page/heart_transparent.png", color: kBlack,)),
       ],
+    );
+  }
+
+  DateTime? startPicked, endPicked;
+  selectStartDateWidget(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      // firstDate: DateTime(2000),
+      firstDate: DateTime.now().subtract(const Duration(days: 0)),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null && picked != pickDate) {
+      evStartDate = DateFormat('yyyy-MM-dd').format(picked);
+      startPicked = picked;
+
+      setState(() {
+        print("selectedStartDate is $evStartDate");
+        print("evMonth $evSelectedMonth");
+        print("tabNewValueStart $tabNewValue");
+      });
+    }
+  }
+
+  selectEndDateWidget(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      // firstDate: DateTime(2000),
+      firstDate: DateTime.now().subtract(const Duration(days: 0)),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null && picked != pickDate) {
+      evEndDate = DateFormat('yyyy-MM-dd').format(picked);
+      startPicked = picked;
+      setState(() {
+        print("SelectedEndDate is $evEndDate");
+        print("evMonth $evSelectedMonth");
+        print("tabNewValueEnd $tabNewValue");
+        calculateDateInterval();
+      });
+    }
+  }
+
+  int? differenceInDays, totalDays;
+  calculateDateInterval(){
+    var format = DateFormat("yyyy-MM-dd");
+    print(evStartDate);
+    print(evEndDate);
+    var start = format.parse(evStartDate!);
+    var end = format.parse(evEndDate!);
+
+    print("startDate $start");
+    print("endDate $end");
+
+    Duration difference = end.difference(start).abs();
+    differenceInDays = difference.inDays;
+    print("dateDifferenceInDays $differenceInDays");
+    print("totalMonth $tabMonth");
+    totalDays = int.parse(tabMonth.toString()) * 30;
+    print("totalDays $totalDays");
+    if(differenceInDays! == totalDays!){
+      toastSuccessMessage("date matched", colorGreen);
+    } else{
+      toastFailedMessage("date didn't matched", kRed);
+    }
+  }
+
+  final GlobalKey<FormState> formKeyEvTabbar = GlobalKey<FormState>();
+  evSubscriptionTabbarWidget(){
+    TabController tabController = TabController(length: monthNumber.length, vsync: this);
+    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
+    Form(
+      key: formKeyEvTabbar,
+      child: Column(
+        children: [
+          Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.065,
+              decoration: BoxDecoration(
+                  color: homeBgColor,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal:0),
+                child: TabBar(
+                  controller: tabController,
+                  indicator: BoxDecoration(
+                    color: borderColor,
+                    borderRadius: BorderRadius.circular(10.0)),
+                  // onTap: (index){
+                  //   selectedIndex = index;
+                  //   // print('selectedIndex: $selectedIndex');
+                  //   print('selectedTabMonth123: $evSelectedMonth');
+                  //
+                  // },
+                  tabs: List<Widget>.generate(
+                    monthNumber.length, (int index) {
+                    print("monthsTabBarLength ${monthNumber.length}");
+                    // print("monthsTabBarLength123 $tabNewValue");
+                    //  monthNumber[selectedIndex].months = tabNewValue.toString();
+                    // print('selectedTabMonthIndex: ${monthNumber[selectedIndex].months}');
+                    return Container(
+                      color: Colors.transparent,
+                      height: 40,
+                      width: 80,
+                      child: Tab(
+                        child:
+                        monthNumber[index].months == "1" ? Text("${monthNumber[index].months} Month", style: TextStyle(
+                            color: kBlack, fontSize: 14, fontFamily: poppinMedium)):
+                        Text("${monthNumber[index].months} Months", style: TextStyle(color: kBlack, fontSize: 14)),
+                      ),
+                    );
+                  },
+                  ),
+
+                  indicatorColor: kWhite,
+                  isScrollable: true,
+                  labelColor: kWhite,
+                  labelStyle: TextStyle(fontSize: 12, color: kWhite, fontFamily: poppinRegular),
+                  unselectedLabelColor: kBlack,
+                ),
+              )),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    selectStartDateWidget(context);
+                  },
+                  child: evStartDate == null?
+                  Container(
+                    height: 40,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        color: kWhite,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Center(
+                      child: Text("Start Date", style: TextStyle(color: kBlack , fontSize: 16),
+                      ),
+                    ),
+                  ): Container(
+                    height: 40,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        color:  borderColor,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Center(
+                      child: Text(evStartDate!, style: TextStyle(color: kWhite, fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ),
+
+                InkWell(
+                    onTap: () {
+                      selectEndDateWidget(context);
+                    },
+                    child: evEndDate == null?
+                    Container(
+                      height: 40,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: kWhite,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text("End Date",
+                            style: TextStyle(color: kBlack, fontSize: 16)),
+                      ),
+                    ):
+                    Container(
+                      height: 40,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: borderColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(evEndDate!,
+                          style: TextStyle(
+                              color: kWhite, fontSize: 16),
+                        ),
+                      ),
+                    )
+                ),
+              ]
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height *0.01),
+
+          SizedBox(
+            width: double.maxFinite,
+            height: MediaQuery.of(context).size.height * 0.15,
+            child: TabBarView(
+              controller: tabController,
+              children: monthNumber.isEmpty ? <Widget>[] :
+              monthNumber.map((bodyData) {
+                print('bodyDataMonths ${bodyData.months}');
+                return TwelveMonthsPlan(
+                    months: bodyData.months,
+                    pricePerMonths: bodyData.price_per_months,
+                    discountPricePerMonths: bodyData.dis_price_per_months);
+              }).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget choosedPlan(){
+    return Form(
+      key: formKeyEvTabbar,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    selectStartDateWidget(context);
+                  },
+                  child: evStartDate == null?
+                  Container(
+                    height: 40,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        color: kWhite,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Center(
+                      child: Text("Start Date", style: TextStyle(color: kBlack , fontSize: 16),
+                      ),
+                    ),
+                  ): Container(
+                    height: 40,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        color:  borderColor,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Center(
+                      child: Text(evStartDate!, style: TextStyle(color: kWhite, fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ),
+
+                InkWell(
+                    onTap: () {
+                      selectEndDateWidget(context);
+                    },
+                    child: evEndDate == null?
+                    Container(
+                      height: 40,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: kWhite,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text("End Date",
+                            style: TextStyle(color: kBlack, fontSize: 16)),
+                      ),
+                    ):
+                    Container(
+                      height: 40,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: borderColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(evEndDate!,
+                          style: TextStyle(
+                              color: kWhite, fontSize: 16),
+                        ),
+                      ),
+                    )
+                ),
+              ]
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height *0.01),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              tabMonth == "1"?
+              Text("$tabMonth Month Plan", textAlign: TextAlign.left, style: TextStyle(
+                  fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)):
+              Text("$tabMonth Months Plan", textAlign: TextAlign.left, style: TextStyle(
+                  fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+              Text("RM $tabPrice",
+                  textAlign: TextAlign.right, style: TextStyle(
+                      fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
+                  fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+              Text("RM $serviceFee", textAlign: TextAlign.right, style: TextStyle(
+                  fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Total Amount", textAlign: TextAlign.left, style: TextStyle(
+                  fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
+              Text("RM $totalAmount", textAlign: TextAlign.left, style: TextStyle(
+                  fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

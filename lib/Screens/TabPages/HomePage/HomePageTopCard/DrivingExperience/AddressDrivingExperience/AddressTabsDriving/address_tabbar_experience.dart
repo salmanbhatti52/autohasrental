@@ -1,17 +1,16 @@
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../../Model/HomePageModels/HomePageTopWidgetModels/driving_experience_cars_model.dart';
+import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_model.dart';
 import 'billing_address_page_experience.dart';
 import 'home_address_experience.dart';
 
-
 class AddressTabBarExperience extends StatefulWidget {
   final String? startTime, endTime, selectedDate;
-  final double? totalPrice;
-  final ExperienceDatumList? myDatum;
+  final double? totalPrice, selectedSlotPrice;
+  final Datum? myDatum;
 
-  const AddressTabBarExperience({Key? key, this.selectedDate, this.totalPrice,
+  const AddressTabBarExperience({Key? key, this.selectedDate,
+    this.totalPrice, this.selectedSlotPrice,
     this.myDatum, this.startTime, this.endTime}): super(key: key);
 
   @override
@@ -85,6 +84,7 @@ class _AddressTabBarExperienceState extends State<AddressTabBarExperience> with 
             children: [
               const HomeAddressPageExperience(),
               BillingAddressPageExperience(
+                selectedSlotPrice: widget.selectedSlotPrice,
                 myDatum: widget.myDatum,
                 startTime: widget.startTime,
                 endTime: widget.endTime,

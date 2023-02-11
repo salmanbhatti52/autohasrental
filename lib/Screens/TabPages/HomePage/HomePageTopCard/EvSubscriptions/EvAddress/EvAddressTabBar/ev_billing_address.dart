@@ -5,22 +5,23 @@ import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_model.dart';
-import 'CartDetails/cart_details_page_experience.dart';
 
-class BillingAddressPageExperience extends StatefulWidget {
-  final String? startTime, endTime, selectedDate;
-  final double? totalPrice, selectedSlotPrice;
+import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
+import 'EvCartDetails/ev_cart_details_page.dart';
+
+class EvBillingAddress extends StatefulWidget {
   final Datum? myDatum;
+  final String? mySelectedTabMonth, mySelectedTabPrice;
+  final double? totalAmount;
 
-  const BillingAddressPageExperience({Key? key, this.selectedDate, this.selectedSlotPrice,
-    this.totalPrice, this.myDatum, this.startTime, this.endTime}) : super(key: key);
+  const EvBillingAddress({Key? key, this.myDatum, this.totalAmount,
+    this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
-  State<BillingAddressPageExperience> createState() => _BillingAddressPageExperienceState();
+  State<EvBillingAddress> createState() => _EvBillingAddressState();
 }
 
-class _BillingAddressPageExperienceState extends State<BillingAddressPageExperience> {
+class _EvBillingAddressState extends State<EvBillingAddress> {
 
 
   final GlobalKey<FormState> billingAddressFormKey = GlobalKey<FormState>();
@@ -43,15 +44,15 @@ class _BillingAddressPageExperienceState extends State<BillingAddressPageExperie
     'Select state 4',
     'Select state 5',
   ];
-  mySelectedData(){
-    print("carDayDate: ${widget.selectedDate}");
-    print("carStartEndTime: ${widget.startTime} ${widget.endTime}");
-  }
+  // mySelectedData(){
+  //   print("carDayDate: ${widget.selectedDate}");
+  //   print("carStartEndTime: ${widget.startTime} ${widget.endTime}");
+  // }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    mySelectedData();
+    // mySelectedData();
   }
   bool checkBoxValue = false;
 
@@ -98,13 +99,12 @@ class _BillingAddressPageExperienceState extends State<BillingAddressPageExperie
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartDetailsPageExperience(
-                      myDatum: widget.myDatum,
-                      selectedSlotPrice: widget.selectedSlotPrice,
-                      startTime: widget.startTime,
-                      endTime: widget.endTime,
-                      selectedDate: widget.selectedDate,
-                      totalPrice: widget.totalPrice,
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => EvCartDetailsPage(
+                          myDatum: widget.myDatum,
+                          mySelectedTabMonth: widget.mySelectedTabMonth,
+                          mySelectedTabPrice: widget.mySelectedTabPrice,
+                          totalAmount: widget.totalAmount,
                     )));
                   },
                   child: Container(

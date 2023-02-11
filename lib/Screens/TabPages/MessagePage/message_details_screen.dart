@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -8,15 +7,18 @@ import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/ChatsModels/messages_details_model.dart';
+import '../../../Model/ChatsModels/get_messages_model.dart';
 import '../../../Model/ChatsModels/send_message_model.dart';
 import '../../../Model/ChatsModels/update_message_model.dart';
-import '../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart'as http;
 
+import '../tab_page.dart';
+
 class MessageDetailsScreen extends StatefulWidget {
-  final String? senderImage, senderName;
-  const MessageDetailsScreen({Key? key, this.senderName, this.senderImage}) : super(key: key);
+  final String? carOwnerImage, carOwnerName, carOwnerId;
+  // final int? carOwnerId;
+  const MessageDetailsScreen({Key? key, this.carOwnerId,
+    this.carOwnerName, this.carOwnerImage}) : super(key: key);
 
   @override
   State<MessageDetailsScreen> createState() => _MessageDetailsScreenState();
@@ -27,18 +29,18 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
 
   var sendMessageController = TextEditingController();
   final GlobalKey<FormState> sendMessageFormKey = GlobalKey<FormState>();
-  List<MessageDetailsModel> messageDetailsModelObject = [];
-  List<MessageDetailsModel> newMessageObject = [];
+  List<GetMessageDetailsModel> messageDetailsModelObject = [];
+  List<GetMessageDetailsModel> newMessageObject = [];
   List<UpdateMessageModel> updateMessageModelObject = [];
   SendMessageModel sendMessageModelObject = SendMessageModel();
   bool loading = true;
 
   Map jsonData = {};
-  allChatMessageApi() async {
+  getMessageApi() async {
     Map body = {
       "requestType": "getMessages",
       "users_customers_id": userId,
-      "other_users_customers_id": "1",
+      "other_users_customers_id": carOwnerID1,
     };
     http.Response response = await http.post(Uri.parse(getUsersChatApiUrl),
         body: body,
@@ -50,17 +52,26 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     print("allChatApi: $getAllChatApiUrl");
     print("statusCode: ${response.statusCode}");
     print("responseData: $jsonData");
-    if (response.statusCode == 200) {
+
+    if (jsonData['status'] == 'error') {
+      // toastSuccessMessage("no chat history", kRed);
+      print('no chat history');
+      setState(() {
+        loading = false;
+      });
+    }
+    else if (response.statusCode == 200) {
       for (int i = 0; i < jsonData['data'].length; i++) {
         Map<String, dynamic> obj = jsonData['data'][i];
-        var pos = MessageDetailsModel();
-        pos = MessageDetailsModel.fromJson(obj);
+        var pos = GetMessageDetailsModel();
+        pos = GetMessageDetailsModel.fromJson(obj);
         messageDetailsModelObject.add(pos);
       }
       print("allChatLength: ${messageDetailsModelObject.length}");
+      loading = false;
       setState(() {
-        loading = false;
-        updateChatApiWidget();
+
+        // updateChatApiWidget();
       });
     }
   }
@@ -72,7 +83,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     Map body = {
       "requestType": "updateMessages",
       "users_customers_id": userId,
-      "other_users_customers_id": "1",
+      "other_users_customers_id": carOwnerID1,
     };
     http.Response response = await http.post(Uri.parse(updateMessageApiUrl),
         body: body,
@@ -114,7 +125,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
       "sender_type": "Users",
       "messageType": "1",
       "users_customers_id": userId,
-      "other_users_customers_id": "1",
+      "other_users_customers_id": carOwnerID1,
       "content": sendMessageController.text,
     };
     http.Response response = await http.post(Uri.parse(sendMessageApiUrl),
@@ -132,7 +143,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
       print('Message sent successfully.');
       setState(() {
         loading = false;
-        allChatMessageApi();
+        getMessageApi();
       });
     }
   }
@@ -145,14 +156,23 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     print("userId in Prefs is = $userId");
 
     setState(() {
-      allChatMessageApi();
+      getMessageApi();
     });
 
   }
 
+  String? carOwnerName1, carOwnerImage1, carOwnerID1;
+  // int? carOwnerID1;
+
   @override
   void initState() {
     super.initState();
+    carOwnerName1 = widget.carOwnerName;
+    carOwnerImage1 = widget.carOwnerImage;
+    carOwnerID1 = widget.carOwnerId;
+    print("carOwnerImage1 $carOwnerName1");
+    print("carOwnerName1 $carOwnerImage1");
+    print("carOwnerId1 $carOwnerID1");
     sharedPrefs();
   }
 
@@ -162,7 +182,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     var cron = Cron();
     cron.schedule(Schedule.parse('*/60 * * * * *'), () async {
       print('auto refresh after 10 seconds allChatMessageApi');
-      allChatMessageApi();
+      getMessageApi();
     });
 
     return Scaffold(
@@ -170,9 +190,8 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
         leading: GestureDetector(
           onTap: () {
             print("clicked");
-            // Navigator.pop(context);
             Navigator.push(context, MaterialPageRoute(
-                builder: (context) => const MessagePage()));
+                builder: (context) => const TabBarPage()));
           },
           child: Padding(
             padding: const EdgeInsets.only(top: 30),
@@ -181,24 +200,26 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
           ),
         ),
         title: Padding(
-          padding: const EdgeInsets.only(top: 30, left: 50),
+          padding: const EdgeInsets.only(top: 20, left: 0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              widget.senderImage == null? ClipRRect(
+              carOwnerImage1 == null? ClipRRect(
                   borderRadius: BorderRadius.circular(80),
                   child: Image.asset('assets/icon/fade_in_image.jpeg')):
               ClipRRect(
-                borderRadius: BorderRadius.circular(100),
+                borderRadius: BorderRadius.circular(80),
                 child: FadeInImage(
                   placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
                   fit: BoxFit.fill,
-                  height: 27,
-                  width: 27,
-                  image: NetworkImage("${widget.senderImage}"),
+                  height: 25,
+                  width: 25,
+                  image: NetworkImage("$carOwnerImage1"),
                 ),
               ),
               const SizedBox(width: 5),
-              Text("${widget.senderName}",
+              Text("$carOwnerName1",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 16, fontFamily: poppinBold, color: kBlack)),
@@ -208,15 +229,16 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
         backgroundColor: homeBgColor,
         elevation: 0.0,
         centerTitle: true,
+        actions: [
+          Container(
+            color: Colors.transparent, width: 60,
+          )
+        ],
       ),
 
-      // appBar: const MyAppBarDoubleImageForChats(
-      //     frontImage: 'assets/live_chat_images/back_arrow.png',
-      //     profileImage: 'assets/live_chat_images/user.png',
-      //     title: "name"),
       backgroundColor: homeBgColor,
       body: loading? Center(child: CircularProgressIndicator(color: borderColor)):
-      messageDetailsModelObject.isEmpty? const Center(child: Text("no chat history")):
+      // messageDetailsModelObject.isEmpty? const Center(child: Text("no chat history")):
           ModalProgressHUD(
             inAsyncCall: progress,
             opacity: 0.02,
@@ -248,18 +270,34 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                 color: (messageDetailsModelObject[index].senderType == "Users"
                                     ? borderColor : kWhite),
                               ),
-                              padding: const EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(10),
                               child: messageDetailsModelObject[index].senderType == "Users"
-                                  ? Text(messageDetailsModelObject[index].message.toString(),
+                                  ? Column(
+                                    children: [
+                                      Text(messageDetailsModelObject[index].message.toString(),
                                       maxLines: 3, overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 14,
-                                          fontFamily: poppinLight, color: kWhite),
-                                      textAlign: TextAlign.left,
-                                    )
-                                  : Text(messageDetailsModelObject[index].message.toString(),
-                                      maxLines: 3, overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 14, color: kBlack,
-                                          fontFamily: poppinLight,), textAlign: TextAlign.left,),
+                                      textAlign: TextAlign.left, style: TextStyle(
+                                          fontSize: 14, fontFamily: poppinLight, color: kWhite)),
+                                      const SizedBox(height: 03),
+                                      Text("${messageDetailsModelObject[index].time.toString()} ${messageDetailsModelObject[index].date.toString()}",
+                                        maxLines: 1, overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left, style: TextStyle(
+                                          fontSize: 10, color: kWhite, fontFamily: poppinLight)),
+                                    ],
+                                  ) :
+                              Column(
+                                children: [
+                                  Text(messageDetailsModelObject[index].message.toString(),
+                                    maxLines: 3, overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left, style: TextStyle(
+                                      fontSize: 14, color: kBlack, fontFamily: poppinLight)),
+                                  const SizedBox(height: 03),
+                                  Text("${messageDetailsModelObject[index].time.toString()} ${messageDetailsModelObject[index].date.toString()}",
+                                      maxLines: 1, overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left, style: TextStyle(
+                                          fontSize: 10, color: kWhite, fontFamily: poppinLight)),
+                                ],
+                              ),
                             ),
                           ),
                         );

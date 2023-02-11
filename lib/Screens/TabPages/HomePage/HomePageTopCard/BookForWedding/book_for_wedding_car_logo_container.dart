@@ -15,17 +15,13 @@ class _BookForWeddingCarLogoContainerState extends State<BookForWeddingCarLogoCo
   void initState() {
     super.initState();
 
-    filterData
-        .add(FilterRadioModel(true, 'assets/filter_images/tesla_white.png'));
+    filterData.add(FilterRadioModel(true, 'assets/filter_images/tesla_white.png'));
     filterData.add(FilterRadioModel(false, 'assets/filter_images/ferrari.png'));
-    filterData
-        .add(FilterRadioModel(false, 'assets/filter_images/mercedes.png'));
+    filterData.add(FilterRadioModel(false, 'assets/filter_images/mercedes.png'));
     filterData.add(FilterRadioModel(false, 'assets/filter_images/honda.png'));
-    filterData
-        .add(FilterRadioModel(false, 'assets/filter_images/lamborghini.png'));
+    filterData.add(FilterRadioModel(false, 'assets/filter_images/lamborghini.png'));
     filterData.add(FilterRadioModel(false, 'assets/filter_images/mclaren.png'));
-    filterData
-        .add(FilterRadioModel(false, 'assets/filter_images/rangerover.png'));
+    filterData.add(FilterRadioModel(false, 'assets/filter_images/rangerover.png'));
   }
 
   @override

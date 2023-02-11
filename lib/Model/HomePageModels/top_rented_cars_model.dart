@@ -6,10 +6,7 @@ TopRentedCarsModel topRentedCarsModelFromJson(String str) => TopRentedCarsModel.
 String topRentedCarsModelToJson(TopRentedCarsModel data) => json.encode(data.toJson());
 
 class TopRentedCarsModel {
-  TopRentedCarsModel({
-    this.status,
-    this.data,
-  });
+  TopRentedCarsModel({this.status, this.data,});
 
   String? status;
   List<Datum>? data;
@@ -243,31 +240,67 @@ class CarsM {
 
 class CarsPlan {
   CarsPlan({
-    this.carsPlansPgId,
+    this.carsPlansDeId,
     this.carsId,
     this.planDate,
+    this.startTime,
+    this.endTime,
+    this.pricePerSlot,
+    this.discountedPricePerSlot,
+    this.carsPlansEvId,
+    this.months,
+    this.pricePerMonth,
+    this.discountedPricePerMonth,
+    this.carsPlansPgId,
     this.pricePerHour,
     this.discountedPricePerHour,
   });
 
-  int? carsPlansPgId;
+  int? carsPlansDeId;
   int? carsId;
   DateTime? planDate;
+  String? startTime;
+  String? endTime;
+  String? pricePerSlot;
+  String? discountedPricePerSlot;
+  int? carsPlansEvId;
+  int? months;
+  String? pricePerMonth;
+  String? discountedPricePerMonth;
+  int? carsPlansPgId;
   String? pricePerHour;
   String? discountedPricePerHour;
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
-    carsPlansPgId: json["cars_plans_pg_id"],
+    carsPlansDeId: json["cars_plans_de_id"],
     carsId: json["cars_id"],
-    planDate: DateTime.parse(json["plan_date"]),
+    planDate: json["plan_date"] == null ? null : DateTime.parse(json["plan_date"]),
+    startTime: json["start_time"],
+    endTime: json["end_time"],
+    pricePerSlot: json["price_per_slot"],
+    discountedPricePerSlot: json["discounted_price_per_slot"],
+    carsPlansEvId: json["cars_plans_ev_id"],
+    months: json["months"],
+    pricePerMonth: json["price_per_month"],
+    discountedPricePerMonth: json["discounted_price_per_month"],
+    carsPlansPgId: json["cars_plans_pg_id"],
     pricePerHour: json["price_per_hour"],
     discountedPricePerHour: json["discounted_price_per_hour"],
   );
 
   Map<String, dynamic> toJson() => {
-    "cars_plans_pg_id": carsPlansPgId,
+    "cars_plans_de_id": carsPlansDeId,
     "cars_id": carsId,
     "plan_date": "${planDate!.year.toString().padLeft(4, '0')}-${planDate!.month.toString().padLeft(2, '0')}-${planDate!.day.toString().padLeft(2, '0')}",
+    "start_time": startTime,
+    "end_time": endTime,
+    "price_per_slot": pricePerSlot,
+    "discounted_price_per_slot": discountedPricePerSlot,
+    "cars_plans_ev_id": carsPlansEvId,
+    "months": months,
+    "price_per_month": pricePerMonth,
+    "discounted_price_per_month": discountedPricePerMonth,
+    "cars_plans_pg_id": carsPlansPgId,
     "price_per_hour": pricePerHour,
     "discounted_price_per_hour": discountedPricePerHour,
   };
@@ -308,7 +341,7 @@ class UsersCompanies {
   String? companyLogo;
   dynamic paypalEmail;
   int? verifyEmailOtp;
-  dynamic forgotPasswordOtp;
+  int? forgotPasswordOtp;
   String? verified;
   DateTime? dateAdded;
   dynamic dateModified;
