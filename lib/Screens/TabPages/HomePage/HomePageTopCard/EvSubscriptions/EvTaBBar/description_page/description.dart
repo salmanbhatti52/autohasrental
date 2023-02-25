@@ -9,60 +9,62 @@ import 'package:http/http.dart'as http;
 import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class Description extends StatefulWidget {
-  const Description({super.key});
+  final String? carDescription;
+  const Description({super.key, this.carDescription});
 
   @override
   State<Description> createState() => _DescriptionState();
 }
 
 class _DescriptionState extends State<Description> {
-  EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
-  bool loadingP = true;
-  getEvSubscriptionCarsWidget() async {
-    loadingP = true;
-    setState(() {});
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('in LoginPage shared prefs');
-    prefs = await SharedPreferences.getInstance();
-    userId = prefs.getString('userid');
-    print("userId in Prefs is = $userId");
-    try {
-      String apiUrl = carsEvSubscriptionApiUrl;
-      print("evSubscriptionApi: $apiUrl");
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        body: {
-          "users_customers_id" : userId
-        },
-        headers: {'Accept': 'application/json'},
-      );
-      print('${response.statusCode}');
-      print(response);
-      if (response.statusCode == 200) {
-        final responseString = response.body;
-        print("evSubscriptionResponse: ${responseString.toString()}");
-        evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
-        print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
-      }
-    } catch (e) {
-      print('Error in evSubscription: ${e.toString()}');
-    }
-    loadingP = false;
-    setState(() {});
-  }
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getEvSubscriptionCarsWidget();
-  }
+  // EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
+  // bool loadingP = true;
+  // getEvSubscriptionCarsWidget() async {
+  //   loadingP = true;
+  //   setState(() {});
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   print('in LoginPage shared prefs');
+  //   prefs = await SharedPreferences.getInstance();
+  //   userId = prefs.getString('userid');
+  //   print("userId in Prefs is = $userId");
+  //   try {
+  //     String apiUrl = carsEvSubscriptionApiUrl;
+  //     print("evSubscriptionApi: $apiUrl");
+  //     final response = await http.post(
+  //       Uri.parse(apiUrl),
+  //       body: {
+  //         "users_customers_id" : userId
+  //       },
+  //       headers: {'Accept': 'application/json'},
+  //     );
+  //     print('${response.statusCode}');
+  //     print(response);
+  //     if (response.statusCode == 200) {
+  //       final responseString = response.body;
+  //       print("evSubscriptionResponse: ${responseString.toString()}");
+  //       evSubscriptionCarsModelObject = evCarsModelFromJson(responseString);
+  //       print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
+  //     }
+  //   } catch (e) {
+  //     print('Error in evSubscription: ${e.toString()}');
+  //   }
+  //   loadingP = false;
+  //   setState(() {});
+  // }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   getEvSubscriptionCarsWidget();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
-          : evSubscriptionCarsModelObject.status != "success" ?
-      const Center(child: Text('no data found...',
-          style: TextStyle(fontWeight: FontWeight.bold))) :
+    return
+      // loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
+      //     : evSubscriptionCarsModelObject.status != "success" ?
+      // const Center(child: Text('no data found...',
+      //     style: TextStyle(fontWeight: FontWeight.bold))) :
       Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -70,7 +72,7 @@ class _DescriptionState extends State<Description> {
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
           child: Text(
-            "${evSubscriptionCarsModelObject.data![0].description}",
+            "${widget.carDescription}",
             style: TextStyle(
                 fontSize: 12,
                 fontFamily: poppinRegular,

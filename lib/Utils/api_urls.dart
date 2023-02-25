@@ -1,6 +1,9 @@
 
-String baseUrl = 'https://autohasrental.eigix.net/api/';
-String baseUrlImage = 'https://autohasrental.eigix.net/public/';
+// String baseUrl = 'https://autohasrental.eigix.net/api/';
+// String baseUrlImage = 'https://autohasrental.eigix.net/public/';
+
+String baseUrl = 'https://app.autohauscarrental.com/api/';
+String baseUrlImage = 'https://app.autohauscarrental.com/public/';
 
 /// Authentication Page API Urls
 String signUpApiUrl = '${baseUrl}signup';
@@ -32,6 +35,7 @@ String likeUnlikeFavoriteCarsApiUrl = '${baseUrl}cars_favourite_like_unlike';
 /// Booking Page API Urls
 String bookingPreviousCarsApiUrl = '${baseUrl}bookings_previous';
 String bookingUpcomingCarsApiUrl = '${baseUrl}bookings_upcoming';
+String carsRatingApiUrl = '${baseUrl}rate_cars';
 
 String cancelBookingUpcomingCarsApiUrl = '${baseUrl}bookings_cancelled';
 String cancelBookingDialogBoxApiUrl = '${baseUrl}bookings_cancel';
@@ -46,3 +50,8 @@ String carsEvSubscriptionApiUrl = '${baseUrl}cars_ev_subscriptions';
 /// checkout API
 String checkOutApiUrl = '${baseUrl}bookings_new';
 String checkOutDrivingApiUrl = '${baseUrl}bookings_new';
+
+
+String notificationsApiUrl = '${baseUrl}notifications';
+String unReadNotificationsApiUrl = '${baseUrl}notifications_unread';
+String getRateCarApiUrl = '${baseUrl}get_rate_cars_status';

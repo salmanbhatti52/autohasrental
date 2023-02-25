@@ -1,3 +1,11 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,23 +13,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
-import '../../../../../Utils/api_urls.dart';
-import '../../../../../Utils/colors.dart';
-import '../../../../../Utils/constants.dart';
-import '../../../../../Utils/fontFamily.dart';
-import '../../../../../Widget/button.dart';
-import '../../../../../Widget/toast_message.dart';
-import '../../../MyAppBarHeader/app_bar_header.dart';
-import '../../Home/Address/delivery_address.dart';
+import 'PhotoAddress/photo_delivery_address.dart';
+
 
 class BookForWeddingBookingDetails extends StatefulWidget {
-  final DatumPhotography? datumPhotography;
+  // final DatumPhotography? datumPhotography;
   final String?selectedDate, selectedHours, selectedDay, selectedStartTime, selectedEndTime;
   final int? hoursInNumber;
+  final String? carName, carImage, carYear, carPrice, favouriteStatus,
+      carColorName, carModelName, carMakesName, carMakesImage,
+      carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
+  final int? carId, carOwnerId;
+
   const BookForWeddingBookingDetails({Key? key,
-    this.datumPhotography, this.selectedStartTime,
+   /* this.datumPhotography,*/ this.selectedStartTime,
     this.selectedEndTime, this.selectedDay, this.hoursInNumber,
-    this.selectedHours, this.selectedDate}) : super(key: key);
+    this.selectedHours, this.selectedDate,
+    this.carName, this.carColorName, this.carModelName, this.discountPercentage,
+    this.carDiscountPrice, this.carImage, this.carYear, this.carMakesImage,
+    this.favouriteStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
+    this.carOwnerId, this.carOwnerImage, this.carOwnerName
+  }) : super(key: key);
 
   @override
   State<BookForWeddingBookingDetails> createState() =>
@@ -49,7 +61,6 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      // firstDate: DateTime(1980),
       firstDate: DateTime.now().subtract(const Duration(days: 0)),
       lastDate: DateTime(2050),
     );
@@ -81,7 +92,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
 
   calculatePricePerHour() {
     pricePerHrs = double.parse(
-        widget.datumPhotography!.carsPlans![0].discountedPricePerHour.toString()) * int.parse(myHours.toString());
+        "${widget.carDiscountPrice}") * int.parse(myHours.toString());
     setState(() {});
     print("perHourPrice: $pricePerHrs");
   }
@@ -98,8 +109,8 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: MyAppBarSingleImageWithText(
-        title: "${widget.datumPhotography!.vehicalName}, ",
-        subtitle: "${widget.datumPhotography!.year}",
+        title: "${widget.carName}, ",
+        subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png",
       ),
       body: SingleChildScrollView(
@@ -139,8 +150,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10),
-                                    child: Text(
-                                        '${widget.selectedDay} - $dropdownValueTime',
+                                    child: Text('$valueDay - $dropdownValueTime',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                             fontSize: 12.0,
@@ -149,9 +159,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.01),
+                              SizedBox(width: MediaQuery.of(context).size.width*0.01),
                               GestureDetector(
                                   onTap: () {
                                     showMyBottomSheet(context);
@@ -329,26 +337,34 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => DeliveryAddress(
-                                        myDatumPhotography: widget.datumPhotography,
+                                      builder: (context) => PhotoDeliveryAddress(
+                                        // myDatumPhotography: widget.datumPhotography,
+                                        selectedHoursInString: dropdownValueTime,
+                                        totalHoursInNumber: myHours,
+                                        hoursAmount: pricePerHrs,
+                                        totalAmount: totalPricePerHrs,
+                                        myDate: valueDate,
+                                        myDay: valueDay,
+                                        selectedStartTime: valueTimeStart,
+                                        selectedEndTime: valueTimeEnd,
 
-                                            // carName: carsPhotoGraphyModelObject.data![0].vehicalName,
-                                            // carYear: carsPhotoGraphyModelObject.data![0].year,
-                                            // carModel: carsPhotoGraphyModelObject.data![0].carsModels!.name,
-                                            // carImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![0].image1}",
-                                            // discountedAmount: carsPhotoGraphyModelObject.data![0].carsPlans![0].discountedPricePerHour,
-                                            // amount: carsPhotoGraphyModelObject.data![0].carsPlans![0].pricePerHour,
-                                            // discountPercentage: carsPhotoGraphyModelObject.data![0].discountPercentage,
-                                            // carMakerName: carsPhotoGraphyModelObject.data![0].carsMakes!.name,
-                                            selectedHoursInString: dropdownValueTime,
-                                            totalHoursInNumber: myHours,
-                                            hoursAmount: pricePerHrs,
-                                            totalAmount: totalPricePerHrs,
-                                            myDate: valueDate,
-                                            myDay: valueDay,
-                                            // carRating: carsPhotoGraphyModelObject.data![0].rating,
-                                            selectedStartTime: valueTimeStart,
-                                            selectedEndTime: valueTimeEnd,
+                                        carName: widget.carName,
+                                        carYear: widget.carYear,
+                                        carId: widget.carId,
+                                        carRating: widget.carRating,
+                                        carColorName: widget.carColorName,
+                                        carMakesName: widget.carMakesName,
+                                        carModelName: widget.carModelName,
+                                        carImage: widget.carImage,
+                                        carMakesImage: widget.carMakesImage,
+                                        favouriteStatus: widget.favouriteStatus,
+                                        discountPercentage: widget.discountPercentage,
+                                        carDiscountPrice: widget.carDiscountPrice,
+                                        carPrice: widget.carPrice,
+                                        carOwnerImage: widget.carOwnerImage,
+                                        carOwnerName: widget.carOwnerName,
+                                        carOwnerId: widget.carOwnerId,
+
                                           )));
                               print("startAndEndTime $valueTimeStart $valueTimeEnd");
                               print("valueDate $valueDate");
@@ -409,20 +425,20 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                   Container(height: screenHeight * 0.1),
                   Row(
                     children: [
-                      Text("${widget.datumPhotography!.vehicalName} ",
+                      Text("${widget.carName} ",
                           textAlign: TextAlign.left, style: TextStyle(
                               color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-                            Text("${widget.datumPhotography!.year}",
+                            Text("${widget.carYear}",
                                 textAlign: TextAlign.left, style: TextStyle(
                                     color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
                           ],
                         ),
                         Row(
                           children: [
-                            Text("${widget.datumPhotography!.carsMakes!.name} ",
+                            Text("${widget.carMakesName} ",
                                 textAlign: TextAlign.left, style: TextStyle(
                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                            Text("${widget.datumPhotography!.carsModels!.name} ",
+                            Text("${widget.carModelName} ",
                                 textAlign: TextAlign.left, style: TextStyle(
                                     color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                           ],
@@ -434,7 +450,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                               child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                                       color: kRed, fontSize: 5, fontFamily: poppinLight)),
                             ),
-                            Text("${widget.datumPhotography!.carsPlans![0].pricePerHour}",
+                            Text("${widget.carPrice}",
                                 textAlign: TextAlign.left, style: TextStyle(color: kRed,
                                     fontFamily: poppinLight, fontSize: 10, decoration: TextDecoration.lineThrough)),
                             SizedBox(width: screenWidth * 0.01),
@@ -443,7 +459,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                               child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                                       color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                             ),
-                            Text("${widget.datumPhotography!.carsPlans![0].discountedPricePerHour}",
+                            Text("${widget.carDiscountPrice}",
                                 textAlign: TextAlign.left, style: TextStyle(
                                     color: borderColor, fontSize: 20, fontFamily: poppinSemiBold)),
                             Text("/Hour", textAlign: TextAlign.left, style: TextStyle(
@@ -476,16 +492,17 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                           children: [
                             Row(
                               children: [
-                                Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                // Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                showRatingStars(double.parse("${widget.carRating}")),
                                 SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                                widget.datumPhotography!.rating == null ?
+                                widget.carRating == null ?
                                 Text("0.0", textAlign: TextAlign.left, style: TextStyle(
                                     color: kBlack, fontSize: 14, fontFamily: poppinRegular)) :
-                                Text("${widget.datumPhotography!.rating}", textAlign: TextAlign.left,
+                                Text("${widget.carRating}", textAlign: TextAlign.left,
                                     style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                               ],
                             ),
-                            SizedBox(width: screenWidth * 0.45),
+                            SizedBox(width: screenWidth * 0.25),
                             Container(
                               height: 25,
                               width: 70,
@@ -515,7 +532,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                 left: 45,
                 right: 20,
                 top: 10,
-                child: widget.datumPhotography!.image1 == null ?
+                child: widget.carImage == null ?
                 ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset('assets/icon/fade_in_image.jpeg')) :
@@ -524,7 +541,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                   child: FadeInImage(
                     placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
                     height: 130,
-                    image: NetworkImage("$baseUrlImage${widget.datumPhotography!.image1}"),
+                    image: NetworkImage("${widget.carImage}"),
                   ),
                 ),
               ),
@@ -543,7 +560,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("${widget.datumPhotography!.discountPercentage}% ",
+                  Text("${widget.discountPercentage}% ",
                       textAlign: TextAlign.left, style: TextStyle(
                           color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
                   Text("OFF", textAlign: TextAlign.left, style: TextStyle(
@@ -555,7 +572,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
               Positioned(
                 top: 28,
                 right: 27,
-                child: widget.datumPhotography!.favouriteStatus == "like" ?
+                child: widget.favouriteStatus == "like" ?
                 Image.asset("assets/home_page/heart.png") :
                 Image.asset("assets/home_page/heart_transparent.png", color: kBlack),
               ),
@@ -564,6 +581,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   }
 
   dynamic totalHours, minutes;
+  int? myMinutes, selectedMinutes;
   calculateTimeInterval() {
     var format = DateFormat("HH:mm");
     var start = format.parse("$valueTimeStart");
@@ -583,7 +601,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
     print("valueHours $myHours $totalHours");
 
     if(myMinutes == selectedMinutes){
-      toastSuccessMessage("time matched successfully", colorGreen);
+      // toastSuccessMessage("time matched successfully", colorGreen);
       print("success");
     }
     else{
@@ -591,47 +609,6 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
       print("no success");
     }
   }
-
-  // compareTime() {
-  //   if (formKeyPhotography.currentState!.validate()) {
-  //     print("value $myHours $totalHours");
-  //     if (myHours == totalHours) {
-  //       toastSuccessMessage("time compare success", colorGreen);
-  //       print("success");
-  //     } else {
-  //       toastFailedMessage("time compare failed", kRed);
-  //       print("no success");
-  //     }
-  //   }
-  // }
-
-  int? myMinutes, selectedMinutes;
-  // compareTime(){
-  //   if(formKeyPhotography.currentState!.validate()){
-  //     myMinutes = int.parse(myHours.toString()) * 60;
-  //     selectedMinutes = (totalHours* 60)+ minutes;
-  //     print("myMinutesBottomSheet $myMinutes $selectedMinutes");
-  //     print("valueHours $myHours $totalHours");
-  //
-  //     if(myMinutes == selectedMinutes){
-  //       toastSuccessMessage("time matched successfully", colorGreen);
-  //       print("success");
-  //     }
-  //     else{
-  //       toastFailedMessage("time didn't matched", kRed);
-  //       print("no success");
-  //     }
-  //
-  //     // if(myHours == hours){
-  //     //   toastSuccessMessage("time compare success", colorGreen);
-  //     //   print("success");
-  //     // }
-  //     // else{
-  //     //   toastFailedMessage("time compare failed", kRed);
-  //     //   print("no success");
-  //     // }
-  //   }
-  // }
 
   showMyBottomSheet(context) {
     var size = MediaQuery.of(context).size;
@@ -681,12 +658,10 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                             // valueDate = DateFormat('yyyy-MM-dd').format(picked);
                             // valueDay = DateFormat('EE, d').format(picked);
                             valueDate = DateFormat('yyyy-MM-dd').format(picked);
-                            valueDay =
-                                DateFormat('EEEE, dd MMMM').format(picked);
+                            valueDay = DateFormat('EEEE, dd MMMM').format(picked);
 
                             stateSetterObject(() {
-                              print(
-                                  "Selected date in bottomSheet : $valueDate");
+                              print("Selected date in bottomSheet : $valueDate");
                               print("Selected Day in bottomSheet : $valueDay");
                             });
                           }
@@ -718,7 +693,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Center(
-                          child: Text("${widget.selectedDay}", style: TextStyle(
+                          child: Text("$valueDay", style: TextStyle(
                                 fontSize: 14, fontFamily: poppinMedium, color: kBlack)),
                               ),
                             )

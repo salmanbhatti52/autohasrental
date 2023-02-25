@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -13,14 +14,27 @@ import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../MessagePage/message_details_screen.dart';
+import '../EvSubscriptions/EvTaBBar/tabbar_description_page.dart';
 import 'BookForWeddingTabbar/tabbar_book_for_wedding.dart';
 import 'package:http/http.dart'as http;
 import 'book_for_wedding_booking_details.dart';
 
 class BookForWeddingCarDescription extends StatefulWidget {
-  final DatumPhotography? datumPhotography;
+  final String? carName, carImage, carYear, carPrice, favouriteStatus,
+      carColorName, carModelName, carMakesName, carMakesImage,
+      myCarDescription, myCarRating, myCarComment,
+      carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
+  final int? carId, carOwnerId;
+  // final double? carDiscountPrice;
 
-  const BookForWeddingCarDescription({super.key, this.datumPhotography});
+  // final DatumPhotography? datumPhotography;
+
+  const BookForWeddingCarDescription({super.key,
+    this.carName, this.carColorName, this.carModelName, this.discountPercentage,
+    this.carDiscountPrice, this.carImage, this.carYear, this.carMakesImage,
+    this.myCarDescription, this.myCarRating, this.myCarComment,
+    this.favouriteStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
+    this.carOwnerId, this.carOwnerImage, this.carOwnerName});
 
   @override
   State<BookForWeddingCarDescription> createState() => _BookForWeddingCarDescriptionState();
@@ -49,16 +63,17 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
   }
 
   String? photoGraphyCarOwnerName, photoGraphyCarOwnerImage, photoGraphyCarOwnerId, carImage, pricePerHour;
-  // int? photoGraphyCarOwnerId;
+
+  int? myHours;
   getToday() {
     currentDay = DateFormat('EEEE, d').format(DateTime.now());
     print('currentDay = $currentDay');
 
-    photoGraphyCarOwnerId = "${widget.datumPhotography!.usersCompaniesId}";
-    photoGraphyCarOwnerName = widget.datumPhotography!.usersCompanies!.companyName;
-    photoGraphyCarOwnerImage = "$baseUrlImage${widget.datumPhotography!.usersCompanies!.companyLogo}";
-    carImage = "$baseUrlImage${widget.datumPhotography!.image1}";
-    pricePerHour = widget.datumPhotography!.carsPlans![0].discountedPricePerHour;
+    photoGraphyCarOwnerId = "${widget.carOwnerId}";
+    photoGraphyCarOwnerName = widget.carOwnerName;
+    photoGraphyCarOwnerImage = "${widget.carOwnerImage}";
+    carImage = "$baseUrlImage${widget.carImage}";
+    pricePerHour = widget.carDiscountPrice;
 
     print("ownerName: $photoGraphyCarOwnerName");
     print("ownerImage: $photoGraphyCarOwnerImage");
@@ -66,13 +81,17 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     print("carImage: $carImage");
     print("pricePerHours: $pricePerHour");
 
+    myHours == null;
+    print("myHours $myHours");
+    // dropdownValueTime?.isEmpty;
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getToday();
-
+    print("myCarComment ${widget.myCarComment}");
   }
 
   bool loadingP = true;
@@ -158,8 +177,8 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("${widget.datumPhotography!.vehicalName}, ", style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),),
-                  Text("${widget.datumPhotography!.year}", style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
+                  Text("${widget.carName}, ", style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),),
+                  Text("${widget.carYear}", style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
                 ]),
           )),
       body: SingleChildScrollView(
@@ -180,13 +199,14 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
+                      showRatingStars(double.parse("${widget.carRating}")),
+                      // Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      // widget.carRating == null?
+                      widget.carRating == null?
                           Text("0.0", style: TextStyle(fontSize: 16,
-                              color: kWhite, fontFamily: poppinSemiBold))
-                          // : Text('${widget.carRating}', style: TextStyle(fontSize: 16,
-                          // color: kWhite, fontFamily: poppinSemiBold)),
+                              color: kWhite, fontFamily: poppinSemiBold)):
+                          Text('${widget.carRating}', style: TextStyle(fontSize: 16,
+                          color: kWhite, fontFamily: poppinSemiBold)),
                     ],
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
@@ -195,7 +215,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Image.network("$baseUrlImage${widget.datumPhotography!.carsMakes!.image}",
+                        child: Image.network("${widget.carMakesImage}",
                           height: 60, width: 50, fit: BoxFit.fill,
                         )
 
@@ -203,7 +223,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
-                        child: widget.datumPhotography!.favouriteStatus == "like"?
+                        child: widget.favouriteStatus == "like"?
                         Image.asset("assets/home_page/heart.png"):
                         GestureDetector(
                           onTap: () async {
@@ -231,7 +251,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                   Stack(
                     children: [
                       Positioned(
-                        child: Image.network("$carImage", width: 307, height: 150),
+                        child: Image.network("${widget.carImage}", width: 307, height: 150),
                       ),
                       Positioned(
                         bottom: 0,
@@ -404,30 +424,49 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
               ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            const TabbarBookForWedding(),
+            // const TabbarBookForWedding(),
+            TabbarCarDescription(
+              myDescription: widget.myCarDescription,
+              myRating: widget.myCarRating,
+              myComment: widget.myCarComment,
+            ),
             GestureDetector(
                 onTap: () {
                   if(formKeyPhotography.currentState!.validate()){
                     if(valueDate == null){
                       toastFailedMessage("Select date", kRed);
-                    }
-                    else if(myHours == null){
+                    } else if(myHours == null){
                       toastFailedMessage("Select Hours", kRed);
-                    }
-                    else if(valueTimeStart == null || valueTimeEnd == null){
+                    } else if(valueTimeStart == null || valueTimeEnd == null){
                       toastFailedMessage("Select Time", kRed);
-                    }
-                    else{
+                    } else{
                       print("all okay");
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => BookForWeddingBookingDetails(
-                            datumPhotography: widget.datumPhotography,
+                            // datumPhotography: widget.datumPhotography,
                             selectedDate: valueDate,
                             selectedDay: valueDay,
                             selectedHours: dropdownValueTime,
                             selectedStartTime: valueTimeStart,
                             selectedEndTime: valueTimeEnd,
-                            hoursInNumber: myHours)));
+                            hoursInNumber: myHours,
+
+                            carName: widget.carName,
+                            carYear: widget.carYear,
+                            carId: widget.carId,
+                            carRating: widget.carRating,
+                            carColorName: widget.carColorName,
+                            carMakesName: widget.carMakesName,
+                            carModelName: widget.carModelName,
+                            carImage: widget.carImage,
+                            carMakesImage: widget.carMakesImage,
+                            favouriteStatus: widget.favouriteStatus,
+                            discountPercentage: widget.discountPercentage,
+                            carDiscountPrice: widget.carDiscountPrice,
+                            carPrice: widget.carPrice,
+                            carOwnerImage: widget.carOwnerImage,
+                            carOwnerName: widget.carOwnerName,
+                            carOwnerId: widget.carOwnerId)));
                     }
                   }
 
@@ -520,7 +559,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
       print("value $myHours $hours");
 
       if(myMinutes == selectedMinutes){
-        toastSuccessMessage("time matched successfully", colorGreen);
+        // toastSuccessMessage("time matched successfully", colorGreen);
         print("success");
       }
       else{
@@ -539,7 +578,6 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     }
   }
 
-  int? myHours;
   Widget dropDownHourWidget(){
     var size = MediaQuery.of(context).size;
     return Container(

@@ -1,12 +1,13 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_model.dart';
-import '../../../../../Utils/api_urls.dart';
-import '../../../../../Utils/constants.dart';
-import '../../../../../Utils/fontFamily.dart';
-import '../../../../../Utils/colors.dart';
-import '../../../../../Widget/toast_message.dart';
-import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Filter/filter_screen.dart';
 import '../BookForWedding/book_for_wedding_car_logo_container.dart';
 import 'driving_details_page.dart';
@@ -21,7 +22,7 @@ class DrivingExperiencePage extends StatefulWidget {
 }
 
 class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
-  DrivingCarsModel drivingExperienceCarsModelObject = DrivingCarsModel();
+  DrivingCarsModel drivingCarsModelObject = DrivingCarsModel();
   CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
   String? myCurrentCarIndex;
   bool loadingP = true;
@@ -48,9 +49,8 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("drivingExperienceCarsResponse: ${responseString.toString()}");
-        drivingExperienceCarsModelObject =
-            drivingExperienceCarsModelFromJson(responseString);
-        print("drivingExperienceCarsLength: ${drivingExperienceCarsModelObject.data!.length}");
+        drivingCarsModelObject = drivingCarsModelFromJson(responseString);
+        print("drivingExperienceCarsLength: ${drivingCarsModelObject.data!.length}");
         // myCarPlansList();
       }
     } catch (e) {
@@ -161,7 +161,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
 
   Widget allFavItem() {
     return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-    drivingExperienceCarsModelObject.status != "success"
+    drivingCarsModelObject.status != "success"
         ? const Center(child: Text('no data found...',
       style: TextStyle(fontWeight: FontWeight.bold),),) :
     Container(
@@ -170,7 +170,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
-          itemCount: drivingExperienceCarsModelObject.data!.length,
+          itemCount: drivingCarsModelObject.data!.length,
           itemBuilder: (BuildContext context, int index) {
             return Stack(
               children: [
@@ -213,25 +213,25 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                   children: [
                                     Row(
                                       children: [
-                                        Text("${drivingExperienceCarsModelObject.data![index].vehicalName} ",
+                                        Text("${drivingCarsModelObject.data![index].vehicalName} ",
                                             textAlign: TextAlign.left, style: TextStyle(
                                                 color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-                                        Text(drivingExperienceCarsModelObject.data![index].carsColors!.name,
+                                        Text("${drivingCarsModelObject.data![index].carsColors!.name}",
                                             style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinRegular),
                                             textAlign: TextAlign.left),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text("${drivingExperienceCarsModelObject.data![index].carsMakes!.name}, ",
+                                        Text("${drivingCarsModelObject.data![index].carsMakes!.name}, ",
                                             style: TextStyle(color: kBlack,
                                                 fontSize: 12, fontFamily: poppinRegular),
                                             textAlign: TextAlign.left),
-                                        Text("${drivingExperienceCarsModelObject.data![index].carsModels!.name}, ",
+                                        Text("${drivingCarsModelObject.data![index].carsModels!.name}, ",
                                             style: TextStyle(color: kBlack,
                                                 fontSize: 12, fontFamily: poppinSemiBold),
                                             textAlign: TextAlign.left),
-                                        Text("${drivingExperienceCarsModelObject.data![index].year} ",
+                                        Text("${drivingCarsModelObject.data![index].year} ",
                                             textAlign: TextAlign.left, style: TextStyle(
                                                 color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                       ],
@@ -244,7 +244,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                           child: Text("RM",  textAlign: TextAlign.left,                                                       style: TextStyle(
                                               color: kRed, fontSize: 5, fontFamily: poppinRegular)),
                                         ),
-                                        Text("${drivingExperienceCarsModelObject.data![index].carsPlans![0].pricePerSlot}",
+                                        Text("${drivingCarsModelObject.data![index].carsPlans![0].pricePerSlot}",
                                             style: TextStyle(color: kRed,
                                                 decoration: TextDecoration.lineThrough,
                                                 decorationColor: kRed,
@@ -259,7 +259,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                           child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
                                               color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                         ),
-                                        Text("${drivingExperienceCarsModelObject.data![index].carsPlans![0].discountedPricePerSlot}",
+                                        Text("${drivingCarsModelObject.data![index].carsPlans![0].discountedPricePerSlot}",
                                           textAlign: TextAlign.left, style: TextStyle(
                                                 color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                                   Text("/Slot",
@@ -277,15 +277,15 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                                                 .height *
                                                             0.01,
                                                   ),
-                                                  Image.asset(
-                                                      "assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                                  // Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                        showRatingStars(double.parse("${drivingCarsModelObject.data![index].rating}")),
                                                   SizedBox(
                                                       width: MediaQuery.of(
                                                                   context)
                                                               .size
                                                               .height *
                                                           0.01),
-                                                  drivingExperienceCarsModelObject
+                                                  drivingCarsModelObject
                                                               .data![index]
                                                               .rating ==
                                                           null
@@ -298,7 +298,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                                                           textAlign:
                                                               TextAlign.left)
                                                       : Text(
-                                                          "${drivingExperienceCarsModelObject.data![index].rating}",
+                                                          "${drivingCarsModelObject.data![index].rating}",
                                                           style: TextStyle(
                                                               color: kBlack,
                                                               fontSize: 12,
@@ -358,14 +358,32 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                             bottom: 35,
                             child: GestureDetector(
                               onTap: () {
-                                carID = drivingExperienceCarsModelObject.data![index].carsId;
+                                carID = drivingCarsModelObject.data![index].carsId;
                                 print("selectedCarId $carID");
 
                                 Navigator.push(context, MaterialPageRoute(
                                     builder: (context) => DrivingDetailsPage(
-                                      datum: drivingExperienceCarsModelObject.data![index],
+                                      datum: drivingCarsModelObject.data![index],
+
+                                      // carName: drivingExperienceCarsModelObject.data![index].vehicalName,
+                                      // carYear: "${drivingExperienceCarsModelObject.data![index].year}",
+                                      // carId: drivingExperienceCarsModelObject.data![index].carsId,
+                                      // carColorName: drivingExperienceCarsModelObject.data![index].carsColors!.name,
+                                      // carMakesName: drivingExperienceCarsModelObject.data![index].carsMakes!.name,
+                                      // carModelName: drivingExperienceCarsModelObject.data![index].carsModels!.name,
+                                      // carImage: "$baseUrlImage${drivingExperienceCarsModelObject.data![index].image1}",
+                                      // carMakesImage: "$baseUrlImage${drivingExperienceCarsModelObject.data![index].carsMakes!.image}",
+                                      // favouriteStatus: drivingExperienceCarsModelObject.data![index].favouriteStatus,
+                                      // discountPercentage: drivingExperienceCarsModelObject.data![index].discountPercentage,
+                                      // carDiscountPrice: drivingExperienceCarsModelObject.data![index].carsPlans![0].discountedPricePerSlot,
+                                      // carPrice: drivingExperienceCarsModelObject.data![index].carsPlans![0].pricePerSlot,
+                                      // carOwnerImage: "$baseUrlImage${drivingExperienceCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                      // carOwnerName: "${drivingExperienceCarsModelObject.data![index].usersCompanies!.companyName}",
+                                      // carOwnerId: drivingExperienceCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                      // carRating: drivingExperienceCarsModelObject.data![index].rating,
+
                                     )));
-                                print("carPlanSelected ${drivingExperienceCarsModelObject.data![index].carsPlans![index]}");
+                                print("carPlanSelected ${drivingCarsModelObject.data![index].carsPlans![index]}");
                               },
                               child: Image.asset(
                                   "assets/car_bookings_images/more_button.png"),
@@ -375,7 +393,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                 Positioned(
                   top: 40,
                   left: 20, right: 20,
-                  child: drivingExperienceCarsModelObject.data![index].image1 == null
+                  child: drivingCarsModelObject.data![index].image1 == null
                       ? ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset('assets/icon/fade_in_image.jpeg'))
@@ -386,7 +404,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                           "assets/icon/fade_in_image.jpeg"),
                       // fit: BoxFit.fill,
                       height: 130, width: 350,
-                      image: NetworkImage("$baseUrlImage${drivingExperienceCarsModelObject.data![index].image1}"),
+                      image: NetworkImage("$baseUrlImage${drivingCarsModelObject.data![index].image1}"),
                     ),
                   ),
                 ),
@@ -407,7 +425,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("${drivingExperienceCarsModelObject.data![index].discountPercentage}",
+                          Text("${drivingCarsModelObject.data![index].discountPercentage}",
                               textAlign: TextAlign.left, style: TextStyle(
                                   color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
                           Text(" OFF ", textAlign: TextAlign.left,
@@ -419,11 +437,11 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
                 Positioned(
                   top: 10, right: 15,
                   child:
-                  drivingExperienceCarsModelObject.data![index].favouriteStatus == "like"?
+                  drivingCarsModelObject.data![index].favouriteStatus == "like"?
                   Image.asset("assets/home_page/heart.png"):
                   GestureDetector(
                     onTap: () async {
-                      myCurrentCarIndex = "${drivingExperienceCarsModelObject.data![index].carsId}";
+                      myCurrentCarIndex = "${drivingCarsModelObject.data![index].carsId}";
                       print("drivingExperienceCarId $myCurrentCarIndex");
                       await getLikeUnlikeCarWidget();
                       if (carLikeUnlikeModelObject.message == "Liked") {
@@ -448,13 +466,13 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> {
   List myCarPlansStartTime = [];
   List myCarPlansEndTime = [];
   myCarPlansList(){
-    for (int i = 0; i< drivingExperienceCarsModelObject.data!.length; i++) {
+    for (int i = 0; i< drivingCarsModelObject.data!.length; i++) {
       print("OuterLoop :$i");
-      for (int j = 0; j < drivingExperienceCarsModelObject.data![i].carsPlans!.length; j++) {
-        if(drivingExperienceCarsModelObject.data![i].carsPlans![j].carsId==carID) {
+      for (int j = 0; j < drivingCarsModelObject.data![i].carsPlans!.length; j++) {
+        if(drivingCarsModelObject.data![i].carsPlans![j].carsId==carID) {
           print("asdf123");
-          myCarPlansStartTime.add(drivingExperienceCarsModelObject.data![i].carsPlans![j].startTime);
-          myCarPlansEndTime.add(drivingExperienceCarsModelObject.data![i].carsPlans![j].endTime);
+          myCarPlansStartTime.add(drivingCarsModelObject.data![i].carsPlans![j].startTime);
+          myCarPlansEndTime.add(drivingCarsModelObject.data![i].carsPlans![j].endTime);
           print("myCarPlansStartTime $myCarPlansStartTime");
           print("myCarPlansEndTime $myCarPlansEndTime");
         }

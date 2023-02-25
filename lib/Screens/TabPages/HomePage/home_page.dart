@@ -68,22 +68,6 @@ class _HomePageState extends State<HomePage> {
     getUserProfileWidget();
   }
 
-  // String? profilePic, profilePic1;
-  // sharedPrefs() async {
-  //   loadingP = true;
-  //   setState(() {});
-  //   print('in homePage shared prefs');
-  //   prefs = await SharedPreferences.getInstance();
-  //   userId = (prefs!.getString('userid'));
-  //   profilePic = (prefs!.getString('profile_pic'));
-  //   print("user profilePic in homePage is = $baseUrlImage$profilePic");
-  //   setState(() {
-  //     loadingP = false;
-  //   });
-  //   // profilePic1 = "$baseUrlImage$profilePic";
-  //   // print("profilePic in homePage is = $profilePic1");
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: CachedNetworkImage(
-                            imageUrl: "$baseUrlImage${getUserProfileModelObject.data!.profilePic}",
+                            imageUrl: "$baseUrlImage${getUserProfileModelObject.data?.profilePic}",
                             height: 30, width: 30,
                             fit: BoxFit.fill,
                             progressIndicatorBuilder: (context, url, downloadProgress) =>

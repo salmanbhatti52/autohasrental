@@ -1,15 +1,16 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
-import '../../../../../Utils/api_urls.dart';
-import '../../../../../Utils/constants.dart';
-import '../../../../../Utils/fontFamily.dart';
-import '../../../../../Widget/toast_message.dart';
-import '../../../MyAppBarHeader/app_bar_header.dart';
+import '../../Filter/filter_screen.dart';
 import 'book_for_wedding_car_description.dart';
 import 'book_for_wedding_car_logo_container.dart';
-import '../../../../../Utils/colors.dart';
-import '../../Filter/filter_screen.dart';
 import 'package:http/http.dart' as http;
 
 class BookForWeddingPage extends StatefulWidget {
@@ -49,7 +50,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("carsPhotoGraphyResponse: ${responseString.toString()}");
-        carsPhotoGraphyModelObject = carsPhotoGraphyModelFromJson(responseString);
+        carsPhotoGraphyModelObject = photoGraphyModelFromJson(responseString);
         print("carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.status}");
       }
     // } catch (e) {
@@ -263,12 +264,12 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                                           Text("${carsPhotoGraphyModelObject.data![index].carsPlans![0].discountedPricePerHour}",
                                             textAlign: TextAlign.left, style: TextStyle(
                                               color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                          Text("/ Month", textAlign: TextAlign.left,
+                                          Text("/Hour", textAlign: TextAlign.left,
                                             style: TextStyle(color: kBlack, fontSize: 8,
                                               fontFamily: poppinRegular)),
                                           SizedBox(
                                             width: MediaQuery.of(context).size.height * 0.01),
-                                          Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                          showRatingStars(double.parse("${carsPhotoGraphyModelObject.data![index].rating}")),
                                           SizedBox(
                                             width: MediaQuery.of(context).size.width * 0.01),
                                           carsPhotoGraphyModelObject.data![index].rating == null
@@ -322,7 +323,26 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                         print("myCarId $carID");
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context) => BookForWeddingCarDescription(
-                              datumPhotography: carsPhotoGraphyModelObject.data![index],
+                              carName: carsPhotoGraphyModelObject.data![index].vehicalName,
+                              carYear: "${carsPhotoGraphyModelObject.data![index].year}",
+                              carId: carsPhotoGraphyModelObject.data![index].carsId,
+                              carRating: carsPhotoGraphyModelObject.data![index].rating,
+                              carColorName: carsPhotoGraphyModelObject.data![index].carsColors!.name,
+                              carMakesName: carsPhotoGraphyModelObject.data![index].carsMakes!.name,
+                              carModelName: carsPhotoGraphyModelObject.data![index].carsModels!.name,
+                              carImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}",
+                              carMakesImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![index].carsMakes!.image}",
+                              favouriteStatus: carsPhotoGraphyModelObject.data![index].favouriteStatus,
+                              discountPercentage: carsPhotoGraphyModelObject.data![index].discountPercentage,
+                              carDiscountPrice: carsPhotoGraphyModelObject.data![index].carsPlans![0].discountedPricePerHour,
+                              carPrice: carsPhotoGraphyModelObject.data![index].carsPlans![0].pricePerHour,
+                              carOwnerImage: "$baseUrlImage${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyLogo}",
+                              carOwnerName: "${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyName}",
+                              carOwnerId: carsPhotoGraphyModelObject.data![index].usersCompanies!.usersCompaniesId,
+                              myCarDescription: carsPhotoGraphyModelObject.data![index].description,
+                              myCarRating: carsPhotoGraphyModelObject.data![index].carsRatings![0].rateStars,
+                              myCarComment: carsPhotoGraphyModelObject.data![index].carsRatings![0].comments,
+                              // datumPhotography: carsPhotoGraphyModelObject.data![index],
                             )));
                         print("evCarName ${carsPhotoGraphyModelObject.data![index].vehicalName}");
                         print("evCarYear ${carsPhotoGraphyModelObject.data![index].year}");

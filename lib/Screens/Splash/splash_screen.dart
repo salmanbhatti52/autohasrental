@@ -17,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool loading = true;
+  String? userFirstName, userLastName, userImage;
   sharedPrefs() async {
     loading = true;
     setState(() {});
@@ -24,8 +25,13 @@ class _SplashScreenState extends State<SplashScreen> {
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
     userEmail = (prefs!.getString('user_email'));
+    userFirstName = (prefs!.getString('user_first_name'));
+    userLastName = (prefs!.getString('user_last_name'));
+    userImage = (prefs!.getString('profile_pic'));
     print("userId in  LoginPrefs is = $userId");
     print("userEmail in  LoginPrefs is = $userEmail");
+    print("userFirstName in  LoginPrefs is = $userFirstName $userLastName");
+    print("userImage in  LoginPrefs is = $userImage");
     if (userId != null) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => const TabBarPage()));
     }

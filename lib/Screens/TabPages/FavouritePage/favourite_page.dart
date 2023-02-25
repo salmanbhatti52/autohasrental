@@ -45,9 +45,11 @@ class _FavoritePageState extends State<FavoritePage> {
     try {
       String apiUrl = favoriteCarsApiUrl;
       print("favoriteCarModelObjectCarModelApi: $apiUrl");
-      final response = await http.post(Uri.parse(apiUrl), headers: {
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: {
         'Accept': 'application/json'
-      }, body: {
+          },
+          body: {
         "users_customers_id": userId
       });
       print('${response.statusCode}');
@@ -130,9 +132,8 @@ class _FavoritePageState extends State<FavoritePage> {
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
-      favoriteCarModelObject.message == "no data found." ? const Center(child: Text('no data found...', style: TextStyle(fontWeight: FontWeight.bold))) :
-
-      favoriteCarModelObject.data == null? const Center(child: Text('no data found...', style: TextStyle(fontWeight: FontWeight.bold))):
+      favoriteCarModelObject.message == "no data found." ? const Center(child: Text('no car in favorite', style: TextStyle(fontWeight: FontWeight.bold))) :
+      favoriteCarModelObject.data == null? const Center(child: Text('no car in favorite....', style: TextStyle(fontWeight: FontWeight.bold))):
       Container(
         color: Colors.transparent,
         height: screenHeight * 0.75,
@@ -143,6 +144,10 @@ class _FavoritePageState extends State<FavoritePage> {
             itemCount: favoriteCarModelObject.data!.length,
             itemBuilder: (BuildContext context, int index) {
               carID = favoriteCarModelObject.data![index].carsId;
+              print("discountedPricePerMonth ${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth}");
+              print("discountedPricePerHour ${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}");
+              print("discountedPricePerSlot ${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}");
+
               // myCarsIndexId = favoriteCarModelObject.data![index].carsId.toString();
               // print("myCarsIndexIds $myCarsIndexId");
               return Stack(
@@ -188,11 +193,21 @@ class _FavoritePageState extends State<FavoritePage> {
                                           Text("${favoriteCarModelObject.data![index].vehicalName} | ",
                                             textAlign: TextAlign.left, style: TextStyle(
                                                 color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-                                          Text("MODEL ",  textAlign: TextAlign.left,
-                                              style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                                          Text("${favoriteCarModelObject.data![index].year} ",
+
+                                          Text("${favoriteCarModelObject.data![index].carsColors!.name} ",
                                             textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 14, fontFamily: poppinMedium)),
+                                                  color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text("${favoriteCarModelObject.data![index].carsModels!.name} ",
+                                            textAlign: TextAlign.left, style: TextStyle(
+                                                color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+
+                                          Text("${favoriteCarModelObject.data![index].carsMakes!.name} ",
+                                            textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
                                           Text("${favoriteCarModelObject.data![index].year}",
                                             textAlign: TextAlign.left, style: TextStyle(
                                                 color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
@@ -206,15 +221,11 @@ class _FavoritePageState extends State<FavoritePage> {
                                             child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
                                                   color: kRed, fontSize: 5, fontFamily: poppinRegular)),
                                           ),
-                                          Text("0.0", textAlign: TextAlign.left,
-                                              style: TextStyle(color: kRed,
-                                                  decoration: TextDecoration.lineThrough,
-                                                  decorationColor: kRed,
-                                                  decorationThickness: 3,
-                                                  fontSize: 10,
-                                                  fontFamily: poppinLight,
-                                                  height: 2),
-                                              ),
+                                          favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                                          originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
+                                          favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                                          originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
+                                          originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
                                           const SizedBox(width: 5),
                                           Padding(
                                             padding: const EdgeInsets.only(top: 06),
@@ -222,14 +233,18 @@ class _FavoritePageState extends State<FavoritePage> {
                                                 style: TextStyle(color: borderColor,
                                                     fontSize: 7, fontFamily: poppinSemiBold)),
                                           ),
-                                          Text("0.0",  textAlign: TextAlign.left, style: TextStyle(
-                                                  color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                          Text("/ Month",  textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+
+                                          favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                                          discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth}/", "Month"):
+                                          favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                                          discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
+                                          discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
+
                                           SizedBox(width: screenWidth * 0.01),
                                           Image.asset("assets/car_bookings_images/rating_stars.png"),
                                           SizedBox(width: screenWidth * 0.01),
-                                          Text("4.0",  textAlign: TextAlign.left, style: TextStyle(
+                                          Text("${favoriteCarModelObject.data![index].rating}",
+                                              textAlign: TextAlign.left, style: TextStyle(
                                               color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                         ],
                                       ),
@@ -266,10 +281,10 @@ class _FavoritePageState extends State<FavoritePage> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    right: 30, bottom: 35,
-                    child: Image.asset("assets/car_bookings_images/more_button.png"),
-                  ),
+                  // Positioned(
+                  //   right: 30, bottom: 35,
+                  //   child: Image.asset("assets/car_bookings_images/more_button.png"),
+                  // ),
                   Positioned(
                     left: 30, right: 30,
                     child: favoriteCarModelObject.data![index].image1 == null
@@ -298,9 +313,9 @@ class _FavoritePageState extends State<FavoritePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("${favoriteCarModelObject.data![index].discountPercentage}",
+                            Text("${favoriteCarModelObject.data![index].discountPercentage} %",
                               textAlign: TextAlign.left, style: TextStyle(
-                                  color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
+                                  color: kWhite, fontSize: 10, fontFamily: poppinSemiBold)),
                             Text(" OFF ",  textAlign: TextAlign.left, style: TextStyle(
                                   color: kWhite, fontSize: 8, fontFamily: poppinSemiBold)),
                           ],
@@ -316,30 +331,36 @@ class _FavoritePageState extends State<FavoritePage> {
                            getFavoriteCarWidget();
                           },
                           child: Image.asset("assets/home_page/heart.png"))),
-                      // GestureDetector(
-                      //   onTap: () async {
-                      //     myCarsIndexId = "${favoriteCarModelObject.data![index].carsId}";
-                      //     print("favoriteCarId $myCarsIndexId");
-                      //     // carID = favoriteCarModelObject.data![index].carsId;
-                      //     // print("favoriteCarId $carID");
-                      //     await getLikeUnlikeCarWidget();
-                      //     if (carLikeUnlikeModelObject.message == "Liked") {
-                      //       print("isLiked");
-                      //       toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                      //     }
-                      //     if (carLikeUnlikeModelObject.message == "Unliked") {
-                      //       print("isUnLiked");
-                      //       toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                      //     }
-                      //     },
-                      //   child: carLikeUnlikeModelObject.message == "Liked"
-                      //       ? Image.asset("assets/home_page/heart.png")
-                      //       : Image.asset("assets/car_bookings_images/heart.png"),
-                      // )),
                 ],
               );
             }),
       ),
+    );
+  }
+
+  originalPriceText(carPrice){
+    return Text("$carPrice/",
+      textAlign: TextAlign.left, style: TextStyle(color: kRed,
+          decoration: TextDecoration.lineThrough,
+          decorationColor: kRed,
+          decorationThickness: 3,
+          fontSize: 10,
+          fontFamily: poppinLight,
+          height: 2),);
+  }
+  discountedPriceText(discountedPrice, type){
+    return Row(
+      children: [
+        Text("$discountedPrice",
+            textAlign: TextAlign.left, style: TextStyle(
+                color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+        Padding(
+          padding: const EdgeInsets.only(top: 06),
+          child: Text(type,  textAlign: TextAlign.left,
+              style: TextStyle(color: borderColor,
+                  fontSize: 8, fontFamily: poppinRegular)),
+        ),
+      ],
     );
   }
 }

@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 UpdateProfileModel updateProfileModelFromJson(String str) => UpdateProfileModel.fromJson(json.decode(str));
@@ -7,8 +6,8 @@ String updateProfileModelToJson(UpdateProfileModel data) => json.encode(data.toJ
 
 class UpdateProfileModel {
   UpdateProfileModel({
-    this.status,
-    this.data,
+     this.status,
+     this.data,
   });
 
   String? status;
@@ -58,8 +57,8 @@ class Datum {
   String? accountType;
   String? socialAccType;
   String? googleAccessToken;
-  dynamic location;
-  dynamic about;
+  String? location;
+  String? about;
   String? profilePic;
   DateTime? dateAdded;
   String? verifyCode;

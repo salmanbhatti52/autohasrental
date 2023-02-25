@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/material.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_model.dart';
 import '../../../../../Utils/api_urls.dart';
@@ -40,7 +41,7 @@ class _TopExperienceWidgetState extends State<TopExperienceWidget> {
         final responseString = response.body;
         print("drivingExperienceCarsResponse: ${responseString.toString()}");
         drivingExperienceCarsModelObject =
-            drivingExperienceCarsModelFromJson(responseString);
+            drivingCarsModelFromJson(responseString);
         print(
             "drivingExperienceCarsLength: ${drivingExperienceCarsModelObject.data!.length}");
       }
@@ -77,7 +78,7 @@ class _TopExperienceWidgetState extends State<TopExperienceWidget> {
                     Positioned(
                       bottom: 0,
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.26,
+                        height: MediaQuery.of(context).size.height * 0.285,
                         width: MediaQuery.of(context).size.width * 0.55,
                         decoration: BoxDecoration(
                             color: kWhite,
@@ -96,7 +97,7 @@ class _TopExperienceWidgetState extends State<TopExperienceWidget> {
                                           style: TextStyle(color: kBlack,
                                               fontSize: 14, fontFamily: poppinBold),
                                           textAlign: TextAlign.left),
-                                      Text(drivingExperienceCarsModelObject.data![index].carsColors!.name,
+                                      Text("${drivingExperienceCarsModelObject.data![index].carsColors!.name}",
                                           style: TextStyle(color: kBlack,
                                               fontSize: 10, fontFamily: poppinRegular),
                                           textAlign: TextAlign.left),
@@ -156,27 +157,25 @@ class _TopExperienceWidgetState extends State<TopExperienceWidget> {
                                             textAlign: TextAlign.left,),
                                         ],
                                       ),
-
-                                      SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-
-                                      Row(
-                                        children: [
-                                          Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.height * 0.01,),
-                                          drivingExperienceCarsModelObject.data![index].rating == null
-                                              ? Text("0.0", style: TextStyle(color: kBlack,
-                                              fontSize: 10, fontFamily: poppinMedium),
-                                            textAlign: TextAlign.left,)
-                                              : Text("${drivingExperienceCarsModelObject.data![index].rating}",
-                                            style: TextStyle(color: kBlack,
-                                                fontSize: 10, fontFamily: poppinMedium),
-                                            textAlign: TextAlign.left,),
-                                        ],
-                                      ),
                                     ],
                                   ),
-                                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                  const Divider(),
+                                  Row(
+                                    children: [
+                                      showRatingStars(double.parse("${drivingExperienceCarsModelObject.data![index].rating}")),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.height * 0.01,),
+                                      drivingExperienceCarsModelObject.data![index].rating == null
+                                          ? Text("0.0", style: TextStyle(color: kBlack,
+                                          fontSize: 10, fontFamily: poppinMedium),
+                                        textAlign: TextAlign.left,)
+                                          : Text("${drivingExperienceCarsModelObject.data![index].rating}",
+                                        style: TextStyle(color: kBlack,
+                                            fontSize: 10, fontFamily: poppinMedium),
+                                        textAlign: TextAlign.left,),
+                                    ],
+                                  ),
+                                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                                   GestureDetector(
                                     onTap: () {
                                       carID = drivingExperienceCarsModelObject.data![index].carsId;

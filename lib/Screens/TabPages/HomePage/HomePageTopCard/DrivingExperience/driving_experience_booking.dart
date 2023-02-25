@@ -3,6 +3,7 @@ import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ import 'driving_details_page.dart';
 
 class DrivingExperienceBooking extends StatefulWidget {
   final String? selectedDay, startTime, endTime, selectedDate;
-  final Datum? myDatum;
+  final DatumDrivingTopCard? myDatum;
   final double? slotPrice;
 
   const DrivingExperienceBooking({Key? key, this.myDatum,
@@ -31,9 +32,8 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
 
 
   int selectedIndex = 0;
-  String? mySelectedStartTime, mySelectedEndTime;
+  // String? mySelectedStartTime, mySelectedEndTime;
   String? myStartTime, myEndTime, apiDate;
-  // DateTime? apiDate;
 
   String? apiStartTime, apiEndTime;
   var formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
@@ -296,6 +296,12 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                     children: [
                       Text("${widget.myDatum!.vehicalName} ", textAlign: TextAlign.left,
                           style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+                      Text("${widget.myDatum!.carsColors!.name} ", textAlign: TextAlign.left,
+                        style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                    ],
+                  ),
+                  Row(
+                    children: [
                       Text("${widget.myDatum!.carsMakes!.name} ", textAlign: TextAlign.left,
                         style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                       Text("${widget.myDatum!.carsModels!.name} ", textAlign: TextAlign.left,
@@ -351,7 +357,8 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                     children: [
                       Row(
                         children: [
-                          Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                          // Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                          showRatingStars(double.parse("${widget.myDatum!.rating}")),
                           SizedBox(width: MediaQuery.of(context).size.height * 0.01),
                           widget.myDatum!.rating == null?
                           Text("0.0", textAlign: TextAlign.left, style: TextStyle(
@@ -360,7 +367,7 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                               style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                         ],
                       ),
-                      SizedBox(width: screenWidth * 0.45),
+                      SizedBox(width: screenWidth * 0.25),
                       Container(
                         height: 25, width: 70,
                         decoration: BoxDecoration(
@@ -454,8 +461,78 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                         key: myFormKey,
                         child: Column(
                           children: [
+                            // GestureDetector(
+                            //   onTap: () async {
+                            //     DateTime? picked = await showDatePicker(
+                            //       context: context,
+                            //       initialDate: DateTime.now(),
+                            //       // firstDate: DateTime(1980),
+                            //       firstDate: DateTime.now().subtract(const Duration(days: 0)),
+                            //       lastDate: DateTime(2050),
+                            //     );
+                            //     if (picked != null && picked != pickDate) {
+                            //       valueDate = DateFormat('yyyy-MM-dd').format(picked);
+                            //       newSelectedDay = DateFormat('EEEE, dd MMMM').format(picked);
+                            //
+                            //       stateSetterObject(() {
+                            //         print("Selected date in bottomSheet: $valueDate");
+                            //         print("Selected Day in bottomSheet: $newSelectedDay");
+                            //         // DateTime date = DateTime.parse("${widget.myDatum!.carsPlans![0].planDate}");
+                            //         // formattedDate = DateFormat("yyyy-MM-dd").format(date);
+                            //         // print("valueDate $formattedDate");
+                            //         // print("valueDate1 $valueDate");
+                            //         compareSlotDates();
+                            //         // if(valueDate == formattedDate){
+                            //         //   print("equal");
+                            //         // }else{
+                            //         //   print("not equal");
+                            //         // }
+                            //       });
+                            //     }
+                            //   },
+                            //   // child: Row(
+                            //   //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   //   children: [
+                            //   //     Icon(Icons.keyboard_arrow_left, color: borderColor),
+                            //   //     Text("$valueDate", textAlign: TextAlign.left, style: TextStyle(
+                            //   //         fontSize: 14, fontFamily: poppinSemiBold, color: borderColor),
+                            //   //     ),
+                            //   //     Icon(Icons.keyboard_arrow_right, color: borderColor),
+                            //   //   ],
+                            //   // ),
+                            // ),
+                            SizedBox(height: MediaQuery.of(context).size.height* 0.02),
+
+                            // newSelectedDay == null?
+                            // Container(
+                            //   width: 220,
+                            //   height: 40,
+                            //   decoration: BoxDecoration(
+                            //     color: kWhite,
+                            //     borderRadius: BorderRadius.circular(15),
+                            //   ),
+                            //   child: Center(
+                            //     child: Text("${widget.selectedDay}", style: TextStyle(
+                            //         fontSize: 14, fontFamily: poppinMedium, color: kBlack),
+                            //     ),
+                            //   ),
+                            // ):
+                            // Container(
+                            //   width: 220,
+                            //   height: 40,
+                            //   decoration: BoxDecoration(
+                            //     color:  borderColor,
+                            //     borderRadius: BorderRadius.circular(15),
+                            //   ),
+                            //   child: Center(
+                            //     child: Text("$newSelectedDay", style: TextStyle(
+                            //         fontSize: 14, fontFamily: poppinMedium, color: kWhite)),
+                            //   ),
+                            // ),
+
                             GestureDetector(
                               onTap: () async {
+                                print("clicked...");
                                 DateTime? picked = await showDatePicker(
                                   context: context,
                                   initialDate: DateTime.now(),
@@ -470,65 +547,35 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                                   stateSetterObject(() {
                                     print("Selected date in bottomSheet: $valueDate");
                                     print("Selected Day in bottomSheet: $newSelectedDay");
-                                    // DateTime date = DateTime.parse("${widget.myDatum!.carsPlans![0].planDate}");
-                                    // formattedDate = DateFormat("yyyy-MM-dd").format(date);
-                                    // print("valueDate $formattedDate");
-                                    // print("valueDate1 $valueDate");
+
                                     compareSlotDates();
-                                    // if(valueDate == formattedDate){
-                                    //   print("equal");
-                                    // }else{
-                                    //   print("not equal");
-                                    // }
+
                                   });
                                 }
                               },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.keyboard_arrow_left, color: borderColor),
-                                  Text("$valueDate", textAlign: TextAlign.left, style: TextStyle(
-                                      fontSize: 14, fontFamily: poppinSemiBold, color: borderColor),
-                                  ),
-                                  Icon(Icons.keyboard_arrow_right, color: borderColor),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: MediaQuery.of(context).size.height* 0.02),
-
-                            newSelectedDay == null?
-                            Container(
-                              width: 220,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: kWhite,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Center(
-                                child: Text("${widget.selectedDay}", style: TextStyle(
-                                    fontSize: 14, fontFamily: poppinMedium, color: kBlack),
+                              child: Container(
+                                width: 220,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: borderColor,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("$newSelectedDay", textAlign: TextAlign.left,
+                                        style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: kWhite)),
+                                    Icon(Icons.keyboard_arrow_right, color: kWhite),
+                                  ],
                                 ),
                               ),
-                            ):
-                            Container(
-                              width: 220,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color:  borderColor,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Center(
-                                child: Text("$newSelectedDay", style: TextStyle(
-                                    fontSize: 14, fontFamily: poppinMedium, color: kWhite)),
-                              ),
                             ),
 
-                            Container(
-                              color: Colors.transparent,
-                              height: 100,
-                              child: myCarPlan.isEmpty ? Center(child: Text("No Slots Available", textAlign: TextAlign.left,
-                                  style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinBold))):
-                              GridView.builder(
+                            myCarPlan.isEmpty ? Center(child: Text("No Slots Available", textAlign: TextAlign.left,
+                                style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinBold))):
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(minHeight: 50, maxHeight: 100.0),
+                              child: GridView.builder(
                                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     childAspectRatio: 1 / 0.2,
@@ -536,39 +583,31 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                                     crossAxisSpacing: 0,
                                   ),
                                   itemCount: myCarPlan.length,
-
                                   itemBuilder: (context, index){
-                                    mySelectedStartTime = myCarPlan[index].startTime;
-                                    mySelectedEndTime = myCarPlan[index].endTime;
-                                    myStartTime = mySelectedStartTime!.substring(0, 5);
-                                    myEndTime = mySelectedEndTime!.substring(0, 5);
-                                    print("newTime $myStartTime $myEndTime");
-
+                                    print("myCarPlansLength ${myCarPlan.length}");
+                                    print("selectedIndex $selectedIndex");
+                                    newStartTime = myCarPlan[index].startTime;
+                                    newEndTime = myCarPlan[index].endTime;
+                                    mySlotPrice = double.parse(myCarPlan[index].discountedPrice);
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 05),
                                       child: GestureDetector(
                                         onTap: (){
-
-                                          stateSetterObject(() {
+                                          setState(() {
                                             selectedIndex = index;
-                                            mySlotPrice = double.parse(myCarPlan[selectedIndex].discountedPrice);
                                             apiDate = myCarPlan[selectedIndex].date;
                                             newStartTime = myCarPlan[selectedIndex].startTime;
                                             newEndTime = myCarPlan[selectedIndex].endTime;
-                                            myStartTime = mySelectedStartTime!.substring(0, 5);
-                                            myEndTime = mySelectedEndTime!.substring(0, 5);
+                                            mySlotPrice = double.parse(myCarPlan[selectedIndex].discountedPrice);
                                             DateTime date = DateTime.parse(apiDate.toString());
                                             DateFormat formatter = DateFormat("yyyy-MM-dd");
                                             String formattedDate = formatter.format(date);
-                                            print("mySlotPrice $mySlotPrice");
                                             print("formattedDate $formattedDate");
-
+                                            print("selectedSlotPrice $mySlotPrice");
                                           });
                                           print("mySelectedIndex $index");
-                                          print("mySelectedTime $myStartTime to $myEndTime");
-                                          print("myNewSelectedTime $newStartTime to $newEndTime");
-                                          print("mySelectedPlanDate ${widget.myDatum!.carsPlans![index].planDate}");
-
+                                          // print("mySelectedTime $myStartTime to $myEndTime");
+                                          print("mySelectedTime $newStartTime to $newEndTime");
                                         },
                                         child: Container(
                                           height: 40,
@@ -583,8 +622,9 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                                             children: [
                                               Icon(Icons.check_circle, size: 22,
                                                   color: selectedIndex == index ? kBlack : const Color(0xffd4dce1)),
-                                              Text("$myStartTime to $myEndTime", style: TextStyle(
-                                                    color: selectedIndex == index? kWhite: kBlack)),
+                                              Text("$newStartTime to $newEndTime",
+                                                style: TextStyle(color: selectedIndex == index? kWhite: kBlack),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -592,6 +632,78 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                                     );
                                   }),
                             ),
+
+                            // Container(
+                            //   color: Colors.transparent,
+                            //   height: 100,
+                            //   child: myCarPlan.isEmpty ? Center(child: Text("No Slots Available", textAlign: TextAlign.left,
+                            //       style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinBold))):
+                            //   GridView.builder(
+                            //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            //         crossAxisCount: 2,
+                            //         childAspectRatio: 1 / 0.2,
+                            //         mainAxisSpacing: 05,
+                            //         crossAxisSpacing: 0,
+                            //       ),
+                            //       itemCount: myCarPlan.length,
+                            //
+                            //       itemBuilder: (context, index){
+                            //         // mySelectedStartTime = myCarPlan[index].startTime;
+                            //         // mySelectedEndTime = myCarPlan[index].endTime;
+                            //         // myStartTime = mySelectedStartTime!.substring(0, 5);
+                            //         newStartTime = myCarPlan[index].startTime;
+                            //         newEndTime = myCarPlan[index].endTime;
+                            //         // myEndTime = mySelectedEndTime!.substring(0, 5);
+                            //         print("newTime $newStartTime $newEndTime");
+                            //
+                            //         return Padding(
+                            //           padding: const EdgeInsets.symmetric(horizontal: 05),
+                            //           child: GestureDetector(
+                            //             onTap: (){
+                            //
+                            //               stateSetterObject(() {
+                            //                 selectedIndex = index;
+                            //                 mySlotPrice = double.parse(myCarPlan[selectedIndex].discountedPrice);
+                            //                 apiDate = myCarPlan[selectedIndex].date;
+                            //                 newStartTime = myCarPlan[selectedIndex].startTime;
+                            //                 newEndTime = myCarPlan[selectedIndex].endTime;
+                            //                 // myStartTime = mySelectedStartTime!.substring(0, 5);
+                            //                 // myEndTime = mySelectedEndTime!.substring(0, 5);
+                            //                 DateTime date = DateTime.parse(apiDate.toString());
+                            //                 DateFormat formatter = DateFormat("yyyy-MM-dd");
+                            //                 String formattedDate = formatter.format(date);
+                            //                 print("mySlotPrice $mySlotPrice");
+                            //                 print("formattedDate $formattedDate");
+                            //
+                            //               });
+                            //               print("mySelectedIndex $index");
+                            //               print("mySelectedTime $myStartTime to $myEndTime");
+                            //               print("myNewSelectedTime $newStartTime to $newEndTime");
+                            //               print("mySelectedPlanDate ${widget.myDatum!.carsPlans![index].planDate}");
+                            //
+                            //             },
+                            //             child: Container(
+                            //               height: 40,
+                            //               decoration: BoxDecoration(
+                            //                 color: selectedIndex == index? borderColor: kWhite,
+                            //                 borderRadius: BorderRadius.circular(15),
+                            //                 border: Border.all(color: selectedIndex == index ? borderColor : const Color(0xffd4dce1),
+                            //                     width: 2),
+                            //               ),
+                            //               child: Row(
+                            //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            //                 children: [
+                            //                   Icon(Icons.check_circle, size: 22,
+                            //                       color: selectedIndex == index ? kBlack : const Color(0xffd4dce1)),
+                            //                   Text("$newStartTime to $newEndTime", style: TextStyle(
+                            //                         color: selectedIndex == index? kWhite: kBlack)),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         );
+                            //       }),
+                            // ),
                           ],
                         ),
                       ),
@@ -601,10 +713,11 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                             if(myFormKey.currentState!.validate()){
                               if(valueDate == null){
                                 toastFailedMessage("error", kRed);
-                              }else if(myStartTime == null || myEndTime == null){
+                              }else if(newStartTime == null || newEndTime == null){
                                 toastFailedMessage("error", kRed);
                               }else{
                                 mySelectedData();
+                                print("myNewTime $newStartTime $newEndTime");
                                 print("mySlotPrice $mySlotPrice");
                                 Navigator.pop(context);
                               }

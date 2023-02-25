@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto_haus_rental_app/Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,7 +35,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var locationController = TextEditingController();
 
   File? imageFile;
-
   String? base64img;
   final ImagePicker _picker = ImagePicker();
   Future pickCoverImage() async {
@@ -101,6 +99,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       print("firstName: ${firstNameController.text}");
       print("lastName: ${lastNameController.text}");
       print("email: ${emailController.text}");
+      print("locationController: ${locationController.text}");
+      print("aboutController: ${aboutController.text}");
       print("profileImage: $base64img");
 
       final response = await http.post(Uri.parse(apiUrl),
@@ -110,6 +110,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         "last_name" : lastNameController.text,
         "phone" : "03001234567",
         "email" : emailController.text,
+        "location" : locationController.text,
+        "about" : aboutController.text,
         "notifications" : "Yes",
         "profile_pic" : base64img,
           },
@@ -121,7 +123,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         final responseString = response.body;
         print("updateUserProfileResponse: ${responseString.toString()}");
         updateProfileModel = updateProfileModelFromJson(responseString);
-        print("getUserName: ${updateProfileModel.data}");
+        // print("getUserName: ${updateProfileModel.data}");
         print("updateUserProfileImage: $base64img");
       }
     } catch (e) {
@@ -171,7 +173,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: const MyAppBarSingleImage(
-        title: "Edit Profile", backImage: "assets/messages_images/Back.png",),
+          title: "Edit Profile", backImage: "assets/messages_images/Back.png"),
       body: loader ? Center(child: CircularProgressIndicator(color: borderColor)):
       getUserProfileModelObject.status != "success"? const Center(
         child: Text('no data found...', style: TextStyle(fontWeight: FontWeight.bold))):
@@ -239,11 +241,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   if(updateProfileFormKey.currentState!.validate()){
                     if (firstNameController.text.isEmpty) {
-                      toastFailedMessage('firstName cannot be empty', Colors.red);
+                      toastFailedMessage('firstName cannot be empty', kRed);
                     } else if (lastNameController.text.isEmpty) {
-                      toastFailedMessage('lastName cannot be empty',Colors.red);
+                      toastFailedMessage('lastName cannot be empty', kRed);
                     } else if (emailController.text.isEmpty) {
-                      toastFailedMessage('email cannot be empty',Colors.red);
+                      toastFailedMessage('email cannot be empty', kRed);
+                    } else if (base64img == null) {
+                      toastFailedMessage('profileImage cannot be empty', kRed);
                     }
                     else{
                       setState(() {

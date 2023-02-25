@@ -48,6 +48,8 @@ dependencies:
   flutter_launcher_icons: ^0.11.0
   cron: ^0.5.1
   cached_network_image: ^3.2.3
+  flutter_rating_bar: ^4.0.1
+  smooth_star_rating: ^1.1.1
 
   shared_preferences: ^2.0.15
   http: ^0.13.5

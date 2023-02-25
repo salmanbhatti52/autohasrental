@@ -36,8 +36,7 @@ class _DescriptionState extends State<Description> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("carsPhotoGraphyResponse: ${responseString.toString()}");
-        carsPhotoGraphyModelObject =
-            carsPhotoGraphyModelFromJson(responseString);
+        carsPhotoGraphyModelObject = photoGraphyModelFromJson(responseString);
         print(
             "carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.status}");
       }
@@ -61,9 +60,8 @@ class _DescriptionState extends State<Description> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
                   child: Text(
-                    "${carsPhotoGraphyModelObject.data![0].description}",
-                    style: TextStyle(
-                        fontSize: 12,
+                    "${carsPhotoGraphyModelObject.data?[0].description}",
+                    style: TextStyle(fontSize: 12,
                         fontFamily: poppinRegular,
                         color: Colors.black),
                     textAlign: TextAlign.left,

@@ -5,11 +5,10 @@ import '../../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 import 'AddressTabsDriving/address_tabbar_experience.dart';
 
-
 class DeliveryAddressExperience extends StatefulWidget {
   final String? startTime, endTime, selectedDate;
   final double? totalPrice, selectedSlotPrice;
-  final Datum? myDatum;
+  final DatumDrivingTopCard? myDatum;
   const DeliveryAddressExperience({Key? key, this.selectedDate,
     this.totalPrice, this.selectedSlotPrice,
     this.myDatum, this.startTime, this.endTime}) : super(key: key);

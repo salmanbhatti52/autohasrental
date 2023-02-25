@@ -1,7 +1,10 @@
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 import '../../../../../Model/custom_subscription_model.dart';
@@ -15,10 +18,18 @@ import 'EvSubscriptionPlanTabBar/12MonthsPlan/12_months_plan.dart';
 import 'package:http/http.dart'as http;
 
 class EvDescriptionDetailsPage extends StatefulWidget {
-  final Datum? evDatum;
+  // final Datum? evDatum;
   final String? mySelectedTabMonth, mySelectedTabPrice;
+  final String? carName, carImage, carYear, carPrice, carStatus,
+      carColorName, carModelName, carMakesName, carMakesImage,
+      carRating, carOwnerImage, carOwnerName, discountPercentage;
+  final int? carId, carOwnerId;
+  final double? carDiscountPrice;
 
-  const EvDescriptionDetailsPage({Key? key, this.evDatum,
+  const EvDescriptionDetailsPage({Key? key, /*this.evDatum,*/ this.carName,
+    this.carMakesName, this.discountPercentage, this.carDiscountPrice,
+    this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carColorName, this.carModelName,
+    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
     this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
@@ -53,7 +64,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("evSubscriptionResponse: ${responseString.toString()}");
-        evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
+        evSubscriptionCarsModelObject = evCarsModelFromJson(responseString);
         print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
         monthList();
       }
@@ -88,19 +99,22 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     // TODO: implement initState
     super.initState();
     getEvSubscriptionCarsWidget();
+
     tabMonth = widget.mySelectedTabMonth;
     tabPrice = widget.mySelectedTabPrice;
     print("evCarID $carID");
     print("tabMonthAndPrice $tabMonth $tabPrice");
+    print("carModelName ${widget.carModelName}");
+    // mySelectedData();
     myTotalAmount();
   }
   double totalAmount = 0.0;
   myTotalAmount(){
 
-    print('selectedTabMonth: $tabMonth');
-    print('selectedTabMonthPrice $tabPrice');
+    print("tabMonthAndPrice11 $tabMonth $tabPrice");
     totalAmount = double.parse("$tabPrice") + serviceFee;
     print("selectedMonthTotal: $totalAmount");
+    setState(() {});
   }
 
   @override
@@ -110,7 +124,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: MyAppBarSingleImageWithText(
-        title: "${widget.evDatum!.vehicalName}, ", subtitle: "${widget.evDatum!.year}",
+        title: "${widget.carName}, ", subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png",
       ),
       body: SingleChildScrollView(
@@ -129,7 +143,38 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                       children: [
                         Text("Select Start and End Date Plan", textAlign: TextAlign.left,
                           style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
-
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                height: 30.0,
+                                decoration: BoxDecoration(
+                                  color: borderColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: tabMonth == "1"?
+                                    Text("$tabMonth Month Plan", textAlign: TextAlign.left, style: TextStyle(
+                                        fontSize: 14, fontFamily: poppinRegular, color: kWhite)):
+                                    Text("$tabMonth Months Plan", textAlign: TextAlign.left, style: TextStyle(
+                                        fontSize: 14, fontFamily: poppinRegular, color: kWhite)),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                              GestureDetector(
+                                  onTap: () {
+                                    showMyBottomSheet(context);
+                                  },
+                                  child: SvgPicture.asset('assets/icon/edit_booking_icoon.svg')),
+                            ],
+                          ),
+                        ),
                         // evSubscriptionTabbarWidget(),
                         choosedPlan(),
                         // const EvSubscriptionTabbarPage(),
@@ -219,10 +264,25 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                                   print('selectedMonthTotalPrice $totalAmount');
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) => EvDeliveryAddress(
-                                          evDatum: widget.evDatum,
+                                          // evDatum: widget.evDatum,
                                         mySelectedTabMonth: tabMonth,
                                         mySelectedTabPrice: tabPrice,
                                         totalAmount: totalAmount,
+
+                                        carName: widget.carName,
+                                        carImage: widget.carImage,
+                                        carYear: widget.carYear,
+                                        carPrice: widget.carPrice,
+                                        carDiscountPrice: widget.carDiscountPrice,
+                                        carRating: widget.carRating,
+                                        carColorName: widget.carColorName,
+                                        discountPercentage: widget.discountPercentage,
+                                        carStatus: widget.carStatus,
+                                        carId: widget.carId,
+                                        carOwnerId: widget.carOwnerId,
+                                        carMakesName: widget.carMakesName,
+                                        carModelName: widget.carModelName,
+
                                       )));
                                 }
 
@@ -284,23 +344,23 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                   Container(height: screenHeight * 0.1,),
                   Row(
                     children: [
-                      Text("${widget.evDatum!.vehicalName} ",
+                      Text("${widget.carName} ",
                           textAlign: TextAlign.left, style: TextStyle(
                               color: kBlack, fontSize: 14, fontFamily: poppinBold)),
 
-                      Text("${widget.evDatum!.carsColors!.name} ", textAlign: TextAlign.left, style: TextStyle(
+                      Text("${widget.carColorName} ", textAlign: TextAlign.left, style: TextStyle(
                           color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
                     ],
                   ),
                   Row(
                     children: [
-                      Text("${widget.evDatum!.carsMakes!.name}, ",
+                      Text("${widget.carMakesName}, ",
                           textAlign: TextAlign.left, style: TextStyle(
                               color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                      Text("${widget.evDatum!.carsModels!.name}, ",
+                      Text("${widget.carModelName}, ",
                           textAlign: TextAlign.left, style: TextStyle(
                               color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
-                      Text("${widget.evDatum!.year} ",
+                      Text("${widget.carYear} ",
                           textAlign: TextAlign.left, style: TextStyle(
                               color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                     ],
@@ -312,7 +372,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                             color: kRed, fontSize: 5, fontFamily: poppinLight)),
                       ),
-                      Text("${widget.evDatum!.carsPlans![0].pricePerMonth}",
+                      Text("${widget.carPrice}",
                         textAlign: TextAlign.left, style: TextStyle(color: kRed,
                             fontFamily: poppinLight, fontSize: 10, decoration: TextDecoration.lineThrough),
                       ),
@@ -322,7 +382,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                             color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                       ),
-                      Text("${widget.evDatum!.carsPlans![0].discountedPricePerMonth}",
+                      Text("${widget.carDiscountPrice}",
                           textAlign: TextAlign.left, style: TextStyle(
                               color: borderColor, fontSize: 20, fontFamily: poppinSemiBold)),
                       Text("/Month", textAlign: TextAlign.left, style: TextStyle(
@@ -351,20 +411,23 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                   ),
                   SizedBox(height: screenHeight * 0.01),
                   Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
+
                         children: [
-                          Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                          // Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                          showRatingStars(double.parse("${widget.carRating}")),
                           SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                          widget.evDatum!.rating == null ?
+                          widget.carRating == null ?
                           Text("0.0", textAlign: TextAlign.left, style: TextStyle(
                               color: kBlack, fontSize: 14, fontFamily: poppinRegular)):
-                          Text("${widget.evDatum!.rating}",
+                          Text("${widget.carRating}",
                               textAlign: TextAlign.left, style: TextStyle(
                                   color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                         ],
                       ),
-                      SizedBox(width: screenWidth * 0.45),
+                      SizedBox(width: screenWidth * 0.25),
                       Container(
                         height: 25, width: 70,
                         decoration: BoxDecoration(color: kBlack,
@@ -390,7 +453,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
         Positioned(
           left: 25, right: 20,
           top: 20,
-          child: widget.evDatum!.image1 == null ?
+          child: widget.carImage == null ?
           ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset('assets/icon/fade_in_image.jpeg')) :
@@ -400,7 +463,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
               placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
               width: 350,
               height: 130,
-              image: NetworkImage("$baseUrlImage${widget.evDatum!.image1}"),
+              image: NetworkImage("${widget.carImage}"),
             ),
           ),
         ),
@@ -418,7 +481,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("${widget.evDatum!.discountPercentage}% ",
+                  Text("${widget.discountPercentage}% ",
                       textAlign: TextAlign.left, style: TextStyle(
                           color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
                   Text("OFF", textAlign: TextAlign.left, style: TextStyle(
@@ -752,5 +815,139 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
         ],
       ),
     );
+  }
+
+  showMyBottomSheet(context) {
+    TabController tabController = TabController(length: monthNumber.length, vsync: this);
+    return showMaterialModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter stateSetterObject) {
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: homeBgColor,
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20)),
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text('Change Available Month Slot',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: poppinBold,
+                                  color: appBgColor)),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                      Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          decoration: BoxDecoration(
+                              color: homeBgColor,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                            child: TabBar(
+                              controller: tabController,
+                              indicator: BoxDecoration(
+                                // color: selectedIndex == ? borderColor: kWhite,
+                                color: borderColor,
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              onTap: (index){
+
+                                  selectedIndex = index;
+                                  tabMonth = monthNumber[selectedIndex].months;
+                                  tabPrice = monthNumber[selectedIndex].dis_price_per_months;
+                                  stateSetterObject(() {
+                                  print('selectedIndex: $selectedIndex');
+                                  print('selectedTabMonth123: $tabMonth');
+                                  print('selectedTabMonthPrice: $tabPrice');
+                                });
+
+                              },
+                              tabs: List<Widget>.generate(
+                                  monthNumber.length, (int index) {
+                                print("monthsTabBarLength ${monthNumber.length}");
+                                print("monthsTabBarClicked ");
+                                return Container(
+                                  color: Colors.transparent,
+                                  height: MediaQuery.of(context).size.height * 0.12,
+                                  child: Tab(
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.3,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          monthNumber[index].months == "1" ? Text("${monthNumber[index].months} month", style: TextStyle(
+                                            color: kBlack, fontSize: 17, fontFamily: poppinMedium,)):
+                                          Text("${monthNumber[index].months} months", style: TextStyle(
+                                              color: kBlack, fontSize: 17, fontFamily: poppinMedium)),
+
+                                          Text("RM ${monthNumber[index].dis_price_per_months}",
+                                              textAlign: TextAlign.right, style: TextStyle(
+                                                fontSize: 14, fontFamily: poppinRegular, color: kBlack,)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                              indicatorColor: kWhite,
+                              isScrollable: true,
+                              labelColor: kWhite,
+                              labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
+                              unselectedLabelColor: kBlack,
+                            ),
+                          )),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      GestureDetector(
+                          onTap: () {
+                            myTotalAmount();
+                            Navigator.pop(context
+                            );
+                          },
+                          child: loginButton('Update', context)),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          child: Center(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.06,
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(30),
+                                border: Border.all(width: 1, color: borderColor),
+                              ),
+                              child: Center(
+                                child: Text('Cancel', textAlign: TextAlign.center,
+                                    style: TextStyle(color: borderColor,
+                                        fontFamily: poppinRegular, fontSize: 18)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              });
+        });
   }
 }

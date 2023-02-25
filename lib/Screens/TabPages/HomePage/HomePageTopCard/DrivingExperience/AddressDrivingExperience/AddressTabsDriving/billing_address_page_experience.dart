@@ -11,7 +11,7 @@ import 'CartDetails/cart_details_page_experience.dart';
 class BillingAddressPageExperience extends StatefulWidget {
   final String? startTime, endTime, selectedDate;
   final double? totalPrice, selectedSlotPrice;
-  final Datum? myDatum;
+  final DatumDrivingTopCard? myDatum;
 
   const BillingAddressPageExperience({Key? key, this.selectedDate, this.selectedSlotPrice,
     this.totalPrice, this.myDatum, this.startTime, this.endTime}) : super(key: key);

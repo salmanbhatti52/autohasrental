@@ -7,22 +7,31 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 import '../../../../../../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart'as http;
 
 class EvCartDetailsPage extends StatefulWidget {
-  final Datum? myDatum;
+  // final Datum? myDatum;
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
+  final String? carName, carImage, carYear, carPrice, carStatus,
+      carColorName, carModelName, carMakesName, carMakesImage,
+      carRating, carOwnerImage, carOwnerName, discountPercentage;
+  final int? carId, carOwnerId;
+  final double? carDiscountPrice;
 
-  const EvCartDetailsPage({Key? key, this.myDatum, this.totalAmount,
+  const EvCartDetailsPage({Key? key, /*this.myDatum, */
+    this.totalAmount, this.carName,
+    this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
+    this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
+    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
   this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
@@ -73,7 +82,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     request.fields['plan_end_date'] = evEndDate!;
     request.fields['months'] = "$myMonth";
     request.fields['price_per_month'] = "$myDiscountedAmount";
-    request.fields['discount_percentage'] = "${widget.myDatum!.discountPercentage}";
+    request.fields['discount_percentage'] = "${widget.discountPercentage}";
     request.fields['total_cost'] = "$myTotalAmount";
     request.files.add(
       http.MultipartFile(
@@ -93,7 +102,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print('months: $myMonth');
     print('totalCost: $myTotalAmount');
     print('pricePerHour: $myDiscountedAmount');
-    print('discountPercentage: ${widget.myDatum!.discountPercentage}');
+    print('discountPercentage: ${widget.discountPercentage}');
     print('licenseImage: ${image!.path.split('/').last}');
 
     var res = await request.send();
@@ -123,7 +132,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print("evTotalPrice: $myTotalAmount");
     print('evStartEndDate: $evStartDate $evEndDate');
     print("pricePerMonth: $myDiscountedAmount");
-    print("carDiscountPercentage: ${widget.myDatum!.discountPercentage}");
+    print("carDiscountPercentage: ${widget.discountPercentage}");
   }
 
   // Initial Selected Value
@@ -187,11 +196,11 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                 SizedBox(height: MediaQuery.of(context).size.height * 0.13),
                                 Row(
                                   children: [
-                                    Text("${widget.myDatum!.vehicalName} ", textAlign: TextAlign.left,
+                                    Text("${widget.carName} ", textAlign: TextAlign.left,
                                       style: TextStyle(color: kBlack,
                                         fontSize: 14, fontFamily: poppinBold)),
 
-                                    Text("${widget.myDatum!.carsColors!.name}", textAlign: TextAlign.left,
+                                    Text("${widget.carColorName}", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
                                             fontSize: 12, fontFamily: poppinRegular)),
                                   ],
@@ -199,13 +208,13 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                 Row(
                                   children: [
 
-                                    Text("${widget.myDatum!.carsMakes!.name}, ", textAlign: TextAlign.left,
+                                    Text("${widget.carMakesName}, ", textAlign: TextAlign.left,
                                       style: TextStyle(color: kBlack,
                                         fontSize: 12, fontFamily: poppinRegular)),
-                                    Text("${widget.myDatum!.carsModels!.name}, ", textAlign: TextAlign.left,
+                                    Text("${widget.carModelName}, ", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
                                             fontSize: 12, fontFamily: poppinSemiBold)),
-                                    Text("${widget.myDatum!.year} ", textAlign: TextAlign.left,
+                                    Text("${widget.carYear} ", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
                                             fontSize: 12, fontFamily: poppinRegular)),
 
@@ -220,7 +229,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                         style: TextStyle(color: kRed,
                                             fontSize: 5, fontFamily: poppinLight)),
                                     ),
-                                    Text("${widget.myDatum!.carsPlans![0].pricePerMonth}", textAlign: TextAlign.left,
+                                    Text("${widget.carPrice}", textAlign: TextAlign.left,
                                       style: TextStyle(color: kRed,
                                           decoration: TextDecoration.lineThrough,
                                           fontSize: 10, fontFamily: poppinLight),
@@ -232,7 +241,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                         style: TextStyle(color: borderColor,
                                             fontSize: 7, fontFamily: poppinSemiBold)),
                                     ),
-                                    Text("${widget.myDatum!.carsPlans![0].discountedPricePerMonth}",
+                                    Text("${widget.carDiscountPrice}",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(color: borderColor,
                                           fontSize: 20, fontFamily: poppinSemiBold)),
@@ -273,20 +282,20 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                     Row(
                                       children: [
                                         SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                                        Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                        showRatingStars(double.parse("${widget.carRating}")),
                                         SizedBox(
                                           width: MediaQuery.of(context).size.height * 0.01),
 
-                                        widget.myDatum!.rating == null?
+                                        widget.carRating == null?
                                         Text("0.0", textAlign: TextAlign.left,
                                           style: TextStyle(color: kBlack,
                                               fontSize: 12, fontFamily: poppinRegular)):
-                                        Text("${widget.myDatum!.rating}", textAlign: TextAlign.left,
+                                        Text("${widget.carRating}", textAlign: TextAlign.left,
                                             style: TextStyle(color: kBlack,
                                                 fontSize: 12, fontFamily: poppinRegular))
                                       ],
                                     ),
-                                    SizedBox(width: MediaQuery.of(context).size.height * 0.2),
+                                    SizedBox(width: MediaQuery.of(context).size.height * 0.1),
                                     Container(
                                       height: 25, width: 80,
                                       decoration: BoxDecoration(
@@ -429,8 +438,9 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                     ),
                     Positioned(
                       left: 30, right: 20, top: 30,
-                      child: Image.network("$baseUrlImage${widget.myDatum!.image1}",
-                          width: 400, height: 140),
+                      child: Image.network("${widget.carImage}",
+                        width: 350,
+                        height: 130,),
                     ),
                     Positioned(
                         top: 0, left: 20,
@@ -446,7 +456,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("${widget.myDatum!.discountPercentage}% ", textAlign: TextAlign.left,
+                              Text("${widget.discountPercentage}% ", textAlign: TextAlign.left,
                                 style: TextStyle(color: kWhite,
                                     fontSize: 12, fontFamily: poppinSemiBold)),
                               Padding(
@@ -481,7 +491,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                       }
                       await checkOutWidget();
                         Future.delayed(const Duration(seconds: 3), () {
-                          toastSuccessMessage("CheckOut Successful ", Colors.green);
+                          // toastSuccessMessage("CheckOut Successful ", Colors.green);
 
                           Navigator.push(context, MaterialPageRoute(
                               builder: (context) => const TabBarPage()));

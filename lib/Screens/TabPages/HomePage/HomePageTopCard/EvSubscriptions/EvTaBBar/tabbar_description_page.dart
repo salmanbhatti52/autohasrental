@@ -6,7 +6,8 @@ import 'feature_page/features.dart';
 import 'rating_page.dart/rating.dart';
 
 class TabbarCarDescription extends StatefulWidget {
-  const TabbarCarDescription({super.key});
+  final String? myDescription, myRating, myComment;
+  const TabbarCarDescription({super.key, this.myDescription, this.myRating, this.myComment});
 
   @override
   State<TabbarCarDescription> createState() => _TabbarCarDescriptionState();
@@ -59,10 +60,15 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
           height: MediaQuery.of(context).size.height * 0.2,
           child: TabBarView(
             controller: tabController,
-            children: const [
-              Description(),
-              Features(),
-              Rating(),
+            children: [
+              Description(
+                carDescription: widget.myDescription,
+              ),
+              const Features(),
+              EvRating(
+                carRating: widget.myRating,
+                carComment: widget.myComment,
+              ),
             ]
           ),
         ),

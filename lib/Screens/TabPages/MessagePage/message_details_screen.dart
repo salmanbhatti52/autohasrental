@@ -295,7 +295,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                   Text("${messageDetailsModelObject[index].time.toString()} ${messageDetailsModelObject[index].date.toString()}",
                                       maxLines: 1, overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left, style: TextStyle(
-                                          fontSize: 10, color: kWhite, fontFamily: poppinLight)),
+                                          fontSize: 10, color: kBlack, fontFamily: poppinLight)),
                                 ],
                               ),
                             ),
@@ -306,8 +306,8 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomLeft,
+                  Align(
+                    alignment: Alignment.bottomLeft,
                 child: Container(
                   padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
                   height: 65,

@@ -7,7 +7,7 @@ import 'home_address_experience.dart';
 class AddressTabBarExperience extends StatefulWidget {
   final String? startTime, endTime, selectedDate;
   final double? totalPrice, selectedSlotPrice;
-  final Datum? myDatum;
+  final DatumDrivingTopCard? myDatum;
 
   const AddressTabBarExperience({Key? key, this.selectedDate,
     this.totalPrice, this.selectedSlotPrice,

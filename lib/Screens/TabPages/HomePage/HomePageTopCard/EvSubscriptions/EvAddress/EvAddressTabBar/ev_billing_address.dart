@@ -10,11 +10,20 @@ import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_mo
 import 'EvCartDetails/ev_cart_details_page.dart';
 
 class EvBillingAddress extends StatefulWidget {
-  final Datum? myDatum;
+  // final Datum? myDatum;
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
+  final String? carName, carImage, carYear, carPrice, carStatus,
+      carColorName, carModelName, carMakesName, carMakesImage,
+      carRating, carOwnerImage, carOwnerName, discountPercentage;
+  final int? carId, carOwnerId;
+  final double? carDiscountPrice;
 
-  const EvBillingAddress({Key? key, this.myDatum, this.totalAmount,
+  const EvBillingAddress({Key? key, /*this.myDatum,*/
+    this.totalAmount, this.carName,
+    this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
+    this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
+    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
     this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
@@ -101,10 +110,24 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => EvCartDetailsPage(
-                          myDatum: widget.myDatum,
+                          // myDatum: widget.myDatum,
                           mySelectedTabMonth: widget.mySelectedTabMonth,
                           mySelectedTabPrice: widget.mySelectedTabPrice,
                           totalAmount: widget.totalAmount,
+
+                          carName: widget.carName,
+                          carImage: widget.carImage,
+                          carYear: widget.carYear,
+                          carPrice: widget.carPrice,
+                          carDiscountPrice: widget.carDiscountPrice,
+                          carRating: widget.carRating,
+                          carColorName: widget.carColorName,
+                          discountPercentage: widget.discountPercentage,
+                          carStatus: widget.carStatus,
+                          carId: widget.carId,
+                          carOwnerId: widget.carOwnerId,
+                          carMakesName: widget.carMakesName,
+                          carModelName: widget.carModelName,
                     )));
                   },
                   child: Container(

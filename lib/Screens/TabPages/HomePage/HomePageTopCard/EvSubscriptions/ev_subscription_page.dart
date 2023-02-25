@@ -1,15 +1,16 @@
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
-import '../../../../../Utils/api_urls.dart';
-import '../../../../../Utils/colors.dart';
-import '../../../../../Utils/constants.dart';
-import '../../../../../Utils/fontFamily.dart';
-import '../../../../../Widget/toast_message.dart';
+import 'package:http/http.dart' as http;
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import '../../Filter/filter_screen.dart';
-import 'package:http/http.dart' as http;
 import '../BookForWedding/book_for_wedding_car_logo_container.dart';
 import 'ev_car_description.dart';
 
@@ -21,7 +22,7 @@ class EvSubscriptionPage extends StatefulWidget {
 }
 
 class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
-  EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
+  EvCarsModel evCarsModelObject = EvCarsModel();
 
   @override
   void initState() {
@@ -68,8 +69,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("evSubscriptionResponse: ${responseString.toString()}");
-        evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
-        print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
+        evCarsModelObject = evCarsModelFromJson(responseString);
+        print("evSubscriptionObjectLength: ${evCarsModelObject.data!.length}");
       }
     // } catch (e) {
     //   print('Error in evSubscription: ${e.toString()}');
@@ -149,7 +150,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
           ),
 
           loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-          evSubscriptionCarsModelObject.status != "success" ?
+          evCarsModelObject.status != "success" ?
           const Center(child: Text('no data found...',
               style: TextStyle(fontWeight: FontWeight.bold)))
               : allEvSubscriptionItemsList(),
@@ -167,7 +168,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
-            itemCount: evSubscriptionCarsModelObject.data!.length,
+            itemCount: evCarsModelObject.data!.length,
             itemBuilder: (BuildContext context, int index) {
               return Stack(
                 children: [
@@ -208,23 +209,23 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Text("${evSubscriptionCarsModelObject.data![index].vehicalName} ",
+                                                    Text("${evCarsModelObject.data![index].vehicalName}, ",
                                                       style: TextStyle(color: kBlack, fontSize: 14,
                                                           fontFamily: poppinBold), textAlign: TextAlign.left),
-                                                    Text("${evSubscriptionCarsModelObject.data![index].carsColors!.name} ",
+                                                    Text("${evCarsModelObject.data![index].carsColors!.name} ",
                                                       textAlign: TextAlign.left, style: TextStyle(
                                                           color: kBlack, fontSize: 14, fontFamily: poppinRegular),),
                                                   ],
                                                 ),
                                                 Row(
                                                   children: [
-                                                    Text("${evSubscriptionCarsModelObject.data![index].carsMakes!.name}, ",
+                                                    Text("${evCarsModelObject.data![index].carsMakes!.name}, ",
                                                         style: TextStyle(color: kBlack, fontSize: 12,
                                                             fontFamily: poppinRegular), textAlign: TextAlign.left),
-                                                    Text("${evSubscriptionCarsModelObject.data![index].carsModels!.name}, ",
+                                                    Text("${evCarsModelObject.data![index].carsModels!.name}, ",
                                                         textAlign: TextAlign.left, style: TextStyle(
                                                             color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
-                                                    Text("${evSubscriptionCarsModelObject.data![index].year}",
+                                                    Text("${evCarsModelObject.data![index].year}",
                                                         textAlign: TextAlign.left, style: TextStyle(
                                                             color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                                   ],
@@ -236,7 +237,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                                       child: Text("RM",  textAlign: TextAlign.left,
                                                           style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinRegular),),
                                                     ),
-                                                    Text("${evSubscriptionCarsModelObject.data![index].carsPlans![0].pricePerMonth}",
+                                                    Text("${evCarsModelObject.data![index].carsPlans![0].pricePerMonth}",
                                                       style: TextStyle(
                                                         color: kRed,
                                                         decoration: TextDecoration.lineThrough,
@@ -252,18 +253,19 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                                       child: Text("RM",  textAlign: TextAlign.left,
                                                           style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                                     ),
-                                                    Text("${evSubscriptionCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}",
+                                                    Text("${evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}",
                                                         textAlign: TextAlign.left, style: TextStyle(
                                                           color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                                    Text("/ Month", textAlign: TextAlign.left, style: TextStyle(
+                                                    Text("/Month", textAlign: TextAlign.left, style: TextStyle(
                                                             color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                                     SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                                                    Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                                    showRatingStars(double.parse("${evCarsModelObject.data![index].rating}")),
+                                                    // Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                                                     SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                                                    evSubscriptionCarsModelObject.data![index].rating == null
+                                                    evCarsModelObject.data![index].rating == null
                                                         ? Text("0.0", style: TextStyle(color: kBlack, fontSize: 12,
                                                         fontFamily: poppinRegular), textAlign: TextAlign.left) :
-                                                    Text("${evSubscriptionCarsModelObject.data![index].rating}",
+                                                    Text("${evCarsModelObject.data![index].rating}",
                                                         style: TextStyle(color: kBlack, fontSize: 12,
                                                             fontFamily: poppinRegular), textAlign: TextAlign.left),
                                                   ],
@@ -309,17 +311,37 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                   GestureDetector(
                                     onTap: () {
                                       print("clickedddd");
-                                      carID = evSubscriptionCarsModelObject.data![index].carsId;
+                                      carID = evCarsModelObject.data![index].carsId;
                                       Navigator.push(context, MaterialPageRoute(
                                               builder: (context) => EVCarDescription(
-                                                evDatum: evSubscriptionCarsModelObject.data![index],
+                                                carName: evCarsModelObject.data![index].vehicalName,
+                                                carYear: "${evCarsModelObject.data![index].year}",
+                                                carId: evCarsModelObject.data![index].carsId,
+                                                carColorName: evCarsModelObject.data![index].carsColors!.name,
+                                                carMakesName: evCarsModelObject.data![index].carsMakes!.name,
+                                                carModelName: evCarsModelObject.data![index].carsModels!.name,
+                                                carImage: "$baseUrlImage${evCarsModelObject.data![index].image1}",
+                                                carRating: evCarsModelObject.data![index].rating,
+                                                carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
+                                                carStatus: evCarsModelObject.data![index].favouriteStatus,
+                                                discountPercentage: evCarsModelObject.data![index].discountPercentage,
+                                                carDiscountPrice: double.parse("${evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                carPrice: evCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+                                                carOwnerImage: "$baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                carOwnerName: "${evCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                carOwnerId: evCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                myCarDescription: evCarsModelObject.data![index].description,
+                                                myCarRating: evCarsModelObject.data![index].carsRatings![0].rateStars,
+                                                myCarComment: evCarsModelObject.data![index].carsRatings![0].comments,
+
+                                                // evDatum: evSubscriptionCarsModelObject.data![index],
                                               )));
-                                      print("evCarName ${evSubscriptionCarsModelObject.data![index].vehicalName}");
-                                      print("evCarYear ${evSubscriptionCarsModelObject.data![index].year}");
-                                      print("evCarImage $baseUrlImage${evSubscriptionCarsModelObject.data![index].image1}");
-                                      print("ownerImage $baseUrlImage${evSubscriptionCarsModelObject.data![index].usersCompanies!.companyLogo}");
-                                      print("ownerName ${evSubscriptionCarsModelObject.data![index].usersCompanies!.companyName}");
-                                      print("ownerId ${evSubscriptionCarsModelObject.data![index].usersCompanies!.usersCompaniesId}");
+                                      print("evCarName ${evCarsModelObject.data![index].vehicalName}");
+                                      print("evCarYear ${evCarsModelObject.data![index].year}");
+                                      print("evCarImage $baseUrlImage${evCarsModelObject.data![index].image1}");
+                                      print("ownerImage $baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}");
+                                      print("ownerName ${evCarsModelObject.data![index].usersCompanies!.companyName}");
+                                      print("ownerId ${evCarsModelObject.data![index].usersCompanies!.usersCompaniesId}");
 
                                     },
                                     child: Image.asset("assets/car_bookings_images/more_button.png"),
@@ -331,7 +353,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                             Positioned(
                               top: 10,
                               left: 10, right: 10,
-                              child: evSubscriptionCarsModelObject.data![index].image1 == null ?
+                              child: evCarsModelObject.data![index].image1 == null ?
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.asset('assets/icon/fade_in_image.jpeg')) :
@@ -340,7 +362,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                 child: FadeInImage(
                                   placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
                                   height: 130, width: 350,
-                                  image: NetworkImage("$baseUrlImage${evSubscriptionCarsModelObject.data![index].image1}"),
+                                  image: NetworkImage("$baseUrlImage${evCarsModelObject.data![index].image1}"),
                                 ),
                               ),
                             ),
@@ -359,7 +381,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("${evSubscriptionCarsModelObject.data![index].discountPercentage}",
+                                      Text("${evCarsModelObject.data![index].discountPercentage}",
                                           textAlign: TextAlign.left, style: TextStyle(color: kWhite,
                                               fontSize: 13, fontFamily: poppinSemiBold)),
                                       Text(" OFF ", textAlign: TextAlign.left, style: TextStyle(
@@ -370,11 +392,11 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                             Positioned(
                               top: 15,
                               right: 15,
-                              child: evSubscriptionCarsModelObject.data![index].favouriteStatus == "like"?
+                              child: evCarsModelObject.data![index].favouriteStatus == "like"?
                               Image.asset("assets/home_page/heart.png"):
                             GestureDetector(
                                 onTap: () async {
-                                  myCurrentCarIndex = "${evSubscriptionCarsModelObject.data![index].carsId}";
+                                  myCurrentCarIndex = "${evCarsModelObject.data![index].carsId}";
                                   print("evCarIds $myCurrentCarIndex");
                                   await getLikeUnlikeCarWidget();
                                   getEvSubscriptionCarsWidget();

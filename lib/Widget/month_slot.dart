@@ -43,7 +43,7 @@ class _MonthSlotContainerState extends State<MonthSlotContainer> with TickerProv
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("evSubscriptionResponse: ${responseString.toString()}");
-        evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
+        evSubscriptionCarsModelObject = evCarsModelFromJson(responseString);
         print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
         monthList();
       }

@@ -44,7 +44,7 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("evSubscriptionResponse: ${responseString.toString()}");
-        evSubscriptionCarsModelObject = evSubscriptionCarsModelFromJson(responseString);
+        evSubscriptionCarsModelObject = evCarsModelFromJson(responseString);
         print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
         myTotalAmount();
       }

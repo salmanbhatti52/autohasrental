@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../Utils/colors.dart';
-import 'BookingTabs/PreviousTab/previous_page.dart';
-import 'BookingTabs/UpcomingTab/upcoming_page.dart';
+import 'BookingTabs/PreviousTab/PreviousTabs/previous_tabs_page.dart';
+import 'BookingTabs/UpcomingTab/UpcomingTabs/upcoming_tabs_page.dart';
 
 class TabbarCarBookings extends StatefulWidget {
   const TabbarCarBookings({super.key});
@@ -26,7 +26,7 @@ class _TabbarCarBookingsState extends State<TabbarCarBookings>
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Container(
-              width: 344,
+              width: MediaQuery.of(context).size.width,
               height: 48,
               decoration: BoxDecoration(
                   color: const Color(0xffd4dce1),
@@ -62,8 +62,8 @@ class _TabbarCarBookingsState extends State<TabbarCarBookings>
           child: TabBarView(
             controller: tabController,
             children: const [
-              PreviousPage(),
-              UpcomingPage(),
+              PreviousTabsPages(),
+              UpComingTabsPages(),
             ],
           ),
         ),

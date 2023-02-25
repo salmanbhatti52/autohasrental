@@ -8,18 +8,23 @@ class SignUpModel {
   SignUpModel({
     this.status,
     this.data,
+    this.message
   });
 
   String? status;
+  String? message;
   List<Datum>? data = <Datum>[];
 
   factory SignUpModel.fromJson(Map<String, dynamic> json) => SignUpModel(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    message : json["message"] != null ? json["message"] : null,
+    // data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null,
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
+    'message' : message,
     "data": List<dynamic>.from(data!.map((x) => x.toJson())),
   };
 }

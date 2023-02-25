@@ -7,6 +7,7 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ import '../../../../../../MyAppBarHeader/app_bar_header.dart';
 
 class CartDetailsPageExperience extends StatefulWidget {
   final String? startTime, endTime, selectedDate;
-  final Datum? myDatum;
+  final DatumDrivingTopCard? myDatum;
   final double? totalPrice, selectedSlotPrice;
 
   const CartDetailsPageExperience({Key? key, this.selectedDate, this.selectedSlotPrice,
@@ -183,14 +184,13 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                     Text("${widget.myDatum!.vehicalName} ", textAlign: TextAlign.left,
                                       style: TextStyle(color: kBlack,
                                         fontSize: 14, fontFamily: poppinBold)),
-                                    Text("${widget.myDatum!.year}", textAlign: TextAlign.left,
+                                    Text("${widget.myDatum!.carsColors!.name}", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
                                             fontSize: 10, fontFamily: poppinRegular)),
                                   ],
                                 ),
                                 Row(
                                   children: [
-
                                     Text("${widget.myDatum!.carsMakes!.name} ", textAlign: TextAlign.left,
                                       style: TextStyle(color: kBlack,
                                         fontSize: 12, fontFamily: poppinRegular)),
@@ -264,7 +264,8 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                     Row(
                                       children: [
                                         SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                                        Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                        // Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
+                                        showRatingStars(double.parse("${widget.myDatum!.rating}")),
                                         SizedBox(
                                           width: MediaQuery.of(context).size.height * 0.01),
 
@@ -277,7 +278,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                                 fontSize: 12, fontFamily: poppinRegular))
                                       ],
                                     ),
-                                    SizedBox(width: MediaQuery.of(context).size.height * 0.2),
+                                    SizedBox(width: MediaQuery.of(context).size.height * 0.1),
                                     Container(
                                       height: 25, width: 80,
                                       decoration: BoxDecoration(
@@ -423,8 +424,9 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                       top: 35,
                       left: 50, right: 50,
                       child: Image.network("$baseUrlImage${widget.myDatum!.image1}",
-                          fit: BoxFit.fill,
-                          width: 100, height: 130),
+                          // fit: BoxFit.fill,
+                        width: 350,
+                        height: 130,),
                     ),
                     Positioned(
                         top: 0, left: 20,

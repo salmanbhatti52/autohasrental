@@ -5,11 +5,21 @@ import 'ev_billing_address.dart';
 import 'ev_home_address.dart';
 
 class EvAddressTabBar extends StatefulWidget {
-  final Datum? myDatum;
+  // final Datum? myDatum;
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
 
-  const EvAddressTabBar({Key? key, this.myDatum, this.totalAmount,
+  final String? carName, carImage, carYear, carPrice, carStatus,
+      carColorName, carModelName, carMakesName, carMakesImage,
+      carRating, carOwnerImage, carOwnerName, discountPercentage;
+  final int? carId, carOwnerId;
+  final double? carDiscountPrice;
+
+  const EvAddressTabBar({Key? key, /*this.myDatum,*/ this.totalAmount,
+    this.carName,
+    this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
+    this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
+    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
     this.mySelectedTabMonth, this.mySelectedTabPrice}): super(key: key);
 
   @override
@@ -83,10 +93,24 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with TickerProviderSt
             children: [
               const EvHomeAddress(),
               EvBillingAddress(
-                myDatum: widget.myDatum,
+                // myDatum: widget.myDatum,
                 mySelectedTabMonth: widget.mySelectedTabMonth,
                 mySelectedTabPrice: widget.mySelectedTabPrice,
                 totalAmount: widget.totalAmount,
+
+                carName: widget.carName,
+                carImage: widget.carImage,
+                carYear: widget.carYear,
+                carPrice: widget.carPrice,
+                carDiscountPrice: widget.carDiscountPrice,
+                carRating: widget.carRating,
+                carColorName: widget.carColorName,
+                discountPercentage: widget.discountPercentage,
+                carStatus: widget.carStatus,
+                carId: widget.carId,
+                carOwnerId: widget.carOwnerId,
+                carMakesName: widget.carMakesName,
+                carModelName: widget.carModelName,
               ),
             ],
           ),

@@ -59,16 +59,15 @@ class _SignUpPageState extends State<SignUpPage> {
         },
       );
       final responseString = response.body;
-      print("response SignUpApi: $responseString");
+      print("responseSignUpApi: $responseString");
 
       print("status Code SignUp: ${response.statusCode}");
+      print("in 200 signUp");
       if (response.statusCode == 200) {
-        print("in 200 signUp");
-        if (responseString != 'false') {
           signUpModel = signUpModelFromJson(responseString);
           setState(() {});
           print('signUpModel status: ${signUpModel.status}');
-        }
+
       }
     // } catch (e) {
     //   print('singUp error in catch = ${e.toString()}');
@@ -207,7 +206,7 @@ class _SignUpPageState extends State<SignUpPage> {
                            });
                          }
                          if(signUpModel.status != "success"){
-                           toastFailedMessage("error", kRed);
+                           toastFailedMessage(signUpModel.message, kRed);
                            setState(() {
                              isInAsyncCall = false;
                            });

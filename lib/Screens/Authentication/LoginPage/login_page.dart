@@ -35,25 +35,6 @@ class _LoginPageState extends State<LoginPage> {
 
   bool loading = true;
 
-  // sharedPrefs() async {
-  //   loading = true;
-  //   setState(() {});
-  //   print('in LoginPage shared prefs');
-  //   prefs = await SharedPreferences.getInstance();
-  //   userId = (prefs!.getString('userid'));
-  //   userEmail = (prefs!.getString('user_email'));
-  //   print("userId in  LoginPrefs is = $userId");
-  //   print("userEmail in  LoginPrefs is = $userEmail");
-  //   if (userId != null) {
-  //     Navigator.push(context, MaterialPageRoute(builder: (context) => const TabBarPage()));
-  //   }
-  //   else{
-  //     loading = false;
-  //     setState(() {});
-  //     print("userId value is = $userId");
-  //   }
-  // }
-
   userLogin() async {
     // try {
       String apiUrl = loginApiUrl;
@@ -75,11 +56,9 @@ class _LoginPageState extends State<LoginPage> {
       print("status Code SignIn: ${response.statusCode}");
       if (response.statusCode == 200) {
         print("in 200 signUp");
-        // if (responseString != 'false') {
           userLoginModel = userLoginModelFromJson(responseString);
           setState(() {});
           print('signInModel status: ${userLoginModel.status}');
-        // }
       }
     // } catch (e) {
     //   print('signIn error in catch = ${e.toString()}');
@@ -159,7 +138,6 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) => const ResetPasswordPage()));
                           },
-
                           child: Text('Forgot your password?', style: TextStyle(
                               color: kWhite, fontFamily: poppinRegular, fontSize: 12),)),
                     ],
@@ -184,13 +162,13 @@ class _LoginPageState extends State<LoginPage> {
                           if (userLoginModel.status == "success") {
                             print("LogIn Success");
                             SharedPreferences sharedPref = await SharedPreferences.getInstance();
-                            await sharedPref.setString('userid', userLoginModel.data!.usersCustomersId.toString());
-                            await sharedPref.setString('token', userLoginModel.data!.firstName!);
-                            await sharedPref.setString('user_email', userLoginModel.data!.email!);
-                            await sharedPref.setString('username', userLoginModel.data!.lastName!);
-                            await sharedPref.setString('profile_pic', userLoginModel.data!.profilePic!);
+                            await sharedPref.setString('userid', "${userLoginModel.data?.usersCustomersId.toString()}");
+                            await sharedPref.setString('user_first_name', "${userLoginModel.data?.firstName.toString()}");
+                            await sharedPref.setString('user_email', "${userLoginModel.data?.email.toString()}");
+                            await sharedPref.setString('user_last_name', "${userLoginModel.data?.lastName.toString()}");
+                            await sharedPref.setString('profile_pic', "${userLoginModel.data?.profilePic}");
                             print("userId: ${userLoginModel.data!.usersCustomersId.toString()}");
-                            print("userEmail: ${userLoginModel.data!.email!}");
+                            print("userEmail: ${userLoginModel.data!.email}");
                             print("userFirstName: ${userLoginModel.data!.firstName!}");
                             print("userLastName: ${userLoginModel.data!.lastName!}");
 
