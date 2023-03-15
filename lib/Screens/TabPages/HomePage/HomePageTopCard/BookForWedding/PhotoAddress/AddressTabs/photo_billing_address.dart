@@ -5,11 +5,9 @@ import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
 import 'CartDetails/photo_cart_details.dart';
 
 class PhotoBillingAddress extends StatefulWidget {
-  // final DatumPhotography? datumPhotography;
   final String? amount, myDate, myDay, selectedHours,
       selectedStartTime, selectedEndTime;
   final int? totalHoursInNumber;
@@ -17,18 +15,21 @@ class PhotoBillingAddress extends StatefulWidget {
 
   final String? carName, carImage, carYear, carPrice, favouriteStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
-      carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
+      carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice,
+      homeStreetAddress1, homeStreetAddress2, homeCity, homePostCode,
+      homeSelectedState, homeSelectedCountry;
   final int? carId, carOwnerId;
 
   const PhotoBillingAddress(
-      {Key? key, /*this.datumPhotography,*/ this.myDate, this.myDay, this.totalHoursInNumber,
-        this.selectedHours, this.hoursAmount, this.totalAmount, this.selectedStartTime, this.selectedEndTime, this.amount,
-
+      {Key? key, this.myDate, this.myDay, this.totalHoursInNumber,
+        this.selectedHours, this.hoursAmount, this.totalAmount,
+        this.selectedStartTime, this.selectedEndTime, this.amount,
         this.carName, this.carColorName, this.carModelName, this.discountPercentage,
         this.carDiscountPrice, this.carImage, this.carYear, this.carMakesImage,
         this.favouriteStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
-        this.carOwnerId, this.carOwnerImage, this.carOwnerName
-      }) : super(key: key);
+        this.carOwnerId, this.carOwnerImage, this.carOwnerName, this.homeCity,
+        this.homeStreetAddress1, this.homeStreetAddress2,
+        this.homePostCode, this.homeSelectedState, this.homeSelectedCountry}) : super(key: key);
 
   @override
   State<PhotoBillingAddress> createState() => _PhotoBillingAddressState();
@@ -134,7 +135,6 @@ class _PhotoBillingAddressState extends State<PhotoBillingAddress> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => PhotoCartDetailsPage(
-                                    // datumPhotography: widget.datumPhotography,
                                     amount: widget.amount,
                                     selectedHours: widget.selectedHours,
                                     hoursAmount: widget.hoursAmount,
@@ -161,6 +161,21 @@ class _PhotoBillingAddressState extends State<PhotoBillingAddress> {
                                     carOwnerImage: widget.carOwnerImage,
                                     carOwnerName: widget.carOwnerName,
                                     carOwnerId: widget.carOwnerId,
+
+
+                                    homeAddress1: widget.homeStreetAddress1,
+                                    homeAddress2: widget.homeStreetAddress2,
+                                    homeCity: widget.homeCity,
+                                    homePostCode: widget.homePostCode,
+                                    homeState: widget.homeSelectedState,
+                                    homeCountry: widget.homeSelectedCountry,
+
+                                    billingAddress1: widget.homeStreetAddress1,
+                                    billingAddress2: widget.homeStreetAddress2,
+                                    billingCity: widget.homeCity,
+                                    billingPostCode: widget.homePostCode,
+                                    billingState: widget.homeSelectedState,
+                                    billingCountry: widget.homeSelectedCountry,
                                   )));
                         },
                         child: Container(
@@ -241,9 +256,7 @@ class _PhotoBillingAddressState extends State<PhotoBillingAddress> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           textWidgetBlack("Country"),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                           GestureDetector(
                             onTap: () {
                               showCountryPicker(
@@ -327,9 +340,57 @@ class _PhotoBillingAddressState extends State<PhotoBillingAddress> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02),
-                      loginButton("Save", context),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PhotoCartDetailsPage(
+                                      amount: widget.amount,
+                                      selectedHours: widget.selectedHours,
+                                      hoursAmount: widget.hoursAmount,
+                                      totalAmount: widget.totalAmount,
+                                      selectedStartTime: widget.selectedStartTime,
+                                      selectedEndTime: widget.selectedEndTime,
+                                      myDate: widget.myDate,
+                                      myDay: widget.myDay,
+                                      totalHoursInNumber: widget.totalHoursInNumber,
+
+                                      carName: widget.carName,
+                                      carYear: widget.carYear,
+                                      carId: widget.carId,
+                                      carRating: widget.carRating,
+                                      carColorName: widget.carColorName,
+                                      carMakesName: widget.carMakesName,
+                                      carModelName: widget.carModelName,
+                                      carImage: widget.carImage,
+                                      carMakesImage: widget.carMakesImage,
+                                      favouriteStatus: widget.favouriteStatus,
+                                      discountPercentage: widget.discountPercentage,
+                                      carDiscountPrice: widget.carDiscountPrice,
+                                      carPrice: widget.carPrice,
+                                      carOwnerImage: widget.carOwnerImage,
+                                      carOwnerName: widget.carOwnerName,
+                                      carOwnerId: widget.carOwnerId,
+
+
+                                      homeAddress1: widget.homeStreetAddress1,
+                                      homeAddress2: widget.homeStreetAddress2,
+                                      homeCity: widget.homeCity,
+                                      homePostCode: widget.homePostCode,
+                                      homeState: widget.homeSelectedState,
+                                      homeCountry: widget.homeSelectedCountry,
+
+                                      billingAddress1: widget.homeStreetAddress1,
+                                      billingAddress2: widget.homeStreetAddress2,
+                                      billingCity: widget.homeCity,
+                                      billingPostCode: widget.homePostCode,
+                                      billingState: widget.homeSelectedState,
+                                      billingCountry: widget.homeSelectedCountry,
+                                    )));
+                          },
+                          child: loginButton("Save", context)),
                     ],
                   ),
           ],

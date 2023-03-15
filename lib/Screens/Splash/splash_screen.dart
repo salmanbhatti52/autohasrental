@@ -9,7 +9,7 @@ import '../Introduction_screens/introduction_page.dart';
 import '../TabPages/tab_page.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -33,12 +33,12 @@ class _SplashScreenState extends State<SplashScreen> {
     print("userFirstName in  LoginPrefs is = $userFirstName $userLastName");
     print("userImage in  LoginPrefs is = $userImage");
     if (userId != null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const TabBarPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarPage()));
     }
     else{
       loading = false;
       setState(() {});
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
       print("userId value is = $userId");
     }
   }
@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
   splashNavigator() {
     Timer(const Duration(seconds: 3), () {
       sharedPrefs();
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
     });
   }
 }

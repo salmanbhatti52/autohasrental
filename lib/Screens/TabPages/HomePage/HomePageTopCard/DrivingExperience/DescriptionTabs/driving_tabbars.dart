@@ -2,6 +2,7 @@ import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/dr
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
+import '../../EvSubscriptions/EvTaBBar/rating_page.dart/ev_rating.dart';
 import 'Features/driving_features.dart';
 import 'Rating/driving_rating.dart';
 import 'description/driving_description.dart';
@@ -64,7 +65,7 @@ class _DrivingTabBarsState extends State<DrivingTabBars>
             children: [
               DrivingDescription(datumTopCard: widget.datumTopCard),
               const DrivingFeatures(),
-              DrivingRating(datumTopCard: widget.datumTopCard),
+              EvRating(),
             ]
           ),
         ),

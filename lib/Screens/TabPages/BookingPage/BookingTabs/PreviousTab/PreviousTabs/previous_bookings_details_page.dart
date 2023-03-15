@@ -1,0 +1,341 @@
+import 'package:auto_haus_rental_app/Model/get_rate_cars_model.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../../Model/BookingModels/Previous/Photo/photo_previous_model.dart';
+import '../../../../../../Model/car_ratings_model.dart';
+import '../../../../MyAppBarHeader/app_bar_header.dart';
+import 'package:http/http.dart'as http;
+
+class PreviousBookingDetailsPage extends StatefulWidget {
+  final DatumPhotoPrevious? datumPreviousPhoto;
+   final String? myStatus;
+  final String? bookingId;
+
+  PreviousBookingDetailsPage({super.key, this.datumPreviousPhoto, this.bookingId, this.myStatus});
+
+  @override
+  State<PreviousBookingDetailsPage> createState() => _PreviousBookingDetailsPageState();
+}
+
+class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage> {
+  double? ratingValue;
+  var carRatingController = TextEditingController();
+  final GlobalKey<FormState> ratingsFormKey = GlobalKey<FormState>();
+  RateCarModel rateCarModelObject = RateCarModel();
+  GetStatusRateCarsModel getRateCarsModel = GetStatusRateCarsModel();
+  bool loadingP = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getRateCarWidget();
+    print("bookingCompleteStatus ${widget.myStatus}");
+    super.initState();
+  }
+
+  getRateCarWidget() async {
+    loadingP = true;
+    setState(() {});
+
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    // print('in getRateCarApi');
+    print('userId in getRateCarApi $userId ${widget.datumPreviousPhoto!.carsId}');
+
+    // try {
+    String apiUrl = getRateCarApiUrl;
+    print("getRateCarApi: $apiUrl");
+    final response = await http.post(Uri.parse(apiUrl), headers: {
+      'Accept': 'application/json'
+    },
+        body: {
+          "users_customers_id": userId,
+          "cars_id": "${widget.datumPreviousPhoto!.carsId}",
+        });
+    print('${response.statusCode}');
+    print(response);
+    if (response.statusCode == 200) {
+      final responseString = response.body;
+      print("responseGetRateCar: ${responseString.toString()}");
+      loadingP = false;
+      setState(() {});
+      getRateCarsModel = getStatusRateCarsModelFromJson(responseString);
+      print("getRateCarApiMessage: ${getRateCarsModel.message}");
+    }
+    // } catch (e) {
+    //   print('Error in upcomingBookingCar: ${e.toString()}');
+    // }
+    loadingP = false;
+    setState(() {});
+  }
+
+  bool _isLoading = true;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: MyAppBarSingleImage(
+          backImage: "assets/car_bookings_images/back_arrow.png", title: "Bookings"),
+      backgroundColor: homeBgColor,
+      body: Column(
+        children: [
+          SizedBox(height: 10),
+          Expanded(
+            flex: 7,
+            child: Stack(
+              children: [
+                InAppWebView(
+                  initialUrlRequest: URLRequest(
+                    url: Uri.parse("https://app.autohauscarrental.com/api/bookings_print/${widget.bookingId}"),
+                  ),
+                  onLoadStart: (controller, url) {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                  },
+                  onLoadStop: (controller, url) {
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  },
+                ),
+                if (_isLoading)
+                  Center(
+                    child: CircularProgressIndicator(color: borderColor,),
+                  ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: widget.myStatus == "Completed"?
+              Container(
+                height: 0,
+                color: Colors.transparent,
+                child: GestureDetector(
+                    onTap: () {
+                      if(getRateCarsModel.message == "Rating already given"){
+                        toastSuccessMessage("${getRateCarsModel.message}", kRed);
+                      }
+                      else{
+                        ratingsDialogBox(context);
+                      }
+                    },
+                    child: loginButton('Give Ratings', context)),
+              ): loginButton('Give Ratings', context)
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  carRatingsWidget() async {
+    loadingP = true;
+    setState(() {});
+
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    print('in rateCarApi');
+
+    // try {
+    String apiUrl = carsRatingApiUrl;
+    print("rateCarModelApi: $apiUrl");
+    print("userId carId: $userId ${widget.datumPreviousPhoto!.carsId}");
+    print("rateCarMControllerApi: ${carRatingController.text}");
+    print("ratingValue: $ratingValue");
+    final response = await http.post(Uri.parse(apiUrl), headers: {
+      'Accept': 'application/json'
+    }, body: {
+      "users_customers_id": userId,
+      "cars_id" : "${widget.datumPreviousPhoto!.carsId}",
+      "comments": carRatingController.text,
+      "rate_stars": "$ratingValue"
+
+    });
+    print('${response.statusCode}');
+    print(response);
+    if (response.statusCode == 200) {
+      final responseString = response.body;
+      print("responseCarRatings: ${responseString.toString()}");
+      loadingP = false;
+      setState(() {});
+      rateCarModelObject = rateCarModelFromJson(responseString);
+      print("rateCarMessage: ${rateCarModelObject.message}");
+      Navigator.pop(context);
+    }
+    // } catch (e) {
+    //   print('Error in upcomingBookingCar: ${e.toString()}');
+    // }
+    loadingP = false;
+    setState(() {});
+  }
+
+  void ratingsDialogBox(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Color(0xffb0b0b0),
+            child: Container(
+              color: Color(0xff0f172a).withOpacity(0.5),
+              child: AlertDialog(
+                backgroundColor: homeBgColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                content: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Image.asset('assets/car_bookings_images/close.png'),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                      Text("Ratings",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: borderColor),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                      Text(
+                        "Give your Ratings \n   and Feedback",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xffb0b0b0),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      RatingBar(
+                          initialRating: 0,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          minRating: 1,
+                          itemSize: 30.0,
+                          ratingWidget: RatingWidget(
+                              full: Icon(Icons.star, color: borderColor),
+                              half: Icon(
+                                Icons.star_half,
+                                color: borderColor,
+                              ),
+                              empty: Icon(
+                                Icons.star_outline,
+                                color: borderColor,
+                              )),
+                          onRatingUpdate: (value) {
+                            setState(() {
+                              ratingValue = value;
+                              print("ratingValue $ratingValue");
+                            });
+                          }),
+
+                      // Image.asset(
+                      //   "assets/car_bookings_images/rating.png",
+                      //   height: 30,
+                      // ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                      Form(
+                        key: ratingsFormKey,
+                        child: TextField(
+                          cursorColor: borderColor,
+                          controller: carRatingController,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 4,
+                          decoration: InputDecoration(
+                            hintText: "Add your feedback",
+                            hintStyle: TextStyle(
+                                fontSize: 16, color: Color(0xffb0b0b0)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Color(0xffd4dce1),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 90),
+                        child: Text(
+                          "*Maximum 150 characters",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: borderColor,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 25),
+                        child: GestureDetector(
+                          onTap: () async {
+
+                            print("ratingValue $ratingValue");
+                            if(ratingsFormKey.currentState!.validate()){
+                              if(carRatingController.text.isEmpty){
+                                toastFailedMessage("Please add your feedback", kRed);
+                              } else {
+                                await carRatingsWidget();
+
+                                if(rateCarModelObject.status == "Success"){
+                                  // Navigator.pop(context);
+                                  toastSuccessMessage("${rateCarModelObject.message}", colorGreen);
+                                }
+                                if(rateCarModelObject.status == "error"){
+                                  toastFailedMessage("${rateCarModelObject.message}", kRed);
+                                }
+                              }
+                            }
+                          },
+                          child: Center(
+                            child: Container(
+                              height: 44,
+                              width: 202,
+                              decoration: BoxDecoration(
+                                  color: borderColor,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Center(
+                                child: Text('Okay',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 16)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+}

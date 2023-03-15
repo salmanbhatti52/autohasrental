@@ -22,9 +22,15 @@ class CartDetailsPageExperience extends StatefulWidget {
   final String? startTime, endTime, selectedDate;
   final DatumDrivingTopCard? myDatum;
   final double? totalPrice, selectedSlotPrice;
+  final String? homeAddress1, homeAddress2, homeCity, homePostCode, homeState, homeCountry,
+      billingAddress1, billingAddress2, billingCity, billingPostCode, billingState, billingCountry;
 
-  const CartDetailsPageExperience({Key? key, this.selectedDate, this.selectedSlotPrice,
-    this.totalPrice, this.myDatum, this.startTime, this.endTime}) : super(key: key);
+  CartDetailsPageExperience({Key? key, this.selectedDate, this.selectedSlotPrice,
+    this.totalPrice, this.myDatum, this.startTime, this.endTime,
+    this.homeAddress1, this.homeAddress2, this.homeCity, this.homePostCode, this.homeState,
+    this.homeCountry, this.billingAddress1, this.billingAddress2, this.billingCity,
+    this.billingPostCode, this.billingState, this.billingCountry
+  }) : super(key: key);
 
   @override
   State<CartDetailsPageExperience> createState() => _CartDetailsPageExperienceState();
@@ -52,6 +58,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
     }
   }
   bool isInAsyncCall = false;
+  String? addressAvailableStatus;
 
   PhotographyCheckOutModel photographyCheckOutModelObject = PhotographyCheckOutModel();
   bool loader = false;
@@ -64,6 +71,20 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
     print("carDiscountPercentage: ${widget.myDatum!.discountPercentage}");
     print("totalCost: ${widget.totalPrice}");
     print("slotPrice: ${widget.selectedSlotPrice}");
+    print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
+    print("homePostCity: ${widget.homeCity} ${widget.homePostCode}");
+    print("homeState: ${widget.homeState} ${widget.homeCountry}");
+    print("billingAddress: ${widget.billingAddress1} ${widget.billingAddress2}");
+    print("billingPostCity: ${widget.billingCity} ${widget.billingPostCode}");
+    print("billingState: ${widget.billingState} ${widget.billingCountry}");
+    if(widget.homeAddress1!.isEmpty || widget.homeAddress2!.isEmpty || widget.homeCity!.isEmpty){
+      addressAvailableStatus = "No";
+      print("addressAvailableStatus $addressAvailableStatus");
+    }
+    else{
+      addressAvailableStatus = "Yes";
+      print("addressAvailableStatus $addressAvailableStatus");
+    }
   }
 
   checkOutWidget() async {
@@ -86,6 +107,19 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
     request.fields['price_per_slot'] = "${widget.myDatum!.carsPlans![0].discountedPricePerSlot}";
     request.fields['discount_percentage'] = "${widget.myDatum!.discountPercentage}";
     request.fields['total_cost'] = "${widget.totalPrice}";
+    request.fields['addresses'] = "$addressAvailableStatus";
+    request.fields['home_street_address_line1'] = "${widget.homeAddress1}";
+    request.fields['home_street_address_line2'] = "${widget.homeAddress2}";
+    request.fields['home_city'] = "${widget.homeCity}";
+    request.fields['home_post_code'] = "${widget.homePostCode}";
+    request.fields['home_state'] = "${widget.homeState}";
+    request.fields['home_country'] = "${widget.homeCountry}";
+    request.fields['billing_street_address_line1']= "${widget.billingAddress1}";
+    request.fields['billing_street_address_line2']= "${widget.billingAddress2}";
+    request.fields['billing_city'] = "${widget.billingCity}";
+    request.fields['billing_post_code'] = "${widget.billingPostCode}";
+    request.fields['billing_state'] = "${widget.billingState}";
+    request.fields['billing_country'] = "${widget.billingCountry}";
     request.files.add(
       http.MultipartFile(
         'driving_license',
@@ -106,6 +140,13 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
     print('totalCost: ${widget.totalPrice}');
     print('pricePerHour: ${widget.myDatum!.carsPlans![0].discountedPricePerSlot}');
     print('discountPercentage: ${widget.myDatum!.discountPercentage}');
+    print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
+    print("addressAvailableStatus $addressAvailableStatus");
+    print("homePostCity: ${widget.homeCity} ${widget.homePostCode}");
+    print("homeState: ${widget.homeState} ${widget.homeCountry}");
+    print("billingAddress: ${widget.billingAddress1} ${widget.billingAddress2}");
+    print("billingPostCity: ${widget.billingCity} ${widget.billingPostCode}");
+    print("billingState: ${widget.billingState} ${widget.billingCountry}");
     print('licenseImage: ${image!.path.split('/').last}');
 
     var res = await request.send();
@@ -138,7 +179,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImage(
+      appBar: MyAppBarSingleImage(
         title: "Cart Details",
         backImage: "assets/messages_images/Back.png",
       ),
@@ -151,7 +192,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
           color: borderColor,
         ),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -166,7 +207,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                       left: 0,
                       right: 0,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.78,
                           width: MediaQuery.of(context).size.width * 0.47,
@@ -174,7 +215,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                               color: kWhite,
                               borderRadius: BorderRadius.circular(20)),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            padding: EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -206,7 +247,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                 Row(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 04),
+                                      padding: EdgeInsets.only(top: 04),
                                       child: Text("RM ", textAlign: TextAlign.left,
                                         style: TextStyle(color: kRed,
                                             fontSize: 5, fontFamily: poppinLight)),
@@ -218,7 +259,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                     ),
                                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 06),
+                                      padding: EdgeInsets.only(top: 06),
                                       child: Text("RM ", textAlign: TextAlign.left,
                                         style: TextStyle(color: borderColor,
                                             fontSize: 7, fontFamily: poppinSemiBold)),
@@ -228,7 +269,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                       style: TextStyle(color: borderColor,
                                           fontSize: 20, fontFamily: poppinSemiBold)),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 4),
+                                      padding: EdgeInsets.only(top: 4),
                                       child: Text("/slot", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
                                             fontSize: 8, fontFamily: poppinRegular),
@@ -240,11 +281,11 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                 Row(
                                   children: [
                                     Image.asset("assets/home_page/Promoted.png"),
-                                    const SizedBox(width: 05),
+                                    SizedBox(width: 05),
                                     Text("Verified Dealer", textAlign: TextAlign.left,
                                       style: TextStyle(color: textLabelColor,
                                         fontSize: 10, fontFamily: poppinRegular)),
-                                    const SizedBox(width: 05,),
+                                    SizedBox(width: 05,),
                                     Container(
                                       height: 20, width: 40,
                                       decoration: BoxDecoration(
@@ -292,7 +333,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                     ),
                                   ],
                                 ),
-                                const Padding(
+                                Padding(
                                   padding: EdgeInsets.symmetric(vertical: 05),
                                   child: Divider(),
                                 ),
@@ -356,7 +397,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                               radius: (screenWidth > 600) ? 90 : 70,
                                               backgroundColor: Colors.transparent,
                                               backgroundImage: image == null?
-                                              const AssetImage("assets/icon/fade_in_image.jpeg",)
+                                              AssetImage("assets/icon/fade_in_image.jpeg",)
                                                   : Image.file(image!, height: 50, width: 50, fit: BoxFit.contain,).image,
                                             ),
                                           ),
@@ -433,7 +474,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                         child: Container(
                           height: MediaQuery.of(context).size.width * 0.07,
                           width: MediaQuery.of(context).size.width * 0.2,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             color: Colors.red,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(15),
@@ -446,7 +487,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                                 style: TextStyle(color: kWhite,
                                     fontSize: 12, fontFamily: poppinSemiBold)),
                               Padding(
-                                padding: const EdgeInsets.only(top: 03),
+                                padding: EdgeInsets.only(top: 03),
                                 child: Text("OFF ", textAlign: TextAlign.left,
                                     style: TextStyle(color: kWhite,
                                         fontSize: 8, fontFamily: poppinRegular)),
@@ -481,7 +522,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
                           toastSuccessMessage("CheckOut Successful ", Colors.green);
 
                           Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => const TabBarPage()));
+                              builder: (context) => TabBarPage()));
                           setState(() {
                             isInAsyncCall = false;
                           });
@@ -491,7 +532,7 @@ class _CartDetailsPageExperienceState extends State<CartDetailsPageExperience> {
 
                   },
                   child: loginButton("Check out", context)),
-              const SizedBox(height: 20,),
+              SizedBox(height: 20,),
             ],
           ),
         ),

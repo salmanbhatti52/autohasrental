@@ -4,11 +4,13 @@ import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../../../Model/BookingModels/Upcoming/Photography/photo_upcoming_model.dart';
-import '../upcoming_details_page.dart';
+import '../../../PreviousTab/PreviousTabs/previous_bookings_details_page.dart';
+import '../../upcoming_bookings_details_page.dart';
+import '../EvUpcoming/ev_upcoming_page.dart';
+import 'photo_bookings_details_upcoming.dart';
 
 class PhotographyUpcomingPage extends StatefulWidget {
   const PhotographyUpcomingPage({super.key});
@@ -210,7 +212,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                               Text("/Hour", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
-                                              showRatingStars(double.parse("${photoUpcomingModelObject.data![index].carsRatings![0].rateStars}")),
+                                              showRatingStars(double.parse("${photoUpcomingModelObject.data![index].carsDetails!.rating}")),
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01),
 
                                               photoUpcomingModelObject.data![index].carsDetails!.rating == null?
@@ -259,30 +261,14 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
+                            carBookingsId = "${photoUpcomingModelObject.data![index].bookingsId}";
                             print("clicked....");
                             print("${photoUpcomingModelObject.data![index].carsDetails!.vehicalName}");
                             print("${photoUpcomingModelObject.data![index].carsDetails!.carsModels}");
                             print("${photoUpcomingModelObject.data![index].carsDetails!.rating}");
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => UpcomingDetailsPage(
-                                  carId: "${photoUpcomingModelObject.data![index].carsId}",
-                                  carName: photoUpcomingModelObject.data![index].carsDetails!.vehicalName,
-                                  carYear: "${photoUpcomingModelObject.data![index].carsDetails!.year}",
-                                  carColors: photoUpcomingModelObject.data![index].carsDetails!.carsColors!.name,
-                                  carMakes: photoUpcomingModelObject.data![index].carsDetails!.carsMakes,
-                                  carModel: photoUpcomingModelObject.data![index].carsDetails!.carsModels,
-                                  carRating: photoUpcomingModelObject.data![index].carsDetails!.rating,
-                                  carPrice: photoUpcomingModelObject.data![index].carsPlans![0].pricePerHour,
-                                  discountPercentage: photoUpcomingModelObject.data![index].carsDetails!.discountPercentage,
-                                  carImage: "$baseUrlImage${photoUpcomingModelObject.data![index].carsDetails!.image1}",
-                                  carDesc: photoUpcomingModelObject.data![index].carsDetails!.description,
-                                  userRating: photoUpcomingModelObject.data![index].carsRatings![0].rateStars,
-                                  userComment: photoUpcomingModelObject.data![index].carsRatings![0].comments,
-
-
-                                  // datumUpcoming: photoUpcomingModelObject.data![index],
-                                  // carDesc: photoUpcomingModelObject.data![index].carsDetails!.description,
-                                  // datumPrevious: previousBookingModelObject.data![index],
+                                builder: (context) => UpcomingBookingDetailsPage(
+                                  bookingId: "${photoUpcomingModelObject.data![index].bookingsId}",
                                 )));
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png")),

@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 import 'verify_forget_otp_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({Key? key}) : super(key: key);
+  ResetPasswordPage({Key? key}) : super(key: key);
 
   @override
   State<ResetPasswordPage> createState() => _ResetPasswordPageState();
@@ -62,7 +62,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
-      appBar: const MyAppBarSignUp(title: "Reset Password"),
+      appBar: MyAppBarSignUp(title: "Reset Password"),
       body: ModalProgressHUD(
         inAsyncCall: progress,
         opacity: 0.02,
@@ -73,7 +73,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(0.0),
+            padding: EdgeInsets.all(0.0),
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
@@ -85,7 +85,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     "Enter the email address associated with your account. We'll send you a link to reset your password.",
                     textAlign: TextAlign.center,
@@ -136,7 +136,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       }
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 0),
                       child: loginButton("Send Reset Link", context),
                     )),
               ],
@@ -149,7 +149,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   Widget buildTextFields() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         color: Colors.transparent,
         child: Form(

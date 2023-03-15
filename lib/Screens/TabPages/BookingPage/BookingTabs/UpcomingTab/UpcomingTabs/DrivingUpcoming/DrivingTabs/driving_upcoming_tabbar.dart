@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Model/BookingModels/Upcoming/DrivingUpComing/driving_upcoming_model.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'DrivingUpcomingDescription/driving_upcoming_description.dart';
@@ -5,8 +6,8 @@ import 'EvFeatures/upcoming_features_details.dart';
 import 'UpcomingRatings/upcoming_rating_details.dart';
 
 class DrivingUpcomingTabBar extends StatefulWidget {
-  final String? carDessc, userRating, userComment;
-  const DrivingUpcomingTabBar({super.key, this.carDessc, this.userComment, this.userRating});
+  final DrivingDatum? drivingDatum;
+  const DrivingUpcomingTabBar({super.key, this.drivingDatum});
 
   @override
   State<DrivingUpcomingTabBar> createState() => _DrivingUpcomingTabBarState();
@@ -70,12 +71,11 @@ class _DrivingUpcomingTabBarState extends State<DrivingUpcomingTabBar>
             controller: tabController,
             children: [
               DrivingUpcomingDescription(
-                carDescription: widget.carDessc,
+              drivingDatum: widget.drivingDatum,
               ),
               const UpComingFeaturesDetails(),
               UpcomingRatingDetails(
-                userComment: widget.userComment,
-                userRating: widget.userRating,
+                drivingDatum: widget.drivingDatum,
               )
             ],
           ),

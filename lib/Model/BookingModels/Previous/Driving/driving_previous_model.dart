@@ -12,11 +12,11 @@ class DrivingPreviousModel {
   });
 
   String? status;
-  List<Datum>? data;
+  List<DatumDrivingPrevious>? data;
 
   factory DrivingPreviousModel.fromJson(Map<String, dynamic> json) => DrivingPreviousModel(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: json["data"] != null ? List<DatumDrivingPrevious>.from(json["data"].map((x) => DatumDrivingPrevious.fromJson(x))): null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -25,8 +25,8 @@ class DrivingPreviousModel {
   };
 }
 
-class Datum {
-  Datum({
+class DatumDrivingPrevious {
+  DatumDrivingPrevious({
     this.bookingsId,
     this.carsId,
     this.usersCustomersId,
@@ -60,7 +60,7 @@ class Datum {
   List<CarsPlan>? carsPlans;
   int? carsPlansCount;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DatumDrivingPrevious.fromJson(Map<String, dynamic> json) => DatumDrivingPrevious(
     bookingsId: json["bookings_id"],
     carsId: json["cars_id"],
     usersCustomersId: json["users_customers_id"],

@@ -1,14 +1,14 @@
 import 'dart:core';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../Model/SettingsModel/delete_account_model.dart';
-import '../../../../../Utils/api_urls.dart';
-import '../../../../../Utils/colors.dart';
-import '../../../../../Utils/constants.dart';
-import '../../../../../Widget/toast_message.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'ChangePassword/change_password_screen.dart';
 import 'EditProfile/edit_profile_screen.dart';
@@ -16,7 +16,7 @@ import 'Payment/payment_screen.dart';
 import 'package:http/http.dart' as http;
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  SettingsScreen({Key? key}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -46,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSettingsPage(
+      appBar: MyAppBarSettingsPage(
         backImage: "assets/home_page/Side_Menu.png",
         title: "Settings",
       ),
@@ -54,14 +54,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           SizedBox(height: screenHeight*0.02),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 05),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 05),
             child: Container(
               height: screenHeight*0.08,
               decoration: BoxDecoration(
                   color: kWhite, borderRadius: BorderRadius.circular(10)),
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,7 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           GestureDetector(
               onTap: () {
                 Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => const PaymentScreen()));
+                        builder: (context) => PaymentScreen()));
               },
               child: settingWidget("Payment Details", kBlack,
                   "Add your cards for quick payments",
@@ -116,26 +116,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
           GestureDetector(
               onTap: () {
                 Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => const ChangePasswordScreen()));
+                        builder: (context) => ChangePasswordScreen()));
               },
               child: settingWidget("Change Password", kBlack,
                   "Update your password", Icons.arrow_forward_ios_rounded, kBlack)),
           GestureDetector(
               onTap: () {
                 Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => const EditProfileScreen()));
+                        builder: (context) => EditProfileScreen()));
               },
               child: settingWidget("Profile", kBlack, "Update your profile",
-                  Icons.arrow_forward_ios_rounded, const Color(0xffD4DCE1))),
+                  Icons.arrow_forward_ios_rounded, Color(0xffD4DCE1))),
           GestureDetector(
               onTap: () {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return Container(
-                        color: const Color(0xffb0b0b0),
+                        color: Color(0xffb0b0b0),
                         child: Container(
-                          color: const Color(0xff0f172a).withOpacity(0.5),
+                          color: Color(0xff0f172a).withOpacity(0.5),
                           child: Dialog(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0)), //this right here
@@ -144,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   color: homeBgColor,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Padding(
-                                padding: const EdgeInsets.all(12.0),
+                                padding: EdgeInsets.all(12.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -157,7 +157,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         GestureDetector(
                                           onTap: () {
                                             Navigator.pushReplacement(context, MaterialPageRoute(
-                                                    builder: (context) => const SettingsScreen()));
+                                                    builder: (context) => SettingsScreen()));
                                           },
                                           child: Image.asset("assets/payment_card_images/cancle.png",),
                                         ),
@@ -207,7 +207,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     });
               },
               child: settingWidget("Delete Account", introColor, "Delete your account",
-                  Icons.arrow_forward_ios_rounded, const Color(0xffD4DCE1))),
+                  Icons.arrow_forward_ios_rounded, Color(0xffD4DCE1))),
         ],
       ),
     );
@@ -263,7 +263,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget settingWidget(
       titleText, textColor, subTitleText, iconData, iconColor) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 05),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 05),
       child: Container(
         decoration: BoxDecoration(
             color: kWhite, borderRadius: BorderRadius.circular(10)),
@@ -283,7 +283,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
       child: Container(
         height: screenHeight * 0.05,
         width: screenWidth * 0.6,
@@ -303,7 +303,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60),
+      padding: EdgeInsets.symmetric(horizontal: 60),
       child: Container(
         height: screenHeight * 0.05,
         width: screenWidth,

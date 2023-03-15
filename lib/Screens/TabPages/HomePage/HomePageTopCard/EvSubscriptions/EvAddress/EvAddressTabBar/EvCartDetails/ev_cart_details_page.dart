@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:auto_haus_rental_app/Model/CheckOutModels/ev_checkout_model.dart';
 import 'package:auto_haus_rental_app/Model/CheckOutModels/photography_checkout_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
@@ -18,21 +19,25 @@ import '../../../../../../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart'as http;
 
 class EvCartDetailsPage extends StatefulWidget {
-  // final Datum? myDatum;
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
   final String? carName, carImage, carYear, carPrice, carStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
       carRating, carOwnerImage, carOwnerName, discountPercentage;
+
+ final String? homeAddress1, homeAddress2, homeCity, homePostCode, homeState, homeCountry,
+  billingAddress1, billingAddress2, billingCity, billingPostCode, billingState, billingCountry;
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  const EvCartDetailsPage({Key? key, /*this.myDatum, */
-    this.totalAmount, this.carName,
+  EvCartDetailsPage({Key? key, this.totalAmount, this.carName,
     this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
     this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
-  this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
+    this.mySelectedTabMonth, this.mySelectedTabPrice,
+  this.homeAddress1, this.homeAddress2, this.homeCity, this.homePostCode, this.homeState,
+    this.homeCountry, this.billingAddress1, this.billingAddress2, this.billingCity,
+    this.billingPostCode, this.billingState, this.billingCountry}) : super(key: key);
 
   @override
   State<EvCartDetailsPage> createState() => _EvCartDetailsPageState();
@@ -61,7 +66,9 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
   }
   bool isInAsyncCall = false;
 
-  PhotographyCheckOutModel photographyCheckOutModelObject = PhotographyCheckOutModel();
+  String? addressAvailableStatus;
+
+  EvCheckOutModel evCheckOutModelObject = EvCheckOutModel();
   bool loader = false;
 
   checkOutWidget() async {
@@ -74,7 +81,6 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
       'Accept' : 'application/json',
       'Cookie': cookieCheckOutDrivingApi,
     };
-
     print("apiRequest: $request");
     request.fields['users_customers_id'] = '$userId';
     request.fields['cars_id'] = '$carID';
@@ -84,6 +90,20 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     request.fields['price_per_month'] = "$myDiscountedAmount";
     request.fields['discount_percentage'] = "${widget.discountPercentage}";
     request.fields['total_cost'] = "$myTotalAmount";
+    request.fields['addresses'] = "$addressAvailableStatus";
+    request.fields['home_street_address_line1'] = "${widget.homeAddress1}";
+    request.fields['home_street_address_line2'] = "${widget.homeAddress2}";
+    request.fields['home_city'] = "${widget.homeCity}";
+    request.fields['home_post_code'] = "${widget.homePostCode}";
+    request.fields['home_state'] = "${widget.homeState}";
+    request.fields['home_country'] = "${widget.homeCountry}";
+    request.fields['billing_street_address_line1']= "${widget.billingAddress1}";
+    request.fields['billing_street_address_line2']= "${widget.billingAddress2}";
+    request.fields['billing_city'] = "${widget.billingCity}";
+    request.fields['billing_post_code'] = "${widget.billingPostCode}";
+    request.fields['billing_state'] = "${widget.billingState}";
+    request.fields['billing_country'] = "${widget.billingCountry}";
+
     request.files.add(
       http.MultipartFile(
         'driving_license',
@@ -103,6 +123,13 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print('totalCost: $myTotalAmount');
     print('pricePerHour: $myDiscountedAmount');
     print('discountPercentage: ${widget.discountPercentage}');
+    print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
+    print("addressAvailableStatus $addressAvailableStatus");
+    print("homePostCity: ${widget.homeCity} ${widget.homePostCode}");
+    print("homeState: ${widget.homeState} ${widget.homeCountry}");
+    print("billingAddress: ${widget.billingAddress1} ${widget.billingAddress2}");
+    print("billingPostCity: ${widget.billingCity} ${widget.billingPostCode}");
+    print("billingState: ${widget.billingState} ${widget.billingCountry}");
     print('licenseImage: ${image!.path.split('/').last}');
 
     var res = await request.send();
@@ -116,6 +143,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
   }
   String? myMonth, myDiscountedAmount;
   double? myTotalAmount;
+  String? myHomeAddress1, myHomeAddress2, myHomeCity, myHomePostCode, myHomeState, myHomeCountry;
 
   @override
   void initState() {
@@ -128,32 +156,33 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
   }
   mySelectedData(){
     print("userId carId: $userId $carID");
-    print("selectedTabMonth: $myMonth");
+    print("selectedTabMonth123: $myMonth");
     print("evTotalPrice: $myTotalAmount");
     print('evStartEndDate: $evStartDate $evEndDate');
     print("pricePerMonth: $myDiscountedAmount");
     print("carDiscountPercentage: ${widget.discountPercentage}");
+    print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
+    print("homePostCity: ${widget.homeCity} ${widget.homePostCode}");
+    print("homeState: ${widget.homeState} ${widget.homeCountry}");
+    print("billingAddress: ${widget.billingAddress1} ${widget.billingAddress2}");
+    print("billingPostCity: ${widget.billingCity} ${widget.billingPostCode}");
+    print("billingState: ${widget.billingState} ${widget.billingCountry}");
+    if(widget.homeAddress1!.isEmpty || widget.homeAddress2!.isEmpty || widget.homeCity!.isEmpty){
+      addressAvailableStatus = "No";
+      print("addressAvailableStatus $addressAvailableStatus");
+    }
+    else{
+      addressAvailableStatus = "Yes";
+      print("addressAvailableStatus $addressAvailableStatus");
+    }
   }
-
-  // Initial Selected Value
-  String dropdownValue = 'Select state';
-
-  // List of items in our dropdown menu
-  var items = [
-    'Select state',
-    'Select state 1',
-    'Select state 2',
-    'Select state 3',
-    'Select state 4',
-    'Select state 5',
-  ];
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImage(
+      appBar: MyAppBarSingleImage(
         title: "Cart Details",
         backImage: "assets/messages_images/Back.png",
       ),
@@ -166,7 +195,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
           color: borderColor,
         ),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -181,7 +210,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                       left: 0,
                       right: 0,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.8,
                           width: MediaQuery.of(context).size.width * 0.47,
@@ -189,7 +218,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                               color: kWhite,
                               borderRadius: BorderRadius.circular(20)),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            padding: EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -224,7 +253,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                 Row(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 04),
+                                      padding: EdgeInsets.only(top: 04),
                                       child: Text("RM ", textAlign: TextAlign.left,
                                         style: TextStyle(color: kRed,
                                             fontSize: 5, fontFamily: poppinLight)),
@@ -236,7 +265,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                     ),
                                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 06),
+                                      padding: EdgeInsets.only(top: 06),
                                       child: Text("RM ", textAlign: TextAlign.left,
                                         style: TextStyle(color: borderColor,
                                             fontSize: 7, fontFamily: poppinSemiBold)),
@@ -246,7 +275,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                       style: TextStyle(color: borderColor,
                                           fontSize: 20, fontFamily: poppinSemiBold)),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 4),
+                                      padding: EdgeInsets.only(top: 4),
                                       child: Text("/month", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
                                             fontSize: 8, fontFamily: poppinRegular),
@@ -258,11 +287,11 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                 Row(
                                   children: [
                                     Image.asset("assets/home_page/Promoted.png"),
-                                    const SizedBox(width: 05),
+                                    SizedBox(width: 05),
                                     Text("Verified Dealer", textAlign: TextAlign.left,
                                       style: TextStyle(color: textLabelColor,
                                         fontSize: 10, fontFamily: poppinRegular)),
-                                    const SizedBox(width: 05,),
+                                    SizedBox(width: 05,),
                                     Container(
                                       height: 20, width: 40,
                                       decoration: BoxDecoration(
@@ -309,7 +338,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                     ),
                                   ],
                                 ),
-                                const Padding(
+                                Padding(
                                   padding: EdgeInsets.symmetric(vertical: 05),
                                   child: Divider(),
                                 ),
@@ -373,7 +402,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                               radius: (screenWidth > 600) ? 90 : 70,
                                               backgroundColor: Colors.transparent,
                                               backgroundImage: image == null?
-                                              const AssetImage("assets/icon/fade_in_image.jpeg",)
+                                              AssetImage("assets/icon/fade_in_image.jpeg",)
                                                   : Image.file(image!, height: 50, width: 50, fit: BoxFit.contain,).image,
                                             ),
                                           ),
@@ -447,7 +476,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                         child: Container(
                           height: MediaQuery.of(context).size.width * 0.07,
                           width: MediaQuery.of(context).size.width * 0.2,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             color: Colors.red,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(15),
@@ -460,7 +489,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                 style: TextStyle(color: kWhite,
                                     fontSize: 12, fontFamily: poppinSemiBold)),
                               Padding(
-                                padding: const EdgeInsets.only(top: 03),
+                                padding: EdgeInsets.only(top: 03),
                                 child: Text("OFF ", textAlign: TextAlign.left,
                                     style: TextStyle(color: kWhite,
                                         fontSize: 8, fontFamily: poppinRegular)),
@@ -475,6 +504,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                   ],
                 ),
               ),
+              SizedBox(height: 20),
               GestureDetector(
                   onTap: () async {
                     // bottomSheetWidget(context);
@@ -490,11 +520,33 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                         });
                       }
                       await checkOutWidget();
+
+                      // if (evCheckOutModelObject.status == "success") {
+                      //   print("booking Success");
+                      //   Future.delayed(const Duration(seconds: 3), () {
+                      //     // toastSuccessMessage("CheckOut Successful ", Colors.green);
+                      //
+                      //     Navigator.push(context, MaterialPageRoute(
+                      //         builder: (context) => TabBarPage()));
+                      //     setState(() {
+                      //       isInAsyncCall = false;
+                      //     });
+                      //     print("false: $isInAsyncCall");
+                      //   });
+                      // }
+                      // // if (evCheckOutModelObject.status != "success") {
+                      // //   setState(() {
+                      // //     isInAsyncCall = false;
+                      // //   });
+                      // //   print("bookingErrorMessage: bookingError");
+                      // //   toastFailedMessage("${evCheckOutModelObject.status}", kRed);
+                      // // }
+
+
                         Future.delayed(const Duration(seconds: 3), () {
-                          // toastSuccessMessage("CheckOut Successful ", Colors.green);
 
                           Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => const TabBarPage()));
+                              builder: (context) => TabBarPage()));
                           setState(() {
                             isInAsyncCall = false;
                           });
@@ -504,7 +556,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
 
                   },
                   child: loginButton("Check out", context)),
-              const SizedBox(height: 20,),
+              SizedBox(height: 20,),
             ],
           ),
         ),

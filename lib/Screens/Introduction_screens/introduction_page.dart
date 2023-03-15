@@ -7,7 +7,7 @@ import '../TabPages/Homepage/home_page.dart';
 import 'introduction_model.dart';
 
 class IntroductionPage extends StatefulWidget {
-  const IntroductionPage({Key? key}) : super(key: key);
+  IntroductionPage({Key? key}) : super(key: key);
 
   @override
   State<IntroductionPage> createState() => _IntroductionPageState();
@@ -22,13 +22,13 @@ class _IntroductionPageState extends State<IntroductionPage> {
       text: "Greater Accessibility",
       desc: "Eliminating the barriers to EV \nownership through simplified \ncomprehensive solutions.",
       bg: Colors.white,
-      button: const Color(0xFF4756DF),
+      button: Color(0xFF4756DF),
     ),
     IntroductionModel(
       img: 'assets/intro_images/intro_image_two.png',
       text: "Ultimate Flexibility",
       desc: "Providing multiple, easy-to-\nsubscribe package plans to \nsuite any requirements..",
-      bg: const Color(0xFF4756DF),
+      bg: Color(0xFF4756DF),
       button: Colors.white,
     ),
     IntroductionModel(
@@ -36,7 +36,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
       text: "Total Convenience",
       desc: "We aim to take the hassle of \ncar ownership with concierge \nservices that is stress-free.",
       bg: Colors.white,
-      button: const Color(0xFF4756DF),
+      button: Color(0xFF4756DF),
     ),
   ];
 
@@ -65,15 +65,15 @@ class _IntroductionPageState extends State<IntroductionPage> {
     return Scaffold(
       backgroundColor: appBgColor,
       // appBar: AppBar(
-      //   title: const Text("On boarding Screen"),
+      //   title: Text("On boarding Screen"),
       //   centerTitle: true,
       // ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
         child: PageView.builder(
             itemCount: screens.length,
             controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
+            physics: NeverScrollableScrollPhysics(),
             onPageChanged: (int index) {
               setState(() {
                 currentIndex = index;
@@ -124,7 +124,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 3.0),
+                                margin: EdgeInsets.symmetric(horizontal: 3.0),
                                 width: currentIndex == index ? 20 : 8,
                                 height: 8,
                                 decoration: BoxDecoration(
@@ -143,14 +143,14 @@ class _IntroductionPageState extends State<IntroductionPage> {
                       GestureDetector(
                         onTap: () async {
 
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomePage()));
+                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
                           if (index == screens.length - 1) {
                             // await _storeOnboardInfo();
-                            MaterialPageRoute(builder: (context) => const HomePage());
+                            MaterialPageRoute(builder: (context) => HomePage());
                             // Navigator.pop(context);
                           }
                           pageController!.previousPage(
-                            duration: const Duration(milliseconds: 300),
+                            duration: Duration(milliseconds: 300),
                             curve: Curves.bounceIn,
                           );
 
@@ -167,10 +167,10 @@ class _IntroductionPageState extends State<IntroductionPage> {
                           if (index == screens.length - 1) {
                             // await storeOnboardInfo();
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => const LoginPage()));
+                                builder: (context) => LoginPage()));
                           }
                           pageController!.nextPage(
-                            duration: const Duration(milliseconds: 300),
+                            duration: Duration(milliseconds: 300),
                             curve: Curves.bounceIn,
                           );
                         },

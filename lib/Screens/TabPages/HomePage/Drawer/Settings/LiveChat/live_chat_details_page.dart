@@ -1,19 +1,22 @@
 import 'dart:convert';
-import 'package:auto_haus_rental_app/Model/ChatsModels/get_messages_model.dart';
-import 'package:auto_haus_rental_app/Model/ChatsModels/send_message_model.dart';
-import 'package:auto_haus_rental_app/Model/ChatsModels/update_message_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:auto_haus_rental_app/Model/LiveChat/get_live_msg_model.dart';
+import 'package:auto_haus_rental_app/Model/LiveChat/send_live_msg_model.dart';
+import 'package:auto_haus_rental_app/Model/LiveChat/update_live_msg_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../../Utils/colors.dart';
-import '../../../../../../Utils/fontFamily.dart';
 import 'package:http/http.dart'as http;
 
 class LiveChatDetailsPage extends StatefulWidget {
-  const LiveChatDetailsPage({super.key});
+  final int? adminId;
+  final String? adminImage;
+ LiveChatDetailsPage({super.key, this.adminId, this.adminImage});
 
   @override
   State<LiveChatDetailsPage> createState() => _LiveChatDetailsPageState();
@@ -23,67 +26,12 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
 
   final GlobalKey<FormState> sendMessageFormKey = GlobalKey<FormState>();
   var sendMessageController = TextEditingController();
-  List<GetMessageDetailsModel> messageDetailsModelObject = [];
-  List<UpdateMessageModel> updateMessageModelObject = [];
+  GetLiveMessagesModel getLiveMessagesModel = GetLiveMessagesModel();
+  List<UpdateLiveMessagesModel> updateMessageModelObject = [];
   bool progress = false;
-  SendMessageModel sendMessageModelObject = SendMessageModel();
+  SendLiveMessagesModel sendLiveMessagesModel = SendLiveMessagesModel();
   bool loading = true;
-
-
-  // List<LiveChatMessage> messages = [
-  //   LiveChatMessage(
-  //       messageContent:
-  //           "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
-  //           "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
-  //           "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
-  //           "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. Ut turpis "
-  //           "eros, aliquet non ante id, interdum placerat erat. Curabitur sit amet eros vel orci "
-  //           "venenatis hendrerit. Cras sagittis sagittis sagittis. In hac habitasse platea dictumst. "
-  //           "Phasellus diam erat, porttitor sed ligula at, ultricies auctor tellus. Donec ut sem in "
-  //           "turpis ultrices suscipit ut auctor tellus. Quisque a tincidunt ipsum.",
-  //       messageType: "receiver"),
-  //   LiveChatMessage(messageContent: "Hi, Mardin", messageType: "sender"),
-  //   LiveChatMessage(messageContent: "What you want?", messageType: "sender"),
-  //   LiveChatMessage(messageContent: "Hi, Jeanie", messageType: "receiver"),
-  //   LiveChatMessage(
-  //       messageContent:
-  //           "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
-  //           "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
-  //           "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
-  //           "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. "
-  //           "Ut turpis eros, aliquet non ante id, interdum placerat erat. Curabitur "
-  //           "sit amet eros vel orci venenatis hendrerit. Cras sagittis sagittis sagittis. "
-  //           "In hac habitasse platea dictumst. Phasellus diam erat, porttitor sed ligula at, "
-  //           "ultricies auctor tellus. Donec ut sem in turpis ultrices suscipit ut auctor tellus. "
-  //           "Quisque a tincidunt ipsum.",
-  //       messageType: "sender"),
-  //   LiveChatMessage(
-  //       messageContent:
-  //           "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
-  //           "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
-  //           "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
-  //           "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. Ut turpis "
-  //           "eros, aliquet non ante id, interdum placerat erat. Curabitur sit amet eros vel orci "
-  //           "venenatis hendrerit. Cras sagittis sagittis sagittis. In hac habitasse platea dictumst. "
-  //           "Phasellus diam erat, porttitor sed ligula at, ultricies auctor tellus. Donec ut sem in "
-  //           "turpis ultrices suscipit ut auctor tellus. Quisque a tincidunt ipsum.",
-  //       messageType: "receiver"),
-  //   LiveChatMessage(messageContent: "Hi, Mardin", messageType: "sender"),
-  //   LiveChatMessage(messageContent: "What you want?", messageType: "sender"),
-  //   LiveChatMessage(messageContent: "Hi, Jeanie", messageType: "receiver"),
-  //   LiveChatMessage(
-  //       messageContent:
-  //           "Phasellus finibus enim nulla, quis ornare odio facilisis eu. "
-  //           "Suspendisse ornare ante sit amet arcu semper, vel eleifend tortor egestas. "
-  //           "Aenean luctus, lorem in hendrerit interdum, leo orci egestas diam, ac euismod "
-  //           "massa est et turpis. Etiam auctor lectus vel neque convallis pharetra. "
-  //           "Ut turpis eros, aliquet non ante id, interdum placerat erat. Curabitur "
-  //           "sit amet eros vel orci venenatis hendrerit. Cras sagittis sagittis sagittis. "
-  //           "In hac habitasse platea dictumst. Phasellus diam erat, porttitor sed ligula at, "
-  //           "ultricies auctor tellus. Donec ut sem in turpis ultrices suscipit ut auctor tellus. "
-  //           "Quisque a tincidunt ipsum.",
-  //       messageType: "sender"),
-  // ];
+  String? adminImage;
 
   sharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -91,9 +39,12 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
     print("userId in Prefs is = $userId");
+    print("adminId ${widget.adminId}");
+    adminImage = "$baseUrlImage${widget.adminImage}";
+    print("adminImage $adminImage");
 
     setState(() {
-      allChatMessageApi();
+      allLiveChatApiWidget();
     });
 
   }
@@ -107,12 +58,56 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBarDoubleImageForChats(
-          frontImage: 'assets/live_chat_images/back_arrow.png',
-          profileImage: 'assets/live_chat_images/user.png',
-          title: "Live Chat"),
+      appBar: AppBar(
+          systemOverlayStyle:SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent, // <-- SEE HERE
+            statusBarIconBrightness:
+            Brightness.dark, //<-- For Android SEE HERE (dark icons)
+            statusBarBrightness:
+            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+          ),
+          leading: GestureDetector(
+            onTap: () {
+              print("clicked");
+              Navigator.pop(context);
+            },
+            child: Padding(
+              padding:EdgeInsets.only(top: 30),
+              child: Image.asset("assets/live_chat_images/back_arrow.png",
+                height: 25, width: 25),
+            ),
+          ),
+          title: Padding(
+            padding:EdgeInsets.only(top: 30, left: 50),
+            child: Row(
+              children: [
+                // Image.asset(profileImage!, width: 24, height: 24),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: CachedNetworkImage(
+                    imageUrl: "$adminImage",
+                    height: 25, width: 25,
+                    fit: BoxFit.fill,
+                    progressIndicatorBuilder: (context, url, downloadProgress) =>
+                        CircularProgressIndicator(strokeWidth: 2, value: downloadProgress.progress, color: borderColor,),
+                    errorWidget: (context, url, error) => Image.asset("assets/icon/fade_in_image.jpeg"),
+                  ),
+                ),
+               SizedBox(width: 5),
+                Text("Live Chat",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20, fontFamily: poppinBold, color: kBlack)),
+              ],
+            ),
+          ),
+          backgroundColor: homeBgColor,
+          elevation: 0.0,
+          centerTitle: true,
+        ),
       backgroundColor: homeBgColor,
       body: loading? Center(child: CircularProgressIndicator(color: borderColor)):
+      // getLiveMessagesModel.status == "error"?Text("no chat history"):
       SingleChildScrollView(
         child: Column(
           children: [
@@ -121,45 +116,52 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
               color: Colors.transparent,
               child: Stack(
                 children: [
+               getLiveMessagesModel.status == "error"?Center(child: Text("no chat history")):
                   ListView.builder(
-                    itemCount: messageDetailsModelObject.length,
+                    itemCount: getLiveMessagesModel.data?.length,
                     shrinkWrap: true,
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
-                    physics: const BouncingScrollPhysics(),
+                    padding:EdgeInsets.only(top: 10, bottom: 10),
+                    physics:BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Container(
-                        padding: const EdgeInsets.only(
-                            left: 14, right: 14, top: 10, bottom: 10),
+                        padding:EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
                         child: Align(
-                          alignment: (messageDetailsModelObject[index].senderType == "receiver"
-                              ? Alignment.topLeft
-                              : Alignment.topRight),
+                          alignment: (getLiveMessagesModel.data?[index].senderType == "Users"
+                              ? Alignment.topRight : Alignment.topLeft),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: (messageDetailsModelObject[index].senderType == "receiver"
-                                  ? kWhite : borderColor),
+                              color: (getLiveMessagesModel.data?[index].senderType == "Users"
+                                  ? borderColor : kWhite),
                             ),
-                            padding: const EdgeInsets.all(16),
-                            child: messageDetailsModelObject[index].senderType == "receiver"
-                                ? Text(messageDetailsModelObject[index].message!,
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: poppinLight,
-                                        color: kBlack),
-                                    textAlign: TextAlign.left,
-                                  )
-                                : Text(messageDetailsModelObject[index].message!,
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: poppinLight,
-                                        color: kWhite),
-                                    textAlign: TextAlign.left,
-                                  ),
+                            padding:EdgeInsets.all(10),
+                            child: getLiveMessagesModel.data?[index].senderType == "Users"
+                                ? Column(
+                              children: [
+                                Text("${getLiveMessagesModel.data?[index].message.toString()}",
+                                    maxLines: 3, overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left, style: TextStyle(
+                                        fontSize: 14, fontFamily: poppinLight, color: kWhite)),
+                               SizedBox(height: 03),
+                                Text("${getLiveMessagesModel.data?[index].time.toString()} ${getLiveMessagesModel.data?[index].date.toString()}",
+                                    maxLines: 1, overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left, style: TextStyle(
+                                        fontSize: 10, color: kWhite, fontFamily: poppinLight)),
+                              ],
+                            ) :
+                            Column(
+                              children: [
+                                Text("${getLiveMessagesModel.data?[index].message.toString()}",
+                                    maxLines: 3, overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left, style: TextStyle(
+                                        fontSize: 14, color: kBlack, fontFamily: poppinLight)),
+                               SizedBox(height: 03),
+                                Text("${getLiveMessagesModel.data?[index].time.toString()} ${getLiveMessagesModel.data?[index].date.toString()}",
+                                    maxLines: 1, overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left, style: TextStyle(
+                                        fontSize: 10, color: kBlack, fontFamily: poppinLight)),
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -172,12 +174,12 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
-                padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                padding:EdgeInsets.only(left: 10, bottom: 10, top: 10),
                 height: 65,
                 child: Row(
                   children: <Widget>[
                     sendMessageTextFields(),
-                    const SizedBox(width: 05),
+                   SizedBox(width: 05),
                     FloatingActionButton(
                       onPressed: () async {
                         if(sendMessageFormKey.currentState!.validate()){
@@ -222,7 +224,7 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
       key: sendMessageFormKey,
       child: Expanded(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 05, vertical: 0),
+          padding:EdgeInsets.symmetric(horizontal: 05, vertical: 0),
           decoration: BoxDecoration(color: kWhite,
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
@@ -230,10 +232,10 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
             textAlign: TextAlign.left,
             controller: sendMessageController,
             decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(left: 10, bottom: 3),
+                contentPadding:EdgeInsets.only(left: 10, bottom: 3),
                 hintText: "Type your message here.....",
                 hintStyle: TextStyle(fontSize: 14,
-                    fontFamily: poppinLight, color: const Color(0xffD4DCE1)),
+                    fontFamily: poppinLight, color:Color(0xffD4DCE1)),
                 fillColor: kWhite, border: InputBorder.none),
           ),
         ),
@@ -241,68 +243,70 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
     );
   }
 
-  Map jsonData = {};
-  allChatMessageApi() async {
-    Map body = {
-      "requestType": "getMessages",
-      "users_customers_id": userId,
-      "other_users_customers_id": "1",
-    };
-    http.Response response = await http.post(Uri.parse(getUsersChatApiUrl),
-        body: body,
-        headers: {
-          "Accept": "application/json"
-        });
-    messageDetailsModelObject.clear();
-    jsonData = jsonDecode(response.body);
-    print("allChatApi: $getAllChatApiUrl");
-    print("statusCode: ${response.statusCode}");
-    print("responseData: $jsonData");
-    if (response.statusCode == 200) {
-      for (int i = 0; i < jsonData['data'].length; i++) {
-        Map<String, dynamic> obj = jsonData['data'][i];
-        var pos = GetMessageDetailsModel();
-        pos = GetMessageDetailsModel.fromJson(obj);
-        messageDetailsModelObject.add(pos);
-      }
-      print("allChatLength: ${messageDetailsModelObject.length}");
-      setState(() {
-        loading = false;
-        updateChatApiWidget();
-      });
-    }
-  }
-
-  sendMessageApiWidget() async {
+  allLiveChatApiWidget() async {
     setState(() {
       loading = true;
     });
     Map body = {
-      "requestType": "sendMessage",
-      "sender_type": "Users",
-      "messageType": "1",
+      "requestType": "getMessages",
       "users_customers_id": userId,
-      "other_users_customers_id": "1",
-      "content": sendMessageController.text,
+      "other_users_customers_id": "${widget.adminId}",
     };
-    http.Response response = await http.post(Uri.parse(sendMessageApiUrl),
+    http.Response response = await http.post(Uri.parse(getLiveMsgApiUrl),
         body: body,
         headers: {
           "Accept": "application/json"
         });
-    Map jsonData = jsonDecode(response.body);
-    print("sendMessageApiUrl: $sendMessageApiUrl");
-    print("sendMessageText: ${sendMessageController.text}");
-    print('sendMessageApiResponse $jsonData');
-
-    if (jsonData['message'] == 'Message sent successfully.') {
-      toastSuccessMessage("Message sent successfully1.", colorGreen);
-      print('Message sent successfully.');
+    if (response.statusCode == 200) {
+      final responseString = response.body;
+      print("getLiveChatResponse: ${responseString.toString()}");
+      getLiveMessagesModel = getLiveMessagesModelFromJson(responseString);
+      print("getLiveChatLength: ${getLiveMessagesModel.data?.length}");
       setState(() {
         loading = false;
-        allChatMessageApi();
       });
     }
+      setState(() {
+        loading = false;
+        updateChatApiWidget();
+      });
+  }
+
+  sendMessageApiWidget() async {
+    loading = true;
+    setState(() {});
+    // try {
+      String apiUrl = sendLiveMsgApiUrl;
+      print("sendLiveMsgApiUrl $sendLiveMsgApiUrl");
+      print("sendLiveMsgText ${sendMessageController.text}");
+      final response = await http.post(Uri.parse(apiUrl),
+        body: {
+          "requestType": "sendMessage",
+          "sender_type": "Users",
+          "users_customers_id": userId,
+          "other_users_customers_id": "${widget.adminId}",
+          "content": sendMessageController.text,
+          "messageType": "1",
+        },
+        headers: {
+        'Accept': 'application/json'
+        },
+      );
+      print('statusCodeSendMessage ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("sendMessageResponse: ${responseString.toString()}");
+        sendLiveMessagesModel = sendLiveMessagesModelFromJson(responseString);
+        print("sendMessage: ${sendLiveMessagesModel.message}");
+      }
+    // } catch (e) {
+    //   print('Error in  "messageType": "1",: ${e.toString()}');
+    // }
+    setState(() {
+      loading = false;
+      allLiveChatApiWidget();
+    });
   }
 
   updateChatApiWidget() async {
@@ -312,9 +316,9 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
     Map body = {
       "requestType": "updateMessages",
       "users_customers_id": userId,
-      "other_users_customers_id": "1",
+      "other_users_customers_id": "${widget.adminId}",
     };
-    http.Response response = await http.post(Uri.parse(updateMessageApiUrl),
+    http.Response response = await http.post(Uri.parse(updateLiveMsgApiUrl),
         body: body,
         headers: {
           "Accept": "application/json"
@@ -334,20 +338,14 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
       for (int i = 0; i < jsonData['data'].length; i++) {
         Map<String, dynamic> obj = jsonData['data'][i];
         print(obj['id']);
-        var pos = UpdateMessageModel();
-        pos = UpdateMessageModel.fromJson(obj);
+        var pos = UpdateLiveMessagesModel();
+        pos = UpdateLiveMessagesModel.fromJson(obj);
         updateMessageModelObject.add(pos);
-        print("updateMessagesLength: ${updateMessageModelObject.length}");
+        print("updateLiveMessagesLength: ${updateMessageModelObject.length}");
         // setState(() {
         //   loading = false;
         // });
       }
     }
   }
-}
-
-class LiveChatMessage {
-  String? messageContent;
-  String? messageType;
-  LiveChatMessage({@required this.messageContent, @required this.messageType});
 }

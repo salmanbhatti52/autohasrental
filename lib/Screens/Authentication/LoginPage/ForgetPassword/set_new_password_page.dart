@@ -17,7 +17,7 @@ import 'package:http/http.dart'as http;
 
 class SetNewPasswordPage extends StatefulWidget {
   final String? email, verifyCode;
-  const SetNewPasswordPage({Key? key, this.email, this.verifyCode})
+  SetNewPasswordPage({Key? key, this.email, this.verifyCode})
       : super(key: key);
 
   @override
@@ -85,7 +85,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
-      appBar: const MyAppBarSignUp(title: "Set a New Password"),
+      appBar: MyAppBarSignUp(title: "Set a New Password"),
       body: ModalProgressHUD(
         inAsyncCall: progress,
         opacity: 0.02,
@@ -96,7 +96,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
@@ -108,7 +108,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     "Enter your new password, and confirm it by entering it a second time.",
                     textAlign: TextAlign.center,
@@ -148,7 +148,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                               print("${modifyPasswordModel.status}");
                               toastSuccessMessage("${modifyPasswordModel.status}", colorGreen);
                               Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => const LoginPage()));
+                                  MaterialPageRoute(builder: (context) => LoginPage()));
                               setState(() {
                                 progress = false;
                               });
@@ -177,7 +177,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
 
   Widget buildTextFields() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.symmetric(horizontal: 15),
         child: Container(
           color: Colors.transparent,
           child: Column(
@@ -203,7 +203,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                           suffixIcon: IconButton(
                             icon: Padding(
                               padding:
-                                  const EdgeInsetsDirectional.only(end: 12.0),
+                                  EdgeInsetsDirectional.only(end: 12.0),
                               child: Icon(
                                 obscurePass
                                     ? Icons.visibility
@@ -238,7 +238,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                           suffixIcon: IconButton(
                             icon: Padding(
                               padding:
-                                  const EdgeInsetsDirectional.only(end: 12.0),
+                                  EdgeInsetsDirectional.only(end: 12.0),
                               child: Icon(
                                 obscureConfirmPass
                                     ? Icons.visibility

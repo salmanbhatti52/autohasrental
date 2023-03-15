@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
 import 'Settings/AboutUs/about_us.dart';
-import 'Settings/LiveChat/live_chat_page_1.dart';
+import 'Settings/LiveChat/live_chat_page.dart';
 import 'Settings/settings_screen.dart';
 import 'package:http/http.dart'as http;
 
 class DrawerScreen extends StatefulWidget {
-  const DrawerScreen({Key? key}) : super(key: key);
+  DrawerScreen({Key? key}) : super(key: key);
 
   @override
   State<DrawerScreen> createState() => _DrawerScreenState();
@@ -43,7 +43,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
         print("getUserProfileResponse: ${responseString.toString()}");
         getUserProfileModelObject = getUserProfileModelFromJson(responseString);
         print("getUserName: ${getUserProfileModelObject.data!.lastName}");
-        // setData();
+        setUserData();
         print("getUserProfileImage: $baseUrlImage${getUserProfileModelObject.data!.profilePic}");
       }
     } catch (e) {
@@ -58,6 +58,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
     // TODO: implement initState
     super.initState();
     getUserProfileWidget();
+
+  }
+  String? userName, userImage, userLocation;
+  setUserData(){
+    userName = "${getUserProfileModelObject.data!.firstName}" "${getUserProfileModelObject.data!.firstName}";
+    userLocation = getUserProfileModelObject.data!.location;
+    userImage = "$baseUrlImage${getUserProfileModelObject.data!.profilePic}";
+    print("userName123 $userName");
+    print("userImage123 $userImage");
+    print("userLocation123 $userLocation");
   }
 
   @override
@@ -74,7 +84,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: GestureDetector(
                 onTap: (){
                   Navigator.pop(context);
@@ -90,29 +100,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 40),
+              padding: EdgeInsets.only(left: 40),
               child: Row(
                 children: [
                   Column(
                     children: [
-                      // getUserProfileModelObject.data!.profilePic == null ?
-                      // ClipRRect(
-                      //     borderRadius: BorderRadius.circular(100),
-                      //     child: Image.asset('assets/icon/fade_in_image.jpeg', height: 70, width: 70,)) :
-                      // ClipRRect(
-                      //   borderRadius: BorderRadius.circular(100),
-                      //   child: FadeInImage(
-                      //     placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
-                      //     height: 70, width: 70,
-                      //     fit: BoxFit.fill,
-                      //     image: NetworkImage("$baseUrlImage${getUserProfileModelObject.data!.profilePic}"),
-                      //   ),
-                      // ),
-
                       ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: CachedNetworkImage(
-                          imageUrl: "$baseUrlImage${getUserProfileModelObject.data!.profilePic}",
+                          imageUrl: "$userImage",
                           height: 70, width: 70,
                           fit: BoxFit.fill,
                           progressIndicatorBuilder: (context, url, downloadProgress) =>
@@ -122,23 +118,21 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ),
                   ],
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.04,),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.04),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Text("${getUserProfileModelObject.data!.firstName} ${getUserProfileModelObject.data!.lastName}",
-                      textAlign: TextAlign.left, style: TextStyle(
-                      color: kWhite, fontSize: 20, fontFamily: poppinRegular),),
+                    Text("${userName}", textAlign: TextAlign.left, style: TextStyle(
+                      color: kWhite, fontSize: 16, fontFamily: poppinRegular)),
                     Row(
                       children: [
                         Image.asset("assets/drawer_images/location.png", color: borderColor),
-                       getUserProfileModelObject.data!.location == null?
-                        // Text(" Dubai, UAE", textAlign: TextAlign.center,
+                        userLocation == null?
                         Text(" No Location", textAlign: TextAlign.center, style: TextStyle(
-                              color: const Color(0xffB1A8B9), fontSize: 15, fontFamily: poppinRegular)):
+                              color: Color(0xffB1A8B9), fontSize: 15, fontFamily: poppinRegular)):
                        Text("${getUserProfileModelObject.data!.location}",
                            textAlign: TextAlign.center, style: TextStyle(
-                               color: const Color(0xffB1A8B9), fontSize: 15, fontFamily: poppinRegular)),
+                               color: Color(0xffB1A8B9), fontSize: 15, fontFamily: poppinRegular)),
                       ],
                     ),
                     ],
@@ -150,17 +144,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
             GestureDetector(
               onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
                 },
                 child: myListTile("assets/drawer_images/settings_icon.png", "Setting")),
             GestureDetector(
                 onTap: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LiveChatPage1()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LiveChatPage()));
                 },
                 child: myListTile("assets/drawer_images/call_phone_icon.png", "Live Chat")),
             GestureDetector(
                 onTap: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AboutUsPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AboutUsPage()));
                 },
                 child: myListTile("assets/drawer_images/customer_help_icon.png", "About Us")),
             SizedBox(height: MediaQuery.of(context).size.height * 0.25),
@@ -180,23 +174,23 @@ class _DrawerScreenState extends State<DrawerScreen> {
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
       },
-      child: const Text('Cancel'),
+      child: Text('Cancel'),
     );
     Widget continueButton = TextButton(
-      child: const Text('Yes, Continue'),
+      child: Text('Yes, Continue'),
       onPressed: () {
         removeDataFormSharedPreferences();
         setState(() {});
         Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoginPage()),
+          MaterialPageRoute(builder: (context) => LoginPage()),
         );
       },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: const Text("Sign Out"),
-      content: const Text("Are you sure you want to Sign Out ?"),
+      title: Text("Sign Out"),
+      content: Text("Are you sure you want to Sign Out ?"),
       actions: [
         cancelButton,
         continueButton,
@@ -218,7 +212,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   Widget myListTile(myImage, myTitle){
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30,),
+      padding: EdgeInsets.symmetric(horizontal: 30,),
       child: ListTile(
         leading: Image.asset(myImage),
         title: Text(myTitle, textAlign: TextAlign.left, style: TextStyle(

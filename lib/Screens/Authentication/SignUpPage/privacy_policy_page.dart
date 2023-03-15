@@ -5,13 +5,12 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import '../../../Model/privacy_policy_model.dart';
-import '../../../Utils/constants.dart';
 import '../../../Widget/button.dart';
 import '../LoginPage/login_page.dart';
 import 'package:http/http.dart'as http;
 
 class PrivacyPolicyPage extends StatefulWidget {
-  const PrivacyPolicyPage({Key? key}) : super(key: key);
+  PrivacyPolicyPage({Key? key}) : super(key: key);
 
   @override
   State<PrivacyPolicyPage> createState() => _PrivacyPolicyPageState();
@@ -59,7 +58,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
 
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -79,7 +78,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
 
           loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
           privacyPolicyModelObject == null? Container():
-          privacyPolicyModelObject.data!.isEmpty ? const Center(
+          privacyPolicyModelObject.data!.isEmpty ? Center(
             child: Text('Nothing to show...',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -89,9 +88,9 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             // width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.74,
             color: Colors.transparent,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               child: Text(privacyPolicyModelObject.data![0].description.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14,
@@ -100,7 +99,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
           ),
           GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
               },
               child: loginButton("Accept", context)),
         ],

@@ -9,7 +9,7 @@ class DeliveryAddressExperience extends StatefulWidget {
   final String? startTime, endTime, selectedDate;
   final double? totalPrice, selectedSlotPrice;
   final DatumDrivingTopCard? myDatum;
-  const DeliveryAddressExperience({Key? key, this.selectedDate,
+  DeliveryAddressExperience({Key? key, this.selectedDate,
     this.totalPrice, this.selectedSlotPrice,
     this.myDatum, this.startTime, this.endTime}) : super(key: key);
 
@@ -35,13 +35,13 @@ class _DeliveryAddressExperienceState extends State<DeliveryAddressExperience> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImageWithText(
+      appBar: MyAppBarSingleImageWithText(
         title: "BMW 2 series, ", subtitle: "2022",
         backImage: "assets/messages_images/Back.png"),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),

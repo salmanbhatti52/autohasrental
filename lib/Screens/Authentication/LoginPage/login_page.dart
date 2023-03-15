@@ -18,7 +18,7 @@ import 'ForgetPassword/forget_password_page.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(0.0),
+            padding: EdgeInsets.all(0.0),
             child: Column(
               children: [
                 SizedBox(height: screenHeight * 0.13),
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                 buildTextFields(),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(width: screenWidth * 0.2),
                       GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ResetPasswordPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPasswordPage()));
                           },
                           child: Text('Forgot your password?', style: TextStyle(
                               color: kWhite, fontFamily: poppinRegular, fontSize: 12),)),
@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                               toastSuccessMessage("${userLoginModel.status}", Colors.green);
 
                               Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => const TabBarPage()));
+                                  MaterialPageRoute(builder: (context) => TabBarPage()));
 
                               setState(() {
                                 progress = false;
@@ -207,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(fontFamily: poppinBold,
                               decoration: TextDecoration.underline, fontSize: 16, color: kWhite),
                           recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
-                              context, MaterialPageRoute(builder: (context) => const SignUpPage())),
+                              context, MaterialPageRoute(builder: (context) => SignUpPage())),
                         )
                       ]),
                 ),
@@ -265,7 +265,7 @@ class _LoginPageState extends State<LoginPage> {
                           obscureText: _obscureText,
                           suffixIcon: IconButton(
                             icon: Padding(
-                              padding: const EdgeInsetsDirectional.only(end: 12.0),
+                              padding: EdgeInsetsDirectional.only(end: 12.0),
                               child: Icon(
                                 _obscureText ?  Icons.visibility :Icons.visibility_off,
                                 color: textLabelColor, size: 24,),

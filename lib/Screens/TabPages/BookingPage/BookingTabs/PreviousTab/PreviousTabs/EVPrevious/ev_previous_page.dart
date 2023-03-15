@@ -4,11 +4,14 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../../UpcomingTab/UpcomingTabs/EvUpcoming/ev_upcoming_page.dart';
 import '../DrivingPrevious/driving_booking_detail.dart';
+import '../previous_bookings_details_page.dart';
+import 'ev_bookings_detail_page.dart';
 
 class EvPreviousPage extends StatefulWidget {
   const EvPreviousPage({super.key});
@@ -160,6 +163,54 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                         ),
                                       ),
                                     ):
+                                    evPreviousObject.data![index].status == "Accepted"?
+                                    Container(
+                                      height: MediaQuery.of(context).size.height * 0.1,
+                                      color: Colors.transparent,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 40, left: 20),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Container(
+                                            width: 100, height: 30,
+                                            decoration: BoxDecoration(
+                                                color: colorGreen,
+                                                borderRadius: BorderRadius.circular(30)
+                                            ),
+                                            child: Center(
+                                              child: Text('${evPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                                  style: TextStyle(fontSize: 12,
+                                                      fontFamily: poppinRegular, color: kWhite)),
+
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ):
+                                    evPreviousObject.data![index].status == "Pending"?
+                                    Container(
+                                      height: MediaQuery.of(context).size.height * 0.1,
+                                      color: Colors.transparent,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 40, left: 20),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Container(
+                                            width: 100, height: 30,
+                                            decoration: BoxDecoration(
+                                                color: borderColor,
+                                                borderRadius: BorderRadius.circular(30)
+                                            ),
+                                            child: Center(
+                                              child: Text('${evPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                                  style: TextStyle(fontSize: 12,
+                                                      fontFamily: poppinRegular, color: kWhite)),
+
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ):
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -273,28 +324,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                             ],
                                           ),
                                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                          Row(
-                                            children: [
-                                              Image.asset("assets/car_bookings_images/promoted.png"),
-                                              const SizedBox(width: 5),
-                                              Text("Verified Dealer", textAlign: TextAlign.left,
-                                                style: TextStyle(color: textLabelColor,
-                                                  fontSize: 10, fontFamily: poppinRegular)),
-                                              const SizedBox(width: 05),
-                                              Container(
-                                                height: 15,
-                                                width: 35,
-                                                decoration: BoxDecoration(
-                                                    color: kBlack,
-                                                    borderRadius: BorderRadius.circular(10)),
-                                                child: Center(
-                                                  child: Text("New", textAlign: TextAlign.left,
-                                                    style: TextStyle(color: kWhite,
-                                                      fontSize: 8, fontFamily: poppinRegular)),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                          verifiedDealerText(),
                                         ],
                                       ),
                                     ),
@@ -309,32 +339,19 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
-
-
+                            carBookingsId = "${evPreviousObject.data![index].bookingsId}";
                             print("clicked....");
                             print("${evPreviousObject.data![index].carsDetails!.vehicalName}");
                             print("${evPreviousObject.data![index].carsDetails!.carsModels}");
                             print("${evPreviousObject.data![index].carsDetails!.rating}");
 
-                            evPreviousObject.data![index].status == "Completed"?
+                            // evPreviousObject.data![index].status == "Completed"?
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => DrivingBookingDetail(
-                                  carId: "${evPreviousObject.data![index].carsId}",
-                                  carName: evPreviousObject.data![index].carsDetails!.vehicalName,
-                                  carYear: "${evPreviousObject.data![index].carsDetails!.year}",
-                                  carColors: evPreviousObject.data![index].carsDetails!.carsColors!.name,
-                                  carMakes: evPreviousObject.data![index].carsDetails!.carsMakes,
-                                  carModel: evPreviousObject.data![index].carsDetails!.carsModels,
-                                  carRating: evPreviousObject.data![index].carsDetails!.rating,
-                                  carPrice: evPreviousObject.data![index].carsPlans![0].pricePerMonth,
-                                  discountPercentage: evPreviousObject.data![index].carsDetails!.discountPercentage,
-                                  carImage: "$baseUrlImage${evPreviousObject.data![index].carsDetails!.image1}",
-                                  carDesc: evPreviousObject.data![index].carsDetails!.description,
-                                  userRating: evPreviousObject.data![index].carsRatings![0].rateStars,
-                                  userComment: evPreviousObject.data![index].carsRatings![0].comments,
-                                  carMonths: "${evPreviousObject.data![index].carsPlans![0].months}",
-                                )))
-                                : print("not completed");
+                                builder: (context) => PreviousBookingDetailsPage(
+                                  myStatus: evPreviousObject.data![index].status,
+                                  bookingId: "${evPreviousObject.data![index].bookingsId}",
+                                )));
+                                // : print("not completed");
 
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png")),

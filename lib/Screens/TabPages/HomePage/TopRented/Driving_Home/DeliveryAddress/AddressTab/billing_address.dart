@@ -9,12 +9,17 @@ import '../../../../../../../Model/HomePageModels/top_rented_cars_model.dart';
 import 'CartDetails/cart_details.dart';
 
 class BillingAddress extends StatefulWidget {
-  final String? startTime, endTime, selectedDate;
+  final String? startTime, endTime, selectedDate,
+      homeStreetAddress1, homeStreetAddress2, homeCity, homePostCode,
+      homeSelectedState, homeSelectedCountry;
   final double? totalPrice, selectedSlotPrice;
   final DatumTopRented? myDatum;
 
   const BillingAddress({Key? key, this.selectedDate, this.selectedSlotPrice,
-    this.totalPrice, this.myDatum, this.startTime, this.endTime}) : super(key: key);
+    this.totalPrice, this.myDatum, this.startTime, this.endTime,
+    this.homeStreetAddress1, this.homeStreetAddress2,
+    this.homeCity, this.homePostCode, this.homeSelectedState, this.homeSelectedCountry
+  }) : super(key: key);
 
   @override
   State<BillingAddress> createState() => _BillingAddressState();
@@ -22,17 +27,16 @@ class BillingAddress extends StatefulWidget {
 
 class _BillingAddressState extends State<BillingAddress> {
 
-
   final GlobalKey<FormState> billingAddressFormKey = GlobalKey<FormState>();
-  var streetAddressLineOneController = TextEditingController();
-  var streetAddressLineTwoController = TextEditingController();
-  var cityController = TextEditingController();
-  var postCodeController = TextEditingController();
+  var address1ControllerBilling = TextEditingController();
+  var address2ControllerBilling = TextEditingController();
+  var cityControllerBilling = TextEditingController();
+  var postCodeControllerBilling = TextEditingController();
 
-  String _country = 'United Kingdom';
+  String selectedCountryBilling = 'United Kingdom';
 
   // Initial Selected Value
-  String dropdownValue = 'Select state';
+  String selectedStateBilling = 'Select state';
 
   // List of items in our dropdown menu
   var items = [
@@ -106,6 +110,20 @@ class _BillingAddressState extends State<BillingAddress> {
                       endTime: widget.endTime,
                       selectedDate: widget.selectedDate,
                       totalPrice: widget.totalPrice,
+
+                          homeAddress1: widget.homeStreetAddress1,
+                          homeAddress2: widget.homeStreetAddress2,
+                          homeCity: widget.homeCity,
+                          homePostCode: widget.homePostCode,
+                          homeState: widget.homeSelectedState,
+                          homeCountry: widget.homeSelectedCountry,
+
+                          billingAddress1: address1ControllerBilling.text,
+                          billingAddress2: address2ControllerBilling.text,
+                          billingCity: cityControllerBilling.text,
+                          billingPostCode: postCodeControllerBilling.text,
+                          billingState: selectedStateBilling,
+                          billingCountry: selectedCountryBilling,
                     )));
                   },
                   child: Container(
@@ -149,7 +167,7 @@ class _BillingAddressState extends State<BillingAddress> {
                           padding: const EdgeInsets.only(left: 10),
                           child: DropdownButton(
                             // Initial Value
-                            value: dropdownValue,
+                            value: selectedStateBilling,
                             // hint: Text("Select state", style: TextStyle(color: textLabelColor, fontFamily: poppinRegular,
                             // ),
                             // ),
@@ -168,7 +186,7 @@ class _BillingAddressState extends State<BillingAddress> {
                             // change button value to selected value
                             onChanged: (String? newValue) {
                               setState(() {
-                                dropdownValue = newValue!;
+                                selectedStateBilling = newValue!;
                               });
                             },
                           ),
@@ -196,7 +214,7 @@ class _BillingAddressState extends State<BillingAddress> {
                             print('Select country: ${country.displayName}');
 
                             setState(() {
-                              _country = country.name;
+                              selectedCountryBilling = country.name;
                             });
                           },
                           // Optional. Sets the theme for the country list picker.
@@ -236,7 +254,7 @@ class _BillingAddressState extends State<BillingAddress> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    _country.toString(),
+                                    selectedCountryBilling.toString(),
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                   Container(
@@ -259,7 +277,33 @@ class _BillingAddressState extends State<BillingAddress> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
-                loginButton("Save", context),
+                GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => CartDetails(
+                            myDatum: widget.myDatum,
+                            selectedSlotPrice: widget.selectedSlotPrice,
+                            startTime: widget.startTime,
+                            endTime: widget.endTime,
+                            selectedDate: widget.selectedDate,
+                            totalPrice: widget.totalPrice,
+
+                            homeAddress1: widget.homeStreetAddress1,
+                            homeAddress2: widget.homeStreetAddress2,
+                            homeCity: widget.homeCity,
+                            homePostCode: widget.homePostCode,
+                            homeState: widget.homeSelectedState,
+                            homeCountry: widget.homeSelectedCountry,
+
+                            billingAddress1: address1ControllerBilling.text,
+                            billingAddress2: address2ControllerBilling.text,
+                            billingCity: cityControllerBilling.text,
+                            billingPostCode: postCodeControllerBilling.text,
+                            billingState: selectedStateBilling,
+                            billingCountry: selectedCountryBilling,
+                          )));
+                    },
+                    child: loginButton("Save", context)),
               ],
             ),
 
@@ -296,7 +340,7 @@ class _BillingAddressState extends State<BillingAddress> {
                             hintValue: "Street address line 1",
                             validation: true,
                             // autoFocus: true,
-                            textController: streetAddressLineOneController,
+                            textController: address1ControllerBilling,
                             keyboardType: TextInputType.text,
                           ),
                         ),
@@ -318,7 +362,7 @@ class _BillingAddressState extends State<BillingAddress> {
                             hintValue: "Street address line 2",
                             validation: true,
                             // autoFocus: true,
-                            textController: streetAddressLineTwoController,
+                            textController: address2ControllerBilling,
                             keyboardType: TextInputType.text,
                           ),
                         ),
@@ -344,7 +388,7 @@ class _BillingAddressState extends State<BillingAddress> {
                                   hintValue: "City",
                                   validation: true,
                                   // autoFocus: true,
-                                  textController: cityController,
+                                  textController: cityControllerBilling,
                                   keyboardType: TextInputType.text,
                                 ),
                               ),
@@ -369,7 +413,7 @@ class _BillingAddressState extends State<BillingAddress> {
                                   hintValue: "Post Code",
                                   validation: true,
                                   // autoFocus: true,
-                                  textController: postCodeController,
+                                  textController: postCodeControllerBilling,
                                   keyboardType: TextInputType.text,
                                 ),
                               ),

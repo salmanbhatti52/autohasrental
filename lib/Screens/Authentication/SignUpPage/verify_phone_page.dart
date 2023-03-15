@@ -14,7 +14,7 @@ import 'privacy_policy_page.dart';
 
 class VerifyPhonePage extends StatefulWidget {
   final String? userId, verifyCode;
-  const VerifyPhonePage({Key? key, this.userId, this.verifyCode})
+  VerifyPhonePage({Key? key, this.userId, this.verifyCode})
       : super(key: key);
 
   @override
@@ -89,7 +89,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
@@ -104,7 +104,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     "We sent you an SMS with a 6 digit code. Enter the code to verify your mobile.",
                     textAlign: TextAlign.center,
@@ -121,7 +121,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                 Form(
                   key: formKeyVerifyCode,
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           vertical: 8.0, horizontal: 30),
                       child: PinCodeTextField(
                         appContext: context,
@@ -137,7 +137,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                             color: textLabelColor, fontFamily: poppinRegular),
                         hintCharacter: "0",
                         // obscuringCharacter: '*',
-                        // obscuringWidget: const FlutterLogo(
+                        // obscuringWidget: FlutterLogo(
                         //   size: 24,
                         // ),
                         // blinkWhenObscuring: true,
@@ -161,12 +161,12 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                           inactiveColor: homeBgColor,
                         ),
                         cursorColor: kWhite,
-                        animationDuration: const Duration(milliseconds: 300),
+                        animationDuration: Duration(milliseconds: 300),
                         enableActiveFill: false,
                         errorAnimationController: errorController,
                         controller: textEditingController,
                         keyboardType: TextInputType.number,
-                        boxShadows: const [
+                        boxShadows: [
                           BoxShadow(
                             offset: Offset(0, 1),
                             color: Colors.black12,
@@ -217,7 +217,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const PrivacyPolicyPage()));
+                                        PrivacyPolicyPage()));
                             setState(() {
                               progress = false;
                             });
@@ -230,7 +230,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -241,7 +241,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                       Text(
                         " Expire on 02:00",
                         style: TextStyle(
-                          color: const Color(0xffFF6666),
+                          color: Color(0xffFF6666),
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                           fontFamily: poppinMedium,

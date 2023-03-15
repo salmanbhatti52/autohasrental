@@ -1,21 +1,21 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../Model/SettingsModel/change_password_model.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
-import '../../../../../../Utils/constants.dart';
-import '../../../../../../Widget/myTextWidget.dart';
-import '../../../../../../Widget/toast_message.dart';
-import '../../../../MyAppBarHeader/app_bar_header.dart';
 import '../settings_screen.dart';
 import 'package:http/http.dart' as http;
 
 class ChangePasswordScreen extends StatefulWidget {
-  const ChangePasswordScreen({Key? key}) : super(key: key);
+  ChangePasswordScreen({Key? key}) : super(key: key);
 
   @override
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
@@ -85,7 +85,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImage(
+      appBar: MyAppBarSingleImage(
         title: "Change Password",
         backImage: "assets/messages_images/Back.png",
       ),
@@ -127,7 +127,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             toastSuccessMessage("${changePasswordModel.status}", Colors.green);
 
                             Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                                MaterialPageRoute(builder: (context) => SettingsScreen()));
 
                             setState(() {
                               progress = false;
@@ -155,7 +155,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   Widget buildTextFields() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.symmetric(horizontal: 30),
         child: Container(
           color: Colors.transparent,
           child: Column(
@@ -182,7 +182,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(top: 15, left: 20, bottom: 15),
+                              contentPadding: EdgeInsets.only(top: 15, left: 20, bottom: 15),
                               hintText: '••••••••',
                               hintStyle: TextStyle(
                                   color: textLabelColor,
@@ -190,7 +190,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   fontFamily: poppinBold),
                               focusColor: borderColor,
                               suffixIcon: Padding(
-                                padding: const EdgeInsetsDirectional.only(end: 12.0),
+                                padding: EdgeInsetsDirectional.only(end: 12.0),
 
                                 child: IconButton(
                                   icon: Icon(
@@ -229,13 +229,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(top: 15, left: 20, bottom: 15),
+                              contentPadding: EdgeInsets.only(top: 15, left: 20, bottom: 15),
                               hintText: '••••••••',
                               hintStyle: TextStyle(color: textLabelColor,
                                   letterSpacing: 3, fontFamily: poppinBold),
                               focusColor: borderColor,
                               suffixIcon: Padding(
-                                padding: const EdgeInsetsDirectional.only(end: 12.0),
+                                padding: EdgeInsetsDirectional.only(end: 12.0),
 
                                 child: IconButton(
                                   icon: Icon(
@@ -274,7 +274,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
+                              contentPadding: EdgeInsets.only(
                                   top: 15, left: 20, bottom: 15),
                               hintText: '••••••••',
                               hintStyle: TextStyle(
@@ -284,7 +284,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               focusColor: borderColor,
                               suffixIcon: Padding(
                                 padding:
-                                const EdgeInsetsDirectional.only(end: 12.0),
+                                EdgeInsetsDirectional.only(end: 12.0),
                                 child: IconButton(
                                   icon: Icon(
                                       obscureConfirmPass

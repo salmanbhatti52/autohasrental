@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../../../../../Model/BookingModels/Previous/Driving/driving_previous_model.dart';
 import 'DrivingDescription/driving_description.dart';
 import 'DrivingFeatures/features.dart';
-import 'DrivingRatings/rating.dart';
+import 'DrivingRatings/driving_rating_previous.dart';
 
 class DrivingBookingTabbar extends StatefulWidget {
-  final String? carDessc, userRating, userComment;
-  final Datum? datumP;
-  const DrivingBookingTabbar({super.key, this.carDessc, this.datumP, this.userComment, this.userRating});
+  final DatumDrivingPrevious? datumP;
+  const DrivingBookingTabbar({super.key, this.datumP});
 
   @override
   State<DrivingBookingTabbar> createState() => _DrivingBookingTabbarState();
@@ -66,17 +65,16 @@ class _DrivingBookingTabbarState extends State<DrivingBookingTabbar> with Ticker
         ),
         SizedBox(
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height*0.35,
+          height: MediaQuery.of(context).size.height*0.4,
           child: TabBarView(
             controller: tabController,
             children: [
               DrivingDescription(
-                carDescription: widget.carDessc,
+                datumP: widget.datumP,
               ),
               const DrivingFeaturesDetails(),
               DrivingRatingDetails(
-                userRating: widget.userRating,
-                userComment: widget.userComment,
+               datumP: widget.datumP,
               )
             ],
           ),

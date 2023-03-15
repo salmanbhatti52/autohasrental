@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
@@ -6,33 +7,27 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 import '../../../../../Model/custom_subscription_model.dart';
 import '../../../../../Utils/fontFamily.dart';
 import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
-import '../../../../../Widget/toast_message.dart';
 import '../../../MessagePage/message_details_screen.dart';
 import 'ev_description_details_page.dart';
 import 'EvTaBBar/tabbar_description_page.dart';
 import 'package:http/http.dart'as http;
 
 class EVCarDescription extends StatefulWidget {
- final String? carName, carImage, carYear, carPrice, carStatus,
-     carColorName, carModelName, carMakesName, carMakesImage,
-     myCarDescription, myCarRating, myCarComment,
-     carRating, carOwnerImage, carOwnerName, discountPercentage;
+ final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
+     carModelName, carMakesName, carMakesImage, myCarDescription, myCarRating,
+     myCarComment, carRating, carOwnerImage, carOwnerName, discountPercentage;
  final int? carId, carOwnerId;
  final double? carDiscountPrice;
-  // final Datum? evDatum;
-
-  const EVCarDescription({super.key, this.carName,
-    this.myCarDescription, this.myCarRating, this.myCarComment,
-    this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
-    this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
-    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName
-  });
+  const EVCarDescription({super.key, this.carName, this.myCarDescription,
+    this.myCarRating, this.myCarComment, this.carColorName, this.carModelName,
+    this.discountPercentage, this.carDiscountPrice, this.carImage, this.carYear,
+    this.carMakesImage, this.carStatus, this.carMakesName, this.carId, this.carPrice,
+    this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName});
 
   @override
   State<EVCarDescription> createState() => _EVCarDescriptionState();
@@ -272,7 +267,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                         Image.asset("assets/home_page/heart.png"):
                         GestureDetector(
                           onTap: () async {
-                            myCurrentCarIndex = "${evSubscriptionCarsModelObject.data![0].carsId}";
+                            myCurrentCarIndex = "${widget.carId}";
                             print("evCarIds $myCurrentCarIndex");
                             await getLikeUnlikeCarWidget();
                             if (carLikeUnlikeModelObject.message == "Liked") {
@@ -288,7 +283,6 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                               ? Image.asset("assets/home_page/heart.png")
                               : Image.asset("assets/car_bookings_images/heart.png"),
                         ),
-                        // Image.asset('assets/car_description_images/heart.png', width: 24, height: 20),
                       ),
                     ],
                   ),
@@ -335,10 +329,10 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                   print('selectedTabMonth1: $tabSelectMonth');
                   print('selectedTabMonthPrice1: $tabSelectedPrice');
                   if(formKeyEvTabbar.currentState!.validate()){
-                    if(tabSelectMonth == null){
-
-                      toastFailedMessage("select Month", kRed);
-                    } else{
+                    // if(tabSelectMonth == null){
+                    //
+                    //   toastFailedMessage("select Month", kRed);
+                    // } else{
                       print('selectedIndex123: $selectedIndex');
                       print('selectedTabMonth123: $tabSelectMonth');
                       print('selectedTabMonthPrice: $tabSelectedPrice');
@@ -362,10 +356,9 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                             carModelName: widget.carModelName,
 
                           )));
-                    }
+                    // }
 
                   }
-
                 },
                 child: loginButton('Book Now', context)),
           ],
@@ -409,6 +402,11 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                       monthNumber.length, (int index) {
                     print("monthsTabBarLength ${monthNumber.length}");
                     print("monthsTabBarClicked ");
+                    print("monthNumber ${monthNumber[index].months}");
+                    selectedIndex = index;
+                    tabSelectMonth = monthNumber[selectedIndex].months;
+                    tabSelectedPrice = monthNumber[selectedIndex].dis_price_per_months;
+                    print("tabSelectMonthAndPrice $tabSelectMonth $tabSelectedPrice");
                     return Container(
                       color: Colors.transparent,
                       height: MediaQuery.of(context).size.height * 0.12,
@@ -445,7 +443,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
       ),
     );
   }
-  CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
+  LikeUnlikeCarModel carLikeUnlikeModelObject = LikeUnlikeCarModel();
   String? myCurrentCarIndex;
   getLikeUnlikeCarWidget() async {
     loadingP = true;
@@ -468,7 +466,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
     if (response.statusCode == 200) {
       final responseString = response.body;
       print("carLikeUnlikeModelResponse: ${responseString.toString()}");
-      carLikeUnlikeModelObject = carLikeUnlikeModelFromJson(responseString);
+      carLikeUnlikeModelObject = likeUnlikeCarModelFromJson(responseString);
       print("carLikeUnlikeModelMessage: ${carLikeUnlikeModelObject.message}");
     }
     // } catch (e) {

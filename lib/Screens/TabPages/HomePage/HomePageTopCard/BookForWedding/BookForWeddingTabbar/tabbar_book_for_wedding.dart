@@ -1,10 +1,10 @@
 // import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 // import 'package:flutter/material.dart';
 // import '../../../../../../Utils/colors.dart';
-// import '../../EvSubscriptions/EvTaBBar/rating_page.dart/rating.dart';
+// import '../../EvSubscriptions/EvTaBBar/rating_page.dart/photo_rating_details.dart';
 // import 'description_page/description.dart';
 // import 'feature_page/features.dart';
-// import 'rating_page.dart/rating.dart';
+// import 'rating_page.dart/photo_rating_details.dart';
 //
 // class TabbarBookForWedding extends StatefulWidget {
 //   const TabbarBookForWedding({super.key});

@@ -16,7 +16,7 @@ class TopRentedCarsModel {
 
   factory TopRentedCarsModel.fromJson(Map<String, dynamic> json) => TopRentedCarsModel(
     status: json["status"],
-    data: List<DatumTopRented>.from(json["data"].map((x) => DatumTopRented.fromJson(x))),
+    data: json["data"] != null ? List<DatumTopRented>.from(json["data"].map((x) => DatumTopRented.fromJson(x))): null,
   );
 
   Map<String, dynamic> toJson() => {

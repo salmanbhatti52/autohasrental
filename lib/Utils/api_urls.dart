@@ -27,6 +27,13 @@ String sendMessageApiUrl = '${baseUrl}user_chat';
 String updateMessageApiUrl = '${baseUrl}user_chat';
 String startChatApiUrl = '${baseUrl}user_chat';
 
+String getLiveMsgApiUrl = '${baseUrl}user_chat_live';
+String sendLiveMsgApiUrl = '${baseUrl}user_chat_live';
+String updateLiveMsgApiUrl = '${baseUrl}user_chat_live';
+
+String getAdminListApiUrl = '${baseUrl}get_admin_list';
+String getCarFilterByNameApiUrl = '${baseUrl}get_cars_filters_by_name';
+
 /// TabBar Page API Urls
 String topRentedCarsApiUrl = '${baseUrl}cars_top_rented';
 String favoriteCarsApiUrl = '${baseUrl}cars_favourite';
@@ -36,6 +43,8 @@ String likeUnlikeFavoriteCarsApiUrl = '${baseUrl}cars_favourite_like_unlike';
 String bookingPreviousCarsApiUrl = '${baseUrl}bookings_previous';
 String bookingUpcomingCarsApiUrl = '${baseUrl}bookings_upcoming';
 String carsRatingApiUrl = '${baseUrl}rate_cars';
+String getCarMakesApiUrl = '${baseUrl}cars_makes';
+String getCarRatingByIdApiUrl = '${baseUrl}get_cars_rating';
 
 String cancelBookingUpcomingCarsApiUrl = '${baseUrl}bookings_cancelled';
 String cancelBookingDialogBoxApiUrl = '${baseUrl}bookings_cancel';

@@ -3,7 +3,7 @@ import '../../../../../../Utils/colors.dart';
 import '../../../../../../Utils/fontFamily.dart';
 import 'description_page/description.dart';
 import 'feature_page/features.dart';
-import 'rating_page.dart/rating.dart';
+import 'rating_page.dart/ev_rating.dart';
 
 class TabbarCarDescription extends StatefulWidget {
   final String? myDescription, myRating, myComment;
@@ -57,7 +57,7 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
         ),
         SizedBox(
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height * 0.2,
+          height: MediaQuery.of(context).size.height * 0.25,
           child: TabBarView(
             controller: tabController,
             children: [
@@ -65,10 +65,7 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
                 carDescription: widget.myDescription,
               ),
               const Features(),
-              EvRating(
-                carRating: widget.myRating,
-                carComment: widget.myComment,
-              ),
+              EvRating(),
             ]
           ),
         ),

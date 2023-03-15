@@ -81,8 +81,5 @@ class FilterRadioModel {
   bool isSelectedFilter;
   final String image;
 
-  FilterRadioModel(
-      this.isSelectedFilter,
-      this.image,
-      );
+  FilterRadioModel(this.isSelectedFilter, this.image);
 }

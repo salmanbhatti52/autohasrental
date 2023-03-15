@@ -4,10 +4,13 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../../UpcomingTab/UpcomingTabs/EvUpcoming/ev_upcoming_page.dart';
+import '../previous_bookings_details_page.dart';
 import 'driving_booking_detail.dart';
 
 class DrivingPreviousPage extends StatefulWidget {
@@ -258,43 +261,22 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                               Text("/Slot", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
-                                              showRatingStars(double.parse("${drivingPreviousObject.data![index].carsRatings![0].rateStars}")),
+                                              showRatingStars(double.parse("${drivingPreviousObject.data![index].carsDetails!.rating}")),
 
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01),
 
-                                              drivingPreviousObject.data![index].carsRatings![0].rateStars == null?
+                                              drivingPreviousObject.data![index].carsDetails!.rating == null?
                                               Text("0.0", textAlign: TextAlign.left,
                                                 style: TextStyle(color: kBlack,
                                                     fontSize: 12, fontFamily: poppinRegular)):
-                                              Text("${drivingPreviousObject.data![index].carsRatings![0].rateStars}", textAlign: TextAlign.left,
+                                              Text("${drivingPreviousObject.data![index].carsDetails!.rating}", textAlign: TextAlign.left,
                                                   style: TextStyle(color: kBlack,
                                                       fontSize: 12, fontFamily: poppinRegular)),
                                             ],
                                           ),
                                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                          Row(
-                                            children: [
-                                              Image.asset("assets/car_bookings_images/promoted.png"),
-                                              const SizedBox(width: 5),
-                                              Text("Verified Dealer", textAlign: TextAlign.left,
-                                                style: TextStyle(color: textLabelColor,
-                                                  fontSize: 10, fontFamily: poppinRegular)),
-                                              const SizedBox(width: 05),
-                                              Container(
-                                                height: 15,
-                                                width: 35,
-                                                decoration: BoxDecoration(
-                                                    color: kBlack,
-                                                    borderRadius: BorderRadius.circular(10)),
-                                                child: Center(
-                                                  child: Text("New", textAlign: TextAlign.left,
-                                                    style: TextStyle(color: kWhite,
-                                                      fontSize: 8, fontFamily: poppinRegular)),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                          verifiedDealerText(),
                                         ],
                                       ),
                                     ),
@@ -309,6 +291,7 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
+                            carBookingsId = "${drivingPreviousObject.data![index].bookingsId}";
                             print("clicked....");
                             print("${drivingPreviousObject.data![index].carsDetails!.vehicalName}");
                             print("${drivingPreviousObject.data![index].carsDetails!.carsModels}");
@@ -316,27 +299,13 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                             print("carImage $baseUrlImage${drivingPreviousObject.data![index].carsDetails!.image1}");
                             print("carId123 ${drivingPreviousObject.data![index].carsId}");
 
-                            drivingPreviousObject.data![index].status == "Completed"?
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => DrivingBookingDetail(
 
-                                  carId: "${drivingPreviousObject.data![index].carsId}",
-                                  carName: drivingPreviousObject.data![index].carsDetails!.vehicalName,
-                                  carYear: "${drivingPreviousObject.data![index].carsDetails!.year}",
-                                  carColors: drivingPreviousObject.data![index].carsDetails!.carsColors!.name,
-                                  carMakes: drivingPreviousObject.data![index].carsDetails!.carsMakes,
-                                  carModel: drivingPreviousObject.data![index].carsDetails!.carsModels,
-                                  carRating: drivingPreviousObject.data![index].carsDetails!.rating,
-                                  carPrice: drivingPreviousObject.data![index].carsPlans![0].pricePerSlot,
-                                  discountPercentage: drivingPreviousObject.data![index].carsDetails!.discountPercentage,
-                                  carImage: "$baseUrlImage${drivingPreviousObject.data![index].carsDetails!.image1}",
-                                  carDesc: drivingPreviousObject.data![index].carsDetails!.description,
-                                  userRating: drivingPreviousObject.data![index].carsRatings![0].rateStars,
-                                  userComment: drivingPreviousObject.data![index].carsRatings![0].comments,
-                                  // datumP: drivingPreviousObject.data![index],
-                                  // datumPrevious: previousBookingModelObject.data![index],
-                                )))
-                            :print("not completed");
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => PreviousBookingDetailsPage(
+                                  bookingId: "${drivingPreviousObject.data![index].bookingsId}",
+                                  myStatus: drivingPreviousObject.data![index].status,
+                                )));
+
                             print("userRating ${drivingPreviousObject.data![index].carsRatings![0].rateStars}");
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png")),

@@ -1,7 +1,6 @@
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-
-import '../../Utils/colors.dart';
-import '../../Utils/fontFamily.dart';
 
 class EditTextUtils {
   TextField getCustomEditTextArea({

@@ -42,17 +42,10 @@ Future bottomSheetWidget(BuildContext context){
               children: [
                 const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 40, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                   child: Container(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.05,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                         color: kBlack,
                         borderRadius: BorderRadius.circular(30)),
@@ -91,23 +84,14 @@ Future bottomSheetWidget(BuildContext context){
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     textWidgetBlack("Card Information"),
-                    SizedBox(height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.005),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                     Container(
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.06,
+                      height: MediaQuery.of(context).size.height * 0.06,
                       decoration: BoxDecoration(
                         color: kWhite,
                         borderRadius: BorderRadius.circular(30.0),
@@ -135,10 +119,7 @@ Future bottomSheetWidget(BuildContext context){
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Row(
                   children: [
                     Expanded(
@@ -146,15 +127,9 @@ Future bottomSheetWidget(BuildContext context){
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           textWidgetBlack("Expire date"),
-                          SizedBox(height: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.005),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                           Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.06,
+                            height: MediaQuery.of(context).size.height * 0.06,
                             decoration: BoxDecoration(
                                 color: kWhite,
                                 borderRadius: BorderRadius.circular(30.0)),
@@ -179,10 +154,7 @@ Future bottomSheetWidget(BuildContext context){
                         ],
                       ),
                     ),
-                    SizedBox(width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.02),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

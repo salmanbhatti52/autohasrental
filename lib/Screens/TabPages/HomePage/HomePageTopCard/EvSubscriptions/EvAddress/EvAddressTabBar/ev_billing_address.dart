@@ -5,8 +5,6 @@ import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 import 'EvCartDetails/ev_cart_details_page.dart';
 
 class EvBillingAddress extends StatefulWidget {
@@ -15,15 +13,18 @@ class EvBillingAddress extends StatefulWidget {
   final double? totalAmount;
   final String? carName, carImage, carYear, carPrice, carStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
-      carRating, carOwnerImage, carOwnerName, discountPercentage;
+      carRating, carOwnerImage, carOwnerName, discountPercentage,
+  homeStreetAddress1, homeStreetAddress2, homeCity, homePostCode,
+  homeSelectedState, homeSelectedCountry;
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  const EvBillingAddress({Key? key, /*this.myDatum,*/
-    this.totalAmount, this.carName,
-    this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
-    this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
-    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
+  const EvBillingAddress({Key? key, this.homeStreetAddress1, this.homeStreetAddress2,
+    this.homeCity, this.homePostCode, this.homeSelectedState, this.homeSelectedCountry,
+    this.totalAmount, this.carName, this.carColorName, this.carModelName, this.carYear,
+    this.discountPercentage, this.carDiscountPrice, this.carImage, this.carMakesImage,
+    this.carStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
+    this.carOwnerId, this.carOwnerImage, this.carOwnerName,
     this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
@@ -32,17 +33,16 @@ class EvBillingAddress extends StatefulWidget {
 
 class _EvBillingAddressState extends State<EvBillingAddress> {
 
-
   final GlobalKey<FormState> billingAddressFormKey = GlobalKey<FormState>();
-  var streetAddressLineOneController = TextEditingController();
-  var streetAddressLineTwoController = TextEditingController();
-  var cityController = TextEditingController();
-  var postCodeController = TextEditingController();
+  var address1ControllerBilling = TextEditingController();
+  var address2ControllerBilling = TextEditingController();
+  var cityControllerBilling = TextEditingController();
+  var postCodeControllerBilling = TextEditingController();
 
-  String _country = 'United Kingdom';
+  String selectedCountryBilling = 'United Kingdom';
 
   // Initial Selected Value
-  String dropdownValue = 'Select state';
+  String selectedStateBilling = 'Select state';
 
   // List of items in our dropdown menu
   var items = [
@@ -53,18 +53,20 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
     'Select state 4',
     'Select state 5',
   ];
-  // mySelectedData(){
-  //   print("carDayDate: ${widget.selectedDate}");
-  //   print("carStartEndTime: ${widget.startTime} ${widget.endTime}");
-  // }
+  mySelectedData(){
+    print("homeStreetAddresses : ${widget.homeStreetAddress1} ${widget.homeStreetAddress2}");
+    print("homeCity homePostCode: ${widget.homeCity} ${widget.homePostCode}");
+    print("homeSelectedState homeSelectedCountry: ${widget.homeSelectedState} ${widget.homeSelectedCountry}");
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // mySelectedData();
+    mySelectedData();
   }
   bool checkBoxValue = false;
 
+  String? myAddress1, myAddress2, myCity, myPostCode, myState, myCountry;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +79,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
             Row(
               children: <Widget>[
                 Theme(
-                  data: ThemeData(unselectedWidgetColor: const Color(0xffD4DCE1),),
+                  data: ThemeData(unselectedWidgetColor: const Color(0xffD4DCE1)),
                   child: Checkbox(
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     activeColor: kWhite,
@@ -100,21 +102,24 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                 ), //Text
               ], //<Widget>[]
             ),
+            // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
 
            checkBoxValue == false?
-            Column(
+           Column(
               children: [
-                Image.asset("assets/home_page/empty-cart.png",),
+                Image.asset("assets/home_page/empty-cart.png"),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 GestureDetector(
                   onTap: (){
+                    print("homeStreetAddress1 ${widget.homeStreetAddress1}");
+                    print("checkBoxValue ${checkBoxValue}");
+
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => EvCartDetailsPage(
                           // myDatum: widget.myDatum,
                           mySelectedTabMonth: widget.mySelectedTabMonth,
                           mySelectedTabPrice: widget.mySelectedTabPrice,
                           totalAmount: widget.totalAmount,
-
                           carName: widget.carName,
                           carImage: widget.carImage,
                           carYear: widget.carYear,
@@ -128,7 +133,22 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                           carOwnerId: widget.carOwnerId,
                           carMakesName: widget.carMakesName,
                           carModelName: widget.carModelName,
-                    )));
+
+                          homeAddress1: widget.homeStreetAddress1,
+                          homeAddress2: widget.homeStreetAddress2,
+                          homeCity: widget.homeCity,
+                          homePostCode: widget.homePostCode,
+                          homeState: widget.homeSelectedState,
+                          homeCountry: widget.homeSelectedCountry,
+
+                          billingAddress1: widget.homeStreetAddress1,
+                          billingAddress2: widget.homeStreetAddress2,
+                          billingCity: widget.homeCity,
+                          billingPostCode: widget.homePostCode,
+                          billingState: widget.homeSelectedState,
+                          billingCountry: widget.homeSelectedCountry,
+
+                        )));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.06,
@@ -148,16 +168,16 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                 ),
               ],
             ):
-
-            Column(
+           Column(
               children: [
                 buildTextFields(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     textWidgetBlack("State"),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                     Container(
                       height: MediaQuery.of(context).size.height *0.06,
                       width: MediaQuery.of(context).size.width,
@@ -171,7 +191,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                           padding: const EdgeInsets.only(left: 10),
                           child: DropdownButton(
                             // Initial Value
-                            value: dropdownValue,
+                            value: selectedStateBilling,
                             // hint: Text("Select state", style: TextStyle(color: textLabelColor, fontFamily: poppinRegular,
                             // ),
                             // ),
@@ -190,7 +210,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                             // change button value to selected value
                             onChanged: (String? newValue) {
                               setState(() {
-                                dropdownValue = newValue!;
+                                selectedStateBilling = newValue!;
                               });
                             },
                           ),
@@ -218,7 +238,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                             print('Select country: ${country.displayName}');
 
                             setState(() {
-                              _country = country.name;
+                              selectedCountryBilling = country.name;
                             });
                           },
                           // Optional. Sets the theme for the country list picker.
@@ -258,7 +278,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    _country.toString(),
+                                    selectedCountryBilling.toString(),
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                   Container(
@@ -281,11 +301,47 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
-                loginButton("Save", context),
+                GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => EvCartDetailsPage(
+                            // myDatum: widget.myDatum,
+                            mySelectedTabMonth: widget.mySelectedTabMonth,
+                            mySelectedTabPrice: widget.mySelectedTabPrice,
+                            totalAmount: widget.totalAmount,
+
+                            carName: widget.carName,
+                            carImage: widget.carImage,
+                            carYear: widget.carYear,
+                            carPrice: widget.carPrice,
+                            carDiscountPrice: widget.carDiscountPrice,
+                            carRating: widget.carRating,
+                            carColorName: widget.carColorName,
+                            discountPercentage: widget.discountPercentage,
+                            carStatus: widget.carStatus,
+                            carId: widget.carId,
+                            carOwnerId: widget.carOwnerId,
+                            carMakesName: widget.carMakesName,
+                            carModelName: widget.carModelName,
+
+                            homeAddress1: widget.homeStreetAddress1,
+                            homeAddress2: widget.homeStreetAddress2,
+                            homeCity: widget.homeCity,
+                            homePostCode: widget.homePostCode,
+                            homeState: widget.homeSelectedState,
+                            homeCountry: widget.homeSelectedCountry,
+
+                            billingAddress1: address1ControllerBilling.text,
+                            billingAddress2: address2ControllerBilling.text,
+                            billingCity: cityControllerBilling.text,
+                            billingPostCode: postCodeControllerBilling.text,
+                            billingState: selectedStateBilling,
+                            billingCountry: selectedCountryBilling,
+                          )));
+                    },
+                    child: loginButton("Save", context)),
               ],
             ),
-
-
           ],
         ),
       ),
@@ -318,7 +374,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                             hintValue: "Street address line 1",
                             validation: true,
                             // autoFocus: true,
-                            textController: streetAddressLineOneController,
+                            textController: address1ControllerBilling,
                             keyboardType: TextInputType.text,
                           ),
                         ),
@@ -340,7 +396,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                             hintValue: "Street address line 2",
                             validation: true,
                             // autoFocus: true,
-                            textController: streetAddressLineTwoController,
+                            textController: address2ControllerBilling,
                             keyboardType: TextInputType.text,
                           ),
                         ),
@@ -366,7 +422,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                                   hintValue: "City",
                                   validation: true,
                                   // autoFocus: true,
-                                  textController: cityController,
+                                  textController: cityControllerBilling,
                                   keyboardType: TextInputType.text,
                                 ),
                               ),
@@ -391,7 +447,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                                   hintValue: "Post Code",
                                   validation: true,
                                   // autoFocus: true,
-                                  textController: postCodeController,
+                                  textController: postCodeControllerBilling,
                                   keyboardType: TextInputType.text,
                                 ),
                               ),

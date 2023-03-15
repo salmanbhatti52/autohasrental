@@ -7,7 +7,7 @@ import '../Screens/TabPages/tab_page.dart';
 import '../Utils/colors.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
-  const MyBottomNavigationBar({Key? key}) : super(key: key);
+   MyBottomNavigationBar({Key? key}) : super(key: key);
 
   @override
   State<MyBottomNavigationBar> createState() => _MyBottomNavigationBarState();
@@ -21,10 +21,10 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   }
 
   List pages = [
-    const HomePage(),
-    const MessagePage(),
-    const BookingPage(),
-    const FavoritePage(),
+     HomePage(),
+     MessagePage(),
+     BookingPage(),
+     FavoritePage(),
   ];
 
   int currentIndex = 0;
@@ -37,40 +37,17 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     print("currentIndex $currentIndex");
     if (currentIndex != 0) {
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const TabBarPage()));
+          MaterialPageRoute(builder: (context) =>  TabBarPage()));
       print("currentIndex1111 $currentIndex");
       return false;
     }
 
     if (currentIndex == 0) {
       // Navigator.pushReplacement(context,
-      //     MaterialPageRoute(builder: (context) => const TabBarPage()));
+      //     MaterialPageRoute(builder: (context) =>  TabBarPage()));
       print("currentIndex1111 $currentIndex");
       return false;
     }
-
-    // if(currentIndex == 0){
-    //   return (await showDialog(
-    //     context: context,
-    //     builder: (context) =>
-    //     AlertDialog(
-    //       title: const Text('Are you sure?'),
-    //       content: const Text('Do you want to exit an App'),
-    //       actions: <Widget>[
-    //         TextButton(
-    //           onPressed: () => Navigator.of(context).pop(false),
-    //           child: const Text('No'),
-    //         ),
-    //         TextButton(
-    //           onPressed: () =>
-    //            Navigator.of(context).popUntil((route) => route.isFirst),
-    //               // Navigator.of(context).pop(true),
-    //           child: const Text('Yes'),
-    //         ),
-    //       ],
-    //     ),
-    //   )) ?? false;
-    // }
     return true;
   }
 
@@ -87,7 +64,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               color: appBgColor,
-              borderRadius: const BorderRadius.only(
+              borderRadius:  BorderRadius.only(
                 topRight: Radius.circular(10),
                   topLeft: Radius.circular(10)
               ),

@@ -4,12 +4,12 @@ import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../../../Model/BookingModels/Upcoming/EvUpComing/ev_upcoming_model.dart';
-import '../upcoming_details_page.dart';
+import '../../upcoming_bookings_details_page.dart';
 
+String? carBookingsId;
 class EvUpcomingPage extends StatefulWidget {
   const EvUpcomingPage({super.key});
 
@@ -20,6 +20,7 @@ class EvUpcomingPage extends StatefulWidget {
 class _EvUpcomingPageState extends State<EvUpcomingPage> {
   EvUpcomingModel evUpcomingModelObject = EvUpcomingModel();
   bool loadingP = true;
+
 
   getUpcomingBookingCarWidget() async {
     loadingP = true;
@@ -211,7 +212,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                               Text("/Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
-                                              showRatingStars(double.parse("${evUpcomingModelObject.data![index].carsRatings![0].rateStars}")),
+                                              showRatingStars(double.parse("${evUpcomingModelObject.data![index].carsDetails!.rating}")),
 
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01),
@@ -262,29 +263,14 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
-                            print("clicked....");
+                            carBookingsId = "${evUpcomingModelObject.data![index].bookingsId}";
+                            print("bookingId $carBookingsId");
                             print("${evUpcomingModelObject.data![index].carsDetails!.vehicalName}");
                             print("${evUpcomingModelObject.data![index].carsDetails!.carsModels}");
                             print("${evUpcomingModelObject.data![index].carsDetails!.rating}");
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => UpcomingDetailsPage(
-                                  carId: "${evUpcomingModelObject.data![index].carsId}",
-                                  carName: evUpcomingModelObject.data![index].carsDetails!.vehicalName,
-                                  carYear: "${evUpcomingModelObject.data![index].carsDetails!.year}",
-                                  carColors: evUpcomingModelObject.data![index].carsDetails!.carsColors!.name,
-                                  carMakes: evUpcomingModelObject.data![index].carsDetails!.carsMakes,
-                                  carModel: evUpcomingModelObject.data![index].carsDetails!.carsModels,
-                                  carRating: evUpcomingModelObject.data![index].carsDetails!.rating,
-                                  carPrice: evUpcomingModelObject.data![index].carsPlans![0].pricePerMonth,
-                                  discountPercentage: evUpcomingModelObject.data![index].carsDetails!.discountPercentage,
-                                  carImage: "$baseUrlImage${evUpcomingModelObject.data![index].carsDetails!.image1}",
-                                  carDesc: evUpcomingModelObject.data![index].carsDetails!.description,
-                                  userRating: evUpcomingModelObject.data![index].carsRatings![0].rateStars,
-                                  userComment: evUpcomingModelObject.data![index].carsRatings![0].comments,
-
-                                  // datumUpcoming: evUpcomingModelObject.data![index],
-                                  carMonths: "${evUpcomingModelObject.data![index].carsPlans![0].months}",
-                                  // carDesc: evUpcomingModelObject.data![index].carsDetails!.description,
+                                builder: (context) => UpcomingBookingDetailsPage(
+                                  bookingId: "${evUpcomingModelObject.data![index].bookingsId}",
                                 )));
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png")),

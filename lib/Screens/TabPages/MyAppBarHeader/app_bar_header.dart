@@ -8,7 +8,7 @@ import '../MessagePage/message_details_screen.dart';
 
 Widget myHeaderDrawer(BuildContext context, backImage, titleText, rightImage) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -16,7 +16,7 @@ Widget myHeaderDrawer(BuildContext context, backImage, titleText, rightImage) {
           onTap: () {
             print("clicked");
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const DrawerScreen()));
+                MaterialPageRoute(builder: (context) =>  DrawerScreen()));
           },
           child: Image.asset(
             backImage,
@@ -35,7 +35,7 @@ Widget myHeaderDrawer(BuildContext context, backImage, titleText, rightImage) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const NotificationsScreen()));
+                      builder: (context) =>  NotificationsScreen()));
             },
             child: Image.asset(rightImage)),
       ],
@@ -47,16 +47,16 @@ class MyAppBarSingleImage extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final String? backImage;
-  const MyAppBarSingleImage({Key? key, this.title = "", this.backImage})
+   MyAppBarSingleImage({Key? key, this.title = "", this.backImage})
       : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize =>  Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: const SystemUiOverlayStyle(
+      systemOverlayStyle:  SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
             Brightness.dark, //<-- For Android SEE HERE (dark icons)
@@ -69,7 +69,7 @@ class MyAppBarSingleImage extends StatelessWidget
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding:  EdgeInsets.only(top: 30),
           child: Image.asset(
             backImage!,
             height: 25,
@@ -78,7 +78,7 @@ class MyAppBarSingleImage extends StatelessWidget
         ),
       ),
       title: Padding(
-        padding: const EdgeInsets.only(top: 30),
+        padding:  EdgeInsets.only(top: 30),
         child: Text(title,
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -96,17 +96,17 @@ class MyAppBarSingleImageWithText extends StatelessWidget
   final String title;
   final String subtitle;
   final String? backImage;
-  const MyAppBarSingleImageWithText(
+   MyAppBarSingleImageWithText(
       {Key? key, this.title = "", this.subtitle = "", this.backImage})
       : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize =>  Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: const SystemUiOverlayStyle(
+      systemOverlayStyle:  SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
             Brightness.dark, //<-- For Android SEE HERE (dark icons)
@@ -119,7 +119,7 @@ class MyAppBarSingleImageWithText extends StatelessWidget
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30, right: 0),
+          padding:  EdgeInsets.only(top: 30, right: 0),
           child: Image.asset(
             backImage!,
             height: 25,
@@ -129,7 +129,7 @@ class MyAppBarSingleImageWithText extends StatelessWidget
       ),
       // leadingWidth: 80,
       title: Padding(
-        padding: const EdgeInsets.only(top: 30),
+        padding:  EdgeInsets.only(top: 30),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -159,19 +159,19 @@ class MyAppBarSettingsPage extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final String backImage;
-  const MyAppBarSettingsPage({
+   MyAppBarSettingsPage({
     Key? key,
     this.title = "",
     this.backImage = "",
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize =>  Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: const SystemUiOverlayStyle(
+      systemOverlayStyle:  SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
             Brightness.light, //<-- For Android SEE HERE (dark icons)
@@ -182,10 +182,10 @@ class MyAppBarSettingsPage extends StatelessWidget
         onTap: () {
           print("clicked");
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const DrawerScreen()));
+              MaterialPageRoute(builder: (context) =>  DrawerScreen()));
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding:  EdgeInsets.only(top: 30),
           child: Image.asset(
             backImage,
             height: 25,
@@ -195,7 +195,7 @@ class MyAppBarSettingsPage extends StatelessWidget
       ),
       leadingWidth: 80,
       title: Padding(
-        padding: const EdgeInsets.only(top: 30),
+        padding:  EdgeInsets.only(top: 30),
         child: Text(title,
             textAlign: TextAlign.center,
             style:
@@ -212,19 +212,19 @@ class MyAppBarAboutUsPage extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final String backImage;
-  const MyAppBarAboutUsPage({
+   MyAppBarAboutUsPage({
     Key? key,
     this.title = "",
     this.backImage = "",
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize =>  Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: const SystemUiOverlayStyle(
+      systemOverlayStyle:  SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
             Brightness.light, //<-- For Android SEE HERE (dark icons)
@@ -235,10 +235,10 @@ class MyAppBarAboutUsPage extends StatelessWidget
         onTap: () {
           print("clicked");
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const DrawerScreen()));
+              MaterialPageRoute(builder: (context) =>  DrawerScreen()));
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding:  EdgeInsets.only(top: 30),
           child: Image.asset(
             backImage,
             height: 25,
@@ -249,7 +249,7 @@ class MyAppBarAboutUsPage extends StatelessWidget
       ),
       leadingWidth: 80,
       title: Padding(
-        padding: const EdgeInsets.only(top: 30),
+        padding:  EdgeInsets.only(top: 30),
         child: Text(title,
             textAlign: TextAlign.center,
             style:
@@ -264,15 +264,15 @@ class MyAppBarAboutUsPage extends StatelessWidget
 
 class MyAppBarSignUp extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const MyAppBarSignUp({Key? key, this.title = ""}) : super(key: key);
+   MyAppBarSignUp({Key? key, this.title = ""}) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize =>  Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: const SystemUiOverlayStyle(
+      systemOverlayStyle:  SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
             Brightness.light, //<-- For Android SEE HERE (dark icons)
@@ -281,7 +281,7 @@ class MyAppBarSignUp extends StatelessWidget implements PreferredSizeWidget {
       ),
       // leadingWidth: 80,
       title: Padding(
-        padding: const EdgeInsets.only(top: 30),
+        padding:  EdgeInsets.only(top: 30),
         child: Text(title,
             textAlign: TextAlign.center,
             style:
@@ -301,17 +301,17 @@ class MyAppBarDoubleImage extends StatelessWidget
   final String? frontImage;
   final String title;
   final String? backImage;
-  const MyAppBarDoubleImage(
+   MyAppBarDoubleImage(
       {Key? key, this.frontImage, this.title = "", this.backImage})
       : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize =>  Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: const SystemUiOverlayStyle(
+      systemOverlayStyle:  SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
             Brightness.dark, //<-- For Android SEE HERE (dark icons)
@@ -325,10 +325,10 @@ class MyAppBarDoubleImage extends StatelessWidget
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const NotificationsScreen()));
+                    builder: (context) =>  NotificationsScreen()));
           },
           child: Padding(
-            padding: const EdgeInsets.only(top: 30, right: 20),
+            padding:  EdgeInsets.only(top: 30, right: 20),
             child: Image.asset(
               backImage!,
               height: 25,
@@ -343,7 +343,7 @@ class MyAppBarDoubleImage extends StatelessWidget
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding:  EdgeInsets.only(top: 30),
           child: Image.asset(
             frontImage!,
             height: 25,
@@ -352,7 +352,7 @@ class MyAppBarDoubleImage extends StatelessWidget
         ),
       ),
       title: Padding(
-        padding: const EdgeInsets.only(top: 30),
+        padding:  EdgeInsets.only(top: 30),
         child: Text(title,
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -371,7 +371,7 @@ class MyAppBarDoubleImageRichText extends StatelessWidget implements PreferredSi
   final String year;
   final String? backImage;
 
-  const MyAppBarDoubleImageRichText({
+   MyAppBarDoubleImageRichText({
     Key? key,
     this.frontImage,
     this.title = "",
@@ -380,12 +380,12 @@ class MyAppBarDoubleImageRichText extends StatelessWidget implements PreferredSi
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize =>  Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: const SystemUiOverlayStyle(
+      systemOverlayStyle:  SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
             Brightness.dark, //<-- For Android SEE HERE (dark icons)
@@ -397,10 +397,10 @@ class MyAppBarDoubleImageRichText extends StatelessWidget implements PreferredSi
           onTap: () {
             print("clicked");
             Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => const NotificationsScreen()));
+                    builder: (context) =>  NotificationsScreen()));
           },
           child: Padding(
-            padding: const EdgeInsets.only(top: 30, right: 20),
+            padding:  EdgeInsets.only(top: 30, right: 20),
             child: Image.asset(backImage!,
               height: 25, width: 25,
             ),
@@ -413,7 +413,7 @@ class MyAppBarDoubleImageRichText extends StatelessWidget implements PreferredSi
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding:  EdgeInsets.only(top: 30),
           child: Image.asset(frontImage!,
             color: kWhite, height: 25, width: 25,
           ),
@@ -421,7 +421,7 @@ class MyAppBarDoubleImageRichText extends StatelessWidget implements PreferredSi
       ),
       // leadingWidth: 80,
       title: Padding(
-        padding: const EdgeInsets.only(top: 30, right: 10),
+        padding:  EdgeInsets.only(top: 30, right: 10),
         child: Column(
           children: [
             Row(
@@ -448,7 +448,7 @@ class EvSubscriptionsAppBar extends StatelessWidget implements PreferredSizeWidg
   final String year;
   final String? backImage;
 
-  const EvSubscriptionsAppBar({
+   EvSubscriptionsAppBar({
     Key? key,
     this.frontImage,
     this.title = "",
@@ -457,12 +457,12 @@ class EvSubscriptionsAppBar extends StatelessWidget implements PreferredSizeWidg
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize =>  Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: const SystemUiOverlayStyle(
+      systemOverlayStyle:  SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
             Brightness.dark, //<-- For Android SEE HERE (dark icons)
@@ -474,10 +474,10 @@ class EvSubscriptionsAppBar extends StatelessWidget implements PreferredSizeWidg
           onTap: () {
             print("clicked");
             Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => const MessageDetailsScreen()));
+                    builder: (context) =>  MessageDetailsScreen()));
           },
           child: Padding(
-            padding: const EdgeInsets.only(top: 30, right: 20),
+            padding:  EdgeInsets.only(top: 30, right: 20),
             child: Image.asset(backImage!,
               height: 25, width: 25,
             ),
@@ -490,7 +490,7 @@ class EvSubscriptionsAppBar extends StatelessWidget implements PreferredSizeWidg
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding:  EdgeInsets.only(top: 30),
           child: Image.asset(frontImage!,
             color: kWhite, height: 25, width: 25,
           ),
@@ -498,7 +498,7 @@ class EvSubscriptionsAppBar extends StatelessWidget implements PreferredSizeWidg
       ),
       // leadingWidth: 80,
       title: Padding(
-        padding: const EdgeInsets.only(top: 30, right: 0),
+        padding:  EdgeInsets.only(top: 30, right: 0),
         child: Column(
           children: [
             Row(
@@ -522,17 +522,17 @@ class MyAppBarDoubleImageForChats extends StatelessWidget
   final String? frontImage;
   final String title;
   final String? profileImage;
-  const MyAppBarDoubleImageForChats(
+   MyAppBarDoubleImageForChats(
       {Key? key, this.frontImage, this.profileImage, this.title = ""})
       : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize =>  Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: const SystemUiOverlayStyle(
+      systemOverlayStyle:  SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // <-- SEE HERE
         statusBarIconBrightness:
             Brightness.dark, //<-- For Android SEE HERE (dark icons)
@@ -545,7 +545,7 @@ class MyAppBarDoubleImageForChats extends StatelessWidget
           Navigator.pop(context);
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding:  EdgeInsets.only(top: 30),
           child: Image.asset(
             frontImage!,
             height: 25,
@@ -554,11 +554,11 @@ class MyAppBarDoubleImageForChats extends StatelessWidget
         ),
       ),
       title: Padding(
-        padding: const EdgeInsets.only(top: 30, left: 50),
+        padding:  EdgeInsets.only(top: 30, left: 50),
         child: Row(
           children: [
             Image.asset(profileImage!, width: 24, height: 24),
-            const SizedBox(width: 5),
+             SizedBox(width: 5),
             Text(title,
                 textAlign: TextAlign.center,
                 style: TextStyle(

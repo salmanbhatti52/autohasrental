@@ -4,7 +4,7 @@ import '../../../../../../Utils/colors.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 
 class AboutUsPage extends StatefulWidget {
-  const AboutUsPage({super.key});
+  AboutUsPage({super.key});
 
   @override
   State<AboutUsPage> createState() => _AboutUsPageState();
@@ -15,16 +15,16 @@ class _AboutUsPageState extends State<AboutUsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
-      appBar: const MyAppBarAboutUsPage(
+      appBar: MyAppBarAboutUsPage(
         backImage: "assets/home_page/Side_Menu.png", title: "About Us", ),
       body: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
           Expanded(
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 20),
+                padding: EdgeInsets.only(left: 30, right: 20),
                 child: Text(
                   'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor '
                       'invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et '

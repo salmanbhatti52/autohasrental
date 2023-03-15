@@ -1,9 +1,10 @@
+import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
 import '../../../Model/HomePageModels/FavoritesModel/favorite_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class FavoritePage extends StatefulWidget {
 
 class _FavoritePageState extends State<FavoritePage> {
 
-  CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
+  LikeUnlikeCarModel carLikeUnlikeModelObject = LikeUnlikeCarModel();
   FavoriteCarModel favoriteCarModelObject = FavoriteCarModel();
   String? myCarsIndexId;
   bool loadingP = true;
@@ -42,7 +43,7 @@ class _FavoritePageState extends State<FavoritePage> {
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
     print('in favoriteCarModelObjectCarApi');
-    try {
+    // try {
       String apiUrl = favoriteCarsApiUrl;
       print("favoriteCarModelObjectCarModelApi: $apiUrl");
       final response = await http.post(Uri.parse(apiUrl),
@@ -62,9 +63,9 @@ class _FavoritePageState extends State<FavoritePage> {
         setState(() {});
         print("favoriteCarModelObjectLength: ${favoriteCarModelObject.data!.length}");
       }
-    } catch (e) {
-      print('Error in favoriteCarModelObject: ${e.toString()}');
-    }
+    // } catch (e) {
+    //   print('Error in favoriteCarModelObject: ${e.toString()}');
+    // }
     loadingP = false;
     setState(() {});
   }
@@ -91,7 +92,7 @@ class _FavoritePageState extends State<FavoritePage> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("carLikeUnlikeModelResponse: ${responseString.toString()}");
-        carLikeUnlikeModelObject = carLikeUnlikeModelFromJson(responseString);
+        carLikeUnlikeModelObject = likeUnlikeCarModelFromJson(responseString);
         print("carLikeUnlikeModelMessage: ${carLikeUnlikeModelObject.message}");
         setState(() {});
       }
@@ -144,10 +145,6 @@ class _FavoritePageState extends State<FavoritePage> {
             itemCount: favoriteCarModelObject.data!.length,
             itemBuilder: (BuildContext context, int index) {
               carID = favoriteCarModelObject.data![index].carsId;
-              print("discountedPricePerMonth ${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth}");
-              print("discountedPricePerHour ${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}");
-              print("discountedPricePerSlot ${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}");
-
               // myCarsIndexId = favoriteCarModelObject.data![index].carsId.toString();
               // print("myCarsIndexIds $myCarsIndexId");
               return Stack(
@@ -241,7 +238,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                           discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
 
                                           SizedBox(width: screenWidth * 0.01),
-                                          Image.asset("assets/car_bookings_images/rating_stars.png"),
+                                          showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
                                           SizedBox(width: screenWidth * 0.01),
                                           Text("${favoriteCarModelObject.data![index].rating}",
                                               textAlign: TextAlign.left, style: TextStyle(

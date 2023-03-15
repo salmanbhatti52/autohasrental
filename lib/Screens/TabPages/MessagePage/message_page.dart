@@ -11,7 +11,7 @@ import 'package:http/http.dart'as http;
 import 'message_details_screen.dart';
 
 class MessagePage extends StatefulWidget {
-  const MessagePage({Key? key}) : super(key: key);
+   MessagePage({Key? key}) : super(key: key);
 
   @override
   State<MessagePage> createState() => _MessagePageState();
@@ -45,18 +45,18 @@ class _MessagePageState extends State<MessagePage> {
           myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Messages",
               "assets/home_page/notification_image.png"),
           loading ? Center(child: CircularProgressIndicator(color: borderColor)):
-          allChatModel.isEmpty? const Center(
+          allChatModel.isEmpty?  Center(
             child: Text('No Chat found...',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ):
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding:  EdgeInsets.symmetric(horizontal: 20),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.76,
               decoration: BoxDecoration(
                 color: kWhite,
-                borderRadius: const BorderRadius.only(
+                borderRadius:  BorderRadius.only(
                     topRight: Radius.circular(20),
                     topLeft: Radius.circular(20)),
               ),
@@ -113,7 +113,7 @@ class _MessagePageState extends State<MessagePage> {
     return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        physics: const BouncingScrollPhysics(),
+        physics:  BouncingScrollPhysics(),
         // itemCount: messageItemsList.length,
         itemCount: allChatModel.length,
         itemBuilder: (BuildContext context, int index) {
@@ -137,7 +137,7 @@ class _MessagePageState extends State<MessagePage> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: FadeInImage(
-                      placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                      placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
                       fit: BoxFit.fill,
                       height: 60,
                       width: 60,
@@ -167,13 +167,13 @@ class _MessagePageState extends State<MessagePage> {
                       "${allChatModel[index].date}",
                     style: TextStyle(
                       fontSize: 10,
-                      color: const Color(0xffB1A8B9),
+                      color:  Color(0xffB1A8B9),
                       fontFamily: poppinRegular,
                     ),
                     textAlign: TextAlign.left,
                   ),
                 ),
-                const Divider(),
+                 Divider(),
               ],
             ),
           );

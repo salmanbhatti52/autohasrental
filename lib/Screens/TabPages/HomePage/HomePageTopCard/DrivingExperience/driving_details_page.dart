@@ -8,7 +8,7 @@ import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
+import '../../../../../Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_model.dart';
 import '../../../../../Widget/toast_message.dart';
 import '../../../MessagePage/message_details_screen.dart';
@@ -25,13 +25,12 @@ class DrivingDetailsPage extends StatefulWidget {
 }
 
 class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTickerProviderStateMixin {
-  DrivingCarsModel drivingExperienceCarsModelObject = DrivingCarsModel();
+  DrivingCarsModel drivingCarsModelObject = DrivingCarsModel();
 
   TabController? tabController;
   int selectedIndex = 0;
   double? selectedSlotPrice;
   String? mySelectedStartTime, mySelectedEndTime;
-  // String? myStartTime, myEndTime;
   var formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
 
   DateTime? pickDate;
@@ -72,13 +71,6 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
     // getTodayDate();
   }
 
-  // getTodayDate() {
-  //   var formatter = DateFormat('yyyy-MM-dd');
-  //   var now = DateTime.now();
-  //   valueDate = formatter.format(now);
-  //   print("currentDate $valueDate");
-  //   compareDates();
-  // }
   String? formattedDate, matchDate;
   List dateList = [];
   List<CustomSlotModel> myCarPlan = [];
@@ -89,13 +81,10 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
     for(int i = 0; i<widget.datum!.carsPlans!.length; i++){
       DateTime date = DateTime.parse("${widget.datum!.carsPlans![i].planDate}");
       formattedDate = DateFormat("yyyy-MM-dd").format(date);
-      // widget.datum!.carsPlans![i].planDate = formattedDate;
       print("formattedDate $formattedDate");
-      // print("valueDate1 $valueDate");
       dateList.add(formattedDate);
       print("dateList $dateList");
     }
-    // dateList.clear();
     matchDate = null;
     print("valueDate12345 $matchDate");
     for(int j = 0; j<dateList.length; j++) {
@@ -107,8 +96,6 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
         print("equal");
 
       } else {
-        // matchDate = null;
-
         // toastFailedMessage("not Equal", kRed);
         print("not equal");
       }
@@ -137,13 +124,12 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
       myCarPlan.clear();
       print("myCarPlanLength11 ${myCarPlan.length}");
     }
-
   }
 
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
-    myCurrentCarIndex = widget.datum!.carsId;
+    myCurrentCarIndex = "${widget.datum!.carsId}";
     getToday();
     super.initState();
   }
@@ -189,7 +175,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
             GestureDetector(
               onTap: () {
                 print("clicked");
-                // startChatApiWidget();
+                startChatApiWidget();
 
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context) => MessageDetailsScreen(
@@ -254,7 +240,6 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         showRatingStars(double.parse("${widget.datum!.rating}")),
-                        // Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png'),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                         Text('${widget.datum!.rating}', style: TextStyle(
                             fontSize: 16, fontFamily: poppinSemiBold, color: kWhite)),
@@ -274,26 +259,24 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
                           padding: const EdgeInsets.only(right: 20),
                           child: widget.datum!.favouriteStatus == "like"?
                           Image.asset("assets/home_page/heart.png"):
-                          Image.asset("assets/car_bookings_images/heart.png"),
-                          // GestureDetector(
-                          //   onTap: () async {
-                          //     // myCurrentCarIndex = "${carsPhotoGraphyModelObject.data![index].carsId}";
-                          //     // print("carsPhotoGraphyIds $myCurrentCarIndex");
-                          //     await getLikeUnlikeCarWidget();
-                          //     if (carLikeUnlikeModelObject.message == "Liked") {
-                          //       print("isLiked");
-                          //       toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                          //     }
-                          //     if (carLikeUnlikeModelObject.message == "Unliked") {
-                          //       print("isUnLiked");
-                          //       toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                          //     }
-                          //   },
-                          //   child: carLikeUnlikeModelObject.message == "Liked"
-                          //       ? Image.asset("assets/home_page/heart.png")
-                          //       : Image.asset("assets/car_bookings_images/heart.png"),
-                          // ),
-                          // Image.asset('assets/car_description_images/heart.png', width: 24, height: 20),
+                          GestureDetector(
+                            onTap: () async {
+                              myCurrentCarIndex = "${widget.datum!.carsId}";
+                              print("evCarIds $myCurrentCarIndex");
+                              await getLikeUnlikeCarWidget();
+                              if (carLikeUnlikeModelObject.message == "Liked") {
+                                print("isLiked");
+                                // toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                              }
+                              if (carLikeUnlikeModelObject.message == "Unliked") {
+                                print("isUnLiked");
+                                // toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                              }
+                            },
+                            child: carLikeUnlikeModelObject.message == "Liked"
+                                ? Image.asset("assets/home_page/heart.png")
+                                : Image.asset("assets/car_bookings_images/heart.png"),
+                          ),
                         ),
                       ],
                     ),
@@ -305,9 +288,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
                         ),
                         Positioned(
                           bottom: 0,
-                          child: Image.asset(
-                            'assets/car_description_images/circle.png',
-                          ),
+                          child: Image.asset('assets/car_description_images/circle.png'),
                         ),
                       ],
                     )
@@ -386,9 +367,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
             myWidget(),
 
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            DrivingTabBars(
-              datumTopCard: widget.datum,
-            ),
+            DrivingTabBars(datumTopCard: widget.datum),
             GestureDetector(
                 onTap: () {
                   if(myFormKey.currentState!.validate()){
@@ -493,7 +472,6 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
                           print("selectedSlotPrice $selectedSlotPrice");
                         });
                         print("mySelectedIndex $index");
-                        // print("mySelectedTime $myStartTime to $myEndTime");
                         print("mySelectedTime $mySelectedStartTime to $mySelectedEndTime");
                         },
                       child: Container(
@@ -501,8 +479,8 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
                         decoration: BoxDecoration(
                           color: selectedIndex == index? borderColor: kWhite,
                           borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: selectedIndex == index ? borderColor : const Color(0xffd4dce1),
-                              width: 2),
+                          border: Border.all(width: 2,
+                            color: selectedIndex == index ? borderColor : const Color(0xffd4dce1)),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -524,9 +502,8 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
     );
   }
 
-
-  CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
-  int? myCurrentCarIndex;
+  LikeUnlikeCarModel carLikeUnlikeModelObject = LikeUnlikeCarModel();
+  String? myCurrentCarIndex;
   getLikeUnlikeCarWidget() async {
     loadingP = true;
     setState(() {});
@@ -548,7 +525,7 @@ class _DrivingDetailsPageState extends State<DrivingDetailsPage> with SingleTick
     if (response.statusCode == 200) {
       final responseString = response.body;
       print("carLikeUnlikeModelResponse: ${responseString.toString()}");
-      carLikeUnlikeModelObject = carLikeUnlikeModelFromJson(responseString);
+      carLikeUnlikeModelObject = likeUnlikeCarModelFromJson(responseString);
       print("carLikeUnlikeModelMessage: ${carLikeUnlikeModelObject.message}");
     }
     // } catch (e) {
@@ -564,5 +541,7 @@ class CustomSlotModel{
   String startTime;
   String endTime;
   String discountedPrice;
-  CustomSlotModel({required this.date, required this.startTime, required this.endTime, required this.discountedPrice});
+  CustomSlotModel({
+    required this.date, required this.startTime,
+    required this.endTime, required this.discountedPrice});
 }

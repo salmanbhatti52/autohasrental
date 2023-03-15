@@ -1,6 +1,11 @@
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -8,17 +13,12 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 import '../../../../../Model/custom_subscription_model.dart';
-import '../../../../../Widget/button.dart';
-import '../../../../../Utils/colors.dart';
-import '../../../../../Utils/fontFamily.dart';
-import '../../../../../Widget/toast_message.dart';
 import '../../../MyAppBarHeader/app_bar_header.dart';
 import 'EvAddress/ev_delivery_address.dart';
 import 'EvSubscriptionPlanTabBar/12MonthsPlan/12_months_plan.dart';
 import 'package:http/http.dart'as http;
 
 class EvDescriptionDetailsPage extends StatefulWidget {
-  // final Datum? evDatum;
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final String? carName, carImage, carYear, carPrice, carStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
@@ -26,17 +26,16 @@ class EvDescriptionDetailsPage extends StatefulWidget {
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  const EvDescriptionDetailsPage({Key? key, /*this.evDatum,*/ this.carName,
-    this.carMakesName, this.discountPercentage, this.carDiscountPrice,
-    this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carColorName, this.carModelName,
-    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
-    this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
+  const EvDescriptionDetailsPage({Key? key, this.carName, this.carMakesName,
+    this.discountPercentage, this.carDiscountPrice, this.carImage, this.carYear,
+    this.carMakesImage, this.carStatus, this.carColorName, this.carModelName,
+    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage,
+    this.carOwnerName, this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
   State<EvDescriptionDetailsPage> createState() => _EvDescriptionDetailsPageState();
 }
 
-// abstract class TickerProvider {}
 class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> with TickerProviderStateMixin {
   EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
   int selectedIndex = 0;
@@ -106,6 +105,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     print("tabMonthAndPrice $tabMonth $tabPrice");
     print("carModelName ${widget.carModelName}");
     // mySelectedData();
+
     myTotalAmount();
   }
   double totalAmount = 0.0;
@@ -114,6 +114,10 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     print("tabMonthAndPrice11 $tabMonth $tabPrice");
     totalAmount = double.parse("$tabPrice") + serviceFee;
     print("selectedMonthTotal: $totalAmount");
+
+    evStartDate?.isEmpty;
+    evEndDate?.isEmpty;
+    print("evStartAndEndDate $evStartDate $evEndDate");
     setState(() {});
   }
 
@@ -251,10 +255,10 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                         GestureDetector(
                             onTap: () {
                               if(formKeyEvTabbar.currentState!.validate()){
-                                if(evStartDate == null ||  evEndDate == null){
+                                if(evStartDate == null || evEndDate == null){
                                   toastFailedMessage("Please select Date", kRed);
                                 }
-                                else if(differenceInDays! != totalDays!){
+                                else if(differenceInDays != totalDays){
                                   toastFailedMessage("date didn't matched", kRed);
                                 }
                                 else{
@@ -372,10 +376,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                             color: kRed, fontSize: 5, fontFamily: poppinLight)),
                       ),
-                      Text("${widget.carPrice}",
-                        textAlign: TextAlign.left, style: TextStyle(color: kRed,
-                            fontFamily: poppinLight, fontSize: 10, decoration: TextDecoration.lineThrough),
-                      ),
+                      Text("${widget.carPrice}", textAlign: TextAlign.left, style: TextStyle(color: kRed,
+                            fontFamily: poppinLight, fontSize: 10, decoration: TextDecoration.lineThrough)),
                       SizedBox(width: screenWidth * 0.01),
                       Padding(
                         padding: const EdgeInsets.only(top: 06),
@@ -390,33 +392,13 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                     ],
                   ),
                   SizedBox(height: screenHeight * 0.01),
-                  Row(
-                    children: [
-                      Image.asset("assets/home_page/Promoted.png"),
-                      const SizedBox(width: 05),
-                      Text("Verified Dealer", textAlign: TextAlign.left, style: TextStyle(
-                          color: textLabelColor, fontSize: 10, fontFamily: poppinRegular)),
-                      const SizedBox(width: 05),
-                      Container(
-                        height: 15, width: 35,
-                        decoration: BoxDecoration(
-                            color: kBlack,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text("New", textAlign: TextAlign.left, style: TextStyle(
-                              color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                        ),
-                      ),
-                    ],
-                  ),
+                  verifiedDealerText(),
                   SizedBox(height: screenHeight * 0.01),
                   Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-
                         children: [
-                          // Image.asset("assets/home_page/9004787_star_favorite_award_like_icon.png"),
                           showRatingStars(double.parse("${widget.carRating}")),
                           SizedBox(width: MediaQuery.of(context).size.height * 0.01),
                           widget.carRating == null ?
@@ -555,7 +537,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     totalDays = int.parse(tabMonth.toString()) * 30;
     print("totalDays $totalDays");
     if(differenceInDays! == totalDays!){
-      toastSuccessMessage("date matched", colorGreen);
+      // toastSuccessMessage("date matched", colorGreen);
     } else{
       toastFailedMessage("date didn't matched", kRed);
     }
@@ -731,8 +713,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                       ),
                     ),
                   ): Container(
-                    height: 40,
-                    width: 120,
+                    height: 40, width: 120,
                     decoration: BoxDecoration(
                         color:  borderColor,
                         borderRadius: BorderRadius.circular(10)
@@ -750,8 +731,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                     },
                     child: evEndDate == null?
                     Container(
-                      height: 40,
-                      width: 120,
+                      height: 40, width: 120,
                       decoration: BoxDecoration(
                         color: kWhite,
                         borderRadius: BorderRadius.circular(10),
@@ -762,8 +742,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                       ),
                     ):
                     Container(
-                      height: 40,
-                      width: 120,
+                      height: 40, width: 120,
                       decoration: BoxDecoration(
                         color: borderColor,
                         borderRadius: BorderRadius.circular(10),

@@ -12,7 +12,7 @@ class _TabBarPageState extends State<TabBarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Color(0xffF5F5F5),
       bottomNavigationBar: MyBottomNavigationBar(),
     );

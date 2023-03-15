@@ -71,7 +71,6 @@ class _PhotoDeliveryAddressState extends State<PhotoDeliveryAddress> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
               PhotoAddressTabBar(
-                // datumPhotography: widget.myDatumPhotography,
                 amount: widget.amount,
                 selectedHours: widget.selectedHoursInString,
                 hoursAmount: widget.hoursAmount,

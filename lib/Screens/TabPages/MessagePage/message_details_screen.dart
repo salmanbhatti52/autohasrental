@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -12,12 +13,9 @@ import '../../../Model/ChatsModels/send_message_model.dart';
 import '../../../Model/ChatsModels/update_message_model.dart';
 import 'package:http/http.dart'as http;
 
-import '../tab_page.dart';
-
 class MessageDetailsScreen extends StatefulWidget {
   final String? carOwnerImage, carOwnerName, carOwnerId;
-  // final int? carOwnerId;
-  const MessageDetailsScreen({Key? key, this.carOwnerId,
+   MessageDetailsScreen({Key? key, this.carOwnerId,
     this.carOwnerName, this.carOwnerImage}) : super(key: key);
 
   @override
@@ -191,16 +189,16 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
           onTap: () {
             print("clicked");
             Navigator.push(context, MaterialPageRoute(
-                builder: (context) => const TabBarPage()));
+                builder: (context) =>  TabBarPage()));
           },
           child: Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding:  EdgeInsets.only(top: 30),
             child: Image.asset('assets/live_chat_images/back_arrow.png',
               height: 25, width: 25),
           ),
         ),
         title: Padding(
-          padding: const EdgeInsets.only(top: 20, left: 0),
+          padding:  EdgeInsets.only(top: 20, left: 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.center,
@@ -211,14 +209,14 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(80),
                 child: FadeInImage(
-                  placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                  placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
                   fit: BoxFit.fill,
                   height: 25,
                   width: 25,
                   image: NetworkImage("$carOwnerImage1"),
                 ),
               ),
-              const SizedBox(width: 5),
+               SizedBox(width: 5),
               Text("$carOwnerName1",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -238,7 +236,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
 
       backgroundColor: homeBgColor,
       body: loading? Center(child: CircularProgressIndicator(color: borderColor)):
-      // messageDetailsModelObject.isEmpty? const Center(child: Text("no chat history")):
+      // messageDetailsModelObject.isEmpty?  Center(child: Text("no chat history")):
           ModalProgressHUD(
             inAsyncCall: progress,
             opacity: 0.02,
@@ -256,11 +254,11 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                         ListView.builder(
                       itemCount: messageDetailsModelObject.length,
                       shrinkWrap: true,
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      physics: const BouncingScrollPhysics(),
+                      padding:  EdgeInsets.only(top: 10, bottom: 10),
+                      physics:  BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
                         return Container(
-                          padding: const EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
+                          padding:  EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
                           child: Align(
                             alignment: (messageDetailsModelObject[index].senderType == "Users"
                                 ? Alignment.topRight : Alignment.topLeft),
@@ -270,7 +268,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                 color: (messageDetailsModelObject[index].senderType == "Users"
                                     ? borderColor : kWhite),
                               ),
-                              padding: const EdgeInsets.all(10),
+                              padding:  EdgeInsets.all(10),
                               child: messageDetailsModelObject[index].senderType == "Users"
                                   ? Column(
                                     children: [
@@ -278,7 +276,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                       maxLines: 3, overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left, style: TextStyle(
                                           fontSize: 14, fontFamily: poppinLight, color: kWhite)),
-                                      const SizedBox(height: 03),
+                                       SizedBox(height: 03),
                                       Text("${messageDetailsModelObject[index].time.toString()} ${messageDetailsModelObject[index].date.toString()}",
                                         maxLines: 1, overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left, style: TextStyle(
@@ -291,7 +289,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                     maxLines: 3, overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left, style: TextStyle(
                                       fontSize: 14, color: kBlack, fontFamily: poppinLight)),
-                                  const SizedBox(height: 03),
+                                   SizedBox(height: 03),
                                   Text("${messageDetailsModelObject[index].time.toString()} ${messageDetailsModelObject[index].date.toString()}",
                                       maxLines: 1, overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left, style: TextStyle(
@@ -309,12 +307,12 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                   Align(
                     alignment: Alignment.bottomLeft,
                 child: Container(
-                  padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                  padding:  EdgeInsets.only(left: 10, bottom: 10, top: 10),
                   height: 65,
                   child: Row(
                     children: <Widget>[
                       sendMessageTextFields(),
-                      const SizedBox(width: 05),
+                       SizedBox(width: 05),
                       FloatingActionButton(
                         onPressed: () async {
                           if(sendMessageFormKey.currentState!.validate()){
@@ -325,7 +323,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                 progress = true;
                               });
                               await sendMessageApiWidget();
-                                Future.delayed(const Duration(seconds: 3), () {
+                                Future.delayed( Duration(seconds: 3), () {
                                   print("sendMessage Success");
                                   // toastSuccessMessage("Message sent successfully2.", colorGreen);
                                   setState(() {
@@ -360,7 +358,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
       key: sendMessageFormKey,
       child: Expanded(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 05, vertical: 0),
+          padding: EdgeInsets.symmetric(horizontal: 05, vertical: 0),
           decoration: BoxDecoration(color: kWhite,
               borderRadius: BorderRadius.circular(20)),
           child: TextField(
@@ -368,10 +366,10 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
             textAlign: TextAlign.left,
             controller: sendMessageController,
             decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(left: 10, bottom: 3),
+                contentPadding:  EdgeInsets.only(left: 10, bottom: 3),
                 hintText: "Type your message here.....",
                 hintStyle: TextStyle(fontSize: 14,
-                    fontFamily: poppinLight, color: const Color(0xffD4DCE1)),
+                    fontFamily: poppinLight, color: Color(0xffD4DCE1)),
                 fillColor: kWhite, border: InputBorder.none),
           ),
         ),

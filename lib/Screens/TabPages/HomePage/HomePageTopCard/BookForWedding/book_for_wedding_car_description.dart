@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -6,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
-import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
 import '../../../../../Utils/api_urls.dart';
 import '../../../../../Utils/constants.dart';
 import '../../../../../Utils/fontFamily.dart';
@@ -15,7 +14,6 @@ import '../../../../../Widget/button.dart';
 import '../../../../../Utils/colors.dart';
 import '../../../MessagePage/message_details_screen.dart';
 import '../EvSubscriptions/EvTaBBar/tabbar_description_page.dart';
-import 'BookForWeddingTabbar/tabbar_book_for_wedding.dart';
 import 'package:http/http.dart'as http;
 import 'book_for_wedding_booking_details.dart';
 
@@ -25,9 +23,6 @@ class BookForWeddingCarDescription extends StatefulWidget {
       myCarDescription, myCarRating, myCarComment,
       carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
   final int? carId, carOwnerId;
-  // final double? carDiscountPrice;
-
-  // final DatumPhotography? datumPhotography;
 
   const BookForWeddingCarDescription({super.key,
     this.carName, this.carColorName, this.carModelName, this.discountPercentage,
@@ -227,8 +222,9 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                         Image.asset("assets/home_page/heart.png"):
                         GestureDetector(
                           onTap: () async {
-                            // myCurrentCarIndex = "${carsPhotoGraphyModelObject.data![index].carsId}";
-                            // print("carsPhotoGraphyIds $myCurrentCarIndex");
+                            print("clicked...");
+                            myCurrentCarIndex = "${widget.carId}";
+                            print("carsPhotoGraphyIds $myCurrentCarIndex");
                             await getLikeUnlikeCarWidget();
                             if (carLikeUnlikeModelObject.message == "Liked") {
                               print("isLiked");
@@ -303,42 +299,66 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                   key: formKeyPhotography,
                   child: Column(
                     children: [
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                       GestureDetector(
                         onTap: () {
+                          print("clicked...");
                           selectDate(context);
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Container(
+                          width: 220,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: valueDay == null? kWhite: borderColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Icon(Icons.keyboard_arrow_left, color: borderColor),
-                              valueDate == null? Text("Select Date", textAlign: TextAlign.left,
-                                style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: borderColor)):
-                              Text(valueDate!,  textAlign: TextAlign.left,
-                                style: TextStyle(fontSize: 14,
-                                    fontFamily: poppinSemiBold, color: borderColor),
-                              ),
-                              Icon(Icons.keyboard_arrow_right, color: borderColor),
+                              Text(valueDay == null? "Select Date" : "$valueDay", textAlign: TextAlign.left,
+                                  style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: valueDay == null? borderColor: kWhite)),
+                              Icon(Icons.keyboard_arrow_right, color: valueDay == null? borderColor: kWhite),
                             ],
                           ),
                         ),
                       ),
 
-                      valueDay == null? Container():
-                      Container(
-                        width: 200,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color:  borderColor,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Center(
-                          child: Text("$valueDay",
-                            style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: kWhite ),
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     selectDate(context);
+                      //   },
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.symmetric(vertical: 10),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Icon(Icons.keyboard_arrow_left, color: borderColor),
+                      //         valueDate == null? Text("Select Date", textAlign: TextAlign.left,
+                      //           style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: borderColor)):
+                      //         Text(valueDate!,  textAlign: TextAlign.left,
+                      //           style: TextStyle(fontSize: 14,
+                      //               fontFamily: poppinSemiBold, color: borderColor),
+                      //         ),
+                      //         Icon(Icons.keyboard_arrow_right, color: borderColor),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      //
+                      // valueDay == null? Container():
+                      // Container(
+                      //   width: 200,
+                      //   height: 40,
+                      //   decoration: BoxDecoration(
+                      //     color:  borderColor,
+                      //     borderRadius: BorderRadius.circular(15),
+                      //   ),
+                      //   child: Center(
+                      //     child: Text("$valueDay",
+                      //       style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: kWhite ),
+                      //     ),
+                      //   ),
+                      // ),
 
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -627,7 +647,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     );
   }
 
-  CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
+  LikeUnlikeCarModel carLikeUnlikeModelObject = LikeUnlikeCarModel();
   String? myCurrentCarIndex;
   getLikeUnlikeCarWidget() async {
     loadingP = true;
@@ -650,7 +670,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     if (response.statusCode == 200) {
       final responseString = response.body;
       print("carLikeUnlikeModelResponse: ${responseString.toString()}");
-      carLikeUnlikeModelObject = carLikeUnlikeModelFromJson(responseString);
+      carLikeUnlikeModelObject = likeUnlikeCarModelFromJson(responseString);
       print("carLikeUnlikeModelMessage: ${carLikeUnlikeModelObject.message}");
     }
     // } catch (e) {

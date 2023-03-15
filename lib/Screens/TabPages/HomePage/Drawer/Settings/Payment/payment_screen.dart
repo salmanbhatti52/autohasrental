@@ -5,7 +5,7 @@ import '../../../../../../Utils/fontFamily.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({Key? key}) : super(key: key);
+  PaymentScreen({Key? key}) : super(key: key);
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -16,7 +16,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImage(
+      appBar: MyAppBarSingleImage(
         title: "Payment",
         backImage: "assets/messages_images/Back.png",
       ),
@@ -31,7 +31,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               height: MediaQuery.of(context).size.height * 0.07,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -66,9 +66,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   Widget paymentWidget(titleText, subTitleText, paymentImage) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 05),
+      padding: EdgeInsets.symmetric(vertical: 05),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         decoration: BoxDecoration(
             color: kWhite, borderRadius: BorderRadius.circular(10)),
         child: Row(
@@ -83,13 +83,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         color: kBlack,
                         fontFamily: poppinMedium,
                         fontSize: 17)),
-                const SizedBox(
+                SizedBox(
                   height: 05,
                 ),
                 Text(subTitleText,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        color: const Color(0xffB0B0B0),
+                        color: Color(0xffB0B0B0),
                         fontFamily: poppinRegular,
                         fontSize: 14)),
               ],
@@ -103,7 +103,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     Text("Delete",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            color: const Color(0xFFD93A3A),
+                            color: Color(0xFFD93A3A),
                             fontFamily: poppinMedium,
                             fontSize: 14)),
                   ],

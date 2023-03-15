@@ -4,11 +4,13 @@ import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../../../Model/BookingModels/Upcoming/DrivingUpComing/driving_upcoming_model.dart';
-import '../upcoming_details_page.dart';
+import '../../../PreviousTab/PreviousTabs/previous_bookings_details_page.dart';
+import '../../upcoming_bookings_details_page.dart';
+import '../EvUpcoming/ev_upcoming_page.dart';
+import 'driving_upcoming_details_page.dart';
 
 class DrivingUpcomingPage extends StatefulWidget {
   const DrivingUpcomingPage({super.key});
@@ -210,15 +212,15 @@ class _DrivingUpcomingPageState extends State<DrivingUpcomingPage> {
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
 
-                                              showRatingStars(double.parse("${drivingUpcomingModelObject.data![index].carsRatings![0].rateStars}")),
+                                              showRatingStars(double.parse("${drivingUpcomingModelObject.data![index].carsDetails!.rating}")),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01),
 
-                                              drivingUpcomingModelObject.data![index].carsRatings![0].rateStars == null?
+                                              drivingUpcomingModelObject.data![index].carsDetails!.rating == null?
                                               Text("0.0", textAlign: TextAlign.left,
                                                 style: TextStyle(color: kBlack,
                                                     fontSize: 12, fontFamily: poppinRegular)):
-                                              Text("${drivingUpcomingModelObject.data![index].carsRatings![0].rateStars}", textAlign: TextAlign.left,
+                                              Text("${drivingUpcomingModelObject.data![index].carsDetails!.rating}", textAlign: TextAlign.left,
                                                   style: TextStyle(color: kBlack,
                                                       fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -260,28 +262,14 @@ class _DrivingUpcomingPageState extends State<DrivingUpcomingPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
+                            carBookingsId = "${drivingUpcomingModelObject.data![index].bookingsId}";
                             print("clicked....");
                             print("${drivingUpcomingModelObject.data![index].carsDetails!.vehicalName}");
                             print("${drivingUpcomingModelObject.data![index].carsDetails!.carsModels}");
                             print("${drivingUpcomingModelObject.data![index].carsDetails!.rating}");
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => UpcomingDetailsPage(
-                                  carId: "${drivingUpcomingModelObject.data![index].carsId}",
-                                  carName: drivingUpcomingModelObject.data![index].carsDetails!.vehicalName,
-                                  carYear: "${drivingUpcomingModelObject.data![index].carsDetails!.year}",
-                                  carColors: drivingUpcomingModelObject.data![index].carsDetails!.carsColors!.name,
-                                  carMakes: drivingUpcomingModelObject.data![index].carsDetails!.carsMakes,
-                                  carModel: drivingUpcomingModelObject.data![index].carsDetails!.carsModels,
-                                  carRating: drivingUpcomingModelObject.data![index].carsDetails!.rating,
-                                  carPrice: drivingUpcomingModelObject.data![index].carsPlans![0].pricePerSlot,
-                                  discountPercentage: drivingUpcomingModelObject.data![index].carsDetails!.discountPercentage,
-                                  carImage: "$baseUrlImage${drivingUpcomingModelObject.data![index].carsDetails!.image1}",
-                                  carDesc: drivingUpcomingModelObject.data![index].carsDetails!.description,
-                                  userRating: drivingUpcomingModelObject.data![index].carsRatings![0].rateStars,
-                                  userComment: drivingUpcomingModelObject.data![index].carsRatings![0].comments,
-
-                                  // carDesc: drivingUpcomingModelObject.data![index].carsDetails!.description,
-                                  // datumUpcoming: drivingUpcomingModelObject.data![index],
+                                builder: (context) => UpcomingBookingDetailsPage(
+                                  bookingId: "${drivingUpcomingModelObject.data![index].bookingsId}",
                                 )));
                             print("carImage $baseUrlImage${drivingUpcomingModelObject.data![index].carsDetails!.image1}");
                           },

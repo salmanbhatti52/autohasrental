@@ -461,75 +461,7 @@ class _DrivingExperienceBookingState extends State<DrivingExperienceBooking> {
                         key: myFormKey,
                         child: Column(
                           children: [
-                            // GestureDetector(
-                            //   onTap: () async {
-                            //     DateTime? picked = await showDatePicker(
-                            //       context: context,
-                            //       initialDate: DateTime.now(),
-                            //       // firstDate: DateTime(1980),
-                            //       firstDate: DateTime.now().subtract(const Duration(days: 0)),
-                            //       lastDate: DateTime(2050),
-                            //     );
-                            //     if (picked != null && picked != pickDate) {
-                            //       valueDate = DateFormat('yyyy-MM-dd').format(picked);
-                            //       newSelectedDay = DateFormat('EEEE, dd MMMM').format(picked);
-                            //
-                            //       stateSetterObject(() {
-                            //         print("Selected date in bottomSheet: $valueDate");
-                            //         print("Selected Day in bottomSheet: $newSelectedDay");
-                            //         // DateTime date = DateTime.parse("${widget.myDatum!.carsPlans![0].planDate}");
-                            //         // formattedDate = DateFormat("yyyy-MM-dd").format(date);
-                            //         // print("valueDate $formattedDate");
-                            //         // print("valueDate1 $valueDate");
-                            //         compareSlotDates();
-                            //         // if(valueDate == formattedDate){
-                            //         //   print("equal");
-                            //         // }else{
-                            //         //   print("not equal");
-                            //         // }
-                            //       });
-                            //     }
-                            //   },
-                            //   // child: Row(
-                            //   //   mainAxisAlignment: MainAxisAlignment.center,
-                            //   //   children: [
-                            //   //     Icon(Icons.keyboard_arrow_left, color: borderColor),
-                            //   //     Text("$valueDate", textAlign: TextAlign.left, style: TextStyle(
-                            //   //         fontSize: 14, fontFamily: poppinSemiBold, color: borderColor),
-                            //   //     ),
-                            //   //     Icon(Icons.keyboard_arrow_right, color: borderColor),
-                            //   //   ],
-                            //   // ),
-                            // ),
                             SizedBox(height: MediaQuery.of(context).size.height* 0.02),
-
-                            // newSelectedDay == null?
-                            // Container(
-                            //   width: 220,
-                            //   height: 40,
-                            //   decoration: BoxDecoration(
-                            //     color: kWhite,
-                            //     borderRadius: BorderRadius.circular(15),
-                            //   ),
-                            //   child: Center(
-                            //     child: Text("${widget.selectedDay}", style: TextStyle(
-                            //         fontSize: 14, fontFamily: poppinMedium, color: kBlack),
-                            //     ),
-                            //   ),
-                            // ):
-                            // Container(
-                            //   width: 220,
-                            //   height: 40,
-                            //   decoration: BoxDecoration(
-                            //     color:  borderColor,
-                            //     borderRadius: BorderRadius.circular(15),
-                            //   ),
-                            //   child: Center(
-                            //     child: Text("$newSelectedDay", style: TextStyle(
-                            //         fontSize: 14, fontFamily: poppinMedium, color: kWhite)),
-                            //   ),
-                            // ),
-
                             GestureDetector(
                               onTap: () async {
                                 print("clicked...");

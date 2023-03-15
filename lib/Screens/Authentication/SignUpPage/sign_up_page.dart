@@ -16,7 +16,7 @@ import '../LoginPage/login_page.dart';
 import 'verify_phone_page.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  SignUpPage({Key? key}) : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -80,7 +80,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
-      appBar: const MyAppBarSignUp(title: "Create Your New Account "),
+      appBar: MyAppBarSignUp(title: "Create Your New Account "),
       body: ModalProgressHUD(
         inAsyncCall: isInAsyncCall,
         opacity: 0.02,
@@ -90,9 +90,9 @@ class _SignUpPageState extends State<SignUpPage> {
           color: borderColor,
         ),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(0.0),
+            padding: EdgeInsets.all(0.0),
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
@@ -101,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset("assets/images/license.png",),
-                      const SizedBox(width: 10,),
+                      SizedBox(width: 10,),
                       Container(
                         color: Colors.transparent,
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -117,10 +117,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
 
                 buildTextFields(),
-                const SizedBox(height: 10),
+                SizedBox(height: 10),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: RichText(
                     text: TextSpan(text: "By creating an account, you agree to ",
                         style: TextStyle(color: kWhite, fontSize: 12, fontFamily: poppinRegular),
@@ -143,7 +143,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     children: <Widget>[
                       Theme(
@@ -170,7 +170,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 GestureDetector(
                     onTap: () async {
                       // Navigator.push(context, MaterialPageRoute(
-                      //     builder: (context) => const VerifyPhonePage()));
+                      //     builder: (context) => VerifyPhonePage()));
                       if(singUpFormKey.currentState!.validate()){
                         if (firstNameController.text.isEmpty) {
                           toastFailedMessage('firstName cannot be empty', kRed);
@@ -227,7 +227,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           style: TextStyle(fontFamily: poppinRegular,
                               decoration: TextDecoration.underline, fontSize: 16, color: kWhite),
                           recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const LoginPage())),
+                                MaterialPageRoute(builder: (context) => LoginPage())),
                         )
                       ]),
                   textAlign: TextAlign.center,
@@ -244,7 +244,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget buildTextFields() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             Form(
@@ -333,7 +333,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         obscureText: _obscureText,
                         suffixIcon: IconButton(
                           icon: Padding(
-                            padding: const EdgeInsetsDirectional.only(end: 12.0),
+                            padding: EdgeInsetsDirectional.only(end: 12.0),
                             child: Icon(
                               _obscureText ?  Icons.visibility :Icons.visibility_off,
                               color: textLabelColor, size: 24,),

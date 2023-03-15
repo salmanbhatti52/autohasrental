@@ -1,3 +1,6 @@
+import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
+import 'package:auto_haus_rental_app/Model/get_car_makes_model.dart';
+import 'package:auto_haus_rental_app/Model/search_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
@@ -6,58 +9,98 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
-import '../../../../../Model/HomePageModels/FavoritesModel/car_favorite_like_unlike_model.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
 import '../../Filter/filter_screen.dart';
+import '../EvSubscriptions/ev_subscription_page.dart';
 import 'book_for_wedding_car_description.dart';
-import 'book_for_wedding_car_logo_container.dart';
 import 'package:http/http.dart' as http;
 
 class BookForWeddingPage extends StatefulWidget {
-  const BookForWeddingPage({Key? key}) : super(key: key);
+  BookForWeddingPage({Key? key}) : super(key: key);
 
   @override
   State<BookForWeddingPage> createState() => _BookForWeddingPageState();
 }
 
-class _BookForWeddingPageState extends State<BookForWeddingPage> {
+class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProviderStateMixin {
   PhotoGraphyModel carsPhotoGraphyModelObject = PhotoGraphyModel();
-  CarLikeUnlikeModel carLikeUnlikeModelObject = CarLikeUnlikeModel();
+  LikeUnlikeCarModel carLikeUnlikeModelObject = LikeUnlikeCarModel();
+  SearchModel searchModelObject = SearchModel();
+  var searchController = TextEditingController();
   String? myCurrentCarIndex;
+  int? selectedCarMakesId, photoCarMakesId;
+  String? selectedCarMakesName;
   bool loadingP = true;
 
   @override
   void initState() {
     super.initState();
-    getCarsPhotoGraphyWidget();
+    getCarMakesListWidget();
+    selectedIndex = 0;
+  }
+
+  searchCarsWidget() async {
+    // try {
+    String apiUrl = getCarFilterByNameApiUrl;
+    if(searchController.text.isNotEmpty){
+      print("searchControllerValue ${searchController.text}");
+      searchModelObject.data?.clear();
+      print("searchApiUrl $apiUrl");
+      print("userId $userId");
+      final response = await http.post(
+          Uri.parse(apiUrl),
+          body: {
+            "users_customers_id": userId,
+            "keyword": searchController.text
+          },
+          headers: {
+            'Accept': 'application/json'
+          });
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("responseString $responseString");
+        searchModelObject = searchModelFromJson(responseString);
+        setState(() {});
+        print("searchItemsLengthHomePage: ${searchModelObject.data?.length}");
+      }
+    }
+
+    // } catch (e) {
+    //   print('Error: ${e.toString()}');
+    // }
   }
 
   getCarsPhotoGraphyWidget() async {
-    loadingP = true;
-    setState(() {});
+    // loadingP = true;
+    // setState(() {});
     // try {
+    selectedCarMakesId ?? (selectedCarMakesId = 1);
       String apiUrl = carsPhotoGraphyApiUrl;
       print("carsPhotographyApi: $apiUrl");
+      print("userId: $userId");
+      print("carsMakesId: $selectedCarMakesId");
       final response = await http.post(Uri.parse(apiUrl),
           body: {
-            "users_customers_id" : userId
+            "users_customers_id" : userId,
+            "cars_makes_id": "$selectedCarMakesId"
           },
           headers: {
         'Accept': 'application/json'
       });
-      print('${response.statusCode}');
-      print(response);
+      print('statusCode ${response.statusCode}');
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("carsPhotoGraphyResponse: ${responseString.toString()}");
+        loadingP = false;
+        setState(() {});
         carsPhotoGraphyModelObject = photoGraphyModelFromJson(responseString);
-        print("carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.status}");
+        print("carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.data?.length}");
       }
     // } catch (e) {
     //   print('Error: ${e.toString()}');
     // }
-    loadingP = false;
-    setState(() {});
+    // loadingP = false;
+    // setState(() {});
   }
 
   getLikeUnlikeCarWidget() async {
@@ -81,7 +124,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("carLikeUnlikeModelResponse: ${responseString.toString()}");
-        carLikeUnlikeModelObject = carLikeUnlikeModelFromJson(responseString);
+        carLikeUnlikeModelObject = likeUnlikeCarModelFromJson(responseString);
         print("carLikeUnlikeModelMessage: ${carLikeUnlikeModelObject.message}");
       }
     } catch (e) {
@@ -91,104 +134,127 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
     setState(() {});
   }
 
+  GetCarMakesModel getCarMakesModelObject = GetCarMakesModel();
+
+  getCarMakesListWidget() async {
+    loadingP = true;
+    setState(() {});
+    print('in getCarMakesAPI');
+    try {
+      String apiUrl = getCarMakesApiUrl;
+      print("getCarMakesApi: $apiUrl");
+      final response = await http.get(Uri.parse(apiUrl));
+      print('${response.statusCode}');
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("getCarMakesResponse: ${responseString.toString()}");
+        getCarMakesModelObject = getCarMakesModelFromJson(responseString);
+        print("getCarMakesName: ${getCarMakesModelObject.data![0].name}");
+        print("getCarMakesId: ${getCarMakesModelObject.data![0].carsMakesId}");
+        print("getCarMakesLength: ${getCarMakesModelObject.data!.length}");
+      }
+    } catch (e) {
+      print('Error: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {
+      getCarsPhotoGraphyWidget();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarDoubleImage(
+      appBar:   MyAppBarDoubleImage(
           frontImage: "assets/home_page/back_arrow.png",
           title: "Book for Wedding",
           backImage: "assets/home_page/notification_image.png"),
 
-      body: SingleChildScrollView(
+      body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+      SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: kWhite,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      child: TextField(
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding:
-                              const EdgeInsets.fromLTRB(20, 12, 10, 0),
-                          hintText: 'Search for Cars',
-                          hintStyle: const TextStyle(color: Color(0xffD4DCE1)),
-                          focusColor: borderColor,
-                          suffixIcon: const Icon(
-                            Icons.search_outlined,
-                            color: Color(0xffD4DCE1),
-                          ),
-                        ),
-                        style: TextStyle(color: borderColor,
-                          fontSize: 14, fontFamily: poppinLight)),
-                    ),
-                  ),
-                  const SizedBox(width: 15),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => const FilterScreen()));
-                    },
-                    child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            color: kWhite,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Image.asset("assets/home_page/filter.png")),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  child: const BookForWeddingCarLogoContainer()),
-            ),
-            photographyCarsListWidget(),
+
+            carMakersListWidget(),
+
+            photographyCarsListWidget(searchController.text),
+
           ],
         ),
       ),
     );
   }
 
-  Widget photographyCarsListWidget() {
+  carMakersListWidget(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 08),
+      child: Container(
+        height: MediaQuery.of(context).size.height* 0.1,
+        color: Colors.transparent,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+            itemCount: getCarMakesModelObject.data!.length,
+            itemBuilder: (context, index){
+            return Padding(
+              padding: EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: (){
+                  setState(() {
+                    selectedIndex = index;
+
+                    selectedCarMakesId = getCarMakesModelObject.data![selectedIndex].carsMakesId;
+                    selectedCarMakesName = getCarMakesModelObject.data![selectedIndex].name;
+                    print("myIndex $index");
+                    print("selectedIndex $selectedIndex");
+                    print("selectedCarMakesName $selectedCarMakesName");
+                    print("selectedCarMakesId $selectedCarMakesId");
+                    getCarsPhotoGraphyWidget();
+                  });
+                  },
+              child: Container(
+                height: 50, width: 70,
+                decoration: BoxDecoration(
+                    color: selectedIndex == index? borderColor: kWhite,
+                    border: Border.all(width: 2,
+                        color: selectedIndex == index ? borderColor : kWhite),
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Image.network("$baseUrlImage${getCarMakesModelObject.data![index].image}",
+                    height: 25, width: 25, fit: BoxFit.fill),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget photographyCarsListWidget(String search) {
     return SingleChildScrollView(
-      child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
-          : carsPhotoGraphyModelObject.status != "success" ?
-      const Center(child: Text('no data found...',
-          style: TextStyle(fontWeight: FontWeight.bold))) :
-      Container(
+      child: Container(
         color: Colors.transparent,
         height: MediaQuery.of(context).size.height * 0.70,
-        child: ListView.builder(
+        child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+        carsPhotoGraphyModelObject.status != "success" ? Center(
+          child: Text('No cars Available', style: TextStyle(fontWeight: FontWeight.bold)),
+        ):
+        ListView.builder(
             shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
-            itemCount: carsPhotoGraphyModelObject.data!.length,
+            itemCount: carsPhotoGraphyModelObject.data?.length,
             itemBuilder: (BuildContext context, int index) {
               return Stack(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    padding: EdgeInsets.symmetric(vertical: 20),
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.33,),
+                      height: MediaQuery.of(context).size.height * 0.33),
                   ),
                   Positioned(
                     top: 90,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 9),
+                      padding:   EdgeInsets.only(left: 9),
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.26,
                         width: 343,
@@ -200,7 +266,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                               color: Colors.grey.withOpacity(0.1),
                               spreadRadius: 5,
                               blurRadius: 5,
-                              offset: const Offset(3, 3),
+                              offset:   Offset(3, 3),
                             ),
                           ],
                         ),
@@ -209,26 +275,25 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                             Container(height: MediaQuery.of(context).size.height * 0.1),
                             Row(
                               children: [
-                                const SizedBox(height: 93.6),
+                                  SizedBox(height: 93.6),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                  padding:   EdgeInsets.symmetric(horizontal: 15),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
-                                          Text("${carsPhotoGraphyModelObject.data![index].vehicalName} ",
+                                          Text("${carsPhotoGraphyModelObject.data?[index].vehicalName} ",
                                             textAlign: TextAlign.left, style: TextStyle(
                                                 color: kBlack, fontSize: 14, fontFamily: poppinBold)),
 
-                                          Text("${carsPhotoGraphyModelObject.data![index].carsColors!.name} ",
+                                          Text("${carsPhotoGraphyModelObject.data?[index].carsColors!.name} ",
                                               textAlign: TextAlign.left, style: TextStyle(
                                                   color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
                                         ],
                                       ),
                                       Row(
                                         children: [
-
                                           Text("${carsPhotoGraphyModelObject.data![index].carsMakes!.name}, ",
                                               textAlign: TextAlign.left, style: TextStyle(
                                                   color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
@@ -244,7 +309,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 04),
+                                            padding:   EdgeInsets.only(top: 04),
                                             child: Text("RM", textAlign: TextAlign.left,
                                                 style: TextStyle(color: kRed,
                                                   fontSize: 5, fontFamily: poppinRegular)),
@@ -254,9 +319,9 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                                               color: kRed, decoration: TextDecoration.lineThrough,
                                               decorationColor: kRed, decorationThickness: 3,
                                               fontSize: 10, fontFamily: poppinLight, height: 2)),
-                                          const SizedBox(width: 5),
+                                            SizedBox(width: 5),
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 06),
+                                            padding:   EdgeInsets.only(top: 06),
                                             child: Text("RM", textAlign: TextAlign.left,
                                                 style: TextStyle(color: borderColor,
                                                   fontSize: 7, fontFamily: poppinSemiBold)),
@@ -285,11 +350,11 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                                       Row(
                                         children: [
                                           Image.asset("assets/car_bookings_images/promoted.png"),
-                                          const SizedBox(width: 5,),
+                                            SizedBox(width: 5,),
                                           Text("Verified Dealer", textAlign: TextAlign.left,
                                             style: TextStyle(color: textLabelColor,
                                               fontSize: 10, fontFamily: poppinRegular)),
-                                          const SizedBox(width: 05),
+                                            SizedBox(width: 05),
                                           Container(
                                             height: 15,
                                             width: 35,
@@ -340,8 +405,8 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                               carOwnerName: "${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyName}",
                               carOwnerId: carsPhotoGraphyModelObject.data![index].usersCompanies!.usersCompaniesId,
                               myCarDescription: carsPhotoGraphyModelObject.data![index].description,
-                              myCarRating: carsPhotoGraphyModelObject.data![index].carsRatings![0].rateStars,
-                              myCarComment: carsPhotoGraphyModelObject.data![index].carsRatings![0].comments,
+                              // myCarRating: carsPhotoGraphyModelObject.data![index].rating,
+                              // myCarComment: carsPhotoGraphyModelObject.data![index].carsRatings![0].comments,
                               // datumPhotography: carsPhotoGraphyModelObject.data![index],
                             )));
                         print("evCarName ${carsPhotoGraphyModelObject.data![index].vehicalName}");
@@ -366,7 +431,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                         : ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: FadeInImage(
-                        placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                        placeholder:   AssetImage("assets/icon/fade_in_image.jpeg"),
                         // width: 300,
                         height: 135,
                         image: NetworkImage(
@@ -381,7 +446,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                         width: MediaQuery.of(context).size.width * 0.16,
                         decoration: BoxDecoration(
                           color: kRed.withOpacity(0.8),
-                          borderRadius: const BorderRadius.only(
+                          borderRadius:   BorderRadius.only(
                               topRight: Radius.circular(15),
                               bottomLeft: Radius.circular(15)),
                         ),
@@ -407,18 +472,9 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> {
                         myCurrentCarIndex = "${carsPhotoGraphyModelObject.data![index].carsId}";
                         print("carsPhotoGraphyIds $myCurrentCarIndex");
                         await getLikeUnlikeCarWidget();
-                        if (carLikeUnlikeModelObject.message == "Liked") {
-                          print("isLiked");
-                          toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                        }
-                        if (carLikeUnlikeModelObject.message == "Unliked") {
-                          print("isUnLiked");
-                          toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                        }
+                        await getCarsPhotoGraphyWidget();
                         },
-                      child: carLikeUnlikeModelObject.message == "Liked"
-                          ? Image.asset("assets/home_page/heart.png")
-                          : Image.asset("assets/car_bookings_images/heart.png"),
+                      child: Image.asset("assets/car_bookings_images/heart.png"),
                     ),
                   ),
                 ],

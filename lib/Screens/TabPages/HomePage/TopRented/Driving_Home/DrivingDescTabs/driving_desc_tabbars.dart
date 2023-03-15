@@ -2,8 +2,8 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../Model/HomePageModels/top_rented_cars_model.dart';
+import '../../../HomePageTopCard/EvSubscriptions/EvTaBBar/rating_page.dart/ev_rating.dart';
 import 'Features/driving_features.dart';
-import 'Rating/driving_rating.dart';
 import 'description/driving_desc.dart';
 
 class DrivingDescTabBars extends StatefulWidget {
@@ -64,7 +64,7 @@ class _DrivingDescTabBarsState extends State<DrivingDescTabBars>
             children: [
               DrivingDesc(datumTopRented: widget.datumTopRented),
               const DrivingFeatures(),
-              DrivingRating(datumTopRented: widget.datumTopRented),
+              EvRating(),
             ]
           ),
         ),

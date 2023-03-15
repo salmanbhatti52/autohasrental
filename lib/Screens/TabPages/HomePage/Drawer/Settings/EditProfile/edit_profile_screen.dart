@@ -1,26 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:auto_haus_rental_app/Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../Model/SettingsModel/ProfileModels/update_profile_model.dart';
-import '../../../../../../Utils/api_urls.dart';
-import '../../../../../../Utils/colors.dart';
-import '../../../../../../Utils/constants.dart';
-import '../../../../../../Widget/TextFields/address_text_field.dart';
-import '../../../../../../Widget/myTextWidget.dart';
-import '../../../../../../Widget/toast_message.dart';
-import '../../../../MyAppBarHeader/app_bar_header.dart';
-import '../settings_screen.dart';
 import 'package:http/http.dart' as http;
+import '../settings_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+  EditProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -72,9 +72,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   setData() {
     firstNameController.text = "${getUserProfileModelObject.data!.firstName}";
     lastNameController.text = "${getUserProfileModelObject.data!.lastName}";
-    aboutController.text =  getUserProfileModelObject.data!.about == null? "no about": "${getUserProfileModelObject.data!.about}" ;
+    aboutController.text =  getUserProfileModelObject.data!.about == null? "": "${getUserProfileModelObject.data!.about}" ;
     emailController.text = "${getUserProfileModelObject.data!.email}";
-    locationController.text = getUserProfileModelObject.data!.location == null? "no location": "${getUserProfileModelObject.data!.location}";
+    locationController.text = getUserProfileModelObject.data!.location == null? "": "${getUserProfileModelObject.data!.location}";
 
     print("firstName ${firstNameController.text}");
     print("lastName ${lastNameController.text}");
@@ -172,10 +172,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImage(
+      appBar: MyAppBarSingleImage(
           title: "Edit Profile", backImage: "assets/messages_images/Back.png"),
       body: loader ? Center(child: CircularProgressIndicator(color: borderColor)):
-      getUserProfileModelObject.status != "success"? const Center(
+      getUserProfileModelObject.status != "success"? Center(
         child: Text('no data found...', style: TextStyle(fontWeight: FontWeight.bold))):
       ModalProgressHUD(
         inAsyncCall: progress,
@@ -185,7 +185,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         progressIndicator: CircularProgressIndicator(
           color: borderColor),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -204,7 +204,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           radius: (screenWidth > 600) ? 90 : 70,
                           backgroundColor: Colors.transparent,
                           backgroundImage: imageFile == null?
-                          const AssetImage("assets/icon/fade_in_image.jpeg",)
+                          AssetImage("assets/icon/fade_in_image.jpeg",)
                               : Image.file(imageFile!, height: 50, width: 50, fit: BoxFit.contain,).image,
                         ):
                         CircleAvatar(
@@ -261,7 +261,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           toastSuccessMessage("updated Successfully...!", Colors.green);
 
                           Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                              MaterialPageRoute(builder: (context) => SettingsScreen()));
 
                           setState(() {
                             progress = false;
@@ -279,7 +279,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     }
                   }
 
-                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
                 },
                   child: loginButton("Update", context)),
             ],
@@ -291,7 +291,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Widget buildTextFields() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Container(
           color: Colors.transparent,
           child: Column(
@@ -345,26 +345,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                    // Column(
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     textWidgetBlack("About"),
-                    //     SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                    //     Container(
-                    //       decoration: BoxDecoration(
-                    //         color: kWhite,
-                    //         borderRadius: BorderRadius.circular(30.0),
-                    //       ),
-                    //       child: AddressTextUtils().getCustomEditTextArea(
-                    //         hintValue: getUserProfileModelObject.data!.about == null? "nothing to show":
-                    //         getUserProfileModelObject.data!.about.toString(),
-                    //         validation: true,
-                    //         textController: aboutController,
-                    //         keyboardType: TextInputType.text,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -385,7 +365,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             maxLines: 3,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
+                              contentPadding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
                               hintText: getUserProfileModelObject.data!.about == null? "nothing to show":
                               getUserProfileModelObject.data!.about.toString(),
                               fillColor: kWhite,

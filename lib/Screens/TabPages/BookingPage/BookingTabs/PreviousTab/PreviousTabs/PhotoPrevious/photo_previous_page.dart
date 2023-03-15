@@ -4,11 +4,12 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import '../DrivingPrevious/driving_booking_detail.dart';
+import '../../../UpcomingTab/UpcomingTabs/EvUpcoming/ev_upcoming_page.dart';
+import '../previous_bookings_details_page.dart';
 
 class PhotoPreviousPage extends StatefulWidget {
   const PhotoPreviousPage({super.key});
@@ -61,6 +62,8 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
     super.initState();
     getPhotoPreviousWidget();
   }
+
+  String? bookingCompleteStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +237,6 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                               Text("/Hour", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
-                                              // Image.asset("assets/car_bookings_images/rating_stars.png"),
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01),
 
                                               showRatingStars(double.parse("${photoPreviousObject.data![index].carsDetails!.rating}")),
@@ -250,28 +252,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                             ],
                                           ),
                                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                          Row(
-                                            children: [
-                                              Image.asset("assets/car_bookings_images/promoted.png"),
-                                              const SizedBox(width: 5),
-                                              Text("Verified Dealer", textAlign: TextAlign.left,
-                                                style: TextStyle(color: textLabelColor,
-                                                  fontSize: 10, fontFamily: poppinRegular)),
-                                              const SizedBox(width: 05),
-                                              Container(
-                                                height: 15,
-                                                width: 35,
-                                                decoration: BoxDecoration(
-                                                    color: kBlack,
-                                                    borderRadius: BorderRadius.circular(10)),
-                                                child: Center(
-                                                  child: Text("New", textAlign: TextAlign.left,
-                                                    style: TextStyle(color: kWhite,
-                                                      fontSize: 8, fontFamily: poppinRegular)),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                          verifiedDealerText(),
                                         ],
                                       ),
                                     ),
@@ -286,32 +267,35 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
-                            print("clicked....");
+                            carBookingsId = "${photoPreviousObject.data![index].bookingsId}";
+                            bookingCompleteStatus = photoPreviousObject.data![index].status;
+                            print("bookingCompleteStatus $bookingCompleteStatus");
                             print("${photoPreviousObject.data![index].carsDetails!.vehicalName}");
                             print("${photoPreviousObject.data![index].carsDetails!.carsModels}");
                             print("${photoPreviousObject.data![index].carsDetails!.rating}");
 
-                            photoPreviousObject.data![index].status == "Completed"?
+                            // photoPreviousObject.data![index].status == "Completed"?
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => DrivingBookingDetail(
-                                  carId: "${photoPreviousObject.data![index].carsId}",
-                                  carName: photoPreviousObject.data![index].carsDetails!.vehicalName,
-                                  carYear: "${photoPreviousObject.data![index].carsDetails!.year}",
-                                  carColors: photoPreviousObject.data![index].carsDetails!.carsColors!.name,
-                                  carMakes: photoPreviousObject.data![index].carsDetails!.carsMakes,
-                                  carModel: photoPreviousObject.data![index].carsDetails!.carsModels,
-                                  carRating: photoPreviousObject.data![index].carsDetails!.rating,
-                                  carPrice: photoPreviousObject.data![index].carsPlans![0].pricePerHour,
-                                  discountPercentage: photoPreviousObject.data![index].carsDetails!.discountPercentage,
-                                  carImage: "$baseUrlImage${photoPreviousObject.data![index].carsDetails!.image1}",
-                                  carDesc: photoPreviousObject.data![index].carsDetails!.description,
-                                  userRating: photoPreviousObject.data![index].carsRatings![0].rateStars,
-                                  userComment: photoPreviousObject.data![index].carsRatings![0].comments,
-
-                                  // datum: photoPreviousObject.data![index],
+                                builder: (context) => PreviousBookingDetailsPage(
+                                  // carId: "${photoPreviousObject.data![index].carsId}",
+                                  // carName: photoPreviousObject.data![index].carsDetails!.vehicalName,
+                                  // carYear: "${photoPreviousObject.data![index].carsDetails!.year}",
+                                  // carColors: photoPreviousObject.data![index].carsDetails!.carsColors!.name,
+                                  // carMakes: photoPreviousObject.data![index].carsDetails!.carsMakes,
+                                  // carModel: photoPreviousObject.data![index].carsDetails!.carsModels,
+                                  // carRating: photoPreviousObject.data![index].carsDetails!.rating,
+                                  // carPrice: photoPreviousObject.data![index].carsPlans![0].pricePerHour,
+                                  // discountPercentage: photoPreviousObject.data![index].carsDetails!.discountPercentage,
+                                  // carImage: "$baseUrlImage${photoPreviousObject.data![index].carsDetails!.image1}",
                                   // carDesc: photoPreviousObject.data![index].carsDetails!.description,
-                                )))
-                                : print("not completed");
+                                  // userRating: photoPreviousObject.data![index].carsRatings![0].rateStars,
+                                  // userComment: photoPreviousObject.data![index].carsRatings![0].comments,
+                                  myStatus: photoPreviousObject.data![index].status,
+                                  bookingId: "${photoPreviousObject.data![index].bookingsId}",
+                                  datumPreviousPhoto: photoPreviousObject.data![index],
+                                  // carDesc: photoPreviousObject.data![index].carsDetails!.description,
+                                )));
+                                // : print("not completed");
                             print("userRating ${photoPreviousObject.data![index].carsRatings![0].rateStars}");
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png")),

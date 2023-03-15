@@ -11,7 +11,7 @@ import '../../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart' as http;
 
 class NotificationsScreen extends StatefulWidget {
-  const NotificationsScreen({Key? key}) : super(key: key);
+   NotificationsScreen({Key? key}) : super(key: key);
 
   @override
   State<NotificationsScreen> createState() => _NotificationsScreenState();
@@ -66,17 +66,17 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImage(
+      appBar:  MyAppBarSingleImage(
           title: "Notifications", backImage: "assets/home_page/back_arrow.png"),
       body: loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
-          notificationsModel.status == "error"? const Center(
+          notificationsModel.data!.length == 0 ?  Center(
             child: Text('No notification found...',
               style: TextStyle(fontWeight: FontWeight.bold))):
       Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding:  EdgeInsets.symmetric(horizontal: 10),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.85,
               color: Colors.transparent,
@@ -102,15 +102,15 @@ String? myTime;
     return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        physics: const BouncingScrollPhysics(),
+        physics:  BouncingScrollPhysics(),
         itemCount: notificationsModel.data!.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => const MessageDetailsScreen()));
+              // Navigator.push(context, MaterialPageRoute(builder: (context) =>  MessageDetailsScreen()));
             },
             child: Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding:  EdgeInsets.all(4.0),
               child: Container(
                 decoration: BoxDecoration(
                   color: kWhite,
@@ -137,7 +137,7 @@ String? myTime;
                             fontSize: 14, fontFamily: poppinMedium,)),
                       Text("${notificationsModel.data![index].notificationDate}",
                           textAlign: TextAlign.left,
-                          style: TextStyle( color: const Color(0xffD4DCE1),
+                          style: TextStyle( color:  Color(0xffD4DCE1),
                             fontSize: 10, fontFamily: poppinRegular,)),
                     ],
                   ),

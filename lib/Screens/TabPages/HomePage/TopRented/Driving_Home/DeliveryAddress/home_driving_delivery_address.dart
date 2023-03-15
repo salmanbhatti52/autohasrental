@@ -3,14 +3,13 @@ import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_hea
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-
 import 'AddressTab/driving_address_tabbar.dart';
 
 class HomeDrivingDeliveryAddress extends StatefulWidget {
   final String? startTime, endTime, selectedDate;
   final double? totalPrice, selectedSlotPrice;
   final DatumTopRented? myDatum;
-  const HomeDrivingDeliveryAddress({Key? key, this.selectedDate,
+   HomeDrivingDeliveryAddress({Key? key, this.selectedDate,
     this.totalPrice, this.selectedSlotPrice,
     this.myDatum, this.startTime, this.endTime}) : super(key: key);
 
@@ -36,13 +35,13 @@ class _HomeDrivingDeliveryAddressState extends State<HomeDrivingDeliveryAddress>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImageWithText(
+      appBar:  MyAppBarSingleImageWithText(
         title: "BMW 2 series, ", subtitle: "2022",
         backImage: "assets/messages_images/Back.png"),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics:  BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding:  EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),

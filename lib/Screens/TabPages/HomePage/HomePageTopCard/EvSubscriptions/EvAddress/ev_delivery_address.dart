@@ -1,12 +1,11 @@
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 import '../../../../MyAppBarHeader/app_bar_header.dart';
 import 'EvAddressTabBar/ev_address_tabbar.dart';
 
 class EvDeliveryAddress extends StatefulWidget {
-  // final Datum? evDatum;
+
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
 
@@ -16,7 +15,7 @@ class EvDeliveryAddress extends StatefulWidget {
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  const EvDeliveryAddress({Key? key, /*this.evDatum,*/ this.totalAmount, this.carName,
+  EvDeliveryAddress({Key? key, this.totalAmount, this.carName,
     this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
     this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
@@ -38,13 +37,13 @@ class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: const MyAppBarSingleImageWithText(
-        title: "BMW 2 series, ", subtitle: "2022",
+      appBar: MyAppBarSingleImageWithText(
+        title: "${widget.carName}, ", subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png"),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
