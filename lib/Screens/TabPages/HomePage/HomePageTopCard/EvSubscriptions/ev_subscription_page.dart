@@ -150,76 +150,13 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
       appBar:  MyAppBarDoubleImage(
           frontImage: "assets/home_page/back_arrow.png",
           title: "EV Subscription",
-          backImage: "assets/home_page/notification_image.png"),
+          backImage: "assets/home_page/notification_bell.svg"),
 
       body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
 
            SingleChildScrollView(
             child: Column(
               children: [
-                // Padding(
-                //   padding:  EdgeInsets.symmetric(horizontal: 20),
-                //   child: Row(
-                //     children: [
-                //       Expanded(
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //             color: kWhite,
-                //             borderRadius: BorderRadius.circular(30),
-                //           ),
-                //           height: MediaQuery.of(context).size.height * 0.06,
-                //           child: Padding(
-                //             padding:  EdgeInsets.symmetric(horizontal: 20),
-                //             child: TextField(
-                //               onChanged: (value) {
-                //                 setState(() {
-                //                   searchCarsWidget();
-                //                 });
-                //               },
-                //               controller: searchController,
-                //               autofocus: false,
-                //               style: TextStyle(color: borderColor),
-                //               decoration:  InputDecoration(
-                //                 contentPadding: EdgeInsets.only(left: 10.0, right: 10.0, top: 14.0),
-                //                 hintText: 'Search for Cars',
-                //                 border: InputBorder.none,
-                //                 suffixIcon: searchController.text.isNotEmpty?
-                //                 GestureDetector(
-                //                     onTap: (){
-                //                       setState(() {
-                //                         searchController.text = '';
-                //                         print("searchControllerClear ${searchController.text}");
-                //                       });
-                //                     },
-                //                     child: Icon(Icons.clear, size: 22.0, color: Color(0xffD4DCE1))):
-                //                 GestureDetector(
-                //                     onTap: (){
-                //                       setState(() {
-                //                         // searchCarsWidget();
-                //                       });
-                //                     },
-                //                     child: Icon(Icons.search, size: 22.0, color: Color(0xffD4DCE1))),
-                //               ),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       SizedBox(width: 15),
-                //       GestureDetector(
-                //         onTap: (){
-                //           Navigator.push(context, MaterialPageRoute(builder: (context) =>  FilterScreen()));
-                //         },
-                //         child: Container(
-                //             height: 50, width: 50,
-                //             decoration: BoxDecoration(
-                //                 color: kWhite,
-                //                 borderRadius: BorderRadius.circular(30)
-                //             ),
-                //             child: Image.asset("assets/home_page/filter.png")),
-                //       ),
-                //     ],
-                //   ),
-                // ),
 
                 carMakersListWidget(),
 
@@ -382,7 +319,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                         ],
                                       ),
                                       SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                      verifiedDealerText(),
+                                      // verifiedDealerText(),
                                     ],
                                   ),
                                 ),
@@ -595,7 +532,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                        ],
                                      ),
                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                     verifiedDealerText(),
+                                     // verifiedDealerText(),
                                    ],
                                  ),
                                ),

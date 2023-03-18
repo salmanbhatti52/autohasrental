@@ -24,15 +24,15 @@ class _TabbarCarBookingsState extends State<TabbarCarBookings>
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 48,
+              height: 50,
               decoration: BoxDecoration(
                   color: const Color(0xffd4dce1),
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 05, vertical: 05),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
@@ -42,7 +42,7 @@ class _TabbarCarBookingsState extends State<TabbarCarBookings>
                   indicatorColor: kWhite,
                   isScrollable: true,
                   labelColor: kBlack,
-                  labelPadding: const EdgeInsets.only(left: 50, right: 46),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 65),
                   labelStyle: const TextStyle(fontSize: 14),
                   unselectedLabelColor: kBlack,
                   tabs: const [
@@ -61,7 +61,7 @@ class _TabbarCarBookingsState extends State<TabbarCarBookings>
           height: MediaQuery.of(context).size.height,
           child: TabBarView(
             controller: tabController,
-            children: const [
+            children: [
               PreviousTabsPages(),
               UpComingTabsPages(),
             ],

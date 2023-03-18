@@ -15,7 +15,7 @@ class EvBillingAddress extends StatefulWidget {
       carColorName, carModelName, carMakesName, carMakesImage,
       carRating, carOwnerImage, carOwnerName, discountPercentage,
   homeStreetAddress1, homeStreetAddress2, homeCity, homePostCode,
-  homeSelectedState, homeSelectedCountry;
+  homeSelectedState, homeSelectedCountry, evStartDate, evEndDate;
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
@@ -24,7 +24,7 @@ class EvBillingAddress extends StatefulWidget {
     this.totalAmount, this.carName, this.carColorName, this.carModelName, this.carYear,
     this.discountPercentage, this.carDiscountPrice, this.carImage, this.carMakesImage,
     this.carStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
-    this.carOwnerId, this.carOwnerImage, this.carOwnerName,
+    this.carOwnerId, this.carOwnerImage, this.carOwnerName, this.evStartDate, this.evEndDate,
     this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
@@ -133,6 +133,8 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                           carOwnerId: widget.carOwnerId,
                           carMakesName: widget.carMakesName,
                           carModelName: widget.carModelName,
+                          evStartDate: widget.evStartDate,
+                          evEndDate: widget.evEndDate,
 
                           homeAddress1: widget.homeStreetAddress1,
                           homeAddress2: widget.homeStreetAddress2,
@@ -323,6 +325,8 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                             carOwnerId: widget.carOwnerId,
                             carMakesName: widget.carMakesName,
                             carModelName: widget.carModelName,
+                            evStartDate: widget.evStartDate,
+                            evEndDate: widget.evEndDate,
 
                             homeAddress1: widget.homeStreetAddress1,
                             homeAddress2: widget.homeStreetAddress2,

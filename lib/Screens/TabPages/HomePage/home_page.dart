@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Model/Notification/notifications_unread_model.dart';
 import 'package:auto_haus_rental_app/Model/search_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
@@ -6,6 +7,7 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/HomePageModels/top_rented_cars_model.dart';
@@ -33,6 +35,7 @@ class _HomePageState extends State<HomePage> {
 
   GetUserProfileModel getUserProfileModelObject = GetUserProfileModel();
   TopRentedCarsModel topRentedCarsModelObject = TopRentedCarsModel();
+  NotificationsUnReadModel notificationsUnReadModelObject = NotificationsUnReadModel();
   List<TopRentedCarsModel> topRentedCarsModelObject1 = [];
   SearchModel searchModelObject = SearchModel();
   var searchController = TextEditingController();
@@ -136,12 +139,47 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  getUnreadNotificationWidget() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString('userid');
+    print("userId in HomePagePrefs is= $userId");
+    loadingP = true;
+    setState(() {});
+    try {
+      String apiUrl = unReadNotificationsApiUrl;
+      print("gunReadNotificationsApi: $apiUrl");
+      print("getUserId: $userId");
+      final response = await http.post(Uri.parse(apiUrl),
+          body: {
+            "users_customers_id" : userId,
+          },
+          headers: {
+            'Accept': 'application/json'
+          });
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("getUserProfileResponseHomePage: ${responseString.toString()}");
+        notificationsUnReadModelObject = notificationsUnReadModelFromJson(responseString);
+        print("unReadNotificationsLength: ${notificationsUnReadModelObject.data!.length}");
+      }
+    } catch (e) {
+      print('Error in gunReadNotification: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getUnreadNotificationWidget();
     getTopRentedCarsWidget();
     getUserProfileWidget();
+    getUnreadNotificationWidget();
   }
 
   @override
@@ -172,7 +210,28 @@ class _HomePageState extends State<HomePage> {
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) =>  NotificationsScreen()));
                         },
-                        child: Image.asset("assets/home_page/notification_image.png"),
+                        child: Stack(
+                          children: [
+
+                            SvgPicture.asset("assets/home_page/notification_bell.svg"),
+                            Positioned(
+                              right: 02,
+                              left: 04,
+                              bottom: 08,
+                              child: notificationsUnReadModelObject.data?.length == null? Container():
+                              Container(
+                                  height: 15, width: 15,
+                                  decoration: BoxDecoration(
+                                      color: kRed,
+                                      borderRadius: BorderRadius.circular(30)
+                                  ),
+                                  child: Center(
+                                      child: Text("${notificationsUnReadModelObject.data!.length}",
+                                        style: TextStyle(color: kWhite, fontSize: 10),),
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       GestureDetector(
@@ -228,7 +287,6 @@ class _HomePageState extends State<HomePage> {
 
                             GestureDetector(
                                 onTap: (){
-
                                   setState(() {
                                     searchController.text = '';
                                     print("searchControllerClear ${searchController.text}");
@@ -275,6 +333,7 @@ class _HomePageState extends State<HomePage> {
                     child: Text("Top Rented",
                       style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack),),
                   ),
+                  loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
                   topRentedCars(searchController.text),
                 ],
               ),
@@ -293,11 +352,12 @@ class _HomePageState extends State<HomePage> {
       child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
       topRentedCarsModelObject.status != "success" ?  Center(
           child: Text('No Cars Found.', style: TextStyle(fontWeight: FontWeight.bold))):
-      searchText.isEmpty? GridView.builder(
+      searchText.isEmpty?
+      GridView.builder(
           physics: BouncingScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 1 / 1.4,
+            childAspectRatio: 1 / 1.25,
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
           ),
@@ -316,7 +376,7 @@ class _HomePageState extends State<HomePage> {
                     child: Padding(
                       padding:  EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.245,
+                        height: MediaQuery.of(context).size.height * 0.21,
                         width: MediaQuery.of(context).size.width * 0.47,
                         decoration: BoxDecoration(
                             color: kWhite,
@@ -383,8 +443,9 @@ class _HomePageState extends State<HomePage> {
                                       style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinRegular)),
                                 ],
                               ),
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                              // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
 
+                              Divider(),
                               Row(
                                 children: [
                                   Row(
@@ -418,32 +479,32 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                               Divider(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.asset("assets/home_page/Promoted.png"),
-                                       SizedBox(width: 05),
-                                      Text("Verified Dealer", textAlign: TextAlign.left,
-                                          style: TextStyle(color: textLabelColor,
-                                              fontSize: 10, fontFamily: poppinRegular)),
-                                    ],
-                                  ),
-                                  Container(
-                                    height: 17, width: 35,
-                                    decoration: BoxDecoration(
-                                        color: kBlack,
-                                        borderRadius: BorderRadius.circular(10)),
-                                    child: Center(
-                                      child: Text("New", textAlign: TextAlign.left, style: TextStyle(
-                                          color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: MediaQuery.of(context).size.width * 0.03),
+                               // Divider(),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //     Row(
+                              //       children: [
+                              //         Image.asset("assets/home_page/Promoted.png"),
+                              //          SizedBox(width: 05),
+                              //         Text("Verified Dealer", textAlign: TextAlign.left,
+                              //             style: TextStyle(color: textLabelColor,
+                              //                 fontSize: 10, fontFamily: poppinRegular)),
+                              //       ],
+                              //     ),
+                              //     Container(
+                              //       height: 17, width: 35,
+                              //       decoration: BoxDecoration(
+                              //           color: kBlack,
+                              //           borderRadius: BorderRadius.circular(10)),
+                              //       child: Center(
+                              //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
+                              //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              SizedBox(height: MediaQuery.of(context).size.width * 0.02),
                               GestureDetector(
                                 onTap: () {
                                   carID = topRentedCarsModelObject.data![index].carsId;
@@ -469,10 +530,7 @@ class _HomePageState extends State<HomePage> {
                                           carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
                                           carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
                                           carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                          myCarDescription: topRentedCarsModelObject.data![index].description,
-                                          // myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
-                                          // myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
-                                        )));
+                                          myCarDescription: topRentedCarsModelObject.data![index].description)));
                                   }
                                   else if(topRentedCarsModelObject.data![index].carsUsageType == "Photography"){
                                     Navigator.push(context, MaterialPageRoute(
@@ -494,9 +552,6 @@ class _HomePageState extends State<HomePage> {
                                           carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
                                           carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
                                           myCarDescription: topRentedCarsModelObject.data![index].description,
-                                          // myCarRating: topRentedCarsModelObject.data![index].rating,
-                                          // myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
-                                          // myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
                                         )));
                                   }
                                   else if(topRentedCarsModelObject.data![index].carsUsageType == "Driving Experience"){
@@ -584,7 +639,7 @@ class _HomePageState extends State<HomePage> {
           physics: BouncingScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 1 / 1.4,
+            childAspectRatio: 1 / 1.25,
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
           ),
@@ -599,7 +654,7 @@ class _HomePageState extends State<HomePage> {
                     child: Padding(
                       padding:  EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.245,
+                        height: MediaQuery.of(context).size.height * 0.21,
                         width: MediaQuery.of(context).size.width * 0.47,
                         decoration: BoxDecoration(
                             color: kWhite,
@@ -690,8 +745,9 @@ class _HomePageState extends State<HomePage> {
                                       style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinRegular)),
                                 ],
                               ),
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                              // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
 
+                              Divider(),
                               Row(
                                 children: [
                                   Row(
@@ -725,32 +781,33 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                              Divider(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.asset("assets/home_page/Promoted.png"),
-                                      SizedBox(width: 05),
-                                      Text("Verified Dealer", textAlign: TextAlign.left,
-                                          style: TextStyle(color: textLabelColor,
-                                              fontSize: 10, fontFamily: poppinRegular)),
-                                    ],
-                                  ),
-                                  Container(
-                                    height: 17, width: 35,
-                                    decoration: BoxDecoration(
-                                        color: kBlack,
-                                        borderRadius: BorderRadius.circular(10)),
-                                    child: Center(
-                                      child: Text("New", textAlign: TextAlign.left, style: TextStyle(
-                                          color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: MediaQuery.of(context).size.width * 0.03),
+
+                              // Divider(),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //     Row(
+                              //       children: [
+                              //         Image.asset("assets/home_page/Promoted.png"),
+                              //         SizedBox(width: 05),
+                              //         Text("Verified Dealer", textAlign: TextAlign.left,
+                              //             style: TextStyle(color: textLabelColor,
+                              //                 fontSize: 10, fontFamily: poppinRegular)),
+                              //       ],
+                              //     ),
+                              //     Container(
+                              //       height: 17, width: 35,
+                              //       decoration: BoxDecoration(
+                              //           color: kBlack,
+                              //           borderRadius: BorderRadius.circular(10)),
+                              //       child: Center(
+                              //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
+                              //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              SizedBox(height: MediaQuery.of(context).size.width * 0.02),
                               GestureDetector(
                                 onTap: () {
                                   carID = searchModelObject.data?[index].carsId;

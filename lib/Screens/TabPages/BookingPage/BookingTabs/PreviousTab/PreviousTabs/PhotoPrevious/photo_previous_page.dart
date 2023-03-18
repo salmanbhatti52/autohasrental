@@ -1,4 +1,5 @@
 import 'package:auto_haus_rental_app/Model/BookingModels/Previous/Photo/photo_previous_model.dart';
+import 'package:auto_haus_rental_app/Model/GetCarByIdModel/photo_car_details_byId_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
@@ -8,6 +9,7 @@ import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../../../../HomePage/HomePageTopCard/BookForWedding/book_for_wedding_car_description.dart';
 import '../../../UpcomingTab/UpcomingTabs/EvUpcoming/ev_upcoming_page.dart';
 import '../previous_bookings_details_page.dart';
 
@@ -20,6 +22,7 @@ class PhotoPreviousPage extends StatefulWidget {
 
 class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
   PhotoPreviousModel photoPreviousObject = PhotoPreviousModel();
+  CarDetailsByIdModelPhoto carDetailsByIdModelObject = CarDetailsByIdModelPhoto();
   bool loadingP = true;
 
   getPhotoPreviousWidget() async {
@@ -49,6 +52,58 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
         photoPreviousObject = photoPreviousModelFromJson(responseString);
         print("PhotographyBookingLength: ${photoPreviousObject.data?.length}");
       }
+    // } catch (e) {
+    //   print('Error in upcomingBookingCar: ${e.toString()}');
+    // }
+    loadingP = false;
+    setState(() {});
+  }
+
+  getCarDetailsByIdWidget() async {
+    loadingP = true;
+    setState(() {});
+
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    print('in getCarDetailByIDApi');
+
+    // try {
+    String apiUrl = getCarDetailsByIdApiUrl;
+    print("getCarDetailByIDApi: $apiUrl");
+    final response = await http.post(Uri.parse(apiUrl), headers: {
+      'Accept': 'application/json'
+    }, body: {
+      "cars_id": "$carID",
+    });
+    print('${response.statusCode}');
+    print(response);
+    if (response.statusCode == 200) {
+      final responseString = response.body;
+      print("responseGetCarDetailByID: ${responseString.toString()}");
+      carDetailsByIdModelObject = carDetailsByIdModelPhotoFromJson(responseString);
+      // Future.delayed(const Duration(seconds: 2), () {
+      Navigator.push(context, MaterialPageRoute(
+          builder: (context) => BookForWeddingCarDescription(
+            carName: carDetailsByIdModelObject.data?.vehicalName,
+            carYear: "${carDetailsByIdModelObject.data?.year}",
+            carId: carDetailsByIdModelObject.data?.carsId,
+            carRating: carDetailsByIdModelObject.data?.rating,
+            carColorName: carDetailsByIdModelObject.data!.carsColors!.name,
+            carMakesName: carDetailsByIdModelObject.data!.carsMakes!.name,
+            carModelName: carDetailsByIdModelObject.data!.carsModels!.name,
+            carImage: "$baseUrlImage${carDetailsByIdModelObject.data!.image1}",
+            carMakesImage: "$baseUrlImage${carDetailsByIdModelObject.data!.carsMakes!.image}",
+            favouriteStatus: carDetailsByIdModelObject.data!.status,
+            discountPercentage: carDetailsByIdModelObject.data!.discountPercentage,
+            carDiscountPrice: "${carDetailsByIdModelObject.data!.carsPlans![0].discountedPricePerHour}",
+            carPrice: carDetailsByIdModelObject.data!.carsPlans![0].pricePerHour,
+            carOwnerImage: "$baseUrlImage${carDetailsByIdModelObject.data!.usersCompanies!.companyLogo}",
+            carOwnerName: "${carDetailsByIdModelObject.data!.usersCompanies!.companyName}",
+            carOwnerId: carDetailsByIdModelObject.data!.usersCompanies!.usersCompaniesId,
+            myCarDescription: carDetailsByIdModelObject.data!.description,
+          )));
+      // });
+    }
     // } catch (e) {
     //   print('Error in upcomingBookingCar: ${e.toString()}');
     // }
@@ -162,7 +217,6 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                         ),
                                       ),
                                     ):
-                                    // photoPreviousObject.data![index].status == "Cancelled"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -181,6 +235,39 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    GestureDetector(
+                                      onTap: () {
+                                        carID = photoPreviousObject.data![index].carsId;
+                                        print("photoPreviousObject $carID");
+                                        getCarDetailsByIdWidget();
+
+                                      },
+
+                                      child: Container(
+                                        height: MediaQuery.of(context).size.height * 0.1,
+                                        color: Colors.transparent,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 40, right: 20),
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Container(
+                                              width: 100, height: 30,
+                                              decoration: BoxDecoration(
+                                                  color: borderColor,
+                                                  borderRadius: BorderRadius.circular(30)
+                                              ),
+                                              child: Center(
+                                                child: Text('Rebook', textAlign: TextAlign.center,
+                                                    style: TextStyle(fontSize: 12,
+                                                        fontFamily: poppinRegular, color: kWhite)),
+
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -212,7 +299,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                             children: [
 
                                               Text(
-                                                "${photoPreviousObject.data![index].carsDetails!.carsMakes}, ",
+                                                "${photoPreviousObject.data![index].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(
@@ -252,7 +339,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                             ],
                                           ),
                                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                          verifiedDealerText(),
+                                          // verifiedDealerText(),
                                         ],
                                       ),
                                     ),
@@ -267,8 +354,10 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
+                            carID = photoPreviousObject.data![index].carsId;
                             carBookingsId = "${photoPreviousObject.data![index].bookingsId}";
                             bookingCompleteStatus = photoPreviousObject.data![index].status;
+                            print("bookingCarId $carID");
                             print("bookingCompleteStatus $bookingCompleteStatus");
                             print("${photoPreviousObject.data![index].carsDetails!.vehicalName}");
                             print("${photoPreviousObject.data![index].carsDetails!.carsModels}");
@@ -336,8 +425,6 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                       ),
                     ],
                   );
-                    // const Center(child: Text('booking unavailable...',
-                    //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)));
                 }),
           ),
         ),
@@ -345,4 +432,8 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
     const Center(child: Text('booking unavailable...',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)));
   }
+
+  // navigatorWidget(){
+  //   return
+  // }
 }

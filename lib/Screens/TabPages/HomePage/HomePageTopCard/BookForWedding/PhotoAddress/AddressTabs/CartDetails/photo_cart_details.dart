@@ -263,28 +263,6 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                           color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  children: [
-                                    Image.asset("assets/home_page/Promoted.png"),
-                                    SizedBox(width: 05),
-                                    Text("Verified Dealer", textAlign: TextAlign.left, style: TextStyle(
-                                            color: textLabelColor, fontSize: 10, fontFamily: poppinRegular)),
-                                    SizedBox(width: 05),
-                                    Container(
-                                      height: 20,
-                                      width: 40,
-                                      decoration: BoxDecoration(
-                                          color: kBlack,
-                                          borderRadius: BorderRadius.circular(20)),
-                                      child: Center(
-                                        child: Text("New", textAlign: TextAlign.left, style: TextStyle(
-                                                color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   children: [
                                     Row(

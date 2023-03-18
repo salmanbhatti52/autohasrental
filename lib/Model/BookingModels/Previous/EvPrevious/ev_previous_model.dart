@@ -13,8 +13,7 @@
 //
 //   factory EvPreviousModel.fromJson(Map<String, dynamic> json) => EvPreviousModel(
 //     status: json["status"],
-//     // data: json["data"] != null ? List<DatumPreviousEv>.from(json["data"].map((x) => DatumPreviousEv.fromJson(x))): null,
-//     data: List<DatumPreviousEv>.from(json["data"].map((x) => DatumPreviousEv.fromJson(x))),
+//     data: json["data"] != null ? List<DatumPreviousEv>.from(json["data"].map((x) => DatumPreviousEv.fromJson(x))): null,
 //   );
 //
 //   Map<String, dynamic> toJson() => {
@@ -52,7 +51,7 @@
 //   String? status;
 //   CarsDetails? carsDetails;
 //   List<UsersCompaniesDetail>? usersCompaniesDetails;
-//   List<dynamic>? userFavouriteCars;
+//   List<UserFavouriteCar>? userFavouriteCars;
 //   int? totalBookings;
 //   List<CarsRating>? carsRatings;
 //   List<CarsPlan>? carsPlans;
@@ -69,7 +68,7 @@
 //     status: json["status"],
 //     carsDetails: CarsDetails.fromJson(json["cars_details"]),
 //     usersCompaniesDetails: List<UsersCompaniesDetail>.from(json["users_companies_details"].map((x) => UsersCompaniesDetail.fromJson(x))),
-//     userFavouriteCars: List<dynamic>.from(json["user_favourite_cars"].map((x) => x)),
+//     userFavouriteCars: List<UserFavouriteCar>.from(json["user_favourite_cars"].map((x) => UserFavouriteCar.fromJson(x))),
 //     totalBookings: json["total_bookings"],
 //     carsRatings: List<CarsRating>.from(json["cars_ratings"].map((x) => CarsRating.fromJson(x))),
 //     carsPlans: List<CarsPlan>.from(json["cars_plans"].map((x) => CarsPlan.fromJson(x))),
@@ -87,7 +86,7 @@
 //     "status": status,
 //     "cars_details": carsDetails!.toJson(),
 //     "users_companies_details": List<dynamic>.from(usersCompaniesDetails!.map((x) => x.toJson())),
-//     "user_favourite_cars": List<dynamic>.from(userFavouriteCars!.map((x) => x)),
+//     "user_favourite_cars": List<dynamic>.from(userFavouriteCars!.map((x) => x.toJson())),
 //     "total_bookings": totalBookings,
 //     "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x.toJson())),
 //     "cars_plans": List<dynamic>.from(carsPlans!.map((x) => x.toJson())),
@@ -252,7 +251,11 @@
 // }
 //
 // class CarsColors {
-//   CarsColors({this.carsColorsId, this.name, this.status});
+//   CarsColors({
+//      this.carsColorsId,
+//      this.name,
+//      this.status,
+//   });
 //
 //   int? carsColorsId;
 //   String? name;
@@ -439,6 +442,38 @@
 //   };
 // }
 //
+// class UserFavouriteCar {
+//   UserFavouriteCar({
+//     this.carsFavouriteId,
+//     this.usersCustomersId,
+//     this.carsId,
+//     this.dateAdded,
+//     this.status,
+//   });
+//
+//   int? carsFavouriteId;
+//   int? usersCustomersId;
+//   int? carsId;
+//   DateTime? dateAdded;
+//   String? status;
+//
+//   factory UserFavouriteCar.fromJson(Map<String, dynamic> json) => UserFavouriteCar(
+//     carsFavouriteId: json["cars_favourite_id"],
+//     usersCustomersId: json["users_customers_id"],
+//     carsId: json["cars_id"],
+//     dateAdded: DateTime.parse(json["date_added"]),
+//     status: json["status"],
+//   );
+//
+//   Map<String, dynamic> toJson() => {
+//     "cars_favourite_id": carsFavouriteId,
+//     "users_customers_id": usersCustomersId,
+//     "cars_id": carsId,
+//     "date_added": dateAdded!.toIso8601String(),
+//     "status": status,
+//   };
+// }
+//
 // class UsersCompaniesDetail {
 //   UsersCompaniesDetail({
 //     this.usersCompaniesId,
@@ -530,7 +565,10 @@ EvPreviousModel evPreviousModelFromJson(String str) => EvPreviousModel.fromJson(
 String evPreviousModelToJson(EvPreviousModel data) => json.encode(data.toJson());
 
 class EvPreviousModel {
-  EvPreviousModel({this.status, this.data,});
+  EvPreviousModel({
+    this.status,
+    this.data,
+  });
 
   String? status;
   List<DatumPreviousEv>? data;
@@ -556,6 +594,7 @@ class DatumPreviousEv {
     this.companyLocation,
     this.bookingsDate,
     this.status,
+    this.bookingsAddresses,
     this.carsDetails,
     this.usersCompaniesDetails,
     this.userFavouriteCars,
@@ -573,6 +612,7 @@ class DatumPreviousEv {
   dynamic companyLocation;
   DateTime? bookingsDate;
   String? status;
+  List<BookingsAddress>? bookingsAddresses;
   CarsDetails? carsDetails;
   List<UsersCompaniesDetail>? usersCompaniesDetails;
   List<UserFavouriteCar>? userFavouriteCars;
@@ -590,6 +630,7 @@ class DatumPreviousEv {
     companyLocation: json["company_location"],
     bookingsDate: DateTime.parse(json["bookings_date"]),
     status: json["status"],
+    bookingsAddresses: List<BookingsAddress>.from(json["bookings_addresses"].map((x) => BookingsAddress.fromJson(x))),
     carsDetails: CarsDetails.fromJson(json["cars_details"]),
     usersCompaniesDetails: List<UsersCompaniesDetail>.from(json["users_companies_details"].map((x) => UsersCompaniesDetail.fromJson(x))),
     userFavouriteCars: List<UserFavouriteCar>.from(json["user_favourite_cars"].map((x) => UserFavouriteCar.fromJson(x))),
@@ -608,6 +649,7 @@ class DatumPreviousEv {
     "company_location": companyLocation,
     "bookings_date": bookingsDate!.toIso8601String(),
     "status": status,
+    "bookings_addresses": List<dynamic>.from(bookingsAddresses!.map((x) => x.toJson())),
     "cars_details": carsDetails!.toJson(),
     "users_companies_details": List<dynamic>.from(usersCompaniesDetails!.map((x) => x.toJson())),
     "user_favourite_cars": List<dynamic>.from(userFavouriteCars!.map((x) => x.toJson())),
@@ -615,6 +657,58 @@ class DatumPreviousEv {
     "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x.toJson())),
     "cars_plans": List<dynamic>.from(carsPlans!.map((x) => x.toJson())),
     "cars_plans_count": carsPlansCount,
+  };
+}
+
+class BookingsAddress {
+  BookingsAddress({
+    this.bookingsAddressesId,
+    this.bookingsId,
+    this.addressType,
+    this.streetAddressLine1,
+    this.streetAddressLine2,
+    this.city,
+    this.postCode,
+    this.state,
+    this.country,
+    this.dateAdded,
+  });
+
+  int? bookingsAddressesId;
+  int? bookingsId;
+  String? addressType;
+  String? streetAddressLine1;
+  String? streetAddressLine2;
+  String? city;
+  String? postCode;
+  String? state;
+  String? country;
+  DateTime? dateAdded;
+
+  factory BookingsAddress.fromJson(Map<String, dynamic> json) => BookingsAddress(
+    bookingsAddressesId: json["bookings_addresses_id"],
+    bookingsId: json["bookings_id"],
+    addressType: json["address_type"],
+    streetAddressLine1: json["street_address_line1"],
+    streetAddressLine2: json["street_address_line2"],
+    city: json["city"],
+    postCode: json["post_code"],
+    state: json["state"],
+    country: json["country"],
+    dateAdded: DateTime.parse(json["date_added"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "bookings_addresses_id": bookingsAddressesId,
+    "bookings_id": bookingsId,
+    "address_type": addressType,
+    "street_address_line1": streetAddressLine1,
+    "street_address_line2": streetAddressLine2,
+    "city": city,
+    "post_code": postCode,
+    "state": state,
+    "country": country,
+    "date_added": dateAdded!.toIso8601String(),
   };
 }
 
@@ -691,7 +785,7 @@ class CarsDetails {
   dynamic dateModified;
   String? status;
   String? carsTypes;
-  String? carsMakes;
+  CarsMakes? carsMakes;
   String? carsModels;
   CarsColors? carsColors;
 
@@ -729,7 +823,7 @@ class CarsDetails {
     dateModified: json["date_modified"],
     status: json["status"],
     carsTypes: json["cars_types"],
-    carsMakes: json["cars_makes"],
+    carsMakes: CarsMakes.fromJson(json["cars_makes"]),
     carsModels: json["cars_models"],
     carsColors: CarsColors.fromJson(json["cars_colors"]),
   );
@@ -768,7 +862,7 @@ class CarsDetails {
     "date_modified": dateModified,
     "status": status,
     "cars_types": carsTypes,
-    "cars_makes": carsMakes,
+    "cars_makes": carsMakes!.toJson(),
     "cars_models": carsModels,
     "cars_colors": carsColors!.toJson(),
   };
@@ -776,9 +870,9 @@ class CarsDetails {
 
 class CarsColors {
   CarsColors({
-     this.carsColorsId,
-     this.name,
-     this.status,
+    this.carsColorsId,
+    this.name,
+    this.status,
   });
 
   int? carsColorsId;
@@ -794,6 +888,34 @@ class CarsColors {
   Map<String, dynamic> toJson() => {
     "cars_colors_id": carsColorsId,
     "name": name,
+    "status": status,
+  };
+}
+
+class CarsMakes {
+  CarsMakes({
+    this.carsMakesId,
+    this.name,
+    this.image,
+    this.status,
+  });
+
+  int? carsMakesId;
+  String? name;
+  String? image;
+  String? status;
+
+  factory CarsMakes.fromJson(Map<String, dynamic> json) => CarsMakes(
+    carsMakesId: json["cars_makes_id"],
+    name: json["name"],
+    image: json["image"],
+    status: json["status"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "cars_makes_id": carsMakesId,
+    "name": name,
+    "image": image,
     "status": status,
   };
 }

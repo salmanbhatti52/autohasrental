@@ -254,43 +254,45 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                         ListView.builder(
                       itemCount: messageDetailsModelObject.length,
                       shrinkWrap: true,
+                      reverse: true,
                       padding:  EdgeInsets.only(top: 10, bottom: 10),
                       physics:  BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
+                        int reverseIndex = messageDetailsModelObject.length - 1 - index;
                         return Container(
                           padding:  EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
                           child: Align(
-                            alignment: (messageDetailsModelObject[index].senderType == "Users"
+                            alignment: (messageDetailsModelObject[reverseIndex].senderType == "Users"
                                 ? Alignment.topRight : Alignment.topLeft),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: (messageDetailsModelObject[index].senderType == "Users"
+                                color: (messageDetailsModelObject[reverseIndex].senderType == "Users"
                                     ? borderColor : kWhite),
                               ),
                               padding:  EdgeInsets.all(10),
-                              child: messageDetailsModelObject[index].senderType == "Users"
+                              child: messageDetailsModelObject[reverseIndex].senderType == "Users"
                                   ? Column(
                                     children: [
-                                      Text(messageDetailsModelObject[index].message.toString(),
+                                      Text(messageDetailsModelObject[reverseIndex].message.toString(),
                                       maxLines: 3, overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left, style: TextStyle(
                                           fontSize: 14, fontFamily: poppinLight, color: kWhite)),
                                        SizedBox(height: 03),
-                                      Text("${messageDetailsModelObject[index].time.toString()} ${messageDetailsModelObject[index].date.toString()}",
+                                      Text("${messageDetailsModelObject[reverseIndex].time.toString()} ${messageDetailsModelObject[reverseIndex].date.toString()}",
                                         maxLines: 1, overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left, style: TextStyle(
+                                        textAlign: TextAlign.right, style: TextStyle(
                                           fontSize: 10, color: kWhite, fontFamily: poppinLight)),
                                     ],
                                   ) :
                               Column(
                                 children: [
-                                  Text(messageDetailsModelObject[index].message.toString(),
+                                  Text(messageDetailsModelObject[reverseIndex].message.toString(),
                                     maxLines: 3, overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left, style: TextStyle(
                                       fontSize: 14, color: kBlack, fontFamily: poppinLight)),
                                    SizedBox(height: 03),
-                                  Text("${messageDetailsModelObject[index].time.toString()} ${messageDetailsModelObject[index].date.toString()}",
+                                  Text("${messageDetailsModelObject[reverseIndex].time.toString()} ${messageDetailsModelObject[reverseIndex].date.toString()}",
                                       maxLines: 1, overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left, style: TextStyle(
                                           fontSize: 10, color: kBlack, fontFamily: poppinLight)),

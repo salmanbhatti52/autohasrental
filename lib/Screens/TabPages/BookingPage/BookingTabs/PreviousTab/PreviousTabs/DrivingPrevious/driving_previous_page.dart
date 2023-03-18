@@ -1,4 +1,6 @@
 import 'package:auto_haus_rental_app/Model/BookingModels/Previous/Driving/driving_previous_model.dart';
+import 'package:auto_haus_rental_app/Model/GetCarByIdModel/driving_car_details_by_id_model.dart' as topRented;
+import 'package:auto_haus_rental_app/Model/HomePageModels/top_rented_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
@@ -9,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../../../../Homepage/TopRented/Driving_Home/home_driving_booking.dart';
 import '../../../UpcomingTab/UpcomingTabs/EvUpcoming/ev_upcoming_page.dart';
 import '../previous_bookings_details_page.dart';
-import 'driving_booking_detail.dart';
 
 class DrivingPreviousPage extends StatefulWidget {
   const DrivingPreviousPage({super.key});
@@ -34,20 +36,20 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
 
     // try {
       String apiUrl = bookingPreviousCarsApiUrl;
-      print("upcomingBookingCarModelApi: $apiUrl");
+      print("previousBookingCarModelApi: $apiUrl");
       final response = await http.post(Uri.parse(apiUrl), headers: {
         'Accept': 'application/json'
       }, body: {
         "users_customers_id": userId,
         "cars_usage_type": "Driving Experience"
       });
-      print('${response.statusCode}');
-      print(response);
+      print('statusCode ${response.statusCode}');
+
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("responsePreviousDrivingBookingCar: ${responseString.toString()}");
-        loadingP = false;
-        setState(() {});
+        // loadingP = false;
+        // setState(() {});
         drivingPreviousObject = drivingPreviousModelFromJson(responseString);
         print("drivingBookingLength: ${drivingPreviousObject.data?.length}");
       }
@@ -56,13 +58,112 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
     // }
     loadingP = false;
     setState(() {});
+    print("loadingStatus $loadingP");
   }
+
+  // topRented.DrivingCarDetailsByIdModel drivingCarDetailsByIdModelObject = topRented.DrivingCarDetailsByIdModel();
+  // getCarDetailsByIdWidget() async {
+  //   loadingP = true;
+  //   setState(() {});
+  //
+  //   prefs = await SharedPreferences.getInstance();
+  //   userId = (prefs!.getString('userid'));
+  //   print('in getCarDetailByIDApi');
+  //
+  //   // try {
+  //   String apiUrl = getCarDetailsByIdApiUrl;
+  //   print("getCarDetailByIDApi: $apiUrl");
+  //   final response = await http.post(Uri.parse(apiUrl), headers: {
+  //     'Accept': 'application/json'
+  //   }, body: {
+  //     "cars_id": "$carID",
+  //   });
+  //   print('${response.statusCode}');
+  //   print(response);
+  //   if (response.statusCode == 200) {
+  //     final responseString = response.body;
+  //     print("responseGetCarDetailByID: ${responseString.toString()}");
+  //     drivingCarDetailsByIdModelObject = topRented.drivingCarDetailsByIdModelFromJson(responseString);
+  //     // Future.delayed(const Duration(seconds: 2), () {
+  //     // Navigator.push(context, MaterialPageRoute(
+  //     //     builder: (context) => HomeDrivingBooking(
+  //     //
+  //     //       datum: drivingCarDetailsByIdModelObject.data,
+  //     //       carName: drivingCarDetailsByIdModelObject.data?.vehicalName,
+  //     //       carYear: "${drivingCarDetailsByIdModelObject.data?.year}",
+  //     //       carId: drivingCarDetailsByIdModelObject.data?.carsId,
+  //     //       carRating: drivingCarDetailsByIdModelObject.data?.rating,
+  //     //       carColorName: drivingCarDetailsByIdModelObject.data!.carsColors!.name,
+  //     //       carMakesName: drivingCarDetailsByIdModelObject.data!.carsMakes!.name,
+  //     //       carModelName: drivingCarDetailsByIdModelObject.data!.carsModels!.name,
+  //     //       carImage: "$baseUrlImage${drivingCarDetailsByIdModelObject.data!.image1}",
+  //     //       carMakesImage: "$baseUrlImage${drivingCarDetailsByIdModelObject.data!.carsMakes!.image}",
+  //     //       favouriteStatus: drivingCarDetailsByIdModelObject.data!.status,
+  //     //       discountPercentage: drivingCarDetailsByIdModelObject.data!.discountPercentage,
+  //     //       carDiscountPrice: double.parse("${drivingCarDetailsByIdModelObject.data!.carsPlans![0].discountedPricePerSlot}"),
+  //     //       carPrice: drivingCarDetailsByIdModelObject.data!.carsPlans![0].pricePerSlot,
+  //     //       carOwnerImage: "$baseUrlImage${drivingCarDetailsByIdModelObject.data!.usersCompanies!.companyLogo}",
+  //     //       carOwnerName: "${drivingCarDetailsByIdModelObject.data!.usersCompanies!.companyName}",
+  //     //       carOwnerId: drivingCarDetailsByIdModelObject.data!.usersCompanies!.usersCompaniesId,
+  //     //       myCarDescription: drivingCarDetailsByIdModelObject.data!.description,
+  //     //     )));
+  //     // });
+  //   }
+  //   // } catch (e) {
+  //   //   print('Error in upcomingBookingCar: ${e.toString()}');
+  //   // }
+  //   loadingP = false;
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getPreviousBookingCarWidget();
+  }
+
+  TopRentedCarsModel topRentedCarsModelObject = TopRentedCarsModel();
+  getTopRentedCarsWidget() async {
+    loadingP = true;
+    setState(() {});
+
+    prefs = await SharedPreferences.getInstance();
+    print('in topRenterCarModelApi');
+    // try {
+    String apiUrl = topRentedCarsApiUrl;
+    print("topRenterCarModelApi: $apiUrl");
+    final response = await http.post(Uri.parse(apiUrl),
+        body: {
+          "users_customers_id" : userId
+        },
+        headers: {
+          'Accept': 'application/json'
+        });
+    print('${response.statusCode}');
+    print(response);
+    if (response.statusCode == 200) {
+      final responseString = response.body;
+      print("topRenterCarResponse : ${responseString.toString()}");
+      topRentedCarsModelObject = topRentedCarsModelFromJson(responseString);
+      print("topRentedCarsLength: ${topRentedCarsModelObject.data!.length}");
+      for(int i = 0; i<topRentedCarsModelObject.data!.length; i++){
+        if(carID == topRentedCarsModelObject.data![i].carsId) {
+          print("cariddd $carID ${topRentedCarsModelObject.data![i].carsId}");
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => HomeDrivingBooking(
+                datum: topRentedCarsModelObject.data![i],
+              )));
+          break;
+        }
+      }
+
+    }
+    // } catch (e) {
+    //   print('Error: ${e.toString()}');
+    // }
+    loadingP = false;
+    setState(() {});
   }
 
   @override
@@ -187,24 +288,34 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                       ),
                                     ),
 
-                                    Container(
-                                      height: MediaQuery.of(context).size.height * 0.1,
-                                      color: Colors.transparent,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 40, right: 20),
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Container(
-                                            width: 100, height: 30,
-                                            decoration: BoxDecoration(
-                                              color: borderColor,
-                                              borderRadius: BorderRadius.circular(30)
-                                            ),
-                                            child: Center(
-                                              child: Text('Rebook', textAlign: TextAlign.center,
-                                                  style: TextStyle(fontSize: 12,
-                                                      fontFamily: poppinRegular, color: kWhite)),
+                                    GestureDetector(
+                                      onTap: (){
+                                        carID = drivingPreviousObject.data![index].carsId;
+                                        print("photoPreviousObject $carID");
+                                        // loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+                                        getTopRentedCarsWidget();
 
+
+                                      },
+                                      child: Container(
+                                        height: MediaQuery.of(context).size.height * 0.1,
+                                        color: Colors.transparent,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 40, right: 20),
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Container(
+                                              width: 100, height: 30,
+                                              decoration: BoxDecoration(
+                                                color: borderColor,
+                                                borderRadius: BorderRadius.circular(30)
+                                              ),
+                                              child: Center(
+                                                child: Text('Rebook', textAlign: TextAlign.center,
+                                                    style: TextStyle(fontSize: 12,
+                                                        fontFamily: poppinRegular, color: kWhite)),
+
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -276,7 +387,7 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                             ],
                                           ),
                                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                          verifiedDealerText(),
+                                          // verifiedDealerText(),
                                         ],
                                       ),
                                     ),
@@ -291,8 +402,10 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
+                            carID = drivingPreviousObject.data![index].carsId;
                             carBookingsId = "${drivingPreviousObject.data![index].bookingsId}";
                             print("clicked....");
+                            print("bookingCarId $carID");
                             print("${drivingPreviousObject.data![index].carsDetails!.vehicalName}");
                             print("${drivingPreviousObject.data![index].carsDetails!.carsModels}");
                             print("${drivingPreviousObject.data![index].carsDetails!.rating}");

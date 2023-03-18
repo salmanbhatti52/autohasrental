@@ -1,6 +1,7 @@
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../Utils/colors.dart';
 import '../HomePage/Drawer/drawer_screen.dart';
 import '../HomePage/Notifications/notification_screen.dart';
@@ -37,7 +38,8 @@ Widget myHeaderDrawer(BuildContext context, backImage, titleText, rightImage) {
                   MaterialPageRoute(
                       builder: (context) =>  NotificationsScreen()));
             },
-            child: Image.asset(rightImage)),
+            child: SvgPicture.asset(rightImage),
+        ),
       ],
     ),
   );
@@ -329,7 +331,7 @@ class MyAppBarDoubleImage extends StatelessWidget
           },
           child: Padding(
             padding:  EdgeInsets.only(top: 30, right: 20),
-            child: Image.asset(
+            child: SvgPicture.asset(
               backImage!,
               height: 25,
               width: 25,

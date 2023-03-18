@@ -40,6 +40,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
   int selectedIndex = 0;
   bool loadingP = true;
+  String? evStartDate, evEndDate;
   getEvSubscriptionCarsWidget() async {
     loadingP = true;
     setState(() {});
@@ -268,6 +269,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                                   print('selectedMonthTotalPrice $totalAmount');
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) => EvDeliveryAddress(
+                                        evStartDate: evStartDate,
+                                        evEndDate: evEndDate,
                                           // evDatum: widget.evDatum,
                                         mySelectedTabMonth: tabMonth,
                                         mySelectedTabPrice: tabPrice,
@@ -330,7 +333,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
-            height: screenHeight * 0.45,
+            height: screenHeight * 0.4,
             decoration: BoxDecoration(
                 color: kWhite, borderRadius: BorderRadius.circular(20)),
           ),
@@ -391,9 +394,6 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                           color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                     ],
                   ),
-                  SizedBox(height: screenHeight * 0.01),
-                  verifiedDealerText(),
-                  SizedBox(height: screenHeight * 0.01),
                   Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -478,23 +478,47 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     );
   }
 
-  DateTime? startPicked, endPicked;
-  selectStartDateWidget(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      // firstDate: DateTime(2000),
-      firstDate: DateTime.now().subtract(const Duration(days: 0)),
-      lastDate: DateTime(2025),
-    );
-    if (picked != null && picked != pickDate) {
-      evStartDate = DateFormat('yyyy-MM-dd').format(picked);
-      startPicked = picked;
+  DateTime? startDatePicked, endDatePicked;
 
+  // selectStartDateWidget(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     // firstDate: DateTime(2000),
+  //     firstDate: DateTime.now().subtract(const Duration(days: 0)),
+  //     lastDate: DateTime(2025),
+  //   );
+  //   if (picked != null && picked != pickDate) {
+  //     evStartDate = DateFormat('yyyy-MM-dd').format(picked);
+  //     startPicked = picked;
+  //
+  //     setState(() {
+  //       print("selectedStartDate is $evStartDate");
+  //       print("evMonth $evSelectedMonth");
+  //       print("tabNewValueStart $tabNewValue");
+  //     });
+  //   }
+  // }
+
+  int? totalDaysOfMonth;
+  Future<void> selectStartDateWidget(BuildContext context) async {
+    totalDaysOfMonth = int.parse("$tabMonth")*30;
+    print("totalDaysOfMonth $totalDaysOfMonth");
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: startDatePicked ?? DateTime.now(),
+        firstDate: DateTime.now().subtract(const Duration(days: 0)),
+        lastDate: DateTime(2100));
+    if (picked != null && picked != startDatePicked) {
       setState(() {
-        print("selectedStartDate is $evStartDate");
-        print("evMonth $evSelectedMonth");
-        print("tabNewValueStart $tabNewValue");
+        evStartDate = DateFormat('yyyy-MM-dd').format(picked);
+        startDatePicked = picked;
+        endDatePicked = picked.add(Duration(days: int.parse("$totalDaysOfMonth")));
+        evStartDate = DateFormat('yyyy-MM-dd').format(startDatePicked!);
+        evEndDate = DateFormat('yyyy-MM-dd').format(endDatePicked!);
+        setState(() {});
+        print("evStartDate $evStartDate");
+        print("evEndDate $evEndDate");
       });
     }
   }
@@ -509,7 +533,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     );
     if (picked != null && picked != pickDate) {
       evEndDate = DateFormat('yyyy-MM-dd').format(picked);
-      startPicked = picked;
+      startDatePicked = picked;
       setState(() {
         print("SelectedEndDate is $evEndDate");
         print("evMonth $evSelectedMonth");

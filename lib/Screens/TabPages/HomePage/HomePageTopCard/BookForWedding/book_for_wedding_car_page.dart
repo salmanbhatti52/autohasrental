@@ -169,7 +169,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
       appBar:   MyAppBarDoubleImage(
           frontImage: "assets/home_page/back_arrow.png",
           title: "Book for Wedding",
-          backImage: "assets/home_page/notification_image.png"),
+          backImage: "assets/home_page/notification_bell.svg"),
 
       body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
       SingleChildScrollView(
@@ -344,29 +344,6 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
                                               : Text("${carsPhotoGraphyModelObject.data![index].rating}",
                                               textAlign: TextAlign.left, style: TextStyle(
                                                   color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                                        ],
-                                      ),
-                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                      Row(
-                                        children: [
-                                          Image.asset("assets/car_bookings_images/promoted.png"),
-                                            SizedBox(width: 5,),
-                                          Text("Verified Dealer", textAlign: TextAlign.left,
-                                            style: TextStyle(color: textLabelColor,
-                                              fontSize: 10, fontFamily: poppinRegular)),
-                                            SizedBox(width: 05),
-                                          Container(
-                                            height: 15,
-                                            width: 35,
-                                            decoration: BoxDecoration(
-                                                color: kBlack,
-                                                borderRadius: BorderRadius.circular(10)),
-                                            child: Center(
-                                              child: Text("New", textAlign: TextAlign.left,
-                                                  style: TextStyle(color: kWhite,
-                                                      fontSize: 8, fontFamily: poppinRegular)),
-                                            ),
-                                          ),
                                         ],
                                       ),
                                     ],

@@ -18,12 +18,12 @@ import 'EvTaBBar/tabbar_description_page.dart';
 import 'package:http/http.dart'as http;
 
 class EVCarDescription extends StatefulWidget {
- final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
+ final String? carName, carImage, carYear, carPrice, carStatus, carColorName, favouriteStatus,
      carModelName, carMakesName, carMakesImage, myCarDescription, myCarRating,
      myCarComment, carRating, carOwnerImage, carOwnerName, discountPercentage;
  final int? carId, carOwnerId;
  final double? carDiscountPrice;
-  const EVCarDescription({super.key, this.carName, this.myCarDescription,
+  const EVCarDescription({super.key, this.carName, this.myCarDescription, this.favouriteStatus,
     this.myCarRating, this.myCarComment, this.carColorName, this.carModelName,
     this.discountPercentage, this.carDiscountPrice, this.carImage, this.carYear,
     this.carMakesImage, this.carStatus, this.carMakesName, this.carId, this.carPrice,

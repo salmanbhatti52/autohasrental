@@ -9,7 +9,7 @@ DateTime? pickDate;
 String? valueDate;
 String? valueDay;
 // String evStartDate = "Start Date";
-String? evStartDate, evEndDate;
+
 // String evEndDate = "End Date";
 int? evSelectedMonth, selectedMonthDays;
 int? tabNewValue;

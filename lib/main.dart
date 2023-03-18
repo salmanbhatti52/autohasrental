@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'AutoHausRental',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+
         // primarySwatch: Colors.blue,
         primaryColor: appBgColor,
       ),

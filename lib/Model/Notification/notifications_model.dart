@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-NotificationsModel notificationsModelFromJson(String str) => NotificationsModel.fromJson(json.decode(str));
+NotificationsListModel notificationsListModelFromJson(String str) => NotificationsListModel.fromJson(json.decode(str));
 
-String notificationsModelToJson(NotificationsModel data) => json.encode(data.toJson());
+String notificationsListModelToJson(NotificationsListModel data) => json.encode(data.toJson());
 
-class NotificationsModel {
-  NotificationsModel({
+class NotificationsListModel {
+  NotificationsListModel({
     this.status,
     this.data,
   });
@@ -13,9 +13,9 @@ class NotificationsModel {
   String? status;
   List<Datum>? data;
 
-  factory NotificationsModel.fromJson(Map<String, dynamic> json) => NotificationsModel(
+  factory NotificationsListModel.fromJson(Map<String, dynamic> json) => NotificationsListModel(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -36,20 +36,21 @@ class Datum {
     this.status,
     this.notificationDate,
     this.usersCompaniesId,
-    this.companyName,
     this.email,
     this.password,
     this.phone,
-    this.about,
-    this.bankName,
-    this.bankAccountNumber,
-    this.companyLocation,
+    this.companyName,
     this.companyRegistrationNumber,
+    this.formattedDateTime,
+    this.companyLocation,
     this.companyLogo,
-    this.paypalEmail,
+    this.about,
     this.verifyEmailOtp,
     this.forgotPasswordOtp,
-    this.verified,
+    this.bankName,
+    this.bankAccountNumber,
+    this.paypalEmail,
+    this.online,
   });
 
   int? notificationsId;
@@ -58,24 +59,25 @@ class Datum {
   int? receiversId;
   String? message;
   DateTime? dateAdded;
-  dynamic dateModified;
+  DateTime? dateModified;
   String? status;
   DateTime? notificationDate;
+  String? formattedDateTime;
   int? usersCompaniesId;
-  String? companyName;
   String? email;
   String? password;
   String? phone;
-  dynamic about;
-  dynamic bankName;
-  dynamic bankAccountNumber;
-  String? companyLocation;
+  String? companyName;
   String? companyRegistrationNumber;
+  String? companyLocation;
   String? companyLogo;
-  dynamic paypalEmail;
+  dynamic about;
   int? verifyEmailOtp;
   int? forgotPasswordOtp;
-  String? verified;
+  String? bankName;
+  String? bankAccountNumber;
+  String? paypalEmail;
+  String? online;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     notificationsId: json["notifications_id"],
@@ -84,24 +86,25 @@ class Datum {
     receiversId: json["receivers_id"],
     message: json["message"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: json["date_modified"],
+    dateModified: DateTime.parse(json["date_modified"]),
     status: json["status"],
     notificationDate: DateTime.parse(json["notification_date"]),
     usersCompaniesId: json["users_companies_id"],
-    companyName: json["company_name"],
     email: json["email"],
     password: json["password"],
+    formattedDateTime: json["formatted_date_time"],
     phone: json["phone"],
-    about: json["about"],
-    bankName: json["bank_name"],
-    bankAccountNumber: json["bank_account_number"],
-    companyLocation: json["company_location"],
+    companyName: json["company_name"],
     companyRegistrationNumber: json["company_registration_number"],
+    companyLocation: json["company_location"],
     companyLogo: json["company_logo"],
-    paypalEmail: json["paypal_email"],
+    about: json["about"],
     verifyEmailOtp: json["verify_email_otp"],
     forgotPasswordOtp: json["forgotPasswordOtp"],
-    verified: json["verified"],
+    bankName: json["bank_name"],
+    bankAccountNumber: json["bank_account_number"],
+    paypalEmail: json["paypal_email"],
+    online: json["online"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -110,24 +113,25 @@ class Datum {
     "senders_id": sendersId,
     "receivers_id": receiversId,
     "message": message,
+    "formatted_date_time": formattedDateTime,
     "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified,
+    "date_modified": dateModified!.toIso8601String(),
     "status": status,
     "notification_date": notificationDate!.toIso8601String(),
     "users_companies_id": usersCompaniesId,
-    "company_name": companyName,
     "email": email,
     "password": password,
     "phone": phone,
-    "about": about,
-    "bank_name": bankName,
-    "bank_account_number": bankAccountNumber,
-    "company_location": companyLocation,
+    "company_name": companyName,
     "company_registration_number": companyRegistrationNumber,
+    "company_location": companyLocation,
     "company_logo": companyLogo,
-    "paypal_email": paypalEmail,
+    "about": about,
     "verify_email_otp": verifyEmailOtp,
     "forgotPasswordOtp": forgotPasswordOtp,
-    "verified": verified,
+    "bank_name": bankName,
+    "bank_account_number": bankAccountNumber,
+    "paypal_email": paypalEmail,
+    "online": online,
   };
 }

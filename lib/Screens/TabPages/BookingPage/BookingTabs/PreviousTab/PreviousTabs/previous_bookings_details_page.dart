@@ -2,12 +2,8 @@ import 'package:auto_haus_rental_app/Model/get_rate_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -41,6 +37,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
     // TODO: implement initState
     getRateCarWidget();
     print("bookingCompleteStatus ${widget.myStatus}");
+    print("bookingCarId ${carID}");
     super.initState();
   }
 
@@ -51,7 +48,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
     // print('in getRateCarApi');
-    print('userId in getRateCarApi $userId ${widget.datumPreviousPhoto!.carsId}');
+    print('userId in getRateCarApi $userId ${carID}');
 
     // try {
     String apiUrl = getRateCarApiUrl;
@@ -61,7 +58,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
     },
         body: {
           "users_customers_id": userId,
-          "cars_id": "${widget.datumPreviousPhoto!.carsId}",
+          "cars_id": "${carID}",
         });
     print('${response.statusCode}');
     print(response);
@@ -154,14 +151,14 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
     // try {
     String apiUrl = carsRatingApiUrl;
     print("rateCarModelApi: $apiUrl");
-    print("userId carId: $userId ${widget.datumPreviousPhoto!.carsId}");
+    print("userId carId: $userId ${carID}");
     print("rateCarMControllerApi: ${carRatingController.text}");
     print("ratingValue: $ratingValue");
     final response = await http.post(Uri.parse(apiUrl), headers: {
       'Accept': 'application/json'
     }, body: {
       "users_customers_id": userId,
-      "cars_id" : "${widget.datumPreviousPhoto!.carsId}",
+      "cars_id" : "${carID}",
       "comments": carRatingController.text,
       "rate_stars": "$ratingValue"
 
@@ -176,6 +173,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
       rateCarModelObject = rateCarModelFromJson(responseString);
       print("rateCarMessage: ${rateCarModelObject.message}");
       Navigator.pop(context);
+      // Navigator.pop(context);
     }
     // } catch (e) {
     //   print('Error in upcomingBookingCar: ${e.toString()}');
@@ -294,20 +292,18 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                         padding: EdgeInsets.only(top: 25),
                         child: GestureDetector(
                           onTap: () async {
-
                             print("ratingValue $ratingValue");
                             if(ratingsFormKey.currentState!.validate()){
                               if(carRatingController.text.isEmpty){
                                 toastFailedMessage("Please add your feedback", kRed);
                               } else {
                                 await carRatingsWidget();
-
                                 if(rateCarModelObject.status == "Success"){
                                   // Navigator.pop(context);
                                   toastSuccessMessage("${rateCarModelObject.message}", colorGreen);
                                 }
                                 if(rateCarModelObject.status == "error"){
-                                  toastFailedMessage("${rateCarModelObject.message}", kRed);
+                                  // toastFailedMessage("${rateCarModelObject.message}", kRed);
                                 }
                               }
                             }

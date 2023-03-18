@@ -1,17 +1,18 @@
 import 'dart:convert';
+import 'package:auto_haus_rental_app/Model/GetCarByIdModel/driving_car_details_by_id_model.dart';
 import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/top_rented_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import '../../../../../Model/HomePageModels/HomeTopWidgetModels/driving_cars_model.dart';
-import '../../../../../Model/HomePageModels/top_rented_cars_model.dart';
-import '../../../../../Widget/toast_message.dart';
 import '../../../MessagePage/message_details_screen.dart';
 import 'package:http/http.dart'as http;
 import 'DrivingDescTabs/driving_desc_tabbars.dart';
@@ -19,15 +20,14 @@ import 'home_driving_booking_details.dart';
 
 class HomeDrivingBooking extends StatefulWidget {
   final DatumTopRented? datum;
-  const HomeDrivingBooking({Key? key, this.datum}) : super(key: key);
+
+  HomeDrivingBooking({Key? key, this.datum}) : super(key: key);
 
   @override
   State<HomeDrivingBooking> createState() => _HomeDrivingBookingState();
 }
 
 class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTickerProviderStateMixin {
-  DrivingCarsModel drivingExperienceCarsModelObject = DrivingCarsModel();
-
   TabController? tabController;
   int selectedIndex = 0;
   double? selectedSlotPrice;
@@ -150,7 +150,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
-    myCurrentCarIndex = widget.datum!.carsId;
+    myCurrentCarIndex = "${widget.datum!.carsId}";
     getToday();
     super.initState();
   }
@@ -277,37 +277,45 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 20),
-                          child: Image.network("$baseUrlImage${widget.datum!.carsMakes!.image}",
-                              height: 60, width: 50, fit: BoxFit.fill,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: CachedNetworkImage(
+                              imageUrl: "$baseUrlImage${widget.datum!.carsMakes!.image}",
+                              height: 50, width: 50,
+                              fit: BoxFit.fill,
+                              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(strokeWidth: 2, value: downloadProgress.progress, color: borderColor,),
+                              errorWidget: (context, url, error) => Image.asset("assets/icon/fade_in_image.jpeg"),
+                            ),
                           ),
-                          // Image.asset(
-                          //     'assets/car_description_images/tesla.png',
-                          //     width: 41,
-                          //     height: 41),
                         ),
+
+                          // Image.network("$baseUrlImage${widget.datum!.carsMakes!.image}",
+                          //     height: 60, width: 50, fit: BoxFit.fill,
+                          // ),
+
                         Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: widget.datum!.favouriteStatus == "like"?
                           Image.asset("assets/home_page/heart.png"):
                           GestureDetector(
                             onTap: () async {
-                              // myCurrentCarIndex = "${carsPhotoGraphyModelObject.data![index].carsId}";
-                              // print("carsPhotoGraphyIds $myCurrentCarIndex");
+                              myCurrentCarIndex = "${widget.datum!.carsId}";
+                              print("evCarIds $myCurrentCarIndex");
                               await getLikeUnlikeCarWidget();
                               if (carLikeUnlikeModelObject.message == "Liked") {
                                 print("isLiked");
-                                toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                                // toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
                               }
                               if (carLikeUnlikeModelObject.message == "Unliked") {
                                 print("isUnLiked");
-                                toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                                // toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
                               }
                             },
                             child: carLikeUnlikeModelObject.message == "Liked"
                                 ? Image.asset("assets/home_page/heart.png")
                                 : Image.asset("assets/car_bookings_images/heart.png"),
                           ),
-                          // Image.asset('assets/car_description_images/heart.png', width: 24, height: 20),
                         ),
                       ],
                     ),
@@ -537,7 +545,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
   }
 
   LikeUnlikeCarModel carLikeUnlikeModelObject = LikeUnlikeCarModel();
-  int? myCurrentCarIndex;
+  String? myCurrentCarIndex;
   getLikeUnlikeCarWidget() async {
     loadingP = true;
     setState(() {});

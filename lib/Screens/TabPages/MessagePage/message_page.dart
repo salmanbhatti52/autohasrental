@@ -4,8 +4,12 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/ChatsModels/all_chats_model.dart';
+import '../../../Model/Notification/notifications_unread_model.dart';
+import '../HomePage/Drawer/drawer_screen.dart';
+import '../Homepage/Notifications/notification_screen.dart';
 import '../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart'as http;
 import 'message_details_screen.dart';
@@ -18,8 +22,10 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
+  NotificationsUnReadModel notificationsUnReadModelObject = NotificationsUnReadModel();
 
   String? userId;
+  bool loadingP = true;
   sharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('in msgs shared prefs');
@@ -27,8 +33,41 @@ class _MessagePageState extends State<MessagePage> {
     userId = prefs.getString('userid');
     print("userId in Prefs is = $userId");
     userChatHistoryApi();
+    getUnreadNotificationWidget();
   }
 
+  getUnreadNotificationWidget() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString('userid');
+    print("userId in HomePagePrefs is= $userId");
+    loadingP = true;
+    setState(() {});
+    try {
+      String apiUrl = unReadNotificationsApiUrl;
+      print("gunReadNotificationsApi: $apiUrl");
+      print("getUserId: $userId");
+      final response = await http.post(Uri.parse(apiUrl),
+          body: {
+            "users_customers_id" : userId,
+          },
+          headers: {
+            'Accept': 'application/json'
+          });
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("getUserProfileResponseHomePage: ${responseString.toString()}");
+        notificationsUnReadModelObject = notificationsUnReadModelFromJson(responseString);
+        print("unReadNotificationsLength: ${notificationsUnReadModelObject.data!.length}");
+      }
+    } catch (e) {
+      print('Error in gunReadNotification: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
   @override
   void initState() {
     super.initState();
@@ -41,9 +80,57 @@ class _MessagePageState extends State<MessagePage> {
       backgroundColor: homeBgColor,
       body: Column(
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Messages",
-              "assets/home_page/notification_image.png"),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    print("clicked");
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>  DrawerScreen()));
+                  },
+                  child: Image.asset("assets/home_page/Side_Menu.png",
+                    height: 25,
+                    width: 25,
+                  ),
+                ),
+                Text("Messages", textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => NotificationsScreen()));
+                  },
+                  child: Stack(
+                    children: [
+                      SvgPicture.asset("assets/home_page/notification_bell.svg"),
+                      Positioned(
+                        right: 02,
+                        left: 04,
+                        bottom: 08,
+                        child: notificationsUnReadModelObject.data?.length == null? Container():
+                        Container(
+                            height: 15, width: 15,
+                            decoration: BoxDecoration(
+                                color: kRed,
+                                borderRadius: BorderRadius.circular(30)
+                            ),
+                            child: Center(
+                              child: Text("${notificationsUnReadModelObject.data!.length}",
+                                style: TextStyle(color: kWhite, fontSize: 10),),
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Messages",
+          //     "assets/home_page/notification_bell.svg"),
           loading ? Center(child: CircularProgressIndicator(color: borderColor)):
           allChatModel.isEmpty?  Center(
             child: Text('No Chat found...',

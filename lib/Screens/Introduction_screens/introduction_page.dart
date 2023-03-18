@@ -143,10 +143,12 @@ class _IntroductionPageState extends State<IntroductionPage> {
                       GestureDetector(
                         onTap: () async {
 
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+
                           if (index == screens.length - 1) {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+
                             // await _storeOnboardInfo();
-                            MaterialPageRoute(builder: (context) => HomePage());
+
                             // Navigator.pop(context);
                           }
                           pageController!.previousPage(

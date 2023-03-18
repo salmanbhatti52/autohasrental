@@ -46,6 +46,8 @@ String carsRatingApiUrl = '${baseUrl}rate_cars';
 String getCarMakesApiUrl = '${baseUrl}cars_makes';
 String getCarRatingByIdApiUrl = '${baseUrl}get_cars_rating';
 
+String getCarDetailsByIdApiUrl = '${baseUrl}cars_by_id';
+
 String cancelBookingUpcomingCarsApiUrl = '${baseUrl}bookings_cancelled';
 String cancelBookingDialogBoxApiUrl = '${baseUrl}bookings_cancel';
 

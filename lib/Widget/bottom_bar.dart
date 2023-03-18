@@ -65,13 +65,14 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           decoration: BoxDecoration(
               color: appBgColor,
               borderRadius:  BorderRadius.only(
-                topRight: Radius.circular(10),
-                  topLeft: Radius.circular(10)
+                topRight: Radius.circular(12),
+                  topLeft: Radius.circular(12)
               ),
           ),
           child: BottomNavigationBar(
               selectedItemColor: borderColor,
               type: BottomNavigationBarType.fixed,
+              unselectedItemColor: kWhite,
               currentIndex: currentIndex,
               onTap: onTap,
               backgroundColor: Colors.transparent,
@@ -79,26 +80,27 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               items: [
                 BottomNavigationBarItem(
                   icon: Image.asset('assets/tab_images/home_image.png',
-                    color: currentIndex == 0 ? borderColor : unSelectedTabColor,
+                    color: currentIndex == 0 ? borderColor : kWhite,
                     width: 30,
                   ),
                   label: 'Home',
+
                 ),
                 BottomNavigationBarItem(
                     icon: Image.asset('assets/tab_images/messages_image.png',
-                      color: currentIndex == 1 ? borderColor : unSelectedTabColor,
+                      color: currentIndex == 1 ? borderColor : kWhite,
                       width: 30,
                     ),
                     label: 'Messages'),
                 BottomNavigationBarItem(
                     icon: Image.asset('assets/tab_images/calendar_image.png',
-                      color: currentIndex == 2 ? borderColor : unSelectedTabColor,
+                      color: currentIndex == 2 ? borderColor : kWhite,
                       width: 30,
                     ),
                     label: 'Booking'),
                 BottomNavigationBarItem(
                     icon: Image.asset('assets/tab_images/heart_image.png',
-                        color: currentIndex == 3 ? borderColor : unSelectedTabColor,
+                        color: currentIndex == 3 ? borderColor : kWhite,
                         width: 30),
                     label: 'Favorities'),
               ]),

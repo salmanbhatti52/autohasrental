@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -210,11 +211,19 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Image.network("${widget.carMakesImage}",
-                          height: 60, width: 50, fit: BoxFit.fill,
-                        )
+                        child:
+                        // Image.network("${widget.carMakesImage}",
+                        //   height: 60, width: 50, fit: BoxFit.fill,
+                        // ),
 
-                        // Image.asset('assets/car_description_images/tesla.png', width: 41, height: 41),
+                        CachedNetworkImage(
+                          imageUrl: "${widget.carMakesImage}",
+                          height: 50, width: 50,
+                          fit: BoxFit.fill,
+                          progressIndicatorBuilder: (context, url, downloadProgress) =>
+                              CircularProgressIndicator(strokeWidth: 2, value: downloadProgress.progress, color: borderColor,),
+                          errorWidget: (context, url, error) => Image.asset("assets/icon/fade_in_image.jpeg"),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
@@ -374,7 +383,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                                     selectTimeStart(context);
                                   },
                                   child:
-                                  valueTimeStart == null?
+                                  formattedStartTime == null?
                                   Container(
                                     height: 40,
                                     width: 120,
@@ -396,7 +405,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                                         borderRadius: BorderRadius.circular(10)
                                     ),
                                     child: Center(
-                                      child: Text(valueTimeStart!, style: TextStyle(color: kWhite, fontSize: 16),
+                                      child: Text("${formattedStartTime}", style: TextStyle(color: kWhite, fontSize: 16),
                                       ),
                                     ),
                                   ),
@@ -404,9 +413,9 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
 
                               InkWell(
                                   onTap: () {
-                                    selectTimeEnd(context);
+                                    // selectTimeEnd(context);
                                   },
-                                  child: valueTimeEnd == null?
+                                  child: formattedEndTime == null?
                                   Container(
                                     height: 40,
                                     width: 120,
@@ -427,7 +436,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Center(
-                                      child: Text(valueTimeEnd!,
+                                      child: Text(formattedEndTime!,
                                         style: TextStyle(
                                             color: kWhite, fontSize: 16),
                                       ),
@@ -457,7 +466,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                       toastFailedMessage("Select date", kRed);
                     } else if(myHours == null){
                       toastFailedMessage("Select Hours", kRed);
-                    } else if(valueTimeStart == null || valueTimeEnd == null){
+                    } else if(formattedStartTime == null || formattedEndTime == null){
                       toastFailedMessage("Select Time", kRed);
                     } else{
                       print("all okay");
@@ -467,8 +476,8 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                             selectedDate: valueDate,
                             selectedDay: valueDay,
                             selectedHours: dropdownValueTime,
-                            selectedStartTime: valueTimeStart,
-                            selectedEndTime: valueTimeEnd,
+                            selectedStartTime: formattedStartTime,
+                            selectedEndTime: formattedEndTime,
                             hoursInNumber: myHours,
 
                             carName: widget.carName,
@@ -500,12 +509,15 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     );
   }
 
-  String? valueTimeStart;
+  DateTime _startTime = DateTime.now();
+  DateTime? _endTime;
+  DateTime valueTimeStart = DateTime.now();
+  String? formattedStartTime, formattedEndTime;
   String? valueTimeEnd ;
-
   TimeOfDay? startTime;
 
   selectTimeStart(BuildContext context) async {
+    formattedStartTime = DateFormat('HH:mm:ss').format(valueTimeStart);
     TimeOfDay? picked;
     picked = await showTimePicker(
       context: context,
@@ -514,61 +526,85 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     if (picked == null) {
       picked = startTime;
     } else {
-      valueTimeStart = picked.format(context).toString();
+      _startTime = DateTime(picked.hour, picked.minute);
+      // valueTimeStart = picked.format(context).toString();
       setState(() {
-        print("Selected startTime is : $valueTimeStart");
+        print("Selected startTime is : $formattedStartTime");
       });
-      valueTimeStart = '${picked.hour}:${picked.minute}:00';
+      // valueTimeStart = '${picked.hour}:${picked.minute}:00';
+       _endTime = valueTimeStart.add(Duration(hours: int.parse("$myHours")));
+      formattedEndTime = DateFormat('HH:mm:ss').format(_endTime!);
+       print("_endTime $_endTime");
+       print("formattedEndTime $formattedEndTime");
+
       setState(() {
         print("Selected startTime is : $valueTimeStart");
         print("myTime $valueTimeStart");
       });
-
     }
   }
 
-  selectTimeEnd(BuildContext context) async {
-    TimeOfDay? picked;
-    picked = await showTimePicker(
+  // Future<void> _selectStartTime(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //       context: context,
+  //       initialDate: _startTime,
+  //       firstDate: DateTime.now(),
+  //       lastDate: DateTime.now().add(Duration(days: 30)));
+  //   if (picked != null) {
+  //     final TimeOfDay? time = await showTimePicker(
+  //         context: context, initialTime: TimeOfDay.now());
+  //     if (time != null) {
+  //       setState(() {
+  //         _startTime = DateTime(picked.year, picked.month, picked.day,
+  //             time.hour, time.minute);
+  //         _endTime = _startTime.add(Duration(hours: int.parse("$myHours")));
+  //       });
+  //     }
+  //   }
+  // }
 
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    if (picked == null) {
-      picked = startTime;
-    } else {
-
-      valueTimeEnd = picked.format(context).toString();
-      setState(() {
-        print("Selected endTime is : $valueTimeEnd");
-      });
-      valueTimeEnd = '${picked.hour}:${picked.minute}:00';
-      setState(() {
-        print("Selected endTime is : $valueTimeEnd");
-        calculateTimeInterval();
-        compareTime();
-      });
-      print("myEndTime $valueTimeEnd");
-    }
-  }
+  // selectTimeEnd(BuildContext context) async {
+  //   TimeOfDay? picked;
+  //   picked = await showTimePicker(
+  //
+  //     context: context,
+  //     initialTime: TimeOfDay.now(),
+  //   );
+  //   if (picked == null) {
+  //     picked = startTime;
+  //   } else {
+  //
+  //     valueTimeEnd = picked.format(context).toString();
+  //     setState(() {
+  //       print("Selected endTime is : $valueTimeEnd");
+  //     });
+  //     valueTimeEnd = '${picked.hour}:${picked.minute}:00';
+  //     setState(() {
+  //       print("Selected endTime is : $valueTimeEnd");
+  //       // calculateTimeInterval();
+  //       compareTime();
+  //     });
+  //     print("myEndTime $valueTimeEnd");
+  //   }
+  // }
 
   dynamic hours, minutes;
-  calculateTimeInterval(){
-    var format = DateFormat("HH:mm");
-    var start = format.parse(valueTimeStart!);
-    var end = format.parse(valueTimeEnd!);
-    // print("timeDifference ${end.difference(start)}");
-    print("startTime $start");
-    print("endTime $end");
-
-    Duration diff = start.difference(end).abs();
-    print("duration is $diff");
-    hours = diff.inHours;
-    // minutes = diff.inMinutes / 60;
-    minutes = diff.inMinutes % 60;
-    print('selectedTime interval $hours');
-    print('$hours hours $minutes minutes');
-  }
+  // calculateTimeInterval(){
+  //   var format = DateFormat("HH:mm");
+  //   var start = format.parse(valueTimeStart!);
+  //   var end = format.parse(valueTimeEnd!);
+  //   // print("timeDifference ${end.difference(start)}");
+  //   print("startTime $start");
+  //   print("endTime $end");
+  //
+  //   Duration diff = start.difference(end).abs();
+  //   print("duration is $diff");
+  //   hours = diff.inHours;
+  //   // minutes = diff.inMinutes / 60;
+  //   minutes = diff.inMinutes % 60;
+  //   print('selectedTime interval $hours');
+  //   print('$hours hours $minutes minutes');
+  // }
   int? myMinutes, selectedMinutes;
 
   compareTime(){
@@ -598,6 +634,9 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     }
   }
 
+
+
+  // DateTime _endTime = DateTime.now().add(Duration(hours: 1));
   Widget dropDownHourWidget(){
     var size = MediaQuery.of(context).size;
     return Container(
@@ -632,7 +671,6 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                 dropdownValueTime = newValue;
                 print("selectedTime: $dropdownValueTime");
                 print("selectedTime: $myHours");
-
               });
             },
             buttonWidth: MediaQuery.of(context).size.width * 0.2,

@@ -1,4 +1,5 @@
 import 'package:auto_haus_rental_app/Model/BookingModels/Previous/EvPrevious/ev_previous_model.dart';
+import 'package:auto_haus_rental_app/Model/GetCarByIdModel/ev_car_details_byId_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
@@ -8,10 +9,9 @@ import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../../../../HomePage/HomePageTopCard/EvSubscriptions/ev_car_description.dart';
 import '../../../UpcomingTab/UpcomingTabs/EvUpcoming/ev_upcoming_page.dart';
-import '../DrivingPrevious/driving_booking_detail.dart';
 import '../previous_bookings_details_page.dart';
-import 'ev_bookings_detail_page.dart';
 
 class EvPreviousPage extends StatefulWidget {
   const EvPreviousPage({super.key});
@@ -64,6 +64,59 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
     // TODO: implement initState
     super.initState();
     getPreviousBookingCarWidget();
+  }
+
+  CarDetailsByIdModel carDetailsByIdModelObject = CarDetailsByIdModel();
+  getCarDetailsByIdWidget() async {
+    loadingP = true;
+    setState(() {});
+
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    print('in getCarDetailByIDApi');
+
+    // try {
+    String apiUrl = getCarDetailsByIdApiUrl;
+    print("getCarDetailByIDApi: $apiUrl");
+    final response = await http.post(Uri.parse(apiUrl), headers: {
+      'Accept': 'application/json'
+    }, body: {
+      "cars_id": "$carID",
+    });
+    print('${response.statusCode}');
+    print(response);
+    if (response.statusCode == 200) {
+      final responseString = response.body;
+      print("responseGetCarDetailByID: ${responseString.toString()}");
+      carDetailsByIdModelObject = carDetailsByIdModelFromJson(responseString);
+      // Future.delayed(const Duration(seconds: 2), () {
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => EVCarDescription(
+              carName: carDetailsByIdModelObject.data?.vehicalName,
+              carYear: "${carDetailsByIdModelObject.data?.year}",
+              carId: carDetailsByIdModelObject.data?.carsId,
+              carRating: carDetailsByIdModelObject.data?.rating,
+              carColorName: carDetailsByIdModelObject.data!.carsColors!.name,
+              carMakesName: carDetailsByIdModelObject.data!.carsMakes!.name,
+              carModelName: carDetailsByIdModelObject.data!.carsModels!.name,
+              carImage: "$baseUrlImage${carDetailsByIdModelObject.data!.image1}",
+              carMakesImage: "$baseUrlImage${carDetailsByIdModelObject.data!.carsMakes!.image}",
+              favouriteStatus: carDetailsByIdModelObject.data!.status,
+              discountPercentage: carDetailsByIdModelObject.data!.discountPercentage,
+              carDiscountPrice: double.parse("${carDetailsByIdModelObject.data!.carsPlans![0].discountedPricePerMonth}"),
+              carPrice: carDetailsByIdModelObject.data!.carsPlans![0].pricePerMonth,
+              carOwnerImage: "$baseUrlImage${carDetailsByIdModelObject.data!.usersCompanies!.companyLogo}",
+              carOwnerName: "${carDetailsByIdModelObject.data!.usersCompanies!.companyName}",
+              carOwnerId: carDetailsByIdModelObject.data!.usersCompanies!.usersCompaniesId,
+              myCarDescription: carDetailsByIdModelObject.data!.description,
+            )));
+      // });
+    }
+    // } catch (e) {
+    //   print('Error in upcomingBookingCar: ${e.toString()}');
+    // }
+    loadingP = false;
+    setState(() {});
   }
 
   @override
@@ -235,24 +288,32 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                       ),
                                     ),
 
-                                    Container(
-                                      height: MediaQuery.of(context).size.height * 0.1,
-                                      color: Colors.transparent,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 40, right: 20),
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Container(
-                                            width: 100, height: 30,
-                                            decoration: BoxDecoration(
-                                              color: borderColor,
-                                              borderRadius: BorderRadius.circular(30)
-                                            ),
-                                            child: Center(
-                                              child: Text('Rebook', textAlign: TextAlign.center,
-                                                  style: TextStyle(fontSize: 12,
-                                                      fontFamily: poppinRegular, color: kWhite)),
+                                    GestureDetector(
+                                      onTap: (){
+                                        carID = evPreviousObject.data![index].carsId;
+                                        print("photoPreviousObject $carID");
+                                        getCarDetailsByIdWidget();
+                                      },
 
+                                      child: Container(
+                                        height: MediaQuery.of(context).size.height * 0.1,
+                                        color: Colors.transparent,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 40, right: 20),
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Container(
+                                              width: 100, height: 30,
+                                              decoration: BoxDecoration(
+                                                color: borderColor,
+                                                borderRadius: BorderRadius.circular(30)
+                                              ),
+                                              child: Center(
+                                                child: Text('Rebook', textAlign: TextAlign.center,
+                                                    style: TextStyle(fontSize: 12,
+                                                        fontFamily: poppinRegular, color: kWhite)),
+
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -284,7 +345,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                             children: [
 
                                               Text(
-                                                "${evPreviousObject.data![index].carsDetails!.carsMakes}, ",
+                                                "${evPreviousObject.data![index].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(
@@ -324,7 +385,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                             ],
                                           ),
                                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                          verifiedDealerText(),
+                                          // verifiedDealerText(),
                                         ],
                                       ),
                                     ),
@@ -339,8 +400,9 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
+                            carID = evPreviousObject.data![index].carsId;
                             carBookingsId = "${evPreviousObject.data![index].bookingsId}";
-                            print("clicked....");
+                            print("bookingCarId $carID");
                             print("${evPreviousObject.data![index].carsDetails!.vehicalName}");
                             print("${evPreviousObject.data![index].carsDetails!.carsModels}");
                             print("${evPreviousObject.data![index].carsDetails!.rating}");

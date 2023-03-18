@@ -23,14 +23,15 @@ class EvCartDetailsPage extends StatefulWidget {
   final double? totalAmount;
   final String? carName, carImage, carYear, carPrice, carStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
-      carRating, carOwnerImage, carOwnerName, discountPercentage;
+      carRating, carOwnerImage, carOwnerName, discountPercentage,
+      evStartDate, evEndDate;
 
  final String? homeAddress1, homeAddress2, homeCity, homePostCode, homeState, homeCountry,
   billingAddress1, billingAddress2, billingCity, billingPostCode, billingState, billingCountry;
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  EvCartDetailsPage({Key? key, this.totalAmount, this.carName,
+  EvCartDetailsPage({Key? key, this.totalAmount, this.carName, this.evStartDate, this.evEndDate,
     this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
     this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
@@ -84,8 +85,8 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print("apiRequest: $request");
     request.fields['users_customers_id'] = '$userId';
     request.fields['cars_id'] = '$carID';
-    request.fields['plan_start_date'] = evStartDate!;
-    request.fields['plan_end_date'] = evEndDate!;
+    request.fields['plan_start_date'] = widget.evStartDate!;
+    request.fields['plan_end_date'] = widget.evEndDate!;
     request.fields['months'] = "$myMonth";
     request.fields['price_per_month'] = "$myDiscountedAmount";
     request.fields['discount_percentage'] = "${widget.discountPercentage}";
@@ -117,8 +118,8 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print("request: $request");
     print('usersId: $userId');
     print('carsId: $carID');
-    print('plan_start_date: $evStartDate');
-    print('plan_end_date: $evEndDate');
+    print('plan_start_date: ${widget.evStartDate}');
+    print('plan_end_date: ${widget.evEndDate}');
     print('months: $myMonth');
     print('totalCost: $myTotalAmount');
     print('pricePerHour: $myDiscountedAmount');
@@ -158,7 +159,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print("userId carId: $userId $carID");
     print("selectedTabMonth123: $myMonth");
     print("evTotalPrice: $myTotalAmount");
-    print('evStartEndDate: $evStartDate $evEndDate');
+    print('evStartEndDate: ${widget.evStartDate} ${widget.evEndDate}');
     print("pricePerMonth: $myDiscountedAmount");
     print("carDiscountPercentage: ${widget.discountPercentage}");
     print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
@@ -201,7 +202,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               Container(
-                height: MediaQuery.of(context).size.height * 0.9,
+                height: MediaQuery.of(context).size.height * 0.85,
                 color: Colors.transparent,
                 child: Stack(
                   children: [
@@ -212,7 +213,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.74,
                           width: MediaQuery.of(context).size.width * 0.47,
                           decoration: BoxDecoration(
                               color: kWhite,
@@ -283,29 +284,8 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  children: [
-                                    Image.asset("assets/home_page/Promoted.png"),
-                                    SizedBox(width: 05),
-                                    Text("Verified Dealer", textAlign: TextAlign.left,
-                                      style: TextStyle(color: textLabelColor,
-                                        fontSize: 10, fontFamily: poppinRegular)),
-                                    SizedBox(width: 05,),
-                                    Container(
-                                      height: 20, width: 40,
-                                      decoration: BoxDecoration(
-                                          color: kBlack,
-                                          borderRadius: BorderRadius.circular(20)),
-                                      child: Center(
-                                        child: Text("New", textAlign: TextAlign.left,
-                                          style: TextStyle(color: kWhite,
-                                              fontSize: 8, fontFamily: poppinRegular)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   children: [
                                     Row(
@@ -504,7 +484,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               GestureDetector(
                   onTap: () async {
                     // bottomSheetWidget(context);
