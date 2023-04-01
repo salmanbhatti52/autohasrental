@@ -2,21 +2,21 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
 import '../../../../Utils/colors.dart';
 
-class ChooseFilterPrice extends StatefulWidget {
-  const ChooseFilterPrice({Key? key}) : super(key: key);
+class ChooseFilterYear extends StatefulWidget {
+  const ChooseFilterYear({Key? key}) : super(key: key);
 
   @override
-  State<ChooseFilterPrice> createState() => _ChooseFilterPriceState();
+  State<ChooseFilterYear> createState() => _ChooseFilterYearState();
 }
 
-class _ChooseFilterPriceState extends State<ChooseFilterPrice> {
+class _ChooseFilterYearState extends State<ChooseFilterYear> {
   List<PriceModel> priceData = <PriceModel>[];
 
   @override
   void initState() {
     super.initState();
-    priceData.add(PriceModel(false, 'High to Low'));
-    priceData.add(PriceModel(true, 'Low to High'));
+    priceData.add(PriceModel(false, 'Latest to Oldest'));
+    priceData.add(PriceModel(true, 'New to Old'));
   }
 
   @override

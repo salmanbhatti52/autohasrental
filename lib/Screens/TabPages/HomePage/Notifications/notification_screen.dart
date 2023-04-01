@@ -45,7 +45,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       print("notificationsResponse: ${responseString.toString()}");
       notificationsModel = notificationsListModelFromJson(responseString);
       print("notificationsLength: ${notificationsModel.data!.length}");
-      print("notificationsLength: ${notificationsModel.data![0].notificationDate}");
+      // print("notificationsLength: ${notificationsModel.data![0].notificationDate}");
       formattedDate();
     }
     // } catch (e) {
@@ -67,14 +67,6 @@ formattedDate(){
     notificationsModel.data![i].formattedDateTime = formattedDateTime;
     print("notificationsModelDate ${notificationsModel.data![i].formattedDateTime}");
   }
-  // for(int i = notificationsModel.data!.length; i>0; i--){
-  //   newList.add(notificationsModel.data![i]);
-  //   print("newListLength ${newList.length}");
-  //   // newList.add(NotificationsListModel(
-  //   //   data: notificationsModel.data![i];
-  //   // ))
-  // }
-
 }
 
   @override
@@ -93,7 +85,7 @@ formattedDate(){
       body: loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
           notificationsModel.data!.length == 0 ?  Center(
             child: Text('No notification found...',
-              style: TextStyle(fontWeight: FontWeight.bold))):
+              style: TextStyle(fontWeight: FontWeight.bold), )):
       Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),

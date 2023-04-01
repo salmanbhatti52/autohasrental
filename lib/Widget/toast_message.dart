@@ -11,6 +11,7 @@ Future<bool?> toastSuccessMessage(toastMessage, bgColor){
       textColor: Colors.white,
       fontSize: 16.0);
 }
+
 Future<bool?> toastOTPMessage(toastMessage, bgColor){
   return Fluttertoast.showToast(
       msg: toastMessage,

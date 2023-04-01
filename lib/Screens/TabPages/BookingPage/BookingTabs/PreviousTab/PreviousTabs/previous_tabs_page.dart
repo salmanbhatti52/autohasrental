@@ -24,15 +24,15 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 0, right: 0, top: 05),
+          padding: const EdgeInsets.only(left: 0, right: 05, top: 05),
           child: Container(
-              width: MediaQuery.of(context).size.width*0.7,
+              width: MediaQuery.of(context).size.width*0.75,
               height: MediaQuery.of(context).size.height* 0.04,
               decoration: BoxDecoration(
                   color: const Color(0xffd4dce1),
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 0),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(

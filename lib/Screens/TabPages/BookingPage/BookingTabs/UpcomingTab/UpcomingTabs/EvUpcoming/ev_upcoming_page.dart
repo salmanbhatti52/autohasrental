@@ -186,7 +186,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                             children: [
 
                                               Text(
-                                                "${evUpcomingModelObject.data![index].carsDetails!.carsMakes}, ",
+                                                "${evUpcomingModelObject.data![index].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(

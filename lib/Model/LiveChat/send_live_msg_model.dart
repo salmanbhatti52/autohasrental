@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final sendLiveMessagesModel = sendLiveMessagesModelFromJson(jsonString);
-
 import 'dart:convert';
 
 SendLiveMessagesModel sendLiveMessagesModelFromJson(String str) => SendLiveMessagesModel.fromJson(json.decode(str));

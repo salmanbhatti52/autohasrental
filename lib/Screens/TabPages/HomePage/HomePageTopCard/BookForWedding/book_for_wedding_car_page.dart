@@ -1,16 +1,20 @@
 import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
 import 'package:auto_haus_rental_app/Model/get_car_makes_model.dart';
 import 'package:auto_haus_rental_app/Model/search_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
-import '../../Filter/filter_screen.dart';
+import '../../../../../Model/Notification/notifications_unread_model.dart';
+import '../../Drawer/Settings/settings_screen.dart';
+import '../../Notifications/notification_screen.dart';
 import '../EvSubscriptions/ev_subscription_page.dart';
 import 'book_for_wedding_car_description.dart';
 import 'package:http/http.dart' as http;
@@ -35,39 +39,22 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
   @override
   void initState() {
     super.initState();
-    getCarMakesListWidget();
+    sharedPrefs();
     selectedIndex = 0;
   }
 
-  searchCarsWidget() async {
-    // try {
-    String apiUrl = getCarFilterByNameApiUrl;
-    if(searchController.text.isNotEmpty){
-      print("searchControllerValue ${searchController.text}");
-      searchModelObject.data?.clear();
-      print("searchApiUrl $apiUrl");
-      print("userId $userId");
-      final response = await http.post(
-          Uri.parse(apiUrl),
-          body: {
-            "users_customers_id": userId,
-            "keyword": searchController.text
-          },
-          headers: {
-            'Accept': 'application/json'
-          });
-      if (response.statusCode == 200) {
-        final responseString = response.body;
-        print("responseString $responseString");
-        searchModelObject = searchModelFromJson(responseString);
-        setState(() {});
-        print("searchItemsLengthHomePage: ${searchModelObject.data?.length}");
-      }
-    }
-
-    // } catch (e) {
-    //   print('Error: ${e.toString()}');
-    // }
+  sharedPrefs() async {
+    loadingP = true;
+    setState(() {});
+    print('in LoginPage shared prefs');
+    prefs = await SharedPreferences.getInstance();
+    userId = (prefs!.getString('userid'));
+    print("userId in favoriteCar Prefs is = $userId");
+    notificationStatus = (prefs!.getString('notification_status'));
+    print("notificationStatus in sharedPrefs $notificationStatus");
+    setState(() {
+      getCarMakesListWidget();
+    });
   }
 
   getCarsPhotoGraphyWidget() async {
@@ -135,6 +122,40 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
   }
 
   GetCarMakesModel getCarMakesModelObject = GetCarMakesModel();
+  NotificationsUnReadModel notificationsUnReadModelObject = NotificationsUnReadModel();
+
+  getUnreadNotificationWidget() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString('userid');
+    print("userId in HomePagePrefs is= $userId");
+    loadingP = true;
+    setState(() {});
+    try {
+      String apiUrl = unReadNotificationsApiUrl;
+      print("gunReadNotificationsApi: $apiUrl");
+      print("getUserId: $userId");
+      final response = await http.post(Uri.parse(apiUrl),
+          body: {
+            "users_customers_id" : userId,
+          },
+          headers: {
+            'Accept': 'application/json'
+          });
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("getUserProfileResponseHomePage: ${responseString.toString()}");
+        notificationsUnReadModelObject = notificationsUnReadModelFromJson(responseString);
+        print("unReadNotificationsLength: ${notificationsUnReadModelObject.data!.length}");
+      }
+    } catch (e) {
+      print('Error in gunReadNotification: ${e.toString()}');
+    }
+    loadingP = false;
+    setState(() {});
+  }
 
   getCarMakesListWidget() async {
     loadingP = true;
@@ -159,6 +180,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
     loadingP = false;
     setState(() {
       getCarsPhotoGraphyWidget();
+      getUnreadNotificationWidget();
     });
   }
 
@@ -166,11 +188,73 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar:   MyAppBarDoubleImage(
-          frontImage: "assets/home_page/back_arrow.png",
-          title: "Book for Wedding",
-          backImage: "assets/home_page/notification_bell.svg"),
+      appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent, // <-- SEE HERE
+          statusBarIconBrightness:
+          Brightness.dark, //<-- For Android SEE HERE (dark icons)
+          statusBarBrightness:
+          Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+        ),
+        actions: [
 
+          notificationStatus == "Yes"?
+          GestureDetector(
+            onTap: () {
+              print("clicked");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>  NotificationsScreen()));
+            },
+            child: Padding(
+              padding:  EdgeInsets.only(top: 30, right: 20),
+              child: Stack(
+                children: [
+                  SvgPicture.asset("assets/home_page/notification_bell.svg"),
+                  Positioned(
+                    right: 02,
+                    left: 05,
+                    bottom: 13,
+                    child: notificationsUnReadModelObject.data?.length == 0 ?
+                    Container():
+                    Container(
+                        height: 12, width: 12,
+                        decoration: BoxDecoration(
+                            color: kRed,
+                            borderRadius: BorderRadius.circular(30)
+                        ),
+                        child: Center(
+                          child: Text("${notificationsUnReadModelObject.data?.length}",
+                            style: TextStyle(color: kWhite, fontSize: 08),),
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          ) : Container(),
+        ],
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding:  EdgeInsets.only(top: 30),
+            child: Image.asset("assets/home_page/back_arrow.png",
+              height: 25, width: 25),
+          ),
+        ),
+        title: Padding(
+          padding:  EdgeInsets.only(top: 30),
+          child: Text("Book for Wedding",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20, fontFamily: poppinBold, color: kBlack)),
+        ),
+        backgroundColor: homeBgColor,
+        elevation: 0.0,
+        centerTitle: true,
+      ),
       body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
       SingleChildScrollView(
         child: Column(
@@ -236,8 +320,8 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
         height: MediaQuery.of(context).size.height * 0.70,
         child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
         carsPhotoGraphyModelObject.status != "success" ? Center(
-          child: Text('No cars Available', style: TextStyle(fontWeight: FontWeight.bold)),
-        ):
+            child: Text('No cars Available', style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20))):
         ListView.builder(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),

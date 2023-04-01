@@ -59,7 +59,7 @@ class Datum {
   int? receiversId;
   String? message;
   DateTime? dateAdded;
-  DateTime? dateModified;
+  dynamic dateModified;
   String? status;
   DateTime? notificationDate;
   String? formattedDateTime;
@@ -86,7 +86,7 @@ class Datum {
     receiversId: json["receivers_id"],
     message: json["message"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: DateTime.parse(json["date_modified"]),
+    dateModified: json["date_modified"],
     status: json["status"],
     notificationDate: DateTime.parse(json["notification_date"]),
     usersCompaniesId: json["users_companies_id"],
@@ -115,7 +115,7 @@ class Datum {
     "message": message,
     "formatted_date_time": formattedDateTime,
     "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified!.toIso8601String(),
+    "date_modified": dateModified,
     "status": status,
     "notification_date": notificationDate!.toIso8601String(),
     "users_companies_id": usersCompaniesId,

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final changePasswordModel = changePasswordModelFromJson(jsonString);
-
 import 'dart:convert';
 
 ChangePasswordModel changePasswordModelFromJson(String str) => ChangePasswordModel.fromJson(json.decode(str));

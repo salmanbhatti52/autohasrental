@@ -400,7 +400,7 @@ class UsersCompaniesDetail {
   String? online;
   String? status;
   DateTime? dateAdded;
-  DateTime? dateModified;
+  dynamic dateModified;
 
   factory UsersCompaniesDetail.fromJson(Map<String, dynamic> json) => UsersCompaniesDetail(
     usersCompaniesId: json["users_companies_id"],
@@ -420,7 +420,7 @@ class UsersCompaniesDetail {
     online: json["online"],
     status: json["status"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: DateTime.parse(json["date_modified"]),
+    dateModified: json["date_modified"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -441,6 +441,6 @@ class UsersCompaniesDetail {
     "online": online,
     "status": status,
     "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified!.toIso8601String(),
+    "date_modified": dateModified,
   };
 }

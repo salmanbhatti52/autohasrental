@@ -7,10 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../../../Model/BookingModels/Upcoming/Photography/photo_upcoming_model.dart';
-import '../../../PreviousTab/PreviousTabs/previous_bookings_details_page.dart';
 import '../../upcoming_bookings_details_page.dart';
 import '../EvUpcoming/ev_upcoming_page.dart';
-import 'photo_bookings_details_upcoming.dart';
 
 class PhotographyUpcomingPage extends StatefulWidget {
   const PhotographyUpcomingPage({super.key});
@@ -187,7 +185,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                             children: [
 
                                               Text(
-                                                "${photoUpcomingModelObject.data![index].carsDetails!.carsMakes}, ",
+                                                "${photoUpcomingModelObject.data![index].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(

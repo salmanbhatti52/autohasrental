@@ -40,6 +40,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
   final GlobalKey<FormState> formKeyPhotography = GlobalKey<FormState>();
 
   String? valueDate;
+  String? valueDay;
   selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -509,7 +510,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     );
   }
 
-  DateTime _startTime = DateTime.now();
+  DateTime startDateTime = DateTime.now();
   DateTime? _endTime;
   DateTime valueTimeStart = DateTime.now();
   String? formattedStartTime, formattedEndTime;
@@ -526,7 +527,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     if (picked == null) {
       picked = startTime;
     } else {
-      _startTime = DateTime(picked.hour, picked.minute);
+      startDateTime = DateTime(picked.hour, picked.minute);
       // valueTimeStart = picked.format(context).toString();
       setState(() {
         print("Selected startTime is : $formattedStartTime");

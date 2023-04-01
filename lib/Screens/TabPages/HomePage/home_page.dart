@@ -14,10 +14,10 @@ import '../../../Model/HomePageModels/top_rented_cars_model.dart';
 import '../../../Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
 import '../../../Widget/cars_home_widget.dart';
 import 'Drawer/Settings/EditProfile/edit_profile_screen.dart';
+import 'Drawer/Settings/settings_screen.dart';
 import 'Filter/filter_screen.dart';
 import 'HomePageTopCard/BookForWedding/book_for_wedding_car_description.dart';
 import 'HomePageTopCard/EvSubscriptions/ev_car_description.dart';
-import 'HomePageTopCard/EvSubscriptions/ev_subscription_page.dart';
 import 'TopRented/Driving_Home/home_driving_booking.dart';
 import 'HomePageTopCard/home_top_card.dart';
 import 'Drawer/drawer_screen.dart';
@@ -96,8 +96,7 @@ class _HomePageState extends State<HomePage> {
       final responseString = response.body;
       print("topRenterCarResponse : ${responseString.toString()}");
       topRentedCarsModelObject = topRentedCarsModelFromJson(responseString);
-      print("topRentedCarsLength: ${topRentedCarsModelObject.data!.length}");
-
+      print("topRentedCarsLength: ${topRentedCarsModelObject.data?.length}");
     }
     // } catch (e) {
     //   print('Error: ${e.toString()}');
@@ -131,12 +130,15 @@ class _HomePageState extends State<HomePage> {
         print("getUserProfileResponseHomePage: ${responseString.toString()}");
         getUserProfileModelObject = getUserProfileModelFromJson(responseString);
         print("getUserProfileImageHomePage: $baseUrlImage${getUserProfileModelObject.data!.profilePic}");
+
       }
     } catch (e) {
       print('Error in getUserProfileHomePage: ${e.toString()}');
     }
-    loadingP = false;
-    setState(() {});
+    // loadingP = false;
+    setState(() {
+      getTopRentedCarsWidget();
+    });
   }
 
   getUnreadNotificationWidget() async {
@@ -176,10 +178,20 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    sharedPrefs();
     getUnreadNotificationWidget();
-    getTopRentedCarsWidget();
     getUserProfileWidget();
     getUnreadNotificationWidget();
+    print("notificationStatusHome $notificationStatus");
+  }
+
+  sharedPrefs() async {
+    loadingP = true;
+    setState(() {});
+    print('in HomePage sharedPrefs');
+    prefs = await SharedPreferences.getInstance();
+    notificationStatus = (prefs!.getString('notification_status'));
+    print("notificationStatus in HomePage sharedPrefs $notificationStatus");
   }
 
   @override
@@ -187,7 +199,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(backgroundColor: homeBgColor,
       body: loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
       SingleChildScrollView(
-        physics:  BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -206,6 +218,8 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack)),
                   Row(
                     children: [
+
+                      notificationStatus == "Yes"?
                       GestureDetector(
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) =>  NotificationsScreen()));
@@ -216,27 +230,28 @@ class _HomePageState extends State<HomePage> {
                             SvgPicture.asset("assets/home_page/notification_bell.svg"),
                             Positioned(
                               right: 02,
-                              left: 04,
-                              bottom: 08,
-                              child: notificationsUnReadModelObject.data?.length == null? Container():
+                              left: 05,
+                              bottom: 10,
+                              child: notificationsUnReadModelObject.data?.length == 0 ? Container():
                               Container(
-                                  height: 15, width: 15,
+                                  height: 12, width: 12,
                                   decoration: BoxDecoration(
                                       color: kRed,
                                       borderRadius: BorderRadius.circular(30)
                                   ),
                                   child: Center(
-                                      child: Text("${notificationsUnReadModelObject.data!.length}",
-                                        style: TextStyle(color: kWhite, fontSize: 10),),
+                                      child: Text("${notificationsUnReadModelObject.data?.length}",
+                                        style: TextStyle(color: kWhite, fontSize: 08),),
                                   )),
                             ),
                           ],
                         ),
-                      ),
+                      ) : Container(),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       GestureDetector(
                         onTap: (){
                           Get.to(() =>  EditProfileScreen());
+                          // Get.to(() =>  PreviousBookingDetailsPage());
                         },
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
@@ -344,14 +359,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   Widget topRentedCars(String searchText){
     return Container(
       height: MediaQuery.of(context).size.height * 0.55,
       color: Colors.transparent,
       child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-      topRentedCarsModelObject.status != "success" ?  Center(
+      topRentedCarsModelObject.data?.length == null ?  Center(
           child: Text('No Cars Found.', style: TextStyle(fontWeight: FontWeight.bold))):
+
       searchText.isEmpty?
       GridView.builder(
           physics: BouncingScrollPhysics(),
@@ -361,14 +376,14 @@ class _HomePageState extends State<HomePage> {
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
           ),
-          itemCount: topRentedCarsModelObject.data!.length,
+          itemCount: topRentedCarsModelObject.data?.length,
           itemBuilder: (BuildContext context, int index) {
             print("topRentedCarsModelObject1 ${topRentedCarsModelObject1.length}");
-            carName = topRentedCarsModelObject.data![index].vehicalName;
-            print("carName $carName");
+            // carName = topRentedCarsModelObject.data![index].vehicalName;
+            // print("carName $carName");
 
             return Padding(
-              padding:  EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(top: 10),
               child: Stack(
                 children: [
                   Positioned(
@@ -404,8 +419,29 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Row(
                                     children: [
+                                      topRentedCarsModelObject.data?[index].rating == null?
                                       RatingBar(
-                                          initialRating: double.parse("${topRentedCarsModelObject.data?[index].rating}"),
+                                          initialRating: 0.0,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 1,
+                                          minRating: 0,
+                                          itemSize: 18.0,
+                                          ignoreGestures: true,
+                                          ratingWidget: RatingWidget(
+                                              full: Icon(Icons.star, color: borderColor),
+                                              half: Icon(
+                                                Icons.star_half,
+                                                color: borderColor,
+                                              ),
+                                              empty: Icon(
+                                                Icons.star_outline,
+                                                color: borderColor,
+                                              )),
+                                          onRatingUpdate: (value) {}):
+
+                                      RatingBar(
+                                          initialRating: double.parse("${topRentedCarsModelObject.data![index].rating}"),
                                           direction: Axis.horizontal,
                                           allowHalfRating: true,
                                           itemCount: 1,
@@ -423,6 +459,8 @@ class _HomePageState extends State<HomePage> {
                                                 color: borderColor,
                                               )),
                                           onRatingUpdate: (value) {}),
+
+
                                       topRentedCarsModelObject.data?[index].rating == null
                                           ? Text("0.0", style: TextStyle(
                                           color: kBlack, fontSize: 10, fontFamily: poppinMedium))
@@ -479,31 +517,6 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                               // Divider(),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Row(
-                              //       children: [
-                              //         Image.asset("assets/home_page/Promoted.png"),
-                              //          SizedBox(width: 05),
-                              //         Text("Verified Dealer", textAlign: TextAlign.left,
-                              //             style: TextStyle(color: textLabelColor,
-                              //                 fontSize: 10, fontFamily: poppinRegular)),
-                              //       ],
-                              //     ),
-                              //     Container(
-                              //       height: 17, width: 35,
-                              //       decoration: BoxDecoration(
-                              //           color: kBlack,
-                              //           borderRadius: BorderRadius.circular(10)),
-                              //       child: Center(
-                              //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
-                              //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
                               SizedBox(height: MediaQuery.of(context).size.width * 0.02),
                               GestureDetector(
                                 onTap: () {
@@ -859,13 +872,11 @@ class _HomePageState extends State<HomePage> {
                                           carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
                                           myCarDescription: topRentedCarsModelObject.data![index].description,
                                           myCarRating: topRentedCarsModelObject.data![index].rating,
-                                          // myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
-                                          // myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
                                         )));
                                   }
                                   else if(topRentedCarsModelObject.data![index].carsUsageType == "Driving Experience"){
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => HomeDrivingBooking(
+                                    Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => HomeDrivingBooking(
                                           datum: topRentedCarsModelObject.data![index],
                                         )));
                                   }

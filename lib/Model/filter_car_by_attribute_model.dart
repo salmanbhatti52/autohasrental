@@ -1,31 +1,31 @@
-
 import 'dart:convert';
 
-FavoriteCarModel favoriteCarModelFromJson(String str) => FavoriteCarModel.fromJson(json.decode(str));
+FilterCarByAttributeModel filterCarByAttributeModelFromJson(String str) => FilterCarByAttributeModel.fromJson(json.decode(str));
 
-String favoriteCarModelToJson(FavoriteCarModel data) => json.encode(data.toJson());
+String filterCarByAttributeModelToJson(FilterCarByAttributeModel data) => json.encode(data.toJson());
 
-class FavoriteCarModel {
-  FavoriteCarModel({this.status, this.message, this.data,});
+class FilterCarByAttributeModel {
+  FilterCarByAttributeModel({
+    this.status,
+    this.data,
+  });
 
-  String? status, message;
-  List<Datum>? data;
+  String? status;
+  List<DatumCarsFilter>? data;
 
-  factory FavoriteCarModel.fromJson(Map<String, dynamic> json) => FavoriteCarModel(
+  factory FilterCarByAttributeModel.fromJson(Map<String, dynamic> json) => FilterCarByAttributeModel(
     status: json["status"],
-    message : json["message"] != null ? json["message"] : null,
-    data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null,
+    data: json["data"] != null ? List<DatumCarsFilter>.from(json["data"].map((x) => DatumCarsFilter.fromJson(x))): null,
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "message": message,
     "data": List<dynamic>.from(data!.map((x) => x.toJson())),
   };
 }
 
-class Datum {
-  Datum({
+class DatumCarsFilter {
+  DatumCarsFilter({
     this.carsId,
     this.usersCompaniesId,
     this.vehicalName,
@@ -80,17 +80,17 @@ class Datum {
   int? year;
   int? carsColorsId;
   String? description;
-  String? featuresSuv;
+  dynamic featuresSuv;
   String? featuresSeats;
   String? featuresSpeed;
-  String? featuresAutomatic;
-  String? featuresDrives;
+  dynamic featuresAutomatic;
+  dynamic featuresDrives;
   String? featuresDoors;
-  String? featuresElectric;
+  dynamic featuresElectric;
   String? featuresEngineCapacity;
   String? featuresFuelCapacity;
   String? featuresMeterReading;
-  String? featuresNewCars;
+  dynamic featuresNewCars;
   String? image1;
   String? image2;
   String? image3;
@@ -103,13 +103,13 @@ class Datum {
   CarsM? carsMakes;
   CarsM? carsModels;
   CarsColors? carsColors;
-  List<CarsRating>? carsRatings;
+  List<dynamic>? carsRatings;
   int? totalBookings;
   UsersCompanies? usersCompanies;
   String? favouriteStatus;
   List<CarsPlan>? carsPlans;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DatumCarsFilter.fromJson(Map<String, dynamic> json) => DatumCarsFilter(
     carsId: json["cars_id"],
     usersCompaniesId: json["users_companies_id"],
     vehicalName: json["vehical_name"],
@@ -145,7 +145,7 @@ class Datum {
     carsMakes: CarsM.fromJson(json["cars_makes"]),
     carsModels: CarsM.fromJson(json["cars_models"]),
     carsColors: CarsColors.fromJson(json["cars_colors"]),
-    carsRatings: List<CarsRating>.from(json["cars_ratings"].map((x) => CarsRating.fromJson(x))),
+    carsRatings: List<dynamic>.from(json["cars_ratings"].map((x) => x)),
     totalBookings: json["total_bookings"],
     usersCompanies: UsersCompanies.fromJson(json["users_companies"]),
     favouriteStatus: json["favourite_status"],
@@ -188,7 +188,7 @@ class Datum {
     "cars_makes": carsMakes!.toJson(),
     "cars_models": carsModels!.toJson(),
     "cars_colors": carsColors!.toJson(),
-    "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x.toJson())),
+    "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x)),
     "total_bookings": totalBookings,
     "users_companies": usersCompanies!.toJson(),
     "favourite_status": favouriteStatus,
@@ -259,15 +259,6 @@ class CarsPlan {
     this.months,
     this.pricePerMonth,
     this.discountedPricePerMonth,
-    this.carsPlansPgId,
-    this.planDate,
-    this.pricePerHour,
-    this.discountedPricePerHour,
-    this.carsPlansDeId,
-    this.startTime,
-    this.endTime,
-    this.pricePerSlot,
-    this.discountedPricePerSlot,
   });
 
   int? carsPlansEvId;
@@ -275,15 +266,6 @@ class CarsPlan {
   int? months;
   String? pricePerMonth;
   dynamic discountedPricePerMonth;
-  int? carsPlansPgId;
-  dynamic planDate;
-  String? pricePerHour;
-  dynamic discountedPricePerHour;
-  int? carsPlansDeId;
-  String? startTime;
-  String? endTime;
-  String? pricePerSlot;
-  dynamic discountedPricePerSlot;
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
     carsPlansEvId: json["cars_plans_ev_id"],
@@ -291,15 +273,6 @@ class CarsPlan {
     months: json["months"],
     pricePerMonth: json["price_per_month"],
     discountedPricePerMonth: json["discounted_price_per_month"],
-    carsPlansPgId: json["cars_plans_pg_id"],
-    planDate: json["plan_date"],
-    pricePerHour: json["price_per_hour"],
-    discountedPricePerHour: json["discounted_price_per_hour"],
-    carsPlansDeId: json["cars_plans_de_id"],
-    startTime: json["start_time"],
-    endTime: json["end_time"],
-    pricePerSlot: json["price_per_slot"],
-    discountedPricePerSlot: json["discounted_price_per_slot"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -308,139 +281,6 @@ class CarsPlan {
     "months": months,
     "price_per_month": pricePerMonth,
     "discounted_price_per_month": discountedPricePerMonth,
-    "cars_plans_pg_id": carsPlansPgId,
-    "plan_date": planDate,
-    "price_per_hour": pricePerHour,
-    "discounted_price_per_hour": discountedPricePerHour,
-    "cars_plans_de_id": carsPlansDeId,
-    "start_time": startTime,
-    "end_time": endTime,
-    "price_per_slot": pricePerSlot,
-    "discounted_price_per_slot": discountedPricePerSlot,
-  };
-}
-
-class CarsRating {
-  CarsRating({
-    this.carsRatingsId,
-    this.carsId,
-    this.usersCustomersId,
-    this.comments,
-    this.rateStars,
-    this.dateAdded,
-    this.usersData,
-  });
-
-  int? carsRatingsId;
-  int? carsId;
-  int? usersCustomersId;
-  String? comments;
-  String? rateStars;
-  DateTime? dateAdded;
-  List<UsersDatum>? usersData;
-
-  factory CarsRating.fromJson(Map<String, dynamic> json) => CarsRating(
-    carsRatingsId: json["cars_ratings_id"],
-    carsId: json["cars_id"],
-    usersCustomersId: json["users_customers_id"],
-    comments: json["comments"],
-    rateStars: json["rate_stars"],
-    dateAdded: DateTime.parse(json["date_added"]),
-    usersData: List<UsersDatum>.from(json["users_data"].map((x) => UsersDatum.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "cars_ratings_id": carsRatingsId,
-    "cars_id": carsId,
-    "users_customers_id": usersCustomersId,
-    "comments": comments,
-    "rate_stars": rateStars,
-    "date_added": dateAdded!.toIso8601String(),
-    "users_data": List<dynamic>.from(usersData!.map((x) => x.toJson())),
-  };
-}
-
-class UsersDatum {
-  UsersDatum({
-    this.usersCustomersId,
-    this.oneSignalId,
-    this.verifiedBadge,
-    this.firstName,
-    this.lastName,
-    this.phone,
-    this.email,
-    this.password,
-    this.accountType,
-    this.socialAccType,
-    this.googleAccessToken,
-    this.location,
-    this.about,
-    this.profilePic,
-    this.dateAdded,
-    this.verifyCode,
-    this.notifications,
-    this.status,
-  });
-
-  int? usersCustomersId;
-  String? oneSignalId;
-  String? verifiedBadge;
-  String? firstName;
-  String? lastName;
-  String? phone;
-  String? email;
-  String? password;
-  String? accountType;
-  String? socialAccType;
-  String? googleAccessToken;
-  String? location;
-  String? about;
-  String? profilePic;
-  DateTime? dateAdded;
-  String? verifyCode;
-  String? notifications;
-  String? status;
-
-  factory UsersDatum.fromJson(Map<String, dynamic> json) => UsersDatum(
-    usersCustomersId: json["users_customers_id"],
-    oneSignalId: json["one_signal_id"],
-    verifiedBadge: json["verified_badge"],
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    phone: json["phone"],
-    email: json["email"],
-    password: json["password"],
-    accountType: json["account_type"],
-    socialAccType: json["social_acc_type"],
-    googleAccessToken: json["google_access_token"],
-    location: json["location"],
-    about: json["about"],
-    profilePic: json["profile_pic"],
-    dateAdded: DateTime.parse(json["date_added"]),
-    verifyCode: json["verify_code"],
-    notifications: json["notifications"],
-    status: json["status"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "users_customers_id": usersCustomersId,
-    "one_signal_id": oneSignalId,
-    "verified_badge": verifiedBadge,
-    "first_name": firstName,
-    "last_name": lastName,
-    "phone": phone,
-    "email": email,
-    "password": password,
-    "account_type": accountType,
-    "social_acc_type": socialAccType,
-    "google_access_token": googleAccessToken,
-    "location": location,
-    "about": about,
-    "profile_pic": profilePic,
-    "date_added": dateAdded!.toIso8601String(),
-    "verify_code": verifyCode,
-    "notifications": notifications,
-    "status": status,
   };
 }
 

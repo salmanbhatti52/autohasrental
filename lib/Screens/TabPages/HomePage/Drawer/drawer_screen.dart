@@ -20,8 +20,8 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
-
   GetUserProfileModel getUserProfileModelObject = GetUserProfileModel();
+
   bool loadingP = true;
   getUserProfileWidget() async {
     loadingP = true;
@@ -60,12 +60,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
     getUserProfileWidget();
 
   }
-  String? userName, userImage, userLocation;
+  String? firstName, lastName, userImage, userLocation;
   setUserData(){
-    userName = "${getUserProfileModelObject.data!.firstName}" "${getUserProfileModelObject.data!.firstName}";
+    firstName = "${getUserProfileModelObject.data!.firstName}";
+    lastName = "${getUserProfileModelObject.data!.lastName}";
     userLocation = getUserProfileModelObject.data!.location;
     userImage = "$baseUrlImage${getUserProfileModelObject.data!.profilePic}";
-    print("userName123 $userName");
+    print("userName123 $firstName");
     print("userImage123 $userImage");
     print("userLocation123 $userLocation");
   }
@@ -95,7 +96,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(50)
                   ),
-                  child: Image.asset("assets/drawer_images/cancle.png",),
+                  child: Image.asset("assets/drawer_images/cancle.png"),
                 ),
               ),
             ),
@@ -122,7 +123,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Text("${userName}", textAlign: TextAlign.left, style: TextStyle(
+                    Text("$firstName $lastName" , textAlign: TextAlign.left, style: TextStyle(
                       color: kWhite, fontSize: 16, fontFamily: poppinRegular)),
                     Row(
                       children: [
@@ -212,13 +213,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   Widget myListTile(myImage, myTitle){
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30,),
+      padding: EdgeInsets.symmetric(horizontal: 30),
       child: ListTile(
         leading: Image.asset(myImage),
         title: Text(myTitle, textAlign: TextAlign.left, style: TextStyle(
             color: kWhite, fontSize: 14, fontFamily: poppinRegular)),
       ),
     );
-
   }
 }

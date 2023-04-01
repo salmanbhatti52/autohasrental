@@ -2,15 +2,14 @@ import 'dart:convert';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/ChatsModels/all_chats_model.dart';
 import '../../../Model/Notification/notifications_unread_model.dart';
+import '../HomePage/Drawer/Settings/settings_screen.dart';
 import '../HomePage/Drawer/drawer_screen.dart';
 import '../Homepage/Notifications/notification_screen.dart';
-import '../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart'as http;
 import 'message_details_screen.dart';
 
@@ -32,8 +31,10 @@ class _MessagePageState extends State<MessagePage> {
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
     print("userId in Prefs is = $userId");
-    userChatHistoryApi();
+    notificationStatus = (prefs.getString('notification_status'));
+    print("notificationStatus in sharedPrefs $notificationStatus");
     getUnreadNotificationWidget();
+    userChatHistoryApi();
   }
 
   getUnreadNotificationWidget() async {
@@ -78,7 +79,8 @@ class _MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      body: Column(
+      body: loading ? Center(child: CircularProgressIndicator(color: borderColor)):
+      Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
           Padding(
@@ -90,7 +92,7 @@ class _MessagePageState extends State<MessagePage> {
                   onTap: () {
                     print("clicked");
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>  DrawerScreen()));
+                        MaterialPageRoute(builder: (context) => DrawerScreen()));
                   },
                   child: Image.asset("assets/home_page/Side_Menu.png",
                     height: 25,
@@ -99,6 +101,8 @@ class _MessagePageState extends State<MessagePage> {
                 ),
                 Text("Messages", textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack)),
+
+                notificationStatus == "Yes"?
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
@@ -109,28 +113,26 @@ class _MessagePageState extends State<MessagePage> {
                       SvgPicture.asset("assets/home_page/notification_bell.svg"),
                       Positioned(
                         right: 02,
-                        left: 04,
-                        bottom: 08,
-                        child: notificationsUnReadModelObject.data?.length == null? Container():
+                        left: 05,
+                        bottom: 10,
+                        child: notificationsUnReadModelObject.data?.length == 0 ? Container():
                         Container(
-                            height: 15, width: 15,
+                            height: 12, width: 12,
                             decoration: BoxDecoration(
                                 color: kRed,
                                 borderRadius: BorderRadius.circular(30)
                             ),
                             child: Center(
-                              child: Text("${notificationsUnReadModelObject.data!.length}",
-                                style: TextStyle(color: kWhite, fontSize: 10),),
+                              child: Text("${notificationsUnReadModelObject.data?.length}",
+                                style: TextStyle(color: kWhite, fontSize: 08),),
                             )),
                       ),
                     ],
                   ),
-                ),
+                ) : Container(),
               ],
             ),
           ),
-          // myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Messages",
-          //     "assets/home_page/notification_bell.svg"),
           loading ? Center(child: CircularProgressIndicator(color: borderColor)):
           allChatModel.isEmpty?  Center(
             child: Text('No Chat found...',
@@ -164,7 +166,6 @@ class _MessagePageState extends State<MessagePage> {
     });
     Map body = {
       'users_customers_id': userId,
-      // 'users_customers_id': "36",
     };
     http.Response response = await http.post(Uri.parse(getAllChatApiUrl),
         body: body,
@@ -175,7 +176,7 @@ class _MessagePageState extends State<MessagePage> {
     print("chatHistoryApiUrl: $getAllChatApiUrl");
     print('chatHistoryApiResponse == $jsonData');
     if (jsonData['message'] == 'chat unavailable.') {
-      toastSuccessMessage("Chat Not found", kRed);
+      // toastSuccessMessage("Chat Not found", kRed);
       print('Chat not found!');
       setState(() {
         loading = false;
@@ -200,8 +201,7 @@ class _MessagePageState extends State<MessagePage> {
     return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        physics:  BouncingScrollPhysics(),
-        // itemCount: messageItemsList.length,
+        physics: BouncingScrollPhysics(),
         itemCount: allChatModel.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
@@ -231,17 +231,9 @@ class _MessagePageState extends State<MessagePage> {
                       image: NetworkImage("$baseUrlImage${allChatModel[index].companyLogo}"),
                     ),
                   ),
-
-                  // Image.asset(messageItemsList[index].image),
-                  title: Text(
-                    "${allChatModel[index].companyName}",
-                    // messageItemsList[index].sendName,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontFamily: poppinMedium,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
+                  title: Text("${allChatModel[index].companyName}",
+                    textAlign: TextAlign.left, style: TextStyle(
+                      fontSize: 15, fontFamily: poppinMedium)),
                   subtitle: Text(
                     "${allChatModel[index].lastMessage}",
                     style: TextStyle(

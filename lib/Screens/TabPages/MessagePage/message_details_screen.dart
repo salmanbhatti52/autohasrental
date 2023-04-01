@@ -107,9 +107,9 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
         pos = UpdateMessageModel.fromJson(obj);
         updateMessageModelObject.add(pos);
         print("updateMessagesLength: ${updateMessageModelObject.length}");
-        // setState(() {
-        //   loading = false;
-        // });
+        setState(() {
+          getMessageApi();
+        });
       }
     }
   }
@@ -178,9 +178,9 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     var cron = Cron();
-    cron.schedule(Schedule.parse('*/60 * * * * *'), () async {
-      print('auto refresh after 10 seconds allChatMessageApi');
-      getMessageApi();
+    cron.schedule(Schedule.parse('*/03 * * * * *'), () async {
+      print('auto refresh after 03 seconds allChatMessageApi');
+      await getMessageApi();
     });
 
     return Scaffold(
@@ -188,6 +188,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
         leading: GestureDetector(
           onTap: () {
             print("clicked");
+            // Navigator.pop(context);
             Navigator.push(context, MaterialPageRoute(
                 builder: (context) =>  TabBarPage()));
           },

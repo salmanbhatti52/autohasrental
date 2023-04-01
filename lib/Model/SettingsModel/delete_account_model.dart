@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final deleteAccountModel = deleteAccountModelFromJson(jsonString);
-
 import 'dart:convert';
 
 DeleteAccountModel deleteAccountModelFromJson(String str) => DeleteAccountModel.fromJson(json.decode(str));

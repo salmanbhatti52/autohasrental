@@ -1,5 +1,5 @@
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
-import '../../../Utils/colors.dart';
 import 'BookingTabs/PreviousTab/PreviousTabs/previous_tabs_page.dart';
 import 'BookingTabs/UpcomingTab/UpcomingTabs/upcoming_tabs_page.dart';
 
@@ -12,24 +12,22 @@ class TabbarCarBookings extends StatefulWidget {
 
 abstract class TickerProvider {}
 
-class _TabbarCarBookingsState extends State<TabbarCarBookings>
-    with TickerProviderStateMixin {
+class _TabbarCarBookingsState extends State<TabbarCarBookings> with TickerProviderStateMixin {
   List<String> tabs = ["Previous", "Upcoming"];
-  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 2, vsync: this);
-
     return Column(
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 50,
+              height: MediaQuery.of(context).size.height* 0.055,
               decoration: BoxDecoration(
                   color: const Color(0xffd4dce1),
+                  // color: Colors.red,
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 05, vertical: 05),
@@ -42,16 +40,12 @@ class _TabbarCarBookingsState extends State<TabbarCarBookings>
                   indicatorColor: kWhite,
                   isScrollable: true,
                   labelColor: kBlack,
-                  labelPadding: const EdgeInsets.symmetric(horizontal: 65),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 55),
                   labelStyle: const TextStyle(fontSize: 14),
                   unselectedLabelColor: kBlack,
                   tabs: const [
-                    Tab(
-                      text: "Previous",
-                    ),
-                    Tab(
-                      text: "Upcoming",
-                    ),
+                    Tab(text: "Previous"),
+                    Tab(text: "Upcoming"),
                   ],
                 ),
               )),

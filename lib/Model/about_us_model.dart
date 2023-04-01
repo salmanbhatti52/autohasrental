@@ -1,11 +1,12 @@
+
 import 'dart:convert';
 
-PrivacyPolicyModel privacyPolicyModelFromJson(String str) => PrivacyPolicyModel.fromJson(json.decode(str));
+AboutUsModel aboutUsModelFromJson(String str) => AboutUsModel.fromJson(json.decode(str));
 
-String privacyPolicyModelToJson(PrivacyPolicyModel data) => json.encode(data.toJson());
+String aboutUsModelToJson(AboutUsModel data) => json.encode(data.toJson());
 
-class PrivacyPolicyModel {
-  PrivacyPolicyModel({
+class AboutUsModel {
+  AboutUsModel({
     this.status,
     this.data,
   });
@@ -13,9 +14,9 @@ class PrivacyPolicyModel {
   String? status;
   List<Datum>? data;
 
-  factory PrivacyPolicyModel.fromJson(Map<String, dynamic> json) => PrivacyPolicyModel(
+  factory AboutUsModel.fromJson(Map<String, dynamic> json) => AboutUsModel(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null,
   );
 
   Map<String, dynamic> toJson() => {

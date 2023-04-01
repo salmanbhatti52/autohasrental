@@ -19,9 +19,7 @@ class _BookingPageState extends State<BookingPage> {
         physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
-            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.04),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Row(
@@ -29,27 +27,20 @@ class _BookingPageState extends State<BookingPage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
+                      Navigator.push(context, MaterialPageRoute(
                               builder: (context) => DrawerScreen()));
                     },
-                    child: Image.asset(
-                        'assets/car_bookings_images/side_menu.png',
-                        width: 18,
-                        height: 15),
+                    child: Image.asset('assets/car_bookings_images/side_menu.png',
+                        width: 18, height: 15),
                   ),
                   SizedBox(width: 100),
-                  Text(
-                    "Bookings",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: appBgColor),
+                  Text("Bookings", style: TextStyle(fontSize: 20,
+                      fontWeight: FontWeight.bold, color: appBgColor),
                   ),
                 ],
               ),
             ),
+
             TabbarCarBookings(),
           ],
         ),

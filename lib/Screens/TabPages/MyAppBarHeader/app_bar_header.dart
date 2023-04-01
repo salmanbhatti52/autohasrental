@@ -72,18 +72,13 @@ class MyAppBarSingleImage extends StatelessWidget
         },
         child: Padding(
           padding:  EdgeInsets.only(top: 30),
-          child: Image.asset(
-            backImage!,
-            height: 25,
-            width: 25,
-          ),
+          child: Image.asset(backImage!,
+            height: 25, width: 25),
         ),
       ),
       title: Padding(
         padding:  EdgeInsets.only(top: 30),
-        child: Text(title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
+        child: Text(title, textAlign: TextAlign.center, style: TextStyle(
                 fontSize: 20, fontFamily: poppinBold, color: kBlack)),
       ),
       backgroundColor: homeBgColor,

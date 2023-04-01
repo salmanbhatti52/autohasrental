@@ -404,44 +404,44 @@ class UsersDatum {
 
 class UsersCompanies {
   UsersCompanies({
-    this.usersCompaniesId,
-    this.email,
-    this.password,
-    this.phone,
-    this.companyName,
-    this.companyRegistrationNumber,
-    this.companyLocation,
-    this.companyLogo,
+    required this.usersCompaniesId,
+    required this.email,
+    required this.password,
+    required this.phone,
+    required this.companyName,
+    required this.companyRegistrationNumber,
+    required this.companyLocation,
+    required this.companyLogo,
     this.about,
-    this.verifyEmailOtp,
+    required this.verifyEmailOtp,
     this.forgotPasswordOtp,
     this.bankName,
     this.bankAccountNumber,
     this.paypalEmail,
-    this.online,
-    this.status,
-    this.dateAdded,
+    required this.online,
+    required this.status,
+    required this.dateAdded,
     this.dateModified,
   });
 
-  int? usersCompaniesId;
-  String? email;
-  String? password;
-  String? phone;
-  String? companyName;
-  String? companyRegistrationNumber;
-  String? companyLocation;
-  String? companyLogo;
+  int usersCompaniesId;
+  String email;
+  String password;
+  String phone;
+  String companyName;
+  String companyRegistrationNumber;
+  String companyLocation;
+  String companyLogo;
   dynamic about;
-  int? verifyEmailOtp;
-  int? forgotPasswordOtp;
-  String? bankName;
-  String? bankAccountNumber;
-  String? paypalEmail;
-  String? online;
-  String? status;
-  DateTime? dateAdded;
-  DateTime? dateModified;
+  int verifyEmailOtp;
+  dynamic forgotPasswordOtp;
+  dynamic bankName;
+  dynamic bankAccountNumber;
+  dynamic paypalEmail;
+  String online;
+  String status;
+  DateTime dateAdded;
+  dynamic dateModified;
 
   factory UsersCompanies.fromJson(Map<String, dynamic> json) => UsersCompanies(
     usersCompaniesId: json["users_companies_id"],
@@ -461,7 +461,7 @@ class UsersCompanies {
     online: json["online"],
     status: json["status"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: DateTime.parse(json["date_modified"]),
+    dateModified: json["date_modified"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -481,7 +481,7 @@ class UsersCompanies {
     "paypal_email": paypalEmail,
     "online": online,
     "status": status,
-    "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified!.toIso8601String(),
+    "date_added": dateAdded.toIso8601String(),
+    "date_modified": dateModified,
   };
 }

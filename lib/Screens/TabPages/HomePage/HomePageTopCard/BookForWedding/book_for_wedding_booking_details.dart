@@ -5,18 +5,17 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'PhotoAddress/photo_delivery_address.dart';
-
 
 class BookForWeddingBookingDetails extends StatefulWidget {
   // final DatumPhotography? datumPhotography;
-  final String?selectedDate, selectedHours, selectedDay, selectedStartTime, selectedEndTime;
+  final String? selectedDate, selectedHours, selectedDay, selectedStartTime, selectedEndTime;
   final int? hoursInNumber;
   final String? carName, carImage, carYear, carPrice, favouriteStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
@@ -43,6 +42,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   TimeOfDay? startTime;
   final GlobalKey<FormState> formKeyPhotography = GlobalKey<FormState>();
   bool loadingP = true;
+  String? valueDay;
 
   mySelectedData() {
     valueDate = "${widget.selectedDate}";
@@ -159,7 +159,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                               SizedBox(width: MediaQuery.of(context).size.width*0.01),
                               GestureDetector(
                                   onTap: () {
-                                    showMyBottomSheet(context);
+                                    openBottomSheetPhotoCars(context);
                                   },
                                   child: SvgPicture.asset('assets/icon/edit_booking_icoon.svg')),
                             ],
@@ -585,154 +585,157 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
     }
   }
 
-  showMyBottomSheet(context) {
-    var size = MediaQuery.of(context).size;
-    return showMaterialModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter stateSetterObject) {
-            return Container(
-              height: MediaQuery.of(context).size.height * 0.55,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: homeBgColor,
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20)),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Text('Change Available Time Slot',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: poppinBold,
-                              color: appBgColor)),
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                  Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          DateTime? picked = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            // firstDate: DateTime(1980),
-                            firstDate: DateTime.now().subtract(const Duration(days: 0)),
-                            lastDate: DateTime(2050),
-                          );
-                          if (picked != null && picked != pickDate) {
-                            // valueDate = DateFormat('yyyy-MM-dd').format(picked);
-                            // valueDay = DateFormat('EE, d').format(picked);
-                            valueDate = DateFormat('yyyy-MM-dd').format(picked);
-                            valueDay = DateFormat('EEEE, dd MMMM').format(picked);
-
-                            stateSetterObject(() {
-                              print("Selected date in bottomSheet : $valueDate");
-                              print("Selected Day in bottomSheet : $valueDay");
-                            });
-                          }
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.keyboard_arrow_left, color: borderColor),
-                            Text(
-                              "$valueDate",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: poppinSemiBold,
-                                  color: borderColor),
-                            ),
-                            Icon(Icons.keyboard_arrow_right,
-                                color: borderColor),
-                          ],
-                        ),
+  void openBottomSheetPhotoCars(BuildContext context) {
+    showFlexibleBottomSheet<void>(
+      isExpand: false,
+      initHeight: 0.8,
+      maxHeight: 0.8,
+      barrierColor: Colors.transparent,
+      context: context,
+      builder: (context, controller, offset) {
+        var size = MediaQuery.of(context).size;
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter stateSetterObject) {
+              return Container(
+                height: MediaQuery.of(context).size.height * 0.55,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: homeBgColor,
+                  borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20)),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16),
+                        child: Text('Change Available Time Slot',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: poppinBold,
+                                color: appBgColor)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                      valueDay == null ?
-                      Container(
-                        width: 200,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: kWhite,
-                          borderRadius: BorderRadius.circular(15),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                    Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            DateTime? picked = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              // firstDate: DateTime(1980),
+                              firstDate: DateTime.now().subtract(const Duration(days: 0)),
+                              lastDate: DateTime(2050),
+                            );
+                            if (picked != null && picked != pickDate) {
+                              // valueDate = DateFormat('yyyy-MM-dd').format(picked);
+                              // valueDay = DateFormat('EE, d').format(picked);
+                              valueDate = DateFormat('yyyy-MM-dd').format(picked);
+                              valueDay = DateFormat('EEEE, dd MMMM').format(picked);
+
+                              stateSetterObject(() {
+                                print("Selected date in bottomSheet : $valueDate");
+                                print("Selected Day in bottomSheet : $valueDay");
+                              });
+                            }
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.keyboard_arrow_left, color: borderColor),
+                              Text(
+                                "$valueDate",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: poppinSemiBold,
+                                    color: borderColor),
+                              ),
+                              Icon(Icons.keyboard_arrow_right,
+                                  color: borderColor),
+                            ],
+                          ),
                         ),
-                        child: Center(
-                          child: Text("$valueDay", style: TextStyle(
-                                fontSize: 14, fontFamily: poppinMedium, color: kBlack)),
-                              ),
-                            )
-                          : Container(
-                              width: 200,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: borderColor,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Center(
-                                child: Text("$valueDay", style: TextStyle(
-                                    fontSize: 14, fontFamily: poppinMedium, color: kWhite)),
-                              ),
-                            ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Container(
-                          height: size.height * 0.055,
-                          width: MediaQuery.of(context).size.width * 01.3,
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                        valueDay == null ?
+                        Container(
+                          width: 200,
+                          height: 40,
                           decoration: BoxDecoration(
-                              color: kWhite,
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(color: const Color(0xff7E7E7E))),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                hint: Text('Select Hours', style: GoogleFonts.poppins(textStyle: TextStyle(
-                                            fontSize: 12, color: kBlack, fontWeight: FontWeight.w400))),
-                                icon: Icon(Icons.keyboard_arrow_down_rounded, size: 30, color: kBlack),
-                                items: timeHoursList.map(
-                                      (item) => DropdownMenuItem<String>(value: item,
-                                        child: Text(item, style: GoogleFonts.poppins(textStyle: TextStyle(
-                                            fontSize: 14, color: kBlack, fontWeight: FontWeight.w400))),
-                                      ),
-                                    ).toList(),
-                                value: dropdownValueTime,
-                                onChanged: (String? newValue) {
-                                  stateSetterObject(() {
-                                    dropdownValueTime = newValue!.split(" hour").first;
-                                    myHours = int.parse(dropdownValueTime);
-                                    dropdownValueTime = newValue;
-                                    print("selectedTime in bottomSheet: $dropdownValueTime");
-                                    print("selectedHour in bottomSheet: $myHours");
-                                  });
-                                },
-                                buttonWidth: MediaQuery.of(context).size.width * 0.2,
-                                dropdownDecoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10)),
-                                dropdownMaxHeight: MediaQuery.of(context).size.height * 0.25,
-                                scrollbarThickness: 0,
-                                itemHeight: 30,
+                            color: kWhite,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Center(
+                            child: Text("$valueDay", style: TextStyle(
+                                fontSize: 14, fontFamily: poppinMedium, color: kBlack)),
+                          ),
+                        )
+                            : Container(
+                          width: 200,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: borderColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Center(
+                            child: Text("$valueDay", style: TextStyle(
+                                fontSize: 14, fontFamily: poppinMedium, color: kWhite)),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          child: Container(
+                            height: size.height * 0.055,
+                            width: MediaQuery.of(context).size.width * 01.3,
+                            decoration: BoxDecoration(
+                                color: kWhite,
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(color: const Color(0xff7E7E7E))),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10, right: 10),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton2(
+                                  hint: Text('Select Hours', style: GoogleFonts.poppins(textStyle: TextStyle(
+                                      fontSize: 12, color: kBlack, fontWeight: FontWeight.w400))),
+                                  icon: Icon(Icons.keyboard_arrow_down_rounded, size: 30, color: kBlack),
+                                  items: timeHoursList.map(
+                                        (item) => DropdownMenuItem<String>(value: item,
+                                      child: Text(item, style: GoogleFonts.poppins(textStyle: TextStyle(
+                                          fontSize: 14, color: kBlack, fontWeight: FontWeight.w400))),
+                                    ),
+                                  ).toList(),
+                                  value: dropdownValueTime,
+                                  onChanged: (String? newValue) {
+                                    stateSetterObject(() {
+                                      dropdownValueTime = newValue!.split(" hour").first;
+                                      myHours = int.parse(dropdownValueTime);
+                                      dropdownValueTime = newValue;
+                                      print("selectedTime in bottomSheet: $dropdownValueTime");
+                                      print("selectedHour in bottomSheet: $myHours");
+                                    });
+                                  },
+                                  buttonWidth: MediaQuery.of(context).size.width * 0.2,
+                                  dropdownDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  dropdownMaxHeight: MediaQuery.of(context).size.height * 0.25,
+                                  scrollbarThickness: 0,
+                                  itemHeight: 30,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
                                   onTap: () async {
                                     TimeOfDay? picked;
                                     picked = await showTimePicker(
@@ -764,85 +767,347 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                                           color: valueTimeStart == "Start Time" ? kBlack : kWhite)),
                                     ),
                                   ),
-                              ),
-                              InkWell(
-                                  onTap: () async {
-                                    TimeOfDay? picked;
-                                    picked = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.now(),
-                                    );
-                                    if (picked == null) {
-                                      picked = startTime;
-                                    } else {
-                                      valueTimeEnd = picked.format(context).toString();
-                                      // setState(() {
-                                      //   print("Selected endTime is: $valueTimeEnd");
-                                      // });
-                                      valueTimeEnd = '${picked.hour}:${picked.minute}:00';
-                                      stateSetterObject(() {
-                                        print("Selected endTime is : $valueTimeEnd");
-                                        calculateTimeInterval();
-                                        // compareTime();
-                                      });
-                                      print("myEndTime $valueTimeEnd");
-                                    }
-                                  },
-                                  child: Container(
-                                    height: 40,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      color: valueTimeEnd == "End Time" ? kWhite : borderColor,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                      child: Text("$valueTimeEnd", style: TextStyle(fontSize: 16,
+                                ),
+                                InkWell(
+                                    onTap: () async {
+                                      TimeOfDay? picked;
+                                      picked = await showTimePicker(
+                                        context: context,
+                                        initialTime: TimeOfDay.now(),
+                                      );
+                                      if (picked == null) {
+                                        picked = startTime;
+                                      } else {
+                                        valueTimeEnd = picked.format(context).toString();
+                                        // setState(() {
+                                        //   print("Selected endTime is: $valueTimeEnd");
+                                        // });
+                                        valueTimeEnd = '${picked.hour}:${picked.minute}:00';
+                                        stateSetterObject(() {
+                                          print("Selected endTime is : $valueTimeEnd");
+                                          calculateTimeInterval();
+                                          // compareTime();
+                                        });
+                                        print("myEndTime $valueTimeEnd");
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: 120,
+                                      decoration: BoxDecoration(
+                                        color: valueTimeEnd == "End Time" ? kWhite : borderColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Center(
+                                        child: Text("$valueTimeEnd", style: TextStyle(fontSize: 16,
                                             color: valueTimeEnd == "End Time" ? kBlack : kWhite)),
-                                    ),
-                                  )),
-                            ]),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  GestureDetector(
+                                      ),
+                                    )),
+                              ]),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    GestureDetector(
+                        onTap: () {
+                          mySelectedData();
+                          Navigator.pop(context);
+                        },
+                        child: loginButton('Update', context)),
+                    GestureDetector(
                       onTap: () {
-                        mySelectedData();
                         Navigator.pop(context);
                       },
-                      child: loginButton('Update', context)),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      child: Center(
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(width: 1, color: borderColor),
-                          ),
-                          child: Center(
-                            child: Text('Cancel',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: borderColor,
-                                    fontFamily: poppinRegular,
-                                    fontSize: 18)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Center(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.06,
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(width: 1, color: borderColor),
+                            ),
+                            child: Center(
+                              child: Text('Cancel',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: borderColor,
+                                      fontFamily: poppinRegular,
+                                      fontSize: 18)),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          });
-        });
+                  ],
+                ),
+              );
+            });
+      },
+    );
   }
+
+  // showMyBottomSheet(context) {
+  //   var size = MediaQuery.of(context).size;
+  //   return showMaterialModalBottomSheet(
+  //       backgroundColor: Colors.transparent,
+  //       context: context,
+  //       builder: (context) {
+  //         return StatefulBuilder(
+  //             builder: (BuildContext context, StateSetter stateSetterObject) {
+  //           return Container(
+  //             height: MediaQuery.of(context).size.height * 0.55,
+  //             width: MediaQuery.of(context).size.width,
+  //             decoration: BoxDecoration(
+  //               color: homeBgColor,
+  //               borderRadius: const BorderRadius.only(
+  //                   topRight: Radius.circular(20),
+  //                   topLeft: Radius.circular(20)),
+  //             ),
+  //             child: Column(
+  //               children: [
+  //                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+  //                 Align(
+  //                   alignment: Alignment.topLeft,
+  //                   child: Padding(
+  //                     padding: const EdgeInsets.only(left: 16),
+  //                     child: Text('Change Available Time Slot',
+  //                         textAlign: TextAlign.left,
+  //                         style: TextStyle(
+  //                             fontSize: 14,
+  //                             fontFamily: poppinBold,
+  //                             color: appBgColor)),
+  //                   ),
+  //                 ),
+  //                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+  //                 Column(
+  //                   children: [
+  //                     GestureDetector(
+  //                       onTap: () async {
+  //                         DateTime? picked = await showDatePicker(
+  //                           context: context,
+  //                           initialDate: DateTime.now(),
+  //                           // firstDate: DateTime(1980),
+  //                           firstDate: DateTime.now().subtract(const Duration(days: 0)),
+  //                           lastDate: DateTime(2050),
+  //                         );
+  //                         if (picked != null && picked != pickDate) {
+  //                           // valueDate = DateFormat('yyyy-MM-dd').format(picked);
+  //                           // valueDay = DateFormat('EE, d').format(picked);
+  //                           valueDate = DateFormat('yyyy-MM-dd').format(picked);
+  //                           valueDay = DateFormat('EEEE, dd MMMM').format(picked);
+  //
+  //                           stateSetterObject(() {
+  //                             print("Selected date in bottomSheet : $valueDate");
+  //                             print("Selected Day in bottomSheet : $valueDay");
+  //                           });
+  //                         }
+  //                       },
+  //                       child: Row(
+  //                         mainAxisAlignment: MainAxisAlignment.center,
+  //                         children: [
+  //                           Icon(Icons.keyboard_arrow_left, color: borderColor),
+  //                           Text(
+  //                             "$valueDate",
+  //                             textAlign: TextAlign.left,
+  //                             style: TextStyle(
+  //                                 fontSize: 14,
+  //                                 fontFamily: poppinSemiBold,
+  //                                 color: borderColor),
+  //                           ),
+  //                           Icon(Icons.keyboard_arrow_right,
+  //                               color: borderColor),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+  //                     valueDay == null ?
+  //                     Container(
+  //                       width: 200,
+  //                       height: 40,
+  //                       decoration: BoxDecoration(
+  //                         color: kWhite,
+  //                         borderRadius: BorderRadius.circular(15),
+  //                       ),
+  //                       child: Center(
+  //                         child: Text("$valueDay", style: TextStyle(
+  //                               fontSize: 14, fontFamily: poppinMedium, color: kBlack)),
+  //                             ),
+  //                           )
+  //                         : Container(
+  //                             width: 200,
+  //                             height: 40,
+  //                             decoration: BoxDecoration(
+  //                               color: borderColor,
+  //                               borderRadius: BorderRadius.circular(15),
+  //                             ),
+  //                             child: Center(
+  //                               child: Text("$valueDay", style: TextStyle(
+  //                                   fontSize: 14, fontFamily: poppinMedium, color: kWhite)),
+  //                             ),
+  //                           ),
+  //                     Padding(
+  //                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //                       child: Container(
+  //                         height: size.height * 0.055,
+  //                         width: MediaQuery.of(context).size.width * 01.3,
+  //                         decoration: BoxDecoration(
+  //                             color: kWhite,
+  //                             borderRadius: BorderRadius.circular(15),
+  //                             border: Border.all(color: const Color(0xff7E7E7E))),
+  //                         child: Padding(
+  //                           padding: const EdgeInsets.only(left: 10, right: 10),
+  //                           child: DropdownButtonHideUnderline(
+  //                             child: DropdownButton2(
+  //                               hint: Text('Select Hours', style: GoogleFonts.poppins(textStyle: TextStyle(
+  //                                           fontSize: 12, color: kBlack, fontWeight: FontWeight.w400))),
+  //                               icon: Icon(Icons.keyboard_arrow_down_rounded, size: 30, color: kBlack),
+  //                               items: timeHoursList.map(
+  //                                     (item) => DropdownMenuItem<String>(value: item,
+  //                                       child: Text(item, style: GoogleFonts.poppins(textStyle: TextStyle(
+  //                                           fontSize: 14, color: kBlack, fontWeight: FontWeight.w400))),
+  //                                     ),
+  //                                   ).toList(),
+  //                               value: dropdownValueTime,
+  //                               onChanged: (String? newValue) {
+  //                                 stateSetterObject(() {
+  //                                   dropdownValueTime = newValue!.split(" hour").first;
+  //                                   myHours = int.parse(dropdownValueTime);
+  //                                   dropdownValueTime = newValue;
+  //                                   print("selectedTime in bottomSheet: $dropdownValueTime");
+  //                                   print("selectedHour in bottomSheet: $myHours");
+  //                                 });
+  //                               },
+  //                               buttonWidth: MediaQuery.of(context).size.width * 0.2,
+  //                               dropdownDecoration: BoxDecoration(
+  //                                   borderRadius: BorderRadius.circular(10)),
+  //                               dropdownMaxHeight: MediaQuery.of(context).size.height * 0.25,
+  //                               scrollbarThickness: 0,
+  //                               itemHeight: 30,
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     Padding(
+  //                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //                       child: Row(
+  //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                           children: [
+  //                             InkWell(
+  //                                 onTap: () async {
+  //                                   TimeOfDay? picked;
+  //                                   picked = await showTimePicker(
+  //                                     context: context,
+  //                                     initialTime: TimeOfDay.now(),
+  //                                   );
+  //                                   if (picked == null) {
+  //                                     picked = startTime;
+  //                                   } else {
+  //                                     valueTimeStart = picked.format(context).toString();
+  //                                     // setState(() {
+  //                                     //   print("Selected startTime is : $valueTimeStart");
+  //                                     // });
+  //                                     valueTimeStart = '${picked.hour}:${picked.minute}:00';
+  //                                     stateSetterObject(() {
+  //                                       print("Selected startTime is : $valueTimeStart");
+  //                                       print("myTime $valueTimeStart");
+  //                                     });
+  //                                   }
+  //                                 },
+  //                                 child: Container(
+  //                                   height: 40,
+  //                                   width: 120,
+  //                                   decoration: BoxDecoration(
+  //                                       color: valueTimeStart == "Start Time" ? kWhite : borderColor,
+  //                                       borderRadius: BorderRadius.circular(10)),
+  //                                   child: Center(
+  //                                     child: Text("$valueTimeStart", style: TextStyle(fontSize: 16,
+  //                                         color: valueTimeStart == "Start Time" ? kBlack : kWhite)),
+  //                                   ),
+  //                                 ),
+  //                             ),
+  //                             InkWell(
+  //                                 onTap: () async {
+  //                                   TimeOfDay? picked;
+  //                                   picked = await showTimePicker(
+  //                                     context: context,
+  //                                     initialTime: TimeOfDay.now(),
+  //                                   );
+  //                                   if (picked == null) {
+  //                                     picked = startTime;
+  //                                   } else {
+  //                                     valueTimeEnd = picked.format(context).toString();
+  //                                     // setState(() {
+  //                                     //   print("Selected endTime is: $valueTimeEnd");
+  //                                     // });
+  //                                     valueTimeEnd = '${picked.hour}:${picked.minute}:00';
+  //                                     stateSetterObject(() {
+  //                                       print("Selected endTime is : $valueTimeEnd");
+  //                                       calculateTimeInterval();
+  //                                       // compareTime();
+  //                                     });
+  //                                     print("myEndTime $valueTimeEnd");
+  //                                   }
+  //                                 },
+  //                                 child: Container(
+  //                                   height: 40,
+  //                                   width: 120,
+  //                                   decoration: BoxDecoration(
+  //                                     color: valueTimeEnd == "End Time" ? kWhite : borderColor,
+  //                                     borderRadius: BorderRadius.circular(10),
+  //                                   ),
+  //                                   child: Center(
+  //                                     child: Text("$valueTimeEnd", style: TextStyle(fontSize: 16,
+  //                                           color: valueTimeEnd == "End Time" ? kBlack : kWhite)),
+  //                                   ),
+  //                                 )),
+  //                           ]),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+  //                 GestureDetector(
+  //                     onTap: () {
+  //                       mySelectedData();
+  //                       Navigator.pop(context);
+  //                     },
+  //                     child: loginButton('Update', context)),
+  //                 GestureDetector(
+  //                   onTap: () {
+  //                     Navigator.pop(context);
+  //                   },
+  //                   child: Padding(
+  //                     padding: const EdgeInsets.symmetric(
+  //                         horizontal: 20, vertical: 10),
+  //                     child: Center(
+  //                       child: Container(
+  //                         height: MediaQuery.of(context).size.height * 0.06,
+  //                         width: MediaQuery.of(context).size.width * 0.7,
+  //                         decoration: BoxDecoration(
+  //                           color: Colors.transparent,
+  //                           borderRadius: BorderRadius.circular(30),
+  //                           border: Border.all(width: 1, color: borderColor),
+  //                         ),
+  //                         child: Center(
+  //                           child: Text('Cancel',
+  //                               textAlign: TextAlign.center,
+  //                               style: TextStyle(
+  //                                   color: borderColor,
+  //                                   fontFamily: poppinRegular,
+  //                                   fontSize: 18)),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           );
+  //         });
+  //       });
+  // }
 }

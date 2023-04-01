@@ -13,12 +13,11 @@ class SignUpModel {
 
   String? status;
   String? message;
-  List<Datum>? data = <Datum>[];
+  List<Datum>? data;
 
   factory SignUpModel.fromJson(Map<String, dynamic> json) => SignUpModel(
     status: json["status"],
     message : json["message"] != null ? json["message"] : null,
-    // data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null,
   );
 

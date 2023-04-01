@@ -35,7 +35,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var locationController = TextEditingController();
 
   File? imageFile;
-  String? base64img;
+  String? base64img, userPhone;
   final ImagePicker _picker = ImagePicker();
   Future pickCoverImage() async {
     try {
@@ -70,6 +70,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   setData() {
+    userPhone = "${getUserProfileModelObject.data!.phone}";
     firstNameController.text = "${getUserProfileModelObject.data!.firstName}";
     lastNameController.text = "${getUserProfileModelObject.data!.lastName}";
     aboutController.text =  getUserProfileModelObject.data!.about == null? "": "${getUserProfileModelObject.data!.about}" ;
@@ -90,6 +91,38 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   GetUserProfileModel getUserProfileModelObject = GetUserProfileModel();
+  bool progress = false;
+  getUserProfileWidget() async {
+    loader = true;
+    setState(() {});
+    try {
+      String apiUrl = getUserProfileApiUrl;
+      print("getUserProfileApi: $apiUrl");
+      final response = await http.post(Uri.parse(apiUrl),
+          body: {
+            "users_customers_id" : userId,
+          },
+          headers: {
+            'Accept': 'application/json'
+          });
+      print('${response.statusCode}');
+      print(response);
+      if (response.statusCode == 200) {
+        final responseString = response.body;
+        print("getUserProfileResponse: ${responseString.toString()}");
+        getUserProfileModelObject = getUserProfileModelFromJson(responseString);
+        print("getUserName: ${getUserProfileModelObject.data!.lastName}");
+        print("getUserProfileImage: $baseUrlImage${getUserProfileModelObject.data!.profilePic}");
+      }
+    } catch (e) {
+      print('Error in getUserProfileWidget: ${e.toString()}');
+    }
+    loader = false;
+    setState(() {
+      setData();
+    });
+  }
+
   uploadUserProfileWidget() async {
     loader = true;
     setState(() {});
@@ -108,7 +141,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         "users_customers_id" : userId,
         "first_name" : firstNameController.text,
         "last_name" : lastNameController.text,
-        "phone" : "03001234567",
+        "phone" : "$userPhone",
         "email" : emailController.text,
         "location" : locationController.text,
         "about" : aboutController.text,
@@ -135,38 +168,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     });
   }
 
-  getUserProfileWidget() async {
-    loader = true;
-    setState(() {});
-    try {
-      String apiUrl = getUserProfileApiUrl;
-      print("getUserProfileApi: $apiUrl");
-      final response = await http.post(Uri.parse(apiUrl),
-          body: {
-        "users_customers_id" : userId,
-          },
-          headers: {
-            'Accept': 'application/json'
-          });
-      print('${response.statusCode}');
-      print(response);
-      if (response.statusCode == 200) {
-        final responseString = response.body;
-        print("getUserProfileResponse: ${responseString.toString()}");
-        getUserProfileModelObject = getUserProfileModelFromJson(responseString);
-        print("getUserName: ${getUserProfileModelObject.data!.lastName}");
-        print("getUserProfileImage: $baseUrlImage${getUserProfileModelObject.data!.profilePic}");
-      }
-    } catch (e) {
-      print('Error in getUserProfileWidget: ${e.toString()}');
-    }
-    loader = false;
-    setState(() {
-      setData();
-    });
-  }
-
-  bool progress = false;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -182,8 +183,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         opacity: 0.02,
         blur: 0.5,
         color: Colors.transparent,
-        progressIndicator: CircularProgressIndicator(
-          color: borderColor),
+        progressIndicator: CircularProgressIndicator(color: borderColor),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
@@ -204,7 +204,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           radius: (screenWidth > 600) ? 90 : 70,
                           backgroundColor: Colors.transparent,
                           backgroundImage: imageFile == null?
-                          AssetImage("assets/icon/fade_in_image.jpeg",)
+                          AssetImage("assets/icon/fade_in_image.jpeg")
                               : Image.file(imageFile!, height: 50, width: 50, fit: BoxFit.contain,).image,
                         ):
                         CircleAvatar(

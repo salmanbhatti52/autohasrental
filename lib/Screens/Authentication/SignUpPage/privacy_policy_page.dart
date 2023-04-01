@@ -1,12 +1,11 @@
 import 'dart:core';
-
+import 'package:auto_haus_rental_app/Model/privacy_policy_model.dart';
+import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:flutter/material.dart';
-import '../../../Model/privacy_policy_model.dart';
-import '../../../Widget/button.dart';
-import '../LoginPage/login_page.dart';
 import 'package:http/http.dart'as http;
 
 class PrivacyPolicyPage extends StatefulWidget {
@@ -77,7 +76,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
           ),
 
           loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
-          privacyPolicyModelObject == null? Container():
+          privacyPolicyModelObject.data == null? Container():
           privacyPolicyModelObject.data!.isEmpty ? Center(
             child: Text('Nothing to show...',
               style: TextStyle(fontWeight: FontWeight.bold),

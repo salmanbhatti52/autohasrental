@@ -109,11 +109,16 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
               months: evSubscriptionCarsModelObject.data![i].carsPlans![j].months!.toString(),
               price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].pricePerMonth!,
               dis_price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString()));
-          print("monthNumber123 ${monthNumber[0].months}");
+
+         tabSelectMonth = monthNumber[0].months;
+         tabSelectedPrice = monthNumber[0].dis_price_per_months;
+          print("monthNumber123 $tabSelectMonth $tabSelectedPrice");
           print("InnerLoop:$j");
         }
+
       }
     }
+    // monthNumber.sort((a, b) => a.compareTo(b));
   }
 
   startChatApiWidget() async {
@@ -255,11 +260,6 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                                 CircularProgressIndicator(strokeWidth: 2, value: downloadProgress.progress, color: borderColor,),
                             errorWidget: (context, url, error) => Image.asset("assets/icon/fade_in_image.jpeg"),
                           ),
-                        // Image.network("$baseUrlImage${widget.evDatum!.carsMakes!.image}",
-                        //   height: 60, width: 50, fit: BoxFit.fill,
-                        // )
-
-                        // Image.asset('assets/car_description_images/tesla.png', width: 41, height: 41),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 20),
@@ -318,27 +318,22 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
               ),
             ),
             TabbarCarDescription(
-
               myDescription: widget.myCarDescription,
               myRating: widget.myCarRating,
               myComment: widget.myCarComment,
             ),
             GestureDetector(
                 onTap: () {
-                  print('selectedIndex1: $selectedIndex');
-                  print('selectedTabMonth1: $tabSelectMonth');
-                  print('selectedTabMonthPrice1: $tabSelectedPrice');
+                  print('selectedIndex123: $selectedIndex');
+                  print('selectedTabMonth123: $tabSelectMonth');
+                  print('selectedTabMonthPrice123: $tabSelectedPrice');
                   if(formKeyEvTabbar.currentState!.validate()){
                     // if(tabSelectMonth == null){
                     //
                     //   toastFailedMessage("select Month", kRed);
                     // } else{
-                      print('selectedIndex123: $selectedIndex');
-                      print('selectedTabMonth123: $tabSelectMonth');
-                      print('selectedTabMonthPrice: $tabSelectedPrice');
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => EvDescriptionDetailsPage(
-                            // evDatum: widget.evDatum,
                             mySelectedTabMonth: tabSelectMonth,
                             mySelectedTabPrice: tabSelectedPrice,
                             carName: widget.carName,
@@ -354,7 +349,6 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                             carOwnerId: widget.carOwnerId,
                             carMakesName: widget.carMakesName,
                             carModelName: widget.carModelName,
-
                           )));
                     // }
 
@@ -400,13 +394,12 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                   },
                   tabs: List<Widget>.generate(
                       monthNumber.length, (int index) {
-                    print("monthsTabBarLength ${monthNumber.length}");
-                    print("monthsTabBarClicked ");
-                    print("monthNumber ${monthNumber[index].months}");
-                    selectedIndex = index;
-                    tabSelectMonth = monthNumber[selectedIndex].months;
-                    tabSelectedPrice = monthNumber[selectedIndex].dis_price_per_months;
-                    print("tabSelectMonthAndPrice $tabSelectMonth $tabSelectedPrice");
+                    print("monthsTabBarLength111 ${monthNumber.length}");
+                    print("monthNumber111 ${monthNumber[index].months}");
+                    // selectedIndex = index;
+                    // tabSelectMonth = monthNumber[index].months;
+                    // tabSelectedPrice = monthNumber[index].dis_price_per_months;
+                    // print("tabSelectMonthAndPrice $tabSelectMonth $tabSelectedPrice");
                     return Container(
                       color: Colors.transparent,
                       height: MediaQuery.of(context).size.height * 0.12,
@@ -418,7 +411,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               monthNumber[index].months == "1" ? Text("${monthNumber[index].months} month", style: TextStyle(
-                                color: kBlack, fontSize: 17, fontFamily: poppinMedium,)):
+                                color: kBlack, fontSize: 17, fontFamily: poppinMedium)):
                               Text("${monthNumber[index].months} months", style: TextStyle(
                                   color: kBlack, fontSize: 17, fontFamily: poppinMedium)),
 

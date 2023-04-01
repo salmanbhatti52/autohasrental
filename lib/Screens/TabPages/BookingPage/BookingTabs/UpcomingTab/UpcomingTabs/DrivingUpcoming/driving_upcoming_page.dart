@@ -179,14 +179,13 @@ class _DrivingUpcomingPageState extends State<DrivingUpcomingPage> {
                                               Text("${drivingUpcomingModelObject.data![index].carsDetails!.carsColors!.name}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-
                                             ],
                                           ),
                                           Row(
                                             children: [
 
                                               Text(
-                                                "${drivingUpcomingModelObject.data![index].carsDetails!.carsMakes}, ",
+                                                "${drivingUpcomingModelObject.data![index].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(

@@ -68,7 +68,7 @@ class UsersData {
   String? paypalEmail;
   int? verifyEmailOtp;
   int? forgotPasswordOtp;
-  String? dateModified;
+  dynamic dateModified;
 
   UsersData(
       {this.usersCustomersId,

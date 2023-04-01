@@ -1,12 +1,12 @@
 import 'dart:async';
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Utils/colors.dart';
-import '../../Utils/constants.dart';
 import '../Authentication/LoginPage/login_page.dart';
 import '../Introduction_screens/introduction_page.dart';
-import '../TabPages/tab_page.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -27,11 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
     userEmail = (prefs!.getString('user_email'));
     userFirstName = (prefs!.getString('user_first_name'));
     userLastName = (prefs!.getString('user_last_name'));
-    userImage = (prefs!.getString('profile_pic'));
-    print("userId in  LoginPrefs is = $userId");
-    print("userEmail in  LoginPrefs is = $userEmail");
-    print("userFirstName in  LoginPrefs is = $userFirstName $userLastName");
-    print("userImage in  LoginPrefs is = $userImage");
+    print("userId in LoginPrefs is = $userId");
+    print("userEmail in LoginPrefs is = $userEmail");
+    print("userFirstName in LoginPrefs is = $userFirstName $userLastName");
+
     if (userId != null) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarPage()));
     }

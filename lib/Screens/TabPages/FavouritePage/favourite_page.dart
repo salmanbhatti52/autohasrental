@@ -1,5 +1,4 @@
 import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -10,8 +9,8 @@ import '../../../Model/HomePageModels/FavoritesModel/favorite_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import '../../../Model/Notification/notifications_unread_model.dart';
+import '../HomePage/Drawer/Settings/settings_screen.dart';
 import '../HomePage/Drawer/drawer_screen.dart';
 import '../HomePage/Notifications/notification_screen.dart';
 
@@ -37,16 +36,18 @@ class _FavoritePageState extends State<FavoritePage> {
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
     print("userId in favoriteCar Prefs is = $userId");
+    notificationStatus = (prefs!.getString('notification_status'));
+    print("notificationStatus in sharedPrefs $notificationStatus");
     setState(() {
       getUnreadNotificationWidget();
       getFavoriteCarWidget();
+
     });
   }
 
   getFavoriteCarWidget() async {
     loadingP = true;
     setState(() {});
-
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
     print('in favoriteCarModelObjectCarApi');
@@ -68,7 +69,7 @@ class _FavoritePageState extends State<FavoritePage> {
         favoriteCarModelObject = favoriteCarModelFromJson(responseString);
         loadingP = false;
         setState(() {});
-        print("favoriteCarModelObjectLength: ${favoriteCarModelObject.data!.length}");
+        print("favoriteCarModelObjectLength: ${favoriteCarModelObject.data?.length}");
       }
     // } catch (e) {
     //   print('Error in favoriteCarModelObject: ${e.toString()}');
@@ -156,7 +157,8 @@ class _FavoritePageState extends State<FavoritePage> {
     // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      body: Column(
+      body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
+      Column(
         children: [
           SizedBox(height: screenHeight * 0.04),
 
@@ -182,6 +184,8 @@ class _FavoritePageState extends State<FavoritePage> {
                   style: TextStyle(
                       fontSize: 20, fontFamily: poppinBold, color: kBlack),
                 ),
+
+                notificationStatus == "Yes"?
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
@@ -189,32 +193,29 @@ class _FavoritePageState extends State<FavoritePage> {
                   },
                   child: Stack(
                     children: [
-
                       SvgPicture.asset("assets/home_page/notification_bell.svg"),
                       Positioned(
                         right: 02,
-                        left: 04,
-                        bottom: 08,
-                        child: notificationsUnReadModelObject.data?.length == null? Container():
+                        left: 05,
+                        bottom: 10,
+                        child: notificationsUnReadModelObject.data?.length == 0 ? Container():
                         Container(
-                            height: 15, width: 15,
+                            height: 12, width: 12,
                             decoration: BoxDecoration(
                                 color: kRed,
                                 borderRadius: BorderRadius.circular(30)
                             ),
                             child: Center(
-                              child: Text("${notificationsUnReadModelObject.data!.length}",
-                                style: TextStyle(color: kWhite, fontSize: 10),),
+                              child: Text("${notificationsUnReadModelObject.data?.length}",
+                                style: TextStyle(color: kWhite, fontSize: 08),),
                             )),
                       ),
                     ],
                   ),
-                ),
+                ) : Container(),
               ],
             ),
           ),
-          // myHeaderDrawer(context, "assets/home_page/Side_Menu.png", "Favorite",
-          //     "assets/home_page/notification_bell.svg"),
           allFavItem(),
         ],
       ),
@@ -226,13 +227,14 @@ class _FavoritePageState extends State<FavoritePage> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 15),
-      child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
-      favoriteCarModelObject.message == "no data found." ? const Center(child: Text('no car in favorite', style: TextStyle(fontWeight: FontWeight.bold))) :
-      favoriteCarModelObject.data == null? const Center(child: Text('no car in favorite....', style: TextStyle(fontWeight: FontWeight.bold))):
-      Container(
+      child: Container(
         color: Colors.transparent,
-        height: screenHeight * 0.75,
-        child: ListView.builder(
+        height: screenHeight * 0.73,
+        child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
+        favoriteCarModelObject.message == "no data found." ?
+        const Center(child: Text('no car in favorite', style: TextStyle(fontWeight: FontWeight.bold))) :
+        favoriteCarModelObject.data == null? const Center(child: Text('no car in favorite....', style: TextStyle(fontWeight: FontWeight.bold))):
+        ListView.builder(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,

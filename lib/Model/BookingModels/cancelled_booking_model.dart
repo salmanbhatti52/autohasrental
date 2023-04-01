@@ -154,7 +154,7 @@ class CarsDetail {
   String? features;
   String? rating;
   DateTime? dateAdded;
-  DateTime? dateModified;
+  dynamic dateModified;
   String? status;
 
   factory CarsDetail.fromJson(Map<String, dynamic> json) => CarsDetail(
@@ -180,7 +180,7 @@ class CarsDetail {
     features: json["features"],
     rating: json["rating"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: DateTime.parse(json["date_modified"]),
+    dateModified: json["date_modified"],
     status: json["status"],
   );
 
@@ -207,7 +207,7 @@ class CarsDetail {
     "features": features,
     "rating": rating,
     "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified!.toIso8601String(),
+    "date_modified": dateModified,
     "status": status,
   };
 }
@@ -274,7 +274,7 @@ class UsersCompanyDetail {
   String? paypalEmail;
   int? forgotPasswordOtp;
   DateTime? dateAdded;
-  DateTime? dateModified;
+  dynamic dateModified;
   String? status;
 
   factory UsersCompanyDetail.fromJson(Map<String, dynamic> json) => UsersCompanyDetail(
@@ -292,7 +292,7 @@ class UsersCompanyDetail {
     paypalEmail: json["paypal_email"],
     forgotPasswordOtp: json["forgotPasswordOtp"],
     dateAdded: DateTime.parse(json["date_added"]),
-    dateModified: DateTime.parse(json["date_modified"]),
+    dateModified: json["date_modified"],
     status: json["status"],
   );
 
@@ -311,7 +311,7 @@ class UsersCompanyDetail {
     "paypal_email": paypalEmail,
     "forgotPasswordOtp": forgotPasswordOtp,
     "date_added": dateAdded!.toIso8601String(),
-    "date_modified": dateModified!.toIso8601String(),
+    "date_modified": dateModified,
     "status": status,
   };
 }

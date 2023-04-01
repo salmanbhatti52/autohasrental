@@ -7,6 +7,7 @@ import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../Model/BookingModels/Previous/Photo/photo_previous_model.dart';
 import '../../../../../../Model/car_ratings_model.dart';
@@ -78,64 +79,74 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
   }
 
   bool _isLoading = true;
+  bool isInAsyncCall = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBarSingleImage(
           backImage: "assets/car_bookings_images/back_arrow.png", title: "Bookings"),
       backgroundColor: homeBgColor,
-      body: Column(
-        children: [
-          SizedBox(height: 10),
-          Expanded(
-            flex: 7,
-            child: Stack(
-              children: [
-                InAppWebView(
-                  initialUrlRequest: URLRequest(
-                    url: Uri.parse("https://app.autohauscarrental.com/api/bookings_print/${widget.bookingId}"),
-                  ),
-                  onLoadStart: (controller, url) {
-                    setState(() {
-                      _isLoading = true;
-                    });
-                  },
-                  onLoadStop: (controller, url) {
-                    setState(() {
-                      _isLoading = false;
-                    });
-                  },
-                ),
-                if (_isLoading)
-                  Center(
-                    child: CircularProgressIndicator(color: borderColor,),
-                  ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: widget.myStatus == "Completed"?
-              Container(
-                height: 0,
-                color: Colors.transparent,
-                child: GestureDetector(
-                    onTap: () {
-                      if(getRateCarsModel.message == "Rating already given"){
-                        toastSuccessMessage("${getRateCarsModel.message}", kRed);
-                      }
-                      else{
-                        ratingsDialogBox(context);
-                      }
+      body: ModalProgressHUD(
+        inAsyncCall: isInAsyncCall,
+        opacity: 0.02,
+        blur: 0.5,
+        color: Colors.transparent,
+        progressIndicator: CircularProgressIndicator(
+          color: borderColor,
+        ),
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            Expanded(
+              flex: 7,
+              child: Stack(
+                children: [
+                  InAppWebView(
+                    initialUrlRequest: URLRequest(
+                      url: Uri.parse("https://app.autohauscarrental.com/api/bookings_print/${widget.bookingId}"),
+                    ),
+                    onLoadStart: (controller, url) {
+                      setState(() {
+                        _isLoading = true;
+                      });
                     },
-                    child: loginButton('Give Ratings', context)),
-              ): loginButton('Give Ratings', context)
+                    onLoadStop: (controller, url) {
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    },
+                  ),
+                  if (_isLoading)
+                    Center(
+                      child: CircularProgressIndicator(color: borderColor,),
+                    ),
+                ],
+              ),
             ),
-          ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: widget.myStatus == "Completed"?
+                Container(
+                  height: 0,
+                  color: Colors.transparent,
+                  child: GestureDetector(
+                      onTap: () {
+                        if(getRateCarsModel.message == "Rating already given"){
+                          toastSuccessMessage("${getRateCarsModel.message}", kRed);
+                        }
+                        else{
+                          ratingsDialogBox(context);
+                        }
+                      },
+                      child: loginButton('Give Ratings', context)),
+                ): loginButton('Give Ratings', context)
+              ),
+            ),
 
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -237,14 +248,9 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                           itemSize: 30.0,
                           ratingWidget: RatingWidget(
                               full: Icon(Icons.star, color: borderColor),
-                              half: Icon(
-                                Icons.star_half,
-                                color: borderColor,
-                              ),
-                              empty: Icon(
-                                Icons.star_outline,
-                                color: borderColor,
-                              )),
+                              half: Icon(Icons.star_half, color: borderColor),
+                              empty: Icon(Icons.star_outline, color: borderColor),
+                          ),
                           onRatingUpdate: (value) {
                             setState(() {
                               ratingValue = value;
@@ -297,10 +303,22 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                               if(carRatingController.text.isEmpty){
                                 toastFailedMessage("Please add your feedback", kRed);
                               } else {
+                                setState(() {
+                                  isInAsyncCall = true;
+                                });
                                 await carRatingsWidget();
                                 if(rateCarModelObject.status == "Success"){
-                                  // Navigator.pop(context);
-                                  toastSuccessMessage("${rateCarModelObject.message}", colorGreen);
+                                  Future.delayed(const Duration(seconds: 3), () {
+                                    toastSuccessMessage("${rateCarModelObject.message}", colorGreen);
+                                    Navigator.pop(context);
+                                    setState(() {
+                                      isInAsyncCall = false;
+                                    });
+                                    print("false: $isInAsyncCall");
+                                  });
+
+
+                                  // toastSuccessMessage("${rateCarModelObject.message}", colorGreen);
                                 }
                                 if(rateCarModelObject.status == "error"){
                                   // toastFailedMessage("${rateCarModelObject.message}", kRed);

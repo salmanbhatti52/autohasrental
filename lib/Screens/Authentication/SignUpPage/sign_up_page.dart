@@ -56,8 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
           'email': emailController.text.trim(),
           'password': passwordController.text,
           'account_type': "SignupWithApp",
-        },
-      );
+        });
       final responseString = response.body;
       print("responseSignUpApi: $responseString");
 
@@ -67,7 +66,6 @@ class _SignUpPageState extends State<SignUpPage> {
           signUpModel = signUpModelFromJson(responseString);
           setState(() {});
           print('signUpModel status: ${signUpModel.status}');
-
       }
     // } catch (e) {
     //   print('singUp error in catch = ${e.toString()}');
