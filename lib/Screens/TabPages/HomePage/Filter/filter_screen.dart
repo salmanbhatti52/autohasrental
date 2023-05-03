@@ -217,7 +217,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           });
                           await filterCarsWidget();
 
-                          Future.delayed(const Duration(seconds: 3), () {
+                          Future.delayed(Duration(seconds: 3), () {
 
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) => TabBarPage()));
@@ -347,7 +347,7 @@ class _FilterScreenState extends State<FilterScreen> {
   }
   dividerWidget(){
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10),
       child: Divider(
         color: Color(0xff3F4655),
         indent: 20,
@@ -474,7 +474,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     SizedBox(height: 10),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -487,17 +487,17 @@ class _FilterScreenState extends State<FilterScreen> {
                               color: kWhite,
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                               horizontal: 10,
                             ),
                             child: DropdownButtonHideUnderline(
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.only(left: 10),
                                 child: DropdownButton(
                                   // Initial Value
                                   hint: Text('Select an option', style: TextStyle(color: kBlack),),
                                   value: dropdownCarType,
-                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  icon: Icon(Icons.keyboard_arrow_down),
                                   // Array list of items
                                   items: items.map((String items) {
                                     return DropdownMenuItem(

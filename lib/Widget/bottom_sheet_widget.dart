@@ -31,17 +31,17 @@
 //         return Container(
 //           decoration: BoxDecoration(
 //               color: homeBgColor,
-//               borderRadius: const BorderRadius.only(
+//               borderRadius: BorderRadius.only(
 //                 topRight: Radius.circular(30),
 //                 topLeft: Radius.circular(30),
 //               )),
 //           child: Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 20),
+//             padding: EdgeInsets.symmetric(horizontal: 20),
 //             child: Column(
 //               children: [
-//                 const SizedBox(height: 20),
+//                 SizedBox(height: 20),
 //                 Padding(
-//                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+//                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
 //                   child: Container(
 //                     height: MediaQuery.of(context).size.height * 0.05,
 //                     width: MediaQuery.of(context).size.width,
@@ -54,7 +54,7 @@
 //                         Image.asset(
 //                             "assets/payment_card_images/apple_image.png",
 //                             color: kWhite),
-//                         const SizedBox(width: 10),
+//                         SizedBox(width: 10),
 //                         Text("Pay", textAlign: TextAlign.center,
 //                             style: TextStyle(color: kWhite,
 //                                 fontFamily: poppinRegular, fontSize: 18)),
@@ -99,7 +99,7 @@
 //                         keyboardType: TextInputType.number,
 //                         decoration: InputDecoration(
 //                           border: InputBorder.none,
-//                           contentPadding: const EdgeInsets.all(20),
+//                           contentPadding: EdgeInsets.all(20),
 //                           focusedBorder: OutlineInputBorder(
 //                               borderRadius: BorderRadius.circular(30.0),
 //                               borderSide: BorderSide(color: borderColor)),
@@ -136,7 +136,7 @@
 //                               keyboardType: TextInputType.emailAddress,
 //                               decoration: InputDecoration(
 //                                 border: InputBorder.none,
-//                                 contentPadding: const EdgeInsets.all(20),
+//                                 contentPadding: EdgeInsets.all(20),
 //                                 focusedBorder: OutlineInputBorder(
 //                                     borderRadius: BorderRadius.circular(30.0),
 //                                     borderSide: BorderSide(color: borderColor)),
@@ -176,7 +176,7 @@
 //                               keyboardType: TextInputType.emailAddress,
 //                               decoration: InputDecoration(
 //                                 border: InputBorder.none,
-//                                 contentPadding: const EdgeInsets.all(20),
+//                                 contentPadding: EdgeInsets.all(20),
 //                                 focusedBorder: OutlineInputBorder(
 //                                     borderRadius: BorderRadius.circular(30.0),
 //                                     borderSide: BorderSide(color: borderColor)),
@@ -219,12 +219,12 @@
 //                       decoration: BoxDecoration(
 //                           color: kWhite,
 //                           borderRadius: BorderRadius.circular(30)),
-//                       padding: const EdgeInsets.symmetric(horizontal: 10),
+//                       padding: EdgeInsets.symmetric(horizontal: 10),
 //                       child: DropdownButtonHideUnderline(
 //                         child: DropdownButton(
 //                           // Initial Value
 //                           value: dropdownValue,
-//                           icon: const Icon(Icons.keyboard_arrow_down),
+//                           icon: Icon(Icons.keyboard_arrow_down),
 //                           // Array list of items
 //                           items: items.map((String items) {
 //                             return DropdownMenuItem(
@@ -285,11 +285,11 @@
 //                         context: context,
 //                         builder: (BuildContext context) {
 //                           return Container(
-//                             color: const Color(0xffb0b0b0),
+//                             color: Color(0xffb0b0b0),
 //                             child: Container(
-//                               color: const Color(0xffb0b0b0),
+//                               color: Color(0xffb0b0b0),
 //                               child: Container(
-//                                 color: const Color(0xff0f172a).withOpacity(0.5),
+//                                 color: Color(0xff0f172a).withOpacity(0.5),
 //                                 child: Dialog(
 //                                   shape: RoundedRectangleBorder(
 //                                     borderRadius: BorderRadius.circular(20.0),
@@ -300,7 +300,7 @@
 //                                         borderRadius: BorderRadius.circular(
 //                                             20)),
 //                                     child: Padding(
-//                                       padding: const EdgeInsets.all(12.0),
+//                                       padding: EdgeInsets.all(12.0),
 //                                       child: Column(
 //                                         mainAxisAlignment: MainAxisAlignment
 //                                             .center,

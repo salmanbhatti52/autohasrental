@@ -1,5 +1,5 @@
-import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
 
 class AddressTextFormField {
   TextFormField getCustomEditTextArea(
@@ -27,7 +27,7 @@ class AddressTextFormField {
           labelText: labelValue,
           hintText: hintValue,
           // labelStyle: textStyle,
-          // hintStyle: const TextStyle(color: Color(0xff8D8D8D)),
+          // hintStyle: TextStyle(color: Color(0xff8D8D8D)),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.0),
             borderSide: BorderSide(color: kWhite)

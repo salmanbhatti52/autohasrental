@@ -3,7 +3,7 @@
 // import 'package:flutter/material.dart';
 //
 // class ChooseMileagePlan extends StatefulWidget {
-//   const ChooseMileagePlan({Key? key}) : super(key: key);
+//   ChooseMileagePlan({Key? key}) : super(key: key);
 //
 //   @override
 //   State<ChooseMileagePlan> createState() => _ChooseMileagePlanState();
@@ -27,10 +27,10 @@
 //       color: Colors.transparent,
 //       height: 100,
 //       child: Padding(
-//         padding: const EdgeInsets.symmetric(vertical: 10),
+//         padding: EdgeInsets.symmetric(vertical: 10),
 //         child: GridView.builder(
-//             physics: const NeverScrollableScrollPhysics(),
-//             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//             physics: NeverScrollableScrollPhysics(),
+//             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
 //               crossAxisCount: 2,
 //               childAspectRatio: 1/0.2,
 //               mainAxisSpacing: 02,
@@ -54,11 +54,11 @@
 // }
 // class MileageRadioItem extends StatelessWidget {
 //   final MileageRadioModel _item;
-//   const MileageRadioItem(this._item, {super.key});
+//   MileageRadioItem(this._item, {super.key});
 //   @override
 //   Widget build(BuildContext context) {
 //     return Container(
-//       margin: const EdgeInsets.only(right: 05, top: 05),
+//       margin: EdgeInsets.only(right: 05, top: 05),
 //       // height: MediaQuery.of(context).size.height * 0.02,
 //       // width: MediaQuery.of(context).size.width * 0.28,
 //       decoration: BoxDecoration(
@@ -67,7 +67,7 @@
 //         borderRadius: BorderRadius.circular(20),
 //       ),
 //       child: Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 15),
+//         padding: EdgeInsets.symmetric(horizontal: 15),
 //         child: Center(
 //           child: Text(_item.buttonText,
 //                   textAlign: TextAlign.left, style: TextStyle(

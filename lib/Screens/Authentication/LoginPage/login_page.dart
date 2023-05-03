@@ -1,21 +1,22 @@
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Widget/button.dart';
+
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/AuthModels/user_login_model.dart';
-import '../../../Widget/TextFields/password_text_field.dart';
-import '../../../Widget/TextFields/text_form_field.dart';
-import '../../../Widget/myTextWidget.dart';
-import '../../../Widget/toast_message.dart';
-import '../../TabPages/tab_page.dart';
-import '../SignUpPage/sign_up_page.dart';
-import 'ForgetPassword/forget_password_page.dart';
 import 'package:http/http.dart' as http;
+import 'ForgetPassword/forget_password_page.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/text_form_field.dart';
+import 'package:auto_haus_rental_app/Model/AuthModels/user_login_model.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/password_text_field.dart';
+import 'package:auto_haus_rental_app/Screens/Authentication/SignUpPage/sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -172,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                             print("userFirstName: ${userLoginModel.data!.firstName!}");
                             print("userLastName: ${userLoginModel.data!.lastName!}");
 
-                            Future.delayed(const Duration(seconds: 3), () {
+                            Future.delayed(Duration(seconds: 3), () {
                               toastSuccessMessage("${userLoginModel.status}", Colors.green);
 
                               Navigator.pushReplacement(context,

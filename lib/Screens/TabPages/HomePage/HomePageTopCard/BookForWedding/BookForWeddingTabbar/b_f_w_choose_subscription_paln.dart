@@ -8,7 +8,7 @@
 // import '../../../../../../Widget/time_slot.dart';
 //
 // class BFWChooseSubscriptionPlan extends StatefulWidget {
-//   const BFWChooseSubscriptionPlan({Key? key}) : super(key: key);
+//   BFWChooseSubscriptionPlan({Key? key}) : super(key: key);
 //
 //   @override
 //   State<BFWChooseSubscriptionPlan> createState() => _BFWChooseSubscriptionPlanState();
@@ -18,7 +18,7 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 5),
+//       padding: EdgeInsets.symmetric(vertical: 5),
 //       child: Row(
 //         mainAxisSize: MainAxisSize.max,
 //         children: [
@@ -31,7 +31,7 @@
 //             ),
 //             child: Center(
 //               child: Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 10),
+//                 padding: EdgeInsets.symmetric(horizontal: 10),
 //                 child: Text('3 days 26 Dec 2022 - 28 Dec 2022',
 //                     textAlign: TextAlign.left,
 //                     style: TextStyle(
@@ -55,7 +55,7 @@
 //                         width: MediaQuery.of(context).size.width,
 //                         decoration: BoxDecoration(
 //                           color: homeBgColor,
-//                           borderRadius: const BorderRadius.only(
+//                           borderRadius: BorderRadius.only(
 //                             topRight: Radius.circular(20),
 //                             topLeft: Radius.circular(20),
 //                           ),
@@ -68,7 +68,7 @@
 //                             Align(
 //                               alignment: Alignment.topLeft,
 //                               child: Padding(
-//                                 padding: const EdgeInsets.only(left: 16),
+//                                 padding: EdgeInsets.only(left: 16),
 //                                 child: Text(
 //                                   'Select Booking Day and Time',
 //                                   style: TextStyle(
@@ -91,13 +91,13 @@
 //                               textAlign: TextAlign.left,
 //                             ),
 //                             Padding(
-//                               padding: const EdgeInsets.symmetric(
+//                               padding: EdgeInsets.symmetric(
 //                                   horizontal: 20, vertical: 10),
 //                               child: SizedBox(
 //                                   width: MediaQuery.of(context).size.width,
 //                                   height:
 //                                       MediaQuery.of(context).size.height * 0.06,
-//                                   child: const DaySlotContainer()),
+//                                   child: DaySlotContainer()),
 //                             ),
 //                             SizedBox(
 //                                 height:
@@ -105,7 +105,7 @@
 //                             Align(
 //                               alignment: Alignment.topLeft,
 //                               child: Padding(
-//                                 padding: const EdgeInsets.only(left: 16),
+//                                 padding: EdgeInsets.only(left: 16),
 //                                 child: Text(
 //                                   'Select Hours',
 //                                   style: TextStyle(
@@ -118,12 +118,12 @@
 //                             ),
 //                             Padding(
 //                               padding:
-//                                   const EdgeInsets.symmetric(horizontal: 20),
+//                                   EdgeInsets.symmetric(horizontal: 20),
 //                               child: SizedBox(
 //                                   width: MediaQuery.of(context).size.width,
 //                                   height:
 //                                       MediaQuery.of(context).size.height * 0.17,
-//                                   child: const HourSlotContainer()),
+//                                   child: HourSlotContainer()),
 //                             ),
 //                             SizedBox(
 //                                 height:
@@ -131,7 +131,7 @@
 //                             Align(
 //                               alignment: Alignment.topLeft,
 //                               child: Padding(
-//                                 padding: const EdgeInsets.only(left: 16),
+//                                 padding: EdgeInsets.only(left: 16),
 //                                 child: Text(
 //                                   'Select Available Time',
 //                                   style: TextStyle(
@@ -144,12 +144,12 @@
 //                             ),
 //                             Padding(
 //                               padding:
-//                                   const EdgeInsets.symmetric(horizontal: 20),
+//                                   EdgeInsets.symmetric(horizontal: 20),
 //                               child: SizedBox(
 //                                   width: MediaQuery.of(context).size.width,
 //                                   height:
 //                                       MediaQuery.of(context).size.height * 0.17,
-//                                   child: const TimeSlotContainer()),
+//                                   child: TimeSlotContainer()),
 //                             ),
 //                             SizedBox(
 //                                 height:
@@ -164,7 +164,7 @@
 //                                 Navigator.pop(context);
 //                               },
 //                               child: Padding(
-//                                 padding: const EdgeInsets.symmetric(
+//                                 padding: EdgeInsets.symmetric(
 //                                     horizontal: 20, vertical: 10),
 //                                 child: Center(
 //                                   child: Container(

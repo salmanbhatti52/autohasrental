@@ -20,7 +20,7 @@ class AddressTextUtils {
       keyboardType: keyboardType,
       decoration: InputDecoration(
         border: InputBorder.none,
-        contentPadding: const EdgeInsets.only(top: 10, left: 20, bottom: 10),
+        contentPadding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
         hintText: hintValue,
         fillColor: kWhite,
         hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular,),

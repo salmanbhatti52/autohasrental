@@ -1,11 +1,13 @@
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
-import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
-import 'package:country_picker/country_picker.dart';
+
 import 'package:flutter/material.dart';
+import 'package:country_picker/country_picker.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
+
 
 class HomeAddress extends StatefulWidget {
-  const HomeAddress({Key? key}) : super(key: key);
+  HomeAddress({Key? key}) : super(key: key);
 
   @override
   State<HomeAddress> createState() => _HomeAddressState();
@@ -39,7 +41,7 @@ class _HomeAddressState extends State<HomeAddress> {
     return Scaffold(
       backgroundColor: homeBgColor,
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -59,10 +61,10 @@ class _HomeAddressState extends State<HomeAddress> {
                       color: kWhite,
                       borderRadius: BorderRadius.circular(30)
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 10, ),
+                  padding: EdgeInsets.symmetric(horizontal: 10, ),
                   child: DropdownButtonHideUnderline(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 10),
+                      padding: EdgeInsets.only(left: 10),
                       child: DropdownButton(
                         // Initial Value
                         value: dropdownValue,
@@ -71,7 +73,7 @@ class _HomeAddressState extends State<HomeAddress> {
                         // ),
 
                         // Down Arrow Icon
-                        icon: const Icon(Icons.keyboard_arrow_down),
+                        icon: Icon(Icons.keyboard_arrow_down),
 
                         // Array list of items
                         items: items.map((String items) {
@@ -117,7 +119,7 @@ class _HomeAddressState extends State<HomeAddress> {
                       },
                       // Optional. Sets the theme for the country list picker.
                       countryListTheme: CountryListThemeData(
-                        borderRadius: const BorderRadius.only(
+                        borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40.0),
                           topRight: Radius.circular(40.0),
                         ),
@@ -125,11 +127,11 @@ class _HomeAddressState extends State<HomeAddress> {
                         inputDecoration: InputDecoration(
                           labelText: 'Search',
                           hintText: 'Start typing to search',
-                          prefixIcon: const Icon(Icons.search),
+                          prefixIcon: Icon(Icons.search),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
                               color:
-                                  const Color(0xFF8C98A8).withOpacity(0.2),
+                                  Color(0xFF8C98A8).withOpacity(0.2),
                             ),
                           ),
                         ),
@@ -137,35 +139,35 @@ class _HomeAddressState extends State<HomeAddress> {
                     );
                   },
                   child: Container(
-                      padding: const EdgeInsets.only(left: 10),
+                      padding: EdgeInsets.only(left: 10),
                       height: MediaQuery.of(context).size.height * 0.06,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           color: kWhite,
                           borderRadius: BorderRadius.circular(30)
                       ),
-                      margin: const EdgeInsets.only(left: 0, right: 0),
+                      margin: EdgeInsets.only(left: 0, right: 0),
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 _country.toString(),
-                                style: const TextStyle(fontSize: 16),
+                                style: TextStyle(fontSize: 16),
                               ),
                               Container(
                                 //padding: EdgeInsets.only(right: 6),
                                 alignment: Alignment.center,
                                 height: MediaQuery.of(context).size.height,
                                 width: MediaQuery.of(context).size.width * 0.07,
-                                decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
                                   // color: Colors.black12,
                                     borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(4),
                                         bottomRight: Radius.circular(4))),
-                                child: const Icon(Icons.keyboard_arrow_down_outlined),
+                                child: Icon(Icons.keyboard_arrow_down_outlined),
                               ),
                             ]),
                       )),
@@ -180,9 +182,9 @@ class _HomeAddressState extends State<HomeAddress> {
               width: MediaQuery.of(context).size.width * 0.7,
               decoration: BoxDecoration(
                   // color: borderColor,
-                  color: const Color(0xffD4DCE1),
+                  color: Color(0xffD4DCE1),
                   borderRadius: BorderRadius.circular(30)),
-              child: const Center(
+              child: Center(
                 child: Text("Save",
                     style: TextStyle(
                         color: Colors.white,
@@ -199,7 +201,7 @@ class _HomeAddressState extends State<HomeAddress> {
 
   Widget buildTextFields() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0),
+        padding: EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           color: Colors.transparent,
           child: Column(

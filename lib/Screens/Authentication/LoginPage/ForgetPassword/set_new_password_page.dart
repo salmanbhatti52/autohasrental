@@ -143,7 +143,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                           });
                           await modifyNewPasswordWidget();
                           if (modifyPasswordModel.status == "success") {
-                            Future.delayed(const Duration(seconds: 3), () {
+                            Future.delayed(Duration(seconds: 3), () {
                               print("passwordModify");
                               print("${modifyPasswordModel.status}");
                               toastSuccessMessage("${modifyPasswordModel.status}", colorGreen);

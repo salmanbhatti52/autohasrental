@@ -190,7 +190,7 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
                               progress = true;
                             });
                             await sendMessageApiWidget();
-                            Future.delayed(const Duration(seconds: 3), () {
+                            Future.delayed(Duration(seconds: 3), () {
                               print("sendMessage Success");
                               // toastSuccessMessage("Message sent successfully2.", colorGreen);
                               setState(() {
@@ -259,6 +259,7 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
         });
     if (response.statusCode == 200) {
       final responseString = response.body;
+      print("getLiveMsgApiUrl: ${getLiveMsgApiUrl}");
       print("getLiveChatResponse: ${responseString.toString()}");
       getLiveMessagesModel = getLiveMessagesModelFromJson(responseString);
       print("getLiveChatLength: ${getLiveMessagesModel.data?.length}");

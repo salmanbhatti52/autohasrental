@@ -3,7 +3,7 @@
 // import '../../../../../../Widget/colors.dart';
 //
 // class ApplePayScreen extends StatefulWidget {
-//   const ApplePayScreen({Key? key}) : super(key: key);
+//   ApplePayScreen({Key? key}) : super(key: key);
 //
 //   @override
 //   State<ApplePayScreen> createState() => _ApplePayScreenState();
@@ -23,7 +23,7 @@
 //         builder: (builder){
 //           return Container(
 //             height: 800.0,
-//             decoration: const BoxDecoration(
+//             decoration: BoxDecoration(
 //                 color: Colors.green,
 //                 borderRadius: BorderRadius.only(
 //                   topRight: Radius.circular(20),
@@ -40,14 +40,14 @@
 //                   child: Row(
 //                     children: [
 //                       Image.asset("assets/messages_images/apple_image.png", color: kWhite,),
-//                       const Text("Pay", textAlign: TextAlign.center,
+//                       Text("Pay", textAlign: TextAlign.center,
 //                           style: TextStyle(color: Colors.white,
 //                               fontFamily: 'Poppins',
 //                               fontWeight: FontWeight.w400, fontSize: 18)),
 //                     ],
 //                   ),
 //                 ),
-//                 const Text(" Modal BottomSheet",textScaleFactor: 2,
+//                 Text(" Modal BottomSheet",textScaleFactor: 2,
 //                     style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
 //               ],
 //             ),

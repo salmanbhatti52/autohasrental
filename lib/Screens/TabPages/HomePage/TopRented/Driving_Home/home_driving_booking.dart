@@ -1,22 +1,21 @@
 import 'dart:convert';
-import 'package:auto_haus_rental_app/Model/GetCarByIdModel/driving_car_details_by_id_model.dart';
-import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
-import 'package:auto_haus_rental_app/Model/HomePageModels/top_rented_cars_model.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart'as http;
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'home_driving_booking_details.dart';
+import 'DrivingDescTabs/driving_desc_tabbars.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import '../../../MessagePage/message_details_screen.dart';
-import 'package:http/http.dart'as http;
-import 'DrivingDescTabs/driving_desc_tabbars.dart';
-import 'home_driving_booking_details.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/top_rented_cars_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_details_screen.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
 
 class HomeDrivingBooking extends StatefulWidget {
   final DatumTopRented? datum;
@@ -51,7 +50,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
       context: context,
       initialDate: DateTime.now(),
       // firstDate: DateTime(1980),
-      firstDate: DateTime.now().subtract(const Duration(days: 0)),
+      firstDate: DateTime.now().subtract(Duration(days: 0)),
       /// we added this line to To disable all previous dates
       lastDate: DateTime(2050),
     );
@@ -187,7 +186,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: AppBar(
-          systemOverlayStyle: const SystemUiOverlayStyle(
+          systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
             statusBarIconBrightness: Brightness.dark,
             statusBarBrightness: Brightness.dark,
@@ -210,7 +209,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
 
                 },
               child: Padding(
-                padding: const EdgeInsets.only(top: 30, right: 20),
+                padding: EdgeInsets.only(top: 30, right: 20),
                 child: Image.asset("assets/car_description_images/chat.png",
                   height: 25, width: 25,
                 ),
@@ -225,14 +224,14 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
               Navigator.pop(context);
               },
             child: Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: EdgeInsets.only(top: 30),
               child: Image.asset("assets/live_chat_images/back_arrow.png",
                 color: kWhite, height: 25, width: 25,
               ),
             ),
           ),
           title: Padding(
-            padding: const EdgeInsets.only(top: 30, right: 0),
+            padding: EdgeInsets.only(top: 30, right: 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -245,11 +244,11 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              color: const Color(0xff3d4a68),
+              color: Color(0xff3d4a68),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.4,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: Color(0xff0f172a),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20),
@@ -276,7 +275,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 20),
+                          padding: EdgeInsets.only(left: 20),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(30),
                             child: CachedNetworkImage(
@@ -295,7 +294,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                           // ),
 
                         Padding(
-                          padding: const EdgeInsets.only(right: 20),
+                          padding: EdgeInsets.only(right: 20),
                           child: widget.datum!.favouriteStatus == "like"?
                           Image.asset("assets/home_page/heart.png"):
                           GestureDetector(
@@ -340,7 +339,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.6,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Color(0xff3d4a68),
                 image: DecorationImage(
                     image: AssetImage('assets/images/background.png'),
@@ -349,7 +348,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(15),
+                    padding: EdgeInsets.all(15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -358,7 +357,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 4),
+                              padding: EdgeInsets.only(top: 4),
                               child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                                   fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
                             ),
@@ -367,7 +366,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                                 textAlign: TextAlign.left, style: TextStyle(
                                 fontSize: 20, fontFamily: poppinBold, color: kWhite)),
                             Padding(
-                              padding: const EdgeInsets.only(top: 4),
+                              padding: EdgeInsets.only(top: 4),
                               child: Text("/slot", textAlign: TextAlign.left,
                                   style: TextStyle(fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
                             ),
@@ -399,7 +398,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20),
               child: Text('Available Time Slot',  textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 14, fontFamily: poppinBold)),
             ),
@@ -482,9 +481,9 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
           myCarPlan.isEmpty ? Center(child: Text("No Slots Available", textAlign: TextAlign.left,
               style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinBold))):
           ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 50, maxHeight: 100.0),
+            constraints: BoxConstraints(minHeight: 50, maxHeight: 100.0),
             child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 1 / 0.2,
                   mainAxisSpacing: 05,
@@ -498,7 +497,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                   mySelectedEndTime = myCarPlan[index].endTime;
                   selectedSlotPrice = double.parse(myCarPlan[index].discountedPrice);
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 05),
+                    padding: EdgeInsets.symmetric(horizontal: 05),
                     child: GestureDetector(
                       onTap: (){
                         setState(() {
@@ -521,14 +520,14 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                         decoration: BoxDecoration(
                           color: selectedIndex == index? borderColor: kWhite,
                           borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: selectedIndex == index ? borderColor : const Color(0xffd4dce1),
+                          border: Border.all(color: selectedIndex == index ? borderColor : Color(0xffd4dce1),
                               width: 2),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Icon(Icons.check_circle, size: 22,
-                                color: selectedIndex == index ? kBlack : const Color(0xffd4dce1)),
+                                color: selectedIndex == index ? kBlack : Color(0xffd4dce1)),
                             Text("$mySelectedStartTime to $mySelectedEndTime",
                               style: TextStyle(color: selectedIndex == index? kWhite: kBlack),
                             ),

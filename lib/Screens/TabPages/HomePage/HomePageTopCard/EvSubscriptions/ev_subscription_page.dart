@@ -1,22 +1,22 @@
-import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
-import 'package:auto_haus_rental_app/Model/Notification/notifications_unread_model.dart';
-import 'package:auto_haus_rental_app/Model/get_car_makes_model.dart';
-import 'package:auto_haus_rental_app/Model/search_model.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/constants.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'ev_car_description.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 import 'package:http/http.dart' as http;
-import '../../Drawer/Settings/settings_screen.dart';
-import '../../Notifications/notification_screen.dart';
-import 'ev_car_description.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Model/search_model.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:auto_haus_rental_app/Model/get_car_makes_model.dart';
+import 'package:auto_haus_rental_app/Model/Notification/notifications_unread_model.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/Settings/settings_screen.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Notifications/notification_screen.dart';
 
 int selectedIndex = 0;
 String? carName;
@@ -180,9 +180,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
             GestureDetector(
               onTap: () {
                 print("clicked");
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
+                Navigator.push(context, MaterialPageRoute(
                         builder: (context) =>  NotificationsScreen()));
               },
               child: Padding(
@@ -251,7 +249,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
   }
   carMakersListWidget(){
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 08),
+      padding: EdgeInsets.symmetric(vertical: 08),
       child: Container(
         height: MediaQuery.of(context).size.height* 0.1,
         color: Colors.transparent,
@@ -421,7 +419,11 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                           onTap: () {
                             print("clickedddd");
                             carID = evCarsModelObject.data![index].carsId;
+                            String desc = "${evCarsModelObject.data![index].description}";
                             print("object123 $carID");
+                            print("desc123 $desc");
+                            print("favouriteStatus ${evCarsModelObject.data![index].favouriteStatus}");
+
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => EVCarDescription(
                                   carName: evCarsModelObject.data![index].vehicalName,
@@ -441,8 +443,18 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                   carOwnerName: "${evCarsModelObject.data![index].usersCompanies!.companyName}",
                                   carOwnerId: evCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
                                   myCarDescription: evCarsModelObject.data![index].description,
-                                  // myCarRating: evCarsModelObject.data![index].carsRatings![0].rateStars,
-                                  // myCarComment: evCarsModelObject.data![index].carsRatings![0].comments,
+                                  favouriteStatus: evCarsModelObject.data![index].favouriteStatus,
+
+                                  featureSuv: evCarsModelObject.data![index].featuresSuv,
+                                  featuresDoors: evCarsModelObject.data![index].featuresDoors,
+                                  featuresSeats: evCarsModelObject.data![index].featuresSeats,
+                                  featuresAutomatic: evCarsModelObject.data![index].featuresAutomatic,
+                                  featuresSpeed: evCarsModelObject.data![index].featuresSpeed,
+                                  featuresElectric: evCarsModelObject.data![index].featuresElectric,
+                                  featuresEngine_capacity: evCarsModelObject.data![index].featuresEngineCapacity,
+                                  featuresFuelCapacity: evCarsModelObject.data![index].featuresFuelCapacity,
+                                  featuresMeterReading: evCarsModelObject.data![index].featuresMeterReading,
+                                  featuresNewCars: evCarsModelObject.data![index].featuresNewCars,
                                 )));
                             print("evCarName ${evCarsModelObject.data![index].vehicalName}");
                             print("evCarYear ${evCarsModelObject.data![index].year}");
@@ -644,6 +656,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                  carModelName: evCarsModelObject.data![index].carsModels!.name,
                                  carImage: "$baseUrlImage${evCarsModelObject.data![index].image1}",
                                  carRating: evCarsModelObject.data![index].rating,
+                                 favouriteStatus: evCarsModelObject.data![index].favouriteStatus,
                                  carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
                                  carStatus: evCarsModelObject.data![index].favouriteStatus,
                                  discountPercentage: evCarsModelObject.data![index].discountPercentage,

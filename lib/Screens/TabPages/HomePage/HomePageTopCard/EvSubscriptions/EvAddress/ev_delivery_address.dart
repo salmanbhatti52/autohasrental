@@ -1,25 +1,26 @@
+
+import 'package:flutter/material.dart';
+import 'EvAddressTabBar/ev_address_tabbar.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:flutter/material.dart';
-import '../../../../MyAppBarHeader/app_bar_header.dart';
-import 'EvAddressTabBar/ev_address_tabbar.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 
 class EvDeliveryAddress extends StatefulWidget {
 
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
 
-  final String? carName, carImage, carYear, carPrice, carStatus,
+  final String? carName, carImage, carYear, carPrice, carStatus, favouriteStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
       carRating, carOwnerImage, carOwnerName, discountPercentage, evStartDate, evEndDate;
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  EvDeliveryAddress({Key? key, this.totalAmount, this.carName, this.evStartDate, this.evEndDate,
-    this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
+  EvDeliveryAddress({Key? key, this.totalAmount, this.carName, this.evStartDate,
+    this.evEndDate, this.favouriteStatus, this.carColorName, this.carId,
+    this.carModelName, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
-    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
-
+    this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
     this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
@@ -58,10 +59,10 @@ class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
               EvAddressTabBar(
-                // myDatum: widget.evDatum,
                 mySelectedTabMonth: widget.mySelectedTabMonth,
                 mySelectedTabPrice: widget.mySelectedTabPrice,
                 totalAmount: widget.totalAmount,
+                favouriteStatus: widget.favouriteStatus,
 
                 evStartDate: widget.evStartDate,
                 evEndDate: widget.evEndDate,
@@ -79,23 +80,6 @@ class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
                 carOwnerId: widget.carOwnerId,
                 carMakesName: widget.carMakesName,
                 carModelName: widget.carModelName,
-                // carName: widget.carName,
-                // carYear: widget.carYear,
-                // carModel: widget.carModel,
-                // carImage: widget.carImage,
-                // discountedAmount: widget.discountedAmount,
-                // amount: widget.amount,
-                // carRating: widget.carRating,
-                // discountPercentage: widget.discountPercentage,
-                // selectedHours: widget.selectedHoursInString,
-                // hoursAmount: widget.hoursAmount,
-                // totalAmount: widget.totalAmount,
-                // carMakerName: widget.carMakerName,
-                // selectedStartTime: widget.selectedStartTime,
-                // selectedEndTime: widget.selectedEndTime,
-                // myDate: widget.myDate,
-                // myDay: widget.myDay,
-                // totalHoursInNumber: widget.totalHoursInNumber,
               ),
             ],
           ),

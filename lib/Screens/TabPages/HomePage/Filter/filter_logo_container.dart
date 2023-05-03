@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../Utils/colors.dart';
 
 class FilterLogoContainer extends StatefulWidget {
-  const FilterLogoContainer({super.key});
+  FilterLogoContainer({super.key});
 
   @override
   State<FilterLogoContainer> createState() => _FilterLogoContainerState();
@@ -32,7 +32,7 @@ class _FilterLogoContainerState extends State<FilterLogoContainer> {
     return ListView.builder(
       itemCount: filterData.length,
       scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
+      physics: BouncingScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
@@ -50,7 +50,7 @@ class _FilterLogoContainerState extends State<FilterLogoContainer> {
 
 class FilterRadioItem extends StatelessWidget {
   final FilterRadioModel _item;
-  const FilterRadioItem(this._item, {super.key});
+  FilterRadioItem(this._item, {super.key});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -59,7 +59,7 @@ class FilterRadioItem extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: _item.isSelectedFilter ? kWhite : const Color(0xff3f4555),
+            color: _item.isSelectedFilter ? kWhite : Color(0xff3f4555),
             border: Border.all(
                 width: 1.0,
                 color:
@@ -67,15 +67,15 @@ class FilterRadioItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Image.asset(
               _item.image,color: _item.isSelectedFilter
                 ? borderColor
-                : const Color(0xffd4dce1),
+                : Color(0xffd4dce1),
             ),
           ),
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: 8),
       ],
     );
   }

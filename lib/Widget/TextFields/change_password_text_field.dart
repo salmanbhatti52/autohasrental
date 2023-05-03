@@ -21,7 +21,7 @@ class ChangePasswordEditTextUtils {
       keyboardType: keyboardType,
       obscureText: obscureText,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 10, 0),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 10, 0),
         border: InputBorder.none,
         // enabledBorder: OutlineInputBorder(
         //     borderRadius: BorderRadius.circular(30.0),

@@ -1,30 +1,31 @@
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
-import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
-import 'package:country_state_picker/country_state_picker.dart';
 import 'package:flutter/material.dart';
 import 'EvCartDetails/ev_cart_details_page.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
+import 'package:country_state_picker/country_state_picker.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
 
 class EvBillingAddress extends StatefulWidget {
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
-  final String? carName, carImage, carYear, carPrice, carStatus,
-      carColorName, carModelName, carMakesName, carMakesImage,
-      carRating, carOwnerImage, carOwnerName, discountPercentage,
+  final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
+      carModelName, carMakesName, carMakesImage, favouriteStatus, carRating,
+      carOwnerImage, carOwnerName, discountPercentage,
+
   homeStreetAddress1, homeStreetAddress2, homeCity, homePostCode,
   homeSelectedState, homeSelectedCountry, evStartDate, evEndDate;
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  const EvBillingAddress({Key? key, this.homeStreetAddress1, this.homeStreetAddress2,
-    this.homeCity, this.homePostCode, this.homeSelectedState, this.homeSelectedCountry,
-    this.totalAmount, this.carName, this.carColorName, this.carModelName, this.carYear,
-    this.discountPercentage, this.carDiscountPrice, this.carImage, this.carMakesImage,
-    this.carStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
-    this.carOwnerId, this.carOwnerImage, this.carOwnerName, this.evStartDate, this.evEndDate,
-    this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
+  EvBillingAddress({Key? key, this.homeStreetAddress1, this.homeStreetAddress2,
+    this.favouriteStatus, this.homeCity, this.homePostCode, this.homeSelectedState,
+    this.homeSelectedCountry, this.totalAmount, this.carName, this.carColorName,
+    this.carModelName, this.carYear, this.discountPercentage, this.carDiscountPrice,
+    this.carImage, this.carMakesImage, this.carStatus, this.carMakesName, this.carId,
+    this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
+    this.evStartDate, this.evEndDate, this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
 
   @override
   State<EvBillingAddress> createState() => _EvBillingAddressState();
@@ -38,21 +39,6 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
   var cityControllerBilling = TextEditingController();
   var postCodeControllerBilling = TextEditingController();
   String? billingState, billingCountry;
-
-  // String selectedCountryBilling = 'United Kingdom';
-  //
-  // // Initial Selected Value
-  // String selectedStateBilling = 'Select state';
-  //
-  // // List of items in our dropdown menu
-  // var items = [
-  //   'Select state',
-  //   'Select state 1',
-  //   'Select state 2',
-  //   'Select state 3',
-  //   'Select state 4',
-  //   'Select state 5',
-  // ];
 
   mySelectedData(){
     print("homeStreetAddresses : ${widget.homeStreetAddress1} ${widget.homeStreetAddress2}");
@@ -72,14 +58,14 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
     return Scaffold(
       backgroundColor: homeBgColor,
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Row(
               children: <Widget>[
                 Theme(
-                  data: ThemeData(unselectedWidgetColor: const Color(0xffD4DCE1)),
+                  data: ThemeData(unselectedWidgetColor: Color(0xffD4DCE1)),
                   child: Checkbox(
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     activeColor: kWhite,
@@ -117,6 +103,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                           // myDatum: widget.myDatum,
                           mySelectedTabMonth: widget.mySelectedTabMonth,
                           mySelectedTabPrice: widget.mySelectedTabPrice,
+                          favouriteStatus: widget.favouriteStatus,
                           totalAmount: widget.totalAmount,
                           carName: widget.carName,
                           carImage: widget.carImage,
@@ -156,7 +143,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                     decoration: BoxDecoration(
                         color: kRed,
                         borderRadius: BorderRadius.circular(30)),
-                    child: const Center(
+                    child: Center(
                       child: Text("Save",
                           style: TextStyle(
                               color: Colors.white,
@@ -196,10 +183,10 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                 //           color: kWhite,
                 //           borderRadius: BorderRadius.circular(30)
                 //       ),
-                //       padding: const EdgeInsets.symmetric(horizontal: 10, ),
+                //       padding: EdgeInsets.symmetric(horizontal: 10, ),
                 //       child: DropdownButtonHideUnderline(
                 //         child: Padding(
-                //           padding: const EdgeInsets.only(left: 10),
+                //           padding: EdgeInsets.only(left: 10),
                 //           child: DropdownButton(
                 //             // Initial Value
                 //             value: selectedStateBilling,
@@ -208,7 +195,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                 //             // ),
                 //
                 //             // Down Arrow Icon
-                //             icon: const Icon(Icons.keyboard_arrow_down),
+                //             icon: Icon(Icons.keyboard_arrow_down),
                 //
                 //             // Array list of items
                 //             items: items.map((String items) {
@@ -254,7 +241,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                 //           },
                 //           // Optional. Sets the theme for the country list picker.
                 //           countryListTheme: CountryListThemeData(
-                //             borderRadius: const BorderRadius.only(
+                //             borderRadius: BorderRadius.only(
                 //               topLeft: Radius.circular(40.0),
                 //               topRight: Radius.circular(40.0),
                 //             ),
@@ -262,11 +249,11 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                 //             inputDecoration: InputDecoration(
                 //               labelText: 'Search',
                 //               hintText: 'Start typing to search',
-                //               prefixIcon: const Icon(Icons.search),
+                //               prefixIcon: Icon(Icons.search),
                 //               border: OutlineInputBorder(
                 //                 borderSide: BorderSide(
                 //                   color:
-                //                   const Color(0xFF8C98A8).withOpacity(0.2),
+                //                   Color(0xFF8C98A8).withOpacity(0.2),
                 //                 ),
                 //               ),
                 //             ),
@@ -274,35 +261,35 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                 //         );
                 //       },
                 //       child: Container(
-                //           padding: const EdgeInsets.only(left: 10),
+                //           padding: EdgeInsets.only(left: 10),
                 //           height: MediaQuery.of(context).size.height * 0.06,
                 //           width: MediaQuery.of(context).size.width,
                 //           decoration: BoxDecoration(
                 //               color: kWhite,
                 //               borderRadius: BorderRadius.circular(30)
                 //           ),
-                //           margin: const EdgeInsets.only(left: 0, right: 0),
+                //           margin: EdgeInsets.only(left: 0, right: 0),
                 //           alignment: Alignment.centerLeft,
                 //           child: Padding(
-                //             padding: const EdgeInsets.symmetric(horizontal: 10),
+                //             padding: EdgeInsets.symmetric(horizontal: 10),
                 //             child: Row(
                 //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //                 children: [
                 //                   Text(
                 //                     selectedCountryBilling.toString(),
-                //                     style: const TextStyle(fontSize: 16),
+                //                     style: TextStyle(fontSize: 16),
                 //                   ),
                 //                   Container(
                 //                     //padding: EdgeInsets.only(right: 6),
                 //                     alignment: Alignment.center,
                 //                     height: MediaQuery.of(context).size.height,
                 //                     width: MediaQuery.of(context).size.width * 0.07,
-                //                     decoration: const BoxDecoration(
+                //                     decoration: BoxDecoration(
                 //                       // color: Colors.black12,
                 //                         borderRadius: BorderRadius.only(
                 //                             topRight: Radius.circular(4),
                 //                             bottomRight: Radius.circular(4))),
-                //                     child: const Icon(Icons.keyboard_arrow_down_outlined),
+                //                     child: Icon(Icons.keyboard_arrow_down_outlined),
                 //                   ),
                 //                 ]),
                 //           )),
@@ -316,10 +303,10 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => EvCartDetailsPage(
-                            // myDatum: widget.myDatum,
                             mySelectedTabMonth: widget.mySelectedTabMonth,
                             mySelectedTabPrice: widget.mySelectedTabPrice,
                             totalAmount: widget.totalAmount,
+                            favouriteStatus: widget.favouriteStatus,
 
                             carName: widget.carName,
                             carImage: widget.carImage,
@@ -362,7 +349,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
   }
   Widget buildTextFields() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0),
+        padding: EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           color: Colors.transparent,
           child: Column(

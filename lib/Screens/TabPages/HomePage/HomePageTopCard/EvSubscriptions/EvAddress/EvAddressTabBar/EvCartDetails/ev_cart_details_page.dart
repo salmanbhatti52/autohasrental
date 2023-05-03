@@ -1,30 +1,28 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:auto_haus_rental_app/Model/CheckOutModels/ev_checkout_model.dart';
-import 'package:auto_haus_rental_app/Model/CheckOutModels/photography_checkout_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/constants.dart';
-import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'dart:convert';
+import 'package:http/http.dart'as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../../../../../MyAppBarHeader/app_bar_header.dart';
-import 'package:http/http.dart'as http;
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
+import 'package:auto_haus_rental_app/Model/CheckOutModels/ev_checkout_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 
 class EvCartDetailsPage extends StatefulWidget {
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
-  final String? carName, carImage, carYear, carPrice, carStatus,
-      carColorName, carModelName, carMakesName, carMakesImage,
-      carRating, carOwnerImage, carOwnerName, discountPercentage,
-      evStartDate, evEndDate;
+  final String? carName, carImage, carYear, carPrice, carStatus,favouriteStatus,
+      carColorName, carModelName, carMakesName, carMakesImage, carRating, carOwnerImage,
+      carOwnerName, discountPercentage, evStartDate, evEndDate;
 
  final String? homeAddress1, homeAddress2, homeCity, homePostCode, homeState, homeCountry,
   billingAddress1, billingAddress2, billingCity, billingPostCode, billingState, billingCountry;
@@ -35,7 +33,7 @@ class EvCartDetailsPage extends StatefulWidget {
     this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
     this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
-    this.mySelectedTabMonth, this.mySelectedTabPrice,
+    this.mySelectedTabMonth, this.mySelectedTabPrice, this.favouriteStatus,
   this.homeAddress1, this.homeAddress2, this.homeCity, this.homePostCode, this.homeState,
     this.homeCountry, this.billingAddress1, this.billingAddress2, this.billingCity,
     this.billingPostCode, this.billingState, this.billingCountry}) : super(key: key);
@@ -479,7 +477,9 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                         )),
                     Positioned(
                         top: 0, right: 20,
-                        child: Image.asset("assets/home_page/heart_transparent.png", color: kBlack),
+                        child: widget.favouriteStatus == 'like'?
+                        Image.asset("assets/home_page/heart.png") :
+                        Image.asset("assets/car_bookings_images/heart.png"),
                     ),
                   ],
                 ),
@@ -503,7 +503,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
 
                       // if (evCheckOutModelObject.status == "success") {
                       //   print("booking Success");
-                      //   Future.delayed(const Duration(seconds: 3), () {
+                      //   Future.delayed(Duration(seconds: 3), () {
                       //     // toastSuccessMessage("CheckOut Successful ", Colors.green);
                       //
                       //     Navigator.push(context, MaterialPageRoute(
@@ -523,7 +523,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                       // // }
 
 
-                        Future.delayed(const Duration(seconds: 3), () {
+                        Future.delayed(Duration(seconds: 3), () {
 
                           Navigator.push(context, MaterialPageRoute(
                               builder: (context) => TabBarPage()));

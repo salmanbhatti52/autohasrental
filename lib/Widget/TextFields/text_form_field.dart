@@ -19,7 +19,7 @@ class EditTextUtils {
       cursorColor: borderColor,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(top: 15, left: 20, bottom: 15),
+        contentPadding: EdgeInsets.only(top: 15, left: 20, bottom: 15),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.0),
             borderSide: BorderSide(color: textLabelColor)

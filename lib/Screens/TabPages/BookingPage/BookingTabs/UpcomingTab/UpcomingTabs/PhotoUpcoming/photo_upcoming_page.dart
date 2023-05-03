@@ -1,17 +1,18 @@
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import '../../../../../../../Model/BookingModels/Upcoming/Photography/photo_upcoming_model.dart';
-import '../../upcoming_bookings_details_page.dart';
-import '../EvUpcoming/ev_upcoming_page.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Model/BookingModels/Upcoming/Photography/photo_upcoming_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/BookingPage/BookingTabs/UpcomingTab/upcoming_bookings_details_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/BookingPage/BookingTabs/UpcomingTab/UpcomingTabs/EvUpcoming/ev_upcoming_page.dart';
 
 class PhotographyUpcomingPage extends StatefulWidget {
-  const PhotographyUpcomingPage({super.key});
+  PhotographyUpcomingPage({super.key});
 
   @override
   State<PhotographyUpcomingPage> createState() => _PhotographyUpcomingPageState();
@@ -67,14 +68,14 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
     return loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
         : photoUpcomingModelObject.data?[0].carsDetails?.carsUsageType == "Photography" ?
       Padding(
-        padding: const EdgeInsets.only(top: 15),
+        padding: EdgeInsets.only(top: 15),
         child: SingleChildScrollView(
           child: Container(
             color: Colors.transparent,
             height: MediaQuery.of(context).size.height * 0.65,
             child: ListView.builder(
                 shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemCount: photoUpcomingModelObject.data!.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -82,13 +83,13 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                   return Stack(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        padding: EdgeInsets.symmetric(vertical: 20),
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.33)),
                       Positioned(
                         top: 90,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 9),
+                          padding: EdgeInsets.only(left: 9),
                           child: Container(
                             height:
                             MediaQuery.of(context).size.height * 0.24,
@@ -101,7 +102,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                   color: Colors.grey.withOpacity(0.1),
                                   spreadRadius: 5,
                                   blurRadius: 5,
-                                  offset: const Offset(3, 3),
+                                  offset: Offset(3, 3),
                                 ),
                               ],
                             ),
@@ -116,7 +117,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(top: 40, left: 20),
+                                        padding: EdgeInsets.only(top: 40, left: 20),
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Container(
@@ -139,7 +140,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(top: 40, left: 20),
+                                        padding: EdgeInsets.only(top: 40, left: 20),
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Container(
@@ -163,9 +164,9 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                 ),
                                 Row(
                                   children: [
-                                    const SizedBox(height: 93.6),
+                                    SizedBox(height: 93.6),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      padding: EdgeInsets.symmetric(horizontal: 15),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -201,7 +202,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                           Row(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(top: 06),
+                                                padding: EdgeInsets.only(top: 06),
                                                 child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
                                                     color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
@@ -237,7 +238,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                         child: GestureDetector(
                           onTap: (){
                             carBookingsId = "${photoUpcomingModelObject.data![index].bookingsId}";
-                            print("clicked....");
+                            print("carBookingsId $carBookingsId");
                             print("${photoUpcomingModelObject.data![index].carsDetails!.vehicalName}");
                             print("${photoUpcomingModelObject.data![index].carsDetails!.carsModels}");
                             print("${photoUpcomingModelObject.data![index].carsDetails!.rating}");
@@ -260,7 +261,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                             width: MediaQuery.of(context).size.width * 0.16,
                             decoration: BoxDecoration(
                               color: kRed.withOpacity(0.8),
-                              borderRadius: const BorderRadius.only(
+                              borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(15),
                                   bottomLeft: Radius.circular(15)),
                             ),
@@ -278,19 +279,17 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                             ),
                           )),
 
-                      Positioned(
-                          top: 10, right: 15,
-                          child: Image.asset("assets/car_bookings_images/heart.png",),
-                      ),
+                      // Positioned(
+                      //     top: 10, right: 15,
+                      //     child: Image.asset("assets/car_bookings_images/heart.png",),
+                      // ),
                     ],
                   );
-                    // const Center(child: Text('booking unavailable...',
-                    //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)));
                 }),
           ),
         ),
       ):
-    const Center(child: Text('booking unavailable...',
+    Center(child: Text('booking unavailable...',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)));
   }
 }

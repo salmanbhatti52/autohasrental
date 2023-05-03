@@ -1,8 +1,9 @@
+
 import 'package:flutter/material.dart';
-import '../../Widget/bottom_bar.dart';
+import 'package:auto_haus_rental_app/Widget/bottom_bar.dart';
 
 class TabBarPage extends StatefulWidget {
-  const TabBarPage({Key? key}) : super(key: key);
+  TabBarPage({Key? key}) : super(key: key);
 
   @override
   State<TabBarPage> createState() => _TabBarPageState();

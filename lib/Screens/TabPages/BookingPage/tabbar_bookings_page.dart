@@ -4,7 +4,7 @@ import 'BookingTabs/PreviousTab/PreviousTabs/previous_tabs_page.dart';
 import 'BookingTabs/UpcomingTab/UpcomingTabs/upcoming_tabs_page.dart';
 
 class TabbarCarBookings extends StatefulWidget {
-  const TabbarCarBookings({super.key});
+  TabbarCarBookings({super.key});
 
   @override
   State<TabbarCarBookings> createState() => _TabbarCarBookingsState();
@@ -26,11 +26,11 @@ class _TabbarCarBookingsState extends State<TabbarCarBookings> with TickerProvid
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height* 0.055,
               decoration: BoxDecoration(
-                  color: const Color(0xffd4dce1),
+                  color: Color(0xffd4dce1),
                   // color: Colors.red,
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 05, vertical: 05),
+                padding: EdgeInsets.symmetric(horizontal: 05, vertical: 05),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
@@ -40,10 +40,10 @@ class _TabbarCarBookingsState extends State<TabbarCarBookings> with TickerProvid
                   indicatorColor: kWhite,
                   isScrollable: true,
                   labelColor: kBlack,
-                  labelPadding: const EdgeInsets.symmetric(horizontal: 55),
-                  labelStyle: const TextStyle(fontSize: 14),
+                  labelPadding: EdgeInsets.symmetric(horizontal: 55),
+                  labelStyle: TextStyle(fontSize: 14),
                   unselectedLabelColor: kBlack,
-                  tabs: const [
+                  tabs: [
                     Tab(text: "Previous"),
                     Tab(text: "Upcoming"),
                   ],

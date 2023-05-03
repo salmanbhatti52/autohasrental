@@ -1,20 +1,20 @@
-import 'package:auto_haus_rental_app/Model/BookingModels/Previous/Photo/photo_previous_model.dart';
-import 'package:auto_haus_rental_app/Model/GetCarByIdModel/photo_car_details_byId_model.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import '../../../../../HomePage/HomePageTopCard/BookForWedding/book_for_wedding_car_description.dart';
-import '../../../UpcomingTab/UpcomingTabs/EvUpcoming/ev_upcoming_page.dart';
-import '../previous_bookings_details_page.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Model/GetCarByIdModel/photo_car_details_byId_model.dart';
+import 'package:auto_haus_rental_app/Model/BookingModels/Previous/Photo/photo_previous_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/book_for_wedding_car_description.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/BookingPage/BookingTabs/UpcomingTab/UpcomingTabs/EvUpcoming/ev_upcoming_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/BookingPage/BookingTabs/PreviousTab/PreviousTabs/bookingsdetail/previous_bookings_details_page.dart';
 
 class PhotoPreviousPage extends StatefulWidget {
-  const PhotoPreviousPage({super.key});
+  PhotoPreviousPage({super.key});
 
   @override
   State<PhotoPreviousPage> createState() => _PhotoPreviousPageState();
@@ -81,7 +81,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
       final responseString = response.body;
       print("responseGetCarDetailByID: ${responseString.toString()}");
       carDetailsByIdModelObject = carDetailsByIdModelPhotoFromJson(responseString);
-      // Future.delayed(const Duration(seconds: 2), () {
+      // Future.delayed(Duration(seconds: 2), () {
       Navigator.push(context, MaterialPageRoute(
           builder: (context) => BookForWeddingCarDescription(
             carName: carDetailsByIdModelObject.data?.vehicalName,
@@ -125,14 +125,14 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
     return loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
         : photoPreviousObject.data?[0].carsDetails?.carsUsageType == "Photography" ?
       Padding(
-        padding: const EdgeInsets.only(top: 15),
+        padding: EdgeInsets.only(top: 15),
         child: SingleChildScrollView(
           child: Container(
             color: Colors.transparent,
             height: MediaQuery.of(context).size.height * 0.67,
             child: ListView.builder(
                 shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemCount: photoPreviousObject.data!.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -140,13 +140,13 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                   return Stack(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        padding: EdgeInsets.symmetric(vertical: 20),
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.33)),
                       Positioned(
                         top: 90,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 9),
+                          padding: EdgeInsets.only(left: 9),
                           child: Container(
                             height:
                             MediaQuery.of(context).size.height * 0.24,
@@ -159,7 +159,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                   color: Colors.grey.withOpacity(0.1),
                                   spreadRadius: 5,
                                   blurRadius: 5,
-                                  offset: const Offset(3, 3),
+                                  offset: Offset(3, 3),
                                 ),
                               ],
                             ),
@@ -174,7 +174,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(top: 40, left: 20),
+                                        padding: EdgeInsets.only(top: 40, left: 20),
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Container(
@@ -198,7 +198,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(top: 40, left: 20),
+                                        padding: EdgeInsets.only(top: 40, left: 20),
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Container(
@@ -221,7 +221,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(top: 40, left: 20),
+                                        padding: EdgeInsets.only(top: 40, left: 20),
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Container(
@@ -253,7 +253,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                         height: MediaQuery.of(context).size.height * 0.1,
                                         color: Colors.transparent,
                                         child: Padding(
-                                          padding: const EdgeInsets.only(top: 40, right: 20),
+                                          padding: EdgeInsets.only(top: 40, right: 20),
                                           child: Align(
                                             alignment: Alignment.centerRight,
                                             child: Container(
@@ -277,9 +277,9 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                 ),
                                 Row(
                                   children: [
-                                    const SizedBox(height: 93.6),
+                                    SizedBox(height: 93.6),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      padding: EdgeInsets.symmetric(horizontal: 15),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -315,7 +315,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                           Row(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(top: 06),
+                                                padding: EdgeInsets.only(top: 06),
                                                 child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
                                                     color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
@@ -366,23 +366,8 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                             // photoPreviousObject.data![index].status == "Completed"?
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => PreviousBookingDetailsPage(
-                                  // carId: "${photoPreviousObject.data![index].carsId}",
-                                  // carName: photoPreviousObject.data![index].carsDetails!.vehicalName,
-                                  // carYear: "${photoPreviousObject.data![index].carsDetails!.year}",
-                                  // carColors: photoPreviousObject.data![index].carsDetails!.carsColors!.name,
-                                  // carMakes: photoPreviousObject.data![index].carsDetails!.carsMakes,
-                                  // carModel: photoPreviousObject.data![index].carsDetails!.carsModels,
-                                  // carRating: photoPreviousObject.data![index].carsDetails!.rating,
-                                  // carPrice: photoPreviousObject.data![index].carsPlans![0].pricePerHour,
-                                  // discountPercentage: photoPreviousObject.data![index].carsDetails!.discountPercentage,
-                                  // carImage: "$baseUrlImage${photoPreviousObject.data![index].carsDetails!.image1}",
-                                  // carDesc: photoPreviousObject.data![index].carsDetails!.description,
-                                  // userRating: photoPreviousObject.data![index].carsRatings![0].rateStars,
-                                  // userComment: photoPreviousObject.data![index].carsRatings![0].comments,
                                   myStatus: photoPreviousObject.data![index].status,
-                                  bookingId: "${photoPreviousObject.data![index].bookingsId}",
-                                  datumPreviousPhoto: photoPreviousObject.data![index],
-                                  // carDesc: photoPreviousObject.data![index].carsDetails!.description,
+                                  bookingId: "${photoPreviousObject.data![index].bookingsId}"
                                 )));
                                 // : print("not completed");
                             print("userRating ${photoPreviousObject.data![index].carsRatings![0].rateStars}");
@@ -401,7 +386,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                             width: MediaQuery.of(context).size.width * 0.16,
                             decoration: BoxDecoration(
                               color: kRed.withOpacity(0.8),
-                              borderRadius: const BorderRadius.only(
+                              borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(15),
                                   bottomLeft: Radius.circular(15)),
                             ),
@@ -419,21 +404,17 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                             ),
                           )),
 
-                      Positioned(
-                          top: 10, right: 15,
-                          child: Image.asset("assets/car_bookings_images/heart.png",),
-                      ),
+                      // Positioned(
+                      //     top: 10, right: 15,
+                      //     child: Image.asset("assets/car_bookings_images/heart.png",),
+                      // ),
                     ],
                   );
                 }),
           ),
         ),
       ):
-    const Center(child: Text('booking unavailable...',
+    Center(child: Text('booking unavailable...',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)));
   }
-
-  // navigatorWidget(){
-  //   return
-  // }
 }

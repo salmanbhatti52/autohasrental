@@ -12,7 +12,7 @@ import 'set_new_password_page.dart';
 
 class VerifyForgetOTPPage extends StatefulWidget {
   final String? email, verifyCode;
-  const VerifyForgetOTPPage({Key? key, this.email, this.verifyCode})
+  VerifyForgetOTPPage({Key? key, this.email, this.verifyCode})
       : super(key: key);
 
   @override
@@ -50,7 +50,7 @@ class _VerifyForgetOTPPageState extends State<VerifyForgetOTPPage> {
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
@@ -64,7 +64,7 @@ class _VerifyForgetOTPPageState extends State<VerifyForgetOTPPage> {
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     "We sent you an email with a 4 digit code. Enter the code to change your password.",
                     textAlign: TextAlign.center,
@@ -76,7 +76,7 @@ class _VerifyForgetOTPPageState extends State<VerifyForgetOTPPage> {
                 Form(
                   key: formKeyVerifyCode,
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
+                      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 80),
                       child: PinCodeTextField(
                         appContext: context,
                         textStyle: TextStyle(color: borderColor),
@@ -105,12 +105,12 @@ class _VerifyForgetOTPPageState extends State<VerifyForgetOTPPage> {
                           inactiveColor: homeBgColor,
                         ),
                         cursorColor: kWhite,
-                        animationDuration: const Duration(milliseconds: 300),
+                        animationDuration: Duration(milliseconds: 300),
                         enableActiveFill: false,
                         errorAnimationController: errorController,
                         controller: textEditingController,
                         keyboardType: TextInputType.number,
-                        boxShadows: const [
+                        boxShadows: [
                           BoxShadow(
                             offset: Offset(0, 1),
                             color: Colors.black12,
@@ -152,7 +152,7 @@ class _VerifyForgetOTPPageState extends State<VerifyForgetOTPPage> {
 
                          // await verifyOTP();
 
-                          Future.delayed(const Duration(seconds: 3), () {
+                          Future.delayed(Duration(seconds: 3), () {
                             toastSuccessMessage("success", Colors.green);
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) => SetNewPasswordPage(
@@ -172,14 +172,14 @@ class _VerifyForgetOTPPageState extends State<VerifyForgetOTPPage> {
                     child: loginButton("Next", context)),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset("assets/images/timer.png"),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(" Expire on 02:00",
-                        style: TextStyle(color: const Color(0xffFF6666),
+                        style: TextStyle(color: Color(0xffFF6666),
                           fontSize: 12, fontFamily: poppinMedium)),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text("Resend Code (4)", style: TextStyle(color: borderColor,

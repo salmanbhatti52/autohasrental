@@ -108,7 +108,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           await resetPasswordWidget();
                           if (forgetPasswordModel.status == "success") {
                             print("reset Success");
-                            Future.delayed(const Duration(seconds: 3), () {
+                            Future.delayed(Duration(seconds: 3), () {
                               toastSuccessMessage("${forgetPasswordModel.data!.message}", colorGreen);
                               Navigator.pushReplacement(context, MaterialPageRoute(
                                       builder: (context) => VerifyForgetOTPPage(

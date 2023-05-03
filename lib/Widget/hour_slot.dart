@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
 
 class HourSlotContainer extends StatefulWidget {
-  const HourSlotContainer({super.key});
+  HourSlotContainer({super.key});
 
   @override
   State<HourSlotContainer> createState() => _HourSlotContainerState();
@@ -25,8 +25,8 @@ class _HourSlotContainerState extends State<HourSlotContainer> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         childAspectRatio: 1 / 0.45,
         mainAxisSpacing: 10,
@@ -52,7 +52,7 @@ class _HourSlotContainerState extends State<HourSlotContainer> {
 
 class HourSlotRadioItem extends StatelessWidget {
   final HourSlotRadioModel _item;
-  const HourSlotRadioItem(this._item, {super.key});
+  HourSlotRadioItem(this._item, {super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,13 +68,13 @@ class HourSlotRadioItem extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 5),
+            padding: EdgeInsets.only(left: 5),
             child: Icon(
               Icons.check_circle,
               size: 22,
               color: _item.isSelectedHourSlot
                   ? borderColor
-                  : const Color(0xffd4dce1),
+                  : Color(0xffd4dce1),
             ),
           ),
           // Image.asset(
@@ -90,7 +90,7 @@ class HourSlotRadioItem extends StatelessWidget {
                   : 'Poppins-Regular',
               color: _item.isSelectedHourSlot
                   ? unSelectedTabColor
-                  : const Color(0xffd4dce1),
+                  : Color(0xffd4dce1),
             ),
           ),
         ],

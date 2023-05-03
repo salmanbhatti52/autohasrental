@@ -15,7 +15,7 @@ class NotificationsListModel {
 
   factory NotificationsListModel.fromJson(Map<String, dynamic> json) => NotificationsListModel(
     status: json["status"],
-    data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null,
+      data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null,
   );
 
   Map<String, dynamic> toJson() => {

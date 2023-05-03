@@ -4,7 +4,7 @@ import '../Utils/fontFamily.dart';
 
 Widget loginButton(buttonText, context) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: Center(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.06,
@@ -26,7 +26,7 @@ Widget loginButton(buttonText, context) {
 
 Widget paymentButton(buttonText, context) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: Center(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.06,
@@ -53,12 +53,12 @@ Widget filterButton1(buttonText, context) {
     decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: const Color(0xff8d8d8d))),
+        border: Border.all(color: Color(0xff8d8d8d))),
     child: Center(
       child: Text(buttonText,
           textAlign: TextAlign.left,
           style: TextStyle(
-              color: const Color(0xff8d8d8d),
+              color: Color(0xff8d8d8d),
               fontFamily: poppinRegular,
               fontSize: 12)),
     ),
@@ -75,7 +75,7 @@ Widget filterButton2(buttonText, context) {
         border: Border.all(color: Colors.white)),
     child: Center(
       child: Text(buttonText,
-          style: const TextStyle(
+          style: TextStyle(
               color: Colors.white, fontFamily: 'Poppins', fontSize: 12)),
     ),
   );
@@ -88,10 +88,10 @@ Widget filterButton3(buttonText, context) {
     decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: const Color(0xff8d8d8d))),
+        border: Border.all(color: Color(0xff8d8d8d))),
     child: Center(
       child: Text(buttonText,
-          style: const TextStyle(
+          style: TextStyle(
               color: Color(0xff8d8d8d), fontFamily: 'Poppins', fontSize: 12)),
     ),
   );

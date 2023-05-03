@@ -5,14 +5,14 @@
 //
 // Widget searchWidget(BuildContext context){
 //   return Padding(
-//     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+//     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
 //     child: Row(
 //       children: [
 //         Expanded(
 //           child: GestureDetector(
 //             onTap: (){
 //               Navigator.push(context,
-//                   MaterialPageRoute(builder: (context) => const SearchScreen()));
+//                   MaterialPageRoute(builder: (context) => SearchScreen()));
 //             },
 //             child: Container(
 //               decoration: BoxDecoration(
@@ -21,10 +21,10 @@
 //               ),
 //               height: MediaQuery.of(context).size.height * 0.06,
 //               child: Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 20),
+//                 padding: EdgeInsets.symmetric(horizontal: 20),
 //                 child: Row(
 //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: const [
+//                   children: [
 //                     Text('Search for Cars',
 //                         style: TextStyle(color: Color(0xffD4DCE1))),
 //                     Icon(Icons.search, size: 18.0, color: Color(0xffD4DCE1),),
@@ -36,22 +36,22 @@
 //               //   decoration: InputDecoration(
 //               //     border: InputBorder.none,
 //               //     contentPadding:
-//               //     const EdgeInsets.fromLTRB(20, 12, 10, 0),
+//               //     EdgeInsets.fromLTRB(20, 12, 10, 0),
 //               //     hintText: 'Search for Cars',
-//               //     hintStyle: TextStyle(color: const Color(0xffD4DCE1),
+//               //     hintStyle: TextStyle(color: Color(0xffD4DCE1),
 //               //         fontSize: 14, fontFamily: poppinLight),
 //               //     focusColor: borderColor,
-//               //     suffixIcon: const Icon(Icons.search_outlined, color: Color(0xffD4DCE1)),
+//               //     suffixIcon: Icon(Icons.search_outlined, color: Color(0xffD4DCE1)),
 //               //   ),
 //               //   style: TextStyle(color: borderColor, fontSize: 14),
 //               // ),
 //             ),
 //           ),
 //         ),
-//         const SizedBox(width: 15),
+//         SizedBox(width: 15),
 //         GestureDetector(
 //           onTap: (){
-//             Navigator.push(context, MaterialPageRoute(builder: (context) => const FilterScreen()));
+//             Navigator.push(context, MaterialPageRoute(builder: (context) => FilterScreen()));
 //           },
 //           child: Container(
 //               height: 50, width: 50,

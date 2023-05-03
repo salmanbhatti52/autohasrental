@@ -1,21 +1,21 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:auto_haus_rental_app/Model/CheckOutModels/photography_checkout_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/constants.dart';
-import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'dart:convert';
+import 'package:http/http.dart'as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:http/http.dart'as http;
-import '../../../../../../MyAppBarHeader/app_bar_header.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:auto_haus_rental_app/Model/CheckOutModels/photography_checkout_model.dart';
 
 class PhotoCartDetailsPage extends StatefulWidget {
   final String? amount, myDate, myDay, selectedStartTime, selectedEndTime, selectedHours;
@@ -468,7 +468,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                         });
                       }
                       await checkOutWidget();
-                      Future.delayed(const Duration(seconds: 3), () {
+                      Future.delayed(Duration(seconds: 3), () {
                         // toastSuccessMessage("successfully", Colors.green);
 
                         Navigator.push(context, MaterialPageRoute(

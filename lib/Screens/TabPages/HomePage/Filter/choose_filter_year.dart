@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../Utils/colors.dart';
 
 class ChooseFilterYear extends StatefulWidget {
-  const ChooseFilterYear({Key? key}) : super(key: key);
+  ChooseFilterYear({Key? key}) : super(key: key);
 
   @override
   State<ChooseFilterYear> createState() => _ChooseFilterYearState();
@@ -45,11 +45,11 @@ class _ChooseFilterYearState extends State<ChooseFilterYear> {
 
 class PriceItem extends StatelessWidget {
   final PriceModel _item;
-  const PriceItem(this._item, {super.key});
+  PriceItem(this._item, {super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
           Container(
@@ -59,7 +59,7 @@ class PriceItem extends StatelessWidget {
               color: _item.isSelected ? borderColor : Colors.transparent,
               border: Border.all(
                   width: 1.0,
-                  color: _item.isSelected ? kWhite : const Color(0xff8d8d8d)),
+                  color: _item.isSelected ? kWhite : Color(0xff8d8d8d)),
               borderRadius: BorderRadius.circular(30),
             ),
             child: Center(

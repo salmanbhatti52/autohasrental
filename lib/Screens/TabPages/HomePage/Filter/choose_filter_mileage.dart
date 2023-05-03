@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../Utils/colors.dart';
 
 class ChooseFilterMileage extends StatefulWidget {
-  const ChooseFilterMileage({Key? key}) : super(key: key);
+  ChooseFilterMileage({Key? key}) : super(key: key);
 
   @override
   State<ChooseFilterMileage> createState() => _ChooseFilterMileageState();
@@ -44,11 +44,11 @@ class _ChooseFilterMileageState extends State<ChooseFilterMileage> {
 
 class MileageItem extends StatelessWidget {
   final MileageModel _item;
-  const MileageItem(this._item, {super.key});
+  MileageItem(this._item, {super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
           Container(
@@ -58,7 +58,7 @@ class MileageItem extends StatelessWidget {
               color: _item.isSelected ? borderColor : Colors.transparent,
               border: Border.all(
                   width: 1.0,
-                  color: _item.isSelected ? kWhite : const Color(0xff8d8d8d)),
+                  color: _item.isSelected ? kWhite : Color(0xff8d8d8d)),
               borderRadius: BorderRadius.circular(30),
             ),
             child: Center(

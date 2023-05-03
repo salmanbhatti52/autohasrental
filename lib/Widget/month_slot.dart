@@ -9,7 +9,7 @@ import '../Utils/constants.dart';
 import 'package:http/http.dart'as http;
 
 class MonthSlotContainer extends StatefulWidget {
-  const MonthSlotContainer({super.key});
+  MonthSlotContainer({super.key});
 
   @override
   State<MonthSlotContainer> createState() => _MonthSlotContainerState();
@@ -94,7 +94,7 @@ class _MonthSlotContainerState extends State<MonthSlotContainer> with TickerProv
                 color: homeBgColor,
                 borderRadius: BorderRadius.circular(15)),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
               child: TabBar(
                 controller: tabController,
                 indicator: BoxDecoration(
@@ -152,7 +152,7 @@ class _MonthSlotContainerState extends State<MonthSlotContainer> with TickerProv
     //   ListView.builder(
     //   itemCount: monthSlotData.length,
     //   scrollDirection: Axis.horizontal,
-    //   physics: const BouncingScrollPhysics(),
+    //   physics: BouncingScrollPhysics(),
     //   itemBuilder: (BuildContext context, int index) {
     //     return InkWell(
     //       onTap: () {
@@ -172,25 +172,25 @@ class _MonthSlotContainerState extends State<MonthSlotContainer> with TickerProv
 
 // class MonthSlotRadioItem extends StatelessWidget {
 //   final MonthSlotRadioModel _item;
-//   const MonthSlotRadioItem(this._item, {super.key});
+//   MonthSlotRadioItem(this._item, {super.key});
 //   @override
 //   Widget build(BuildContext context) {
 //     return Padding(
-//       padding: const EdgeInsets.all(2.0),
+//       padding: EdgeInsets.all(2.0),
 //       child: Container(
 //         height: 70,
 //         width: 185,
-//         padding: const EdgeInsets.symmetric(horizontal: 10),
+//         padding: EdgeInsets.symmetric(horizontal: 10),
 //         decoration: BoxDecoration(
 //             color: _item.isSelectedMonthSlot ? borderColor : kWhite,
 //             borderRadius: BorderRadius.circular(15)),
 //         child: Row(
 //           children: [
 //             Icon(Icons.check_circle, size: 22,
-//               color: _item.isSelectedMonthSlot ? kWhite : const Color(0xffd4dce1)),
-//             const SizedBox(width: 15),
+//               color: _item.isSelectedMonthSlot ? kWhite : Color(0xffd4dce1)),
+//             SizedBox(width: 15),
 //             Padding(
-//               padding: const EdgeInsets.symmetric(vertical: 10.6),
+//               padding: EdgeInsets.symmetric(vertical: 10.6),
 //               child: Column(
 //                 children: [
 //                   SizedBox(
@@ -205,7 +205,7 @@ class _MonthSlotContainerState extends State<MonthSlotContainer> with TickerProv
 //                     width: MediaQuery.of(context).size.width * 0.3,
 //                     child: Text(_item.subtitle, style: TextStyle(
 //                         fontSize: 14, fontFamily: poppinRegular,
-//                         color: _item.isSelectedMonthSlot ? kWhite : const Color(0xffd4dce1),
+//                         color: _item.isSelectedMonthSlot ? kWhite : Color(0xffd4dce1),
 //                       ),
 //                     ),
 //                   ),

@@ -1,17 +1,17 @@
 import 'dart:convert';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/ChatsModels/all_chats_model.dart';
-import '../../../Model/Notification/notifications_unread_model.dart';
-import '../HomePage/Drawer/Settings/settings_screen.dart';
-import '../HomePage/Drawer/drawer_screen.dart';
-import '../Homepage/Notifications/notification_screen.dart';
-import 'package:http/http.dart'as http;
 import 'message_details_screen.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart'as http;
+import 'package:flutter/material.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:auto_haus_rental_app/Model/ChatsModels/all_chats_model.dart';
+import 'package:auto_haus_rental_app/Model/Notification/notifications_unread_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/drawer_screen.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/Settings/settings_screen.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Notifications/notification_screen.dart';
 
 class MessagePage extends StatefulWidget {
    MessagePage({Key? key}) : super(key: key);

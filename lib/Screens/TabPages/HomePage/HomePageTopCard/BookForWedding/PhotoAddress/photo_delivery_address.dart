@@ -1,12 +1,11 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+
+import 'package:flutter/material.dart';
+import 'AddressTabs/photo_address_tabbar.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:flutter/material.dart';
-import '../../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
-import 'AddressTabs/photo_address_tabbar.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 
 class PhotoDeliveryAddress extends StatefulWidget {
-  // final DatumPhotography? myDatumPhotography;
   final String? amount, myDate, myDay, discountedAmount,
       selectedHoursInString, selectedStartTime, selectedEndTime;
   final int? totalHoursInNumber;
@@ -17,7 +16,7 @@ class PhotoDeliveryAddress extends StatefulWidget {
       carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
   final int? carId, carOwnerId;
 
-  const PhotoDeliveryAddress({Key? key, /*this.myDatumPhotography,*/ this.selectedHoursInString,
+  PhotoDeliveryAddress({Key? key, /*this.myDatumPhotography,*/ this.selectedHoursInString,
     this.totalHoursInNumber, this.myDate, this.hoursAmount, this.totalAmount,
     this.selectedStartTime, this.selectedEndTime, this.myDay, this.amount,  this.discountedAmount,
     this.carName, this.carColorName, this.carModelName, this.discountPercentage,
@@ -54,9 +53,9 @@ class _PhotoDeliveryAddressState extends State<PhotoDeliveryAddress> {
         title: "${widget.carName}, ", subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png"),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),

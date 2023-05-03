@@ -1,17 +1,17 @@
 import 'dart:convert';
-import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/ChatsModels/get_messages_model.dart';
-import '../../../Model/ChatsModels/send_message_model.dart';
-import '../../../Model/ChatsModels/update_message_model.dart';
 import 'package:http/http.dart'as http;
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
+import 'package:auto_haus_rental_app/Model/ChatsModels/get_messages_model.dart';
+import 'package:auto_haus_rental_app/Model/ChatsModels/send_message_model.dart';
+import 'package:auto_haus_rental_app/Model/ChatsModels/update_message_model.dart';
 
 class MessageDetailsScreen extends StatefulWidget {
   final String? carOwnerImage, carOwnerName, carOwnerId;
@@ -69,7 +69,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
       loading = false;
       setState(() {
 
-        // updateChatApiWidget();
+        updateChatApiWidget();
       });
     }
   }
@@ -137,7 +137,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     print('sendMessageApiResponse $jsonData');
 
     if (jsonData['message'] == 'Message sent successfully.') {
-      toastSuccessMessage("Message sent successfully1.", colorGreen);
+      // toastSuccessMessage("Message sent successfully1.", colorGreen);
       print('Message sent successfully.');
       setState(() {
         loading = false;
@@ -180,7 +180,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     var cron = Cron();
     cron.schedule(Schedule.parse('*/03 * * * * *'), () async {
       print('auto refresh after 03 seconds allChatMessageApi');
-      await getMessageApi();
+      // await getMessageApi();
     });
 
     return Scaffold(
@@ -271,7 +271,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                 color: (messageDetailsModelObject[reverseIndex].senderType == "Users"
                                     ? borderColor : kWhite),
                               ),
-                              padding:  EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10),
                               child: messageDetailsModelObject[reverseIndex].senderType == "Users"
                                   ? Column(
                                     children: [
@@ -330,8 +330,9 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                   print("sendMessage Success");
                                   // toastSuccessMessage("Message sent successfully2.", colorGreen);
                                   setState(() {
-                                    progress = false;
                                     sendMessageController.clear();
+                                    progress = false;
+
                                   });
                                   print("false: $progress");
                                 });

@@ -1,23 +1,22 @@
-import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
-import 'package:auto_haus_rental_app/Model/get_car_makes_model.dart';
-import 'package:auto_haus_rental_app/Model/search_model.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/constants.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
-import '../../../../../Model/Notification/notifications_unread_model.dart';
-import '../../Drawer/Settings/settings_screen.dart';
-import '../../Notifications/notification_screen.dart';
-import '../EvSubscriptions/ev_subscription_page.dart';
-import 'book_for_wedding_car_description.dart';
 import 'package:http/http.dart' as http;
+import 'book_for_wedding_car_description.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:auto_haus_rental_app/Model/search_model.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Model/get_car_makes_model.dart';
+import 'package:auto_haus_rental_app/Model/Notification/notifications_unread_model.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/Settings/settings_screen.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/photography_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Notifications/notification_screen.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/EvSubscriptions/ev_subscription_page.dart';
 
 class BookForWeddingPage extends StatefulWidget {
   BookForWeddingPage({Key? key}) : super(key: key);
@@ -202,10 +201,8 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
           GestureDetector(
             onTap: () {
               print("clicked");
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>  NotificationsScreen()));
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => NotificationsScreen()));
             },
             child: Padding(
               padding:  EdgeInsets.only(top: 30, right: 20),
@@ -272,7 +269,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
 
   carMakersListWidget(){
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 08),
+      padding: EdgeInsets.symmetric(vertical: 08),
       child: Container(
         height: MediaQuery.of(context).size.height* 0.1,
         color: Colors.transparent,
@@ -466,9 +463,18 @@ class _BookForWeddingPageState extends State<BookForWeddingPage> with TickerProv
                               carOwnerName: "${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyName}",
                               carOwnerId: carsPhotoGraphyModelObject.data![index].usersCompanies!.usersCompaniesId,
                               myCarDescription: carsPhotoGraphyModelObject.data![index].description,
-                              // myCarRating: carsPhotoGraphyModelObject.data![index].rating,
-                              // myCarComment: carsPhotoGraphyModelObject.data![index].carsRatings![0].comments,
-                              // datumPhotography: carsPhotoGraphyModelObject.data![index],
+
+                              featureSuv: carsPhotoGraphyModelObject.data![index].featuresSuv,
+                              featuresDoors: carsPhotoGraphyModelObject.data![index].featuresDoors,
+                              featuresSeats: carsPhotoGraphyModelObject.data![index].featuresSeats,
+                              featuresAutomatic: carsPhotoGraphyModelObject.data![index].featuresAutomatic,
+                              featuresSpeed: carsPhotoGraphyModelObject.data![index].featuresSpeed,
+                              featuresElectric: carsPhotoGraphyModelObject.data![index].featuresElectric,
+                              featuresEngine_capacity: carsPhotoGraphyModelObject.data![index].featuresEngineCapacity,
+                              featuresFuelCapacity: carsPhotoGraphyModelObject.data![index].featuresFuelCapacity,
+                              featuresMeterReading: carsPhotoGraphyModelObject.data![index].featuresMeterReading,
+                              featuresNewCars: carsPhotoGraphyModelObject.data![index].featuresNewCars,
+
                             )));
                         print("evCarName ${carsPhotoGraphyModelObject.data![index].vehicalName}");
                         print("evCarYear ${carsPhotoGraphyModelObject.data![index].year}");

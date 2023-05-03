@@ -10,7 +10,6 @@
 String baseUrl = 'https://autohauscarrental.eigix.net/api/';
 String baseUrlImage = 'https://autohauscarrental.eigix.net/public/';
 
-
 /// Authentication Page API Urls
 String signUpApiUrl = '${baseUrl}signup';
 String verifyOtpSignUpApiUrl = '${baseUrl}verify_otp';
@@ -18,6 +17,8 @@ String verifyOtpSignUpApiUrl = '${baseUrl}verify_otp';
 String loginApiUrl = '${baseUrl}signin';
 String forgetPasswordApiUrl = '${baseUrl}forgot_password';
 String modifyNewPasswordApiUrl = '${baseUrl}modify_password';
+
+String bookingPrintApiUrl = '${baseUrl}bookings_print/';
 
 /// Setting Page API Urls
 String deleteAccountApiUrl = '${baseUrl}delete_account';
@@ -33,6 +34,7 @@ String getUsersChatApiUrl = '${baseUrl}user_chat';
 String sendMessageApiUrl = '${baseUrl}user_chat';
 String updateMessageApiUrl = '${baseUrl}user_chat';
 String startChatApiUrl = '${baseUrl}user_chat';
+String startLiveChatApiUrl = '${baseUrl}user_chat_live';
 
 String getLiveMsgApiUrl = '${baseUrl}user_chat_live';
 String sendLiveMsgApiUrl = '${baseUrl}user_chat_live';
@@ -55,7 +57,7 @@ String getCarRatingByIdApiUrl = '${baseUrl}get_cars_rating';
 
 String getCarDetailsByIdApiUrl = '${baseUrl}cars_by_id';
 
-String cancelBookingUpcomingCarsApiUrl = '${baseUrl}bookings_cancelled';
+// String cancelBookingUpcomingCarsApiUrl = '${baseUrl}bookings_cancelled';
 String cancelBookingDialogBoxApiUrl = '${baseUrl}bookings_cancel';
 
 /// HomePage Top Widgets API Urls

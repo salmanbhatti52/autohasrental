@@ -1,25 +1,23 @@
-import 'package:auto_haus_rental_app/Model/get_rate_cars_model.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/constants.dart';
-import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../../Model/BookingModels/Previous/Photo/photo_previous_model.dart';
-import '../../../../../../Model/car_ratings_model.dart';
-import '../../../../MyAppBarHeader/app_bar_header.dart';
 import 'package:http/http.dart'as http;
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:auto_haus_rental_app/Model/car_ratings_model.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:auto_haus_rental_app/Model/get_rate_cars_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 
 class PreviousBookingDetailsPage extends StatefulWidget {
-  final DatumPhotoPrevious? datumPreviousPhoto;
-   final String? myStatus;
+  final String? myStatus;
   final String? bookingId;
 
-  PreviousBookingDetailsPage({super.key, this.datumPreviousPhoto, this.bookingId, this.myStatus});
+  PreviousBookingDetailsPage({super.key, this.bookingId, this.myStatus});
 
   @override
   State<PreviousBookingDetailsPage> createState() => _PreviousBookingDetailsPageState();
@@ -39,6 +37,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
     getRateCarWidget();
     print("bookingCompleteStatus ${widget.myStatus}");
     print("bookingCarId ${carID}");
+    print("bookingPrintApiUrl $bookingPrintApiUrl${widget.bookingId}");
     super.initState();
   }
 
@@ -103,7 +102,8 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                 children: [
                   InAppWebView(
                     initialUrlRequest: URLRequest(
-                      url: Uri.parse("https://app.autohauscarrental.com/api/bookings_print/${widget.bookingId}"),
+                      // url: Uri.parse("https://app.autohauscarrental.com/api/bookings_print/${widget.bookingId}"),
+                      url: Uri.parse("$bookingPrintApiUrl${widget.bookingId}"),
                     ),
                     onLoadStart: (controller, url) {
                       setState(() {
@@ -126,7 +126,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
             Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: widget.myStatus == "Completed"?
                 Container(
                   height: 0,
@@ -258,12 +258,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                             });
                           }),
 
-                      // Image.asset(
-                      //   "assets/car_bookings_images/rating.png",
-                      //   height: 30,
-                      // ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                       Form(
                         key: ratingsFormKey,
                         child: TextField(
@@ -308,7 +303,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                                 });
                                 await carRatingsWidget();
                                 if(rateCarModelObject.status == "Success"){
-                                  Future.delayed(const Duration(seconds: 3), () {
+                                  Future.delayed(Duration(seconds: 3), () {
                                     toastSuccessMessage("${rateCarModelObject.message}", colorGreen);
                                     Navigator.pop(context);
                                     setState(() {

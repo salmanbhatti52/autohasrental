@@ -257,7 +257,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       await uploadUserProfileWidget();
                       // if (updateProfileModel.status == "success") {
                         print("updated Success");
-                        Future.delayed(const Duration(seconds: 3), () {
+                        Future.delayed(Duration(seconds: 3), () {
                           toastSuccessMessage("updated Successfully...!", Colors.green);
 
                           Navigator.pushReplacement(context,

@@ -1,11 +1,11 @@
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../../Utils/colors.dart';
-import '../HomePage/Drawer/drawer_screen.dart';
-import '../HomePage/Notifications/notification_screen.dart';
-import '../MessagePage/message_details_screen.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/drawer_screen.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_details_screen.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Notifications/notification_screen.dart';
 
 Widget myHeaderDrawer(BuildContext context, backImage, titleText, rightImage) {
   return Padding(

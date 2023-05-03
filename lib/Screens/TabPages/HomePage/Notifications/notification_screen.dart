@@ -1,13 +1,13 @@
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../Model/Notification/notifications_model.dart';
-import '../../MyAppBarHeader/app_bar_header.dart';
-import 'package:http/http.dart' as http;
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:auto_haus_rental_app/Model/Notification/notifications_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 
 class NotificationsScreen extends StatefulWidget {
    NotificationsScreen({Key? key}) : super(key: key);
@@ -56,7 +56,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     });
   }
 
-  List<Datum> newList = [];
   String? formattedDateTime;
   DateTime? dateTime;
 formattedDate(){
@@ -80,7 +79,7 @@ formattedDate(){
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar:  MyAppBarSingleImage(
+      appBar: MyAppBarSingleImage(
           title: "Notifications", backImage: "assets/home_page/back_arrow.png"),
       body: loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
           notificationsModel.data!.length == 0 ?  Center(

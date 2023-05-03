@@ -181,7 +181,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         } else if (passwordController.text.isEmpty) {
                           toastFailedMessage('password cannot be empty', kRed);
                         } else if (passwordController.text.length < 6) {
-                          toastFailedMessage('password must be 6 digit', kRed);
+                          toastFailedMessage('password must be of 6 digit', kRed);
                         } else {
                           setState(() {
                             isInAsyncCall = true;
@@ -189,7 +189,7 @@ class _SignUpPageState extends State<SignUpPage> {
                          await registerUser();
 
                          if(signUpModel.status == "success"){
-                           Future.delayed(const Duration(seconds: 3), () {
+                           Future.delayed(Duration(seconds: 3), () {
                              toastSuccessMessage("success", colorGreen);
                              toastOTPMessage("${signUpModel.data![0].verifyCode}", colorGreen);
                              Navigator.push(context, MaterialPageRoute(

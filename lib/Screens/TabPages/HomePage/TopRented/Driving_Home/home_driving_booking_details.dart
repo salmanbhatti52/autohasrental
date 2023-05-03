@@ -1,25 +1,26 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+
+import 'package:intl/intl.dart';
+import 'home_driving_booking.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter/material.dart';
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
-import 'package:bottom_sheet/bottom_sheet.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
-import '../../../../../Model/HomePageModels/top_rented_cars_model.dart';
 import 'DeliveryAddress/home_driving_delivery_address.dart';
-import 'home_driving_booking.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/top_rented_cars_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 
 class HomeDrivingBookingDetails extends StatefulWidget {
   final String? selectedDay, startTime, endTime, selectedDate;
   final DatumTopRented? myDatum;
   final double? slotPrice;
 
-  const HomeDrivingBookingDetails({Key? key, this.myDatum,
+  HomeDrivingBookingDetails({Key? key, this.myDatum,
     this.selectedDay, this.selectedDate, this.slotPrice,
     this.startTime, this.endTime}) : super(key: key);
 
@@ -80,7 +81,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
         backImage: "assets/messages_images/Back.png",
       ),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -89,14 +90,14 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                 children: [
                   drivingExperienceBookingCard(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Choose Subscription plan", textAlign: TextAlign.left,
                             style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(vertical: 10),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -108,7 +109,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                                 ),
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    padding: EdgeInsets.symmetric(horizontal: 10),
                                     child: Text('$newSelectedDay', textAlign: TextAlign.left, style: TextStyle(
                                             fontSize: 12.0, fontFamily: poppinRegular, color: kWhite)),
                                   ),
@@ -167,7 +168,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                               color: kBlack,
                               borderRadius: BorderRadius.circular(25)),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(left: 10),
                             child: Row(
                               children: [
                                 Image.asset("assets/home_page/business-investment.png"),
@@ -257,7 +258,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
       children: [
         Image.asset(myImage),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 07),
+          padding: EdgeInsets.symmetric(horizontal: 07),
           width: MediaQuery.of(context).size.width * 0.8,
           color: Colors.transparent,
           child: Text(myText, textAlign: TextAlign.left,
@@ -274,7 +275,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
             height: screenHeight * 0.43,
             decoration: BoxDecoration(
@@ -288,7 +289,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
             color: Colors.transparent,
             width: screenWidth,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -308,7 +309,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 04),
+                        padding: EdgeInsets.only(top: 04),
                         child: Text("RM ", textAlign: TextAlign.left,
                           style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinLight)),
                       ),
@@ -317,7 +318,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                             fontSize: 10, decoration: TextDecoration.lineThrough)),
                       SizedBox(width: screenWidth * 0.01),
                       Padding(
-                        padding: const EdgeInsets.only(top: 06),
+                        padding: EdgeInsets.only(top: 06),
                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                               color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                       ),
@@ -375,7 +376,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
             child: Container(
               height: screenHeight * 0.04,
               width: screenWidth * 0.18,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15),
@@ -415,7 +416,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: homeBgColor,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
                       topLeft: Radius.circular(20)
                   ),
@@ -426,7 +427,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 16),
+                        padding: EdgeInsets.only(left: 16),
                         child: Text('Change Available Time Slot', textAlign: TextAlign.left,
                             style: TextStyle(fontSize: 14, fontFamily: poppinBold, color: appBgColor)),
                       ),
@@ -443,7 +444,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                                 context: context,
                                 initialDate: DateTime.now(),
                                 // firstDate: DateTime(1980),
-                                firstDate: DateTime.now().subtract(const Duration(days: 0)),
+                                firstDate: DateTime.now().subtract(Duration(days: 0)),
                                 lastDate: DateTime(2050),
                               );
                               if (picked != null && picked != pickDate) {
@@ -483,7 +484,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                             child: myCarPlan.isEmpty ? Center(child: Text("No Slots Available", textAlign: TextAlign.left,
                                 style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinBold))):
                             GridView.builder(
-                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   childAspectRatio: 1 / 0.2,
                                   mainAxisSpacing: 05,
@@ -499,7 +500,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                                   print("newTime $myStartTime $myEndTime");
 
                                   return Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 05),
+                                    padding: EdgeInsets.symmetric(horizontal: 05),
                                     child: GestureDetector(
                                       onTap: (){
 
@@ -529,14 +530,14 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                                         decoration: BoxDecoration(
                                           color: selectedIndex == index? borderColor: kWhite,
                                           borderRadius: BorderRadius.circular(15),
-                                          border: Border.all(color: selectedIndex == index ? borderColor : const Color(0xffd4dce1),
+                                          border: Border.all(color: selectedIndex == index ? borderColor : Color(0xffd4dce1),
                                               width: 2),
                                         ),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Icon(Icons.check_circle, size: 22,
-                                                color: selectedIndex == index ? kBlack : const Color(0xffd4dce1)),
+                                                color: selectedIndex == index ? kBlack : Color(0xffd4dce1)),
                                             Text("$myStartTime to $myEndTime", style: TextStyle(
                                                 color: selectedIndex == index? kWhite: kBlack)),
                                           ],
@@ -570,7 +571,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                         Navigator.pop(context);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         child: Center(
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.06,
@@ -609,7 +610,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   //                 width: MediaQuery.of(context).size.width,
   //                 decoration: BoxDecoration(
   //                   color: homeBgColor,
-  //                   borderRadius: const BorderRadius.only(
+  //                   borderRadius: BorderRadius.only(
   //                       topRight: Radius.circular(20),
   //                       topLeft: Radius.circular(20)
   //                   ),
@@ -620,7 +621,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   //                     Align(
   //                       alignment: Alignment.topLeft,
   //                       child: Padding(
-  //                         padding: const EdgeInsets.only(left: 16),
+  //                         padding: EdgeInsets.only(left: 16),
   //                         child: Text('Change Available Time Slot', textAlign: TextAlign.left,
   //                             style: TextStyle(fontSize: 14, fontFamily: poppinBold, color: appBgColor)),
   //                       ),
@@ -637,7 +638,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   //                                 context: context,
   //                                 initialDate: DateTime.now(),
   //                                 // firstDate: DateTime(1980),
-  //                                 firstDate: DateTime.now().subtract(const Duration(days: 0)),
+  //                                 firstDate: DateTime.now().subtract(Duration(days: 0)),
   //                                 lastDate: DateTime(2050),
   //                               );
   //                               if (picked != null && picked != pickDate) {
@@ -677,7 +678,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   //                             child: myCarPlan.isEmpty ? Center(child: Text("No Slots Available", textAlign: TextAlign.left,
   //                                 style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinBold))):
   //                             GridView.builder(
-  //                                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
   //                                   crossAxisCount: 2,
   //                                   childAspectRatio: 1 / 0.2,
   //                                   mainAxisSpacing: 05,
@@ -693,7 +694,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   //                                   print("newTime $myStartTime $myEndTime");
   //
   //                                   return Padding(
-  //                                     padding: const EdgeInsets.symmetric(horizontal: 05),
+  //                                     padding: EdgeInsets.symmetric(horizontal: 05),
   //                                     child: GestureDetector(
   //                                       onTap: (){
   //
@@ -723,14 +724,14 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   //                                         decoration: BoxDecoration(
   //                                           color: selectedIndex == index? borderColor: kWhite,
   //                                           borderRadius: BorderRadius.circular(15),
-  //                                           border: Border.all(color: selectedIndex == index ? borderColor : const Color(0xffd4dce1),
+  //                                           border: Border.all(color: selectedIndex == index ? borderColor : Color(0xffd4dce1),
   //                                               width: 2),
   //                                         ),
   //                                         child: Row(
   //                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   //                                           children: [
   //                                             Icon(Icons.check_circle, size: 22,
-  //                                                 color: selectedIndex == index ? kBlack : const Color(0xffd4dce1)),
+  //                                                 color: selectedIndex == index ? kBlack : Color(0xffd4dce1)),
   //                                             Text("$myStartTime to $myEndTime", style: TextStyle(
   //                                                   color: selectedIndex == index? kWhite: kBlack)),
   //                                           ],
@@ -764,7 +765,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   //                         Navigator.pop(context);
   //                       },
   //                       child: Padding(
-  //                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //                         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   //                         child: Center(
   //                           child: Container(
   //                             height: MediaQuery.of(context).size.height * 0.06,

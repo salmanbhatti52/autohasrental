@@ -123,7 +123,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         if (changePasswordModel.status == "success") {
                           print("Password Changed");
 
-                          Future.delayed(const Duration(seconds: 3), () {
+                          Future.delayed(Duration(seconds: 3), () {
                             toastSuccessMessage("${changePasswordModel.status}", Colors.green);
 
                             Navigator.pushReplacement(context,

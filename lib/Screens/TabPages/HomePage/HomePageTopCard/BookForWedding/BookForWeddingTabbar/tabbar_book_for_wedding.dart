@@ -7,7 +7,7 @@
 // import 'rating_page.dart/photo_rating_details.dart';
 //
 // class TabbarBookForWedding extends StatefulWidget {
-//   const TabbarBookForWedding({super.key});
+//   TabbarBookForWedding({super.key});
 //
 //   @override
 //   State<TabbarBookForWedding> createState() => _TabbarBookForWeddingState();
@@ -27,15 +27,15 @@
 //     return Column(
 //       children: [
 //         Padding(
-//           padding: const EdgeInsets.only(left: 20, right: 20),
+//           padding: EdgeInsets.only(left: 20, right: 20),
 //           child: Container(
 //               width: 344,
 //               height: 48,
 //               decoration: BoxDecoration(
-//                   color: const Color(0xffd4dce1),
+//                   color: Color(0xffd4dce1),
 //                   borderRadius: BorderRadius.circular(30)),
 //               child: Padding(
-//                 padding: const EdgeInsets.all(5),
+//                 padding: EdgeInsets.all(5),
 //                 child: TabBar(
 //                   controller: tabController,
 //                   indicator: BoxDecoration(
@@ -48,7 +48,7 @@
 //                   labelStyle: TextStyle(
 //                       fontSize: 12, fontFamily: poppinRegular),
 //                   unselectedLabelColor: kBlack,
-//                   tabs: const [
+//                   tabs: [
 //                     Tab(
 //                       text: "Description",
 //                     ),

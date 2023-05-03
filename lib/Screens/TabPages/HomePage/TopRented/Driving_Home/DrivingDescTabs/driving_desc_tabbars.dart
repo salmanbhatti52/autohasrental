@@ -1,14 +1,15 @@
+
+import 'Rating/driving_rating.dart';
+import 'description/driving_desc.dart';
+import 'package:flutter/material.dart';
+import 'Features/driving_features.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:flutter/material.dart';
-import '../../../../../../Model/HomePageModels/top_rented_cars_model.dart';
-import '../../../HomePageTopCard/EvSubscriptions/EvTaBBar/rating_page.dart/ev_rating.dart';
-import 'Features/driving_features.dart';
-import 'description/driving_desc.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/top_rented_cars_model.dart';
 
 class DrivingDescTabBars extends StatefulWidget {
   final DatumTopRented? datumTopRented;
-  const DrivingDescTabBars({super.key, this.datumTopRented});
+  DrivingDescTabBars({super.key, this.datumTopRented});
 
   @override
   State<DrivingDescTabBars> createState() => _DrivingDescTabBarsState();
@@ -28,15 +29,15 @@ class _DrivingDescTabBarsState extends State<DrivingDescTabBars>
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 05),
+          padding: EdgeInsets.symmetric(horizontal: 05),
           child: Container(
               width: MediaQuery.of(context).size.width,
               height: 48,
               decoration: BoxDecoration(
-                  color: const Color(0xffd4dce1),
+                  color: Color(0xffd4dce1),
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: const EdgeInsets.all(5),
+                padding:  EdgeInsets.all(5),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
@@ -48,10 +49,10 @@ class _DrivingDescTabBarsState extends State<DrivingDescTabBars>
                   labelColor: kBlack,
                   labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,
-                  tabs: const [
-                    Tab(text: "Description",),
-                    Tab(text: "Features",),
-                    Tab(text: "Ratings",),
+                  tabs: [
+                    Tab(text: "Description"),
+                    Tab(text: "Features"),
+                    Tab(text: "Ratings"),
                   ],
                 ),
               )),
@@ -63,8 +64,8 @@ class _DrivingDescTabBarsState extends State<DrivingDescTabBars>
             controller: tabController,
             children: [
               DrivingDesc(datumTopRented: widget.datumTopRented),
-              const DrivingFeatures(),
-              EvRating(),
+              DrivingFeatures(datumTopRented: widget.datumTopRented),
+              DrivingRating(datumTopRented: widget.datumTopRented),
             ]
           ),
         ),

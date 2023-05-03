@@ -1,28 +1,25 @@
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
-import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
-import 'package:country_picker/country_picker.dart';
-import 'package:country_state_picker/country_state_picker.dart';
-import 'package:flutter/material.dart';
 import 'ev_billing_address.dart';
-import 'ev_home_address.dart';
+import 'package:flutter/material.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/myTextWidget.dart';
+import 'package:country_state_picker/country_state_picker.dart';
+import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
 
 class EvAddressTabBar extends StatefulWidget {
-  // final Datum? myDatum;
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
 
   final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
       carModelName, carMakesName, carMakesImage, carRating, carOwnerImage,
-      carOwnerName, discountPercentage, evStartDate, evEndDate;
+      carOwnerName, discountPercentage, evStartDate, evEndDate, favouriteStatus;
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  const EvAddressTabBar({Key? key, /*this.myDatum,*/ this.totalAmount,
-    this.carName, this.evStartDate, this.evEndDate,
-    this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
+  EvAddressTabBar({Key? key, this.totalAmount, this.carName, this.evStartDate,
+    this.favouriteStatus, this.evEndDate, this.carColorName, this.carModelName,
+    this.carId, this.carPrice, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
-    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
+    this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
     this.mySelectedTabMonth, this.mySelectedTabPrice}): super(key: key);
 
   @override
@@ -33,11 +30,6 @@ abstract class TickerProvider {}
 
 class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProviderStateMixin {
 
-  // mySelectedData(){
-  //   print("carDayDate: ${widget.selectedDate}");
-  //   print("carTotalPrice: ${widget.totalPrice}");
-  //   print("carStartEndTime: ${widget.startTime} ${widget.endTime}");
-  // }
   String? selectedCountry, selectedState ;
 
   @override
@@ -49,257 +41,153 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
   }
 
   TabController? tabController;
-  List<String> tabs = ["Home Address", "Billing Address",];
-  int selectedIndex = 0;
+  List<String> tabs = ["Home Address", "Billing Address"];
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 48,
-              decoration: BoxDecoration(
-                  color: const Color(0xffd4dce1),
-                  borderRadius: BorderRadius.circular(30)),
-              child: Padding(
-                padding: const EdgeInsets.all(05),
-                child: TabBar(
-                  controller: tabController,
-                  indicator: BoxDecoration(
-                    color: kWhite,
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  indicatorColor: kWhite,
-                  labelColor: kBlack,
-                  labelStyle: const TextStyle(fontSize: 12),
-                  unselectedLabelColor: kBlack,
-                  tabs: const [
-                    Tab(
-                      text: "Home Address",
+        children: [
+
+          Padding(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                // height: 48,
+                decoration: BoxDecoration(
+                    color: Color(0xffd4dce1),
+                    borderRadius: BorderRadius.circular(30)),
+                child: Padding(
+                  padding: EdgeInsets.all(05),
+                  child: TabBar(
+                    controller: tabController,
+                    indicator: BoxDecoration(
+                      color: kWhite,
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
-                    Tab(
-                      text: "Billing Address",
-                    ),
-
-                  ],
-                ),
-              )),
-        ),
-        SizedBox(
-          width: double.maxFinite,
-          height: MediaQuery.of(context).size.height*0.8,
-          child: TabBarView(
-            controller: tabController,
-            children: [
-
-              /// HomeAddress
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-
-                      buildTextFields(),
-                      // IMPLEMENT WIDGET
-                      CountryStatePicker(
-                        onCountryChanged: (ct) => setState(() {
-                          selectedCountry = ct;
-                          selectedState = null;
-                          print("country $selectedCountry");
-                        }),
-                        onStateChanged: (st) => setState(() {
-                          selectedState = st;
-                          print("state $selectedState");
-                        }),
+                    indicatorColor: kWhite,
+                    labelColor: kBlack,
+                    labelStyle: TextStyle(fontSize: 12),
+                    unselectedLabelColor: kBlack,
+                    tabs: [
+                      Tab(
+                        text: "Home Address",
+                      ),
+                      Tab(
+                        text: "Billing Address",
                       ),
 
-                      // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     textWidgetBlack("State"),
-                      //     SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                      //     Container(
-                      //       height: MediaQuery.of(context).size.height *0.06,
-                      //       width: MediaQuery.of(context).size.width,
-                      //       decoration: BoxDecoration(
-                      //           color: kWhite,
-                      //           borderRadius: BorderRadius.circular(30)
-                      //       ),
-                      //       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      //       child: DropdownButtonHideUnderline(
-                      //         child: Padding(
-                      //           padding: const EdgeInsets.only(left: 10),
-                      //           child: DropdownButton(
-                      //             // Initial Value
-                      //             value: dropdownValue,
-                      //             // hint: Text("Select state", style: TextStyle(color: textLabelColor, fontFamily: poppinRegular,
-                      //             // ),
-                      //             // ),
-                      //
-                      //             // Down Arrow Icon
-                      //             icon: const Icon(Icons.keyboard_arrow_down),
-                      //
-                      //             // Array list of items
-                      //             items: items.map((String items) {
-                      //               return DropdownMenuItem(
-                      //                 value: items,
-                      //                 child: Text(items),
-                      //               );
-                      //             }).toList(),
-                      //             // After selecting the desired option,it will
-                      //             // change button value to selected value
-                      //             onChanged: (String? newValue) {
-                      //               setState(() {
-                      //                 dropdownValue = newValue!;
-                      //                 print("selectedState $dropdownValue");
-                      //
-                      //               });
-                      //             },
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                      //
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     textWidgetBlack("Country"),
-                      //     SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                      //     GestureDetector(
-                      //       onTap: () {
-                      //         showCountryPicker(
-                      //           context: context,
-                      //           exclude: <String>['KN', 'MF'],
-                      //           //Optional. Shows phone code before the country name.
-                      //           showPhoneCode: true,
-                      //           showWorldWide: false,
-                      //           onSelect: (Country country) {
-                      //             print('Select country: ${country.displayName}');
-                      //
-                      //             setState(() {
-                      //               _country = country.name;
-                      //               print("selectedCountry $_country");
-                      //             });
-                      //           },
-                      //           // Optional. Sets the theme for the country list picker.
-                      //           countryListTheme: CountryListThemeData(
-                      //             borderRadius: const BorderRadius.only(
-                      //               topLeft: Radius.circular(40.0),
-                      //               topRight: Radius.circular(40.0),
-                      //             ),
-                      //             // Optional. Styles the search field.
-                      //             inputDecoration: InputDecoration(
-                      //               labelText: 'Search',
-                      //               hintText: 'Start typing to search',
-                      //               prefixIcon: const Icon(Icons.search),
-                      //               border: OutlineInputBorder(
-                      //                 borderSide: BorderSide(
-                      //                   color: const Color(0xFF8C98A8).withOpacity(0.2),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         );
-                      //       },
-                      //       child: Container(
-                      //           padding: const EdgeInsets.only(left: 10),
-                      //           height: MediaQuery.of(context).size.height * 0.06,
-                      //           width: MediaQuery.of(context).size.width,
-                      //           decoration: BoxDecoration(
-                      //               color: kWhite,
-                      //               borderRadius: BorderRadius.circular(30)
-                      //           ),
-                      //           margin: const EdgeInsets.only(left: 0, right: 0),
-                      //           alignment: Alignment.centerLeft,
-                      //           child: Padding(
-                      //             padding: const EdgeInsets.symmetric(horizontal: 10),
-                      //             child: Row(
-                      //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //                 children: [
-                      //                   Text(
-                      //                     _country.toString(),
-                      //                     style: const TextStyle(fontSize: 16),
-                      //                   ),
-                      //                   Container(
-                      //                     //padding: EdgeInsets.only(right: 6),
-                      //                     alignment: Alignment.center,
-                      //                     height: MediaQuery.of(context).size.height,
-                      //                     width: MediaQuery.of(context).size.width * 0.07,
-                      //                     decoration: const BoxDecoration(
-                      //                       // color: Colors.black12,
-                      //                         borderRadius: BorderRadius.only(
-                      //                             topRight: Radius.circular(4),
-                      //                             bottomRight: Radius.circular(4))),
-                      //                     child: const Icon(Icons.keyboard_arrow_down_outlined),
-                      //                   ),
-                      //                 ]),
-                      //           )),
-                      //     ),
-                      //
-                      //   ],
-                      // ),
-
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        decoration: BoxDecoration(
-                          // color: borderColor,
-                            color: const Color(0xffD4DCE1),
-                            borderRadius: BorderRadius.circular(30)),
-                        child: const Center(
-                          child: Text("Save", style: TextStyle(
-                              color: Colors.white, fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400, fontSize: 18)),
-                        ),
-                      ),
                     ],
                   ),
-                ),
-              ),
-              EvBillingAddress(
-                // myDatum: widget.myDatum,
-                mySelectedTabMonth: widget.mySelectedTabMonth,
-                mySelectedTabPrice: widget.mySelectedTabPrice,
-                totalAmount: widget.totalAmount,
-
-                evStartDate: widget.evStartDate,
-                evEndDate: widget.evEndDate,
-
-                carName: widget.carName,
-                carImage: widget.carImage,
-                carYear: widget.carYear,
-                carPrice: widget.carPrice,
-                carDiscountPrice: widget.carDiscountPrice,
-                carRating: widget.carRating,
-                carColorName: widget.carColorName,
-                discountPercentage: widget.discountPercentage,
-                carStatus: widget.carStatus,
-                carId: widget.carId,
-                carOwnerId: widget.carOwnerId,
-                carMakesName: widget.carMakesName,
-                carModelName: widget.carModelName,
-
-                homeStreetAddress1: address1ControllerHome.text,
-                homeStreetAddress2: address2ControllerHome.text,
-                homeCity: cityControllerHome.text,
-                homePostCode: postCodeControllerHome.text,
-                homeSelectedState: selectedState,
-                homeSelectedCountry: selectedCountry,
-              ),
-            ],
+                )),
           ),
-        ),
-      ],
-    );
+          SizedBox(
+            width: double.maxFinite,
+            height: MediaQuery.of(context).size.height*0.8,
+            child: TabBarView(
+              controller: tabController,
+              children: [
+
+                /// HomeAddress
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+
+                        buildTextFields(),
+                        // IMPLEMENT WIDGET
+                        CountryStatePicker(
+                          onCountryChanged: (ct) => setState(() {
+                            selectedCountry = ct;
+                            selectedState = null;
+                            print("country $selectedCountry");
+                          }),
+                          onStateChanged: (st) => setState(() {
+                            selectedState = st;
+                            print("state $selectedState");
+                          }),
+                        ),
+
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                        InkWell(
+                          onTap: (){
+                            final newIndex = tabController!.index + 1;
+                              tabController!.animateTo(newIndex);
+                              myFunction(widget.totalAmount, widget.mySelectedTabMonth, widget.favouriteStatus,
+                                  widget.mySelectedTabPrice, widget.carName, widget.carImage,
+                                  widget.carYear, widget.carPrice, widget.carStatus, widget.carColorName,
+                                  widget.carModelName, widget.carMakesName, widget.carMakesImage, widget.carRating,
+                                  address2ControllerHome.text, cityControllerHome.text, postCodeControllerHome.text, selectedState,
+                                  widget.carOwnerImage, widget.carOwnerName, widget.discountPercentage, address1ControllerHome.text,
+                                  selectedCountry, widget.evStartDate, widget.evEndDate, widget.carId, widget.carOwnerId, widget.carDiscountPrice);
+                              print('newIndex $newIndex');
+                          },
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.06,
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            decoration: BoxDecoration(
+                                color: kRed,
+                                borderRadius: BorderRadius.circular(30)),
+                            child: Center(
+                              child: Text("Next", style: TextStyle(
+                                  color: Colors.white, fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400, fontSize: 18)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                EvBillingAddress(
+                  mySelectedTabMonth: widget.mySelectedTabMonth,
+                  mySelectedTabPrice: widget.mySelectedTabPrice,
+                  totalAmount: widget.totalAmount,
+
+                  favouriteStatus: widget.favouriteStatus,
+                  evStartDate: widget.evStartDate,
+                  evEndDate: widget.evEndDate,
+
+                  carName: widget.carName,
+                  carImage: widget.carImage,
+                  carYear: widget.carYear,
+                  carPrice: widget.carPrice,
+                  carDiscountPrice: widget.carDiscountPrice,
+                  carRating: widget.carRating,
+                  carColorName: widget.carColorName,
+                  discountPercentage: widget.discountPercentage,
+                  carStatus: widget.carStatus,
+                  carId: widget.carId,
+                  carOwnerId: widget.carOwnerId,
+                  carMakesName: widget.carMakesName,
+                  carModelName: widget.carModelName,
+
+                  homeStreetAddress1: address1ControllerHome.text,
+                  homeStreetAddress2: address2ControllerHome.text,
+                  homeCity: cityControllerHome.text,
+                  homePostCode: postCodeControllerHome.text,
+                  homeSelectedState: selectedState,
+                  homeSelectedCountry: selectedCountry,
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+  }
+
+  myFunction(
+  final double? totalAmount,
+  final String? mySelectedTabMonth, mySelectedTabPrice, carName, carImage, carYear, carPrice, carStatus,
+      carColorName, carModelName, carMakesName, carMakesImage, favouriteStatus,
+      carRating, carOwnerImage, carOwnerName, discountPercentage,
+      homeStreetAddress1, homeStreetAddress2, homeCity, homePostCode,
+      homeSelectedState, homeSelectedCountry, evStartDate, evEndDate,
+  final int? carId, carOwnerId,
+  final double? carDiscountPrice){
+
   }
 
   final GlobalKey<FormState> homeAddressFormKey = GlobalKey<FormState>();
@@ -308,24 +196,9 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
   var cityControllerHome = TextEditingController();
   var postCodeControllerHome = TextEditingController();
 
-  // String _country = 'United Kingdom';
-  //
-  // // Initial Selected Value
-  // String dropdownValue = 'Select state';
-  //
-  // // List of items in our dropdown menu
-  // var items = [
-  //   'Select state',
-  //   'Select state 1',
-  //   'Select state 2',
-  //   'Select state 3',
-  //   'Select state 4',
-  //   'Select state 5',
-  // ];
-
   Widget buildTextFields() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0),
+        padding: EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           color: Colors.transparent,
           child: Column(

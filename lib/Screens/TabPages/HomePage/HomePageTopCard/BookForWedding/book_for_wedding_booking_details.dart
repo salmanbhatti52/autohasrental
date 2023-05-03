@@ -1,20 +1,19 @@
-import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:bottom_sheet/bottom_sheet.dart';
+import 'PhotoAddress/photo_delivery_address.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
-import 'package:bottom_sheet/bottom_sheet.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'PhotoAddress/photo_delivery_address.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 
 class BookForWeddingBookingDetails extends StatefulWidget {
-  // final DatumPhotography? datumPhotography;
   final String? selectedDate, selectedHours, selectedDay, selectedStartTime, selectedEndTime;
   final int? hoursInNumber;
   final String? carName, carImage, carYear, carPrice, favouriteStatus,
@@ -22,7 +21,7 @@ class BookForWeddingBookingDetails extends StatefulWidget {
       carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
   final int? carId, carOwnerId;
 
-  const BookForWeddingBookingDetails({Key? key,
+  BookForWeddingBookingDetails({Key? key,
    /* this.datumPhotography,*/ this.selectedStartTime,
     this.selectedEndTime, this.selectedDay, this.hoursInNumber,
     this.selectedHours, this.selectedDate,
@@ -59,7 +58,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(const Duration(days: 0)),
+      firstDate: DateTime.now().subtract(Duration(days: 0)),
       lastDate: DateTime(2050),
     );
     if (picked != null && picked != pickDate) {
@@ -111,7 +110,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
         backImage: "assets/messages_images/Back.png",
       ),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -120,7 +119,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                 children: [
                   bookForWeddingBookingCard(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -131,9 +130,9 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                                 fontSize: 14,
                                 fontFamily: poppinSemiBold)),
                         // SizedBox(height: MediaQuery.of(context).size.height* 0.01),
-                        // const BFWChooseSubscriptionPlan(),
+                        // BFWChooseSubscriptionPlan(),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(vertical: 10),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -145,7 +144,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                                 ),
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
+                                    padding: EdgeInsets.symmetric(
                                         horizontal: 10),
                                     child: Text('$valueDay - $dropdownValueTime',
                                         textAlign: TextAlign.left,
@@ -239,7 +238,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                               color: kBlack,
                               borderRadius: BorderRadius.circular(25)),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(left: 10),
                             child: Row(
                               children: [
                                 Image.asset(
@@ -385,7 +384,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
       children: [
         Image.asset(myImage),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 07),
+          padding: EdgeInsets.symmetric(horizontal: 07),
           width: MediaQuery.of(context).size.width * 0.8,
           color: Colors.transparent,
           child: Text(myText, textAlign: TextAlign.left, maxLines: 2, style: TextStyle(
@@ -401,7 +400,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
             height: screenHeight * 0.41,
             decoration: BoxDecoration(
@@ -415,7 +414,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
             color: Colors.transparent,
             width: screenWidth,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -443,7 +442,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 04),
+                              padding: EdgeInsets.only(top: 04),
                               child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                                       color: kRed, fontSize: 5, fontFamily: poppinLight)),
                             ),
@@ -452,7 +451,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                                     fontFamily: poppinLight, fontSize: 10, decoration: TextDecoration.lineThrough)),
                             SizedBox(width: screenWidth * 0.01),
                             Padding(
-                              padding: const EdgeInsets.only(top: 06),
+                              padding: EdgeInsets.only(top: 06),
                               child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                                       color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                             ),
@@ -514,7 +513,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: FadeInImage(
-                    placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+                    placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
                     height: 130,
                     image: NetworkImage("${widget.carImage}"),
                   ),
@@ -526,7 +525,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
             child: Container(
               height: screenHeight * 0.04,
               width: screenWidth * 0.18,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15),
@@ -601,7 +600,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: homeBgColor,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
                       topLeft: Radius.circular(20)),
                 ),
@@ -611,7 +610,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 16),
+                        padding: EdgeInsets.only(left: 16),
                         child: Text('Change Available Time Slot',
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -629,7 +628,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                               context: context,
                               initialDate: DateTime.now(),
                               // firstDate: DateTime(1980),
-                              firstDate: DateTime.now().subtract(const Duration(days: 0)),
+                              firstDate: DateTime.now().subtract(Duration(days: 0)),
                               lastDate: DateTime(2050),
                             );
                             if (picked != null && picked != pickDate) {
@@ -688,16 +687,16 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           child: Container(
                             height: size.height * 0.055,
                             width: MediaQuery.of(context).size.width * 01.3,
                             decoration: BoxDecoration(
                                 color: kWhite,
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: const Color(0xff7E7E7E))),
+                                border: Border.all(color: Color(0xff7E7E7E))),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 10, right: 10),
+                              padding: EdgeInsets.only(left: 10, right: 10),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton2(
                                   hint: Text('Select Hours', style: GoogleFonts.poppins(textStyle: TextStyle(
@@ -731,7 +730,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -819,7 +818,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                         Navigator.pop(context);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         child: Center(
                           child: Container(
@@ -863,7 +862,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   //             width: MediaQuery.of(context).size.width,
   //             decoration: BoxDecoration(
   //               color: homeBgColor,
-  //               borderRadius: const BorderRadius.only(
+  //               borderRadius: BorderRadius.only(
   //                   topRight: Radius.circular(20),
   //                   topLeft: Radius.circular(20)),
   //             ),
@@ -873,7 +872,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   //                 Align(
   //                   alignment: Alignment.topLeft,
   //                   child: Padding(
-  //                     padding: const EdgeInsets.only(left: 16),
+  //                     padding: EdgeInsets.only(left: 16),
   //                     child: Text('Change Available Time Slot',
   //                         textAlign: TextAlign.left,
   //                         style: TextStyle(
@@ -891,7 +890,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   //                           context: context,
   //                           initialDate: DateTime.now(),
   //                           // firstDate: DateTime(1980),
-  //                           firstDate: DateTime.now().subtract(const Duration(days: 0)),
+  //                           firstDate: DateTime.now().subtract(Duration(days: 0)),
   //                           lastDate: DateTime(2050),
   //                         );
   //                         if (picked != null && picked != pickDate) {
@@ -950,16 +949,16 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   //                             ),
   //                           ),
   //                     Padding(
-  //                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   //                       child: Container(
   //                         height: size.height * 0.055,
   //                         width: MediaQuery.of(context).size.width * 01.3,
   //                         decoration: BoxDecoration(
   //                             color: kWhite,
   //                             borderRadius: BorderRadius.circular(15),
-  //                             border: Border.all(color: const Color(0xff7E7E7E))),
+  //                             border: Border.all(color: Color(0xff7E7E7E))),
   //                         child: Padding(
-  //                           padding: const EdgeInsets.only(left: 10, right: 10),
+  //                           padding: EdgeInsets.only(left: 10, right: 10),
   //                           child: DropdownButtonHideUnderline(
   //                             child: DropdownButton2(
   //                               hint: Text('Select Hours', style: GoogleFonts.poppins(textStyle: TextStyle(
@@ -993,7 +992,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   //                       ),
   //                     ),
   //                     Padding(
-  //                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   //                       child: Row(
   //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
   //                           children: [
@@ -1081,7 +1080,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   //                     Navigator.pop(context);
   //                   },
   //                   child: Padding(
-  //                     padding: const EdgeInsets.symmetric(
+  //                     padding: EdgeInsets.symmetric(
   //                         horizontal: 20, vertical: 10),
   //                     child: Center(
   //                       child: Container(

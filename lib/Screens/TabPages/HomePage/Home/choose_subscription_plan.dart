@@ -4,7 +4,7 @@
 // import '../../../../Utils/colors.dart';
 //
 // class ChooseSubscriptionPlan extends StatefulWidget {
-//   const ChooseSubscriptionPlan({Key? key}) : super(key: key);
+//   ChooseSubscriptionPlan({Key? key}) : super(key: key);
 //
 //   @override
 //   State<ChooseSubscriptionPlan> createState() => _ChooseSubscriptionPlanState();
@@ -30,7 +30,7 @@
 //       child: ListView.builder(
 //         itemCount: sampleData.length,
 //         scrollDirection: Axis.horizontal,
-//         physics: const NeverScrollableScrollPhysics(),
+//         physics: NeverScrollableScrollPhysics(),
 //         itemBuilder: (BuildContext context, int index) {
 //           return InkWell(
 //             onTap: () {
@@ -51,11 +51,11 @@
 //
 // class SubscriptionRadioItem extends StatelessWidget {
 //   final SubscriptionRadioModel _item;
-//   const SubscriptionRadioItem(this._item, {super.key});
+//   SubscriptionRadioItem(this._item, {super.key});
 //   @override
 //   Widget build(BuildContext context) {
 //     return Container(
-//       margin: const EdgeInsets.all(5.0),
+//       margin: EdgeInsets.all(5.0),
 //       child: Row(
 //         mainAxisSize: MainAxisSize.max,
 //         children: [

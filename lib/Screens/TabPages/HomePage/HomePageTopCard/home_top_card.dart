@@ -1,9 +1,9 @@
-import 'package:auto_haus_rental_app/Utils/colors.dart';
-import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:flutter/material.dart';
+import 'EvSubscriptions/ev_subscription_page.dart';
 import 'BookForWedding/book_for_wedding_car_page.dart';
 import 'DrivingExperience/driving_experience_page.dart';
-import 'EvSubscriptions/ev_subscription_page.dart';
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 
 String? myEvCar, myPhotoCar, myDrivingCar;
 String carsUsageType = "EV Subscriptions";
@@ -12,15 +12,15 @@ Widget homeTopHorizontalCard(BuildContext context){
   return Container(
     height: MediaQuery.of(context).size.height * 0.14,
     width: double.infinity,
-    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     child: ListView.builder(
-      physics: const BouncingScrollPhysics(),
+      physics: BouncingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: cardItemsList.length,
         itemBuilder: (BuildContext context, int index){
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: GestureDetector(
               onTap: (){
                   switch(index) {
@@ -41,7 +41,7 @@ Widget homeTopHorizontalCard(BuildContext context){
                 },
               child: Container(
                 height: 70, width: 220,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                     color: cardItemsList[index].color,
                     borderRadius: BorderRadius.circular(15)
@@ -49,7 +49,7 @@ Widget homeTopHorizontalCard(BuildContext context){
                 child: Row(
                   children: [
                    Image.asset(cardItemsList[index].image),
-                    const SizedBox(width: 05,),
+                    SizedBox(width: 05,),
                     Container(
                         color: Colors.transparent,
                         width: MediaQuery.of(context).size.width* 0.35,
@@ -65,9 +65,9 @@ Widget homeTopHorizontalCard(BuildContext context){
 }
 
 List cardItemsList = [
-  CardItems( "assets/home_page/pin.png", 'Get Ev Subscription', const Color(0xffF9E7EF)),
-  CardItems( "assets/home_page/camera.png", 'Book for Wedding & Photography', const Color(0xffD2EEFF)),
-  CardItems( "assets/home_page/steering.png", 'Get Driving Experiences', const Color(0xffFFE2DB)),
+  CardItems( "assets/home_page/pin.png", 'Get Ev Subscription', Color(0xffF9E7EF)),
+  CardItems( "assets/home_page/camera.png", 'Book for Wedding & Photography', Color(0xffD2EEFF)),
+  CardItems( "assets/home_page/steering.png", 'Get Driving Experiences', Color(0xffFFE2DB)),
 ];
 
 class CardItems {

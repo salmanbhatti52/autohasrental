@@ -1,33 +1,39 @@
 import 'dart:convert';
-import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
-import 'package:auto_haus_rental_app/Utils/constants.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:http/http.dart'as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
-import '../../../../../Model/custom_subscription_model.dart';
-import '../../../../../Utils/fontFamily.dart';
-import '../../../../../Widget/button.dart';
-import '../../../../../Utils/colors.dart';
-import '../../../MessagePage/message_details_screen.dart';
 import 'ev_description_details_page.dart';
 import 'EvTaBBar/tabbar_description_page.dart';
-import 'package:http/http.dart'as http;
+import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:auto_haus_rental_app/Model/custom_subscription_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_details_screen.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class EVCarDescription extends StatefulWidget {
  final String? carName, carImage, carYear, carPrice, carStatus, carColorName, favouriteStatus,
      carModelName, carMakesName, carMakesImage, myCarDescription, myCarRating,
      myCarComment, carRating, carOwnerImage, carOwnerName, discountPercentage;
+ final String? featureSuv, featuresSeats, featuresSpeed, featuresAutomatic, featuresDoors,
+     featuresElectric, featuresEngine_capacity, featuresFuelCapacity, featuresMeterReading, featuresNewCars;
  final int? carId, carOwnerId;
  final double? carDiscountPrice;
-  const EVCarDescription({super.key, this.carName, this.myCarDescription, this.favouriteStatus,
+  EVCarDescription({super.key, this.carName, this.myCarDescription, this.favouriteStatus,
     this.myCarRating, this.myCarComment, this.carColorName, this.carModelName,
     this.discountPercentage, this.carDiscountPrice, this.carImage, this.carYear,
     this.carMakesImage, this.carStatus, this.carMakesName, this.carId, this.carPrice,
-    this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName});
+    this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
+
+    this.featureSuv, this.featuresSeats, this.featuresSpeed, this.featuresAutomatic,
+    this.featuresDoors, this.featuresElectric, this.featuresEngine_capacity,
+    this.featuresFuelCapacity, this.featuresMeterReading, this.featuresNewCars});
 
   @override
   State<EVCarDescription> createState() => _EVCarDescriptionState();
@@ -35,17 +41,6 @@ class EVCarDescription extends StatefulWidget {
 
 class _EVCarDescriptionState extends State<EVCarDescription> with TickerProviderStateMixin {
 
-  // mySelectedData(){
-  //   carOwnerId = widget.evDatum!.usersCompaniesId;
-  //   carOwnerName = widget.evDatum!.usersCompanies!.companyName;
-  //   carOwnerImage = "$baseUrlImage${widget.evDatum!.usersCompanies!.companyLogo}";
-  //   print("myCarRating ${widget.evDatum!.carsRatings}");
-  //
-  //   print("carOwnerId $carOwnerId");
-  //   print("carOwnerName $carOwnerName");
-  //   print("carOwnerImage $carOwnerImage");
-  //
-  // }
   mySelectedData(){
     carOwnerId = widget.carOwnerId;
     carOwnerName = widget.carOwnerName;
@@ -58,10 +53,10 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
 
   }
 
-  EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
+  EvCarsModel evCarsModelObject = EvCarsModel();
   bool loadingP = true;
   int selectedIndex = 0;
-  String? tabSelectMonth, tabSelectedPrice;
+  String? tabSelectMonth, tabSelectedPrice, carLikeStatus;
   String? carOwnerName, carOwnerImage;
   int? carOwnerId;
 
@@ -88,8 +83,8 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("evSubscriptionResponse: ${responseString.toString()}");
-        evSubscriptionCarsModelObject = evCarsModelFromJson(responseString);
-        print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
+        evCarsModelObject = evCarsModelFromJson(responseString);
+        print("evSubscriptionObjectLength: ${evCarsModelObject.data!.length}");
         monthList();
       }
     } catch (e) {
@@ -101,15 +96,14 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
 
   List<CustomSubscriptionModel> monthNumber = [];
   monthList(){
-    for (int i = 0; i< evSubscriptionCarsModelObject.data!.length; i++) {
+    for (int i = 0; i< evCarsModelObject.data!.length; i++) {
       print("OuterLoop:$i");
-      for (int j = 0; j < evSubscriptionCarsModelObject.data![i].carsPlans!.length; j++) {
-        if(evSubscriptionCarsModelObject.data![i].carsPlans![j].carsId == carID) {
+      for (int j = 0; j < evCarsModelObject.data![i].carsPlans!.length; j++) {
+        if(evCarsModelObject.data![i].carsPlans![j].carsId == carID) {
           monthNumber.add(CustomSubscriptionModel(
-              months: evSubscriptionCarsModelObject.data![i].carsPlans![j].months!.toString(),
-              price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].pricePerMonth!,
-              dis_price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString()));
-
+              months: evCarsModelObject.data![i].carsPlans![j].months!.toString(),
+              price_per_months: evCarsModelObject.data![i].carsPlans![j].pricePerMonth!,
+              dis_price_per_months: evCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString()));
          tabSelectMonth = monthNumber[0].months;
          tabSelectedPrice = monthNumber[0].dis_price_per_months;
           print("monthNumber123 $tabSelectMonth $tabSelectedPrice");
@@ -154,13 +148,17 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
     super.initState();
     mySelectedData();
     getEvSubscriptionCarsWidget();
+
+    carLikeStatus = widget.favouriteStatus;
+    print('carLikeStatus ${carLikeStatus}');
+
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
+        systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness:
           Brightness.dark, //<-- For Android SEE HERE (dark icons)
@@ -183,7 +181,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
               print("evCarOwnerId $carOwnerId");
               },
             child: Padding(
-              padding: const EdgeInsets.only(top: 30, right: 20),
+              padding: EdgeInsets.only(top: 30, right: 20),
               child: Image.asset("assets/car_description_images/chat.png",
                 height: 25, width: 25,
               ),
@@ -194,7 +192,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
         centerTitle: true,
 
           title: Padding(
-            padding: const EdgeInsets.only(top: 30, right: 0),
+            padding: EdgeInsets.only(top: 30, right: 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -208,7 +206,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
             Navigator.pop(context);
           },
           child: Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: EdgeInsets.only(top: 30),
             child: Image.asset("assets/live_chat_images/back_arrow.png",
               color: kWhite, height: 25, width: 25,
             ),
@@ -222,7 +220,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.37,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Color(0xff0f172a),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
@@ -250,7 +248,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 20),
+                        padding: EdgeInsets.only(left: 20),
                           child:
                           CachedNetworkImage(
                             imageUrl: "${widget.carMakesImage}",
@@ -262,26 +260,26 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                           ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child:  widget.carStatus == "like"?
+                        padding: EdgeInsets.only(right: 20),
+                        child: carLikeStatus == "like"?
                         Image.asset("assets/home_page/heart.png"):
                         GestureDetector(
                           onTap: () async {
                             myCurrentCarIndex = "${widget.carId}";
                             print("evCarIds $myCurrentCarIndex");
                             await getLikeUnlikeCarWidget();
+                            // carLikeStatus = carLikeUnlikeModelObject.message;
+                            print('carLikeStatus123 $carLikeStatus');
                             if (carLikeUnlikeModelObject.message == "Liked") {
-                              print("isLiked");
-                              // toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
+                              carLikeStatus = 'like';
+                            } else{
+                              carLikeStatus = 'dislike';
                             }
-                            if (carLikeUnlikeModelObject.message == "Unliked") {
-                              print("isUnLiked");
-                              // toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                            }
+
                           },
-                          child: carLikeUnlikeModelObject.message == "Liked"
-                              ? Image.asset("assets/home_page/heart.png")
-                              : Image.asset("assets/car_bookings_images/heart.png"),
+                          child: carLikeStatus == "like" ?
+                          Image.asset("assets/home_page/heart.png") :
+                          Image.asset("assets/car_bookings_images/heart.png"),
                         ),
                       ),
                     ],
@@ -309,11 +307,11 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.1,
-                // child: const MonthSlotContainer(),
+                // child: MonthSlotContainer(),
                 child: tabsList(),
               ),
             ),
@@ -321,12 +319,25 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
               myDescription: widget.myCarDescription,
               myRating: widget.myCarRating,
               myComment: widget.myCarComment,
+
+              featureSuv: widget.featureSuv,
+              featuresDoors: widget.featuresDoors,
+              featuresSeats: widget.featuresSeats,
+              featuresAutomatic: widget.featuresAutomatic,
+              featuresSpeed: widget.featuresSpeed,
+              featuresElectric: widget.featuresElectric,
+              featuresEngine_capacity: widget.featuresEngine_capacity,
+              featuresMeterReading: widget.featuresMeterReading,
+              featuresNewCars: widget.featuresNewCars,
+              featuresFuelCapacity: widget.featuresFuelCapacity,
             ),
             GestureDetector(
                 onTap: () {
                   print('selectedIndex123: $selectedIndex');
                   print('selectedTabMonth123: $tabSelectMonth');
                   print('selectedTabMonthPrice123: $tabSelectedPrice');
+
+                  print('carLikeStatus ${carLikeStatus}');
                   if(formKeyEvTabbar.currentState!.validate()){
                     // if(tabSelectMonth == null){
                     //
@@ -336,6 +347,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                           builder: (context) => EvDescriptionDetailsPage(
                             mySelectedTabMonth: tabSelectMonth,
                             mySelectedTabPrice: tabSelectedPrice,
+                            favouriteStatus: carLikeStatus,
                             carName: widget.carName,
                             carImage: widget.carImage,
                             carYear: widget.carYear,
@@ -376,7 +388,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                   color: homeBgColor,
                   borderRadius: BorderRadius.circular(15)),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(

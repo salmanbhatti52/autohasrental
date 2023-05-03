@@ -1,28 +1,29 @@
-import 'package:auto_haus_rental_app/Model/Notification/notifications_unread_model.dart';
-import 'package:auto_haus_rental_app/Model/search_model.dart';
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:get/get.dart';
+import 'Drawer/drawer_screen.dart';
+import 'Filter/filter_screen.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'HomePageTopCard/home_top_card.dart';
+import 'Drawer/Settings/settings_screen.dart';
+import 'Notifications/notification_screen.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'TopRented/Driving_Home/home_driving_booking.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/HomePageModels/top_rented_cars_model.dart';
-import '../../../Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
-import '../../../Widget/cars_home_widget.dart';
 import 'Drawer/Settings/EditProfile/edit_profile_screen.dart';
-import 'Drawer/Settings/settings_screen.dart';
-import 'Filter/filter_screen.dart';
-import 'HomePageTopCard/BookForWedding/book_for_wedding_car_description.dart';
+import 'package:auto_haus_rental_app/Model/search_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'HomePageTopCard/EvSubscriptions/ev_car_description.dart';
-import 'TopRented/Driving_Home/home_driving_booking.dart';
-import 'HomePageTopCard/home_top_card.dart';
-import 'Drawer/drawer_screen.dart';
-import 'Notifications/notification_screen.dart';
-import 'package:http/http.dart' as http;
+import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
+import 'HomePageTopCard/BookForWedding/book_for_wedding_car_description.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/top_rented_cars_model.dart';
+import 'package:auto_haus_rental_app/Model/Notification/notifications_unread_model.dart';
+import 'package:auto_haus_rental_app/Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
 
 class HomePage extends StatefulWidget {
    HomePage({Key? key}) : super(key: key);
@@ -32,15 +33,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  NotificationsUnReadModel notificationsUnReadModelObject = NotificationsUnReadModel();
   GetUserProfileModel getUserProfileModelObject = GetUserProfileModel();
   TopRentedCarsModel topRentedCarsModelObject = TopRentedCarsModel();
-  NotificationsUnReadModel notificationsUnReadModelObject = NotificationsUnReadModel();
-  List<TopRentedCarsModel> topRentedCarsModelObject1 = [];
-  SearchModel searchModelObject = SearchModel();
   var searchController = TextEditingController();
-  bool loadingP = true;
+  SearchModel searchModelObject = SearchModel();
+
   List<String> filteredData = [];
+  bool loadingP = true;
 
   searchCarsWidget() async {
     // try {
@@ -378,7 +378,7 @@ class _HomePageState extends State<HomePage> {
           ),
           itemCount: topRentedCarsModelObject.data?.length,
           itemBuilder: (BuildContext context, int index) {
-            print("topRentedCarsModelObject1 ${topRentedCarsModelObject1.length}");
+            // print("topRentedCarsModelObject1 ${topRentedCarsModelObject1.length}");
             // carName = topRentedCarsModelObject.data![index].vehicalName;
             // print("carName $carName");
 
@@ -523,6 +523,7 @@ class _HomePageState extends State<HomePage> {
                                   carID = topRentedCarsModelObject.data![index].carsId;
                                   print("cardId $carID");
                                   print("carsUsageType ${topRentedCarsModelObject.data?[index].carsUsageType}");
+                                  print("favouriteStatusHome ${topRentedCarsModelObject.data?[index].favouriteStatus}");
 
                                   if(topRentedCarsModelObject.data![index].carsUsageType == "EV Subscriptions"){
                                     Navigator.push(context,
@@ -537,13 +538,27 @@ class _HomePageState extends State<HomePage> {
                                           carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
                                           carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
                                           carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                          carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                          // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
                                           discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
                                           carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
                                           carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
                                           carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
                                           carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                          myCarDescription: topRentedCarsModelObject.data![index].description)));
+                                          myCarDescription: topRentedCarsModelObject.data![index].description,
+                                          favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+
+                                          featureSuv: topRentedCarsModelObject.data![index].featuresSuv,
+                                          featuresDoors: topRentedCarsModelObject.data![index].featuresDoors,
+                                          featuresSeats: topRentedCarsModelObject.data![index].featuresSeats,
+                                          featuresAutomatic: topRentedCarsModelObject.data![index].featuresAutomatic,
+                                          featuresSpeed: topRentedCarsModelObject.data![index].featuresSpeed,
+                                          featuresElectric: topRentedCarsModelObject.data![index].featuresElectric,
+                                          featuresEngine_capacity: topRentedCarsModelObject.data![index].featuresEngineCapacity,
+                                          featuresFuelCapacity: topRentedCarsModelObject.data![index].featuresFuelCapacity,
+                                          featuresMeterReading: topRentedCarsModelObject.data![index].featuresMeterReading,
+                                          featuresNewCars: topRentedCarsModelObject.data![index].featuresNewCars,
+
+                                        )));
                                   }
                                   else if(topRentedCarsModelObject.data![index].carsUsageType == "Photography"){
                                     Navigator.push(context, MaterialPageRoute(
@@ -565,6 +580,17 @@ class _HomePageState extends State<HomePage> {
                                           carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
                                           carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
                                           myCarDescription: topRentedCarsModelObject.data![index].description,
+
+                                          featureSuv: topRentedCarsModelObject.data![index].featuresSuv,
+                                          featuresDoors: topRentedCarsModelObject.data![index].featuresDoors,
+                                          featuresSeats: topRentedCarsModelObject.data![index].featuresSeats,
+                                          featuresAutomatic: topRentedCarsModelObject.data![index].featuresAutomatic,
+                                          featuresSpeed: topRentedCarsModelObject.data![index].featuresSpeed,
+                                          featuresElectric: topRentedCarsModelObject.data![index].featuresElectric,
+                                          featuresEngine_capacity: topRentedCarsModelObject.data![index].featuresEngineCapacity,
+                                          featuresFuelCapacity: topRentedCarsModelObject.data![index].featuresFuelCapacity,
+                                          featuresMeterReading: topRentedCarsModelObject.data![index].featuresMeterReading,
+                                          featuresNewCars: topRentedCarsModelObject.data![index].featuresNewCars,
                                         )));
                                   }
                                   else if(topRentedCarsModelObject.data![index].carsUsageType == "Driving Experience"){
@@ -950,8 +976,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             );
-            // Center(child: Text("No cars Available...", style: TextStyle(
-            //     fontSize: 15, fontWeight: FontWeight.w500)));
           }),
 
     );

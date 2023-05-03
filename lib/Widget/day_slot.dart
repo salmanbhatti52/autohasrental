@@ -4,7 +4,7 @@ import '../../../../../Utils/colors.dart';
 import '../Utils/fontFamily.dart';
 
 class DaySlotContainer extends StatefulWidget {
-  const DaySlotContainer({super.key});
+  DaySlotContainer({super.key});
 
   @override
   State<DaySlotContainer> createState() => _DaySlotContainerState();
@@ -37,7 +37,7 @@ class _DaySlotContainerState extends State<DaySlotContainer> {
       context: context,
       initialDate: DateTime.now(),
       // firstDate: DateTime(1980),
-      firstDate: DateTime.now().subtract(const Duration(days: 0)),
+      firstDate: DateTime.now().subtract(Duration(days: 0)),
       lastDate: DateTime(2050),
     );
     if (picked != null && picked != pickDate) {
@@ -67,12 +67,12 @@ class _DaySlotContainerState extends State<DaySlotContainer> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.keyboard_arrow_left, color: Color(0xffa5a5a5)),
+              Icon(Icons.keyboard_arrow_left, color: Color(0xffa5a5a5)),
               Text(valueDate,  textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 14,
                   fontFamily: poppinSemiBold, color: borderColor),
               ),
-              const Icon(
+              Icon(
                 Icons.keyboard_arrow_right,
                 color: Color(0xffa5a5a5),
               ),
@@ -116,7 +116,7 @@ class _DaySlotContainerState extends State<DaySlotContainer> {
         //   child: ListView.builder(
         //     itemCount: daySlotData.length,
         //     scrollDirection: Axis.horizontal,
-        //     physics: const BouncingScrollPhysics(),
+        //     physics: BouncingScrollPhysics(),
         //     itemBuilder: (BuildContext context, int index) {
         //       return InkWell(
         //         onTap: () {
@@ -138,7 +138,7 @@ class _DaySlotContainerState extends State<DaySlotContainer> {
 
 class DaySlotRadioItem extends StatelessWidget {
   final DaySlotRadioModel _item;
-  const DaySlotRadioItem(this._item, {super.key});
+  DaySlotRadioItem(this._item, {super.key});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -154,12 +154,12 @@ class DaySlotRadioItem extends StatelessWidget {
             child: Text(_item.text,
               style: TextStyle(fontSize: 11,
                 fontFamily: _item.isSelectedDaySlot ? poppinMedium : poppinRegular,
-                color: _item.isSelectedDaySlot ? kWhite : const Color(0xffd4dce1),
+                color: _item.isSelectedDaySlot ? kWhite : Color(0xffd4dce1),
               ),
             ),
           ),
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: 8),
       ],
     );
   }

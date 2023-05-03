@@ -1,16 +1,16 @@
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart'as http;
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart'as http;
-import '../../../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class TwelveMonthsPlan extends StatefulWidget {
   final String months, pricePerMonths, discountPricePerMonths;
 
-   const TwelveMonthsPlan({super.key, required this.months,
+   TwelveMonthsPlan({super.key, required this.months,
      required this.pricePerMonths, required this.discountPricePerMonths});
 
   @override
@@ -89,7 +89,7 @@ class _TwelveMonthsPlanState extends State<TwelveMonthsPlan> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10),
+        SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

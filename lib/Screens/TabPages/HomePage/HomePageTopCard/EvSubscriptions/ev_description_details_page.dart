@@ -1,31 +1,32 @@
-import 'package:auto_haus_rental_app/Utils/api_urls.dart';
+
+import 'package:intl/intl.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart'as http;
+import 'package:flutter/material.dart';
+import 'EvAddress/ev_delivery_address.dart';
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
+import 'package:auto_haus_rental_app/Widget/button.dart';
+import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
-import 'package:auto_haus_rental_app/Widget/button.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
-import 'package:bottom_sheet/bottom_sheet.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
-import '../../../../../Model/custom_subscription_model.dart';
-import '../../../MyAppBarHeader/app_bar_header.dart';
-import 'EvAddress/ev_delivery_address.dart';
+import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'EvSubscriptionPlanTabBar/12MonthsPlan/12_months_plan.dart';
-import 'package:http/http.dart'as http;
+import 'package:auto_haus_rental_app/Model/custom_subscription_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class EvDescriptionDetailsPage extends StatefulWidget {
   final String? mySelectedTabMonth, mySelectedTabPrice;
-  final String? carName, carImage, carYear, carPrice, carStatus,
+  final String? carName, carImage, carYear, carPrice, carStatus, favouriteStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
       carRating, carOwnerImage, carOwnerName, discountPercentage;
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  const EvDescriptionDetailsPage({Key? key, this.carName, this.carMakesName,
+  EvDescriptionDetailsPage({Key? key, this.carName, this.carMakesName, this.favouriteStatus,
     this.discountPercentage, this.carDiscountPrice, this.carImage, this.carYear,
     this.carMakesImage, this.carStatus, this.carColorName, this.carModelName,
     this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage,
@@ -73,6 +74,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     loadingP = false;
     setState(() {});
   }
+
   String? tabMonth, tabPrice;
 
   List<CustomSubscriptionModel> monthNumber = [];
@@ -105,6 +107,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     print("evCarID $carID");
     print("tabMonthAndPrice $tabMonth $tabPrice");
     print("carModelName ${widget.carModelName}");
+    print("carModelStatus ${widget.favouriteStatus}");
     // mySelectedData();
 
     myTotalAmount();
@@ -133,7 +136,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
         backImage: "assets/messages_images/Back.png",
       ),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -142,14 +145,14 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                 children: [
                   homePageDetailsCard(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Select Start and End Date Plan", textAlign: TextAlign.left,
                           style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(vertical: 10),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -161,7 +164,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                                 ),
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
+                                    padding: EdgeInsets.symmetric(
                                         horizontal: 10),
                                     child: tabMonth == "1"?
                                     Text("$tabMonth Month Plan", textAlign: TextAlign.left, style: TextStyle(
@@ -183,7 +186,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                         ),
                         // evSubscriptionTabbarWidget(),
                         choosedPlan(),
-                        // const EvSubscriptionTabbarPage(),
+                        // EvSubscriptionTabbarPage(),
                         SizedBox(height: screenHeight * 0.0),
 
                         Text("*A security deposit may be applicable, depending on your eligibility assessment.",
@@ -197,7 +200,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                               color: kBlack,
                               borderRadius: BorderRadius.circular(25)),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(left: 10),
                             child: Row(
                               children: [
                                 Image.asset("assets/home_page/business-investment.png"),
@@ -276,6 +279,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                                         mySelectedTabMonth: tabMonth,
                                         mySelectedTabPrice: tabPrice,
                                         totalAmount: totalAmount,
+                                        favouriteStatus: widget.favouriteStatus,
 
                                         carName: widget.carName,
                                         carImage: widget.carImage,
@@ -290,7 +294,6 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                                         carOwnerId: widget.carOwnerId,
                                         carMakesName: widget.carMakesName,
                                         carModelName: widget.carModelName,
-
                                       )));
                                 }
 
@@ -315,7 +318,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
       children: [
         Image.asset(myImage),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 05),
+          padding: EdgeInsets.symmetric(horizontal: 05),
           width: MediaQuery.of(context).size.width * 0.8,
           color: Colors.transparent,
           child: Text(myText, textAlign: TextAlign.left,
@@ -332,7 +335,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
             height: screenHeight * 0.4,
             decoration: BoxDecoration(
@@ -345,7 +348,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
             color: Colors.transparent,
             width: screenWidth,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -376,7 +379,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 04),
+                        padding: EdgeInsets.only(top: 04),
                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                             color: kRed, fontSize: 5, fontFamily: poppinLight)),
                       ),
@@ -384,7 +387,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                             fontFamily: poppinLight, fontSize: 10, decoration: TextDecoration.lineThrough)),
                       SizedBox(width: screenWidth * 0.01),
                       Padding(
-                        padding: const EdgeInsets.only(top: 06),
+                        padding: EdgeInsets.only(top: 06),
                         child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
                             color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                       ),
@@ -443,7 +446,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: FadeInImage(
-              placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
+              placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
               width: 350,
               height: 130,
               image: NetworkImage("${widget.carImage}"),
@@ -455,7 +458,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
             child: Container(
               height: screenHeight * 0.035,
               width: screenWidth * 0.18,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15),
@@ -474,32 +477,15 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
             )),
         Positioned(
             top: 28, right: 27,
-            child: Image.asset("assets/home_page/heart_transparent.png", color: kBlack,)),
+            child: widget.favouriteStatus == 'like'?
+            Image.asset("assets/home_page/heart.png") :
+            Image.asset("assets/car_bookings_images/heart.png"),
+    ),
       ],
     );
   }
 
   DateTime? startDatePicked, endDatePicked;
-
-  // selectStartDateWidget(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: DateTime.now(),
-  //     // firstDate: DateTime(2000),
-  //     firstDate: DateTime.now().subtract(const Duration(days: 0)),
-  //     lastDate: DateTime(2025),
-  //   );
-  //   if (picked != null && picked != pickDate) {
-  //     evStartDate = DateFormat('yyyy-MM-dd').format(picked);
-  //     startPicked = picked;
-  //
-  //     setState(() {
-  //       print("selectedStartDate is $evStartDate");
-  //       print("evMonth $evSelectedMonth");
-  //       print("tabNewValueStart $tabNewValue");
-  //     });
-  //   }
-  // }
 
   int? totalDaysOfMonth;
   Future<void> selectStartDateWidget(BuildContext context) async {
@@ -508,7 +494,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: startDatePicked ?? DateTime.now(),
-        firstDate: DateTime.now().subtract(const Duration(days: 0)),
+        firstDate: DateTime.now().subtract(Duration(days: 0)),
         lastDate: DateTime(2100));
     if (picked != null && picked != startDatePicked) {
       setState(() {
@@ -529,7 +515,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
       context: context,
       initialDate: DateTime.now(),
       // firstDate: DateTime(2000),
-      firstDate: DateTime.now().subtract(const Duration(days: 0)),
+      firstDate: DateTime.now().subtract(Duration(days: 0)),
       lastDate: DateTime(2025),
     );
     if (picked != null && picked != pickDate) {
@@ -583,7 +569,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                   color: homeBgColor,
                   borderRadius: BorderRadius.circular(10)),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal:0),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal:0),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
@@ -717,7 +703,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -837,7 +823,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: homeBgColor,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                       topRight: Radius.circular(10),
                       topLeft: Radius.circular(10)),
                 ),
@@ -847,7 +833,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 16),
+                        padding: EdgeInsets.only(left: 16),
                         child: Text('Change Available Month Slot',
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -864,7 +850,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                             color: homeBgColor,
                             borderRadius: BorderRadius.circular(15)),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
                           child: TabBar(
                             controller: tabController,
                             indicator: BoxDecoration(
@@ -930,7 +916,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                         Navigator.pop(context);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         child: Center(
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.06,
@@ -970,7 +956,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   //                 width: MediaQuery.of(context).size.width,
   //                 decoration: BoxDecoration(
   //                   color: homeBgColor,
-  //                   borderRadius: const BorderRadius.only(
+  //                   borderRadius: BorderRadius.only(
   //                       topRight: Radius.circular(20),
   //                       topLeft: Radius.circular(20)),
   //                 ),
@@ -980,7 +966,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   //                     Align(
   //                       alignment: Alignment.topLeft,
   //                       child: Padding(
-  //                         padding: const EdgeInsets.only(left: 16),
+  //                         padding: EdgeInsets.only(left: 16),
   //                         child: Text('Change Available Month Slot',
   //                             textAlign: TextAlign.left,
   //                             style: TextStyle(
@@ -997,7 +983,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   //                             color: homeBgColor,
   //                             borderRadius: BorderRadius.circular(15)),
   //                         child: Padding(
-  //                           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+  //                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
   //                           child: TabBar(
   //                             controller: tabController,
   //                             indicator: BoxDecoration(
@@ -1065,7 +1051,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   //                         Navigator.pop(context);
   //                       },
   //                       child: Padding(
-  //                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //                         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   //                         child: Center(
   //                           child: Container(
   //                             height: MediaQuery.of(context).size.height * 0.06,

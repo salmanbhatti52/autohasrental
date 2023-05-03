@@ -15,7 +15,7 @@ import '../HomePage/Drawer/drawer_screen.dart';
 import '../HomePage/Notifications/notification_screen.dart';
 
 class FavoritePage extends StatefulWidget {
-  const FavoritePage({Key? key}) : super(key: key);
+  FavoritePage({Key? key}) : super(key: key);
 
   @override
   State<FavoritePage> createState() => _FavoritePageState();
@@ -226,37 +226,36 @@ class _FavoritePageState extends State<FavoritePage> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(top: 15),
+      padding: EdgeInsets.only(top: 15),
       child: Container(
         color: Colors.transparent,
         height: screenHeight * 0.73,
         child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
         favoriteCarModelObject.message == "no data found." ?
-        const Center(child: Text('no car in favorite', style: TextStyle(fontWeight: FontWeight.bold))) :
-        favoriteCarModelObject.data == null? const Center(child: Text('no car in favorite....', style: TextStyle(fontWeight: FontWeight.bold))):
+        Center(child: Text('No Cars Found In Favorite.', style: TextStyle(fontWeight: FontWeight.bold))) :
+        favoriteCarModelObject.data == null? Center(child: Text('No Cars Found In Favorite.',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))):
         ListView.builder(
             shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
             itemCount: favoriteCarModelObject.data!.length,
             itemBuilder: (BuildContext context, int index) {
               carID = favoriteCarModelObject.data![index].carsId;
-              // myCarsIndexId = favoriteCarModelObject.data![index].carsId.toString();
-              // print("myCarsIndexIds $myCarsIndexId");
               return Stack(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    padding: EdgeInsets.symmetric(vertical: 20),
                     child: Container(
-                      height: screenHeight * 0.33,
+                      height: screenHeight * 0.25,
                     ),
                   ),
                   Positioned(
                     top: 90,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 9),
+                      padding: EdgeInsets.only(left: 9),
                       child: Container(
-                        height: screenHeight * 0.24,
+                        height: screenHeight * 0.17,
                         width: 343,
                         decoration: BoxDecoration(
                           color: kWhite,
@@ -266,18 +265,18 @@ class _FavoritePageState extends State<FavoritePage> {
                               color: Colors.grey.withOpacity(0.1),
                               spreadRadius: 5,
                               blurRadius: 5,
-                              offset: const Offset(3, 3),
+                              offset: Offset(3, 3),
                             ),
                           ],
                         ),
                         child: Column(
                           children: [
-                            Container(height: screenHeight * 0.1),
+                            Container(height: screenHeight * 0.06),
                             Row(
                               children: [
-                                const SizedBox(height: 93.6),
+                                SizedBox(height: 93.6),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -292,6 +291,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                                   color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
                                         ],
                                       ),
+                                      SizedBox(height: screenHeight * 0.005),
                                       Row(
                                         children: [
                                           Text("${favoriteCarModelObject.data![index].carsModels!.name} ",
@@ -306,11 +306,11 @@ class _FavoritePageState extends State<FavoritePage> {
                                                 color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
                                         ],
                                       ),
-                                      SizedBox(height: screenHeight * 0.01),
+                                      SizedBox(height: screenHeight * 0.005),
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 04),
+                                            padding: EdgeInsets.only(top: 04),
                                             child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
                                                   color: kRed, fontSize: 5, fontFamily: poppinRegular)),
                                           ),
@@ -319,9 +319,9 @@ class _FavoritePageState extends State<FavoritePage> {
                                           favoriteCarModelObject.data![index].carsUsageType == "Photography"?
                                           originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
                                           originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
-                                          const SizedBox(width: 5),
+                                          SizedBox(width: 5),
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 06),
+                                            padding: EdgeInsets.only(top: 06),
                                             child: Text("RM",  textAlign: TextAlign.left,
                                                 style: TextStyle(color: borderColor,
                                                     fontSize: 7, fontFamily: poppinSemiBold)),
@@ -353,7 +353,7 @@ class _FavoritePageState extends State<FavoritePage> {
                     ),
                   ),
                   Positioned(
-                    left: 30, right: 30,
+                    left: 30, right: 30, top: 30,
                     child: favoriteCarModelObject.data![index].image1 == null
                         ? ClipRRect(
                         borderRadius: BorderRadius.circular(10),
@@ -361,8 +361,8 @@ class _FavoritePageState extends State<FavoritePage> {
                         : ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: FadeInImage(
-                        placeholder: const AssetImage("assets/icon/fade_in_image.jpeg"),
-                        width: 350, height: 130,
+                        placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                        width: 350, height: 100,
                         image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}")),
                     ),
                   ),
@@ -373,7 +373,7 @@ class _FavoritePageState extends State<FavoritePage> {
                         width: MediaQuery.of(context).size.width * 0.16,
                         decoration: BoxDecoration(
                           color: kRed.withOpacity(0.8),
-                          borderRadius: const BorderRadius.only(
+                          borderRadius: BorderRadius.only(
                               topRight: Radius.circular(15),
                               bottomLeft: Radius.circular(15)),
                         ),
@@ -418,14 +418,12 @@ class _FavoritePageState extends State<FavoritePage> {
   discountedPriceText(discountedPrice, type){
     return Row(
       children: [
-        Text("$discountedPrice",
-            textAlign: TextAlign.left, style: TextStyle(
-                color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+        Text("$discountedPrice", textAlign: TextAlign.left, style: TextStyle(
+            color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
         Padding(
-          padding: const EdgeInsets.only(top: 06),
-          child: Text(type,  textAlign: TextAlign.left,
-              style: TextStyle(color: borderColor,
-                  fontSize: 8, fontFamily: poppinRegular)),
+          padding: EdgeInsets.only(top: 06),
+          child: Text(type, textAlign: TextAlign.left, style: TextStyle(
+                  color: borderColor, fontSize: 8, fontFamily: poppinRegular)),
         ),
       ],
     );

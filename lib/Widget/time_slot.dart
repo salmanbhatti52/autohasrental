@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../Utils/colors.dart';
 
 class TimeSlotContainer extends StatefulWidget {
-  const TimeSlotContainer({super.key});
+  TimeSlotContainer({super.key});
 
   @override
   State<TimeSlotContainer> createState() => _TimeSlotContainerState();
@@ -25,8 +25,8 @@ class _TimeSlotContainerState extends State<TimeSlotContainer> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           childAspectRatio: 1 / 0.45,
           mainAxisSpacing: 10,
@@ -50,7 +50,7 @@ class _TimeSlotContainerState extends State<TimeSlotContainer> {
 
 class TimeSlotRadioItem extends StatelessWidget {
   final TimeSlotRadioModel _item;
-  const TimeSlotRadioItem(this._item, {super.key});
+  TimeSlotRadioItem(this._item, {super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,7 +71,7 @@ class TimeSlotRadioItem extends StatelessWidget {
             size: 22,
             color: _item.isSelectedTimeSlot
                 ? borderColor
-                : const Color(0xffd4dce1),
+                : Color(0xffd4dce1),
           ),
           // Image.asset(
           //   _item.image,
@@ -83,7 +83,7 @@ class TimeSlotRadioItem extends StatelessWidget {
               fontFamily: _item.isSelectedTimeSlot
                   ? 'Poppins-Medium' : 'Poppins-Regular',
               color: _item.isSelectedTimeSlot
-                  ? unSelectedTabColor : const Color(0xffd4dce1),
+                  ? unSelectedTabColor : Color(0xffd4dce1),
             ),
           ),
         ],

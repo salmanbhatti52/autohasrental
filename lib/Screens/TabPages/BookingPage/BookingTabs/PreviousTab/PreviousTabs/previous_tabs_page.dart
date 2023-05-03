@@ -5,7 +5,7 @@ import 'EVPrevious/ev_previous_page.dart';
 import 'PhotoPrevious/photo_previous_page.dart';
 
 class PreviousTabsPages extends StatefulWidget {
-  const PreviousTabsPages({super.key});
+  PreviousTabsPages({super.key});
 
   @override
   State<PreviousTabsPages> createState() => _PreviousTabsPagesState();
@@ -24,15 +24,15 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 0, right: 05, top: 05),
+          padding: EdgeInsets.only(left: 0, right: 05, top: 05),
           child: Container(
               width: MediaQuery.of(context).size.width*0.75,
               height: MediaQuery.of(context).size.height* 0.04,
               decoration: BoxDecoration(
-                  color: const Color(0xffd4dce1),
+                  color: Color(0xffd4dce1),
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 0),
+                padding: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 0),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
@@ -42,10 +42,10 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
                   indicatorColor: kWhite,
                   isScrollable: true,
                   labelColor: kBlack,
-                  labelPadding: const EdgeInsets.only(left: 20, right: 20),
-                  labelStyle: const TextStyle(fontSize: 14),
+                  labelPadding: EdgeInsets.only(left: 20, right: 20),
+                  labelStyle: TextStyle(fontSize: 14),
                   unselectedLabelColor: kBlack,
-                  tabs: const [
+                  tabs: [
                     Tab(
                       text: "Photography",
                     ),
@@ -65,7 +65,7 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
           height: MediaQuery.of(context).size.height*0.68,
           child: TabBarView(
             controller: tabController,
-            children: const [
+            children: [
               PhotoPreviousPage(),
               DrivingPreviousPage(),
               EvPreviousPage(),

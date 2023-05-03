@@ -70,7 +70,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 SizedBox(width: MediaQuery.of(context).size.width * 0.1),
                 Text("Review Terms of \nService & Privacy Policy",
                   maxLines: 2, textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
+                  style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
               ],
             ),
           ),

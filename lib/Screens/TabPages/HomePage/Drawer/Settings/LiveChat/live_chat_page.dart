@@ -147,8 +147,8 @@ class _LiveChatPageState extends State<LiveChatPage> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height* 0.1),
           GestureDetector(
-              onTap: () {
-                startLiveChatApiWidget();
+              onTap: () async {
+               await startLiveChatApiWidget();
 
                 Navigator.push(context, MaterialPageRoute(
                         builder: (context) => LiveChatDetailsPage(
@@ -173,13 +173,15 @@ class _LiveChatPageState extends State<LiveChatPage> {
       "users_customers_id": userId,
       "other_users_customers_id": "${getAdminListModelObject.data![0].usersSystemId}",
     };
-    http.Response response = await http.post(Uri.parse(startChatApiUrl),
+    http.Response response = await http.post(Uri.parse(startLiveChatApiUrl),
         body: body,
         headers: {
           "Accept": "application/json"
         });
     Map jsonData = jsonDecode(response.body);
-    print("startLiveChatApiUrl: $startChatApiUrl");
+    print("startLiveChatApiUrl: $startLiveChatApiUrl");
+    print('userId $userId');
+    print('otherUsersCustomersId ${getAdminListModelObject.data![0].usersSystemId}');
     print('startLiveChatApiResponse $jsonData');
 
     if (jsonData['message'] == 'chat already started') {

@@ -21,7 +21,7 @@ class PasswordEditTextUtils {
       keyboardType: keyboardType,
       obscureText: obscureText,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 10, 0),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 10, 0),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.0),
             borderSide: BorderSide(color: textLabelColor)

@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   splashNavigator() {
-    Timer(const Duration(seconds: 3), () {
+    Timer(Duration(seconds: 3), () {
       sharedPrefs();
       // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
     });
