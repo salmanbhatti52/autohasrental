@@ -18,7 +18,9 @@ String? evSelectedMonthDiscountedPrice;
 double? evSelectedMonthTotalPrice = 0.0;
 int? carID;
 
-double serviceFee = 50.0;
+// double serviceFee = 50.0;
+double? myServiceFee;
+double? percentage = 6;
 
 List timeHoursList = [
   'Select Hours', '1 hour', '2 hour', '3 hour', '4 hour',

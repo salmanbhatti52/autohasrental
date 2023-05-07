@@ -627,14 +627,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Positioned(
                     top: 30, left: 10, right: 10,
-                    child: topRentedCarsModelObject.data?[index].image1 == null ?
+                    child: topRentedCarsModelObject.data?[index].image1 == null?
                     ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset('assets/icon/fade_in_image.jpeg')) :
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: FadeInImage(
-                        placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
+                        placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
                         height: 65,
                         image: NetworkImage("$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"),
                       ),

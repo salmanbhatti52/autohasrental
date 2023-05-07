@@ -314,7 +314,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                   children: [
                                     Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
                                            color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
-                                    Text("RM $serviceFee", textAlign: TextAlign.right, style: TextStyle(
+                                    Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right, style: TextStyle(
                                             color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
                                   ],
                                 ),

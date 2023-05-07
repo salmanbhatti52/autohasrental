@@ -1,17 +1,15 @@
 
-import 'package:auto_haus_rental_app/Model/BookingModels/cancelled_booking_model.dart';
-import 'package:auto_haus_rental_app/Model/cancel_booking_model.dart';
-import 'package:auto_haus_rental_app/Widget/toast_message.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:auto_haus_rental_app/Model/cancel_booking_model.dart';
 import 'package:auto_haus_rental_app/Model/BookingModels/Upcoming/EvUpComing/ev_upcoming_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/BookingPage/BookingTabs/UpcomingTab/upcoming_bookings_details_page.dart';
 
@@ -27,7 +25,6 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
   EvUpcomingModel evUpcomingModelObject = EvUpcomingModel();
   bool loadingP = true;
 
-
   getUpcomingBookingCarWidget() async {
     loadingP = true;
     setState(() {});
@@ -36,7 +33,6 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
     userId = (prefs!.getString('userid'));
     print('in upcomingBookingCarApi');
 
-    // try {
     String apiUrl = bookingUpcomingCarsApiUrl;
     print("upcomingBookingCarModelApi: $apiUrl");
     final response = await http.post(Uri.parse(apiUrl), headers: {
@@ -399,20 +395,18 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                // Navigator.pop(context);
-                                // Navigator.pushReplacement(context, MaterialPageRoute(
-                                //     builder: (context) => SettingsScreen()));
-                              },
-                              child: Image.asset("assets/payment_card_images/cancle.png",),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.end,
+                        //   crossAxisAlignment: CrossAxisAlignment.end,
+                        //   children: [
+                        //     GestureDetector(
+                        //       onTap: () {
+                        //         Navigator.pop(context);
+                        //       },
+                        //       child: Image.asset("assets/payment_card_images/cancle.png",),
+                        //     ),
+                        //   ],
+                        // ),
                         Text("Cancel?", textAlign: TextAlign.center,
                             style: TextStyle(color: borderColor,
                                 fontSize: 20, fontFamily: poppinSemiBold)),
@@ -462,7 +456,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                               Navigator.pop(context);
                             },
                             child: noButton()),
-                        SizedBox(height: Get.height * 0.03),
+                        SizedBox(height: Get.height * 0.0),
                       ],
                     ),
                   ),

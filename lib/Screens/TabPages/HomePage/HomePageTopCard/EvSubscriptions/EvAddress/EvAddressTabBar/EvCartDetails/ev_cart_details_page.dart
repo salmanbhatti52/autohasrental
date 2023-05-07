@@ -159,6 +159,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print("evTotalPrice: $myTotalAmount");
     print('evStartEndDate: ${widget.evStartDate} ${widget.evEndDate}');
     print("pricePerMonth: $myDiscountedAmount");
+    print("myServiceFee: $myServiceFee");
     print("carDiscountPercentage: ${widget.discountPercentage}");
     print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
     print("homePostCity: ${widget.homeCity} ${widget.homePostCode}");
@@ -341,7 +342,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                       textAlign: TextAlign.left,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),
-                                    Text("RM $serviceFee", textAlign: TextAlign.right,
+                                    Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),
                                   ],

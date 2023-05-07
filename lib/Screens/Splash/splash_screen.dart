@@ -1,12 +1,13 @@
 import 'dart:async';
-import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
+import 'package:auto_haus_rental_app/Screens/Introduction_screens/introduction_page.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter/material.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Authentication/LoginPage/login_page.dart';
-import '../Introduction_screens/introduction_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
+import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -17,20 +18,15 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool loading = true;
-  String? userFirstName, userLastName, userImage;
+  bool _showIntro = true;
+
   sharedPrefs() async {
     loading = true;
     setState(() {});
-    print('in LoginPage shared prefs');
+    print('in splashPage shared prefs');
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
-    userEmail = (prefs!.getString('user_email'));
-    userFirstName = (prefs!.getString('user_first_name'));
-    userLastName = (prefs!.getString('user_last_name'));
-    print("userId in LoginPrefs is = $userId");
-    print("userEmail in LoginPrefs is = $userEmail");
-    print("userFirstName in LoginPrefs is = $userFirstName $userLastName");
-
+    print("userId in splashPrefs is = $userId");
     if (userId != null) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarPage()));
     }
@@ -42,10 +38,41 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
+  splashNavigator() {
+    Timer(Duration(seconds: 3), () {
+      sharedPrefs();
+    });
+  }
+
+  introWidget(){
+    SharedPreferences.getInstance().then((prefs) {
+      bool hasSeenIntro = prefs.getBool('hasSeenIntro') ?? false;
+      setState(() {
+        _showIntro = !hasSeenIntro;
+      });
+    });
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setBool('hasSeenIntro', true);
+    });
+    Future.delayed(Duration(seconds: 4), () {
+      sharedPrefs();
+      // Get.offAll(
+      //   _showIntro ? IntroductionPage() : LoginPage(),
+      // );
+      Navigator.pushReplacement<void, void>(context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => _showIntro ? IntroductionPage() : LoginPage(),
+        ),
+      );
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+
     splashNavigator();
+
   }
 
   @override
@@ -60,12 +87,5 @@ class _SplashScreenState extends State<SplashScreen> {
         ],
       ),
     );
-  }
-
-  splashNavigator() {
-    Timer(Duration(seconds: 3), () {
-      sharedPrefs();
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
-    });
   }
 }

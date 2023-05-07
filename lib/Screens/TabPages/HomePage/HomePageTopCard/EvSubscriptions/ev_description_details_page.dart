@@ -41,6 +41,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   int selectedIndex = 0;
   bool loadingP = true;
   String? evStartDate, evEndDate;
+
   getEvSubscriptionCarsWidget() async {
     loadingP = true;
     setState(() {});
@@ -113,10 +114,12 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     myTotalAmount();
   }
   double totalAmount = 0.0;
-  myTotalAmount(){
 
+  myTotalAmount(){
+    myServiceFee = (percentage! / 100) * int.parse("$tabPrice");
+    print("myServiceFee $myServiceFee");
     print("tabMonthAndPrice11 $tabMonth $tabPrice");
-    totalAmount = double.parse("$tabPrice") + serviceFee;
+    totalAmount = double.parse("$tabPrice") + myServiceFee!;
     print("selectedMonthTotal: $totalAmount");
 
     evStartDate?.isEmpty;
@@ -281,6 +284,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                                         totalAmount: totalAmount,
                                         favouriteStatus: widget.favouriteStatus,
 
+                                        serviceFee: myServiceFee,
                                         carName: widget.carName,
                                         carImage: widget.carImage,
                                         carYear: widget.carYear,
@@ -555,147 +559,147 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   }
 
   final GlobalKey<FormState> formKeyEvTabbar = GlobalKey<FormState>();
-  evSubscriptionTabbarWidget(){
-    TabController tabController = TabController(length: monthNumber.length, vsync: this);
-    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
-    Form(
-      key: formKeyEvTabbar,
-      child: Column(
-        children: [
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.065,
-              decoration: BoxDecoration(
-                  color: homeBgColor,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal:0),
-                child: TabBar(
-                  controller: tabController,
-                  indicator: BoxDecoration(
-                    color: borderColor,
-                    borderRadius: BorderRadius.circular(10.0)),
-                  // onTap: (index){
-                  //   selectedIndex = index;
-                  //   // print('selectedIndex: $selectedIndex');
-                  //   print('selectedTabMonth123: $evSelectedMonth');
-                  //
-                  // },
-                  tabs: List<Widget>.generate(
-                    monthNumber.length, (int index) {
-                    print("monthsTabBarLength ${monthNumber.length}");
-                    // print("monthsTabBarLength123 $tabNewValue");
-                    //  monthNumber[selectedIndex].months = tabNewValue.toString();
-                    // print('selectedTabMonthIndex: ${monthNumber[selectedIndex].months}');
-                    return Container(
-                      color: Colors.transparent,
-                      height: 40,
-                      width: 80,
-                      child: Tab(
-                        child:
-                        monthNumber[index].months == "1" ? Text("${monthNumber[index].months} Month", style: TextStyle(
-                            color: kBlack, fontSize: 14, fontFamily: poppinMedium)):
-                        Text("${monthNumber[index].months} Months", style: TextStyle(color: kBlack, fontSize: 14)),
-                      ),
-                    );
-                  },
-                  ),
-
-                  indicatorColor: kWhite,
-                  isScrollable: true,
-                  labelColor: kWhite,
-                  labelStyle: TextStyle(fontSize: 12, color: kWhite, fontFamily: poppinRegular),
-                  unselectedLabelColor: kBlack,
-                ),
-              )),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    selectStartDateWidget(context);
-                  },
-                  child: evStartDate == null?
-                  Container(
-                    height: 40,
-                    width: 120,
-                    decoration: BoxDecoration(
-                        color: kWhite,
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Center(
-                      child: Text("Start Date", style: TextStyle(color: kBlack , fontSize: 16),
-                      ),
-                    ),
-                  ): Container(
-                    height: 40,
-                    width: 120,
-                    decoration: BoxDecoration(
-                        color:  borderColor,
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Center(
-                      child: Text(evStartDate!, style: TextStyle(color: kWhite, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                    onTap: () {
-                      selectEndDateWidget(context);
-                    },
-                    child: evEndDate == null?
-                    Container(
-                      height: 40,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: kWhite,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text("End Date",
-                            style: TextStyle(color: kBlack, fontSize: 16)),
-                      ),
-                    ):
-                    Container(
-                      height: 40,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: borderColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(evEndDate!,
-                          style: TextStyle(
-                              color: kWhite, fontSize: 16),
-                        ),
-                      ),
-                    )
-                ),
-              ]
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height *0.01),
-
-          SizedBox(
-            width: double.maxFinite,
-            height: MediaQuery.of(context).size.height * 0.15,
-            child: TabBarView(
-              controller: tabController,
-              children: monthNumber.isEmpty ? <Widget>[] :
-              monthNumber.map((bodyData) {
-                print('bodyDataMonths ${bodyData.months}');
-                return TwelveMonthsPlan(
-                    months: bodyData.months,
-                    pricePerMonths: bodyData.price_per_months,
-                    discountPricePerMonths: bodyData.dis_price_per_months);
-              }).toList(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // evSubscriptionTabbarWidget(){
+  //   TabController tabController = TabController(length: monthNumber.length, vsync: this);
+  //   return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
+  //   Form(
+  //     key: formKeyEvTabbar,
+  //     child: Column(
+  //       children: [
+  //         Container(
+  //             width: MediaQuery.of(context).size.width,
+  //             height: MediaQuery.of(context).size.height * 0.065,
+  //             decoration: BoxDecoration(
+  //                 color: homeBgColor,
+  //                 borderRadius: BorderRadius.circular(10)),
+  //             child: Padding(
+  //               padding: EdgeInsets.symmetric(vertical: 10, horizontal:0),
+  //               child: TabBar(
+  //                 controller: tabController,
+  //                 indicator: BoxDecoration(
+  //                   color: borderColor,
+  //                   borderRadius: BorderRadius.circular(10.0)),
+  //                 // onTap: (index){
+  //                 //   selectedIndex = index;
+  //                 //   // print('selectedIndex: $selectedIndex');
+  //                 //   print('selectedTabMonth123: $evSelectedMonth');
+  //                 //
+  //                 // },
+  //                 tabs: List<Widget>.generate(
+  //                   monthNumber.length, (int index) {
+  //                   print("monthsTabBarLength ${monthNumber.length}");
+  //                   // print("monthsTabBarLength123 $tabNewValue");
+  //                   //  monthNumber[selectedIndex].months = tabNewValue.toString();
+  //                   // print('selectedTabMonthIndex: ${monthNumber[selectedIndex].months}');
+  //                   return Container(
+  //                     color: Colors.transparent,
+  //                     height: 40,
+  //                     width: 80,
+  //                     child: Tab(
+  //                       child:
+  //                       monthNumber[index].months == "1" ? Text("${monthNumber[index].months} Month", style: TextStyle(
+  //                           color: kBlack, fontSize: 14, fontFamily: poppinMedium)):
+  //                       Text("${monthNumber[index].months} Months", style: TextStyle(color: kBlack, fontSize: 14)),
+  //                     ),
+  //                   );
+  //                 },
+  //                 ),
+  //
+  //                 indicatorColor: kWhite,
+  //                 isScrollable: true,
+  //                 labelColor: kWhite,
+  //                 labelStyle: TextStyle(fontSize: 12, color: kWhite, fontFamily: poppinRegular),
+  //                 unselectedLabelColor: kBlack,
+  //               ),
+  //             )),
+  //         Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               InkWell(
+  //                 onTap: () {
+  //                   selectStartDateWidget(context);
+  //                 },
+  //                 child: evStartDate == null?
+  //                 Container(
+  //                   height: 40,
+  //                   width: 120,
+  //                   decoration: BoxDecoration(
+  //                       color: kWhite,
+  //                       borderRadius: BorderRadius.circular(10)
+  //                   ),
+  //                   child: Center(
+  //                     child: Text("Start Date", style: TextStyle(color: kBlack , fontSize: 16),
+  //                     ),
+  //                   ),
+  //                 ): Container(
+  //                   height: 40,
+  //                   width: 120,
+  //                   decoration: BoxDecoration(
+  //                       color:  borderColor,
+  //                       borderRadius: BorderRadius.circular(10)
+  //                   ),
+  //                   child: Center(
+  //                     child: Text(evStartDate!, style: TextStyle(color: kWhite, fontSize: 16),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //
+  //               InkWell(
+  //                   onTap: () {
+  //                     selectEndDateWidget(context);
+  //                   },
+  //                   child: evEndDate == null?
+  //                   Container(
+  //                     height: 40,
+  //                     width: 120,
+  //                     decoration: BoxDecoration(
+  //                       color: kWhite,
+  //                       borderRadius: BorderRadius.circular(10),
+  //                     ),
+  //                     child: Center(
+  //                       child: Text("End Date",
+  //                           style: TextStyle(color: kBlack, fontSize: 16)),
+  //                     ),
+  //                   ):
+  //                   Container(
+  //                     height: 40,
+  //                     width: 120,
+  //                     decoration: BoxDecoration(
+  //                       color: borderColor,
+  //                       borderRadius: BorderRadius.circular(10),
+  //                     ),
+  //                     child: Center(
+  //                       child: Text(evEndDate!,
+  //                         style: TextStyle(
+  //                             color: kWhite, fontSize: 16),
+  //                       ),
+  //                     ),
+  //                   )
+  //               ),
+  //             ]
+  //         ),
+  //         SizedBox(height: MediaQuery.of(context).size.height *0.01),
+  //
+  //         SizedBox(
+  //           width: double.maxFinite,
+  //           height: MediaQuery.of(context).size.height * 0.15,
+  //           child: TabBarView(
+  //             controller: tabController,
+  //             children: monthNumber.isEmpty ? <Widget>[] :
+  //             monthNumber.map((bodyData) {
+  //               print('bodyDataMonths ${bodyData.months}');
+  //               return TwelveMonthsPlan(
+  //                   months: bodyData.months,
+  //                   pricePerMonths: bodyData.price_per_months,
+  //                   discountPricePerMonths: bodyData.dis_price_per_months);
+  //             }).toList(),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget choosedPlan(){
     return Form(
@@ -788,7 +792,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
             children: [
               Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
                   fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-              Text("RM $serviceFee", textAlign: TextAlign.right, style: TextStyle(
+              Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right, style: TextStyle(
                   fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
             ],
           ),

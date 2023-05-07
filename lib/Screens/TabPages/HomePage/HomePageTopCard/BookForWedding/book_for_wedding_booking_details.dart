@@ -94,7 +94,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   }
 
   myTotal() {
-    totalPricePerHrs = pricePerHrs + serviceFee;
+    totalPricePerHrs = pricePerHrs + myServiceFee!;
     print("totalPerHour: $totalPricePerHrs");
   }
 
@@ -193,7 +193,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
                                     fontFamily: poppinRegular,
                                     fontSize: 14,
                                     color: detailsTextColor)),
-                            Text("RM $serviceFee",
+                            Text("RM ${myServiceFee!.toStringAsFixed(2)}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontFamily: poppinRegular,

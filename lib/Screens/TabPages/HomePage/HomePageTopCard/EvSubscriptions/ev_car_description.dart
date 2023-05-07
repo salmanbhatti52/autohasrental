@@ -18,9 +18,9 @@ import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_un
 import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class EVCarDescription extends StatefulWidget {
- final String? carName, carImage, carYear, carPrice, carStatus, carColorName, favouriteStatus,
-     carModelName, carMakesName, carMakesImage, myCarDescription, myCarRating,
-     myCarComment, carRating, carOwnerImage, carOwnerName, discountPercentage;
+ final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
+     favouriteStatus, carModelName, carMakesName, carMakesImage, myCarDescription,
+     myCarRating, myCarComment, carRating, carOwnerImage, carOwnerName, discountPercentage;
  final String? featureSuv, featuresSeats, featuresSpeed, featuresAutomatic, featuresDoors,
      featuresElectric, featuresEngine_capacity, featuresFuelCapacity, featuresMeterReading, featuresNewCars;
  final int? carId, carOwnerId;
@@ -95,6 +95,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
   }
 
   List<CustomSubscriptionModel> monthNumber = [];
+  String? myCarPrice;
   monthList(){
     for (int i = 0; i< evCarsModelObject.data!.length; i++) {
       print("OuterLoop:$i");
@@ -104,15 +105,16 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
               months: evCarsModelObject.data![i].carsPlans![j].months!.toString(),
               price_per_months: evCarsModelObject.data![i].carsPlans![j].pricePerMonth!,
               dis_price_per_months: evCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString()));
-         tabSelectMonth = monthNumber[0].months;
+
+          myCarPrice = evCarsModelObject.data![i].carsPlans![j].months!.toString() * int.parse(evCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString());
+         print('myCarPrice $myCarPrice');
+          tabSelectMonth = monthNumber[0].months;
          tabSelectedPrice = monthNumber[0].dis_price_per_months;
           print("monthNumber123 $tabSelectMonth $tabSelectedPrice");
           print("InnerLoop:$j");
         }
-
       }
     }
-    // monthNumber.sort((a, b) => a.compareTo(b));
   }
 
   startChatApiWidget() async {
@@ -406,6 +408,9 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                   },
                   tabs: List<Widget>.generate(
                       monthNumber.length, (int index) {
+
+                        // String price123 = ('${monthNumber[index].months}') * int.parse('${monthNumber[index].dis_price_per_months}');
+                    // print("price123 ${price123}");
                     print("monthsTabBarLength111 ${monthNumber.length}");
                     print("monthNumber111 ${monthNumber[index].months}");
                     // selectedIndex = index;

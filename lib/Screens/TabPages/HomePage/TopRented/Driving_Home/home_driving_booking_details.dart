@@ -65,7 +65,9 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   }
   myTotal(){
     print("mySlotPrice2 $mySlotPrice");
-    myTotalPrice = double.parse(mySlotPrice.toString()) + serviceFee;
+    myServiceFee = (percentage! / 100) * int.parse("$mySlotPrice");
+    print("myServiceFee $myServiceFee");
+    myTotalPrice = double.parse(mySlotPrice.toString()) + myServiceFee!;
     print("myTotalPrice $myTotalPrice");
     setState(() {});
   }
@@ -142,7 +144,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                           children: [
                             Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
                                   fontFamily: poppinRegular, fontSize: 14, color: detailsTextColor)),
-                            Text("RM $serviceFee", textAlign: TextAlign.right, style: TextStyle(
+                            Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right, style: TextStyle(
                                   fontFamily: poppinRegular, fontSize: 14, color: detailsTextColor)),
                           ],
                         ),

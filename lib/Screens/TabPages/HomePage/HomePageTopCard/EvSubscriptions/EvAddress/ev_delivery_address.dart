@@ -10,15 +10,15 @@ class EvDeliveryAddress extends StatefulWidget {
   final String? mySelectedTabMonth, mySelectedTabPrice;
   final double? totalAmount;
 
-  final String? carName, carImage, carYear, carPrice, carStatus, favouriteStatus,
-      carColorName, carModelName, carMakesName, carMakesImage,
-      carRating, carOwnerImage, carOwnerName, discountPercentage, evStartDate, evEndDate;
+  final String? carName, carImage, carYear, carPrice, carStatus, carRating,
+      favouriteStatus, carColorName, carModelName, carMakesName, carOwnerName,
+      carOwnerImage, evEndDate, discountPercentage, evStartDate, carMakesImage;
   final int? carId, carOwnerId;
-  final double? carDiscountPrice;
+  final double? carDiscountPrice, serviceFee;
 
   EvDeliveryAddress({Key? key, this.totalAmount, this.carName, this.evStartDate,
     this.evEndDate, this.favouriteStatus, this.carColorName, this.carId,
-    this.carModelName, this.discountPercentage, this.carDiscountPrice,
+    this.carModelName, this.discountPercentage, this.carDiscountPrice, this.serviceFee,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
     this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
     this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);

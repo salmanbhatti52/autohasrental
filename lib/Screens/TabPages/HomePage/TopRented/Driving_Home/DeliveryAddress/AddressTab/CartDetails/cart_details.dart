@@ -336,7 +336,7 @@ class _CartDetailsState extends State<CartDetails> {
                                       textAlign: TextAlign.left,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),
-                                    Text("RM $serviceFee", textAlign: TextAlign.right,
+                                    Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),
                                   ],

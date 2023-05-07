@@ -69,7 +69,9 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
 
     // try {
     String apiUrl = getCarDetailsByIdApiUrl;
+    print("getCarID: $carID");
     print("getCarDetailByIDApi: $apiUrl");
+
     final response = await http.post(Uri.parse(apiUrl), headers: {
       'Accept': 'application/json'
     }, body: {
