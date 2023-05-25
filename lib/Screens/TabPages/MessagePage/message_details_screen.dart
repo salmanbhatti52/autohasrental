@@ -260,6 +260,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                       physics:  BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
                         int reverseIndex = messageDetailsModelObject.length - 1 - index;
+                        print(' Time: ${messageDetailsModelObject[reverseIndex].time.toString()}\nDate: ${messageDetailsModelObject[reverseIndex].date.toString()}');
                         return Container(
                           padding:  EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
                           child: Align(

@@ -175,7 +175,6 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
             Brightness.dark, //<-- For iOS SEE HERE (dark icons)
           ),
           actions: [
-
             notificationStatus == "Yes"?
             GestureDetector(
               onTap: () {

@@ -502,11 +502,11 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
         lastDate: DateTime(2100));
     if (picked != null && picked != startDatePicked) {
       setState(() {
-        evStartDate = DateFormat('yyyy-MM-dd').format(picked);
+        evStartDate = DateFormat('dd/MM/yy').format(picked);
         startDatePicked = picked;
         endDatePicked = picked.add(Duration(days: int.parse("$totalDaysOfMonth")));
-        evStartDate = DateFormat('yyyy-MM-dd').format(startDatePicked!);
-        evEndDate = DateFormat('yyyy-MM-dd').format(endDatePicked!);
+        evStartDate = DateFormat('dd/MM/yy').format(startDatePicked!);
+        evEndDate = DateFormat('dd/MM/yy').format(endDatePicked!);
         setState(() {});
         print("evStartDate $evStartDate");
         print("evEndDate $evEndDate");
@@ -523,7 +523,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
       lastDate: DateTime(2025),
     );
     if (picked != null && picked != pickDate) {
-      evEndDate = DateFormat('yyyy-MM-dd').format(picked);
+      evEndDate = DateFormat('dd/MM/yy').format(picked);
       startDatePicked = picked;
       setState(() {
         print("SelectedEndDate is $evEndDate");
@@ -536,7 +536,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
 
   int? differenceInDays, totalDays;
   calculateDateInterval(){
-    var format = DateFormat("yyyy-MM-dd");
+    var format = DateFormat("dd/MM/yy");
     print(evStartDate);
     print(evEndDate);
     var start = format.parse(evStartDate!);

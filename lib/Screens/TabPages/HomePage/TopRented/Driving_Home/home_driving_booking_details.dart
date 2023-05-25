@@ -65,7 +65,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   }
   myTotal(){
     print("mySlotPrice2 $mySlotPrice");
-    myServiceFee = (percentage! / 100) * int.parse("$mySlotPrice");
+    myServiceFee = (percentage! / 100) * double.parse("$mySlotPrice");
     print("myServiceFee $myServiceFee");
     myTotalPrice = double.parse(mySlotPrice.toString()) + myServiceFee!;
     print("myTotalPrice $myTotalPrice");
@@ -132,7 +132,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("$newStartTime -- $newEndTime Plan", textAlign: TextAlign.left, style: TextStyle(
+                            Text("$newStartTime - $newEndTime Plan", textAlign: TextAlign.left, style: TextStyle(
                                     fontFamily: poppinRegular, fontSize: 14, color: detailsTextColor)),
                             Text("RM $mySlotPrice", textAlign: TextAlign.right, style: TextStyle(
                                     fontFamily: poppinRegular, fontSize: 14, color: detailsTextColor)),
@@ -377,7 +377,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
             top: 28, left: 27,
             child: Container(
               height: screenHeight * 0.04,
-              width: screenWidth * 0.18,
+              width: screenWidth * 0.2,
               decoration: BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.only(
