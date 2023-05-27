@@ -94,6 +94,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
   }
 
   myTotal() {
+    myServiceFee = (percentage! / 100) * double.parse("$pricePerHrs");
     totalPricePerHrs = pricePerHrs + myServiceFee!;
     print("totalPerHour: $totalPricePerHrs");
   }
@@ -524,7 +525,7 @@ class _BookForWeddingBookingDetailsState extends State<BookForWeddingBookingDeta
             left: 27,
             child: Container(
               height: screenHeight * 0.04,
-              width: screenWidth * 0.18,
+              width: screenWidth * 0.2,
               decoration: BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.only(

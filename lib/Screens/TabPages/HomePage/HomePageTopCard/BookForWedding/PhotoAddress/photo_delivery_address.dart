@@ -59,7 +59,6 @@ class _PhotoDeliveryAddressState extends State<PhotoDeliveryAddress> {
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
               Container(
                 width: MediaQuery.of(context).size.width * 0.65,
                 color: Colors.transparent,

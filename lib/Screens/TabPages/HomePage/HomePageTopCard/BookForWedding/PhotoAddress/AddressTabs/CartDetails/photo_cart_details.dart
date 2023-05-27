@@ -200,7 +200,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               Container(
-                height: MediaQuery.of(context).size.height * 0.9,
+                height: MediaQuery.of(context).size.height * 0.84,
                 color: Colors.transparent,
                 child: Stack(
                   children: [
@@ -209,7 +209,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.77,
+                          height: MediaQuery.of(context).size.height * 0.72,
                           width: MediaQuery.of(context).size.width * 0.47,
                           decoration: BoxDecoration(
                               color: kWhite,
@@ -350,7 +350,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                               radius: (screenWidth > 600) ? 90 : 70,
                                               backgroundColor: Colors.transparent,
                                               backgroundImage: image == null
-                                                  ? AssetImage("assets/home_page/user.png",)
+                                                  ? AssetImage("assets/icon/fade_in_image.jpeg",)
                                                   : Image.file(image!, height: 50, width: 50,
                                                       fit: BoxFit.contain).image)),
                                           Positioned(
@@ -376,40 +376,40 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                           fontSize: 12, fontFamily: poppinRegular, color: borderColor)),
                                 ),
                                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                                Center(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      // Navigator.pushReplacement(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             BookForWeddingBookingDetails(
-                                      //               // carName: widget.carName,
-                                      //               // carYear: widget.carYear,
-                                      //               selectedStartTime: widget
-                                      //                   .selectedStartTime,
-                                      //               selectedEndTime:
-                                      //                   widget.selectedEndTime,
-                                      //               selectedHours:
-                                      //                   widget.selectedHours,
-                                      //               hoursInNumber: widget
-                                      //                   .totalHoursInNumber,
-                                      //               selectedDate: widget.myDate,
-                                      //               selectedDay: widget.myDay,
-                                      //             )));
-                                    },
-                                    child: Container(
-                                      height: MediaQuery.of(context).size.height * 0.03,
-                                      width: MediaQuery.of(context).size.width * 0.3,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          border: Border.all(color: borderColor)),
-                                      child: Center(
-                                          child: Text("Edit", textAlign: TextAlign.center, style: TextStyle(
-                                                  fontSize: 12, fontFamily: poppinRegular, color: borderColor))),
-                                    ),
-                                  ),
-                                ),
+                                // Center(
+                                //   child: GestureDetector(
+                                //     onTap: () {
+                                //       // Navigator.pushReplacement(
+                                //       //     context,
+                                //       //     MaterialPageRoute(
+                                //       //         builder: (context) =>
+                                //       //             BookForWeddingBookingDetails(
+                                //       //               // carName: widget.carName,
+                                //       //               // carYear: widget.carYear,
+                                //       //               selectedStartTime: widget
+                                //       //                   .selectedStartTime,
+                                //       //               selectedEndTime:
+                                //       //                   widget.selectedEndTime,
+                                //       //               selectedHours:
+                                //       //                   widget.selectedHours,
+                                //       //               hoursInNumber: widget
+                                //       //                   .totalHoursInNumber,
+                                //       //               selectedDate: widget.myDate,
+                                //       //               selectedDay: widget.myDay,
+                                //       //             )));
+                                //     },
+                                //     child: Container(
+                                //       height: MediaQuery.of(context).size.height * 0.03,
+                                //       width: MediaQuery.of(context).size.width * 0.3,
+                                //       decoration: BoxDecoration(
+                                //           borderRadius: BorderRadius.circular(20),
+                                //           border: Border.all(color: borderColor)),
+                                //       child: Center(
+                                //           child: Text("Edit", textAlign: TextAlign.center, style: TextStyle(
+                                //                   fontSize: 12, fontFamily: poppinRegular, color: borderColor))),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -481,7 +481,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                     }
                   },
                   child: loginButton("Check out", context)),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
             ],
           ),
         ),

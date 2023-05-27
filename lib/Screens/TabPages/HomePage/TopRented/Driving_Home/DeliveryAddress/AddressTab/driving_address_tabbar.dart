@@ -271,17 +271,25 @@ class _DrivingAddressTabBarState extends State<DrivingAddressTabBar>
                       SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => BillingAddress()));
+                          final newIndex = tabController!.index + 1;
+                          tabController!.animateTo(newIndex);
+                          // myFunction(widget.totalAmount, widget.mySelectedTabMonth, widget.favouriteStatus,
+                          //     widget.mySelectedTabPrice, widget.carName, widget.carImage,
+                          //     widget.carYear, widget.carPrice, widget.carStatus, widget.carColorName,
+                          //     widget.carModelName, widget.carMakesName, widget.carMakesImage, widget.carRating,
+                          //     address2ControllerHome.text, cityControllerHome.text, postCodeControllerHome.text, selectedState,
+                          //     widget.carOwnerImage, widget.carOwnerName, widget.discountPercentage, address1ControllerHome.text,
+                          //     selectedCountry, widget.evStartDate, widget.evEndDate, widget.carId, widget.carOwnerId, widget.carDiscountPrice);
+                          print('newIndex $newIndex');
                         },
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.06,
                           width: MediaQuery.of(context).size.width * 0.7,
                           decoration: BoxDecoration(
-                              // color: borderColor,
-                              color: Color(0xffD4DCE1),
+                              color: kRed,
                               borderRadius: BorderRadius.circular(30)),
                           child: Center(
-                            child: Text("Save",
+                            child: Text("Next",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Poppins',
