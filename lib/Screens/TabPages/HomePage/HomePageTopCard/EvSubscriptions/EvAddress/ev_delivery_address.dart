@@ -33,6 +33,7 @@ class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print('xsdasc: ${widget.evEndDate} ');
   }
   @override
   Widget build(BuildContext context) {
@@ -63,10 +64,8 @@ class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
                 mySelectedTabPrice: widget.mySelectedTabPrice,
                 totalAmount: widget.totalAmount,
                 favouriteStatus: widget.favouriteStatus,
-
                 evStartDate: widget.evStartDate,
                 evEndDate: widget.evEndDate,
-
                 carName: widget.carName,
                 carImage: widget.carImage,
                 carYear: widget.carYear,

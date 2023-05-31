@@ -523,31 +523,35 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
   String? formattedStartTime, formattedEndTime;
   String? valueTimeEnd ;
   TimeOfDay? startTime;
+  TimeOfDay? picked;
 
   selectTimeStart(BuildContext context) async {
-    formattedStartTime = DateFormat('HH:mm:ss').format(valueTimeStart);
-    TimeOfDay? picked;
     picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
+    DateTime parsedTime = DateFormat.jm().parse(picked!.format(context).toString());
+    formattedStartTime = DateFormat('HH:mm:ss').format(parsedTime);
+    print('parsed Time: $parsedTime');
+    print('formatted Start Time: $formattedStartTime');
+    setState(() {});
     if (picked == null) {
       picked = startTime;
     } else {
-      startDateTime = DateTime(picked.hour, picked.minute);
+      startDateTime = DateTime(picked!.hour, picked!.minute);
       // valueTimeStart = picked.format(context).toString();
       setState(() {
-        print("Selected startTime is : $formattedStartTime");
+        print("Selected startTime is: $formattedStartTime");
       });
       // valueTimeStart = '${picked.hour}:${picked.minute}:00';
-       _endTime = valueTimeStart.add(Duration(hours: int.parse("$myHours")));
+       _endTime = parsedTime.add(Duration(hours: int.parse("$myHours")));
       formattedEndTime = DateFormat('HH:mm:ss').format(_endTime!);
-       print("_endTime $_endTime");
-       print("formattedEndTime $formattedEndTime");
+       print("_endTime: $_endTime");
+       print("formattedEndTime: $formattedEndTime");
 
       setState(() {
-        print("Selected startTime is : $valueTimeStart");
-        print("myTime $valueTimeStart");
+        print("Selected startTime is: $parsedTime");
+        print("myTime: $parsedTime");
       });
     }
   }

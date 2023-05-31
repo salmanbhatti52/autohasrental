@@ -41,6 +41,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   int selectedIndex = 0;
   bool loadingP = true;
   String? evStartDate, evEndDate;
+  DateTime? enddate;
+  String? enddate1;
 
   getEvSubscriptionCarsWidget() async {
     loadingP = true;
@@ -263,7 +265,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                         GestureDetector(
                             onTap: () {
                               if(formKeyEvTabbar.currentState!.validate()){
-                                if(evStartDate == null || evEndDate == null){
+                                if(evStartDate == null || enddate == null){
                                   toastFailedMessage("Please select Date", kRed);
                                 }
                                 else if(differenceInDays != totalDays){
@@ -277,7 +279,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) => EvDeliveryAddress(
                                         evStartDate: evStartDate,
-                                        evEndDate: evEndDate,
+                                        evEndDate: enddate1,
                                           // evDatum: widget.evDatum,
                                         mySelectedTabMonth: tabMonth,
                                         mySelectedTabPrice: tabPrice,
@@ -502,11 +504,15 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
         lastDate: DateTime(2100));
     if (picked != null && picked != startDatePicked) {
       setState(() {
-        evStartDate = DateFormat('dd/MM/yy').format(picked);
+        evStartDate = DateFormat('yyyy-MM-dd').format(picked);
         startDatePicked = picked;
         endDatePicked = picked.add(Duration(days: int.parse("$totalDaysOfMonth")));
-        evStartDate = DateFormat('dd/MM/yy').format(startDatePicked!);
-        evEndDate = DateFormat('dd/MM/yy').format(endDatePicked!);
+        evStartDate = DateFormat('yyyy-MM-dd').format(startDatePicked!);
+        evEndDate = DateFormat('yyyy-MM-dd').format(endDatePicked!);
+        var newDate = DateTime(startDatePicked!.year + 1, startDatePicked!.month, startDatePicked!.day);
+        enddate = newDate;
+        enddate1 = DateFormat('yyyy-MM-dd').format(enddate!);
+        print('endDate: $enddate');
         setState(() {});
         print("evStartDate $evStartDate");
         print("evEndDate $evEndDate");
@@ -523,7 +529,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
       lastDate: DateTime(2025),
     );
     if (picked != null && picked != pickDate) {
-      evEndDate = DateFormat('dd/MM/yy').format(picked);
+      evEndDate = DateFormat('yyyy-MM-dd').format(picked);
       startDatePicked = picked;
       setState(() {
         print("SelectedEndDate is $evEndDate");
@@ -536,7 +542,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
 
   int? differenceInDays, totalDays;
   calculateDateInterval(){
-    var format = DateFormat("dd/MM/yy");
+    var format = DateFormat("yyyy-MM-dd");
     print(evStartDate);
     print(evEndDate);
     var start = format.parse(evStartDate!);
@@ -549,6 +555,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     differenceInDays = difference.inDays;
     print("dateDifferenceInDays $differenceInDays");
     print("totalMonth $tabMonth");
+
     totalDays = int.parse(tabMonth.toString()) * 30;
     print("totalDays $totalDays");
     if(differenceInDays! == totalDays!){
@@ -744,7 +751,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                     onTap: () {
                       selectEndDateWidget(context);
                     },
-                    child: evEndDate == null?
+                    child: enddate1 == null?
                     Container(
                       height: 40, width: 120,
                       decoration: BoxDecoration(
@@ -763,7 +770,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Center(
-                        child: Text(evEndDate!,
+                        child: Text(enddate1!,
                           style: TextStyle(
                               color: kWhite, fontSize: 16),
                         ),

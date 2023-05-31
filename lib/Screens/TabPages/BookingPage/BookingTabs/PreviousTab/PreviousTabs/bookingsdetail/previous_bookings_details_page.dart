@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart'as http;
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
@@ -127,7 +128,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
               flex: 1,
               child: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: widget.myStatus == "Completed"?
+                child: widget.myStatus == "Completed" ?
                 Container(
                   height: 0,
                   color: Colors.transparent,
@@ -141,10 +142,13 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                         }
                       },
                       child: loginButton('Give Ratings', context)),
-                ): loginButton('Give Ratings', context)
+                ): GestureDetector(
+                    onTap: () {
+                        toastSuccessMessage("You can give rating once status is completed.", kRed);
+                    },
+                    child: loginButton('Give Ratings', context))
               ),
             ),
-
           ],
         ),
       ),
@@ -154,16 +158,15 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
   carRatingsWidget() async {
     loadingP = true;
     setState(() {});
-
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
     print('in rateCarApi');
-
     // try {
     String apiUrl = carsRatingApiUrl;
     print("rateCarModelApi: $apiUrl");
-    print("userId carId: $userId ${carID}");
-    print("rateCarMControllerApi: ${carRatingController.text}");
+    print("userId: $userId");
+    print("carId: ${carID}");
+    print("carRatingController: ${carRatingController.text}");
     print("ratingValue: $ratingValue");
     final response = await http.post(Uri.parse(apiUrl), headers: {
       'Accept': 'application/json'
@@ -172,19 +175,14 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
       "cars_id" : "${carID}",
       "comments": carRatingController.text,
       "rate_stars": "$ratingValue"
-
     });
     print('${response.statusCode}');
-    print(response);
     if (response.statusCode == 200) {
       final responseString = response.body;
       print("responseCarRatings: ${responseString.toString()}");
       loadingP = false;
       setState(() {});
       rateCarModelObject = rateCarModelFromJson(responseString);
-      print("rateCarMessage: ${rateCarModelObject.message}");
-      Navigator.pop(context);
-      // Navigator.pop(context);
     }
     // } catch (e) {
     //   print('Error in upcomingBookingCar: ${e.toString()}');
@@ -231,7 +229,8 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02),
                       Text(
-                        "Give your Ratings \n   and Feedback",
+                        "Give your Ratings \n and Feedback",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w400,
@@ -257,15 +256,23 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                               print("ratingValue $ratingValue");
                             });
                           }),
-
                       SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                       Form(
                         key: ratingsFormKey,
-                        child: TextField(
+                        child: TextFormField(
                           cursorColor: borderColor,
                           controller: carRatingController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please add your feedback!';
+                            }
+                            return null;
+                          },
                           keyboardType: TextInputType.multiline,
                           maxLines: 4,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(150),
+                          ],
                           decoration: InputDecoration(
                             hintText: "Add your feedback",
                             hintStyle: TextStyle(
@@ -279,13 +286,16 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 90),
-                        child: Text(
-                          "*Maximum 150 characters",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: borderColor,
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text(
+                            "* Maximum 150 characters",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: borderColor,
+                            ),
                           ),
                         ),
                       ),
@@ -295,30 +305,33 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                           onTap: () async {
                             print("ratingValue $ratingValue");
                             if(ratingsFormKey.currentState!.validate()){
-                              if(carRatingController.text.isEmpty){
-                                toastFailedMessage("Please add your feedback", kRed);
-                              } else {
+                              // if(carRatingController.text.isEmpty){
+                              //   toastFailedMessage("Please add your feedback", kRed);
+                              // } else {
                                 setState(() {
                                   isInAsyncCall = true;
                                 });
                                 await carRatingsWidget();
-                                if(rateCarModelObject.status == "Success"){
-                                  Future.delayed(Duration(seconds: 3), () {
+                                if(rateCarModelObject.status == "success"){
+                                  Future.delayed(Duration(seconds: 2), () {
                                     toastSuccessMessage("${rateCarModelObject.message}", colorGreen);
                                     Navigator.pop(context);
                                     setState(() {
                                       isInAsyncCall = false;
                                     });
-                                    print("false: $isInAsyncCall");
                                   });
-
-
-                                  // toastSuccessMessage("${rateCarModelObject.message}", colorGreen);
                                 }
-                                if(rateCarModelObject.status == "error"){
-                                  // toastFailedMessage("${rateCarModelObject.message}", kRed);
+                                if(rateCarModelObject.status != "success"){
+                                  Future.delayed(Duration(seconds: 2), () {
+                                  toastFailedMessage("${rateCarModelObject.message}", kRed);
+                                  Navigator.pop(context);
+                                  setState(() {
+                                      isInAsyncCall = false;
+                                      print("rateCarMessage: ${rateCarModelObject.message}");
+                                    });
+                                  });
                                 }
-                              }
+                              // }
                             }
                           },
                           child: Center(
