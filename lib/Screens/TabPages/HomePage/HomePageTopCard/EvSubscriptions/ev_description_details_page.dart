@@ -1,7 +1,6 @@
-
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'EvAddress/ev_delivery_address.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
@@ -20,23 +19,53 @@ import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev
 
 class EvDescriptionDetailsPage extends StatefulWidget {
   final String? mySelectedTabMonth, mySelectedTabPrice;
-  final String? carName, carImage, carYear, carPrice, carStatus, favouriteStatus,
-      carColorName, carModelName, carMakesName, carMakesImage,
-      carRating, carOwnerImage, carOwnerName, discountPercentage;
+  final String? carName,
+      carImage,
+      carYear,
+      carPrice,
+      carStatus,
+      favouriteStatus,
+      carColorName,
+      carModelName,
+      carMakesName,
+      carMakesImage,
+      carRating,
+      carOwnerImage,
+      carOwnerName,
+      discountPercentage;
   final int? carId, carOwnerId;
   final double? carDiscountPrice;
 
-  EvDescriptionDetailsPage({Key? key, this.carName, this.carMakesName, this.favouriteStatus,
-    this.discountPercentage, this.carDiscountPrice, this.carImage, this.carYear,
-    this.carMakesImage, this.carStatus, this.carColorName, this.carModelName,
-    this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage,
-    this.carOwnerName, this.mySelectedTabMonth, this.mySelectedTabPrice}) : super(key: key);
+  EvDescriptionDetailsPage(
+      {Key? key,
+      this.carName,
+      this.carMakesName,
+      this.favouriteStatus,
+      this.discountPercentage,
+      this.carDiscountPrice,
+      this.carImage,
+      this.carYear,
+      this.carMakesImage,
+      this.carStatus,
+      this.carColorName,
+      this.carModelName,
+      this.carId,
+      this.carPrice,
+      this.carRating,
+      this.carOwnerId,
+      this.carOwnerImage,
+      this.carOwnerName,
+      this.mySelectedTabMonth,
+      this.mySelectedTabPrice})
+      : super(key: key);
 
   @override
-  State<EvDescriptionDetailsPage> createState() => _EvDescriptionDetailsPageState();
+  State<EvDescriptionDetailsPage> createState() =>
+      _EvDescriptionDetailsPageState();
 }
 
-class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> with TickerProviderStateMixin {
+class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
+    with TickerProviderStateMixin {
   EvCarsModel evSubscriptionCarsModelObject = EvCarsModel();
   int selectedIndex = 0;
   bool loadingP = true;
@@ -57,9 +86,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
       print("evSubscriptionApi: $apiUrl");
       final response = await http.post(
         Uri.parse(apiUrl),
-        body: {
-          "users_customers_id" : userId
-        },
+        body: {"users_customers_id": userId},
         headers: {'Accept': 'application/json'},
       );
       print('${response.statusCode}');
@@ -68,7 +95,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
         final responseString = response.body;
         print("evSubscriptionResponse: ${responseString.toString()}");
         evSubscriptionCarsModelObject = evCarsModelFromJson(responseString);
-        print("evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
+        print(
+            "evSubscriptionObjectLength: ${evSubscriptionCarsModelObject.data!.length}");
         monthList();
       }
     } catch (e) {
@@ -82,15 +110,23 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
 
   List<CustomSubscriptionModel> monthNumber = [];
 
-  monthList(){
-    for (int i = 0; i< evSubscriptionCarsModelObject.data!.length; i++) {
+  monthList() {
+    for (int i = 0; i < evSubscriptionCarsModelObject.data!.length; i++) {
       print("OuterLoop:$i");
-      for (int j = 0; j < evSubscriptionCarsModelObject.data![i].carsPlans!.length; j++) {
-        if(evSubscriptionCarsModelObject.data![i].carsPlans![j].carsId == carID) {
+      for (int j = 0;
+          j < evSubscriptionCarsModelObject.data![i].carsPlans!.length;
+          j++) {
+        if (evSubscriptionCarsModelObject.data![i].carsPlans![j].carsId ==
+            carID) {
           monthNumber.add(CustomSubscriptionModel(
-              months: evSubscriptionCarsModelObject.data![i].carsPlans![j].months!.toString(),
-              price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].pricePerMonth!,
-              dis_price_per_months: evSubscriptionCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString()));
+              months: evSubscriptionCarsModelObject
+                  .data![i].carsPlans![j].months!
+                  .toString(),
+              price_per_months: evSubscriptionCarsModelObject
+                  .data![i].carsPlans![j].pricePerMonth!,
+              dis_price_per_months: evSubscriptionCarsModelObject
+                  .data![i].carsPlans![j].discountedPricePerMonth!
+                  .toString()));
 
           print("monthNumber123 ${monthNumber[0].months}");
           print("InnerLoop:$j");
@@ -115,9 +151,10 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
 
     myTotalAmount();
   }
+
   double totalAmount = 0.0;
 
-  myTotalAmount(){
+  myTotalAmount() {
     myServiceFee = (percentage! / 100) * int.parse("$tabPrice");
     print("myServiceFee $myServiceFee");
     print("tabMonthAndPrice11 $tabMonth $tabPrice");
@@ -137,7 +174,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
     return Scaffold(
       backgroundColor: homeBgColor,
       appBar: MyAppBarSingleImageWithText(
-        title: "${widget.carName}, ", subtitle: "${widget.carYear}",
+        title: "${widget.carName}, ",
+        subtitle: "${widget.carYear}",
         backImage: "assets/messages_images/Back.png",
       ),
       body: SingleChildScrollView(
@@ -154,8 +192,12 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Select Start and End Date Plan", textAlign: TextAlign.left,
-                          style: TextStyle(color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
+                        Text("Select Start and End Date Plan",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: kBlack,
+                                fontSize: 14,
+                                fontFamily: poppinSemiBold)),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: Row(
@@ -169,23 +211,34 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                                 ),
                                 child: Center(
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: tabMonth == "1"?
-                                    Text("$tabMonth Month Plan", textAlign: TextAlign.left, style: TextStyle(
-                                        fontSize: 14, fontFamily: poppinRegular, color: kWhite)):
-                                    Text("$tabMonth Months Plan", textAlign: TextAlign.left, style: TextStyle(
-                                        fontSize: 14, fontFamily: poppinRegular, color: kWhite)),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: tabMonth == "1"
+                                        ? Text("$tabMonth Month Plan",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: poppinRegular,
+                                                color: kWhite))
+                                        : Text("$tabMonth Months Plan",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: poppinRegular,
+                                                color: kWhite)),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.01),
                               GestureDetector(
                                   onTap: () {
                                     // showMyBottomSheet(context);
                                     _openBottomSheetWithInfo(context);
                                   },
-                                  child: SvgPicture.asset('assets/icon/edit_booking_icoon.svg')),
+                                  child: SvgPicture.asset(
+                                      'assets/icon/edit_booking_icoon.svg')),
                             ],
                           ),
                         ),
@@ -194,9 +247,14 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                         // EvSubscriptionTabbarPage(),
                         SizedBox(height: screenHeight * 0.0),
 
-                        Text("*A security deposit may be applicable, depending on your eligibility assessment.",
-                          maxLines: 2, textAlign: TextAlign.left, style: TextStyle(
-                              fontSize: 12, fontFamily: poppinRegular, color: borderColor)),
+                        Text(
+                            "*A security deposit may be applicable, depending on your eligibility assessment.",
+                            maxLines: 2,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: poppinRegular,
+                                color: borderColor)),
                         SizedBox(height: screenHeight * 0.02),
                         Container(
                           height: screenHeight * 0.1,
@@ -208,27 +266,38 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                             padding: EdgeInsets.only(left: 10),
                             child: Row(
                               children: [
-                                Image.asset("assets/home_page/business-investment.png"),
+                                Image.asset(
+                                    "assets/home_page/business-investment.png"),
                                 SizedBox(width: screenWidth * 0.02),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text("Save RM 37,538", textAlign: TextAlign.left, style: TextStyle(
-                                              fontSize: 16, fontFamily: poppinSemiBold, color: kWhite)),
+                                        Text("Save RM 37,538",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: poppinSemiBold,
+                                                color: kWhite)),
                                         SizedBox(width: screenWidth * 0.03),
                                         Container(
                                           height: 25,
                                           width: screenWidth * 0.24,
                                           decoration: BoxDecoration(
                                               color: borderColor,
-                                              borderRadius: BorderRadius.circular(20)),
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
                                           child: Center(
-                                            child: Text("Learn more", textAlign: TextAlign.left, style: TextStyle(
-                                                  fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
+                                            child: Text("Learn more",
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontFamily: poppinRegular,
+                                                    color: kWhite)),
                                           ),
                                         ),
                                       ],
@@ -236,10 +305,18 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                                     SizedBox(height: screenHeight * 0.02),
                                     Row(
                                       children: [
-                                        Text("in your first year with ", textAlign: TextAlign.left, style: TextStyle(
-                                                color: kWhite, fontSize: 10, fontFamily: poppinRegular)),
-                                        Text("AutoHaus Rental", textAlign: TextAlign.left, style: TextStyle(
-                                                color: borderColor, fontSize: 10, fontFamily: poppinSemiBold)),
+                                        Text("in your first year with ",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                color: kWhite,
+                                                fontSize: 10,
+                                                fontFamily: poppinRegular)),
+                                        Text("AutoHaus Rental",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                color: borderColor,
+                                                fontSize: 10,
+                                                fontFamily: poppinSemiBold)),
                                       ],
                                     ),
                                   ],
@@ -249,60 +326,81 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                           ),
                         ),
                         SizedBox(height: screenHeight * 0.02),
-                        Text("What's Included", textAlign: TextAlign.left, style: TextStyle(
-                              fontSize: 14, fontFamily: poppinSemiBold,color: kBlack)),
+                        Text("What's Included",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: poppinSemiBold,
+                                color: kBlack)),
                         SizedBox(height: screenHeight * 0.02),
-                        myList("assets/home_page/Path 2582.png", "Periodic maintenance package (including pick up and delivery)"),
-                        myList("assets/home_page/Path 2582.png", "Wear & tear (including tyres, wipers, and brake pads replacement)"),
-                        myList("assets/home_page/Path 2582.png", "Comprehensive insurance coverage"),
-                        myList("assets/home_page/Path 2582.png", "Personal accident coverage for driver and passengers"),
-                        myList("assets/home_page/Path 2582.png", "24-hour roadside assistance (with unlimited towing and minor roadside repairs)"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Periodic maintenance package (including pick up and delivery)"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Wear & tear (including tyres, wipers, and brake pads replacement)"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Comprehensive insurance coverage"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Personal accident coverage for driver and passengers"),
+                        myList("assets/home_page/Path 2582.png",
+                            "24-hour roadside assistance (with unlimited towing and minor roadside repairs)"),
                         myList("assets/home_page/Path 2582.png", "Road tax"),
-                        myList("assets/home_page/Path 2582.png", "Flux Concierge Service"),
-                        myList("assets/home_page/Path 2582.png", "Theft recovery services"),
-                        myList("assets/home_page/Path 2582.png", "Emergency dispatch services"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Flux Concierge Service"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Theft recovery services"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Emergency dispatch services"),
                         SizedBox(height: screenHeight * 0.02),
                         GestureDetector(
                             onTap: () {
-                              if(formKeyEvTabbar.currentState!.validate()){
-                                if(evStartDate == null || enddate == null){
-                                  toastFailedMessage("Please select Date", kRed);
-                                }
-                                else if(differenceInDays != totalDays){
-                                  toastFailedMessage("date didn't matched", kRed);
-                                }
-                                else{
+                              if (formKeyEvTabbar.currentState!.validate()) {
+                                if (evStartDate == null || enddate == null) {
+                                  toastFailedMessage(
+                                      "Please select Date", kRed);
+                                } else if (differenceInDays != totalDays) {
+                                  toastFailedMessage(
+                                      "date didn't matched", kRed);
+                                } else {
                                   print('selectedMonth: $tabMonth');
-                                  print('evStartEndDate: $evStartDate $evEndDate');
+                                  print(
+                                      'evStartEndDate: $evStartDate $evEndDate');
                                   print('selectedMonthPrice $tabPrice');
                                   print('selectedMonthTotalPrice $totalAmount');
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) => EvDeliveryAddress(
-                                        evStartDate: evStartDate,
-                                        evEndDate: enddate1,
-                                          // evDatum: widget.evDatum,
-                                        mySelectedTabMonth: tabMonth,
-                                        mySelectedTabPrice: tabPrice,
-                                        totalAmount: totalAmount,
-                                        favouriteStatus: widget.favouriteStatus,
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EvDeliveryAddress(
+                                                evStartDate: evStartDate,
+                                                evEndDate: enddate1,
+                                                // evDatum: widget.evDatum,
+                                                mySelectedTabMonth: tabMonth,
+                                                mySelectedTabPrice: tabPrice,
+                                                totalAmount: totalAmount,
+                                                favouriteStatus:
+                                                    widget.favouriteStatus,
 
-                                        serviceFee: myServiceFee,
-                                        carName: widget.carName,
-                                        carImage: widget.carImage,
-                                        carYear: widget.carYear,
-                                        carPrice: widget.carPrice,
-                                        carDiscountPrice: widget.carDiscountPrice,
-                                        carRating: widget.carRating,
-                                        carColorName: widget.carColorName,
-                                        discountPercentage: widget.discountPercentage,
-                                        carStatus: widget.carStatus,
-                                        carId: widget.carId,
-                                        carOwnerId: widget.carOwnerId,
-                                        carMakesName: widget.carMakesName,
-                                        carModelName: widget.carModelName,
-                                      )));
+                                                serviceFee: myServiceFee,
+                                                carName: widget.carName,
+                                                carImage: widget.carImage,
+                                                carYear: widget.carYear,
+                                                carPrice: widget.carPrice,
+                                                carDiscountPrice:
+                                                    widget.carDiscountPrice,
+                                                carRating: widget.carRating,
+                                                carColorName:
+                                                    widget.carColorName,
+                                                discountPercentage:
+                                                    widget.discountPercentage,
+                                                carStatus: widget.carStatus,
+                                                carId: widget.carId,
+                                                carOwnerId: widget.carOwnerId,
+                                                carMakesName:
+                                                    widget.carMakesName,
+                                                carModelName:
+                                                    widget.carModelName,
+                                              )));
                                 }
-
                               }
                             },
                             child: loginButton("Next", context)),
@@ -327,9 +425,13 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
           padding: EdgeInsets.symmetric(horizontal: 05),
           width: MediaQuery.of(context).size.width * 0.8,
           color: Colors.transparent,
-          child: Text(myText, textAlign: TextAlign.left,
-              maxLines: 2, style: TextStyle(fontSize: 10,
-                  fontFamily: poppinRegular, color: detailsTextColor)),
+          child: Text(myText,
+              textAlign: TextAlign.left,
+              maxLines: 2,
+              style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: poppinRegular,
+                  color: detailsTextColor)),
         )
       ],
     );
@@ -349,7 +451,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
           ),
         ),
         Positioned(
-          top: 90, left: 10,
+          top: 90,
+          left: 10,
           child: Container(
             color: Colors.transparent,
             width: screenWidth,
@@ -358,50 +461,87 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(height: screenHeight * 0.1,),
+                  Container(
+                    height: screenHeight * 0.1,
+                  ),
                   Row(
                     children: [
                       Text("${widget.carName} ",
-                          textAlign: TextAlign.left, style: TextStyle(
-                              color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-
-                      Text("${widget.carColorName} ", textAlign: TextAlign.left, style: TextStyle(
-                          color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: kBlack,
+                              fontSize: 14,
+                              fontFamily: poppinBold)),
+                      Text("${widget.carColorName} ",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: kBlack,
+                              fontSize: 12,
+                              fontFamily: poppinSemiBold)),
                     ],
                   ),
                   Row(
                     children: [
                       Text("${widget.carMakesName}, ",
-                          textAlign: TextAlign.left, style: TextStyle(
-                              color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: kBlack,
+                              fontSize: 12,
+                              fontFamily: poppinRegular)),
                       Text("${widget.carModelName}, ",
-                          textAlign: TextAlign.left, style: TextStyle(
-                              color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: kBlack,
+                              fontSize: 12,
+                              fontFamily: poppinSemiBold)),
                       Text("${widget.carYear} ",
-                          textAlign: TextAlign.left, style: TextStyle(
-                              color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: kBlack,
+                              fontSize: 12,
+                              fontFamily: poppinRegular)),
                     ],
                   ),
                   Row(
                     children: [
                       Padding(
                         padding: EdgeInsets.only(top: 04),
-                        child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
-                            color: kRed, fontSize: 5, fontFamily: poppinLight)),
+                        child: Text("RM ",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: kRed,
+                                fontSize: 5,
+                                fontFamily: poppinLight)),
                       ),
-                      Text("${widget.carPrice}", textAlign: TextAlign.left, style: TextStyle(color: kRed,
-                            fontFamily: poppinLight, fontSize: 10, decoration: TextDecoration.lineThrough)),
+                      Text("${widget.carPrice}",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: kRed,
+                              fontFamily: poppinLight,
+                              fontSize: 10,
+                              decoration: TextDecoration.lineThrough)),
                       SizedBox(width: screenWidth * 0.01),
                       Padding(
                         padding: EdgeInsets.only(top: 06),
-                        child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
-                            color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
+                        child: Text("RM ",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: borderColor,
+                                fontSize: 7,
+                                fontFamily: poppinSemiBold)),
                       ),
                       Text("${widget.carDiscountPrice}",
-                          textAlign: TextAlign.left, style: TextStyle(
-                              color: borderColor, fontSize: 20, fontFamily: poppinSemiBold)),
-                      Text("/Month", textAlign: TextAlign.left, style: TextStyle(
-                          color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: borderColor,
+                              fontSize: 20,
+                              fontFamily: poppinSemiBold)),
+                      Text("/Month",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              color: kBlack,
+                              fontSize: 8,
+                              fontFamily: poppinRegular)),
                     ],
                   ),
                   Row(
@@ -410,57 +550,82 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                       Row(
                         children: [
                           showRatingStars(double.parse("${widget.carRating}")),
-                          SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                          widget.carRating == null ?
-                          Text("0.0", textAlign: TextAlign.left, style: TextStyle(
-                              color: kBlack, fontSize: 14, fontFamily: poppinRegular)):
-                          Text("${widget.carRating}",
-                              textAlign: TextAlign.left, style: TextStyle(
-                                  color: kBlack, fontSize: 14, fontFamily: poppinRegular)),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.height * 0.01),
+                          widget.carRating == null
+                              ? Text("0.0",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: kBlack,
+                                      fontSize: 14,
+                                      fontFamily: poppinRegular))
+                              : Text("${widget.carRating}",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: kBlack,
+                                      fontSize: 14,
+                                      fontFamily: poppinRegular)),
                         ],
                       ),
                       SizedBox(width: screenWidth * 0.25),
                       Container(
-                        height: 25, width: 70,
-                        decoration: BoxDecoration(color: kBlack,
+                        height: 25,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            color: kBlack,
                             borderRadius: BorderRadius.circular(20)),
                         child: Center(
-                          child: Text("Pre book", textAlign: TextAlign.left,
-                              style: TextStyle(color: kWhite, fontSize: 12, fontFamily: poppinMedium)),
+                          child: Text("Pre book",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: kWhite,
+                                  fontSize: 12,
+                                  fontFamily: poppinMedium)),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: screenHeight * 0.01),
-                  Text("PRE-BOOK LISTING ", textAlign: TextAlign.left, style: TextStyle(
-                      color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
+                  Text("PRE-BOOK LISTING ",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: kBlack,
+                          fontSize: 14,
+                          fontFamily: poppinSemiBold)),
                   SizedBox(height: screenHeight * 0.01),
-                  Text("This vehicle may take more than 7 days to deliver, based on vehicle’s availability",
-                      textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                  Text(
+                      "This vehicle may take more than 7 days to deliver, based on vehicle’s availability",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: kBlack,
+                          fontSize: 10,
+                          fontFamily: poppinRegular)),
                 ],
               ),
             ),
           ),
         ),
         Positioned(
-          left: 25, right: 20,
+          left: 25,
+          right: 20,
           top: 20,
-          child: widget.carImage == null ?
-          ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset('assets/icon/fade_in_image.jpeg')) :
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: FadeInImage(
-              placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-              width: 350,
-              height: 130,
-              image: NetworkImage("${widget.carImage}"),
-            ),
-          ),
+          child: widget.carImage == null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset('assets/icon/fade_in_image.jpeg'))
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: FadeInImage(
+                    placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                    width: 350,
+                    height: 130,
+                    image: NetworkImage("${widget.carImage}"),
+                  ),
+                ),
         ),
         Positioned(
-            top: 28, left: 25,
+            top: 28,
+            left: 25,
             child: Container(
               height: screenHeight * 0.035,
               width: screenWidth * 0.18,
@@ -474,19 +639,27 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("${widget.discountPercentage}% ",
-                      textAlign: TextAlign.left, style: TextStyle(
-                          color: kWhite, fontSize: 13, fontFamily: poppinSemiBold)),
-                  Text("OFF", textAlign: TextAlign.left, style: TextStyle(
-                      color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: kWhite,
+                          fontSize: 13,
+                          fontFamily: poppinSemiBold)),
+                  Text("OFF",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: kWhite,
+                          fontSize: 8,
+                          fontFamily: poppinRegular)),
                 ],
               ),
             )),
         Positioned(
-            top: 28, right: 27,
-            child: widget.favouriteStatus == 'like'?
-            Image.asset("assets/home_page/heart.png") :
-            Image.asset("assets/car_bookings_images/heart.png"),
-    ),
+          top: 28,
+          right: 27,
+          child: widget.favouriteStatus == 'like'
+              ? Image.asset("assets/home_page/heart.png")
+              : Image.asset("assets/car_bookings_images/heart.png"),
+        ),
       ],
     );
   }
@@ -495,7 +668,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
 
   int? totalDaysOfMonth;
   Future<void> selectStartDateWidget(BuildContext context) async {
-    totalDaysOfMonth = int.parse("$tabMonth")*30;
+    totalDaysOfMonth = int.parse("$tabMonth") * 30;
     print("totalDaysOfMonth $totalDaysOfMonth");
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -506,10 +679,12 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
       setState(() {
         evStartDate = DateFormat('yyyy-MM-dd').format(picked);
         startDatePicked = picked;
-        endDatePicked = picked.add(Duration(days: int.parse("$totalDaysOfMonth")));
+        endDatePicked =
+            picked.add(Duration(days: int.parse("$totalDaysOfMonth")));
         evStartDate = DateFormat('yyyy-MM-dd').format(startDatePicked!);
         evEndDate = DateFormat('yyyy-MM-dd').format(endDatePicked!);
-        var newDate = DateTime(startDatePicked!.year + 1, startDatePicked!.month, startDatePicked!.day);
+        var newDate = DateTime(startDatePicked!.year + 1,
+            startDatePicked!.month, startDatePicked!.day);
         enddate = newDate;
         enddate1 = DateFormat('yyyy-MM-dd').format(enddate!);
         print('endDate: $enddate');
@@ -541,7 +716,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   }
 
   int? differenceInDays, totalDays;
-  calculateDateInterval(){
+  calculateDateInterval() {
     var format = DateFormat("yyyy-MM-dd");
     print(evStartDate);
     print(evEndDate);
@@ -558,9 +733,9 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
 
     totalDays = int.parse(tabMonth.toString()) * 30;
     print("totalDays $totalDays");
-    if(differenceInDays! == totalDays!){
+    if (differenceInDays! == totalDays!) {
       // toastSuccessMessage("date matched", colorGreen);
-    } else{
+    } else {
       toastFailedMessage("date didn't matched", kRed);
     }
   }
@@ -708,109 +883,133 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
   //   );
   // }
 
-  Widget choosedPlan(){
+  Widget choosedPlan() {
     return Form(
       key: formKeyEvTabbar,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 10),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    selectStartDateWidget(context);
-                  },
-                  child: evStartDate == null?
-                  Container(
-                    height: 40,
-                    width: 120,
-                    decoration: BoxDecoration(
-                        color: kWhite,
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Center(
-                      child: Text("Start Date", style: TextStyle(color: kBlack , fontSize: 16),
-                      ),
-                    ),
-                  ): Container(
-                    height: 40, width: 120,
-                    decoration: BoxDecoration(
-                        color:  borderColor,
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Center(
-                      child: Text(evStartDate!, style: TextStyle(color: kWhite, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                    onTap: () {
-                      selectEndDateWidget(context);
-                    },
-                    child: enddate1 == null?
-                    Container(
-                      height: 40, width: 120,
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            InkWell(
+              onTap: () {
+                selectStartDateWidget(context);
+              },
+              child: evStartDate == null
+                  ? Container(
+                      height: 40,
+                      width: 120,
                       decoration: BoxDecoration(
-                        color: kWhite,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                        child: Text("End Date",
-                            style: TextStyle(color: kBlack, fontSize: 16)),
-                      ),
-                    ):
-                    Container(
-                      height: 40, width: 120,
-                      decoration: BoxDecoration(
-                        color: borderColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(enddate1!,
-                          style: TextStyle(
-                              color: kWhite, fontSize: 16),
+                        child: Text(
+                          "Start Date",
+                          style: TextStyle(color: kBlack, fontSize: 16),
                         ),
                       ),
                     )
-                ),
-              ]
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height *0.01),
+                  : Container(
+                      height: 40,
+                      width: 120,
+                      decoration: BoxDecoration(
+                          color: borderColor,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          evStartDate!,
+                          style: TextStyle(color: kWhite, fontSize: 16),
+                        ),
+                      ),
+                    ),
+            ),
+            InkWell(
+                onTap: () {
+                  selectEndDateWidget(context);
+                },
+                child: enddate1 == null
+                    ? Container(
+                        height: 40,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text("End Date",
+                              style: TextStyle(color: kBlack, fontSize: 16)),
+                        ),
+                      )
+                    : Container(
+                        height: 40,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          color: borderColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            enddate1!,
+                            style: TextStyle(color: kWhite, fontSize: 16),
+                          ),
+                        ),
+                      )),
+          ]),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              tabMonth == "1"?
-              Text("$tabMonth Month Plan", textAlign: TextAlign.left, style: TextStyle(
-                  fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)):
-              Text("$tabMonth Months Plan", textAlign: TextAlign.left, style: TextStyle(
-                  fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+              tabMonth == "1"
+                  ? Text("$tabMonth Month Plan",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: poppinRegular,
+                          color: detailsTextColor))
+                  : Text("$tabMonth Months Plan",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: poppinRegular,
+                          color: detailsTextColor)),
               Text("RM $tabPrice",
-                  textAlign: TextAlign.right, style: TextStyle(
-                      fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: poppinRegular,
+                      color: detailsTextColor)),
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.015),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
-                  fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
-              Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right, style: TextStyle(
-                  fontSize: 14, fontFamily: poppinRegular, color: detailsTextColor)),
+              Text("Service Fee (6%)",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: poppinRegular,
+                      color: detailsTextColor)),
+              Text("RM ${myServiceFee!.toStringAsFixed(2)}",
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: poppinRegular,
+                      color: detailsTextColor)),
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.015),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Total Amount", textAlign: TextAlign.left, style: TextStyle(
-                  fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
-              Text("RM $totalAmount", textAlign: TextAlign.left, style: TextStyle(
-                  fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
+              Text("Total Amount",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
+              Text("RM $totalAmount",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
             ],
           ),
         ],
@@ -826,130 +1025,149 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage> wit
       barrierColor: Colors.transparent,
       context: context,
       builder: (context, controller, offset) {
-        TabController tabController = TabController(length: monthNumber.length, vsync: this);
+        TabController tabController =
+            TabController(length: monthNumber.length, vsync: this);
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter stateSetterObject) {
-              return Container(
-                height: MediaQuery.of(context).size.height * 0.4,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: homeBgColor,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10),
-                      topLeft: Radius.circular(10)),
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.4,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: homeBgColor,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 16),
+                    child: Text('Change Available Month Slot',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: poppinBold,
+                            color: appBgColor)),
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 16),
-                        child: Text('Change Available Month Slot',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: poppinBold,
-                                color: appBgColor)),
-                      ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                    Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        decoration: BoxDecoration(
-                            color: homeBgColor,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                          child: TabBar(
-                            controller: tabController,
-                            indicator: BoxDecoration(
-                              // color: selectedIndex == ? borderColor: kWhite,
-                              color: borderColor,
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            onTap: (index){
-                              selectedIndex = index;
-                              tabMonth = monthNumber[selectedIndex].months;
-                              tabPrice = monthNumber[selectedIndex].dis_price_per_months;
-                              stateSetterObject(() {
-                                print('selectedIndex: $selectedIndex');
-                                print('selectedTabMonth123: $tabMonth');
-                                print('selectedTabMonthPrice: $tabPrice');
-                              });
-                            },
-                            tabs: List<Widget>.generate(
-                                monthNumber.length, (int index) {
-                              print("monthsTabBarLength ${monthNumber.length}");
-                              print("monthsTabBarClicked ");
-                              return Container(
-                                color: Colors.transparent,
-                                height: MediaQuery.of(context).size.height * 0.12,
-                                child: Tab(
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.3,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        monthNumber[index].months == "1" ? Text("${monthNumber[index].months} month", style: TextStyle(
-                                          color: kBlack, fontSize: 17, fontFamily: poppinMedium,)):
-                                        Text("${monthNumber[index].months} months", style: TextStyle(
-                                            color: kBlack, fontSize: 17, fontFamily: poppinMedium)),
-
-                                        Text("RM ${monthNumber[index].dis_price_per_months}",
-                                            textAlign: TextAlign.right, style: TextStyle(
-                                              fontSize: 14, fontFamily: poppinRegular, color: kBlack,)),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
-                            indicatorColor: kWhite,
-                            isScrollable: true,
-                            labelColor: kWhite,
-                            labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
-                            unselectedLabelColor: kBlack,
-                          ),
-                        )),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                    GestureDetector(
-                        onTap: () {
-                          myTotalAmount();
-                          Navigator.pop(context
-                          );
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    decoration: BoxDecoration(
+                        color: homeBgColor,
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                      child: TabBar(
+                        controller: tabController,
+                        indicator: BoxDecoration(
+                          // color: selectedIndex == ? borderColor: kWhite,
+                          color: borderColor,
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        onTap: (index) {
+                          selectedIndex = index;
+                          tabMonth = monthNumber[selectedIndex].months;
+                          tabPrice =
+                              monthNumber[selectedIndex].dis_price_per_months;
+                          stateSetterObject(() {
+                            print('selectedIndex: $selectedIndex');
+                            print('selectedTabMonth123: $tabMonth');
+                            print('selectedTabMonthPrice: $tabPrice');
+                          });
                         },
-                        child: loginButton('Update', context)),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        tabs: List<Widget>.generate(monthNumber.length,
+                            (int index) {
+                          print("monthsTabBarLength ${monthNumber.length}");
+                          print("monthsTabBarClicked ");
+                          return Container(
+                            color: Colors.transparent,
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            child: Tab(
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    monthNumber[index].months == "1"
+                                        ? Text(
+                                            "${monthNumber[index].months} month",
+                                            style: TextStyle(
+                                              color: kBlack,
+                                              fontSize: 17,
+                                              fontFamily: poppinMedium,
+                                            ))
+                                        : Text(
+                                            "${monthNumber[index].months} months",
+                                            style: TextStyle(
+                                                color: kBlack,
+                                                fontSize: 17,
+                                                fontFamily: poppinMedium)),
+                                    Text(
+                                        "RM ${monthNumber[index].dis_price_per_months}",
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: poppinRegular,
+                                          color: kBlack,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                        indicatorColor: kWhite,
+                        isScrollable: true,
+                        labelColor: kWhite,
+                        labelStyle:
+                            TextStyle(fontSize: 12, fontFamily: poppinRegular),
+                        unselectedLabelColor: kBlack,
+                      ),
+                    )),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                GestureDetector(
+                    onTap: () {
+                      myTotalAmount();
+                      Navigator.pop(context);
+                    },
+                    child: loginButton('Update', context)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Center(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(width: 1, color: borderColor),
+                        ),
                         child: Center(
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(width: 1, color: borderColor),
-                            ),
-                            child: Center(
-                              child: Text('Cancel', textAlign: TextAlign.center,
-                                  style: TextStyle(color: borderColor,
-                                      fontFamily: poppinRegular, fontSize: 18)),
-                            ),
-                          ),
+                          child: Text('Cancel',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: borderColor,
+                                  fontFamily: poppinRegular,
+                                  fontSize: 18)),
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              );
-            });
+              ],
+            ),
+          );
+        });
       },
     );
   }

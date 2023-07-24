@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'book_for_wedding_booking_details.dart';
+import 'book_for_wedding_booking_details_for_photography_only.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
@@ -17,34 +17,138 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_details_screen.dart';
 import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/EvSubscriptions/EvTaBBar/tabbar_description_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/BookForWedding/book_for_wedding_booking_details_for_full_package.dart';
 
 class BookForWeddingCarDescription extends StatefulWidget {
-  final String? carName, carImage, carYear, carPrice, favouriteStatus,
-      carColorName, carModelName, carMakesName, carMakesImage,
-      myCarDescription, myCarRating, myCarComment,
-      carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
+  final String? carName,
+      carImage,
+      carYear,
+      carPrice,
+      favouriteStatus,
+      carColorName,
+      carModelName,
+      carMakesName,
+      carMakesImage,
+      myCarDescription,
+      myCarRating,
+      myCarComment,
+      carRating,
+      carOwnerImage,
+      carOwnerName,
+      discountPercentage,
+      carDiscountPrice,
+      packageType;
 
-  final String? featureSuv, featuresSeats, featuresSpeed, featuresAutomatic, featuresDoors,
-      featuresElectric, featuresEngine_capacity, featuresFuelCapacity, featuresMeterReading, featuresNewCars;
+  final String? featureSuv,
+      featuresSeats,
+      featuresSpeed,
+      featuresAutomatic,
+      featuresDoors,
+      featuresElectric,
+      featuresEngine_capacity,
+      featuresFuelCapacity,
+      featuresMeterReading,
+      featuresNewCars;
   final int? carId, carOwnerId;
 
-  BookForWeddingCarDescription({super.key,
-    this.carName, this.carColorName, this.carModelName, this.discountPercentage,
-    this.carDiscountPrice, this.carImage, this.carYear, this.carMakesImage,
-    this.myCarDescription, this.myCarRating, this.myCarComment,
-    this.favouriteStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
-    this.carOwnerId, this.carOwnerImage, this.carOwnerName,
-
-    this.featureSuv, this.featuresSeats, this.featuresSpeed, this.featuresAutomatic,
-    this.featuresDoors, this.featuresElectric, this.featuresEngine_capacity,
-    this.featuresFuelCapacity, this.featuresMeterReading, this.featuresNewCars});
+  BookForWeddingCarDescription({
+    super.key,
+    this.carName,
+    this.carColorName,
+    this.carModelName,
+    this.discountPercentage,
+    this.carDiscountPrice,
+    this.carImage,
+    this.carYear,
+    this.carMakesImage,
+    this.myCarDescription,
+    this.myCarRating,
+    this.myCarComment,
+    this.favouriteStatus,
+    this.carMakesName,
+    this.carId,
+    this.carPrice,
+    this.carRating,
+    this.carOwnerId,
+    this.carOwnerImage,
+    this.carOwnerName,
+    this.featureSuv,
+    this.featuresSeats,
+    this.featuresSpeed,
+    this.featuresAutomatic,
+    this.featuresDoors,
+    this.featuresElectric,
+    this.featuresEngine_capacity,
+    this.featuresFuelCapacity,
+    this.featuresMeterReading,
+    this.featuresNewCars,
+    this.packageType,
+  });
 
   @override
-  State<BookForWeddingCarDescription> createState() => _BookForWeddingCarDescriptionState();
+  State<BookForWeddingCarDescription> createState() =>
+      _BookForWeddingCarDescriptionState();
 }
 
-class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescription> {
+class _BookForWeddingCarDescriptionState
+    extends State<BookForWeddingCarDescription> {
   final GlobalKey<FormState> formKeyPhotography = GlobalKey<FormState>();
+
+  bool isSelectedOnly = true;
+  bool isSelectedFull = false;
+
+  int? myDays;
+  DateTime? startDate;
+  DateTime? endDate;
+  final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+  String? selectedValue = '1 day';
+
+  Future<void> selectDatePicker(BuildContext context, bool isStartDate) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate:
+          isStartDate ? startDate ?? DateTime.now() : endDate ?? DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+
+    if (picked != null) {
+      setState(() {
+        if (isStartDate) {
+          startDate = picked;
+          if (selectedValue == '1 day') {
+            endDate = startDate?.add(const Duration(days: 1));
+          } else if (selectedValue == '3 day') {
+            endDate = startDate?.add(const Duration(days: 3));
+          } else if (selectedValue == '7 day') {
+            endDate = startDate?.add(const Duration(days: 7));
+          }
+        } else {
+          endDate = picked;
+        }
+        print('startDate: ${formatDate(startDate)}');
+        print('endDate: ${formatDate(endDate)}');
+      });
+    }
+  }
+
+  void onDropdownChanged(String? value) {
+    setState(() {
+      selectedValue = value;
+      if (selectedValue == '1 day') {
+        endDate = startDate?.add(const Duration(days: 1));
+      } else if (selectedValue == '3 day') {
+        endDate = startDate?.add(const Duration(days: 3));
+      } else if (selectedValue == '7 day') {
+        endDate = startDate?.add(const Duration(days: 7));
+      }
+      print('selectedPackage: $selectedValue');
+    });
+  }
+
+  String formatDate(DateTime? date) {
+    return date != null ? dateFormat.format(date) : '';
+  }
 
   String? valueDate;
   String? valueDay;
@@ -66,7 +170,11 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     }
   }
 
-  String? photoGraphyCarOwnerName, photoGraphyCarOwnerImage, photoGraphyCarOwnerId, carImage, pricePerHour;
+  String? photoGraphyCarOwnerName,
+      photoGraphyCarOwnerImage,
+      photoGraphyCarOwnerId,
+      carImage,
+      pricePerHour;
 
   int? myHours;
   getToday() {
@@ -109,10 +217,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
       "other_users_customers_id": "$photoGraphyCarOwnerId",
     };
     http.Response response = await http.post(Uri.parse(startChatApiUrl),
-        body: body,
-        headers: {
-          "Accept": "application/json"
-        });
+        body: body, headers: {"Accept": "application/json"});
     Map jsonData = jsonDecode(response.body);
     print("startChatApiUrl: $startChatApiUrl");
     print('startChatApiResponse $jsonData');
@@ -134,9 +239,9 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
             statusBarIconBrightness:
-            Brightness.dark, //<-- For Android SEE HERE (dark icons)
+                Brightness.dark, //<-- For Android SEE HERE (dark icons)
             statusBarBrightness:
-            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+                Brightness.dark, //<-- For iOS SEE HERE (dark icons)
           ),
           actions: [
             GestureDetector(
@@ -144,25 +249,29 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                 print("clicked");
                 startChatApiWidget();
 
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => MessageDetailsScreen(
-                        carOwnerName: photoGraphyCarOwnerName,
-                        carOwnerImage: photoGraphyCarOwnerImage,
-                    carOwnerId: photoGraphyCarOwnerId
-                    )));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MessageDetailsScreen(
+                            carOwnerName: photoGraphyCarOwnerName,
+                            carOwnerImage: photoGraphyCarOwnerImage,
+                            carOwnerId: photoGraphyCarOwnerId)));
                 print("photoGraphyCarOwnerId: $photoGraphyCarOwnerId");
                 print("photoGraphyCarOwnerName: $photoGraphyCarOwnerName");
                 print("photoGraphyCarOwnerImage: $photoGraphyCarOwnerImage");
               },
               child: Padding(
                 padding: EdgeInsets.only(top: 30, right: 20),
-                child: Image.asset("assets/car_description_images/chat.png",
-                  height: 25, width: 25,
+                child: Image.asset(
+                  "assets/car_description_images/chat.png",
+                  height: 25,
+                  width: 25,
                 ),
               ),
             ),
           ],
-          backgroundColor: appBgColor, elevation: 0.0,
+          backgroundColor: appBgColor,
+          elevation: 0.0,
           centerTitle: true,
           leading: GestureDetector(
             onTap: () {
@@ -171,19 +280,28 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
             },
             child: Padding(
               padding: EdgeInsets.only(top: 30),
-              child: Image.asset("assets/live_chat_images/back_arrow.png",
-                color: kWhite, height: 25, width: 25,
+              child: Image.asset(
+                "assets/live_chat_images/back_arrow.png",
+                color: kWhite,
+                height: 25,
+                width: 25,
               ),
             ),
           ),
           title: Padding(
             padding: EdgeInsets.only(top: 30, right: 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("${widget.carName}, ", style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),),
-                  Text("${widget.carYear}", style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
-                ]),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
+                "${widget.carName}, ",
+                style: TextStyle(
+                    fontSize: 16, fontFamily: poppinBold, color: kWhite),
+              ),
+              Text(
+                "${widget.carYear}",
+                style: TextStyle(
+                    fontSize: 16, fontFamily: poppinRegular, color: kWhite),
+              ),
+            ]),
           )),
       body: SingleChildScrollView(
         child: Column(
@@ -206,11 +324,17 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                       showRatingStars(double.parse("${widget.carRating}")),
                       // Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      widget.carRating == null?
-                          Text("0.0", style: TextStyle(fontSize: 16,
-                              color: kWhite, fontFamily: poppinSemiBold)):
-                          Text('${widget.carRating}', style: TextStyle(fontSize: 16,
-                          color: kWhite, fontFamily: poppinSemiBold)),
+                      widget.carRating == null
+                          ? Text("0.0",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: kWhite,
+                                  fontFamily: poppinSemiBold))
+                          : Text('${widget.carRating}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: kWhite,
+                                  fontFamily: poppinSemiBold)),
                     ],
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
@@ -220,42 +344,58 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                       Padding(
                         padding: EdgeInsets.only(left: 20),
                         child:
-                        // Image.network("${widget.carMakesImage}",
-                        //   height: 60, width: 50, fit: BoxFit.fill,
-                        // ),
+                            // Image.network("${widget.carMakesImage}",
+                            //   height: 60, width: 50, fit: BoxFit.fill,
+                            // ),
 
-                        CachedNetworkImage(
+                            CachedNetworkImage(
                           imageUrl: "${widget.carMakesImage}",
-                          height: 50, width: 50,
+                          height: 50,
+                          width: 50,
                           fit: BoxFit.fill,
-                          progressIndicatorBuilder: (context, url, downloadProgress) =>
-                              CircularProgressIndicator(strokeWidth: 2, value: downloadProgress.progress, color: borderColor,),
-                          errorWidget: (context, url, error) => Image.asset("assets/icon/fade_in_image.jpeg"),
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                            strokeWidth: 2,
+                            value: downloadProgress.progress,
+                            color: borderColor,
+                          ),
+                          errorWidget: (context, url, error) =>
+                              Image.asset("assets/icon/fade_in_image.jpeg"),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 20),
-                        child: widget.favouriteStatus == "like"?
-                        Image.asset("assets/home_page/heart.png"):
-                        GestureDetector(
-                          onTap: () async {
-                            print("clicked...");
-                            myCurrentCarIndex = "${widget.carId}";
-                            print("carsPhotoGraphyIds $myCurrentCarIndex");
-                            await getLikeUnlikeCarWidget();
-                            if (carLikeUnlikeModelObject.message == "Liked") {
-                              print("isLiked");
-                              toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                            }
-                            if (carLikeUnlikeModelObject.message == "Unliked") {
-                              print("isUnLiked");
-                              toastSuccessMessage("${carLikeUnlikeModelObject.message}", colorGreen);
-                            }
-                          },
-                          child: carLikeUnlikeModelObject.message == "Liked"
-                              ? Image.asset("assets/home_page/heart.png")
-                              : Image.asset("assets/car_bookings_images/heart.png"),
-                        ),
+                        child: widget.favouriteStatus == "like"
+                            ? Image.asset("assets/home_page/heart.png")
+                            : GestureDetector(
+                                onTap: () async {
+                                  print("clicked...");
+                                  myCurrentCarIndex = "${widget.carId}";
+                                  print(
+                                      "carsPhotoGraphyIds $myCurrentCarIndex");
+                                  await getLikeUnlikeCarWidget();
+                                  if (carLikeUnlikeModelObject.message ==
+                                      "Liked") {
+                                    print("isLiked");
+                                    toastSuccessMessage(
+                                        "${carLikeUnlikeModelObject.message}",
+                                        colorGreen);
+                                  }
+                                  if (carLikeUnlikeModelObject.message ==
+                                      "Unliked") {
+                                    print("isUnLiked");
+                                    toastSuccessMessage(
+                                        "${carLikeUnlikeModelObject.message}",
+                                        colorGreen);
+                                  }
+                                },
+                                child: carLikeUnlikeModelObject.message ==
+                                        "Liked"
+                                    ? Image.asset("assets/home_page/heart.png")
+                                    : Image.asset(
+                                        "assets/car_bookings_images/heart.png"),
+                              ),
 
                         // Image.asset('assets/car_description_images/heart.png', width: 24, height: 20),
                       ),
@@ -264,7 +404,8 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
                   Stack(
                     children: [
                       Positioned(
-                        child: Image.network("${widget.carImage}", width: 307, height: 150),
+                        child: Image.network("${widget.carImage}",
+                            width: 307, height: 150),
                       ),
                       Positioned(
                         bottom: 0,
@@ -284,18 +425,32 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Price', textAlign: TextAlign.left, style: TextStyle(
-                        fontSize: 17, fontFamily: poppinMedium, color: borderColor)),
+                  Text('Price',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontFamily: poppinMedium,
+                          color: borderColor)),
                   RichText(
-                    text: TextSpan(text: 'RM', style: TextStyle(
-                        fontSize: 14, fontFamily: poppinBold, color: borderColor),
+                    text: TextSpan(
+                      text: 'RM',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: poppinBold,
+                          color: borderColor),
                       children: [
                         TextSpan(
-                          text: '$pricePerHour', style: TextStyle(
-                            fontSize: 24, fontFamily: poppinBold, color: borderColor)),
+                            text: '$pricePerHour',
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontFamily: poppinBold,
+                                color: borderColor)),
                         TextSpan(
-                          text: '/hrs', style: TextStyle(
-                            fontSize: 14, fontFamily: poppinMedium, color: borderColor)),
+                            text: '/hrs',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: poppinMedium,
+                                color: borderColor)),
                       ],
                     ),
                     textAlign: TextAlign.center,
@@ -306,160 +461,363 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Padding(
               padding: EdgeInsets.only(left: 20),
-              child: Text('Select Booking Day and Time',  textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 14, fontFamily: poppinBold)),
+              child: Text('Select Your Package Type',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 14, fontFamily: poppinBold)),
             ),
-
-            Column(
-              children: [
-                Form(
-                  key: formKeyPhotography,
-                  child: Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                      GestureDetector(
-                        onTap: () {
-                          print("clicked...");
-                          selectDate(context);
-                        },
-                        child: Container(
-                          width: 220,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: valueDay == null? kWhite: borderColor,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(valueDay == null? "Select Date" : "$valueDay", textAlign: TextAlign.left,
-                                  style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: valueDay == null? borderColor: kWhite)),
-                              Icon(Icons.keyboard_arrow_right, color: valueDay == null? borderColor: kWhite),
-                            ],
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isSelectedOnly = true;
+                        isSelectedFull = false;
+                      });
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      decoration: BoxDecoration(
+                        color: isSelectedOnly == true ? borderColor : kWhite,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Photography\nOnly",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: isSelectedOnly == true ? kWhite : kBlack,
+                            fontSize: 16,
+                            fontFamily: poppinMedium,
                           ),
                         ),
                       ),
-
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     selectDate(context);
-                      //   },
-                      //   child: Padding(
-                      //     padding: EdgeInsets.symmetric(vertical: 10),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: [
-                      //         Icon(Icons.keyboard_arrow_left, color: borderColor),
-                      //         valueDate == null? Text("Select Date", textAlign: TextAlign.left,
-                      //           style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: borderColor)):
-                      //         Text(valueDate!,  textAlign: TextAlign.left,
-                      //           style: TextStyle(fontSize: 14,
-                      //               fontFamily: poppinSemiBold, color: borderColor),
-                      //         ),
-                      //         Icon(Icons.keyboard_arrow_right, color: borderColor),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      //
-                      // valueDay == null? Container():
-                      // Container(
-                      //   width: 200,
-                      //   height: 40,
-                      //   decoration: BoxDecoration(
-                      //     color:  borderColor,
-                      //     borderRadius: BorderRadius.circular(15),
-                      //   ),
-                      //   child: Center(
-                      //     child: Text("$valueDay",
-                      //       style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: kWhite ),
-                      //     ),
-                      //   ),
-                      // ),
-
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: dropDownHourWidget(),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isSelectedOnly = false;
+                        isSelectedFull = true;
+                      });
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      decoration: BoxDecoration(
+                        color: isSelectedFull == true ? borderColor : kWhite,
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                  onTap: () {
-                                    selectTimeStart(context);
-                                  },
-                                  child:
-                                  formattedStartTime == null?
-                                  Container(
-                                    height: 40,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                        color: kWhite,
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    child: Center(
-                                      child: Text("Start Time", style: TextStyle(color:  kBlack , fontSize: 16),
-                                      ),
-                                    ),
-                                  ):
-
-                                  Container(
-                                    height: 40,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                        color:  borderColor,
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    child: Center(
-                                      child: Text("${formattedStartTime}", style: TextStyle(color: kWhite, fontSize: 16),
-                                      ),
-                                    ),
-                                  ),
-                              ),
-
-                              InkWell(
-                                  onTap: () {
-                                    // selectTimeEnd(context);
-                                  },
-                                  child: formattedEndTime == null?
-                                  Container(
-                                    height: 40,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      color: kWhite,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                      child: Text("End Time",
-                                        style: TextStyle(color: kBlack, fontSize: 16)),
-                                    ),
-                                  ):
-                                  Container(
-                                    height: 40,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      color: borderColor,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                      child: Text(formattedEndTime!,
+                      child: Center(
+                        child: Text(
+                          "Full\nPackage",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: isSelectedFull == true ? kWhite : kBlack,
+                            fontSize: 16,
+                            fontFamily: poppinMedium,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text('Select Booking Day and Time',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 14, fontFamily: poppinBold)),
+            ),
+            isSelectedOnly == true
+                ? Column(
+                    children: [
+                      Form(
+                        key: formKeyPhotography,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            GestureDetector(
+                              onTap: () {
+                                print("clicked...");
+                                selectDate(context);
+                              },
+                              child: Container(
+                                width: 220,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color:
+                                      valueDay == null ? kWhite : borderColor,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                        valueDay == null
+                                            ? "Select Date"
+                                            : "$valueDay",
+                                        textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            color: kWhite, fontSize: 16),
-                                      ),
-                                    ),
-                                  )
+                                            fontSize: 14,
+                                            fontFamily: poppinSemiBold,
+                                            color: valueDay == null
+                                                ? borderColor
+                                                : kWhite)),
+                                    Icon(Icons.keyboard_arrow_right,
+                                        color: valueDay == null
+                                            ? borderColor
+                                            : kWhite),
+                                  ],
+                                ),
                               ),
+                            ),
 
-                            ]),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     selectDate(context);
+                            //   },
+                            //   child: Padding(
+                            //     padding: EdgeInsets.symmetric(vertical: 10),
+                            //     child: Row(
+                            //       mainAxisAlignment: MainAxisAlignment.center,
+                            //       children: [
+                            //         Icon(Icons.keyboard_arrow_left, color: borderColor),
+                            //         valueDate == null? Text("Select Date", textAlign: TextAlign.left,
+                            //           style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: borderColor)):
+                            //         Text(valueDate!,  textAlign: TextAlign.left,
+                            //           style: TextStyle(fontSize: 14,
+                            //               fontFamily: poppinSemiBold, color: borderColor),
+                            //         ),
+                            //         Icon(Icons.keyboard_arrow_right, color: borderColor),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                            //
+                            // valueDay == null? Container():
+                            // Container(
+                            //   width: 200,
+                            //   height: 40,
+                            //   decoration: BoxDecoration(
+                            //     color:  borderColor,
+                            //     borderRadius: BorderRadius.circular(15),
+                            //   ),
+                            //   child: Center(
+                            //     child: Text("$valueDay",
+                            //       style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: kWhite ),
+                            //     ),
+                            //   ),
+                            // ),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: dropDownHourWidget(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        selectTimeStart(context);
+                                      },
+                                      child: formattedStartTime == null
+                                          ? Container(
+                                              height: 40,
+                                              width: 120,
+                                              decoration: BoxDecoration(
+                                                  color: kWhite,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Center(
+                                                child: Text(
+                                                  "Start Time",
+                                                  style: TextStyle(
+                                                      color: kBlack,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            )
+                                          : Container(
+                                              height: 40,
+                                              width: 120,
+                                              decoration: BoxDecoration(
+                                                  color: borderColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Center(
+                                                child: Text(
+                                                  "${formattedStartTime}",
+                                                  style: TextStyle(
+                                                      color: kWhite,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          // selectTimeEnd(context);
+                                        },
+                                        child: formattedEndTime == null
+                                            ? Container(
+                                                height: 40,
+                                                width: 120,
+                                                decoration: BoxDecoration(
+                                                  color: kWhite,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Text("End Time",
+                                                      style: TextStyle(
+                                                          color: kBlack,
+                                                          fontSize: 16)),
+                                                ),
+                                              )
+                                            : Container(
+                                                height: 40,
+                                                width: 120,
+                                                decoration: BoxDecoration(
+                                                  color: borderColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    formattedEndTime!,
+                                                    style: TextStyle(
+                                                        color: kWhite,
+                                                        fontSize: 16),
+                                                  ),
+                                                ),
+                                              )),
+                                  ]),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Form(
+                        key: formKeyPhotography,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: dropDownDaysPackageWidget(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        selectDatePicker(context, true);
+                                      },
+                                      child: startDate != null
+                                          ? Container(
+                                              height: 40,
+                                              width: 120,
+                                              decoration: BoxDecoration(
+                                                  color: borderColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Center(
+                                                child: Text(
+                                                  "${formatDate(startDate)}",
+                                                  style: TextStyle(
+                                                      color: kWhite,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            )
+                                          : Container(
+                                              height: 40,
+                                              width: 120,
+                                              decoration: BoxDecoration(
+                                                  color: kWhite,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Center(
+                                                child: Text(
+                                                  "Start Date",
+                                                  style: TextStyle(
+                                                      color: kBlack,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          // selectDatePicker(context, false);
+                                        },
+                                        child: endDate != null
+                                            ? Container(
+                                                height: 40,
+                                                width: 120,
+                                                decoration: BoxDecoration(
+                                                  color: borderColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                      "${formatDate(endDate)}",
+                                                      style: TextStyle(
+                                                          color: kWhite,
+                                                          fontSize: 16)),
+                                                ),
+                                              )
+                                            : Container(
+                                                height: 40,
+                                                width: 120,
+                                                decoration: BoxDecoration(
+                                                  color: kWhite,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    "End Date",
+                                                    style: TextStyle(
+                                                        color: kBlack,
+                                                        fontSize: 16),
+                                                  ),
+                                                ),
+                                              )),
+                                  ]),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-
-              ],
-            ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             // TabbarBookForWedding(),
             TabbarCarDescription(
@@ -469,46 +827,88 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
             ),
             GestureDetector(
                 onTap: () {
-                  if(formKeyPhotography.currentState!.validate()){
-                    if(valueDate == null){
-                      toastFailedMessage("Select date", kRed);
-                    } else if(myHours == null){
-                      toastFailedMessage("Select Hours", kRed);
-                    } else if(formattedStartTime == null || formattedEndTime == null){
-                      toastFailedMessage("Select Time", kRed);
-                    } else{
-                      print("all okay");
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => BookForWeddingBookingDetails(
-                            // datumPhotography: widget.datumPhotography,
-                            selectedDate: valueDate,
-                            selectedDay: valueDay,
-                            selectedHours: dropdownValueTime,
-                            selectedStartTime: formattedStartTime,
-                            selectedEndTime: formattedEndTime,
-                            hoursInNumber: myHours,
-
-                            carName: widget.carName,
-                            carYear: widget.carYear,
-                            carId: widget.carId,
-                            carRating: widget.carRating,
-                            carColorName: widget.carColorName,
-                            carMakesName: widget.carMakesName,
-                            carModelName: widget.carModelName,
-                            carImage: widget.carImage,
-                            carMakesImage: widget.carMakesImage,
-                            favouriteStatus: widget.favouriteStatus,
-                            discountPercentage: widget.discountPercentage,
-                            carDiscountPrice: widget.carDiscountPrice,
-                            carPrice: widget.carPrice,
-                            carOwnerImage: widget.carOwnerImage,
-                            carOwnerName: widget.carOwnerName,
-                            carOwnerId: widget.carOwnerId)));
+                  if (isSelectedOnly == true) {
+                    if (formKeyPhotography.currentState!.validate()) {
+                      if (valueDate == null) {
+                        toastFailedMessage("Select Date", kRed);
+                      } else if (myHours == null) {
+                        toastFailedMessage("Select Hours", kRed);
+                      } else if (formattedStartTime == null ||
+                          formattedEndTime == null) {
+                        toastFailedMessage("Select Time", kRed);
+                      } else {
+                        print("all okay");
+                        if (isSelectedOnly == true)
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      BookForWeddingBookingDetailsForPhotographyOnly(
+                                          // datumPhotography: widget.datumPhotography,
+                                          selectedDate: valueDate,
+                                          selectedDay: valueDay,
+                                          selectedHours: dropdownValueTime,
+                                          selectedStartTime: formattedStartTime,
+                                          selectedEndTime: formattedEndTime,
+                                          hoursInNumber: myHours,
+                                          carName: widget.carName,
+                                          carYear: widget.carYear,
+                                          carId: widget.carId,
+                                          carRating: widget.carRating,
+                                          carColorName: widget.carColorName,
+                                          carMakesName: widget.carMakesName,
+                                          carModelName: widget.carModelName,
+                                          carImage: widget.carImage,
+                                          carMakesImage: widget.carMakesImage,
+                                          favouriteStatus:
+                                              widget.favouriteStatus,
+                                          discountPercentage:
+                                              widget.discountPercentage,
+                                          carDiscountPrice:
+                                              widget.carDiscountPrice,
+                                          carPrice: widget.carPrice,
+                                          carOwnerImage: widget.carOwnerImage,
+                                          carOwnerName: widget.carOwnerName,
+                                          carOwnerId: widget.carOwnerId)));
+                      }
                     }
-                  }
 
-                  print("time1 $dropdownValueTime");
-                  print("time12 $myHours");
+                    print("time1 $dropdownValueTime");
+                    print("time12 $myHours");
+                  } else {
+                    int value = int.parse(selectedValue!.split(" day").first);
+                    print("selectedTime: $value");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                BookForWeddingBookingDetailsForFullPackage(
+                                    startDate: "${formatDate(startDate)}",
+                                    endDate: "${formatDate(endDate)}",
+                                    // selectedDate: valueDate,
+                                    // selectedDay: valueDay,
+                                    selectedHours: selectedValue,
+                                    // selectedStartTime: formattedStartTime,
+                                    // selectedEndTime: formattedEndTime,
+                                    hoursInNumber: value * 24,
+                                    carName: widget.carName,
+                                    carYear: widget.carYear,
+                                    carId: widget.carId,
+                                    carRating: widget.carRating,
+                                    carColorName: widget.carColorName,
+                                    carMakesName: widget.carMakesName,
+                                    carModelName: widget.carModelName,
+                                    carImage: widget.carImage,
+                                    carMakesImage: widget.carMakesImage,
+                                    favouriteStatus: widget.favouriteStatus,
+                                    discountPercentage:
+                                        widget.discountPercentage,
+                                    carDiscountPrice: widget.carDiscountPrice,
+                                    carPrice: widget.carPrice,
+                                    carOwnerImage: widget.carOwnerImage,
+                                    carOwnerName: widget.carOwnerName,
+                                    carOwnerId: widget.carOwnerId)));
+                  }
                 },
                 child: loginButton('Book Now', context)),
           ],
@@ -521,7 +921,7 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
   DateTime? _endTime;
   DateTime valueTimeStart = DateTime.now();
   String? formattedStartTime, formattedEndTime;
-  String? valueTimeEnd ;
+  String? valueTimeEnd;
   TimeOfDay? startTime;
   TimeOfDay? picked;
 
@@ -530,7 +930,8 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
       context: context,
       initialTime: TimeOfDay.now(),
     );
-    DateTime parsedTime = DateFormat.jm().parse(picked!.format(context).toString());
+    DateTime parsedTime =
+        DateFormat.jm().parse(picked!.format(context).toString());
     formattedStartTime = DateFormat('HH:mm:ss').format(parsedTime);
     print('parsed Time: $parsedTime');
     print('formatted Start Time: $formattedStartTime');
@@ -544,10 +945,10 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
         print("Selected startTime is: $formattedStartTime");
       });
       // valueTimeStart = '${picked.hour}:${picked.minute}:00';
-       _endTime = parsedTime.add(Duration(hours: int.parse("$myHours")));
+      _endTime = parsedTime.add(Duration(hours: int.parse("$myHours")));
       formattedEndTime = DateFormat('HH:mm:ss').format(_endTime!);
-       print("_endTime: $_endTime");
-       print("formattedEndTime: $formattedEndTime");
+      print("_endTime: $_endTime");
+      print("formattedEndTime: $formattedEndTime");
 
       setState(() {
         print("Selected startTime is: $parsedTime");
@@ -619,18 +1020,17 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
   // }
   int? myMinutes, selectedMinutes;
 
-  compareTime(){
-    if(formKeyPhotography.currentState!.validate()){
+  compareTime() {
+    if (formKeyPhotography.currentState!.validate()) {
       myMinutes = int.parse(myHours.toString()) * 60;
-      selectedMinutes = (hours* 60)+ minutes;
+      selectedMinutes = (hours * 60) + minutes;
       print("myMinutes $myMinutes $selectedMinutes");
       print("value $myHours $hours");
 
-      if(myMinutes == selectedMinutes){
+      if (myMinutes == selectedMinutes) {
         // toastSuccessMessage("time matched successfully", colorGreen);
         print("success");
-      }
-      else{
+      } else {
         toastFailedMessage("time didn't matched", kRed);
         print("no success");
       }
@@ -646,48 +1046,102 @@ class _BookForWeddingCarDescriptionState extends State<BookForWeddingCarDescript
     }
   }
 
-
-
   // DateTime _endTime = DateTime.now().add(Duration(hours: 1));
-  Widget dropDownHourWidget(){
+  Widget dropDownHourWidget() {
     var size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.055,
       width: MediaQuery.of(context).size.width * 01.3,
       decoration: BoxDecoration(
-        color: kWhite,
+          color: kWhite,
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: kBlack)
-      ),
+          border: Border.all(color: kBlack)),
       child: Padding(
         padding: EdgeInsets.only(left: 10, right: 10),
         child: DropdownButtonHideUnderline(
           child: DropdownButton2(
             hint: Text('Select Hours',
-              style: GoogleFonts.poppins(
-                textStyle: TextStyle(fontSize: 12,
-                  color: kBlack, fontWeight: FontWeight.w400))),
-            icon: Icon(Icons.keyboard_arrow_down_rounded, size: 30, color: kBlack),
-            items: timeHoursList.map((item) => DropdownMenuItem<String>(
-              value: item,
-              child: Text(item, style: GoogleFonts.poppins(
-                  textStyle: TextStyle(fontSize: 14,
-                      color: kBlack, fontWeight: FontWeight.w400))),
-            ),
-            ).toList(),
+                style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                        fontSize: 12,
+                        color: kBlack,
+                        fontWeight: FontWeight.w400))),
+            icon: Icon(Icons.keyboard_arrow_down_rounded,
+                size: 30, color: kBlack),
+            items: timeHoursList
+                .map(
+                  (item) => DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(item,
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                fontSize: 14,
+                                color: kBlack,
+                                fontWeight: FontWeight.w400))),
+                  ),
+                )
+                .toList(),
             value: dropdownValueTime,
             onChanged: (String? newValue) {
               setState(() {
-                dropdownValueTime = newValue!.split(" hour").first;
-                myHours = int.parse(dropdownValueTime);
+                dropdownValueTime = newValue!.split(" hours").first;
+                myHours = int.parse(dropdownValueTime!);
                 dropdownValueTime = newValue;
                 print("selectedTime: $dropdownValueTime");
                 print("selectedTime: $myHours");
               });
             },
             buttonWidth: MediaQuery.of(context).size.width * 0.2,
-            dropdownDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10)),
+            dropdownDecoration:
+                BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            dropdownMaxHeight: MediaQuery.of(context).size.height * 0.25,
+            scrollbarThickness: 0,
+            itemHeight: 30,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget dropDownDaysPackageWidget() {
+    var size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height * 0.055,
+      width: MediaQuery.of(context).size.width * 01.3,
+      decoration: BoxDecoration(
+          color: kWhite,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: kBlack)),
+      child: Padding(
+        padding: EdgeInsets.only(left: 10, right: 10),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton2(
+            hint: Text('Select Package',
+                style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                        fontSize: 12,
+                        color: kBlack,
+                        fontWeight: FontWeight.w400))),
+            icon: Icon(Icons.keyboard_arrow_down_rounded,
+                size: 30, color: kBlack),
+            items: daysPackageList
+                .map(
+                  (item) => DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(item,
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                fontSize: 14,
+                                color: kBlack,
+                                fontWeight: FontWeight.w400))),
+                  ),
+                )
+                .toList(),
+            value: selectedValue,
+            onChanged: onDropdownChanged,
+            buttonWidth: MediaQuery.of(context).size.width * 0.2,
+            dropdownDecoration:
+                BoxDecoration(borderRadius: BorderRadius.circular(10)),
             dropdownMaxHeight: MediaQuery.of(context).size.height * 0.25,
             scrollbarThickness: 0,
             itemHeight: 30,
