@@ -209,7 +209,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.72,
+                          height: MediaQuery.of(context).size.height * 0.75,
                           width: MediaQuery.of(context).size.width * 0.47,
                           decoration: BoxDecoration(
                               color: kWhite,

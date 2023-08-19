@@ -15,7 +15,7 @@ import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 
 class BookForWeddingBookingDetailsForFullPackage extends StatefulWidget {
-  final String? startDate,
+  String? startDate,
       endDate,
       // selectedDate,
       selectedHours;
@@ -142,6 +142,14 @@ class _BookForWeddingBookingDetailsForFullPackageState
     myServiceFee = (percentage! / 100) * double.parse("$pricePerHrs");
     totalPricePerHrs = pricePerHrs + depositFee + driverFee + myServiceFee!;
     print("totalPerHour: $totalPricePerHrs");
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    widget.startDate = null;
+    widget.endDate = null;
   }
 
   @override
@@ -760,6 +768,10 @@ class _BookForWeddingBookingDetailsForFullPackageState
       context: context,
       builder: (context, controller, offset) {
         var size = MediaQuery.of(context).size;
+        // DateTime? startDate;
+        // DateTime? endDate;
+        // final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+        // String? selectedValue = '1 day';
         DateTime? startDate;
         DateTime? endDate;
         final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
@@ -794,19 +806,19 @@ class _BookForWeddingBookingDetailsForFullPackageState
           }
         }
 
-        void onDropdownChanged(String? value) {
-          setState(() {
-            selectedValue = value;
-            if (selectedValue == '1 day') {
-              endDate = startDate?.add(const Duration(days: 1));
-            } else if (selectedValue == '3 day') {
-              endDate = startDate?.add(const Duration(days: 3));
-            } else if (selectedValue == '7 day') {
-              endDate = startDate?.add(const Duration(days: 7));
-            }
-            print('selectedPackage: $selectedValue');
-          });
-        }
+        // void onDropdownChanged(String? value) {
+        //   setState(() {
+        //     selectedValue = value;
+        //     if (selectedValue == '1 day') {
+        //       endDate = startDate?.add(const Duration(days: 1));
+        //     } else if (selectedValue == '3 day') {
+        //       endDate = startDate?.add(const Duration(days: 3));
+        //     } else if (selectedValue == '7 day') {
+        //       endDate = startDate?.add(const Duration(days: 7));
+        //     }
+        //     print('selectedPackage: $selectedValue');
+        //   });
+        // }
 
         String formatDate(DateTime? date) {
           return date != null ? dateFormat.format(date) : '';
@@ -877,7 +889,22 @@ class _BookForWeddingBookingDetailsForFullPackageState
                                   )
                                   .toList(),
                               value: selectedValue,
-                              onChanged: onDropdownChanged,
+                              onChanged: (String? value) {
+                                stateSetterObject(() {
+                                  selectedValue = value;
+                                  if (selectedValue == '1 day') {
+                                    endDate =
+                                        startDate?.add(const Duration(days: 1));
+                                  } else if (selectedValue == '3 day') {
+                                    endDate =
+                                        startDate?.add(const Duration(days: 3));
+                                  } else if (selectedValue == '7 day') {
+                                    endDate =
+                                        startDate?.add(const Duration(days: 7));
+                                  }
+                                  print('selectedPackage: $selectedValue');
+                                });
+                              },
                               buttonWidth:
                                   MediaQuery.of(context).size.width * 0.2,
                               dropdownDecoration: BoxDecoration(
@@ -898,8 +925,37 @@ class _BookForWeddingBookingDetailsForFullPackageState
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             InkWell(
-                              onTap: () {
-                                selectDatePicker(context, true);
+                              onTap: () async {
+                                bool isStartDate = true;
+                                // selectDatePicker(context, true);
+                                // Future<void> selectDatePicker(
+                                    // BuildContext context, bool isStartDate) async {
+                                  final DateTime? picked = await showDatePicker(
+                                    context: context,
+                                    initialDate: isStartDate
+                                        ? startDate ?? DateTime.now()
+                                        : endDate ?? DateTime.now(),
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime(2100),
+                                  );
+
+                                  if (picked != null) {
+                                    stateSetterObject(() {
+                                      if (isStartDate) {
+                                        startDate = picked;
+                                        if (selectedValue == '1 day') {
+                                          endDate = startDate?.add(const Duration(days: 1));
+                                        } else if (selectedValue == '3 day') {
+                                          endDate = startDate?.add(const Duration(days: 3));
+                                        } else if (selectedValue == '7 day') {
+                                          endDate = startDate?.add(const Duration(days: 7));
+                                        }
+                                      } else {
+                                        endDate = picked;
+                                      }
+                                    });
+                                  }
+                                // }
                               },
                               child: startDate != null
                                   ? Container(

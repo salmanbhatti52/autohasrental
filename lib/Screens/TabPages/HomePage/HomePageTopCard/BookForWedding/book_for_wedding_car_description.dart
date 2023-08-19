@@ -203,6 +203,9 @@ class _BookForWeddingCarDescriptionState
     // TODO: implement initState
     super.initState();
     getToday();
+    print("timeHoursList $timeHoursList");
+    print("dropdownValueTime $dropdownValueTime");
+    print("selectedValue $selectedValue");
     print("myCarComment ${widget.myCarComment}");
   }
 
@@ -277,6 +280,8 @@ class _BookForWeddingCarDescriptionState
             onTap: () {
               print("clicked");
               Navigator.pop(context);
+              selectedValue = null;
+              dropdownValueTime = null;
             },
             child: Padding(
               padding: EdgeInsets.only(top: 30),
@@ -502,6 +507,11 @@ class _BookForWeddingCarDescriptionState
                     onTap: () {
                       setState(() {
                         isSelectedOnly = false;
+                        valueDay = null;
+                        startTime = null;
+                        endDate = null;
+                        startDate = null;
+                        valueTimeEnd = null;
                         isSelectedFull = true;
                       });
                     },
@@ -925,37 +935,67 @@ class _BookForWeddingCarDescriptionState
   TimeOfDay? startTime;
   TimeOfDay? picked;
 
+  // selectTimeStart(BuildContext context) async {
+  //   picked = await showTimePicker(
+  //     context: context,
+  //     initialTime: TimeOfDay.now(),
+  //   );
+  //   DateTime parsedTime =
+  //       DateFormat.jm().parse(picked!.format(context).toString());
+  //   formattedStartTime = DateFormat('HH:mm:ss').format(parsedTime);
+  //   print('parsed Time: $parsedTime');
+  //   print('formatted Start Time: $formattedStartTime');
+  //   setState(() {});
+  //   if (picked == null) {
+  //     picked = startTime;
+  //   } else {
+  //     startDateTime = DateTime(picked!.hour, picked!.minute);
+  //     // valueTimeStart = picked.format(context).toString();
+  //     setState(() {
+  //       print("Selected startTime is: $formattedStartTime");
+  //     });
+  //     // valueTimeStart = '${picked.hour}:${picked.minute}:00';
+  //     _endTime = parsedTime.add(Duration(hours: int.parse("$myHours")));
+  //     formattedEndTime = DateFormat('HH:mm:ss').format(_endTime!);
+  //     print("_endTime: $_endTime");
+  //     print("formattedEndTime: $formattedEndTime");
+  //
+  //     setState(() {
+  //       print("Selected startTime is: $parsedTime");
+  //       print("myTime: $parsedTime");
+  //     });
+  //   }
+  // }
+
   selectTimeStart(BuildContext context) async {
     picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
-    DateTime parsedTime =
-        DateFormat.jm().parse(picked!.format(context).toString());
-    formattedStartTime = DateFormat('HH:mm:ss').format(parsedTime);
-    print('parsed Time: $parsedTime');
-    print('formatted Start Time: $formattedStartTime');
-    setState(() {});
-    if (picked == null) {
-      picked = startTime;
-    } else {
-      startDateTime = DateTime(picked!.hour, picked!.minute);
-      // valueTimeStart = picked.format(context).toString();
-      setState(() {
-        print("Selected startTime is: $formattedStartTime");
-      });
-      // valueTimeStart = '${picked.hour}:${picked.minute}:00';
-      _endTime = parsedTime.add(Duration(hours: int.parse("$myHours")));
+
+    if (picked != null) {
+      startDateTime = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+        picked!.hour,
+        picked!.minute,
+      );
+
+      formattedStartTime = DateFormat('HH:mm:ss').format(startDateTime!);
+      print('formatted Start Time: $formattedStartTime');
+
+      _endTime = startDateTime!.add(Duration(hours: int.parse("$myHours")));
       formattedEndTime = DateFormat('HH:mm:ss').format(_endTime!);
-      print("_endTime: $_endTime");
       print("formattedEndTime: $formattedEndTime");
 
       setState(() {
-        print("Selected startTime is: $parsedTime");
-        print("myTime: $parsedTime");
+        print("Selected startTime is: $startDateTime");
       });
     }
   }
+
+
 
   // Future<void> _selectStartTime(BuildContext context) async {
   //   final DateTime? picked = await showDatePicker(
@@ -1084,6 +1124,8 @@ class _BookForWeddingCarDescriptionState
             value: dropdownValueTime,
             onChanged: (String? newValue) {
               setState(() {
+                formattedStartTime = null;
+                formattedEndTime = null;
                 dropdownValueTime = newValue!.split(" hours").first;
                 myHours = int.parse(dropdownValueTime!);
                 dropdownValueTime = newValue;

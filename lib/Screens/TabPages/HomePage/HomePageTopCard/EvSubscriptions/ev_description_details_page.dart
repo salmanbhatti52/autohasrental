@@ -949,7 +949,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                         ),
                         child: Center(
                           child: Text(
-                            enddate1!,
+                            evEndDate!,
                             style: TextStyle(color: kWhite, fontSize: 16),
                           ),
                         ),
@@ -1072,8 +1072,12 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                         onTap: (index) {
                           selectedIndex = index;
                           tabMonth = monthNumber[selectedIndex].months;
-                          tabPrice =
-                              monthNumber[selectedIndex].dis_price_per_months;
+                          tabPrice = monthNumber[selectedIndex].dis_price_per_months;
+                          evStartDate = null;
+                          evEndDate = null;
+                          enddate = null;
+                          startDatePicked = null;
+                          enddate1 = null;
                           stateSetterObject(() {
                             print('selectedIndex: $selectedIndex');
                             print('selectedTabMonth123: $tabMonth');

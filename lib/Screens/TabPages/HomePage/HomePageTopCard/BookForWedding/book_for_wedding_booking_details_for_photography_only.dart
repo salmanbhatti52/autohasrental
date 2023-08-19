@@ -69,13 +69,18 @@ class BookForWeddingBookingDetailsForPhotographyOnly extends StatefulWidget {
 
 class _BookForWeddingBookingDetailsForPhotographyOnlyState
     extends State<BookForWeddingBookingDetailsForPhotographyOnly> {
-  String? valueTimeStart, valueTimeEnd;
+  String? formattedStartTime, formattedEndTime;
+  DateTime startDateTime = DateTime.now();
+  DateTime? _endTime;
   TimeOfDay? startTime;
   final GlobalKey<FormState> formKeyPhotography = GlobalKey<FormState>();
   bool loadingP = true;
   String? valueDay;
   int depositFee = 200;
   int driverFee = 300;
+
+
+
 
   mySelectedData() {
     valueDate = "${widget.selectedDate}";
@@ -113,8 +118,8 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
     valueDay = widget.selectedDay;
     dropdownValueTime = "${widget.selectedHours}";
     mySelectedData();
-    valueTimeStart = widget.selectedStartTime;
-    valueTimeEnd = widget.selectedEndTime;
+    formattedStartTime = widget.selectedStartTime;
+    formattedEndTime = widget.selectedEndTime;
   }
 
   double pricePerHrs = 0.0;
@@ -420,8 +425,8 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                                             totalAmount: totalPricePerHrs,
                                             myDate: valueDate,
                                             myDay: valueDay,
-                                            selectedStartTime: valueTimeStart,
-                                            selectedEndTime: valueTimeEnd,
+                                            selectedStartTime: formattedStartTime,
+                                            selectedEndTime: formattedEndTime,
 
                                             carName: widget.carName,
                                             carYear: widget.carYear,
@@ -444,7 +449,7 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                                             carOwnerId: widget.carOwnerId,
                                           )));
                               print(
-                                  "startAndEndTime $valueTimeStart $valueTimeEnd");
+                                  "startAndEndTime $formattedStartTime $formattedEndTime");
                               print("valueDate $valueDate");
                             },
                             child: loginButton("Next", context)),
@@ -704,8 +709,8 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
   int? myMinutes, selectedMinutes;
   calculateTimeInterval() {
     var format = DateFormat("HH:mm");
-    var start = format.parse("$valueTimeStart");
-    var end = format.parse("$valueTimeEnd");
+    var start = format.parse("$formattedStartTime");
+    var end = format.parse("$formattedEndTime");
     // print("timeDifference ${end.difference(start)}");
 
     Duration diff = end.difference(start).abs();
@@ -874,6 +879,8 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                               value: dropdownValueTime,
                               onChanged: (String? newValue) {
                                 stateSetterObject(() {
+                                  formattedStartTime = null;
+                                  formattedEndTime = null;
                                   dropdownValueTime =
                                       newValue!.split(" hours").first;
                                   myHours = int.parse(dropdownValueTime!);
@@ -905,90 +912,164 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                           children: [
                             InkWell(
                               onTap: () async {
+                                // TimeOfDay? picked;
+                                // picked = await showTimePicker(
+                                //   context: context,
+                                //   initialTime: TimeOfDay.now(),
+                                // );
+                                // if (picked == null) {
+                                //   picked = startTime;
+                                // } else {
+                                //   valueTimeStart =
+                                //       picked.format(context).toString();
+                                //   // setState(() {
+                                //   //   print("Selected startTime is : $valueTimeStart");
+                                //   // });
+                                //   valueTimeStart =
+                                //       '${picked.hour}:${picked.minute}:00';
+                                //   stateSetterObject(() {
+                                //     print(
+                                //         "Selected startTime is : $valueTimeStart");
+                                //     print("myTime $valueTimeStart");
+                                //   });
+                                // }
                                 TimeOfDay? picked;
                                 picked = await showTimePicker(
                                   context: context,
                                   initialTime: TimeOfDay.now(),
                                 );
-                                if (picked == null) {
-                                  picked = startTime;
-                                } else {
-                                  valueTimeStart =
-                                      picked.format(context).toString();
-                                  // setState(() {
-                                  //   print("Selected startTime is : $valueTimeStart");
-                                  // });
-                                  valueTimeStart =
-                                      '${picked.hour}:${picked.minute}:00';
+
+                                if (picked != null) {
+                                  startDateTime = DateTime(
+                                    DateTime.now().year,
+                                    DateTime.now().month,
+                                    DateTime.now().day,
+                                    picked.hour,
+                                    picked.minute,
+                                  );
                                   stateSetterObject(() {
-                                    print(
-                                        "Selected startTime is : $valueTimeStart");
-                                    print("myTime $valueTimeStart");
+                                    formattedStartTime = DateFormat('HH:mm:ss').format(startDateTime!);
+                                    print('formatted Start Time: $formattedStartTime');
+                                    _endTime = startDateTime.add(Duration(hours: int.parse("$myHours")));
+                                    formattedEndTime = DateFormat('HH:mm:ss').format(_endTime!);
+                                    print("formattedEndTime: $formattedEndTime");
+                                    print("Selected startTime is: $startDateTime");
                                   });
                                 }
                               },
-                              child: Container(
+                              child: formattedStartTime == null
+                                  ? Container(
                                 height: 40,
                                 width: 120,
                                 decoration: BoxDecoration(
-                                    color: valueTimeStart == "Start Time"
-                                        ? kWhite
-                                        : borderColor,
-                                    borderRadius: BorderRadius.circular(10)),
+                                    color: kWhite,
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        10)),
                                 child: Center(
-                                  child: Text("$valueTimeStart",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: valueTimeStart == "Start Time"
-                                              ? kBlack
-                                              : kWhite)),
+                                  child: Text(
+                                    "Start Time",
+                                    style: TextStyle(
+                                        color: kBlack,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                              )
+                                  : Container(
+                                height: 40,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                    color: borderColor,
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        10)),
+                                child: Center(
+                                  child: Text(
+                                    "${formattedStartTime}",
+                                    style: TextStyle(
+                                        color: kWhite,
+                                        fontSize: 16),
+                                  ),
                                 ),
                               ),
+                              // Container(
+                              //   height: 40,
+                              //   width: 120,
+                              //   decoration: BoxDecoration(
+                              //       color: formattedStartTime == null
+                              //           ? kWhite
+                              //           : borderColor,
+                              //       borderRadius: BorderRadius.circular(10)),
+                              //   child: Center(
+                              //     child: Text("${formattedStartTime == null ? "Start Time" :  formattedStartTime}",
+                              //         style: TextStyle(
+                              //             fontSize: 16,
+                              //             color: formattedStartTime == "Start Time"
+                              //                 ? kBlack
+                              //                 : kWhite)),
+                              //   ),
+                              // ),
                             ),
                             InkWell(
                                 onTap: () async {
-                                  TimeOfDay? picked;
-                                  picked = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-                                  if (picked == null) {
-                                    picked = startTime;
-                                  } else {
-                                    valueTimeEnd =
-                                        picked.format(context).toString();
-                                    // setState(() {
-                                    //   print("Selected endTime is: $valueTimeEnd");
-                                    // });
-                                    valueTimeEnd =
-                                        '${picked.hour}:${picked.minute}:00';
-                                    stateSetterObject(() {
-                                      print(
-                                          "Selected endTime is : $valueTimeEnd");
-                                      calculateTimeInterval();
-                                      // compareTime();
-                                    });
-                                    print("myEndTime $valueTimeEnd");
-                                  }
+                                  // TimeOfDay? picked;
+                                  // picked = await showTimePicker(
+                                  //   context: context,
+                                  //   initialTime: TimeOfDay.now(),
+                                  // );
+                                  // if (picked == null) {
+                                  //   picked = startTime;
+                                  // } else {
+                                  //   formattedEndTime =
+                                  //       picked.format(context).toString();
+                                  //   // setState(() {
+                                  //   //   print("Selected endTime is: $valueTimeEnd");
+                                  //   // });
+                                  //   formattedEndTime =
+                                  //       '${picked.hour}:${picked.minute}:00';
+                                  //   stateSetterObject(() {
+                                  //     print(
+                                  //         "Selected endTime is : $formattedEndTime");
+                                  //     calculateTimeInterval();
+                                  //     // compareTime();
+                                  //   });
+                                  //   print("myEndTime $formattedEndTime");
+                                  // }
                                 },
-                                child: Container(
+                                child: formattedEndTime == null
+                                    ? Container(
                                   height: 40,
                                   width: 120,
                                   decoration: BoxDecoration(
-                                    color: valueTimeEnd == "End Time"
-                                        ? kWhite
-                                        : borderColor,
-                                    borderRadius: BorderRadius.circular(10),
+                                    color: kWhite,
+                                    borderRadius:
+                                    BorderRadius.circular(10),
                                   ),
                                   child: Center(
-                                    child: Text("$valueTimeEnd",
+                                    child: Text("End Time",
                                         style: TextStyle(
-                                            fontSize: 16,
-                                            color: valueTimeEnd == "End Time"
-                                                ? kBlack
-                                                : kWhite)),
+                                            color: kBlack,
+                                            fontSize: 16)),
                                   ),
-                                )),
+                                )
+                                    : Container(
+                                  height: 40,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                    color: borderColor,
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      formattedEndTime!,
+                                      style: TextStyle(
+                                          color: kWhite,
+                                          fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                            ),
                           ]),
                     ),
                   ],
