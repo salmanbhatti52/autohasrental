@@ -280,8 +280,6 @@ class _BookForWeddingCarDescriptionState
             onTap: () {
               print("clicked");
               Navigator.pop(context);
-              selectedValue = null;
-              dropdownValueTime = null;
             },
             child: Padding(
               padding: EdgeInsets.only(top: 30),
@@ -507,11 +505,6 @@ class _BookForWeddingCarDescriptionState
                     onTap: () {
                       setState(() {
                         isSelectedOnly = false;
-                        valueDay = null;
-                        startTime = null;
-                        endDate = null;
-                        startDate = null;
-                        valueTimeEnd = null;
                         isSelectedFull = true;
                       });
                     },

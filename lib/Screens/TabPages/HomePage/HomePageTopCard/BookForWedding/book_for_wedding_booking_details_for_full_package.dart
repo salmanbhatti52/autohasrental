@@ -145,347 +145,331 @@ class _BookForWeddingBookingDetailsForFullPackageState
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    widget.startDate = null;
-    widget.endDate = null;
-  }
-
-  @override
   Widget build(BuildContext context) {
     calculatePricePerHour();
     myTotal();
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomePage()),
-            (Route<dynamic> route) => false);
-        return false;
-      },
-      child: Scaffold(
-        backgroundColor: homeBgColor,
-        appBar: MyAppBarSingleImageWithText(
-          title: "${widget.carName}, ",
-          subtitle: "${widget.carYear}",
-          backImage: "assets/messages_images/Back.png",
-        ),
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    bookForWeddingBookingCard(),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Choose Subscription plan",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  color: kBlack,
-                                  fontSize: 14,
-                                  fontFamily: poppinSemiBold)),
-                          // SizedBox(height: MediaQuery.of(context).size.height* 0.01),
-                          // BFWChooseSubscriptionPlan(),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                    color: borderColor,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Center(
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: Text('${widget.selectedHours}',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontFamily: poppinRegular,
-                                              color: kWhite)),
-                                    ),
+    return Scaffold(
+      backgroundColor: homeBgColor,
+      appBar: MyAppBarSingleImageWithText(
+        title: "${widget.carName}, ",
+        subtitle: "${widget.carYear}",
+        backImage: "assets/messages_images/Back.png",
+      ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  bookForWeddingBookingCard(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Choose Subscription plan",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: kBlack,
+                                fontSize: 14,
+                                fontFamily: poppinSemiBold)),
+                        // SizedBox(height: MediaQuery.of(context).size.height* 0.01),
+                        // BFWChooseSubscriptionPlan(),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                height: 30.0,
+                                decoration: BoxDecoration(
+                                  color: borderColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: Text('${widget.selectedHours}',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 12.0,
+                                            fontFamily: poppinRegular,
+                                            color: kWhite)),
                                   ),
                                 ),
-                                SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.01),
-                                GestureDetector(
-                                    onTap: () {
-                                      openBottomSheetPhotoCars(context);
-                                    },
-                                    child: SvgPicture.asset(
-                                        'assets/icon/edit_booking_icoon.svg')),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width *
+                                      0.01),
+                              GestureDetector(
+                                  onTap: () {
+                                    openBottomSheetPhotoCars(context);
+                                  },
+                                  child: SvgPicture.asset(
+                                      'assets/icon/edit_booking_icoon.svg')),
+                            ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "${widget.selectedHours} Plan",
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${widget.selectedHours} Plan",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontFamily: poppinRegular,
+                                  fontSize: 14,
+                                  color: detailsTextColor),
+                            ),
+                            Text("RM $pricePerHrs",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: poppinRegular,
+                                    fontSize: 14,
+                                    color: detailsTextColor)),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.015),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Driver Fee",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontFamily: poppinRegular,
                                     fontSize: 14,
-                                    color: detailsTextColor),
-                              ),
-                              Text("RM $pricePerHrs",
+                                    color: detailsTextColor)),
+                            Text("RM $driverFee",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: poppinRegular,
+                                    fontSize: 14,
+                                    color: detailsTextColor)),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.015),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Deposit Fee",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontFamily: poppinRegular,
+                                    fontSize: 14,
+                                    color: detailsTextColor)),
+                            Text("RM $depositFee",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: poppinRegular,
+                                    fontSize: 14,
+                                    color: detailsTextColor)),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.015),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Service Fee (6%)",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontFamily: poppinRegular,
+                                    fontSize: 14,
+                                    color: detailsTextColor)),
+                            if (myServiceFee != null)
+                              Text("RM ${myServiceFee!.toStringAsFixed(2)}",
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       fontFamily: poppinRegular,
                                       fontSize: 14,
                                       color: detailsTextColor)),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.015),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Driver Fee",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontFamily: poppinRegular,
-                                      fontSize: 14,
-                                      color: detailsTextColor)),
-                              Text("RM $driverFee",
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      fontFamily: poppinRegular,
-                                      fontSize: 14,
-                                      color: detailsTextColor)),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.015),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Deposit Fee",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontFamily: poppinRegular,
-                                      fontSize: 14,
-                                      color: detailsTextColor)),
-                              Text("RM $depositFee",
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      fontFamily: poppinRegular,
-                                      fontSize: 14,
-                                      color: detailsTextColor)),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.015),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Service Fee (6%)",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontFamily: poppinRegular,
-                                      fontSize: 14,
-                                      color: detailsTextColor)),
-                              if (myServiceFee != null)
-                                Text("RM ${myServiceFee!.toStringAsFixed(2)}",
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        fontFamily: poppinRegular,
-                                        fontSize: 14,
-                                        color: detailsTextColor)),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Total Amount",
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Total Amount",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: poppinSemiBold,
+                                  color: kBlack),
+                            ),
+                            Text("RM $totalPricePerHrs",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: poppinSemiBold,
-                                    color: kBlack),
-                              ),
-                              Text("RM $totalPricePerHrs",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: poppinSemiBold,
-                                      color: kBlack)),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          Text(
-                              "*A security deposit may be applicable, depending on your eligibility assessment.",
-                              maxLines: 2,
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: poppinRegular,
-                                  color: borderColor)),
-                          SizedBox(height: screenHeight * 0.02),
-                          Container(
-                            height: screenHeight * 0.1,
-                            width: screenWidth,
-                            decoration: BoxDecoration(
-                                color: kBlack,
-                                borderRadius: BorderRadius.circular(25)),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                      "assets/home_page/business-investment.png"),
-                                  SizedBox(width: screenWidth * 0.02),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text("Save RM 37,538",
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontFamily: poppinSemiBold,
-                                                  color: kWhite)),
-                                          SizedBox(width: screenWidth * 0.03),
-                                          Container(
-                                            height: 25,
-                                            width: screenWidth * 0.24,
-                                            decoration: BoxDecoration(
-                                                color: borderColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(20)),
-                                            child: Center(
-                                              child: Text("Learn more",
-                                                  textAlign: TextAlign.left,
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontFamily: poppinRegular,
-                                                      color: kWhite)),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: screenHeight * 0.02),
-                                      Row(
-                                        children: [
-                                          Text("in your first year with ",
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  color: kWhite,
-                                                  fontSize: 10,
-                                                  fontFamily: poppinRegular)),
-                                          Text("AutoHaus Rental",
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  color: borderColor,
-                                                  fontSize: 10,
-                                                  fontFamily: poppinSemiBold)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          Text(
-                            "What's Included",
+                                    color: kBlack)),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text(
+                            "*A security deposit may be applicable, depending on your eligibility assessment.",
+                            maxLines: 2,
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: poppinSemiBold,
-                                color: kBlack),
+                                fontSize: 12,
+                                fontFamily: poppinRegular,
+                                color: borderColor)),
+                        SizedBox(height: screenHeight * 0.02),
+                        Container(
+                          height: screenHeight * 0.1,
+                          width: screenWidth,
+                          decoration: BoxDecoration(
+                              color: kBlack,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                    "assets/home_page/business-investment.png"),
+                                SizedBox(width: screenWidth * 0.02),
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Save RM 37,538",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: poppinSemiBold,
+                                                color: kWhite)),
+                                        SizedBox(width: screenWidth * 0.03),
+                                        Container(
+                                          height: 25,
+                                          width: screenWidth * 0.24,
+                                          decoration: BoxDecoration(
+                                              color: borderColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: Center(
+                                            child: Text("Learn more",
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontFamily: poppinRegular,
+                                                    color: kWhite)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: screenHeight * 0.02),
+                                    Row(
+                                      children: [
+                                        Text("in your first year with ",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                color: kWhite,
+                                                fontSize: 10,
+                                                fontFamily: poppinRegular)),
+                                        Text("AutoHaus Rental",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                color: borderColor,
+                                                fontSize: 10,
+                                                fontFamily: poppinSemiBold)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(height: screenHeight * 0.02),
-                          myList("assets/home_page/Path 2582.png",
-                              "Periodic maintenance package (including pick up and delivery)"),
-                          myList("assets/home_page/Path 2582.png",
-                              "Wear & tear (including tyres, wipers, and brake pads replacement)"),
-                          myList("assets/home_page/Path 2582.png",
-                              "Comprehensive insurance coverage"),
-                          myList("assets/home_page/Path 2582.png",
-                              "Personal accident coverage for driver and passengers"),
-                          myList("assets/home_page/Path 2582.png",
-                              "24-hour roadside assistance (with unlimited towing and minor roadside repairs)"),
-                          myList("assets/home_page/Path 2582.png", "Road tax"),
-                          myList("assets/home_page/Path 2582.png",
-                              "Flux Concierge Service"),
-                          myList("assets/home_page/Path 2582.png",
-                              "Theft recovery services"),
-                          myList("assets/home_page/Path 2582.png",
-                              "Emergency dispatch services"),
-                          SizedBox(height: screenHeight * 0.02),
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            PhotoDeliveryAddress(
-                                              // myDatumPhotography: widget.datumPhotography,
-                                              selectedHoursInString:
-                                                  dropdownValueTime,
-                                              totalHoursInNumber: myHours,
-                                              hoursAmount: pricePerHrs,
-                                              totalAmount: totalPricePerHrs,
-                                              myDate: valueDate,
-                                              myDay: valueDay,
-                                              selectedStartTime: valueTimeStart,
-                                              selectedEndTime: valueTimeEnd,
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text(
+                          "What's Included",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: poppinSemiBold,
+                              color: kBlack),
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        myList("assets/home_page/Path 2582.png",
+                            "Periodic maintenance package (including pick up and delivery)"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Wear & tear (including tyres, wipers, and brake pads replacement)"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Comprehensive insurance coverage"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Personal accident coverage for driver and passengers"),
+                        myList("assets/home_page/Path 2582.png",
+                            "24-hour roadside assistance (with unlimited towing and minor roadside repairs)"),
+                        myList("assets/home_page/Path 2582.png", "Road tax"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Flux Concierge Service"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Theft recovery services"),
+                        myList("assets/home_page/Path 2582.png",
+                            "Emergency dispatch services"),
+                        SizedBox(height: screenHeight * 0.02),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PhotoDeliveryAddress(
+                                            // myDatumPhotography: widget.datumPhotography,
+                                            selectedHoursInString:
+                                                dropdownValueTime,
+                                            totalHoursInNumber: myHours,
+                                            hoursAmount: pricePerHrs,
+                                            totalAmount: totalPricePerHrs,
+                                            myDate: valueDate,
+                                            myDay: valueDay,
+                                            selectedStartTime: valueTimeStart,
+                                            selectedEndTime: valueTimeEnd,
 
-                                              carName: widget.carName,
-                                              carYear: widget.carYear,
-                                              carId: widget.carId,
-                                              carRating: widget.carRating,
-                                              carColorName: widget.carColorName,
-                                              carMakesName: widget.carMakesName,
-                                              carModelName: widget.carModelName,
-                                              carImage: widget.carImage,
-                                              carMakesImage:
-                                                  widget.carMakesImage,
-                                              favouriteStatus:
-                                                  widget.favouriteStatus,
-                                              discountPercentage:
-                                                  widget.discountPercentage,
-                                              carDiscountPrice:
-                                                  widget.carDiscountPrice,
-                                              carPrice: widget.carPrice,
-                                              carOwnerImage:
-                                                  widget.carOwnerImage,
-                                              carOwnerName: widget.carOwnerName,
-                                              carOwnerId: widget.carOwnerId,
-                                            )));
-                                print(
-                                    "startAndEndTime $valueTimeStart $valueTimeEnd");
-                                print("valueDate $valueDate");
-                              },
-                              child: loginButton("Next", context)),
-                          SizedBox(height: screenHeight * 0.03),
-                        ],
-                      ),
+                                            carName: widget.carName,
+                                            carYear: widget.carYear,
+                                            carId: widget.carId,
+                                            carRating: widget.carRating,
+                                            carColorName: widget.carColorName,
+                                            carMakesName: widget.carMakesName,
+                                            carModelName: widget.carModelName,
+                                            carImage: widget.carImage,
+                                            carMakesImage:
+                                                widget.carMakesImage,
+                                            favouriteStatus:
+                                                widget.favouriteStatus,
+                                            discountPercentage:
+                                                widget.discountPercentage,
+                                            carDiscountPrice:
+                                                widget.carDiscountPrice,
+                                            carPrice: widget.carPrice,
+                                            carOwnerImage:
+                                                widget.carOwnerImage,
+                                            carOwnerName: widget.carOwnerName,
+                                            carOwnerId: widget.carOwnerId,
+                                          )));
+                              print(
+                                  "startAndEndTime $valueTimeStart $valueTimeEnd");
+                              print("valueDate $valueDate");
+                            },
+                            child: loginButton("Next", context)),
+                        SizedBox(height: screenHeight * 0.03),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
