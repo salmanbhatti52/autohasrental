@@ -328,7 +328,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage>
     return SingleChildScrollView(
       child: Container(
         color: Colors.transparent,
-        height: MediaQuery.of(context).size.height * 0.70,
+        height: MediaQuery.of(context).size.height * 0.78,
         child: loadingP
             ? Center(child: CircularProgressIndicator(color: borderColor))
             : carsPhotoGraphyModelObject.status != "success"
@@ -601,6 +601,15 @@ class _BookForWeddingPageState extends State<BookForWeddingPage>
                                                       .data![index]
                                                       .carsPlans![0]
                                                       .pricePerHour,
+                                              carDeposit:
+                                                  carsPhotoGraphyModelObject
+                                                      .data![index]
+                                                      .carsPlans![0]
+                                                      .deposit,
+                                              driverCharges:
+                                                  carsPhotoGraphyModelObject
+                                                      .data![index]
+                                                      .carsPlans![0].driverCharges,
                                               carOwnerImage:
                                                   "$baseUrlImage${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyLogo}",
                                               carOwnerName:

@@ -137,7 +137,8 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemCount: photoPreviousObject.data!.length,
-                itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (BuildContext context, int Index) {
+                  int reversedindex = photoPreviousObject.data!.length - 1 - Index;
                   // print("previousBookingModelObject ${previousBookingModelObject.data?.length}");
                   return Stack(
                     children: [
@@ -171,7 +172,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
 
-                                    photoPreviousObject.data![index].status == "Completed"?
+                                    photoPreviousObject.data![reversedindex].status == "Completed"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -186,7 +187,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${photoPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${photoPreviousObject.data![reversedindex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -195,7 +196,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                         ),
                                       ),
                                     ):
-                                    photoPreviousObject.data![index].status == "Rejected"?
+                                    photoPreviousObject.data![reversedindex].status == "Rejected"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -210,7 +211,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${photoPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${photoPreviousObject.data![reversedindex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -233,7 +234,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${photoPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${photoPreviousObject.data![reversedindex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -245,7 +246,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
 
                                     GestureDetector(
                                       onTap: () {
-                                        carID = photoPreviousObject.data![index].carsId;
+                                        carID = photoPreviousObject.data![reversedindex].carsId;
                                         print("photoPreviousObject $carID");
                                         getCarDetailsByIdWidget();
 
@@ -287,11 +288,11 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                         children: [
                                           Row(
                                             children: [
-                                              Text("${photoPreviousObject.data![index].carsDetails!.vehicalName}  ",
+                                              Text("${photoPreviousObject.data![reversedindex].carsDetails!.vehicalName}  ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 14, fontFamily: poppinBold)),
 
-                                              Text("${photoPreviousObject.data![index].carsDetails!.carsColors!.name}",
+                                              Text("${photoPreviousObject.data![reversedindex].carsDetails!.carsColors!.name}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
 
@@ -301,14 +302,14 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                             children: [
 
                                               Text(
-                                                "${photoPreviousObject.data![index].carsDetails!.carsMakes!.name}, ",
+                                                "${photoPreviousObject.data![reversedindex].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(
-                                                "${photoPreviousObject.data![index].carsDetails!.carsModels}, ",
+                                                "${photoPreviousObject.data![reversedindex].carsDetails!.carsModels}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
-                                              Text("${photoPreviousObject.data![index].carsDetails!.year}",
+                                              Text("${photoPreviousObject.data![reversedindex].carsDetails!.year}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -321,21 +322,21 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                                                 child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
                                                     color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
-                                              Text("${photoPreviousObject.data![index].carsPlans![0].pricePerHour}", textAlign: TextAlign.left, style: TextStyle(
+                                              Text("${photoPreviousObject.data![reversedindex].carsPlans![0].pricePerHour}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                               Text("/Hour", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01),
 
-                                              showRatingStars(double.parse("${photoPreviousObject.data![index].carsDetails!.rating}")),
+                                              showRatingStars(double.parse("${photoPreviousObject.data![reversedindex].carsDetails!.rating}")),
 
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                                              photoPreviousObject.data![index].carsDetails!.rating == null?
+                                              photoPreviousObject.data![reversedindex].carsDetails!.rating == null?
                                               Text("0.0", textAlign: TextAlign.left,
                                                 style: TextStyle(color: kBlack,
                                                     fontSize: 12, fontFamily: poppinRegular)):
-                                              Text("${photoPreviousObject.data![index].carsDetails!.rating}", textAlign: TextAlign.left,
+                                              Text("${photoPreviousObject.data![reversedindex].carsDetails!.rating}", textAlign: TextAlign.left,
                                                   style: TextStyle(color: kBlack,
                                                       fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -356,29 +357,29 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
-                            carID = photoPreviousObject.data![index].carsId;
-                            carBookingsId = "${photoPreviousObject.data![index].bookingsId}";
-                            bookingCompleteStatus = photoPreviousObject.data![index].status;
+                            carID = photoPreviousObject.data![reversedindex].carsId;
+                            carBookingsId = "${photoPreviousObject.data![reversedindex].bookingsId}";
+                            bookingCompleteStatus = photoPreviousObject.data![reversedindex].status;
                             print("bookingCarId $carID");
                             print("bookingCompleteStatus $bookingCompleteStatus");
-                            print("${photoPreviousObject.data![index].carsDetails!.vehicalName}");
-                            print("${photoPreviousObject.data![index].carsDetails!.carsModels}");
-                            print("${photoPreviousObject.data![index].carsDetails!.rating}");
+                            print("${photoPreviousObject.data![reversedindex].carsDetails!.vehicalName}");
+                            print("${photoPreviousObject.data![reversedindex].carsDetails!.carsModels}");
+                            print("${photoPreviousObject.data![reversedindex].carsDetails!.rating}");
 
                             // photoPreviousObject.data![index].status == "Completed"?
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => PreviousBookingDetailsPage(
-                                  myStatus: photoPreviousObject.data![index].status,
-                                  bookingId: "${photoPreviousObject.data![index].bookingsId}"
+                                  myStatus: photoPreviousObject.data![reversedindex].status,
+                                  bookingId: "${photoPreviousObject.data![reversedindex].bookingsId}"
                                 )));
                                 // : print("not completed");
-                            print("userRating ${photoPreviousObject.data![index].carsRatings![0].rateStars}");
+                            print("userRating ${photoPreviousObject.data![reversedindex].carsRatings![0].rateStars}");
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png")),
                       ),
                       Positioned(
                         left: 20,
-                        child: Image.network("$baseUrlImage${photoPreviousObject.data![index].carsDetails!.image1}",
+                        child: Image.network("$baseUrlImage${photoPreviousObject.data![reversedindex].carsDetails!.image1}",
                             width: 332, height: 120),
                       ),
                       Positioned(
@@ -395,7 +396,7 @@ class _PhotoPreviousPageState extends State<PhotoPreviousPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("${photoPreviousObject.data![index].carsDetails!.discountPercentage}",
+                                Text("${photoPreviousObject.data![reversedindex].carsDetails!.discountPercentage}",
                                   style: TextStyle(color: kWhite,
                                     fontSize: 13, fontWeight: FontWeight.bold,
                                     fontFamily: 'Poppins')),

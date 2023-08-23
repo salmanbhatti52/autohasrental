@@ -153,7 +153,8 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
     getToday();
     super.initState();
   }
-
+var start;
+  var end;
   startChatApiWidget() async {
     setState(() {
       loadingP = true;
@@ -410,7 +411,10 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
             ),
             GestureDetector(
                 onTap: () {
+                  print("mySelectedTime1234 $mySelectedStartTime to $mySelectedEndTime");
+
                   if(myFormKey.currentState!.validate()){
+
                     if(valueDate == null || valueDay == null){
                       print("valueDate $valueDate");
                       print("myValueDay $valueDay");
@@ -429,8 +433,8 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                       print("123456 $valueDate");
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => HomeDrivingBookingDetails(
-                            startTime: mySelectedStartTime,
-                            endTime: mySelectedEndTime,
+                            startTime: start,
+                            endTime: end,
                             selectedDate: valueDate,
                             myDatum: widget.datum,
                             selectedDay: valueDay,
@@ -504,7 +508,7 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                           selectedIndex = index;
                           apiDate = myCarPlan[selectedIndex].date;
                           mySelectedStartTime = myCarPlan[selectedIndex].startTime;
-                          mySelectedStartTime = myCarPlan[selectedIndex].endTime;
+                          mySelectedEndTime = myCarPlan[selectedIndex].endTime;
                           selectedSlotPrice = double.parse(myCarPlan[selectedIndex].discountedPrice);
                           DateTime date = DateTime.parse(apiDate.toString());
                           DateFormat formatter = DateFormat("yyyy-MM-dd");
@@ -513,6 +517,8 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
                           print("selectedSlotPrice $selectedSlotPrice");
                         });
                         print("mySelectedIndex $index");
+                        start=mySelectedStartTime;
+                        end=mySelectedEndTime;
                         print("mySelectedTime $mySelectedStartTime to $mySelectedEndTime");
                       },
                       child: Container(

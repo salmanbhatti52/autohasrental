@@ -13,13 +13,13 @@ class PhotoAddressTabBar extends StatefulWidget {
   final double? hoursAmount, totalAmount;
   final String? carName, carImage, carYear, carPrice, favouriteStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
-      carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
+      carRating, carOwnerImage, driverCharges, carDeposit, carOwnerName, discountPercentage, carDiscountPrice;
   final int? carId, carOwnerId;
 
   PhotoAddressTabBar({Key? key,
     this.selectedHours, this.myDate, this.myDay, this.totalHoursInNumber,
-    this.hoursAmount, this.totalAmount, this.selectedStartTime, this.selectedEndTime,
-    this.amount, this.carName, this.carColorName, this.carModelName, this.discountPercentage,
+    this.hoursAmount, this.carDeposit, this.totalAmount, this.selectedStartTime, this.selectedEndTime,
+    this.amount,this.driverCharges, this.carName, this.carColorName, this.carModelName, this.discountPercentage,
     this.carDiscountPrice, this.carImage, this.carYear, this.carMakesImage,
     this.favouriteStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
     this.carOwnerId, this.carOwnerImage, this.carOwnerName
@@ -152,6 +152,8 @@ class _PhotoAddressTabBarState extends State<PhotoAddressTabBar> with SingleTick
               PhotoBillingAddress(
                 // datumPhotography: widget.datumPhotography,
                 amount: widget.amount,
+                carDeposit: widget.carDeposit,
+                driverCharges: widget.driverCharges,
                 selectedHours: widget.selectedHours,
                 hoursAmount: widget.hoursAmount,
                 totalAmount: widget.totalAmount,

@@ -17,14 +17,14 @@ class PhotoBillingAddress extends StatefulWidget {
   final String? carName, carImage, carYear, carPrice, favouriteStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
       carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice,
-      homeStreetAddress1, homeStreetAddress2, homeCity, homePostCode,
+      homeStreetAddress1, carDeposit, driverCharges, homeStreetAddress2, homeCity, homePostCode,
       homeSelectedState, homeSelectedCountry;
   final int? carId, carOwnerId;
 
   PhotoBillingAddress(
-      {Key? key, this.myDate, this.myDay, this.totalHoursInNumber,
+      {Key? key, this.myDate, this.myDay,this.driverCharges, this.totalHoursInNumber,
         this.selectedHours, this.hoursAmount, this.totalAmount,
-        this.selectedStartTime, this.selectedEndTime, this.amount,
+        this.selectedStartTime, this.carDeposit,  this.selectedEndTime, this.amount,
         this.carName, this.carColorName, this.carModelName, this.discountPercentage,
         this.carDiscountPrice, this.carImage, this.carYear, this.carMakesImage,
         this.favouriteStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
@@ -136,6 +136,8 @@ class _PhotoBillingAddressState extends State<PhotoBillingAddress> {
                               MaterialPageRoute(
                                   builder: (context) => PhotoCartDetailsPage(
                                     amount: widget.amount,
+                                    driverCharges: widget.driverCharges,
+                                    carDeposit: widget.carDeposit,
                                     selectedHours: widget.selectedHours,
                                     hoursAmount: widget.hoursAmount,
                                     totalAmount: widget.totalAmount,

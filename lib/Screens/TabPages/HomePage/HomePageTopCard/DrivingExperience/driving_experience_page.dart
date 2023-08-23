@@ -509,7 +509,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> with Tick
                                       //     )));
                                     },
                                     child: Container(
-                                      height: MediaQuery.of(context).size.height * 0.04,
+                                      height: MediaQuery.of(context).size.height * 0.037,
                                       width: MediaQuery.of(context).size.width * 0.5,
                                       decoration: BoxDecoration(
                                           color: borderColor,

@@ -7,7 +7,7 @@ String? currentDay;
 String? dropdownValueTime = timeHoursList.first;
 String dropdownValuePackage = 'Select Package';
 DateTime? pickDate;
-String? valueDate;
+String? valueDating;
 // String? valueDay;
 // String evStartDate = "Start Date";
 

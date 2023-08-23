@@ -292,7 +292,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
     return SingleChildScrollView(
       child: Container(
         color: Colors.transparent,
-        height: MediaQuery.of(context).size.height * 0.7,
+        height: MediaQuery.of(context).size.height * 0.78,
         child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
         evCarsModelObject.status != "success" ?
          Center(child: Text('No Cars Found.',

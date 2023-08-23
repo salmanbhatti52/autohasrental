@@ -121,6 +121,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                               GestureDetector(
                                   onTap: () {
                                     // showBottomSheetWidget(context);
+                                    newSelectedDay = null;
                                     openBottomSheetDrivingCars(context);
                                     compareSlotDates();
                                   },
@@ -406,6 +407,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
   void openBottomSheetDrivingCars(BuildContext context) {
     showFlexibleBottomSheet<void>(
       isExpand: false,
+      isDismissible: false,
       initHeight: 0.8,
       maxHeight: 0.8,
       barrierColor: Colors.transparent,
@@ -466,20 +468,20 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                               width: 220,
                               height: 40,
                               decoration: BoxDecoration(
-                                color: borderColor,
+                                color: newSelectedDay == null ? kWhite : borderColor,
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text("$newSelectedDay", textAlign: TextAlign.left,
-                                      style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: kWhite)),
-                                  Icon(Icons.keyboard_arrow_right, color: kWhite),
+                                  Text("${newSelectedDay == null ? 'Select Date' : newSelectedDay }", textAlign: TextAlign.left,
+                                      style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: newSelectedDay == null ? Colors.black : Colors.white,)),
+                                  Icon(Icons.keyboard_arrow_right, color: newSelectedDay == null ? Colors.black : Colors.white,),
                                 ],
                               ),
                             ),
                           ),
-
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                           Container(
                             color: Colors.transparent,
                             height: 100,

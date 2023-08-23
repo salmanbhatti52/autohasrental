@@ -27,6 +27,7 @@ class BookForWeddingCarDescription extends StatefulWidget {
       favouriteStatus,
       carColorName,
       carModelName,
+      carDeposit,
       carMakesName,
       carMakesImage,
       myCarDescription,
@@ -44,6 +45,7 @@ class BookForWeddingCarDescription extends StatefulWidget {
       featuresSpeed,
       featuresAutomatic,
       featuresDoors,
+      driverCharges,
       featuresElectric,
       featuresEngine_capacity,
       featuresFuelCapacity,
@@ -56,6 +58,8 @@ class BookForWeddingCarDescription extends StatefulWidget {
     this.carName,
     this.carColorName,
     this.carModelName,
+    this.carDeposit,
+    this.driverCharges,
     this.discountPercentage,
     this.carDiscountPrice,
     this.carImage,
@@ -202,7 +206,19 @@ class _BookForWeddingCarDescriptionState
   void initState() {
     // TODO: implement initState
     super.initState();
+    valueDay = null;
+    print("valueDay ${valueDay}");
+    print("driverCharges ${widget.driverCharges}");
+    print("carDeposit ${widget.carDeposit}");
     getToday();
+    setState(() {
+      dropdownValueTime = timeHoursList.first;
+      selectedValue = '1 day';
+    });
+    // dropdownValueTime = null;
+    // selectedValue = null;
+    // print("dropdownValueTime $dropdownValueTime");
+    // print("selectedValue $selectedValue");
     print("timeHoursList $timeHoursList");
     print("dropdownValueTime $dropdownValueTime");
     print("selectedValue $selectedValue");
@@ -232,6 +248,15 @@ class _BookForWeddingCarDescriptionState
         loadingP = false;
       });
     }
+  }
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    dropdownValueTime = null;
+    selectedValue = null;
   }
 
   @override
@@ -280,6 +305,8 @@ class _BookForWeddingCarDescriptionState
             onTap: () {
               print("clicked");
               Navigator.pop(context);
+              dropdownValueTime = null;
+              selectedValue = null;
             },
             child: Padding(
               padding: EdgeInsets.only(top: 30),
@@ -479,6 +506,8 @@ class _BookForWeddingCarDescriptionState
                       setState(() {
                         isSelectedOnly = true;
                         isSelectedFull = false;
+                        dropdownValueTime = null;
+                        selectedValue = null;
                       });
                     },
                     child: Container(
@@ -506,6 +535,9 @@ class _BookForWeddingCarDescriptionState
                       setState(() {
                         isSelectedOnly = false;
                         isSelectedFull = true;
+                        dropdownValueTime = null;
+                        selectedValue = null;
+                        valueDay = null;
                       });
                     },
                     child: Container(
@@ -863,6 +895,8 @@ class _BookForWeddingCarDescriptionState
                                           carModelName: widget.carModelName,
                                           carImage: widget.carImage,
                                           carMakesImage: widget.carMakesImage,
+                                          carDeposit: widget.carDeposit,
+                                          driverCharges: widget.driverCharges,
                                           favouriteStatus:
                                               widget.favouriteStatus,
                                           discountPercentage:
@@ -878,9 +912,11 @@ class _BookForWeddingCarDescriptionState
 
                     print("time1 $dropdownValueTime");
                     print("time12 $myHours");
-                  } else {
+                  }
+                  else {
                     int value = int.parse(selectedValue!.split(" day").first);
                     print("selectedTime: $value");
+                    print("myHourssssss $myHours");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -900,6 +936,8 @@ class _BookForWeddingCarDescriptionState
                                     carRating: widget.carRating,
                                     carColorName: widget.carColorName,
                                     carMakesName: widget.carMakesName,
+                                    driverCharges: widget.driverCharges,
+                                    carDeposit: widget.carDeposit,
                                     carModelName: widget.carModelName,
                                     carImage: widget.carImage,
                                     carMakesImage: widget.carMakesImage,
@@ -975,10 +1013,10 @@ class _BookForWeddingCarDescriptionState
         picked!.minute,
       );
 
-      formattedStartTime = DateFormat('HH:mm:ss').format(startDateTime!);
+      formattedStartTime = DateFormat('HH:mm:ss').format(startDateTime);
       print('formatted Start Time: $formattedStartTime');
 
-      _endTime = startDateTime!.add(Duration(hours: int.parse("$myHours")));
+      _endTime = startDateTime.add(Duration(hours: int.parse("$myHours")));
       formattedEndTime = DateFormat('HH:mm:ss').format(_endTime!);
       print("formattedEndTime: $formattedEndTime");
 

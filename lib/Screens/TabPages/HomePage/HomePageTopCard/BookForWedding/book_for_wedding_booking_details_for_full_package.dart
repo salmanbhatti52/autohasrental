@@ -29,6 +29,7 @@ class BookForWeddingBookingDetailsForFullPackage extends StatefulWidget {
       carPrice,
       favouriteStatus,
       carColorName,
+      driverCharges,
       carModelName,
       carMakesName,
       carMakesImage,
@@ -36,6 +37,7 @@ class BookForWeddingBookingDetailsForFullPackage extends StatefulWidget {
       carOwnerImage,
       carOwnerName,
       discountPercentage,
+      carDeposit,
       carDiscountPrice;
   final int? carId, carOwnerId;
 
@@ -60,6 +62,8 @@ class BookForWeddingBookingDetailsForFullPackage extends StatefulWidget {
     this.carMakesImage,
     this.favouriteStatus,
     this.carMakesName,
+    this.driverCharges,
+    this.carDeposit,
     this.carId,
     this.carPrice,
     this.carRating,
@@ -105,10 +109,10 @@ class _BookForWeddingBookingDetailsForFullPackageState
       lastDate: DateTime(2050),
     );
     if (picked != null && picked != pickDate) {
-      valueDate = DateFormat('MMMM yyyy').format(picked);
+      valueDating = DateFormat('MMMM yyyy').format(picked);
       valueDay = DateFormat('EE, d').format(picked);
       setState(() {
-        print("Selected Date in Booking : $valueDate");
+        print("Selected Date in Booking : $valueDating");
         print("Selected Day in Booking : $valueDay");
       });
     }
@@ -121,7 +125,10 @@ class _BookForWeddingBookingDetailsForFullPackageState
     // valueDay = widget.selectedDay;
     dropdownValueTime = "${widget.selectedHours}";
     print("myHours: ${widget.hoursInNumber}");
-    // mySelectedData();
+    print("carDeposit,: ${widget.carDeposit}");
+    print("startDate,: ${widget.startDate}");
+    print("endDate,: ${widget.endDate}");
+    mySelectedData();
     // valueTimeStart = widget.selectedStartTime;
     // valueTimeEnd = widget.selectedEndTime;
   }
@@ -136,18 +143,21 @@ class _BookForWeddingBookingDetailsForFullPackageState
         int.parse(widget.hoursInNumber.toString());
     setState(() {});
     print("perHourPrice: $pricePerHrs");
+    print("hoursInNumber: ${widget.hoursInNumber}");
+    print("carDiscountPrice: ${widget.carDiscountPrice}");
   }
+
 
   myTotal() {
     myServiceFee = (percentage! / 100) * double.parse("$pricePerHrs");
-    totalPricePerHrs = pricePerHrs + depositFee + driverFee + myServiceFee!;
+    totalPricePerHrs = pricePerHrs + double.parse(widget.carDeposit.toString()) + double.parse(widget.driverCharges.toString()) + myServiceFee!;
     print("totalPerHour: $totalPricePerHrs");
   }
 
   @override
   Widget build(BuildContext context) {
-    calculatePricePerHour();
-    myTotal();
+    // calculatePricePerHour();
+    // myTotal();
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -244,7 +254,7 @@ class _BookForWeddingBookingDetailsForFullPackageState
                                     fontFamily: poppinRegular,
                                     fontSize: 14,
                                     color: detailsTextColor)),
-                            Text("RM $driverFee",
+                            Text("RM ${widget.driverCharges}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontFamily: poppinRegular,
@@ -262,7 +272,7 @@ class _BookForWeddingBookingDetailsForFullPackageState
                                     fontFamily: poppinRegular,
                                     fontSize: 14,
                                     color: detailsTextColor)),
-                            Text("RM $depositFee",
+                            Text("RM ${widget.carDeposit}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontFamily: poppinRegular,
@@ -425,16 +435,18 @@ class _BookForWeddingBookingDetailsForFullPackageState
                                       builder: (context) =>
                                           PhotoDeliveryAddress(
                                             // myDatumPhotography: widget.datumPhotography,
-                                            selectedHoursInString:
-                                                dropdownValueTime,
-                                            totalHoursInNumber: myHours,
+                                            selectedHoursInString: widget.selectedHours,
+                                            totalHoursInNumber: widget.hoursInNumber,
                                             hoursAmount: pricePerHrs,
-                                            totalAmount: totalPricePerHrs,
-                                            myDate: valueDate,
+                                            totalAmount: totalPricePerHrs.toDouble(),
+                                            myDate: valueDating,
                                             myDay: valueDay,
-                                            selectedStartTime: valueTimeStart,
-                                            selectedEndTime: valueTimeEnd,
-
+                                            selectedStartTime: widget.startDate == null ? formatDate(startDate) : widget.startDate,
+                                            selectedEndTime:   widget.endDate == null ? formatDate(endDate) : widget.endDate,
+                                            // carDeposit: depositFee.toString(),
+                                            carDeposit: widget.carDeposit,
+                                            driverCharges: widget.driverCharges,
+                                            // driverCharges: driverFee.toString(),
                                             carName: widget.carName,
                                             carYear: widget.carYear,
                                             carId: widget.carId,
@@ -459,7 +471,7 @@ class _BookForWeddingBookingDetailsForFullPackageState
                                           )));
                               print(
                                   "startAndEndTime $valueTimeStart $valueTimeEnd");
-                              print("valueDate $valueDate");
+                              print("valueDate $valueDating");
                             },
                             child: loginButton("Next", context)),
                         SizedBox(height: screenHeight * 0.03),
@@ -743,6 +755,13 @@ class _BookForWeddingBookingDetailsForFullPackageState
     }
   }
 
+  final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+  String formatDate(DateTime? date) {
+    return date != null ? dateFormat.format(date) : '';
+  }
+  DateTime? startDate;
+  DateTime? endDate;
+
   void openBottomSheetPhotoCars(BuildContext context) {
     showFlexibleBottomSheet<void>(
       isExpand: false,
@@ -752,14 +771,12 @@ class _BookForWeddingBookingDetailsForFullPackageState
       context: context,
       builder: (context, controller, offset) {
         var size = MediaQuery.of(context).size;
-        // DateTime? startDate;
-        // DateTime? endDate;
         // final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
         // String? selectedValue = '1 day';
-        DateTime? startDate;
-        DateTime? endDate;
-        final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
-        String? selectedValue = '1 day';
+        // DateTime? startDate;
+        // DateTime? endDate;
+        String? selectedValue = widget.selectedHours;
+        int value1 = 0;
 
         Future<void> selectDatePicker(
             BuildContext context, bool isStartDate) async {
@@ -804,9 +821,6 @@ class _BookForWeddingBookingDetailsForFullPackageState
         //   });
         // }
 
-        String formatDate(DateTime? date) {
-          return date != null ? dateFormat.format(date) : '';
-        }
 
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter stateSetterObject) {
@@ -887,7 +901,13 @@ class _BookForWeddingBookingDetailsForFullPackageState
                                         startDate?.add(const Duration(days: 7));
                                   }
                                   print('selectedPackage: $selectedValue');
+                                  widget.selectedHours = selectedValue;
+                                  print('selectedHours: ${widget.selectedHours}');
+                                   value1 = int.parse(selectedValue!.split(" day").first);
+                                  print("selectedTime: $value1");
                                 });
+                                // myHours = int.parse(selectedValue!);
+                                // print('myHours: $myHours');
                               },
                               buttonWidth:
                                   MediaQuery.of(context).size.width * 0.2,
@@ -1015,7 +1035,19 @@ class _BookForWeddingBookingDetailsForFullPackageState
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 GestureDetector(
                     onTap: () {
-                      mySelectedData();
+                      int values = value1 * 24;
+                      print("values $values");
+                      pricePerHrs = double.parse("${widget.carDiscountPrice}") *
+                          int.parse(values.toString());
+                      setState(() {});
+                      print("perHourPrice: $pricePerHrs");
+                      myServiceFee = (percentage! / 100) * double.parse("$pricePerHrs");
+                      totalPricePerHrs = pricePerHrs + double.parse(widget.carDeposit.toString()) + double.parse(widget.driverCharges.toString()) + myServiceFee!;
+                      print("totalPerHour: $totalPricePerHrs");
+                      // myServiceFee = (percentage! / 100) * double.parse("$pricePerHrs");
+                      // totalPricePerHrs = pricePerHrs + depositFee + driverFee + myServiceFee!;
+                      // print("totalPerHour: $totalPricePerHrs");
+                      // mySelectedData();
                       Navigator.pop(context);
                     },
                     child: loginButton('Update', context)),

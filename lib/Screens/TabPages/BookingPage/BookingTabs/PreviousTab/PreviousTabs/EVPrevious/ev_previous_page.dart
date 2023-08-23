@@ -134,6 +134,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                 scrollDirection: Axis.vertical,
                 itemCount: evPreviousObject.data!.length,
                 itemBuilder: (BuildContext context, int index) {
+                  int reversedindex = evPreviousObject.data!.length - 1 - index;
                   // print("previousBookingModelObject ${previousBookingModelObject.data?.length}");
                   return Stack(
                     children: [
@@ -167,7 +168,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
 
-                                    evPreviousObject.data![index].status == "Completed"?
+                                    evPreviousObject.data![reversedindex].status == "Completed"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -182,7 +183,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${evPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${evPreviousObject.data![reversedindex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -191,7 +192,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                         ),
                                       ),
                                     ):
-                                    evPreviousObject.data![index].status == "Rejected"?
+                                    evPreviousObject.data![reversedindex].status == "Rejected"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -206,7 +207,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${evPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${evPreviousObject.data![reversedindex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -215,7 +216,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                         ),
                                       ),
                                     ):
-                                    evPreviousObject.data![index].status == "Accepted"?
+                                    evPreviousObject.data![reversedindex].status == "Accepted"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -230,7 +231,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${evPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${evPreviousObject.data![reversedindex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -239,7 +240,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                         ),
                                       ),
                                     ):
-                                    evPreviousObject.data![index].status == "Pending"?
+                                    evPreviousObject.data![reversedindex].status == "Pending"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -254,7 +255,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${evPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${evPreviousObject.data![reversedindex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -277,7 +278,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${evPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${evPreviousObject.data![reversedindex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -289,7 +290,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
 
                                     GestureDetector(
                                       onTap: (){
-                                        carID = evPreviousObject.data![index].carsId;
+                                        carID = evPreviousObject.data![reversedindex].carsId;
                                         print("photoPreviousObject $carID");
                                         getCarDetailsByIdWidget();
                                       },
@@ -330,11 +331,11 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                         children: [
                                           Row(
                                             children: [
-                                              Text("${evPreviousObject.data![index].carsDetails!.vehicalName}  ",
+                                              Text("${evPreviousObject.data![reversedindex].carsDetails!.vehicalName}  ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 14, fontFamily: poppinBold)),
 
-                                              Text("${evPreviousObject.data![index].carsDetails!.carsColors!.name}",
+                                              Text("${evPreviousObject.data![reversedindex].carsDetails!.carsColors!.name}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
 
@@ -344,14 +345,14 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                             children: [
 
                                               Text(
-                                                "${evPreviousObject.data![index].carsDetails!.carsMakes!.name}, ",
+                                                "${evPreviousObject.data![reversedindex].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(
-                                                "${evPreviousObject.data![index].carsDetails!.carsModels}, ",
+                                                "${evPreviousObject.data![reversedindex].carsDetails!.carsModels}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
-                                              Text("${evPreviousObject.data![index].carsDetails!.year}",
+                                              Text("${evPreviousObject.data![reversedindex].carsDetails!.year}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -364,21 +365,21 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                                 child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
                                                     color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
-                                              Text("${evPreviousObject.data![index].carsPlans![0].pricePerMonth}", textAlign: TextAlign.left, style: TextStyle(
+                                              Text("${evPreviousObject.data![reversedindex].carsPlans![0].pricePerMonth}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                               Text("/Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
 
-                                              showRatingStars(double.parse("${evPreviousObject.data![index].carsDetails!.rating}")),
+                                              showRatingStars(double.parse("${evPreviousObject.data![reversedindex].carsDetails!.rating}")),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01),
 
-                                              evPreviousObject.data![index].carsDetails!.rating == null?
+                                              evPreviousObject.data![reversedindex].carsDetails!.rating == null?
                                               Text("0.0", textAlign: TextAlign.left,
                                                 style: TextStyle(color: kBlack,
                                                     fontSize: 12, fontFamily: poppinRegular)):
-                                              Text("${evPreviousObject.data![index].carsDetails!.rating}", textAlign: TextAlign.left,
+                                              Text("${evPreviousObject.data![reversedindex].carsDetails!.rating}", textAlign: TextAlign.left,
                                                   style: TextStyle(color: kBlack,
                                                       fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -399,18 +400,18 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
-                            carID = evPreviousObject.data![index].carsId;
-                            carBookingsId = "${evPreviousObject.data![index].bookingsId}";
+                            carID = evPreviousObject.data![reversedindex].carsId;
+                            carBookingsId = "${evPreviousObject.data![reversedindex].bookingsId}";
                             print("bookingCarId $carID $carBookingsId");
-                            print("${evPreviousObject.data![index].carsDetails!.vehicalName}");
-                            print("${evPreviousObject.data![index].carsDetails!.carsModels}");
-                            print("${evPreviousObject.data![index].carsDetails!.rating}");
+                            print("${evPreviousObject.data![reversedindex].carsDetails!.vehicalName}");
+                            print("${evPreviousObject.data![reversedindex].carsDetails!.carsModels}");
+                            print("${evPreviousObject.data![reversedindex].carsDetails!.rating}");
 
                             // evPreviousObject.data![index].status == "Completed"?
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => PreviousBookingDetailsPage(
-                                  myStatus: evPreviousObject.data![index].status,
-                                  bookingId: "${evPreviousObject.data![index].bookingsId}",
+                                  myStatus: evPreviousObject.data![reversedindex].status,
+                                  bookingId: "${evPreviousObject.data![reversedindex].bookingsId}",
                                 )));
                                 // : print("not completed");
 
@@ -419,7 +420,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                       ),
                       Positioned(
                         left: 20,
-                        child: Image.network("$baseUrlImage${evPreviousObject.data![index].carsDetails!.image1}",
+                        child: Image.network("$baseUrlImage${evPreviousObject.data![reversedindex].carsDetails!.image1}",
                             width: 332, height: 120),
                       ),
                       Positioned(
@@ -436,7 +437,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("${evPreviousObject.data![index].carsDetails!.discountPercentage}",
+                                Text("${evPreviousObject.data![reversedindex].carsDetails!.discountPercentage}",
                                   style: TextStyle(color: kWhite,
                                     fontSize: 13, fontWeight: FontWeight.bold,
                                     fontFamily: 'Poppins')),

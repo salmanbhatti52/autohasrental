@@ -83,7 +83,8 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                 scrollDirection: Axis.vertical,
                 itemCount: evUpcomingModelObject.data!.length,
                 itemBuilder: (BuildContext context, int index) {
-                  selectedBookingId = evUpcomingModelObject.data![index].bookingsId;
+                  int reversedIndex = evUpcomingModelObject.data!.length - 1 - index;
+                  selectedBookingId = evUpcomingModelObject.data![reversedIndex].bookingsId;
                   print('selectedBookingId $selectedBookingId');
                   return Stack(
                     children: [
@@ -117,7 +118,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
 
-                                    evUpcomingModelObject.data![index].status == "Pending"?
+                                    evUpcomingModelObject.data![reversedIndex].status == "Pending"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -132,7 +133,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${evUpcomingModelObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${evUpcomingModelObject.data![reversedIndex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -155,7 +156,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${evUpcomingModelObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${evUpcomingModelObject.data![reversedIndex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
                                             ),
                                           ),
@@ -204,10 +205,10 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                         children: [
                                           Row(
                                             children: [
-                                              Text("${evUpcomingModelObject.data![index].carsDetails!.vehicalName}  ",
+                                              Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}  ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-                                              Text("${evUpcomingModelObject.data![index].carsDetails!.carsColors!.name}",
+                                              Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsColors!.name}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
                                             ],
@@ -215,14 +216,14 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                           Row(
                                             children: [
                                               Text(
-                                                "${evUpcomingModelObject.data![index].carsDetails!.carsMakes!.name}, ",
+                                                "${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(
-                                                "${evUpcomingModelObject.data![index].carsDetails!.carsModels}, ",
+                                                "${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsModels}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
-                                              Text("${evUpcomingModelObject.data![index].carsDetails!.year}",
+                                              Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.year}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -236,19 +237,19 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                                     color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
                                               // "${upcomingBookingModelObject.data![index].carsPlans![0].pricePerHour}",
-                                              Text("${evUpcomingModelObject.data![index].carsPlans![0].pricePerMonth}", textAlign: TextAlign.left, style: TextStyle(
+                                              Text("${evUpcomingModelObject.data![reversedIndex].carsPlans![0].pricePerMonth}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                               Text("/Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                                              showRatingStars(double.parse("${evUpcomingModelObject.data![index].carsDetails!.rating}")),
+                                              showRatingStars(double.parse("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}")),
 
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01),
 
-                                              evUpcomingModelObject.data![index].carsDetails!.rating == null?
+                                              evUpcomingModelObject.data![reversedIndex].carsDetails!.rating == null?
                                               Text("0.0", textAlign: TextAlign.left,
                                                 style: TextStyle(color: kBlack,
                                                     fontSize: 12, fontFamily: poppinRegular)):
-                                              Text("${evUpcomingModelObject.data![index].carsDetails!.rating}", textAlign: TextAlign.left,
+                                              Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}", textAlign: TextAlign.left,
                                                   style: TextStyle(color: kBlack,
                                                       fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -268,14 +269,14 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
-                            carBookingsId = "${evUpcomingModelObject.data![index].bookingsId}";
+                            carBookingsId = "${evUpcomingModelObject.data![reversedIndex].bookingsId}";
                             print("bookingId $carBookingsId");
-                            print("${evUpcomingModelObject.data![index].carsDetails!.vehicalName}");
-                            print("${evUpcomingModelObject.data![index].carsDetails!.carsModels}");
-                            print("${evUpcomingModelObject.data![index].carsDetails!.rating}");
+                            print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}");
+                            print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsModels}");
+                            print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}");
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => UpcomingBookingDetailsPage(
-                                  bookingId: "${evUpcomingModelObject.data![index].bookingsId}",
+                                  bookingId: "${evUpcomingModelObject.data![reversedIndex].bookingsId}",
                                 )));
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png"),
@@ -283,7 +284,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                       ),
                       Positioned(
                         left: 20,
-                        child: Image.network("$baseUrlImage${evUpcomingModelObject.data![index].carsDetails!.image1}",
+                        child: Image.network("$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",
                             width: 332, height: 120),
                       ),
                       Positioned(
@@ -300,7 +301,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("${evUpcomingModelObject.data![index].carsDetails!.discountPercentage}",
+                                Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.discountPercentage}",
                                   style: TextStyle(color: kWhite,
                                     fontSize: 13, fontWeight: FontWeight.bold,
                                     fontFamily: 'Poppins')),

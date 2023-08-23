@@ -119,13 +119,13 @@ class _BillingAddressState extends State<BillingAddress> {
                           homeState: widget.homeSelectedState,
                           homeCountry: widget.homeSelectedCountry,
 
-                          billingAddress1: address1ControllerBilling.text,
-                          billingAddress2: address2ControllerBilling.text,
-                          billingCity: cityControllerBilling.text,
-                          billingPostCode: postCodeControllerBilling.text,
+                          billingAddress1: widget.homeStreetAddress1,
+                          billingAddress2: widget.homeStreetAddress2,
+                          billingCity: widget.homeCity,
+                          billingPostCode: widget.homePostCode,
                           billingState: widget.homeSelectedState,
                           billingCountry: widget.homeSelectedCountry,
-                    )));
+                        )));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.06,

@@ -182,6 +182,8 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                 scrollDirection: Axis.vertical,
                 itemCount: drivingPreviousObject.data!.length,
                 itemBuilder: (BuildContext context, int index) {
+                  int reversedIndex =  drivingPreviousObject.data!.length - 1 - index;
+
                   // print("previousBookingModelObject ${previousBookingModelObject.data?.length}");
                   return Stack(
                     children: [
@@ -215,7 +217,7 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
 
-                                    drivingPreviousObject.data![index].status == "Completed"?
+                                    drivingPreviousObject.data![reversedIndex].status == "Completed"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -230,7 +232,7 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${drivingPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${drivingPreviousObject.data![reversedIndex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -239,7 +241,7 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                         ),
                                       ),
                                     ):
-                                    drivingPreviousObject.data![index].status == "Rejected"?
+                                    drivingPreviousObject.data![reversedIndex].status == "Rejected"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -254,7 +256,7 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${drivingPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${drivingPreviousObject.data![reversedIndex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -278,7 +280,7 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${drivingPreviousObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${drivingPreviousObject.data![reversedIndex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -290,7 +292,7 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
 
                                     GestureDetector(
                                       onTap: (){
-                                        carID = drivingPreviousObject.data![index].carsId;
+                                        carID = drivingPreviousObject.data![reversedIndex].carsId;
                                         print("photoPreviousObject $carID");
                                         // loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
                                         getTopRentedCarsWidget();
@@ -333,11 +335,11 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                         children: [
                                           Row(
                                             children: [
-                                              Text("${drivingPreviousObject.data![index].carsDetails!.vehicalName}  ",
+                                              Text("${drivingPreviousObject.data![reversedIndex].carsDetails!.vehicalName}  ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 14, fontFamily: poppinBold)),
 
-                                              Text("${drivingPreviousObject.data![index].carsDetails!.carsColors!.name}",
+                                              Text("${drivingPreviousObject.data![reversedIndex].carsDetails!.carsColors!.name}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
 
@@ -347,14 +349,14 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                             children: [
 
                                               Text(
-                                                "${drivingPreviousObject.data![index].carsDetails!.carsMakes}, ",
+                                                "${drivingPreviousObject.data![reversedIndex].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(
-                                                "${drivingPreviousObject.data![index].carsDetails!.carsModels}, ",
+                                                "${drivingPreviousObject.data![reversedIndex].carsDetails!.carsModels}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
-                                              Text("${drivingPreviousObject.data![index].carsDetails!.year}",
+                                              Text("${drivingPreviousObject.data![reversedIndex].carsDetails!.year}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -367,21 +369,21 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                                                 child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
                                                     color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
-                                              Text("${drivingPreviousObject.data![index].carsPlans![0].pricePerSlot}", textAlign: TextAlign.left, style: TextStyle(
+                                              Text("${drivingPreviousObject.data![reversedIndex].carsPlans![0].pricePerSlot}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                               Text("/Slot", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
-                                              showRatingStars(double.parse("${drivingPreviousObject.data![index].carsDetails!.rating}")),
+                                              showRatingStars(double.parse("${drivingPreviousObject.data![reversedIndex].carsDetails!.rating}")),
 
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01),
 
-                                              drivingPreviousObject.data![index].carsDetails!.rating == null?
+                                              drivingPreviousObject.data![reversedIndex].carsDetails!.rating == null?
                                               Text("0.0", textAlign: TextAlign.left,
                                                 style: TextStyle(color: kBlack,
                                                     fontSize: 12, fontFamily: poppinRegular)):
-                                              Text("${drivingPreviousObject.data![index].carsDetails!.rating}", textAlign: TextAlign.left,
+                                              Text("${drivingPreviousObject.data![reversedIndex].carsDetails!.rating}", textAlign: TextAlign.left,
                                                   style: TextStyle(color: kBlack,
                                                       fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -402,30 +404,30 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
-                            carID = drivingPreviousObject.data![index].carsId;
-                            carBookingsId = "${drivingPreviousObject.data![index].bookingsId}";
+                            carID = drivingPreviousObject.data![reversedIndex].carsId;
+                            carBookingsId = "${drivingPreviousObject.data![reversedIndex].bookingsId}";
                             print("clicked....");
                             print("bookingCarId $carID");
-                            print("${drivingPreviousObject.data![index].carsDetails!.vehicalName}");
-                            print("${drivingPreviousObject.data![index].carsDetails!.carsModels}");
-                            print("${drivingPreviousObject.data![index].carsDetails!.rating}");
-                            print("carImage $baseUrlImage${drivingPreviousObject.data![index].carsDetails!.image1}");
-                            print("carId123 ${drivingPreviousObject.data![index].carsId}");
+                            print("${drivingPreviousObject.data![reversedIndex].carsDetails!.vehicalName}");
+                            print("${drivingPreviousObject.data![reversedIndex].carsDetails!.carsModels}");
+                            print("${drivingPreviousObject.data![reversedIndex].carsDetails!.rating}");
+                            print("carImage $baseUrlImage${drivingPreviousObject.data![reversedIndex].carsDetails!.image1}");
+                            print("carId123 ${drivingPreviousObject.data![reversedIndex].carsId}");
 
 
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => PreviousBookingDetailsPage(
-                                  bookingId: "${drivingPreviousObject.data![index].bookingsId}",
-                                  myStatus: drivingPreviousObject.data![index].status,
+                                  bookingId: "${drivingPreviousObject.data![reversedIndex].bookingsId}",
+                                  myStatus: drivingPreviousObject.data![reversedIndex].status,
                                 )));
 
-                            print("userRating ${drivingPreviousObject.data![index].carsRatings![0].rateStars}");
+                            print("userRating ${drivingPreviousObject.data![reversedIndex].carsRatings![0].rateStars}");
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png")),
                       ),
                       Positioned(
                         left: 20,
-                        child: Image.network("$baseUrlImage${drivingPreviousObject.data![index].carsDetails!.image1}",
+                        child: Image.network("$baseUrlImage${drivingPreviousObject.data![reversedIndex].carsDetails!.image1}",
                             width: 332, height: 120),
                       ),
                       Positioned(
@@ -442,7 +444,7 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("${drivingPreviousObject.data![index].carsDetails!.discountPercentage}",
+                                Text("${drivingPreviousObject.data![reversedIndex].carsDetails!.discountPercentage}",
                                   style: TextStyle(color: kWhite,
                                     fontSize: 13, fontWeight: FontWeight.bold,
                                     fontFamily: 'Poppins')),

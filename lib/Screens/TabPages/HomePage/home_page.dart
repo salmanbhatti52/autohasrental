@@ -407,9 +407,14 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Row(
                                     children: [
-                                      Text("${topRentedCarsModelObject.data?[index].vehicalName} ",
-                                          style: TextStyle(color: kBlack,
-                                              fontSize: 8, fontFamily: poppinBold)),
+                                      Container(
+                                        width: 80,
+                                        child: Text("${topRentedCarsModelObject.data?[index].vehicalName} ",
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(color: kBlack,
+                                                fontSize: 8, fontFamily: poppinBold)),
+                                      ),
                                       Padding(
                                         padding:  EdgeInsets.only(top: 4),
                                         child: Text("${topRentedCarsModelObject.data?[index].carsColors!.name} ",

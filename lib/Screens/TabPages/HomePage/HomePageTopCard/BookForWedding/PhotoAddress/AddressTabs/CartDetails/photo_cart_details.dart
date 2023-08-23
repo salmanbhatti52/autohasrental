@@ -24,15 +24,15 @@ class PhotoCartDetailsPage extends StatefulWidget {
 
   final String? carName, carImage, carYear, carPrice, favouriteStatus,
       carColorName, carModelName, carMakesName, carMakesImage,
-      carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
+      carRating, carOwnerImage,carDeposit,  carOwnerName, discountPercentage, carDiscountPrice;
   final int? carId, carOwnerId;
   final String? homeAddress1, homeAddress2, homeCity, homePostCode, homeState, homeCountry,
-      billingAddress1, billingAddress2, billingCity, billingPostCode, billingState, billingCountry;
+      billingAddress1, billingAddress2, driverCharges, billingCity, billingPostCode, billingState, billingCountry;
 
   PhotoCartDetailsPage({Key? key, this.selectedHours, this.hoursAmount,
     this.totalAmount, this.selectedStartTime, this.myDate, this.myDay,
-    this.selectedEndTime, this.totalHoursInNumber, this.amount,
-    this.carName, this.carColorName, this.carModelName, this.discountPercentage,
+    this.selectedEndTime, this.carDeposit, this.totalHoursInNumber, this.amount,
+    this.carName, this.carColorName, this.carModelName,this.driverCharges, this.discountPercentage,
     this.carDiscountPrice, this.carImage, this.carYear, this.carMakesImage,
     this.favouriteStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
     this.carOwnerId, this.carOwnerImage, this.carOwnerName,
@@ -106,57 +106,122 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
       'Accept': 'application/json',
       'Cookie': cookieCheckOutApi,
     };
+    if(widget.myDate == null){
+      print("apiRequest: $request");
+      request.fields['users_customers_id'] = '$userId';
+      request.fields['cars_id'] = '$carID';
+      request.fields['plan_date'] = "";
+      request.fields['start_time'] = "";
+      request.fields['end_time'] = "";
+      request.fields['start_date'] = "${widget.selectedStartTime}";
+      request.fields['end_date'] = "${widget.selectedEndTime}";
+      request.fields['total_hours'] = "${widget.totalHoursInNumber}";
+      request.fields['deposit'] = "${widget.carDeposit}";
+      request.fields['driver_charges'] = "${widget.driverCharges}";
+      request.fields['price_per_hour'] = "${widget.carDiscountPrice}";
+      request.fields['discount_percentage'] = "${widget.discountPercentage}";
+      request.fields['total_cost'] = "${widget.totalAmount}";
+      request.fields['addresses'] = "$addressAvailableStatus";
+      request.fields['home_street_address_line1'] = "${widget.homeAddress1}";
+      request.fields['home_street_address_line2'] = "${widget.homeAddress2}";
+      request.fields['home_city'] = "${widget.homeCity}";
+      request.fields['home_post_code'] = "${widget.homePostCode}";
+      request.fields['home_state'] = "${widget.homeState}";
+      request.fields['home_country'] = "${widget.homeCountry}";
+      request.fields['billing_street_address_line1']= "${widget.billingAddress1}";
+      request.fields['billing_street_address_line2']= "${widget.billingAddress2}";
+      request.fields['billing_city'] = "${widget.billingCity}";
+      request.fields['billing_post_code'] = "${widget.billingPostCode}";
+      request.fields['billing_state'] = "${widget.billingState}";
+      request.fields['billing_country'] = "${widget.billingCountry}";
+      request.files.add(
+        http.MultipartFile(
+          'driving_license',
+          image!.readAsBytes().asStream(),
+          image!.lengthSync(),
+          filename: image!.path.split('/').last,
+        ),
+      );
+      print("condition1");
+      print('usersId: $userId');
+      print('carsId: $carID');
+      print('planDate: ${widget.myDate}');
+      print('startTime: ${widget.selectedStartTime}');
+      print('endTime: ${widget.selectedEndTime}');
+      print('startDate: ${widget.selectedStartTime}');
+      print('endDate: ${widget.selectedEndTime}');
+      print('totalCost: ${widget.totalAmount}');
+      print('totalHours: ${widget.totalHoursInNumber}');
+      print('pricePerHour: ${widget.carDiscountPrice}');
+      print('discountPercentage: ${widget.discountPercentage}');
+      print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
+      print("addressAvailableStatus $addressAvailableStatus");
+      print("homePostCity: ${widget.homeCity} ${widget.homePostCode}");
+      print("homeState: ${widget.homeState} ${widget.homeCountry}");
+      print("billingAddress: ${widget.billingAddress1} ${widget.billingAddress2}");
+      print("billingPostCity: ${widget.billingCity} ${widget.billingPostCode}");
+      print("billingState: ${widget.billingState} ${widget.billingCountry}");
+      print('licenseImage: ${image!.path.split('/').last}');
 
-    print("apiRequest: $request");
-    request.fields['users_customers_id'] = '$userId';
-    request.fields['cars_id'] = '$carID';
-    request.fields['plan_date'] = "${widget.myDate}";
-    request.fields['start_time'] = "${widget.selectedStartTime}";
-    request.fields['end_time'] = "${widget.selectedEndTime}";
-    request.fields['total_hours'] = "${widget.totalHoursInNumber}";
-    request.fields['price_per_hour'] = "${widget.carDiscountPrice}";
-    request.fields['discount_percentage'] = "${widget.discountPercentage}";
-    request.fields['total_cost'] = "${widget.totalAmount}";
-    request.fields['addresses'] = "$addressAvailableStatus";
-    request.fields['home_street_address_line1'] = "${widget.homeAddress1}";
-    request.fields['home_street_address_line2'] = "${widget.homeAddress2}";
-    request.fields['home_city'] = "${widget.homeCity}";
-    request.fields['home_post_code'] = "${widget.homePostCode}";
-    request.fields['home_state'] = "${widget.homeState}";
-    request.fields['home_country'] = "${widget.homeCountry}";
-    request.fields['billing_street_address_line1']= "${widget.billingAddress1}";
-    request.fields['billing_street_address_line2']= "${widget.billingAddress2}";
-    request.fields['billing_city'] = "${widget.billingCity}";
-    request.fields['billing_post_code'] = "${widget.billingPostCode}";
-    request.fields['billing_state'] = "${widget.billingState}";
-    request.fields['billing_country'] = "${widget.billingCountry}";
 
-    print('usersId: $userId');
-    print('carsId: $carID');
-    print('planDate: ${widget.myDate}');
-    print('startTime: ${widget.selectedStartTime}');
-    print('endTime: ${widget.selectedEndTime}');
-    print('totalCost: ${widget.totalAmount}');
-    print('totalHours: ${widget.totalHoursInNumber}');
-    print('pricePerHour: ${widget.carDiscountPrice}');
-    print('discountPercentage: ${widget.discountPercentage}');
-    print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
-    print("addressAvailableStatus $addressAvailableStatus");
-    print("homePostCity: ${widget.homeCity} ${widget.homePostCode}");
-    print("homeState: ${widget.homeState} ${widget.homeCountry}");
-    print("billingAddress: ${widget.billingAddress1} ${widget.billingAddress2}");
-    print("billingPostCity: ${widget.billingCity} ${widget.billingPostCode}");
-    print("billingState: ${widget.billingState} ${widget.billingCountry}");
-    print('licenseImage: ${image!.path.split('/').last}');
+    } else {
+      print("apiRequest: $request");
+      request.fields['users_customers_id'] = '$userId';
+      request.fields['cars_id'] = '$carID';
+      request.fields['plan_date'] = "${widget.myDate}";
+      request.fields['start_time'] = "${widget.selectedStartTime}";
+      request.fields['end_time'] = "${widget.selectedEndTime}";
+      request.fields['start_date'] = "";
+      request.fields['end_date'] = "";
+      request.fields['total_hours'] = "${widget.totalHoursInNumber}";
+      request.fields['deposit'] = "${widget.carDeposit}";
+      request.fields['driver_charges'] = "${widget.driverCharges}";
+      request.fields['price_per_hour'] = "${widget.carDiscountPrice}";
+      request.fields['discount_percentage'] = "${widget.discountPercentage}";
+      request.fields['total_cost'] = "${widget.totalAmount}";
+      request.fields['addresses'] = "$addressAvailableStatus";
+      request.fields['home_street_address_line1'] = "${widget.homeAddress1}";
+      request.fields['home_street_address_line2'] = "${widget.homeAddress2}";
+      request.fields['home_city'] = "${widget.homeCity}";
+      request.fields['home_post_code'] = "${widget.homePostCode}";
+      request.fields['home_state'] = "${widget.homeState}";
+      request.fields['home_country'] = "${widget.homeCountry}";
+      request.fields['billing_street_address_line1']= "${widget.billingAddress1}";
+      request.fields['billing_street_address_line2']= "${widget.billingAddress2}";
+      request.fields['billing_city'] = "${widget.billingCity}";
+      request.fields['billing_post_code'] = "${widget.billingPostCode}";
+      request.fields['billing_state'] = "${widget.billingState}";
+      request.fields['billing_country'] = "${widget.billingCountry}";
+      request.files.add(
+        http.MultipartFile(
+          'driving_license',
+          image!.readAsBytes().asStream(),
+          image!.lengthSync(),
+          filename: image!.path.split('/').last,
+        ),
+      );
 
-    request.files.add(
-      http.MultipartFile(
-        'driving_license',
-        image!.readAsBytes().asStream(),
-        image!.lengthSync(),
-        filename: image!.path.split('/').last,
-      ),
-    );
+      print("condition2");
+      print('usersId: $userId');
+      print('carsId: $carID');
+      print('planDate: ${widget.myDate}');
+      print('startTime: ${widget.selectedStartTime}');
+      print('endTime: ${widget.selectedEndTime}');
+      print('startDate: ${widget.selectedStartTime}');
+      print('endDate: ${widget.selectedEndTime}');
+      print('totalCost: ${widget.totalAmount}');
+      print('totalHours: ${widget.totalHoursInNumber}');
+      print('pricePerHour: ${widget.carDiscountPrice}');
+      print('discountPercentage: ${widget.discountPercentage}');
+      print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
+      print("addressAvailableStatus $addressAvailableStatus");
+      print("homePostCity: ${widget.homeCity} ${widget.homePostCode}");
+      print("homeState: ${widget.homeState} ${widget.homeCountry}");
+      print("billingAddress: ${widget.billingAddress1} ${widget.billingAddress2}");
+      print("billingPostCity: ${widget.billingCity} ${widget.billingPostCode}");
+      print("billingState: ${widget.billingState} ${widget.billingCountry}");
+      print('licenseImage: ${image!.path.split('/').last}');
+    }
     request.headers.addAll(headers);
 
     print("request: $request");
@@ -295,7 +360,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                   child: Divider(),
                                 ),
 
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -315,6 +380,28 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                     Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
                                            color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
                                     Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right, style: TextStyle(
+                                            color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
+                                  ],
+                                ),
+                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Deposit Fee", textAlign: TextAlign.left, style: TextStyle(
+                                           color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
+                                    Text("${widget.carDeposit}", textAlign: TextAlign.right, style: TextStyle(
+                                            color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
+                                  ],
+                                ),
+                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Driver Fee", textAlign: TextAlign.left, style: TextStyle(
+                                           color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
+                                    Text("${widget.driverCharges}", textAlign: TextAlign.right, style: TextStyle(
                                             color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
                                   ],
                                 ),
@@ -368,7 +455,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                   ),
                                 ),
 
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
 
                                 Center(
                                   child: Text("*A security deposit may be applicable, depending on your eligibility assessment.",

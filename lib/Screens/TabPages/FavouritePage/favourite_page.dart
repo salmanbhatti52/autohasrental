@@ -255,7 +255,7 @@ class _FavoritePageState extends State<FavoritePage> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 9),
                       child: Container(
-                        height: screenHeight * 0.17,
+                        height: screenHeight * 0.19,
                         width: 343,
                         decoration: BoxDecoration(
                           color: kWhite,

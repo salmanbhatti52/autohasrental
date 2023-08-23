@@ -7,20 +7,20 @@ import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_hea
 
 class PhotoDeliveryAddress extends StatefulWidget {
   final String? amount, myDate, myDay, discountedAmount,
-      selectedHoursInString, selectedStartTime, selectedEndTime;
+      selectedHoursInString, selectedStartTime, carDeposit, selectedEndTime;
   final int? totalHoursInNumber;
   final double? hoursAmount, totalAmount;
 
   final String? carName, carImage, carYear, carPrice, favouriteStatus,
-      carColorName, carModelName, carMakesName, carMakesImage,
+      carColorName, carModelName, driverCharges, carMakesName, carMakesImage,
       carRating, carOwnerImage, carOwnerName, discountPercentage, carDiscountPrice;
   final int? carId, carOwnerId;
 
   PhotoDeliveryAddress({Key? key, /*this.myDatumPhotography,*/ this.selectedHoursInString,
     this.totalHoursInNumber, this.myDate, this.hoursAmount, this.totalAmount,
-    this.selectedStartTime, this.selectedEndTime, this.myDay, this.amount,  this.discountedAmount,
+    this.selectedStartTime, this.carDeposit, this.selectedEndTime, this.myDay, this.amount,  this.discountedAmount,
     this.carName, this.carColorName, this.carModelName, this.discountPercentage,
-    this.carDiscountPrice, this.carImage, this.carYear, this.carMakesImage,
+    this.carDiscountPrice,this.driverCharges, this.carImage, this.carYear, this.carMakesImage,
     this.favouriteStatus, this.carMakesName, this.carId, this.carPrice, this.carRating,
     this.carOwnerId, this.carOwnerImage, this.carOwnerName}) : super(key: key);
 
@@ -34,7 +34,7 @@ class _PhotoDeliveryAddressState extends State<PhotoDeliveryAddress> {
     print("carOriginalAmount: ${widget.discountedAmount}");
     print("carDiscountAmount: ${widget.amount}");
     print("carDayDate: ${widget.myDay} ${widget.myDate}");
-    print("carTotalHours: ${widget.totalHoursInNumber}");
+    print("carTotalHourssss: ${widget.totalHoursInNumber}");
     print("carStartEndTime: ${widget.selectedStartTime} ${widget.selectedEndTime}");
     print("carRatings: ${widget.selectedHoursInString} ${widget.hoursAmount} ${widget.totalAmount}");
   }
@@ -44,6 +44,10 @@ class _PhotoDeliveryAddressState extends State<PhotoDeliveryAddress> {
     // TODO: implement initState
     super.initState();
     mySelectedData();
+    print("carDeposit,: ${widget.carDeposit}");
+    print("selectedStartTime,: ${widget.selectedEndTime}");
+    print("selectedEndTime,: ${widget.selectedEndTime}");
+    print("totalAmount,: ${widget.totalAmount}");
   }
   @override
   Widget build(BuildContext context) {
@@ -70,6 +74,8 @@ class _PhotoDeliveryAddressState extends State<PhotoDeliveryAddress> {
 
               PhotoAddressTabBar(
                 amount: widget.amount,
+                driverCharges: widget.driverCharges,
+                carDeposit: widget.carDeposit,
                 selectedHours: widget.selectedHoursInString,
                 hoursAmount: widget.hoursAmount,
                 totalAmount: widget.totalAmount,

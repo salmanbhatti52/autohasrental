@@ -79,6 +79,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                 scrollDirection: Axis.vertical,
                 itemCount: photoUpcomingModelObject.data!.length,
                 itemBuilder: (BuildContext context, int index) {
+                  int reversedIndex = photoUpcomingModelObject.data!.length - 1 - index;
                   // print("previousBookingModelObject ${previousBookingModelObject.data?.length}");
                   return Stack(
                     children: [
@@ -112,7 +113,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
 
-                                    photoUpcomingModelObject.data![index].status == "Pending"?
+                                    photoUpcomingModelObject.data![reversedIndex].status == "Pending"?
                                     Container(
                                       height: MediaQuery.of(context).size.height * 0.1,
                                       color: Colors.transparent,
@@ -127,7 +128,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${photoUpcomingModelObject.data![index].status}', textAlign: TextAlign.center,
+                                              child: Text('${photoUpcomingModelObject.data![reversedIndex].status}', textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
 
@@ -150,7 +151,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                                 borderRadius: BorderRadius.circular(30)
                                             ),
                                             child: Center(
-                                              child: Text('${photoUpcomingModelObject.data![index].status}',
+                                              child: Text('${photoUpcomingModelObject.data![reversedIndex].status}',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 12,
                                                       fontFamily: poppinRegular, color: kWhite)),
@@ -172,11 +173,11 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                         children: [
                                           Row(
                                             children: [
-                                              Text("${photoUpcomingModelObject.data![index].carsDetails!.vehicalName}  ",
+                                              Text("${photoUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}  ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 14, fontFamily: poppinBold)),
 
-                                              Text("${photoUpcomingModelObject.data![index].carsDetails!.carsColors!.name}",
+                                              Text("${photoUpcomingModelObject.data![reversedIndex].carsDetails!.carsColors!.name}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
 
@@ -186,14 +187,14 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                             children: [
 
                                               Text(
-                                                "${photoUpcomingModelObject.data![index].carsDetails!.carsMakes!.name}, ",
+                                                "${photoUpcomingModelObject.data![reversedIndex].carsDetails!.carsMakes!.name}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               Text(
-                                                "${photoUpcomingModelObject.data![index].carsDetails!.carsModels}, ",
+                                                "${photoUpcomingModelObject.data![reversedIndex].carsDetails!.carsModels}, ",
                                                 textAlign: TextAlign.left, style: TextStyle(
                                                     color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
-                                              Text("${photoUpcomingModelObject.data![index].carsDetails!.year}",
+                                              Text("${photoUpcomingModelObject.data![reversedIndex].carsDetails!.year}",
                                                   textAlign: TextAlign.left, style: TextStyle(
                                                       color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -206,19 +207,19 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                                                 child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
                                                     color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
-                                              Text("${photoUpcomingModelObject.data![index].carsPlans![0].pricePerHour}", textAlign: TextAlign.left, style: TextStyle(
+                                              Text("${photoUpcomingModelObject.data![reversedIndex].carsPlans![0].pricePerHour}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                               Text("/Hour", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
-                                              showRatingStars(double.parse("${photoUpcomingModelObject.data![index].carsDetails!.rating}")),
+                                              showRatingStars(double.parse("${photoUpcomingModelObject.data![reversedIndex].carsDetails!.rating}")),
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01),
 
-                                              photoUpcomingModelObject.data![index].carsDetails!.rating == null?
+                                              photoUpcomingModelObject.data![reversedIndex].carsDetails!.rating == null?
                                               Text("0.0", textAlign: TextAlign.left,
                                                 style: TextStyle(color: kBlack,
                                                     fontSize: 12, fontFamily: poppinRegular)):
-                                              Text("${photoUpcomingModelObject.data![index].carsDetails!.rating}", textAlign: TextAlign.left,
+                                              Text("${photoUpcomingModelObject.data![reversedIndex].carsDetails!.rating}", textAlign: TextAlign.left,
                                                   style: TextStyle(color: kBlack,
                                                       fontSize: 12, fontFamily: poppinRegular)),
                                             ],
@@ -237,21 +238,21 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                         right: 30, bottom: 35,
                         child: GestureDetector(
                           onTap: (){
-                            carBookingsId = "${photoUpcomingModelObject.data![index].bookingsId}";
+                            carBookingsId = "${photoUpcomingModelObject.data![reversedIndex].bookingsId}";
                             print("carBookingsId $carBookingsId");
-                            print("${photoUpcomingModelObject.data![index].carsDetails!.vehicalName}");
-                            print("${photoUpcomingModelObject.data![index].carsDetails!.carsModels}");
-                            print("${photoUpcomingModelObject.data![index].carsDetails!.rating}");
+                            print("${photoUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}");
+                            print("${photoUpcomingModelObject.data![reversedIndex].carsDetails!.carsModels}");
+                            print("${photoUpcomingModelObject.data![reversedIndex].carsDetails!.rating}");
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => UpcomingBookingDetailsPage(
-                                  bookingId: "${photoUpcomingModelObject.data![index].bookingsId}",
+                                  bookingId: "${photoUpcomingModelObject.data![reversedIndex].bookingsId}",
                                 )));
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png")),
                       ),
                       Positioned(
                         left: 20,
-                        child: Image.network("$baseUrlImage${photoUpcomingModelObject.data![index].carsDetails!.image1}",
+                        child: Image.network("$baseUrlImage${photoUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",
                             width: 332, height: 120),
                       ),
                       Positioned(
@@ -268,7 +269,7 @@ class _PhotographyUpcomingPageState extends State<PhotographyUpcomingPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("${photoUpcomingModelObject.data![index].carsDetails!.discountPercentage}",
+                                Text("${photoUpcomingModelObject.data![reversedIndex].carsDetails!.discountPercentage}",
                                   style: TextStyle(color: kWhite,
                                     fontSize: 13, fontWeight: FontWeight.bold,
                                     fontFamily: 'Poppins')),

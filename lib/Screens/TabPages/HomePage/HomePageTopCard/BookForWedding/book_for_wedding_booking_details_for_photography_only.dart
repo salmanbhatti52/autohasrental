@@ -29,8 +29,10 @@ class BookForWeddingBookingDetailsForPhotographyOnly extends StatefulWidget {
       carModelName,
       carMakesName,
       carMakesImage,
+      carDeposit,
       carRating,
       carOwnerImage,
+      driverCharges,
       carOwnerName,
       discountPercentage,
       carDiscountPrice;
@@ -52,6 +54,8 @@ class BookForWeddingBookingDetailsForPhotographyOnly extends StatefulWidget {
       this.carImage,
       this.carYear,
       this.carMakesImage,
+      this.carDeposit,
+      this.driverCharges,
       this.favouriteStatus,
       this.carMakesName,
       this.carId,
@@ -83,8 +87,8 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
 
 
   mySelectedData() {
-    valueDate = "${widget.selectedDate}";
-    print("mySelectedDate: $valueDate");
+    valueDating = "${widget.selectedDate}";
+    print("mySelectedDate: $valueDating");
     print("mySelectedDay: $valueDay");
     print("mySelectedTime: $dropdownValueTime");
     print("mySelectedHours: $myHours");
@@ -102,10 +106,10 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
       lastDate: DateTime(2050),
     );
     if (picked != null && picked != pickDate) {
-      valueDate = DateFormat('MMMM yyyy').format(picked);
+      valueDating = DateFormat('MMMM yyyy').format(picked);
       valueDay = DateFormat('EE, d').format(picked);
       setState(() {
-        print("Selected Date in Booking : $valueDate");
+        print("Selected Date in Booking : $valueDating");
         print("Selected Day in Booking : $valueDay");
       });
     }
@@ -136,7 +140,7 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
 
   myTotal() {
     myServiceFee = (percentage! / 100) * double.parse("$pricePerHrs");
-    totalPricePerHrs = pricePerHrs + depositFee + driverFee + myServiceFee!;
+    totalPricePerHrs = pricePerHrs + double.parse(widget.carDeposit.toString()) + double.parse(widget.driverCharges.toString()) + myServiceFee!;
     print("totalPerHour: $totalPricePerHrs");
   }
 
@@ -239,7 +243,7 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                                     fontFamily: poppinRegular,
                                     fontSize: 14,
                                     color: detailsTextColor)),
-                            Text("RM $driverFee",
+                            Text("RM ${widget.driverCharges}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontFamily: poppinRegular,
@@ -257,7 +261,7 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                                     fontFamily: poppinRegular,
                                     fontSize: 14,
                                     color: detailsTextColor)),
-                            Text("RM $depositFee",
+                            Text("RM ${widget.carDeposit}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontFamily: poppinRegular,
@@ -419,11 +423,11 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                                           PhotoDeliveryAddress(
                                             // myDatumPhotography: widget.datumPhotography,
                                             selectedHoursInString:
-                                                dropdownValueTime,
+                                                widget.selectedHours,
                                             totalHoursInNumber: myHours,
                                             hoursAmount: pricePerHrs,
                                             totalAmount: totalPricePerHrs,
-                                            myDate: valueDate,
+                                            myDate: valueDating,
                                             myDay: valueDay,
                                             selectedStartTime: formattedStartTime,
                                             selectedEndTime: formattedEndTime,
@@ -432,11 +436,13 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                                             carYear: widget.carYear,
                                             carId: widget.carId,
                                             carRating: widget.carRating,
+                                            carDeposit: widget.carDeposit,
                                             carColorName: widget.carColorName,
                                             carMakesName: widget.carMakesName,
                                             carModelName: widget.carModelName,
                                             carImage: widget.carImage,
                                             carMakesImage: widget.carMakesImage,
+                                            driverCharges: widget.driverCharges,
                                             favouriteStatus:
                                                 widget.favouriteStatus,
                                             discountPercentage:
@@ -450,7 +456,7 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                                           )));
                               print(
                                   "startAndEndTime $formattedStartTime $formattedEndTime");
-                              print("valueDate $valueDate");
+                              print("valueDate $valueDating");
                             },
                             child: loginButton("Next", context)),
                         SizedBox(height: screenHeight * 0.03),
@@ -783,11 +789,11 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                         if (picked != null && picked != pickDate) {
                           // valueDate = DateFormat('yyyy-MM-dd').format(picked);
                           // valueDay = DateFormat('EE, d').format(picked);
-                          valueDate = DateFormat('yyyy-MM-dd').format(picked);
+                          valueDating = DateFormat('yyyy-MM-dd').format(picked);
                           valueDay = DateFormat('EEEE, dd MMMM').format(picked);
 
                           stateSetterObject(() {
-                            print("Selected date in bottomSheet : $valueDate");
+                            print("Selected date in bottomSheet : $valueDating");
                             print("Selected Day in bottomSheet : $valueDay");
                           });
                         }
@@ -797,7 +803,7 @@ class _BookForWeddingBookingDetailsForPhotographyOnlyState
                         children: [
                           Icon(Icons.keyboard_arrow_left, color: borderColor),
                           Text(
-                            "$valueDate",
+                            "$valueDating",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontSize: 14,
