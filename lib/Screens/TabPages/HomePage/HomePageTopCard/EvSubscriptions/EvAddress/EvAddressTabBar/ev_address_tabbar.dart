@@ -13,7 +13,7 @@ class EvAddressTabBar extends StatefulWidget {
       carModelName, carMakesName, carMakesImage, carRating, carOwnerImage,
       carOwnerName, discountPercentage, evStartDate, evEndDate, favouriteStatus;
   final int? carId, carOwnerId;
-  final double? carDiscountPrice;
+  final String? carDiscountPrice;
 
   EvAddressTabBar({Key? key, this.totalAmount, this.carName, this.evStartDate,
     this.favouriteStatus, this.evEndDate, this.carColorName, this.carModelName,
@@ -120,7 +120,7 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
                                   widget.carModelName, widget.carMakesName, widget.carMakesImage, widget.carRating,
                                   address2ControllerHome.text, cityControllerHome.text, postCodeControllerHome.text, selectedState,
                                   widget.carOwnerImage, widget.carOwnerName, widget.discountPercentage, address1ControllerHome.text,
-                                  selectedCountry, widget.evStartDate, widget.evEndDate, widget.carId, widget.carOwnerId, widget.carDiscountPrice);
+                                  selectedCountry, widget.evStartDate, widget.evEndDate, widget.carId, widget.carOwnerId, double.parse(widget.carDiscountPrice.toString()),);
                               print('newIndex $newIndex');
                           },
                           child: Container(

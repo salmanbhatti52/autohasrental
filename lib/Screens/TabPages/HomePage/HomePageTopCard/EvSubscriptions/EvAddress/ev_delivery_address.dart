@@ -14,7 +14,8 @@ class EvDeliveryAddress extends StatefulWidget {
       favouriteStatus, carColorName, carModelName, carMakesName, carOwnerName,
       carOwnerImage, evEndDate, discountPercentage, evStartDate, carMakesImage;
   final int? carId, carOwnerId;
-  final double? carDiscountPrice, serviceFee;
+  final String? carDiscountPrice;
+  final double?  serviceFee;
 
   EvDeliveryAddress({Key? key, this.totalAmount, this.carName, this.evStartDate,
     this.evEndDate, this.favouriteStatus, this.carColorName, this.carId,

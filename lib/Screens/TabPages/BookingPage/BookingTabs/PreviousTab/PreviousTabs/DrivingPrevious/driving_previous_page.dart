@@ -467,7 +467,10 @@ class _DrivingPreviousPageState extends State<DrivingPreviousPage> {
           ),
         ),
       ):
-    Center(child: Text('booking unavailable...',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)));
+    Padding(
+        padding: EdgeInsets.symmetric(horizontal: 110, vertical: 250),
+        child: Text('No booking Found',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
+    );
   }
 }

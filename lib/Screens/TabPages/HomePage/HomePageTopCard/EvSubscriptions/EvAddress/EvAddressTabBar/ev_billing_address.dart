@@ -17,7 +17,7 @@ class EvBillingAddress extends StatefulWidget {
   homeStreetAddress1, homeStreetAddress2, homeCity, homePostCode,
   homeSelectedState, homeSelectedCountry, evStartDate, evEndDate;
   final int? carId, carOwnerId;
-  final double? carDiscountPrice;
+  final String? carDiscountPrice;
 
   EvBillingAddress({Key? key, this.homeStreetAddress1, this.homeStreetAddress2,
     this.favouriteStatus, this.homeCity, this.homePostCode, this.homeSelectedState,

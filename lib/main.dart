@@ -13,17 +13,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Sizer(builder: (context, orientation, deviceType){
-      return GetMaterialApp(
-      title: 'AutoHausRental',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-
-        // primarySwatch: Colors.blue,
-        primaryColor: appBgColor,
-      ),
-      home: SplashScreen(),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return GetMaterialApp(
+          title: 'AutoHausRental',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            // primarySwatch: Colors.blue,
+            primaryColor: appBgColor,
+          ),
+          home: SplashScreen(),
+        );
+      },
     );
-  });
   }
 }

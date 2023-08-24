@@ -72,9 +72,15 @@ class _EvRatingState extends State<EvRating> {
   }
 
   Widget allRatingList() {
-    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-      getCarsRatingByIdObject.status != "success" ?  Center(
-          child: Text('no data found...', style: TextStyle(fontWeight: FontWeight.bold))):
+    return loadingP ? Padding(
+      padding: const EdgeInsets.only(top: 100.0),
+      child: Center(child: CircularProgressIndicator(color: borderColor)),
+    ) :
+      getCarsRatingByIdObject.status != "success" ?  Padding(
+        padding: const EdgeInsets.only(top: 100.0),
+        child: Center(
+            child: Text('No Ratings', style: TextStyle(fontWeight: FontWeight.bold))),
+      ):
       ListView.builder(
         physics: BouncingScrollPhysics(),
         shrinkWrap: true,

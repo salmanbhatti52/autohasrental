@@ -27,7 +27,7 @@ class EvCartDetailsPage extends StatefulWidget {
  final String? homeAddress1, homeAddress2, homeCity, homePostCode, homeState, homeCountry,
   billingAddress1, billingAddress2, billingCity, billingPostCode, billingState, billingCountry;
   final int? carId, carOwnerId;
-  final double? carDiscountPrice;
+  final String? carDiscountPrice;
 
   EvCartDetailsPage({Key? key, this.totalAmount, this.carName, this.evStartDate, this.evEndDate,
     this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,

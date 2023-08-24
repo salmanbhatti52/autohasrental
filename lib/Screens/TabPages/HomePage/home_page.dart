@@ -94,6 +94,8 @@ class _HomePageState extends State<HomePage> {
     print(response);
     if (response.statusCode == 200) {
       final responseString = response.body;
+      loadingP = false;
+      setState(() {});
       print("topRenterCarResponse : ${responseString.toString()}");
       topRentedCarsModelObject = topRentedCarsModelFromJson(responseString);
       print("topRentedCarsLength: ${topRentedCarsModelObject.data?.length}");
@@ -101,8 +103,6 @@ class _HomePageState extends State<HomePage> {
     // } catch (e) {
     //   print('Error: ${e.toString()}');
     // }
-    loadingP = false;
-    setState(() {});
   }
 
   getUserProfileWidget() async {
@@ -110,8 +110,8 @@ class _HomePageState extends State<HomePage> {
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
     print("userId in HomePagePrefs is= $userId");
-    loadingP = true;
-    setState(() {});
+    // loadingP = true;
+    // setState(() {});
     try {
       String apiUrl = getUserProfileApiUrl;
       print("getUserProfileApi: $apiUrl");
@@ -137,7 +137,6 @@ class _HomePageState extends State<HomePage> {
     }
     // loadingP = false;
     setState(() {
-      getTopRentedCarsWidget();
     });
   }
 
@@ -146,8 +145,8 @@ class _HomePageState extends State<HomePage> {
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
     print("userId in HomePagePrefs is= $userId");
-    loadingP = true;
-    setState(() {});
+    // loadingP = true;
+    // setState(() {});
     try {
       String apiUrl = unReadNotificationsApiUrl;
       print("gunReadNotificationsApi: $apiUrl");
@@ -170,7 +169,7 @@ class _HomePageState extends State<HomePage> {
     } catch (e) {
       print('Error in gunReadNotification: ${e.toString()}');
     }
-    loadingP = false;
+    // loadingP = false;
     setState(() {});
   }
 
@@ -181,7 +180,7 @@ class _HomePageState extends State<HomePage> {
     sharedPrefs();
     getUnreadNotificationWidget();
     getUserProfileWidget();
-    getUnreadNotificationWidget();
+    getTopRentedCarsWidget();
     print("notificationStatusHome $notificationStatus");
   }
 
@@ -197,7 +196,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(backgroundColor: homeBgColor,
-      body: loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
+      body:
+      // loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
       SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -348,7 +348,7 @@ class _HomePageState extends State<HomePage> {
                     child: Text("Top Rented",
                       style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack),),
                   ),
-                  loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+                  // loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
                   topRentedCars(searchController.text),
                 ],
               ),
@@ -363,7 +363,8 @@ class _HomePageState extends State<HomePage> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.55,
       color: Colors.transparent,
-      child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+      child:
+      loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
       topRentedCarsModelObject.data?.length == null ?  Center(
           child: Text('No Cars Found.', style: TextStyle(fontWeight: FontWeight.bold))):
 

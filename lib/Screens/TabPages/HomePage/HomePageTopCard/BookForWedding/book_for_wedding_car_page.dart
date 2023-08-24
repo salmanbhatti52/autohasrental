@@ -331,7 +331,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage>
         height: MediaQuery.of(context).size.height * 0.78,
         child: loadingP
             ? Center(child: CircularProgressIndicator(color: borderColor))
-            : carsPhotoGraphyModelObject.status != "success"
+            : carsPhotoGraphyModelObject.data == null
                 ? Center(
                     child: Text('No cars Available',
                         style: TextStyle(

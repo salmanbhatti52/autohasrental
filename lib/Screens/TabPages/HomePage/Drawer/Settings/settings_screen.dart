@@ -171,14 +171,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                          builder: (context) => PaymentScreen()));
-                },
-                child: settingWidget("Payment Details", kBlack,
-                    "Add your cards for quick payments",
-                    Icons.arrow_forward_ios_rounded, kBlack)),
+            // GestureDetector(
+            //     onTap: () {
+            //       Navigator.pushReplacement(context, MaterialPageRoute(
+            //               builder: (context) => PaymentScreen()));
+            //     },
+            //     child: settingWidget("Payment Details", kBlack,
+            //         "Add your cards for quick payments",
+            //         Icons.arrow_forward_ios_rounded, kBlack)),
             GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(

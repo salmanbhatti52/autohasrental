@@ -353,6 +353,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                         Container(
                           height: 100,
+                          padding: EdgeInsets.only(right: 10),
                           decoration: BoxDecoration(
                             color: kWhite,
                             borderRadius: BorderRadius.circular(30.0),
@@ -366,7 +367,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
-                              hintText: getUserProfileModelObject.data!.about == null? "nothing to show":
+                              hintText: getUserProfileModelObject.data!.about == null? "":
                               getUserProfileModelObject.data!.about.toString(),
                               fillColor: kWhite,
                               hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular),

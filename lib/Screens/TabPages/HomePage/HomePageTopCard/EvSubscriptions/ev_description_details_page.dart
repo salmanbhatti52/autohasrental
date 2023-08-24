@@ -73,6 +73,20 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
   DateTime? enddate;
   String? enddate1;
 
+  String perMonth = "";
+
+   perMonthCalculate(){
+     double value1 = double.parse(widget.mySelectedTabMonth.toString());
+     double value2 = double.parse(widget.mySelectedTabPrice.toString());
+     double perMonths = value2 / value1;
+     String formattedPerMonth = perMonths.toStringAsFixed(2);
+     print("1 $value1");
+     print("2 $value2");
+     print("perMonth $perMonths");
+     print("perMonth22: $formattedPerMonth");
+     perMonth = formattedPerMonth.toString();
+   }
+
   getEvSubscriptionCarsWidget() async {
     loadingP = true;
     setState(() {});
@@ -140,7 +154,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
     // TODO: implement initState
     super.initState();
     getEvSubscriptionCarsWidget();
-
+    perMonthCalculate();
     tabMonth = widget.mySelectedTabMonth;
     tabPrice = widget.mySelectedTabPrice;
     print("evCarID $carID");
@@ -386,7 +400,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                                 carYear: widget.carYear,
                                                 carPrice: widget.carPrice,
                                                 carDiscountPrice:
-                                                    widget.carDiscountPrice,
+                                                    perMonth.toString(),
                                                 carRating: widget.carRating,
                                                 carColorName:
                                                     widget.carColorName,
@@ -530,7 +544,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                 fontSize: 7,
                                 fontFamily: poppinSemiBold)),
                       ),
-                      Text("${widget.carDiscountPrice}",
+                      Text("${perMonth}",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               color: borderColor,

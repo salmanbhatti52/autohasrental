@@ -124,29 +124,45 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                 ],
               ),
             ),
+            // Expanded(
+            //   flex: 1,
+            //   child: Padding(
+            //     padding: EdgeInsets.all(8.0),
+            //     child: widget.myStatus == "Completed" ?
+            //     Container(
+            //       height: 0,
+            //       color: Colors.transparent,
+            //       child: GestureDetector(
+            //           onTap: () {
+            //             if(getRateCarsModel.message == "Rating already given"){
+            //               toastSuccessMessage("${getRateCarsModel.message}", kRed);
+            //             }
+            //             else{
+            //               ratingsDialogBox(context);
+            //             }
+            //           },
+            //           child: loginButton('Give Ratings', context)),
+            //     ): GestureDetector(
+            //         onTap: () {
+            //             toastSuccessMessage("You can give rating once status is completed.", kRed);
+            //         },
+            //         child: loginButton('Give Ratings', context))
+            //   ),
+            // ),
             Expanded(
               flex: 1,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: widget.myStatus == "Completed" ?
-                Container(
-                  height: 0,
-                  color: Colors.transparent,
-                  child: GestureDetector(
+                  padding: EdgeInsets.all(8.0),
+                  child: widget.myStatus == "Completed" ?
+                  Container(
+                    height: 0,
+                    color: Colors.transparent,
+                    child: getRateCarsModel.message == "Rating already given" ? SizedBox() : loginButton('Give Ratings', context),
+                  ): GestureDetector(
                       onTap: () {
-                        if(getRateCarsModel.message == "Rating already given"){
-                          toastSuccessMessage("${getRateCarsModel.message}", kRed);
-                        }
-                        else{
-                          ratingsDialogBox(context);
-                        }
-                      },
-                      child: loginButton('Give Ratings', context)),
-                ): GestureDetector(
-                    onTap: () {
                         toastSuccessMessage("You can give rating once status is completed.", kRed);
-                    },
-                    child: loginButton('Give Ratings', context))
+                      },
+                      child: loginButton('Give Ratings', context))
               ),
             ),
           ],

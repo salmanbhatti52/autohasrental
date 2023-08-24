@@ -69,7 +69,10 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
+    return loadingP ? Padding(
+      padding: const EdgeInsets.only(bottom: 250.0),
+      child: Center(child: CircularProgressIndicator(color: borderColor)),
+    )
         : evUpcomingModelObject.data?[0].carsDetails?.carsUsageType == "EV Subscriptions" ?
       Padding(
         padding: EdgeInsets.only(top: 15),
@@ -330,8 +333,11 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
           ),
         ),
       ):
-    Center(child: Text('booking unavailable...',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)));
+    Padding(
+        padding: EdgeInsets.symmetric(horizontal: 110, vertical: 250),
+        child: Text('No booking Found',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
+    );
   }
 
   Widget yesButton() {
