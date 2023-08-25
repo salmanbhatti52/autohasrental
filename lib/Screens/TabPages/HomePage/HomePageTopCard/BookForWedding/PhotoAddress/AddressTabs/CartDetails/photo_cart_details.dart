@@ -110,7 +110,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
       print("apiRequest: $request");
       request.fields['users_customers_id'] = '$userId';
       request.fields['cars_id'] = '$carID';
-      request.fields['plan_date'] = "";
+      request.fields['plan_date'] = "${widget.selectedStartTime}";
       request.fields['start_time'] = "";
       request.fields['end_time'] = "";
       request.fields['start_date'] = "${widget.selectedStartTime}";
@@ -274,7 +274,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.75,
+                          // height: MediaQuery.of(context).size.height * 0.75,
                           width: MediaQuery.of(context).size.width * 0.47,
                           decoration: BoxDecoration(
                               color: kWhite,
@@ -356,7 +356,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 05),
+                                  padding: EdgeInsets.symmetric(vertical: 03),
                                   child: Divider(),
                                 ),
 
@@ -372,7 +372,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                   ],
                                 ),
 
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -383,7 +383,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                             color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -394,7 +394,7 @@ class _PhotoCartDetailsPageState extends State<PhotoCartDetailsPage> {
                                             color: textLabelColor, fontSize: 14, fontFamily: poppinRegular)),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

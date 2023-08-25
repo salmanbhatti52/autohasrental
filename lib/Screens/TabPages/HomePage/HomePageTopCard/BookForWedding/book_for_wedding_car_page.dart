@@ -79,8 +79,8 @@ class _BookForWeddingPageState extends State<BookForWeddingPage>
       loadingP = false;
       setState(() {});
       carsPhotoGraphyModelObject = photoGraphyModelFromJson(responseString);
-      print(
-          "carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.data?.length}");
+      print("carsPhotoGraphyObjectLength: ${carsPhotoGraphyModelObject.data?.length}");
+      searchController.clear();
     }
     // } catch (e) {
     //   print('Error: ${e.toString()}');
@@ -266,6 +266,7 @@ class _BookForWeddingPageState extends State<BookForWeddingPage>
               child: Column(
                 children: [
                   carMakersListWidget(),
+                  loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
                   photographyCarsListWidget(searchController.text),
                 ],
               ),
@@ -331,12 +332,13 @@ class _BookForWeddingPageState extends State<BookForWeddingPage>
         height: MediaQuery.of(context).size.height * 0.78,
         child: loadingP
             ? Center(child: CircularProgressIndicator(color: borderColor))
-            : carsPhotoGraphyModelObject.data == null
+            : carsPhotoGraphyModelObject.status != "success"
                 ? Center(
                     child: Text('No cars Available',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20)))
-                : ListView.builder(
+                :search.isEmpty?
+        ListView.builder(
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -759,7 +761,316 @@ class _BookForWeddingPageState extends State<BookForWeddingPage>
                           ),
                         ],
                       );
-                    }),
+                    })
+            : searchModelObject.data?.length == null?
+        Center(child: Text("No Cars Found.", style: TextStyle(
+            fontSize: 15, fontWeight: FontWeight.w500))):
+        ListView.builder(
+            shrinkWrap: true,
+            physics:  BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemCount: searchModelObject.data?.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Stack(
+                children: [
+                  Padding(
+                    padding:  EdgeInsets.symmetric(vertical: 20),
+                    child: Container(
+                        height: MediaQuery.of(context).size.height * 0.33),
+                  ),
+                  Positioned(
+                    top: 90,
+                    child: Padding(
+                      padding:  EdgeInsets.only(left: 9),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.26,
+                        width: 343,
+                        decoration: BoxDecoration(
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 5,
+                              blurRadius: 5,
+                              offset:  Offset(3, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Container(height: MediaQuery.of(context).size.height*0.1,),
+                            Row(
+                              children: [
+                                SizedBox(height: 93.6),
+                                Padding(
+                                  padding:  EdgeInsets.symmetric(horizontal: 15),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text("${searchModelObject.data![index].vehicalName} ",
+                                              style: TextStyle(color: kBlack, fontSize: 14,
+                                                  fontFamily: poppinBold), textAlign: TextAlign.left),
+                                          Text("${searchModelObject.data![index].carsColors!.name} ",
+                                            textAlign: TextAlign.left, style: TextStyle(
+                                                color: kBlack, fontSize: 14, fontFamily: poppinRegular),),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text("${searchModelObject.data![index].carsMakes!.name}, ",
+                                              style: TextStyle(color: kBlack, fontSize: 12,
+                                                  fontFamily: poppinRegular), textAlign: TextAlign.left),
+                                          Text("${searchModelObject.data![index].carsModels!.name}, ",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
+                                          Text("${searchModelObject.data![index].year}",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding:  EdgeInsets.only(top: 04),
+                                            child: Text("RM",  textAlign: TextAlign.left,
+                                              style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinRegular),),
+                                          ),
+                                          Text("${searchModelObject.data![index].carsPlans![0].pricePerMonth}",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: kRed, decoration: TextDecoration.lineThrough,
+                                                  decorationColor: kRed, decorationThickness: 3,
+                                                  fontSize: 10, fontFamily: poppinLight, height: 2)),
+                                          SizedBox(width: 5),
+                                          Padding(
+                                            padding:  EdgeInsets.only(top: 06),
+                                            child: Text("RM",  textAlign: TextAlign.left,
+                                                style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
+                                          ),
+                                          Text("${searchModelObject.data![index].carsPlans![0].discountedPricePerMonth}",
+                                              textAlign: TextAlign.left, style: TextStyle(
+                                                  color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+                                          Text("/Month", textAlign: TextAlign.left, style: TextStyle(
+                                              color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+                                          SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+                                          showRatingStars(double.parse("${searchModelObject.data![index].rating}")),
+                                          searchModelObject.data![index].rating == null
+                                              ? Text("0.0", style: TextStyle(color: kBlack, fontSize: 12,
+                                              fontFamily: poppinRegular), textAlign: TextAlign.left) :
+                                          Text("${searchModelObject.data![index].rating}",
+                                              style: TextStyle(color: kBlack, fontSize: 12,
+                                                  fontFamily: poppinRegular), textAlign: TextAlign.left),
+                                        ],
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                      // verifiedDealerText(),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 30, bottom: 35,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            print("clickedddd");
+                            carID = carsPhotoGraphyModelObject.data![index].carsId;
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => BookForWeddingCarDescription(
+                                  carName:
+                                  carsPhotoGraphyModelObject
+                                      .data![index].vehicalName,
+                                  carYear:
+                                  "${carsPhotoGraphyModelObject.data![index].year}",
+                                  carId: carsPhotoGraphyModelObject
+                                      .data![index].carsId,
+                                  carRating:
+                                  carsPhotoGraphyModelObject
+                                      .data![index].rating,
+                                  carColorName:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .carsColors!
+                                      .name,
+                                  carMakesName:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .carsMakes!
+                                      .name,
+                                  carModelName:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .carsModels!
+                                      .name,
+                                  carImage:
+                                  "$baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}",
+                                  carMakesImage:
+                                  "$baseUrlImage${carsPhotoGraphyModelObject.data![index].carsMakes!.image}",
+                                  favouriteStatus:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .favouriteStatus,
+                                  discountPercentage:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .discountPercentage,
+                                  carDiscountPrice:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .carsPlans![0]
+                                      .discountedPricePerHour,
+                                  carPrice:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .carsPlans![0]
+                                      .pricePerHour,
+                                  carDeposit:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .carsPlans![0]
+                                      .deposit,
+                                  driverCharges:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .carsPlans![0].driverCharges,
+                                  carOwnerImage:
+                                  "$baseUrlImage${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyLogo}",
+                                  carOwnerName:
+                                  "${carsPhotoGraphyModelObject.data![index].usersCompanies!.companyName}",
+                                  carOwnerId:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .usersCompanies!
+                                      .usersCompaniesId,
+                                  myCarDescription:
+                                  carsPhotoGraphyModelObject
+                                      .data![index].description,
+                                  featureSuv:
+                                  carsPhotoGraphyModelObject
+                                      .data![index].featuresSuv,
+                                  featuresDoors:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .featuresDoors,
+                                  featuresSeats:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .featuresSeats,
+                                  featuresAutomatic:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .featuresAutomatic,
+                                  featuresSpeed:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .featuresSpeed,
+                                  featuresElectric:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .featuresElectric,
+                                  featuresEngine_capacity:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .featuresEngineCapacity,
+                                  featuresFuelCapacity:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .featuresFuelCapacity,
+                                  featuresMeterReading:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .featuresMeterReading,
+                                  featuresNewCars:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .featuresNewCars,
+                                  packageType:
+                                  carsPhotoGraphyModelObject
+                                      .data![index]
+                                      .carsPlans![0]
+                                      .packageType,
+                                )));
+                            print(
+                                "evCarName ${carsPhotoGraphyModelObject.data![index].vehicalName}");
+                            print(
+                                "evCarYear ${carsPhotoGraphyModelObject.data![index].year}");
+                            print(
+                                "evCarPerHours ${carsPhotoGraphyModelObject.data![index].carsPlans![0].pricePerHour}");
+                            print(
+                                "evCarImage $baseUrlImage${carsPhotoGraphyModelObject.data![index].image1}");
+                            print(
+                                "evCarId ${carsPhotoGraphyModelObject.data![index].carsId}");
+                          },
+                          child: Image.asset("assets/car_bookings_images/more_button.png"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    left: 10, right: 10,
+                    child: searchModelObject.data![index].image1 == null ?
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset('assets/icon/fade_in_image.jpeg')) :
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: FadeInImage(
+                        placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
+                        height: 130, width: 350,
+                        image: NetworkImage("$baseUrlImage${searchModelObject.data![index].image1}"),),
+                    ),
+                  ),
+                  Positioned(
+                      top: 10, left: 10,
+                      child: Container(
+                        height: MediaQuery.of(context).size.width * 0.07,
+                        width: MediaQuery.of(context).size.width * 0.18,
+                        decoration: BoxDecoration(
+                          color: kRed.withOpacity(0.8),
+                          borderRadius:  BorderRadius.only(
+                              topRight: Radius.circular(15),
+                              bottomLeft: Radius.circular(15)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("${searchModelObject.data![index].discountPercentage}",
+                                textAlign: TextAlign.left, style: TextStyle(color: kWhite,
+                                    fontSize: 13, fontFamily: poppinSemiBold)),
+                            Text(" OFF ", textAlign: TextAlign.left, style: TextStyle(
+                                color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                          ],
+                        ),
+                      )),
+                  Positioned(
+                    top: 15, right: 15,
+                    child: searchModelObject.data![index].favouriteStatus == "like"?
+                    Image.asset("assets/home_page/heart.png"):
+                    GestureDetector(
+                      onTap: () async {
+                        myCurrentCarIndex = "${searchModelObject.data![index].carsId}";
+                        print("evCarIds $myCurrentCarIndex");
+                        await getLikeUnlikeCarWidget();
+                        getCarsPhotoGraphyWidget();
+                      },
+                      child: Image.asset("assets/car_bookings_images/heart.png"),
+                    ),
+                  ),
+                ],
+              );
+            }),
       ),
     );
   }

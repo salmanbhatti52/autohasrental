@@ -146,7 +146,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         "location" : locationController.text,
         "about" : aboutController.text,
         "notifications" : "Yes",
-        "profile_pic" : base64img,
+        "profile_pic" : base64img == null ? "" : base64img,
           },
           headers: {
             'Accept': 'application/json',
@@ -246,9 +246,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       toastFailedMessage('lastName cannot be empty', kRed);
                     } else if (emailController.text.isEmpty) {
                       toastFailedMessage('email cannot be empty', kRed);
-                    } else if (base64img == null) {
-                      toastFailedMessage('profileImage cannot be empty', kRed);
                     }
+                    // else if (base64img == null) {
+                    //   toastFailedMessage('profileImage cannot be empty', kRed);
+                    // }
                     else{
                       setState(() {
                         progress = true;
@@ -258,7 +259,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       // if (updateProfileModel.status == "success") {
                         print("updated Success");
                         Future.delayed(Duration(seconds: 3), () {
-                          toastSuccessMessage("updated Successfully...!", Colors.green);
+                          toastSuccessMessage("Profile Updated Successfully", Colors.green);
 
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => SettingsScreen()));

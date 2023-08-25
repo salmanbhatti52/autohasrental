@@ -19,7 +19,7 @@ class PhotoGraphyModel {
 
   factory PhotoGraphyModel.fromJson(Map<String, dynamic> json) => PhotoGraphyModel(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null ,
   );
 
   Map<String, dynamic> toJson() => {
@@ -29,88 +29,88 @@ class PhotoGraphyModel {
 }
 
 class Datum {
-  int carsId;
-  int usersCompaniesId;
-  String vehicalName;
-  String licensePlate;
-  String discountPercentage;
-  String carsUsageType;
-  int carsTypeId;
-  int carsMakesId;
-  int carsModelsId;
-  int year;
-  int carsColorsId;
-  String description;
+  int? carsId;
+  int? usersCompaniesId;
+  String? vehicalName;
+  String? licensePlate;
+  String? discountPercentage;
+  String? carsUsageType;
+  int? carsTypeId;
+  int? carsMakesId;
+  int? carsModelsId;
+  int? year;
+  int? carsColorsId;
+  String? description;
   String? featuresSuv;
-  String featuresSeats;
-  String featuresSpeed;
-  String featuresAutomatic;
+  String? featuresSeats;
+  String? featuresSpeed;
+  String? featuresAutomatic;
   String? featuresDrives;
-  String featuresDoors;
+  String? featuresDoors;
   String? featuresElectric;
-  String featuresEngineCapacity;
-  String featuresFuelCapacity;
-  String featuresMeterReading;
-  dynamic featuresNewCars;
-  String image1;
-  String image2;
-  String image3;
-  String image4;
-  String image5;
-  String rating;
-  DateTime dateAdded;
+  String? featuresEngineCapacity;
+  String? featuresFuelCapacity;
+  String? featuresMeterReading;
+  String? featuresNewCars;
+  String? image1;
+  String? image2;
+  String? image3;
+  String? image4;
+  String? image5;
+  String? rating;
+  DateTime? dateAdded;
   dynamic dateModified;
-  String status;
-  CarsM carsMakes;
-  CarsM carsModels;
-  CarsColors carsColors;
-  List<CarsRating> carsRatings;
-  int totalBookings;
-  UsersCompanies usersCompanies;
-  String favouriteStatus;
-  List<CarsPlan> carsPlans;
+  String? status;
+  CarsM? carsMakes;
+  CarsM? carsModels;
+  CarsColors? carsColors;
+  List<CarsRating>? carsRatings;
+  int? totalBookings;
+  UsersCompanies? usersCompanies;
+  String? favouriteStatus;
+  List<CarsPlan>? carsPlans;
 
   Datum({
-    required this.carsId,
-    required this.usersCompaniesId,
-    required this.vehicalName,
-    required this.licensePlate,
-    required this.discountPercentage,
-    required this.carsUsageType,
-    required this.carsTypeId,
-    required this.carsMakesId,
-    required this.carsModelsId,
-    required this.year,
-    required this.carsColorsId,
-    required this.description,
-    required this.featuresSuv,
-    required this.featuresSeats,
-    required this.featuresSpeed,
-    required this.featuresAutomatic,
-    required this.featuresDrives,
-    required this.featuresDoors,
-    required this.featuresElectric,
-    required this.featuresEngineCapacity,
-    required this.featuresFuelCapacity,
-    required this.featuresMeterReading,
-    required this.featuresNewCars,
-    required this.image1,
-    required this.image2,
-    required this.image3,
-    required this.image4,
-    required this.image5,
-    required this.rating,
-    required this.dateAdded,
-    required this.dateModified,
-    required this.status,
-    required this.carsMakes,
-    required this.carsModels,
-    required this.carsColors,
-    required this.carsRatings,
-    required this.totalBookings,
-    required this.usersCompanies,
-    required this.favouriteStatus,
-    required this.carsPlans,
+    this.carsId,
+    this.usersCompaniesId,
+    this.vehicalName,
+    this.licensePlate,
+    this.discountPercentage,
+    this.carsUsageType,
+    this.carsTypeId,
+    this.carsMakesId,
+    this.carsModelsId,
+    this.year,
+    this.carsColorsId,
+    this.description,
+    this.featuresSuv,
+    this.featuresSeats,
+    this.featuresSpeed,
+    this.featuresAutomatic,
+    this.featuresDrives,
+    this.featuresDoors,
+    this.featuresElectric,
+    this.featuresEngineCapacity,
+    this.featuresFuelCapacity,
+    this.featuresMeterReading,
+    this.featuresNewCars,
+    this.image1,
+    this.image2,
+    this.image3,
+    this.image4,
+    this.image5,
+    this.rating,
+    this.dateAdded,
+    this.dateModified,
+    this.status,
+    this.carsMakes,
+    this.carsModels,
+    this.carsColors,
+    this.carsRatings,
+    this.totalBookings,
+    this.usersCompanies,
+    this.favouriteStatus,
+    this.carsPlans,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -186,29 +186,29 @@ class Datum {
     "image4": image4,
     "image5": image5,
     "rating": rating,
-    "date_added": dateAdded.toIso8601String(),
+    "date_added": dateAdded!.toIso8601String(),
     "date_modified": dateModified,
     "status": status,
-    "cars_makes": carsMakes.toJson(),
-    "cars_models": carsModels.toJson(),
-    "cars_colors": carsColors.toJson(),
-    "cars_ratings": List<dynamic>.from(carsRatings.map((x) => x.toJson())),
+    "cars_makes": carsMakes!.toJson(),
+    "cars_models": carsModels!.toJson(),
+    "cars_colors": carsColors!.toJson(),
+    "cars_ratings": List<dynamic>.from(carsRatings!.map((x) => x.toJson())),
     "total_bookings": totalBookings,
-    "users_companies": usersCompanies.toJson(),
+    "users_companies": usersCompanies!.toJson(),
     "favourite_status": favouriteStatus,
-    "cars_plans": List<dynamic>.from(carsPlans.map((x) => x.toJson())),
+    "cars_plans": List<dynamic>.from(carsPlans!.map((x) => x.toJson())),
   };
 }
 
 class CarsColors {
-  int carsColorsId;
-  String name;
-  String status;
+  int? carsColorsId;
+  String? name;
+  String? status;
 
   CarsColors({
-    required this.carsColorsId,
-    required this.name,
-    required this.status,
+   this.carsColorsId,
+   this.name,
+   this.status,
   });
 
   factory CarsColors.fromJson(Map<String, dynamic> json) => CarsColors(
@@ -225,17 +225,17 @@ class CarsColors {
 }
 
 class CarsM {
-  int carsMakesId;
-  String name;
-  String image;
-  String status;
+  int? carsMakesId;
+  String? name;
+  String? image;
+  String? status;
   int? carsModelsId;
 
   CarsM({
-    required this.carsMakesId,
-    required this.name,
-    required this.image,
-    required this.status,
+    this.carsMakesId,
+    this.name,
+    this.image,
+    this.status,
     this.carsModelsId,
   });
 
@@ -257,22 +257,22 @@ class CarsM {
 }
 
 class CarsPlan {
-  int carsPlansPgId;
-  int carsId;
-  String packageType;
-  String pricePerHour;
-  String driverCharges;
-  String deposit;
-  String discountedPricePerHour;
+  int? carsPlansPgId;
+  int? carsId;
+  String? packageType;
+  String? pricePerHour;
+  String? driverCharges;
+  String? deposit;
+  String? discountedPricePerHour;
 
   CarsPlan({
-    required this.carsPlansPgId,
-    required this.carsId,
-    required this.packageType,
-    required this.pricePerHour,
-    required this.driverCharges,
-    required this.deposit,
-    required this.discountedPricePerHour,
+    this.carsPlansPgId,
+    this.carsId,
+    this.packageType,
+    this.pricePerHour,
+    this.driverCharges,
+    this.deposit,
+    this.discountedPricePerHour,
   });
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
@@ -297,22 +297,22 @@ class CarsPlan {
 }
 
 class CarsRating {
-  int carsRatingsId;
-  int carsId;
-  int usersCustomersId;
-  String comments;
-  String rateStars;
-  DateTime dateAdded;
-  List<UsersDatum> usersData;
+  int? carsRatingsId;
+  int? carsId;
+  int? usersCustomersId;
+  String? comments;
+  String? rateStars;
+  DateTime? dateAdded;
+  List<UsersDatum>? usersData;
 
   CarsRating({
-    required this.carsRatingsId,
-    required this.carsId,
-    required this.usersCustomersId,
-    required this.comments,
-    required this.rateStars,
-    required this.dateAdded,
-    required this.usersData,
+    this.carsRatingsId,
+    this.carsId,
+    this.usersCustomersId,
+    this.comments,
+    this.rateStars,
+    this.dateAdded,
+    this.usersData,
   });
 
   factory CarsRating.fromJson(Map<String, dynamic> json) => CarsRating(
@@ -331,50 +331,50 @@ class CarsRating {
     "users_customers_id": usersCustomersId,
     "comments": comments,
     "rate_stars": rateStars,
-    "date_added": dateAdded.toIso8601String(),
-    "users_data": List<dynamic>.from(usersData.map((x) => x.toJson())),
+    "date_added": dateAdded!.toIso8601String(),
+    "users_data": List<dynamic>.from(usersData!.map((x) => x.toJson())),
   };
 }
 
 class UsersDatum {
-  int usersCustomersId;
-  String oneSignalId;
-  String verifiedBadge;
-  String firstName;
-  String lastName;
-  String phone;
-  String email;
-  String password;
-  String accountType;
-  String socialAccType;
-  String googleAccessToken;
-  String location;
-  String about;
-  String profilePic;
-  DateTime dateAdded;
-  String verifyCode;
-  String notifications;
-  String status;
+  int? usersCustomersId;
+  String? oneSignalId;
+  String? verifiedBadge;
+  String? firstName;
+  String? lastName;
+  String? phone;
+  String? email;
+  String? password;
+  String? accountType;
+  String? socialAccType;
+  String? googleAccessToken;
+  String? location;
+  String? about;
+  String? profilePic;
+  DateTime? dateAdded;
+  String? verifyCode;
+  String? notifications;
+  String? status;
 
   UsersDatum({
-    required this.usersCustomersId,
-    required this.oneSignalId,
-    required this.verifiedBadge,
-    required this.firstName,
-    required this.lastName,
-    required this.phone,
-    required this.email,
-    required this.password,
-    required this.accountType,
-    required this.socialAccType,
-    required this.googleAccessToken,
-    required this.location,
-    required this.about,
-    required this.profilePic,
-    required this.dateAdded,
-    required this.verifyCode,
-    required this.notifications,
-    required this.status,
+    this.usersCustomersId,
+    this.oneSignalId,
+    this.verifiedBadge,
+    this.firstName,
+    this.lastName,
+    this.phone,
+    this.email,
+    this.password,
+    this.accountType,
+    this.socialAccType,
+    this.googleAccessToken,
+    this.location,
+    this.about,
+    this.profilePic,
+    this.dateAdded,
+    this.verifyCode,
+    this.notifications,
+    this.status,
   });
 
   factory UsersDatum.fromJson(Map<String, dynamic> json) => UsersDatum(
@@ -413,7 +413,7 @@ class UsersDatum {
     "location": location,
     "about": about,
     "profile_pic": profilePic,
-    "date_added": dateAdded.toIso8601String(),
+    "date_added": dateAdded!.toIso8601String(),
     "verify_code": verifyCode,
     "notifications": notifications,
     "status": status,
@@ -421,44 +421,44 @@ class UsersDatum {
 }
 
 class UsersCompanies {
-  int usersCompaniesId;
-  String email;
-  String password;
-  String phone;
-  String companyName;
-  String companyRegistrationNumber;
-  String companyLocation;
-  String companyLogo;
+  int? usersCompaniesId;
+  String? email;
+  String? password;
+  String? phone;
+  String? companyName;
+  String? companyRegistrationNumber;
+  String? companyLocation;
+  String? companyLogo;
   dynamic about;
-  int verifyEmailOtp;
+  int? verifyEmailOtp;
   dynamic forgotPasswordOtp;
   dynamic bankName;
   dynamic bankAccountNumber;
   dynamic paypalEmail;
-  String online;
-  String status;
-  DateTime dateAdded;
+  String? online;
+  String? status;
+  DateTime? dateAdded;
   dynamic dateModified;
 
   UsersCompanies({
-    required this.usersCompaniesId,
-    required this.email,
-    required this.password,
-    required this.phone,
-    required this.companyName,
-    required this.companyRegistrationNumber,
-    required this.companyLocation,
-    required this.companyLogo,
-    required this.about,
-    required this.verifyEmailOtp,
-    required this.forgotPasswordOtp,
-    required this.bankName,
-    required this.bankAccountNumber,
-    required this.paypalEmail,
-    required this.online,
-    required this.status,
-    required this.dateAdded,
-    required this.dateModified,
+    this.usersCompaniesId,
+    this.email,
+    this.password,
+    this.phone,
+    this.companyName,
+    this.companyRegistrationNumber,
+    this.companyLocation,
+    this.companyLogo,
+    this.about,
+    this.verifyEmailOtp,
+    this.forgotPasswordOtp,
+    this.bankName,
+    this.bankAccountNumber,
+    this.paypalEmail,
+    this.online,
+    this.status,
+    this.dateAdded,
+    this.dateModified,
   });
 
   factory UsersCompanies.fromJson(Map<String, dynamic> json) => UsersCompanies(
@@ -499,7 +499,7 @@ class UsersCompanies {
     "paypal_email": paypalEmail,
     "online": online,
     "status": status,
-    "date_added": dateAdded.toIso8601String(),
+    "date_added": dateAdded!.toIso8601String(),
     "date_modified": dateModified,
   };
 }

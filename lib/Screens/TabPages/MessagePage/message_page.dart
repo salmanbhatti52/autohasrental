@@ -115,7 +115,7 @@ class _MessagePageState extends State<MessagePage> {
                         right: 02,
                         left: 05,
                         bottom: 10,
-                        child: notificationsUnReadModelObject.data?.length == 0 ? Container():
+                        child:  notificationsUnReadModelObject.data == null ? Container():
                         Container(
                             height: 12, width: 12,
                             decoration: BoxDecoration(
@@ -129,14 +129,18 @@ class _MessagePageState extends State<MessagePage> {
                       ),
                     ],
                   ),
-                ) : Container(),
+                )
+                    : Container(),
               ],
             ),
           ),
           loading ? Center(child: CircularProgressIndicator(color: borderColor)):
-          allChatModel.isEmpty?  Center(
-            child: Text('No Chat found...',
-              style: TextStyle(fontWeight: FontWeight.bold),
+          allChatModel.isEmpty?  Padding(
+            padding: const EdgeInsets.only(top: 280.0),
+            child: Center(
+              child: Text('No Chat found',
+                style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack),
+              ),
             ),
           ):
           Padding(

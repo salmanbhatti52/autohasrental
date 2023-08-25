@@ -40,10 +40,14 @@ class _HomePageState extends State<HomePage> {
   SearchModel searchModelObject = SearchModel();
 
   List<String> filteredData = [];
-  bool loadingP = true;
+  bool loadingP = false;
 
   searchCarsWidget() async {
     // try {
+
+    setState(() {
+      loadingP = true;
+    });
     String apiUrl = getCarFilterByNameApiUrl;
 
     if(searchController.text.isNotEmpty){
@@ -64,7 +68,9 @@ class _HomePageState extends State<HomePage> {
         final responseString = response.body;
         print("responseString $responseString");
         searchModelObject = searchModelFromJson(responseString);
-        setState(() {});
+        setState(() {
+          loadingP = false;
+        });
         print("searchItemsLengthHomePage: ${searchModelObject.data?.length}");
       }
     }
@@ -145,8 +151,8 @@ class _HomePageState extends State<HomePage> {
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
     print("userId in HomePagePrefs is= $userId");
-    // loadingP = true;
-    // setState(() {});
+    loadingP = true;
+    setState(() {});
     try {
       String apiUrl = unReadNotificationsApiUrl;
       print("gunReadNotificationsApi: $apiUrl");
@@ -169,7 +175,7 @@ class _HomePageState extends State<HomePage> {
     } catch (e) {
       print('Error in gunReadNotification: ${e.toString()}');
     }
-    // loadingP = false;
+    loadingP = false;
     setState(() {});
   }
 
@@ -177,10 +183,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getTopRentedCarsWidget();
     sharedPrefs();
     getUnreadNotificationWidget();
     getUserProfileWidget();
-    getTopRentedCarsWidget();
+    // getTopRentedCarsWidget();
     print("notificationStatusHome $notificationStatus");
   }
 
@@ -219,20 +226,49 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
 
+                      // notificationStatus == "Yes"?
+                      // GestureDetector(
+                      //   onTap: (){
+                      //     Navigator.push(context, MaterialPageRoute(builder: (context) =>  NotificationsScreen()));
+                      //   },
+                      //   child: Stack(
+                      //     children: [
+                      //
+                      //       SvgPicture.asset("assets/home_page/notification_bell.svg"),
+                      //       Positioned(
+                      //         right: 02,
+                      //         left: 05,
+                      //         bottom: 10,
+                      //         child: notificationsUnReadModelObject.data == null ? Container():
+                      //         Container(
+                      //             height: 12, width: 12,
+                      //             decoration: BoxDecoration(
+                      //                 color: kRed,
+                      //                 borderRadius: BorderRadius.circular(30)
+                      //             ),
+                      //             child: Center(
+                      //                 child: Text("${notificationsUnReadModelObject.data?.length}",
+                      //                   style: TextStyle(color: kWhite, fontSize: 08),),
+                      //             )),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // )
+                      //     : Container(),
                       notificationStatus == "Yes"?
                       GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  NotificationsScreen()));
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => NotificationsScreen()));
                         },
                         child: Stack(
                           children: [
-
                             SvgPicture.asset("assets/home_page/notification_bell.svg"),
                             Positioned(
                               right: 02,
                               left: 05,
                               bottom: 10,
-                              child: notificationsUnReadModelObject.data?.length == 0 ? Container():
+                              child: notificationsUnReadModelObject.data == null ? Container():
                               Container(
                                   height: 12, width: 12,
                                   decoration: BoxDecoration(
@@ -240,13 +276,14 @@ class _HomePageState extends State<HomePage> {
                                       borderRadius: BorderRadius.circular(30)
                                   ),
                                   child: Center(
-                                      child: Text("${notificationsUnReadModelObject.data?.length}",
-                                        style: TextStyle(color: kWhite, fontSize: 08),),
+                                    child: Text("${notificationsUnReadModelObject.data?.length}",
+                                      style: TextStyle(color: kWhite, fontSize: 08),),
                                   )),
                             ),
                           ],
                         ),
-                      ) : Container(),
+                      )
+                          : Container(),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       GestureDetector(
                         onTap: (){
@@ -365,7 +402,7 @@ class _HomePageState extends State<HomePage> {
       color: Colors.transparent,
       child:
       loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-      topRentedCarsModelObject.data?.length == null ?  Center(
+      topRentedCarsModelObject.status != "success" ?  Center(
           child: Text('No Cars Found.', style: TextStyle(fontWeight: FontWeight.bold))):
 
       searchText.isEmpty?
@@ -409,7 +446,7 @@ class _HomePageState extends State<HomePage> {
                                   Row(
                                     children: [
                                       Container(
-                                        width: 80,
+                                        width: 70,
                                         child: Text("${topRentedCarsModelObject.data?[index].vehicalName} ",
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
@@ -677,7 +714,7 @@ class _HomePageState extends State<HomePage> {
             );
           }):
 
-      searchModelObject.data?.length == null?
+      searchModelObject.status != "success" ?
       Center(child: Text("No Cars Found.", style: TextStyle(
           fontSize: 15, fontWeight: FontWeight.w500))):
       GridView.builder(

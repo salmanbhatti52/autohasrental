@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
@@ -21,16 +21,18 @@ class PreviousBookingDetailsPage extends StatefulWidget {
   PreviousBookingDetailsPage({super.key, this.bookingId, this.myStatus});
 
   @override
-  State<PreviousBookingDetailsPage> createState() => _PreviousBookingDetailsPageState();
+  State<PreviousBookingDetailsPage> createState() =>
+      _PreviousBookingDetailsPageState();
 }
 
-class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage> {
+class _PreviousBookingDetailsPageState
+    extends State<PreviousBookingDetailsPage> {
   double? ratingValue;
   var carRatingController = TextEditingController();
   final GlobalKey<FormState> ratingsFormKey = GlobalKey<FormState>();
   RateCarModel rateCarModelObject = RateCarModel();
   GetStatusRateCarsModel getRateCarsModel = GetStatusRateCarsModel();
-  bool loadingP = true;
+  bool loadingP = false;
 
   @override
   void initState() {
@@ -56,11 +58,10 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
     print("getRateCarApi: $apiUrl");
     final response = await http.post(Uri.parse(apiUrl), headers: {
       'Accept': 'application/json'
-    },
-        body: {
-          "users_customers_id": userId,
-          "cars_id": "${carID}",
-        });
+    }, body: {
+      "users_customers_id": userId,
+      "cars_id": "${carID}",
+    });
     print('${response.statusCode}');
     print(response);
     if (response.statusCode == 200) {
@@ -71,11 +72,6 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
       getRateCarsModel = getStatusRateCarsModelFromJson(responseString);
       print("getRateCarApiMessage: ${getRateCarsModel.message}");
     }
-    // } catch (e) {
-    //   print('Error in upcomingBookingCar: ${e.toString()}');
-    // }
-    loadingP = false;
-    setState(() {});
   }
 
   bool _isLoading = true;
@@ -84,7 +80,8 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBarSingleImage(
-          backImage: "assets/car_bookings_images/back_arrow.png", title: "Bookings"),
+          backImage: "assets/car_bookings_images/back_arrow.png",
+          title: "Bookings"),
       backgroundColor: homeBgColor,
       body: ModalProgressHUD(
         inAsyncCall: isInAsyncCall,
@@ -119,7 +116,9 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                   ),
                   if (_isLoading)
                     Center(
-                      child: CircularProgressIndicator(color: borderColor,),
+                      child: CircularProgressIndicator(
+                        color: borderColor,
+                      ),
                     ),
                 ],
               ),
@@ -153,17 +152,26 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
               flex: 1,
               child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: widget.myStatus == "Completed" ?
-                  Container(
-                    height: 0,
-                    color: Colors.transparent,
-                    child: getRateCarsModel.message == "Rating already given" ? SizedBox() : loginButton('Give Ratings', context),
-                  ): GestureDetector(
-                      onTap: () {
-                        toastSuccessMessage("You can give rating once status is completed.", kRed);
-                      },
-                      child: loginButton('Give Ratings', context))
-              ),
+                  child: widget.myStatus == "Completed"
+                      ? Container(
+                          height: 0,
+                          color: Colors.transparent,
+                          child: getRateCarsModel.message ==
+                                  "Rating already given"
+                              ? loginButton('Rating already given', context)
+                              : GestureDetector(
+                                  onTap: () {
+                                    ratingsDialogBox(context);
+                                  },
+                                  child: loginButton('Give Ratings', context)),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            toastSuccessMessage(
+                                "You can give rating once status is completed.",
+                                kRed);
+                          },
+                          child: loginButton('Give Ratings', context))),
             ),
           ],
         ),
@@ -188,7 +196,7 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
       'Accept': 'application/json'
     }, body: {
       "users_customers_id": userId,
-      "cars_id" : "${carID}",
+      "cars_id": "${carID}",
       "comments": carRatingController.text,
       "rate_stars": "$ratingValue"
     });
@@ -200,11 +208,6 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
       setState(() {});
       rateCarModelObject = rateCarModelFromJson(responseString);
     }
-    // } catch (e) {
-    //   print('Error in upcomingBookingCar: ${e.toString()}');
-    // }
-    loadingP = false;
-    setState(() {});
   }
 
   void ratingsDialogBox(BuildContext context) {
@@ -232,11 +235,14 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: Image.asset('assets/car_bookings_images/close.png'),
+                          child: Image.asset(
+                              'assets/car_bookings_images/close.png'),
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                      Text("Ratings",
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      Text(
+                        "Ratings",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -253,7 +259,8 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                           color: Color(0xffb0b0b0),
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
                       RatingBar(
                           initialRating: 0,
                           direction: Axis.horizontal,
@@ -262,9 +269,9 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                           minRating: 1,
                           itemSize: 30.0,
                           ratingWidget: RatingWidget(
-                              full: Icon(Icons.star, color: borderColor),
-                              half: Icon(Icons.star_half, color: borderColor),
-                              empty: Icon(Icons.star_outline, color: borderColor),
+                            full: Icon(Icons.star, color: borderColor),
+                            half: Icon(Icons.star_half, color: borderColor),
+                            empty: Icon(Icons.star_outline, color: borderColor),
                           ),
                           onRatingUpdate: (value) {
                             setState(() {
@@ -272,7 +279,8 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                               print("ratingValue $ratingValue");
                             });
                           }),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
                       Form(
                         key: ratingsFormKey,
                         child: TextFormField(
@@ -320,37 +328,54 @@ class _PreviousBookingDetailsPageState extends State<PreviousBookingDetailsPage>
                         child: GestureDetector(
                           onTap: () async {
                             print("ratingValue $ratingValue");
-                            if(ratingsFormKey.currentState!.validate()){
+                            if (ratingsFormKey.currentState!.validate()) {
                               // if(carRatingController.text.isEmpty){
                               //   toastFailedMessage("Please add your feedback", kRed);
                               // } else {
-                                setState(() {
-                                  isInAsyncCall = true;
-                                });
-                                await carRatingsWidget();
-                                if(rateCarModelObject.status == "success"){
-                                  Future.delayed(Duration(seconds: 2), () {
-                                    toastSuccessMessage("${rateCarModelObject.message}", colorGreen);
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      isInAsyncCall = false;
-                                    });
-                                  });
-                                }
-                                if(rateCarModelObject.status != "success"){
-                                  Future.delayed(Duration(seconds: 2), () {
-                                  toastFailedMessage("${rateCarModelObject.message}", kRed);
+                              setState(() {
+                                isInAsyncCall = true;
+                              });
+                              await carRatingsWidget();
+                              if (rateCarModelObject.status == "success") {
+                                Future.delayed(Duration(seconds: 2), () {
+                                  toastSuccessMessage(
+                                      "${rateCarModelObject.message}",
+                                      colorGreen);
                                   Navigator.pop(context);
                                   setState(() {
-                                      isInAsyncCall = false;
-                                      print("rateCarMessage: ${rateCarModelObject.message}");
-                                    });
+                                    isInAsyncCall = false;
                                   });
-                                }
+                                });
+                              }
+                              if (rateCarModelObject.status != "success") {
+                                Future.delayed(Duration(seconds: 2), () {
+                                  toastFailedMessage(
+                                      "${rateCarModelObject.message}", kRed);
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    isInAsyncCall = false;
+                                    print(
+                                        "rateCarMessage: ${rateCarModelObject.message}");
+                                  });
+                                });
+                              }
                               // }
                             }
                           },
-                          child: Center(
+                          child: loadingP
+                              ? Center(
+                            child: Container(
+                              height: 44,
+                              width: 202,
+                              decoration: BoxDecoration(
+                                  color: borderColor,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Center(
+                                child: CircularProgressIndicator(color: Colors.blueAccent,)
+                              ),
+                            ),
+                          )
+                              :Center(
                             child: Container(
                               height: 44,
                               width: 202,

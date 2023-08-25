@@ -191,7 +191,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                       right: 02,
                       left: 05,
                       bottom: 13,
-                      child: notificationsUnReadModelObject.data?.length == 0 ? Container():
+                      child:  notificationsUnReadModelObject.data == null ? Container():
                       Container(
                           height: 12, width: 12,
                           decoration: BoxDecoration(
@@ -254,7 +254,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
         color: Colors.transparent,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: getCarMakesModelObject.data!.length,
+            itemCount: getCarMakesModelObject.data?.length,
             itemBuilder: (context, index){
               return Padding(
                 padding:  EdgeInsets.all(8.0),
@@ -278,7 +278,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                         border: Border.all(width: 2,
                             color: selectedIndex == index ? borderColor : kWhite),
                         borderRadius: BorderRadius.circular(10.0)),
-                    child: Image.network("$baseUrlImage${getCarMakesModelObject.data![index].image}",
+                    child: Image.network("$baseUrlImage${getCarMakesModelObject.data?[index].image}",
                         height: 25, width: 25, fit: BoxFit.fill),
                   ),
                 ),

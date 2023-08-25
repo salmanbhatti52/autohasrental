@@ -87,7 +87,7 @@ formattedDate(){
               style: TextStyle(fontWeight: FontWeight.bold), )):
       Column(
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 10),
             child: Container(

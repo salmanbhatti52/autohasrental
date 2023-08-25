@@ -198,7 +198,7 @@ class _FavoritePageState extends State<FavoritePage> {
                         right: 02,
                         left: 05,
                         bottom: 10,
-                        child: notificationsUnReadModelObject.data?.length == 0 ? Container():
+                        child:  notificationsUnReadModelObject.data == null ? Container():
                         Container(
                             height: 12, width: 12,
                             decoration: BoxDecoration(
