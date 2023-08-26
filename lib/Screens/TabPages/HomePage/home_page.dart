@@ -45,9 +45,9 @@ class _HomePageState extends State<HomePage> {
   searchCarsWidget() async {
     // try {
 
-    setState(() {
-      loadingP = true;
-    });
+    // setState(() {
+    //   loadingP = true;
+    // });
     String apiUrl = getCarFilterByNameApiUrl;
 
     if(searchController.text.isNotEmpty){
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         print("responseString $responseString");
         searchModelObject = searchModelFromJson(responseString);
         setState(() {
-          loadingP = false;
+        //   loadingP = false;
         });
         print("searchItemsLengthHomePage: ${searchModelObject.data?.length}");
       }
@@ -151,8 +151,8 @@ class _HomePageState extends State<HomePage> {
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
     print("userId in HomePagePrefs is= $userId");
-    loadingP = true;
-    setState(() {});
+    // loadingP = true;
+    // setState(() {});
     try {
       String apiUrl = unReadNotificationsApiUrl;
       print("gunReadNotificationsApi: $apiUrl");
@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
     } catch (e) {
       print('Error in gunReadNotification: ${e.toString()}');
     }
-    loadingP = false;
+    // loadingP = false;
     setState(() {});
   }
 
@@ -192,12 +192,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   sharedPrefs() async {
-    loadingP = true;
-    setState(() {});
+    // loadingP = true;
+    // setState(() {});
     print('in HomePage sharedPrefs');
     prefs = await SharedPreferences.getInstance();
     notificationStatus = (prefs!.getString('notification_status'));
     print("notificationStatus in HomePage sharedPrefs $notificationStatus");
+    // setState(() {
+    //   loadingP = false;
+    // });
   }
 
   @override
@@ -381,12 +384,13 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   homeTopHorizontalCard(context),
                   Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 10),
+                    padding:  EdgeInsets.only(left: 10, right: 10, bottom: 10,),
                     child: Text("Top Rented",
                       style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack),),
                   ),
-                  // loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-                  topRentedCars(searchController.text),
+                  loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+                topRentedCarsModelObject.data != null ? topRentedCars(searchController.text) : Center(
+                    child: Text('No Cars Found.', style: TextStyle(fontWeight: FontWeight.bold))),
                 ],
               ),
             ),
@@ -401,9 +405,9 @@ class _HomePageState extends State<HomePage> {
       height: MediaQuery.of(context).size.height * 0.55,
       color: Colors.transparent,
       child:
-      loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-      topRentedCarsModelObject.status != "success" ?  Center(
-          child: Text('No Cars Found.', style: TextStyle(fontWeight: FontWeight.bold))):
+      // loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+      // topRentedCarsModelObject.status != "success" ?  Center(
+      //     child: Text('No Cars Found.', style: TextStyle(fontWeight: FontWeight.bold))):
 
       searchText.isEmpty?
       GridView.builder(
@@ -714,7 +718,7 @@ class _HomePageState extends State<HomePage> {
             );
           }):
 
-      searchModelObject.status != "success" ?
+      searchModelObject.data == null ?
       Center(child: Text("No Cars Found.", style: TextStyle(
           fontSize: 15, fontWeight: FontWeight.w500))):
       GridView.builder(
@@ -1020,7 +1024,6 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }),
-
     );
   }
 

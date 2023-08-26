@@ -30,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   NotificationsSwitchModel notificationsSwitchModel = NotificationsSwitchModel();
   bool loading = true;
   // bool isSwitched = true;
-  dynamic isSwitched = true;
+  dynamic isSwitched = false;
 
   checkSwitch() async {
     if(isSwitched == true){

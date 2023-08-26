@@ -297,7 +297,7 @@ class _DrivingUpcomingPageState extends State<DrivingUpcomingPage> {
         ),
       ):
     Padding(
-        padding: EdgeInsets.symmetric(horizontal: 90, vertical: 250),
+        padding: EdgeInsets.only(left: 100, top: 250),
         child: Text('No booking Found',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
     );

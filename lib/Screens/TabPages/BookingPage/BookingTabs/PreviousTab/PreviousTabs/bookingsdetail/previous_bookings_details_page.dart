@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
@@ -13,6 +15,9 @@ import 'package:auto_haus_rental_app/Model/car_ratings_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:auto_haus_rental_app/Model/get_rate_cars_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+
+import '../../../../../tab_page.dart';
+import '../DrivingPrevious/driving_previous_page.dart';
 
 class PreviousBookingDetailsPage extends StatefulWidget {
   final String? myStatus;
@@ -37,11 +42,11 @@ class _PreviousBookingDetailsPageState
   @override
   void initState() {
     // TODO: implement initState
+    super.initState();
     getRateCarWidget();
     print("bookingCompleteStatus ${widget.myStatus}");
     print("bookingCarId ${carID}");
     print("bookingPrintApiUrl $bookingPrintApiUrl${widget.bookingId}");
-    super.initState();
   }
 
   getRateCarWidget() async {
@@ -158,7 +163,7 @@ class _PreviousBookingDetailsPageState
                           color: Colors.transparent,
                           child: getRateCarsModel.message ==
                                   "Rating already given"
-                              ? loginButton('Rating already given', context)
+                              ? loginButton('Rated', context)
                               : GestureDetector(
                                   onTap: () {
                                     ratingsDialogBox(context);
@@ -332,31 +337,33 @@ class _PreviousBookingDetailsPageState
                               // if(carRatingController.text.isEmpty){
                               //   toastFailedMessage("Please add your feedback", kRed);
                               // } else {
-                              setState(() {
-                                isInAsyncCall = true;
-                              });
+                              // setState(() {
+                              //   isInAsyncCall = true;
+                              // });
                               await carRatingsWidget();
                               if (rateCarModelObject.status == "success") {
-                                Future.delayed(Duration(seconds: 2), () {
+                                // Future.delayed(Duration(seconds: 0), () {
                                   toastSuccessMessage(
                                       "${rateCarModelObject.message}",
                                       colorGreen);
-                                  Navigator.pop(context);
-                                  setState(() {
-                                    isInAsyncCall = false;
-                                  });
-                                });
+                                  // Navigator.pop(context);
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) => TabBarPage()));
+                                  // setState(() {
+                                  //   isInAsyncCall = false;
+                                  // });
+                                // });
                               }
                               if (rateCarModelObject.status != "success") {
                                 Future.delayed(Duration(seconds: 2), () {
                                   toastFailedMessage(
                                       "${rateCarModelObject.message}", kRed);
                                   Navigator.pop(context);
-                                  setState(() {
-                                    isInAsyncCall = false;
+                                  // setState(() {
+                                  //   isInAsyncCall = false;
                                     print(
                                         "rateCarMessage: ${rateCarModelObject.message}");
-                                  });
+                                  // });
                                 });
                               }
                               // }
