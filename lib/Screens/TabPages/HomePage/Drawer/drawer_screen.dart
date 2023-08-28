@@ -1,4 +1,5 @@
 import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
@@ -88,7 +89,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: GestureDetector(
                 onTap: (){
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarPage()));
                 },
                 child: Container(
                   height: 50, width: 50,

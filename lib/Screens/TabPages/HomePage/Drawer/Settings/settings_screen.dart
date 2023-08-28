@@ -17,7 +17,7 @@ import 'EditProfile/edit_profile_screen.dart';
 import 'Payment/payment_screen.dart';
 import 'package:http/http.dart' as http;
 
-String? notificationStatus;
+String? notificationStatus  = "Yes";
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key? key}) : super(key: key);
 
@@ -30,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   NotificationsSwitchModel notificationsSwitchModel = NotificationsSwitchModel();
   bool loading = true;
   // bool isSwitched = true;
-  dynamic isSwitched = false;
+  bool isSwitched = true;
 
   checkSwitch() async {
     if(isSwitched == true){
@@ -153,7 +153,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             toggleSize: 20,
                             activeColor: borderColor,
                             inactiveToggleColor: kWhite,
-                            value: notificationStatus == "No"? isSwitched = false : true,
+                            value: notificationStatus == "Yes"? isSwitched = true : false,
                             onToggle: (value) {
                               setState(() {
                                 isSwitched = value;

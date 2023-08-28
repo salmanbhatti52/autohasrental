@@ -183,12 +183,16 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getTopRentedCarsWidget();
+    data();
     sharedPrefs();
     getUnreadNotificationWidget();
     getUserProfileWidget();
     // getTopRentedCarsWidget();
     print("notificationStatusHome $notificationStatus");
+  }
+
+  data() async {
+  await  getTopRentedCarsWidget();
   }
 
   sharedPrefs() async {
@@ -388,9 +392,10 @@ class _HomePageState extends State<HomePage> {
                     child: Text("Top Rented",
                       style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack),),
                   ),
-                  loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-                topRentedCarsModelObject.data != null ? topRentedCars(searchController.text) : Center(
-                    child: Text('No Cars Found.', style: TextStyle(fontWeight: FontWeight.bold))),
+                  loadingP
+                      ? Center(child: CircularProgressIndicator(color: borderColor))
+                      : topRentedCarsModelObject.data != null ? topRentedCars(searchController.text)
+                      : Center(child: Text('No Cars Found.', style: TextStyle(fontWeight: FontWeight.bold))),
                 ],
               ),
             ),
