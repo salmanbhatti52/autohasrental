@@ -1,6 +1,8 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
@@ -358,7 +360,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> with Tick
                     });
                   },
                   child: Container(
-                    height: 50, width: 70,
+                    height: 50,  width: Get.width * 0.2,
                     decoration: BoxDecoration(
                         color: selectedIndex == index? borderColor: kWhite,
                         border: Border.all(width: 2,
@@ -380,8 +382,8 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> with Tick
       Center(child: Text('No cars Available',
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))) :
     Container(
-      height: 250,
-      width: double.infinity,
+      height: Get.height * 0.35,
+      // width: Get.width * 0.8,
       color: Colors.transparent,
       child: ListView.builder(
           physics: BouncingScrollPhysics(),
@@ -393,15 +395,15 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> with Tick
               padding: EdgeInsets.only(left: 20),
               child: Container(
                 color: Colors.transparent,
-                height: 250,
-                width: 230,
+                height: Get.height * 0.4,
+                width: Get.width * 0.6,
                 child: Stack(
                   children: [
                     Positioned(
-                      bottom: 0,
+                      // bottom: 0,
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.285,
-                        width: MediaQuery.of(context).size.width * 0.55,
+                        // width: MediaQuery.of(context).size.width * 0.55,
                         decoration: BoxDecoration(
                             color: kWhite,
                             borderRadius: BorderRadius.circular(20)),
@@ -588,6 +590,8 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> with Tick
                 ),
                 Positioned(
                   top: 90,
+                  left: 30,
+                  right: 30,
                   child: Padding(
                     padding:   EdgeInsets.only(left: 9),
                     child: Container(
@@ -695,7 +699,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> with Tick
                   ),
                 ),
                 Positioned(
-                  right: 30, bottom: 35,
+                  right: 30, bottom: 30,
                   child: GestureDetector(
                     onTap: () {
                       carID = drivingCarsModelObject.data![index].carsId;
@@ -711,7 +715,7 @@ class _DrivingExperiencePageState extends State<DrivingExperiencePage> with Tick
                   ),
                 ),
                 Positioned(
-                  top: 40, left: 20, right: 20,
+                  top: 30, left: 20, right: 20,
                   child: drivingCarsModelObject.data![index].image1 == null ?
                   ClipRRect(
                       borderRadius: BorderRadius.circular(10),

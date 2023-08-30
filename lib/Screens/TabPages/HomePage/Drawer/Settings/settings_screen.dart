@@ -119,7 +119,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 05),
               child: Container(
-                height: screenHeight*0.08,
+                height: screenHeight*0.09,
                 decoration: BoxDecoration(
                     color: kWhite, borderRadius: BorderRadius.circular(10)),
                 child: Padding(

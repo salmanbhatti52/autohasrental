@@ -55,11 +55,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
       body: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
                   onTap: () {
@@ -67,14 +66,13 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   },
                   child: Image.asset('assets/live_chat_images/back_arrow.png', color: kWhite,),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.1),
                 Text("Review Terms of \nService & Privacy Policy",
                   maxLines: 2, textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
+                SizedBox(),
               ],
             ),
           ),
-
           loadingP? Center(child: CircularProgressIndicator(color: borderColor)):
           privacyPolicyModelObject.data == null? Container():
           privacyPolicyModelObject.data!.isEmpty ? Center(
@@ -82,18 +80,19 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ):
-
           Container(
             // width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.74,
+            height: MediaQuery.of(context).size.height * 0.693,
             color: Colors.transparent,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
-              child: Text(privacyPolicyModelObject.data![0].description.toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14,
-                    fontFamily: poppinLight, color: kWhite),),
+              child: Center(
+                child: Text(privacyPolicyModelObject.data![0].description.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14,
+                      fontFamily: poppinLight, color: kWhite),),
+              ),
             ),
           ),
           GestureDetector(

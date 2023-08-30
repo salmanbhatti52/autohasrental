@@ -485,7 +485,7 @@ var start;
           myCarPlan.isEmpty ? Center(child: Text("No Slots Available", textAlign: TextAlign.left,
               style: TextStyle(color: kBlack, fontSize: 12, fontFamily: poppinBold))):
           ConstrainedBox(
-            constraints: BoxConstraints(minHeight: 50, maxHeight: 100.0),
+            constraints: BoxConstraints(minHeight: 50, maxHeight: 100.0,minWidth: 100, maxWidth: 400),
             child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

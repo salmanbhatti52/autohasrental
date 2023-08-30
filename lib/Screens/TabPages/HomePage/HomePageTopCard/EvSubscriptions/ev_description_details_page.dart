@@ -620,7 +620,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
           ),
         ),
         Positioned(
-          left: 25,
+          left: 20,
           right: 20,
           top: 20,
           child: widget.carImage == null

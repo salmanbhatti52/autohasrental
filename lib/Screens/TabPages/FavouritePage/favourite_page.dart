@@ -225,183 +225,374 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget allFavItem() {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: EdgeInsets.only(top: 15),
-      child: Container(
-        color: Colors.transparent,
-        height: screenHeight * 0.73,
-        child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
-        favoriteCarModelObject.message == "no data found." ?
-        Center(child: Text('No Cars Found In Favorite.', style: TextStyle(fontWeight: FontWeight.bold))) :
-        favoriteCarModelObject.data == null? Center(child: Text('No Cars Found In Favorite.',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))):
-        ListView.builder(
-            shrinkWrap: true,
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemCount: favoriteCarModelObject.data!.length,
-            itemBuilder: (BuildContext context, int index) {
-              carID = favoriteCarModelObject.data![index].carsId;
-              return Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Container(
-                      height: screenHeight * 0.25,
-                    ),
-                  ),
-                  Positioned(
-                    top: 90,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 9),
-                      child: Container(
-                        height: screenHeight * 0.19,
-                        width: 343,
-                        decoration: BoxDecoration(
-                          color: kWhite,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1),
-                              spreadRadius: 5,
-                              blurRadius: 5,
-                              offset: Offset(3, 3),
-                            ),
-                          ],
+    return   LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth < 600) {
+          return   Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: Container(
+              color: Colors.transparent,
+              height: screenHeight * 0.75,
+              child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
+              favoriteCarModelObject.message == "no data found." ?
+              Center(child: Text('No Cars Found In Favorite.', style: TextStyle(fontWeight: FontWeight.bold))) :
+              favoriteCarModelObject.data == null? Center(child: Text('No Cars Found In Favorite.',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))):
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: favoriteCarModelObject.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    carID = favoriteCarModelObject.data![index].carsId;
+                    return Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Container(
+                            height: screenHeight * 0.25,
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Container(height: screenHeight * 0.06),
-                            Row(
-                              children: [
-                                SizedBox(height: 93.6),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                        Positioned(
+                          top: 90,
+                          left: 30,
+                          right: 30,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 9),
+                            child: Container(
+                              height: screenHeight * 0.19,
+                              // width: 343,
+                              width: screenWidth,
+                              decoration: BoxDecoration(
+                                color: kWhite,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    spreadRadius: 5,
+                                    blurRadius: 5,
+                                    offset: Offset(3, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(height: screenHeight * 0.06),
+                                  Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Text("${favoriteCarModelObject.data![index].vehicalName} | ",
-                                            textAlign: TextAlign.left, style: TextStyle(
-                                                color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+                                      SizedBox(height: 93.6),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 15),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text("${favoriteCarModelObject.data![index].vehicalName} | ",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 14, fontFamily: poppinBold)),
 
-                                          Text("${favoriteCarModelObject.data![index].carsColors!.name} ",
-                                            textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
-                                        ],
+                                                Text("${favoriteCarModelObject.data![index].carsColors!.name} ",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
+                                              ],
+                                            ),
+                                            SizedBox(height: screenHeight * 0.005),
+                                            Row(
+                                              children: [
+                                                Text("${favoriteCarModelObject.data![index].carsModels!.name} ",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+
+                                                Text("${favoriteCarModelObject.data![index].carsMakes!.name} ",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
+                                                Text("${favoriteCarModelObject.data![index].year}",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                                              ],
+                                            ),
+                                            SizedBox(height: screenHeight * 0.005),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(top: 04),
+                                                  child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
+                                                      color: kRed, fontSize: 5, fontFamily: poppinRegular)),
+                                                ),
+                                                favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
+                                                favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
+                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
+                                                SizedBox(width: 5),
+                                                Padding(
+                                                  padding: EdgeInsets.only(top: 06),
+                                                  child: Text("RM",  textAlign: TextAlign.left,
+                                                      style: TextStyle(color: borderColor,
+                                                          fontSize: 7, fontFamily: poppinSemiBold)),
+                                                ),
+
+                                                favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth}/", "Month"):
+                                                favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
+                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
+
+                                                SizedBox(width: screenWidth * 0.01),
+                                                showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
+                                                SizedBox(width: screenWidth * 0.01),
+                                                Text("${favoriteCarModelObject.data![index].rating}",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                              ],
+                                            ),
+
+                                          ],
+                                        ),
                                       ),
-                                      SizedBox(height: screenHeight * 0.005),
-                                      Row(
-                                        children: [
-                                          Text("${favoriteCarModelObject.data![index].carsModels!.name} ",
-                                            textAlign: TextAlign.left, style: TextStyle(
-                                                color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-
-                                          Text("${favoriteCarModelObject.data![index].carsMakes!.name} ",
-                                            textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
-                                          Text("${favoriteCarModelObject.data![index].year}",
-                                            textAlign: TextAlign.left, style: TextStyle(
-                                                color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                                        ],
-                                      ),
-                                      SizedBox(height: screenHeight * 0.005),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 04),
-                                            child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kRed, fontSize: 5, fontFamily: poppinRegular)),
-                                          ),
-                                          favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                          originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
-                                          favoriteCarModelObject.data![index].carsUsageType == "Photography"?
-                                          originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
-                                          originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
-                                          SizedBox(width: 5),
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 06),
-                                            child: Text("RM",  textAlign: TextAlign.left,
-                                                style: TextStyle(color: borderColor,
-                                                    fontSize: 7, fontFamily: poppinSemiBold)),
-                                          ),
-
-                                          favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                          discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth}/", "Month"):
-                                          favoriteCarModelObject.data![index].carsUsageType == "Photography"?
-                                          discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
-                                          discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
-
-                                          SizedBox(width: screenWidth * 0.01),
-                                          showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
-                                          SizedBox(width: screenWidth * 0.01),
-                                          Text("${favoriteCarModelObject.data![index].rating}",
-                                              textAlign: TextAlign.left, style: TextStyle(
-                                              color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                                        ],
-                                      ),
-
                                     ],
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 30, right: 30, top: 30,
-                    child: favoriteCarModelObject.data![index].image1 == null
-                        ? ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset('assets/icon/fade_in_image.jpeg'))
-                        : ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: FadeInImage(
-                        placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-                        width: 350, height: 100,
-                        image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}")),
-                    ),
-                  ),
-                  Positioned(
-                      top: 10, left: 15,
-                      child: Container(
-                        height: MediaQuery.of(context).size.width * 0.07,
-                        width: MediaQuery.of(context).size.width * 0.16,
-                        decoration: BoxDecoration(
-                          color: kRed.withOpacity(0.8),
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15)),
+                        Positioned(
+                          left: 30, right: 30, top: 30,
+                          child: favoriteCarModelObject.data![index].image1 == null
+                              ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset('assets/icon/fade_in_image.jpeg'))
+                              : ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: FadeInImage(
+                                placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                                width: 350, height: 100,
+                                image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}")),
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("${favoriteCarModelObject.data![index].discountPercentage} %",
-                              textAlign: TextAlign.left, style: TextStyle(
-                                  color: kWhite, fontSize: 10, fontFamily: poppinSemiBold)),
-                            Text(" OFF ",  textAlign: TextAlign.left, style: TextStyle(
-                                  color: kWhite, fontSize: 8, fontFamily: poppinSemiBold)),
-                          ],
+                        Positioned(
+                            top: 10, left: 15,
+                            child: Container(
+                              height: MediaQuery.of(context).size.width * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.16,
+                              decoration: BoxDecoration(
+                                color: kRed.withOpacity(0.8),
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("${favoriteCarModelObject.data![index].discountPercentage} %",
+                                      textAlign: TextAlign.left, style: TextStyle(
+                                          color: kWhite, fontSize: 10, fontFamily: poppinSemiBold)),
+                                  Text(" OFF ",  textAlign: TextAlign.left, style: TextStyle(
+                                      color: kWhite, fontSize: 8, fontFamily: poppinSemiBold)),
+                                ],
+                              ),
+                            )),
+                        Positioned(
+                            top: 10, right: 15,
+                            child: GestureDetector(
+                                onTap: () async {
+                                  carID = favoriteCarModelObject.data![index].carsId;
+                                  print("selectedCarId $carID");
+                                  await getLikeUnlikeCarWidget();
+                                  getFavoriteCarWidget();
+                                },
+                                child: Image.asset("assets/home_page/heart.png"))),
+                      ],
+                    );
+                  }),
+            ),
+          );
+        } else {
+          return  Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: Container(
+              color: Colors.transparent,
+              height: screenHeight * 0.78,
+              child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
+              favoriteCarModelObject.message == "no data found." ?
+              Center(child: Text('No Cars Found In Favorite.', style: TextStyle(fontWeight: FontWeight.bold))) :
+              favoriteCarModelObject.data == null? Center(child: Text('No Cars Found In Favorite.',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))):
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: favoriteCarModelObject.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    carID = favoriteCarModelObject.data![index].carsId;
+                    return Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Container(
+                            height: screenHeight * 0.25,
+                          ),
                         ),
-                      )),
-                  Positioned(
-                      top: 10, right: 15,
-                      child: GestureDetector(
-                          onTap: () async {
-                            carID = favoriteCarModelObject.data![index].carsId;
-                            print("selectedCarId $carID");
-                            await getLikeUnlikeCarWidget();
-                           getFavoriteCarWidget();
-                          },
-                          child: Image.asset("assets/home_page/heart.png"))),
-                ],
-              );
-            }),
-      ),
+                        Positioned(
+                          top: 90,
+                          left: 30,
+                          right: 30,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 9),
+                            child: Container(
+                              height: screenHeight * 0.19,
+                              // width: 343,
+                              width: screenWidth,
+                              decoration: BoxDecoration(
+                                color: kWhite,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    spreadRadius: 5,
+                                    blurRadius: 5,
+                                    offset: Offset(3, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(height: screenHeight * 0.06),
+                                  Row(
+                                    children: [
+                                      SizedBox(height: 93.6),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 15),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text("${favoriteCarModelObject.data![index].vehicalName} | ",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+
+                                                Text("${favoriteCarModelObject.data![index].carsColors!.name} ",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
+                                              ],
+                                            ),
+                                            SizedBox(height: screenHeight * 0.005),
+                                            Row(
+                                              children: [
+                                                Text("${favoriteCarModelObject.data![index].carsModels!.name} ",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+
+                                                Text("${favoriteCarModelObject.data![index].carsMakes!.name} ",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
+                                                Text("${favoriteCarModelObject.data![index].year}",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                                              ],
+                                            ),
+                                            SizedBox(height: screenHeight * 0.005),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(top: 04),
+                                                  child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
+                                                      color: kRed, fontSize: 5, fontFamily: poppinRegular)),
+                                                ),
+                                                favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
+                                                favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
+                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
+                                                SizedBox(width: 5),
+                                                Padding(
+                                                  padding: EdgeInsets.only(top: 06),
+                                                  child: Text("RM",  textAlign: TextAlign.left,
+                                                      style: TextStyle(color: borderColor,
+                                                          fontSize: 7, fontFamily: poppinSemiBold)),
+                                                ),
+
+                                                favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth}/", "Month"):
+                                                favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
+                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
+
+                                                SizedBox(width: screenWidth * 0.01),
+                                                showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
+                                                SizedBox(width: screenWidth * 0.01),
+                                                Text("${favoriteCarModelObject.data![index].rating}",
+                                                    textAlign: TextAlign.left, style: TextStyle(
+                                                        color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                              ],
+                                            ),
+
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 30, right: 30, top: 30,
+                          child: favoriteCarModelObject.data![index].image1 == null
+                              ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset('assets/icon/fade_in_image.jpeg'))
+                              : ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: FadeInImage(
+                                placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                                width: 350, height: 100,
+                                image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}")),
+                          ),
+                        ),
+                        Positioned(
+                            top: 10, left: 15,
+                            child: Container(
+                              height: MediaQuery.of(context).size.width * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.16,
+                              decoration: BoxDecoration(
+                                color: kRed.withOpacity(0.8),
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("${favoriteCarModelObject.data![index].discountPercentage} %",
+                                      textAlign: TextAlign.left, style: TextStyle(
+                                          color: kWhite, fontSize: 10, fontFamily: poppinSemiBold)),
+                                  Text(" OFF ",  textAlign: TextAlign.left, style: TextStyle(
+                                      color: kWhite, fontSize: 8, fontFamily: poppinSemiBold)),
+                                ],
+                              ),
+                            )),
+                        Positioned(
+                            top: 10, right: 15,
+                            child: GestureDetector(
+                                onTap: () async {
+                                  carID = favoriteCarModelObject.data![index].carsId;
+                                  print("selectedCarId $carID");
+                                  await getLikeUnlikeCarWidget();
+                                  getFavoriteCarWidget();
+                                },
+                                child: Image.asset("assets/home_page/heart.png"))),
+                      ],
+                    );
+                  }),
+            ),
+          );
+        }
+      },
     );
   }
 

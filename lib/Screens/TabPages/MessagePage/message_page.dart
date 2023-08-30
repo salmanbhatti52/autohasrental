@@ -146,7 +146,7 @@ class _MessagePageState extends State<MessagePage> {
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 20),
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.76,
+              height: MediaQuery.of(context).size.height * 0.7,
               decoration: BoxDecoration(
                 color: kWhite,
                 borderRadius:  BorderRadius.only(

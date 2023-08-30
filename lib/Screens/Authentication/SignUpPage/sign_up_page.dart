@@ -79,7 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
-      appBar: MyAppBarSignUp(title: "Create Your New Account "),
+      // appBar: MyAppBarSignUp(title: "Create Your New Account "),
       body: ModalProgressHUD(
         inAsyncCall: isInAsyncCall,
         opacity: 0.02,
@@ -90,174 +90,250 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.all(0.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/license.png",
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        color: Colors.transparent,
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: Text(
-                          "Enter your name as it appears on your driving license.",
-                          maxLines: 2,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: poppinRegular,
-                              color: kWhite),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
-                ),
-                buildTextFields(),
-                SizedBox(height: 10),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: RichText(
-                    text: TextSpan(
-                        text: "By creating an account, you agree to ",
-                        style: TextStyle(
-                            color: kWhite,
-                            fontSize: 12,
-                            fontFamily: poppinRegular),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
+              Center(child: Padding(
+                padding:  EdgeInsets.only(top: 30),
+                child: Text("Create your\nNew Account",
+                    textAlign: TextAlign.center,
+                    style:
+                    TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite)),
+              ),),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+              ),
+              // Center(
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       Image.asset(
+              //         "assets/images/license.png",
+              //       ),
+              //       SizedBox(
+              //         width: 10,
+              //       ),
+              //       Container(
+              //         color: Colors.transparent,
+              //         width: MediaQuery.of(context).size.width * 0.6,
+              //         child: Text(
+              //           "Enter your name as it appears on your driving license.",
+              //           maxLines: 2,
+              //           textAlign: TextAlign.left,
+              //           style: TextStyle(
+              //               fontSize: 12,
+              //               fontFamily: poppinRegular,
+              //               color: kWhite),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  if (constraints.maxWidth < 600) {
+                    return  Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          TextSpan(
-                            text: "AutoHaus Rental's Terms of Use ",
-                            style: TextStyle(
-                              fontFamily: poppinRegular,
-                              fontSize: 12,
-                              color: borderColor,
-                            ),
-                            // recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
-                            //     context, MaterialPageRoute(builder: (context) => PrivacyPolicy())),
+                          Image.asset(
+                            "assets/images/license.png",
                           ),
-                          TextSpan(
-                              text: " and ",
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            color: Colors.transparent,
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Text(
+                              "Enter your name as it appears on your driving license.",
+                              maxLines: 2,
+                              textAlign: TextAlign.left,
                               style: TextStyle(
-                                  fontFamily: poppinRegular, fontSize: 12)),
-                          TextSpan(
-                            text: 'Privacy Policy',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: borderColor,
-                              fontFamily: poppinRegular,
+                                  fontSize: 12,
+                                  fontFamily: poppinRegular,
+                                  color: kWhite),
                             ),
-                            // recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
-                            //     context, MaterialPageRoute(builder: (context) => TermsAndCondition())),
                           ),
-                        ]),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: <Widget>[
-                      Theme(
-                        data: ThemeData(
-                          unselectedWidgetColor: borderColor,
-                        ),
-                        child: Checkbox(
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          activeColor: kWhite,
-                          checkColor: borderColor,
-                          value: checkBoxValue,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              checkBoxValue = value!;
-                            });
-                          },
+                        ],
+                      ),
+                    );
+                  } else {
+                    return Padding(
+                      padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.3),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/images/license.png",
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              color: Colors.transparent,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: Text(
+                                "Enter your name as it appears on your driving license.",
+                                maxLines: 2,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: poppinRegular,
+                                    color: kWhite),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        "I don't want to get deals, discount and updates",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
+                    );
+                  }
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+              ),
+              buildTextFields(),
+              SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: RichText(
+                  text: TextSpan(
+                      text: "By creating an account, you agree to ",
+                      style: TextStyle(
                           color: kWhite,
                           fontSize: 12,
-                          fontFamily: poppinRegular,
+                          fontFamily: poppinRegular),
+                      children: [
+                        TextSpan(
+                          text: "AutoHaus Rental's Terms of Use ",
+                          style: TextStyle(
+                            fontFamily: poppinRegular,
+                            fontSize: 12,
+                            color: borderColor,
+                          ),
+                          // recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
+                          //     context, MaterialPageRoute(builder: (context) => PrivacyPolicy())),
                         ),
-                      ), //Text
-                    ],
-                  ),
+                        TextSpan(
+                            text: " and ",
+                            style: TextStyle(
+                                fontFamily: poppinRegular, fontSize: 12)),
+                        TextSpan(
+                          text: 'Privacy Policy',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: borderColor,
+                            fontFamily: poppinRegular,
+                          ),
+                          // recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
+                          //     context, MaterialPageRoute(builder: (context) => TermsAndCondition())),
+                        ),
+                      ]),
+                  textAlign: TextAlign.left,
                 ),
-                GestureDetector(
-                    onTap: () async {
-                      // Navigator.push(context, MaterialPageRoute(
-                      //     builder: (context) => VerifyPhonePage()));
-                      if (singUpFormKey.currentState!.validate()) {
-                        if (firstNameController.text.isEmpty) {
-                          toastFailedMessage('firstName cannot be empty', kRed);
-                        } else if (lastNameController.text.isEmpty) {
-                          toastFailedMessage('lastName cannot be empty', kRed);
-                        } else if (phoneController.text.isEmpty) {
-                          toastFailedMessage(
-                              'phone number cannot be empty', kRed);
-                        } else if (emailController.text.isEmpty) {
-                          toastFailedMessage('email cannot be empty', kRed);
-                        } else if (passwordController.text.isEmpty) {
-                          toastFailedMessage('password cannot be empty', kRed);
-                        } else if (passwordController.text.length < 6) {
-                          toastFailedMessage(
-                              'password must be of 6 digit', kRed);
-                        } else {
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: <Widget>[
+                    Theme(
+                      data: ThemeData(
+                        unselectedWidgetColor: borderColor,
+                      ),
+                      child: Checkbox(
+                        materialTapTargetSize:
+                            MaterialTapTargetSize.shrinkWrap,
+                        activeColor: kWhite,
+                        checkColor: borderColor,
+                        value: checkBoxValue,
+                        onChanged: (bool? value) {
                           setState(() {
-                            isInAsyncCall = true;
+                            checkBoxValue = value!;
                           });
-                          await registerUser();
+                        },
+                      ),
+                    ),
+                    Text(
+                      "I don't want to get deals, discount and updates",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: kWhite,
+                        fontSize: 12,
+                        fontFamily: poppinRegular,
+                      ),
+                    ), //Text
+                  ],
+                ),
+              ),
+              GestureDetector(
+                  onTap: () async {
+                    // Navigator.push(context, MaterialPageRoute(
+                    //     builder: (context) => VerifyPhonePage()));
+                    if (singUpFormKey.currentState!.validate()) {
+                      if (firstNameController.text.isEmpty) {
+                        toastFailedMessage('firstName cannot be empty', kRed);
+                      } else if (lastNameController.text.isEmpty) {
+                        toastFailedMessage('lastName cannot be empty', kRed);
+                      } else if (phoneController.text.isEmpty) {
+                        toastFailedMessage(
+                            'phone number cannot be empty', kRed);
+                      } else if (emailController.text.isEmpty) {
+                        toastFailedMessage('email cannot be empty', kRed);
+                      } else if (passwordController.text.isEmpty) {
+                        toastFailedMessage('password cannot be empty', kRed);
+                      } else if (passwordController.text.length < 6) {
+                        toastFailedMessage(
+                            'password must be of 6 digit', kRed);
+                      } else {
+                        setState(() {
+                          isInAsyncCall = true;
+                        });
+                        await registerUser();
 
-                          if (signUpModel.status == "success") {
-                            // Future.delayed(Duration(seconds: ), () {
-                              // toastSuccessMessage("success", colorGreen);
-                              toastSuccessMessage(
-                                  "OTP Send in the Email",
-                                  colorGreen);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => VerifyPhonePage(
-                                            userId: signUpModel
-                                                .data![0].usersCustomersId
-                                                .toString(),
-                                            verifyCode:
-                                                signUpModel.data![0].verifyCode,
-                                          )));
-                              setState(() {
-                                isInAsyncCall = false;
-                              });
-                              print("false: $isInAsyncCall");
-                            // });
-                          }
-                          if (signUpModel.status != "success") {
-                            toastFailedMessage(signUpModel.message, kRed);
+                        if (signUpModel.status == "success") {
+                          // Future.delayed(Duration(seconds: ), () {
+                            // toastSuccessMessage("success", colorGreen);
+                            toastSuccessMessage(
+                                "OTP Send in the Email",
+                                colorGreen);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => VerifyPhonePage(
+                                          userId: signUpModel
+                                              .data![0].usersCustomersId
+                                              .toString(),
+                                          verifyCode:
+                                              signUpModel.data![0].verifyCode,
+                                        )));
                             setState(() {
                               isInAsyncCall = false;
                             });
-                          }
+                            print("false: $isInAsyncCall");
+                          // });
+                        }
+                        if (signUpModel.status != "success") {
+                          toastFailedMessage(signUpModel.message, kRed);
+                          setState(() {
+                            isInAsyncCall = false;
+                          });
                         }
                       }
-                    },
-                    child: loginButton("Sign up", context)),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                RichText(
+                    }
+                  },
+                  child: loginButton("Sign up", context)),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Center(
+                child: RichText(
                   text: TextSpan(
                       text: "Don't have an account? ",
                       style: TextStyle(
@@ -282,9 +358,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       ]),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              ],
-            ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            ],
           ),
         ),
       ),

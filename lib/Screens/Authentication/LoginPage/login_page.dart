@@ -1,4 +1,3 @@
-
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -90,131 +89,126 @@ class _LoginPageState extends State<LoginPage> {
           color: borderColor,
         ),
         child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(0.0),
-            child: Column(
-              children: [
-                SizedBox(height: screenHeight * 0.13),
-                SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
-                SizedBox(height: screenHeight * 0.09,),
-                Text("Hey there, \nwelcome back", textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontFamily: poppinMedium, color: kWhite),),
-                SizedBox(height: screenHeight * 0.03,),
-                Text("Please login your account.",
-                  style: TextStyle(fontSize: 16, fontFamily: poppinLight, color: kWhite),),
-
-                SizedBox(height: screenHeight * 0.03,),
-
-                buildTextFields(),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: <Widget>[
-                          Theme(
-                            data: ThemeData(unselectedWidgetColor: borderColor),
-                            child: Checkbox(
-                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              activeColor: kWhite,
-                              checkColor: borderColor,
-                              value: checkBoxValue,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  checkBoxValue = value!;
-                                });
-                              },
-                            ),
+          child: Column(
+            children: [
+              SizedBox(height: screenHeight * 0.13),
+              SvgPicture.asset('assets/splash/login_image.svg', fit: BoxFit.fill,),
+              SizedBox(height: screenHeight * 0.09,),
+              Text("Hey there, \nwelcome back", textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontFamily: poppinMedium, color: kWhite),),
+              SizedBox(height: screenHeight * 0.03,),
+              Text("Please login your account.",
+                style: TextStyle(fontSize: 16, fontFamily: poppinLight, color: kWhite),),
+              SizedBox(height: screenHeight * 0.03,),
+              buildTextFields(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth*0.05),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: <Widget>[
+                        Theme(
+                          data: ThemeData(unselectedWidgetColor: borderColor),
+                          child: Checkbox(
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            activeColor: kWhite,
+                            checkColor: borderColor,
+                            value: checkBoxValue,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                checkBoxValue = value!;
+                              });
+                            },
                           ),
-                          Text('Remember me', textAlign: TextAlign.left,
-                            style: TextStyle(color: kWhite,
-                                fontSize: 12, fontFamily: poppinRegular),
-                          ), //Text
-                        ], //<Widget>[]
-                      ),
-                      SizedBox(width: screenWidth * 0.2),
-                      GestureDetector(
+                        ),
+                        Text('Remember me', textAlign: TextAlign.left,
+                          style: TextStyle(color: kWhite,
+                              fontSize: 12, fontFamily: poppinRegular),
+                        ), //Text
+                      ], //<Widget>[]
+                    ),
+                    // SizedBox(width: screenWidth * 0.17),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPasswordPage()));
                           },
                           child: Text('Forgot your password?', style: TextStyle(
                               color: kWhite, fontFamily: poppinRegular, fontSize: 12),)),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+              ),
+              SizedBox(height: screenHeight * 0.07),
+              GestureDetector(
+                  onTap: () async {
+                    if(loginFormKey.currentState!.validate()){
+                      if (loginEmailController.text.isEmpty) {
+                        toastFailedMessage('email cannot be empty', Colors.red);
+                      } else if (loginPasswordController.text.isEmpty) {
+                        toastFailedMessage('password cannot be empty',Colors.red);
+                      }
+                      else{
+                        setState(() {
+                          progress = true;
+                        });
+                        await userLogin();
+                        if (userLoginModel.status == "success") {
+                          print("LogIn Success");
+                          SharedPreferences sharedPref = await SharedPreferences.getInstance();
+                          await sharedPref.setString('userid', "${userLoginModel.data?.usersCustomersId.toString()}");
+                          await sharedPref.setString('user_first_name', "${userLoginModel.data?.firstName.toString()}");
+                          await sharedPref.setString('user_email', "${userLoginModel.data?.email.toString()}");
+                          await sharedPref.setString('user_last_name', "${userLoginModel.data?.lastName.toString()}");
+                          await sharedPref.setString('profile_pic', "${userLoginModel.data?.profilePic}");
+                          print("userId: ${userLoginModel.data!.usersCustomersId.toString()}");
+                          print("userEmail: ${userLoginModel.data!.email}");
+                          print("userFirstName: ${userLoginModel.data!.firstName!}");
+                          print("userLastName: ${userLoginModel.data!.lastName!}");
 
-                SizedBox(height: screenHeight * 0.07),
+                          Future.delayed(Duration(seconds: 3), () {
+                            toastSuccessMessage("${userLoginModel.status}", Colors.green);
 
-                GestureDetector(
-                    onTap: () async {
-                      if(loginFormKey.currentState!.validate()){
-                        if (loginEmailController.text.isEmpty) {
-                          toastFailedMessage('email cannot be empty', Colors.red);
-                        } else if (loginPasswordController.text.isEmpty) {
-                          toastFailedMessage('password cannot be empty',Colors.red);
-                        }
-                        else{
-                          setState(() {
-                            progress = true;
-                          });
-                          await userLogin();
-                          if (userLoginModel.status == "success") {
-                            print("LogIn Success");
-                            SharedPreferences sharedPref = await SharedPreferences.getInstance();
-                            await sharedPref.setString('userid', "${userLoginModel.data?.usersCustomersId.toString()}");
-                            await sharedPref.setString('user_first_name', "${userLoginModel.data?.firstName.toString()}");
-                            await sharedPref.setString('user_email', "${userLoginModel.data?.email.toString()}");
-                            await sharedPref.setString('user_last_name', "${userLoginModel.data?.lastName.toString()}");
-                            await sharedPref.setString('profile_pic', "${userLoginModel.data?.profilePic}");
-                            print("userId: ${userLoginModel.data!.usersCustomersId.toString()}");
-                            print("userEmail: ${userLoginModel.data!.email}");
-                            print("userFirstName: ${userLoginModel.data!.firstName!}");
-                            print("userLastName: ${userLoginModel.data!.lastName!}");
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) => TabBarPage()));
 
-                            Future.delayed(Duration(seconds: 3), () {
-                              toastSuccessMessage("${userLoginModel.status}", Colors.green);
-
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => TabBarPage()));
-
-                              setState(() {
-                                progress = false;
-                              });
-                              print("false: $progress");
-                            });
-                          }
-                          if (userLoginModel.status != "success") {
                             setState(() {
                               progress = false;
                             });
-                            print("LoginMessage: loginError");
-                            // toastFailedMessage("LoginError", Colors.red);
-                            toastFailedMessage("${userLoginModel.message}", Colors.red);
-                          }
+                            print("false: $progress");
+                          });
+                        }
+                        if (userLoginModel.status != "success") {
+                          setState(() {
+                            progress = false;
+                          });
+                          print("LoginMessage: loginError");
+                          // toastFailedMessage("LoginError", Colors.red);
+                          toastFailedMessage("${userLoginModel.message}", Colors.red);
                         }
                       }
-                    },
-                    child: loginButton("Login", context)),
-                SizedBox(height: screenHeight * 0.05),
-                RichText(
-                  text: TextSpan(
-                      text: "Don't have an account? ",
-                      style: TextStyle(color: kWhite, fontFamily: poppinRegular, fontSize: 16),
-                      children: [
-                        TextSpan(
-                          text: 'SignUp',
-                          style: TextStyle(fontFamily: poppinBold,
-                              decoration: TextDecoration.underline, fontSize: 16, color: kWhite),
-                          recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
-                              context, MaterialPageRoute(builder: (context) => SignUpPage())),
-                        )
-                      ]),
-                ),
-                SizedBox(height: screenHeight * 0.02),
-              ],
-            ),
+                    }
+                  },
+                  child: loginButton("Login", context)),
+              SizedBox(height: screenHeight * 0.05),
+              RichText(
+                text: TextSpan(
+                    text: "Don't have an account? ",
+                    style: TextStyle(color: kWhite, fontFamily: poppinRegular, fontSize: 16),
+                    children: [
+                      TextSpan(
+                        text: 'SignUp',
+                        style: TextStyle(fontFamily: poppinBold,
+                            decoration: TextDecoration.underline, fontSize: 16, color: kWhite),
+                        recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => SignUpPage())),
+                      )
+                    ]),
+              ),
+              SizedBox(height: screenHeight * 0.02),
+            ],
           ),
         ),
       ),

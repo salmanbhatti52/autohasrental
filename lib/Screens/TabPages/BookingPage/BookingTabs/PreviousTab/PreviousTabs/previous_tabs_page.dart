@@ -1,5 +1,6 @@
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
+import '../../../../../../Utils/fontFamily.dart';
 import 'DrivingPrevious/driving_previous_page.dart';
 import 'EVPrevious/ev_previous_page.dart';
 import 'PhotoPrevious/photo_previous_page.dart';
@@ -26,8 +27,8 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
         Padding(
           padding: EdgeInsets.only(left: 0, right: 05, top: 05),
           child: Container(
-              width: MediaQuery.of(context).size.width*0.75,
-              height: MediaQuery.of(context).size.height* 0.04,
+              width: MediaQuery.of(context).size.width,
+              height: 48,
               decoration: BoxDecoration(
                   color: Color(0xffd4dce1),
                   borderRadius: BorderRadius.circular(30)),
@@ -40,10 +41,8 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   indicatorColor: kWhite,
-                  isScrollable: true,
                   labelColor: kBlack,
-                  labelPadding: EdgeInsets.only(left: 20, right: 20),
-                  labelStyle: TextStyle(fontSize: 14),
+                  labelStyle: TextStyle(fontSize: 14, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,
                   tabs: [
                     Tab(
@@ -65,6 +64,7 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
           height: MediaQuery.of(context).size.height*0.68,
           child: TabBarView(
             controller: tabController,
+            physics: BouncingScrollPhysics(),
             children: [
               PhotoPreviousPage(),
               DrivingPreviousPage(),

@@ -94,6 +94,8 @@ class _DrivingUpcomingPageState extends State<DrivingUpcomingPage> {
                           height: MediaQuery.of(context).size.height * 0.33)),
                       Positioned(
                         top: 90,
+                        left: 30,
+                        right: 30,
                         child: Padding(
                           padding: EdgeInsets.only(left: 9),
                           child: Container(
@@ -240,7 +242,7 @@ class _DrivingUpcomingPageState extends State<DrivingUpcomingPage> {
                         ),
                       ),
                       Positioned(
-                        right: 30, bottom: 35,
+                        right: 30, bottom: 30,
                         child: GestureDetector(
                           onTap: (){
                             carBookingsId = "${drivingUpcomingModelObject.data![reversedIndex].bookingsId}";
@@ -257,9 +259,10 @@ class _DrivingUpcomingPageState extends State<DrivingUpcomingPage> {
                             child: Image.asset("assets/car_bookings_images/more_button.png")),
                       ),
                       Positioned(
-                        left: 20,
+                        left: 20, right: 20,top: 30,
                         child: Image.network("$baseUrlImage${drivingUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",
-                            width: 332, height: 120),
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.1),
                       ),
                       Positioned(
                           top: 10, left: 15,

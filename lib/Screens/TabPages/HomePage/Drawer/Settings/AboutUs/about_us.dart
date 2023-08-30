@@ -69,11 +69,13 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 ):
                 SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
-                  child: Text(aboutUsModelObject.data![0].description.toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16,
-                        fontFamily: poppinRegular, color: kWhite),
+                  child: Center(
+                    child: Text(aboutUsModelObject.data![0].description.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16,
+                          fontFamily: poppinRegular, color: kWhite),
                 ),
+                  ),
                 ),
             ),
           ),

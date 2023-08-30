@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
 import 'ev_car_description.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
@@ -272,7 +275,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                     });
                   },
                   child: Container(
-                    height: 50, width: 70,
+                    height: 50,
+                    width: Get.width * 0.2,
                     decoration: BoxDecoration(
                         color: selectedIndex == index? borderColor: kWhite,
                         border: Border.all(width: 2,
@@ -312,6 +316,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                   ),
                   Positioned(
                     top: 90,
+                    left: 30,
+                    right: 30,
                     child: Padding(
                       padding:  EdgeInsets.only(left: 9),
                       child: Container(
@@ -409,7 +415,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                     ),
                   ),
                   Positioned(
-                    right: 30, bottom: 35,
+                    right: 30, bottom: 30,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -468,8 +474,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                     ),
                   ),
                   Positioned(
-                    top: 10,
-                    left: 10, right: 10,
+                    left: 20, right: 20,top: 30,
                     child: evCarsModelObject.data![index].image1 == null ?
                     ClipRRect(
                         borderRadius: BorderRadius.circular(10),
@@ -478,7 +483,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: FadeInImage(
                         placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
-                        height: 130, width: 350,
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.15,
                         image: NetworkImage("$baseUrlImage${evCarsModelObject.data![index].image1}"),),
                     ),
                   ),
@@ -539,6 +545,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                  ),
                  Positioned(
                    top: 90,
+                   left: 30,
+                   right: 30,
                    child: Padding(
                      padding:  EdgeInsets.only(left: 9),
                      child: Container(

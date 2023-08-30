@@ -88,13 +88,28 @@ formattedDate(){
       Column(
         children: [
           // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-          Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.85,
-              color: Colors.transparent,
-              child: allNotificationList(),
-            ),
+          LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              if (constraints.maxWidth < 600) {
+                return  Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.88,
+                    color: Colors.transparent,
+                    child: allNotificationList(),
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    color: Colors.transparent,
+                    child: allNotificationList(),
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),

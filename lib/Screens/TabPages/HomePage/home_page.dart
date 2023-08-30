@@ -327,8 +327,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       height: MediaQuery.of(context).size.height * 0.06,
-                      child: Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 20),
+                      child: Center(
                         child: TextField(
                           onChanged: (value) {
                             setState(() {
@@ -429,297 +428,296 @@ class _HomePageState extends State<HomePage> {
             // carName = topRentedCarsModelObject.data![index].vehicalName;
             // print("carName $carName");
 
-            return Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 50, left: 0, right: 0,
-                    child: Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 10),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.21,
-                        width: MediaQuery.of(context).size.width * 0.47,
-                        decoration: BoxDecoration(
-                            color: kWhite,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: 70,
-                                        child: Text("${topRentedCarsModelObject.data?[index].vehicalName} ",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: TextStyle(color: kBlack,
-                                                fontSize: 8, fontFamily: poppinBold)),
-                                      ),
-                                      Padding(
-                                        padding:  EdgeInsets.only(top: 4),
-                                        child: Text("${topRentedCarsModelObject.data?[index].carsColors!.name} ",
-                                            style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinRegular)),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      topRentedCarsModelObject.data?[index].rating == null?
-                                      RatingBar(
-                                          initialRating: 0.0,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 1,
-                                          minRating: 0,
-                                          itemSize: 18.0,
-                                          ignoreGestures: true,
-                                          ratingWidget: RatingWidget(
-                                              full: Icon(Icons.star, color: borderColor),
-                                              half: Icon(
-                                                Icons.star_half,
-                                                color: borderColor,
-                                              ),
-                                              empty: Icon(
-                                                Icons.star_outline,
-                                                color: borderColor,
-                                              )),
-                                          onRatingUpdate: (value) {}):
-
-                                      RatingBar(
-                                          initialRating: double.parse("${topRentedCarsModelObject.data![index].rating}"),
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 1,
-                                          minRating: 0,
-                                          itemSize: 18.0,
-                                          ignoreGestures: true,
-                                          ratingWidget: RatingWidget(
-                                              full: Icon(Icons.star, color: borderColor),
-                                              half: Icon(
-                                                Icons.star_half,
-                                                color: borderColor,
-                                              ),
-                                              empty: Icon(
-                                                Icons.star_outline,
-                                                color: borderColor,
-                                              )),
-                                          onRatingUpdate: (value) {}),
-
-
-                                      topRentedCarsModelObject.data?[index].rating == null
-                                          ? Text("0.0", style: TextStyle(
-                                          color: kBlack, fontSize: 10, fontFamily: poppinMedium))
-                                          : Text("${topRentedCarsModelObject.data?[index].rating}",
-                                          style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                              Row(
-                                children: [
-                                  Text("${topRentedCarsModelObject.data?[index].carsMakes?.name}, ",
-                                      style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinRegular)),
-                                  Text("${topRentedCarsModelObject.data?[index].carsModels?.name}, ",
-                                      style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinSemiBold)),
-                                  Text("${topRentedCarsModelObject.data?[index].year} ",
-                                      style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinRegular)),
-                                ],
-                              ),
-                              // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-
-                              Divider(),
-                              Row(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding:  EdgeInsets.only(top: 04),
-                                        child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
-                                            color: kRed, fontSize: 5, fontFamily: poppinLight)),
-                                      ),
-                                      topRentedCarsModelObject.data?[index].carsUsageType == "EV Subscriptions" ?
-                                      originalPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerMonth}") :
-                                      topRentedCarsModelObject.data?[index].carsUsageType == "Photography" ?
-                                      originalPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerHour}") :
-                                      originalPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerSlot}") ,
-                                    ],
-                                  ),
-                                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding:  EdgeInsets.only(top: 06),
-                                        child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
-                                            color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
-                                      ),
-                                      topRentedCarsModelObject.data?[index].carsUsageType == "EV Subscriptions" ?
-                                      discountedPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/", "Month"):
-                                      topRentedCarsModelObject.data?[index].carsUsageType == "Photography" ?
-                                      discountedPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].discountedPricePerHour}/", "Hour"):
-                                      discountedPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].discountedPricePerSlot}/", "Slot"),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: MediaQuery.of(context).size.width * 0.02),
-                              GestureDetector(
-                                onTap: () {
-                                  carID = topRentedCarsModelObject.data![index].carsId;
-                                  print("cardId $carID");
-                                  print("carsUsageType ${topRentedCarsModelObject.data?[index].carsUsageType}");
-                                  print("favouriteStatusHome ${topRentedCarsModelObject.data?[index].favouriteStatus}");
-
-                                  if(topRentedCarsModelObject.data![index].carsUsageType == "EV Subscriptions"){
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => EVCarDescription(
-                                          carName: topRentedCarsModelObject.data![index].vehicalName,
-                                          carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
-                                          carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                          carYear: "${topRentedCarsModelObject.data![index].year}",
-                                          carId: topRentedCarsModelObject.data![index].carsId,
-                                          carRating: topRentedCarsModelObject.data![index].rating,
-                                          carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                          carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                          carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                          carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                          // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                          discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                          carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
-                                          carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                          carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                          carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                          myCarDescription: topRentedCarsModelObject.data![index].description,
-                                          favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-
-                                          featureSuv: topRentedCarsModelObject.data![index].featuresSuv,
-                                          featuresDoors: topRentedCarsModelObject.data![index].featuresDoors,
-                                          featuresSeats: topRentedCarsModelObject.data![index].featuresSeats,
-                                          featuresAutomatic: topRentedCarsModelObject.data![index].featuresAutomatic,
-                                          featuresSpeed: topRentedCarsModelObject.data![index].featuresSpeed,
-                                          featuresElectric: topRentedCarsModelObject.data![index].featuresElectric,
-                                          featuresEngine_capacity: topRentedCarsModelObject.data![index].featuresEngineCapacity,
-                                          featuresFuelCapacity: topRentedCarsModelObject.data![index].featuresFuelCapacity,
-                                          featuresMeterReading: topRentedCarsModelObject.data![index].featuresMeterReading,
-                                          featuresNewCars: topRentedCarsModelObject.data![index].featuresNewCars,
-
-                                        )));
-                                  }
-                                  else if(topRentedCarsModelObject.data![index].carsUsageType == "Photography"){
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) => BookForWeddingCarDescription(
-                                          carName: topRentedCarsModelObject.data![index].vehicalName,
-                                          carYear: "${topRentedCarsModelObject.data![index].year}",
-                                          carId: topRentedCarsModelObject.data![index].carsId,
-                                          carRating: topRentedCarsModelObject.data![index].rating,
-                                          carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                          carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                          carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                          carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                          carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                          favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                          discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                          carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
-                                          carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
-                                          carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                          carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                          carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                          myCarDescription: topRentedCarsModelObject.data![index].description,
-
-                                          featureSuv: topRentedCarsModelObject.data![index].featuresSuv,
-                                          featuresDoors: topRentedCarsModelObject.data![index].featuresDoors,
-                                          featuresSeats: topRentedCarsModelObject.data![index].featuresSeats,
-                                          featuresAutomatic: topRentedCarsModelObject.data![index].featuresAutomatic,
-                                          featuresSpeed: topRentedCarsModelObject.data![index].featuresSpeed,
-                                          featuresElectric: topRentedCarsModelObject.data![index].featuresElectric,
-                                          featuresEngine_capacity: topRentedCarsModelObject.data![index].featuresEngineCapacity,
-                                          featuresFuelCapacity: topRentedCarsModelObject.data![index].featuresFuelCapacity,
-                                          featuresMeterReading: topRentedCarsModelObject.data![index].featuresMeterReading,
-                                          featuresNewCars: topRentedCarsModelObject.data![index].featuresNewCars,
-                                        )));
-                                  }
-                                  else if(topRentedCarsModelObject.data![index].carsUsageType == "Driving Experience"){
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => HomeDrivingBooking(
-                                          datum: topRentedCarsModelObject.data![index],
-                                        )));
-                                  }
-                                },
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height * 0.035,
-                                  width: MediaQuery.of(context).size.width * 0.4,
-                                  decoration: BoxDecoration(
-                                      color: borderColor,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text("Click to see Details", textAlign: TextAlign.left, style: TextStyle(
-                                            color: kWhite, fontFamily: poppinMedium, fontSize: 10)),
-                                         SizedBox(width: 10),
-                                        Image.asset("assets/home_page/more_buttons_home.png")
-                                      ],
+            return Stack(
+              children: [
+                Positioned(
+                  top: 50, left: 0, right: 0,
+                  child: Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 10),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.21,
+                      width: MediaQuery.of(context).size.width * 0.47,
+                      decoration: BoxDecoration(
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width * 0.11,
+                                      child: Text("${topRentedCarsModelObject.data?[index].vehicalName} ",
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: TextStyle(color: kBlack,
+                                              fontSize: 8, fontFamily: poppinBold)),
                                     ),
+                                    Padding(
+                                      padding:  EdgeInsets.only(top: 2, left: 0),
+                                      child: Text("${topRentedCarsModelObject.data?[index].carsColors!.name} ",
+                                          style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinRegular)),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    topRentedCarsModelObject.data?[index].rating == null?
+                                    RatingBar(
+                                        initialRating: 0.0,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 1,
+                                        minRating: 0,
+                                        itemSize: 18.0,
+                                        ignoreGestures: true,
+                                        ratingWidget: RatingWidget(
+                                            full: Icon(Icons.star, color: borderColor),
+                                            half: Icon(
+                                              Icons.star_half,
+                                              color: borderColor,
+                                            ),
+                                            empty: Icon(
+                                              Icons.star_outline,
+                                              color: borderColor,
+                                            )),
+                                        onRatingUpdate: (value) {}):
+
+                                    RatingBar(
+                                        initialRating: double.parse("${topRentedCarsModelObject.data![index].rating}"),
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 1,
+                                        minRating: 0,
+                                        itemSize: 18.0,
+                                        ignoreGestures: true,
+                                        ratingWidget: RatingWidget(
+                                            full: Icon(Icons.star, color: borderColor),
+                                            half: Icon(
+                                              Icons.star_half,
+                                              color: borderColor,
+                                            ),
+                                            empty: Icon(
+                                              Icons.star_outline,
+                                              color: borderColor,
+                                            )),
+                                        onRatingUpdate: (value) {}),
+
+
+                                    topRentedCarsModelObject.data?[index].rating == null
+                                        ? Text("0.0", style: TextStyle(
+                                        color: kBlack, fontSize: 10, fontFamily: poppinMedium))
+                                        : Text("${topRentedCarsModelObject.data?[index].rating}",
+                                        style: TextStyle(color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                            Row(
+                              children: [
+                                Text("${topRentedCarsModelObject.data?[index].carsMakes?.name}, ",
+                                    style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinRegular)),
+                                Text("${topRentedCarsModelObject.data?[index].carsModels?.name}, ",
+                                    style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinSemiBold)),
+                                Text("${topRentedCarsModelObject.data?[index].year} ",
+                                    style: TextStyle(color: kBlack, fontSize: 7, fontFamily: poppinRegular)),
+                              ],
+                            ),
+                            // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+                            Divider(),
+                            Row(
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding:  EdgeInsets.only(top: 04),
+                                      child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
+                                          color: kRed, fontSize: 5, fontFamily: poppinLight)),
+                                    ),
+                                    topRentedCarsModelObject.data?[index].carsUsageType == "EV Subscriptions" ?
+                                    originalPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerMonth}") :
+                                    topRentedCarsModelObject.data?[index].carsUsageType == "Photography" ?
+                                    originalPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerHour}") :
+                                    originalPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerSlot}") ,
+                                  ],
+                                ),
+                                SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding:  EdgeInsets.only(top: 06),
+                                      child: Text("RM ", textAlign: TextAlign.left, style: TextStyle(
+                                          color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
+                                    ),
+                                    topRentedCarsModelObject.data?[index].carsUsageType == "EV Subscriptions" ?
+                                    discountedPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/", "Month"):
+                                    topRentedCarsModelObject.data?[index].carsUsageType == "Photography" ?
+                                    discountedPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].discountedPricePerHour}/", "Hour"):
+                                    discountedPriceWidget("${topRentedCarsModelObject.data?[index].carsPlans?[0].discountedPricePerSlot}/", "Slot"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: MediaQuery.of(context).size.width * 0.02),
+                            GestureDetector(
+                              onTap: () {
+                                carID = topRentedCarsModelObject.data![index].carsId;
+                                print("cardId $carID");
+                                print("carsUsageType ${topRentedCarsModelObject.data?[index].carsUsageType}");
+                                print("favouriteStatusHome ${topRentedCarsModelObject.data?[index].favouriteStatus}");
+
+                                if(topRentedCarsModelObject.data![index].carsUsageType == "EV Subscriptions"){
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => EVCarDescription(
+                                        carName: topRentedCarsModelObject.data![index].vehicalName,
+                                        carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+                                        carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                        carYear: "${topRentedCarsModelObject.data![index].year}",
+                                        carId: topRentedCarsModelObject.data![index].carsId,
+                                        carRating: topRentedCarsModelObject.data![index].rating,
+                                        carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                        carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                        carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                        carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                        // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                        discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                        carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                        carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                        carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                        carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                        myCarDescription: topRentedCarsModelObject.data![index].description,
+                                        favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+
+                                        featureSuv: topRentedCarsModelObject.data![index].featuresSuv,
+                                        featuresDoors: topRentedCarsModelObject.data![index].featuresDoors,
+                                        featuresSeats: topRentedCarsModelObject.data![index].featuresSeats,
+                                        featuresAutomatic: topRentedCarsModelObject.data![index].featuresAutomatic,
+                                        featuresSpeed: topRentedCarsModelObject.data![index].featuresSpeed,
+                                        featuresElectric: topRentedCarsModelObject.data![index].featuresElectric,
+                                        featuresEngine_capacity: topRentedCarsModelObject.data![index].featuresEngineCapacity,
+                                        featuresFuelCapacity: topRentedCarsModelObject.data![index].featuresFuelCapacity,
+                                        featuresMeterReading: topRentedCarsModelObject.data![index].featuresMeterReading,
+                                        featuresNewCars: topRentedCarsModelObject.data![index].featuresNewCars,
+
+                                      )));
+                                }
+                                else if(topRentedCarsModelObject.data![index].carsUsageType == "Photography"){
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) => BookForWeddingCarDescription(
+                                        carName: topRentedCarsModelObject.data![index].vehicalName,
+                                        carYear: "${topRentedCarsModelObject.data![index].year}",
+                                        carId: topRentedCarsModelObject.data![index].carsId,
+                                        carRating: topRentedCarsModelObject.data![index].rating,
+                                        carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                        carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                        carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                        carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                        carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                        favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                        discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                        carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
+                                        carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
+                                        carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                        carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                        carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                        myCarDescription: topRentedCarsModelObject.data![index].description,
+
+                                        featureSuv: topRentedCarsModelObject.data![index].featuresSuv,
+                                        featuresDoors: topRentedCarsModelObject.data![index].featuresDoors,
+                                        featuresSeats: topRentedCarsModelObject.data![index].featuresSeats,
+                                        featuresAutomatic: topRentedCarsModelObject.data![index].featuresAutomatic,
+                                        featuresSpeed: topRentedCarsModelObject.data![index].featuresSpeed,
+                                        featuresElectric: topRentedCarsModelObject.data![index].featuresElectric,
+                                        featuresEngine_capacity: topRentedCarsModelObject.data![index].featuresEngineCapacity,
+                                        featuresFuelCapacity: topRentedCarsModelObject.data![index].featuresFuelCapacity,
+                                        featuresMeterReading: topRentedCarsModelObject.data![index].featuresMeterReading,
+                                        featuresNewCars: topRentedCarsModelObject.data![index].featuresNewCars,
+                                      )));
+                                }
+                                else if(topRentedCarsModelObject.data![index].carsUsageType == "Driving Experience"){
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => HomeDrivingBooking(
+                                        datum: topRentedCarsModelObject.data![index],
+                                      )));
+                                }
+                              },
+                              child: Container(
+                                height: MediaQuery.of(context).size.height * 0.035,
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                decoration: BoxDecoration(
+                                    color: borderColor,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Click to see Details", textAlign: TextAlign.left, style: TextStyle(
+                                          color: kWhite, fontFamily: poppinMedium, fontSize: 10)),
+                                       SizedBox(width: 10),
+                                      Image.asset("assets/home_page/more_buttons_home.png")
+                                    ],
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 30, left: 10, right: 10,
-                    child: topRentedCarsModelObject.data?[index].image1 == null?
-                    ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset('assets/icon/fade_in_image.jpeg')) :
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: FadeInImage(
-                        placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-                        height: 65,
-                        image: NetworkImage("$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 03, left: 05,
-                    child: Container(
-                      height: MediaQuery.of(context).size.width * 0.065,
-                      width: MediaQuery.of(context).size.width * 0.19,
-                      decoration: BoxDecoration(
-                        color: kRed.withOpacity(0.8),
-                        borderRadius:  BorderRadius.only(
-                            topRight: Radius.circular(15),
-                            bottomLeft: Radius.circular(15)),
-                      ),
-                      child: Padding(
-                        padding:  EdgeInsets.all(0.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("${topRentedCarsModelObject.data?[index].discountPercentage}% ",
-                                textAlign: TextAlign.left, style: TextStyle(
-                                    color: kWhite, fontSize: 12, fontFamily: poppinSemiBold)),
-                            Text("OFF", textAlign: TextAlign.left, style: TextStyle(
-                                color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                Positioned(
+                  top: 30, left: 10, right: 10,
+                  child: topRentedCarsModelObject.data?[index].image1 == null?
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset('assets/icon/fade_in_image.jpeg')) :
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: FadeInImage(
+                      placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                      height: 65,
+                      image: NetworkImage("$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 03, left: 05,
+                  child: Container(
+                    height: MediaQuery.of(context).size.width * 0.065,
+                    width: MediaQuery.of(context).size.width * 0.19,
+                    decoration: BoxDecoration(
+                      color: kRed.withOpacity(0.8),
+                      borderRadius:  BorderRadius.only(
+                          topRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15)),
+                    ),
+                    child: Padding(
+                      padding:  EdgeInsets.all(0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("${topRentedCarsModelObject.data?[index].discountPercentage}% ",
+                              textAlign: TextAlign.left, style: TextStyle(
+                                  color: kWhite, fontSize: 12, fontFamily: poppinSemiBold)),
+                          Text("OFF", textAlign: TextAlign.left, style: TextStyle(
+                              color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             );
           }):
 
