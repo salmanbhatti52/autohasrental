@@ -1,13 +1,13 @@
 import 'dart:async';
-import 'package:auto_haus_rental_app/Screens/Introduction_screens/introduction_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
-import 'package:get/get.dart';
+import 'package:is_first_run/is_first_run.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
+import '../Introduction_screens/introduction_page.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -18,7 +18,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool loading = true;
-  bool _showIntro = true;
 
   sharedPrefs() async {
     loading = true;
@@ -31,9 +30,10 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarPage()));
     }
     else{
+      bool firstRun = await IsFirstRun.isFirstRun();
       loading = false;
       setState(() {});
-      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => firstRun ? IntroductionPage() : LoginPage()));
       print("userId value is = $userId");
     }
   }
@@ -44,35 +44,10 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  introWidget(){
-    SharedPreferences.getInstance().then((prefs) {
-      bool hasSeenIntro = prefs.getBool('hasSeenIntro') ?? false;
-      setState(() {
-        _showIntro = !hasSeenIntro;
-      });
-    });
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.setBool('hasSeenIntro', true);
-    });
-    Future.delayed(Duration(seconds: 4), () {
-      sharedPrefs();
-      // Get.offAll(
-      //   _showIntro ? IntroductionPage() : LoginPage(),
-      // );
-      Navigator.pushReplacement<void, void>(context,
-        MaterialPageRoute<void>(
-          builder: (BuildContext context) => _showIntro ? IntroductionPage() : LoginPage(),
-        ),
-      );
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-
     splashNavigator();
-
   }
 
   @override

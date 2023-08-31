@@ -67,6 +67,7 @@ dependencies:
 #  flutter_html:
   flutter_widget_from_html:
   intl_phone_field: ^3.2.0
+  is_first_run: ^1.0.0
 
 
   dropdown_button2: ^1.9.2
