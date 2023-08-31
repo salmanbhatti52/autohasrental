@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../../../../Utils/fontFamily.dart';
 import 'EvUpcoming/ev_upcoming_page.dart';
 import 'PhotoUpcoming/photo_upcoming_page.dart';
@@ -16,17 +18,19 @@ class UpComingTabsPages extends StatefulWidget {
 abstract class TickerProvider {}
 
 class _UpComingTabsPagesState extends State<UpComingTabsPages> with TickerProviderStateMixin {
-  List<String> tabs = ["Photography", "Driving ", "EV "];
+  // List<String> tabs = ["Photography", "Driving ", "EV "];
+  List<String> tabs = ["EV"];
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 3, vsync: this);
+    TabController tabController = TabController(length: 1, vsync: this);
 
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 0, right: 0, top: 05),
+          // padding: EdgeInsets.only(left: 0, right: 0, top: 05),
+          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.3, vertical: 5),
           child: Container(
               width: MediaQuery.of(context).size.width,
               height: 48,
@@ -34,7 +38,7 @@ class _UpComingTabsPagesState extends State<UpComingTabsPages> with TickerProvid
                   color: Color(0xffd4dce1),
                   borderRadius: BorderRadius.circular(30)),
               child: Padding(
-                padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                padding: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
@@ -46,12 +50,12 @@ class _UpComingTabsPagesState extends State<UpComingTabsPages> with TickerProvid
                   labelStyle: TextStyle(fontSize: 14, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,
                   tabs: [
-                    Tab(
-                      text: "Photography",
-                    ),
-                    Tab(
-                      text: "Driving",
-                    ),
+                    // Tab(
+                    //   text: "Photography",
+                    // ),
+                    // Tab(
+                    //   text: "Driving",
+                    // ),
                     Tab(
                       text: "EV",
                     ),
@@ -66,8 +70,8 @@ class _UpComingTabsPagesState extends State<UpComingTabsPages> with TickerProvid
           child: TabBarView(
             controller: tabController,
             children: [
-              PhotographyUpcomingPage(),
-              DrivingUpcomingPage(),
+              // PhotographyUpcomingPage(),
+              // DrivingUpcomingPage(),
               EvUpcomingPage(),
             ],
           ),

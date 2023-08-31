@@ -66,8 +66,8 @@ Widget homeTopHorizontalCard(BuildContext context){
 
 List cardItemsList = [
   CardItems( "assets/home_page/pin.png", 'Get Ev\nSubscription', Color(0xffF9E7EF)),
-  CardItems( "assets/home_page/camera.png", 'Book for Wedding\n& Photography', Color(0xffD2EEFF)),
-  CardItems( "assets/home_page/steering.png", 'Get Driving\nExperiences', Color(0xffFFE2DB)),
+  // CardItems( "assets/home_page/camera.png", 'Book for Wedding\n& Photography', Color(0xffD2EEFF)),
+  // CardItems( "assets/home_page/steering.png", 'Get Driving\nExperiences', Color(0xffFFE2DB)),
 ];
 
 class CardItems {
