@@ -49,6 +49,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   }
 
   changePassword() async {
+    setState(() {
+      progress = true;
+    });
     String apiUrl = changePasswordApiUrl;
     print("api: $apiUrl");
     print("userEmail: $userEmail");
@@ -73,11 +76,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     print("status Code changePassword: ${response.statusCode}");
     if (response.statusCode == 200) {
       print("in 200 changePassword");
-      if (responseString != 'false') {
         changePasswordModel = changePasswordModelFromJson(responseString);
-        setState(() {});
-        print('changePasswordModel status: ${changePasswordModel.status}');
-      }
+        setState(() {
+          progress = false;
+        });
     }
   }
 
@@ -114,33 +116,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         toastFailedMessage('confirm new password cannot be empty',Colors.red);
                       } else if(newPassController.text != confirmNewPassController.text){
                         toastFailedMessage('password did not matched', Colors.red);
-                      } else if(newPassController.text == confirmNewPassController.text) {
+                      } else {
                         print("password matched");
-                        setState(() {
-                          progress = true;
-                        });
                         await changePassword();
                         if (changePasswordModel.status == "success") {
                           print("Password Changed");
 
-                          Future.delayed(Duration(seconds: 3), () {
-                            toastSuccessMessage("${changePasswordModel.status}", Colors.green);
+                          Future.delayed(Duration(seconds: 1), () {
+                            toastSuccessMessage("Password Changed Successfully", Colors.green);
 
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) => SettingsScreen()));
-
-                            setState(() {
-                              progress = false;
-                            });
                             print("false: $progress");
-                          });
-                        }
-                        if (changePasswordModel.status != "success") {
-                          setState(() {
-                            progress = false;
-                          });
-                          print("Password Not Changed");
-                          toastFailedMessage("Error", Colors.red);
+                          }
+                          );
+                        } else{
+                          toastSuccessMessage("Old password is not correct.", Colors.red);
                         }
                       }
                     }

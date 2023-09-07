@@ -452,6 +452,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         dropdownIcon: Icon(Icons.arrow_drop_down, color: textLabelColor,),
                         onChanged: onCountryChange,
                         decoration: InputDecoration(
+                          errorStyle: TextStyle(color: Colors.transparent),
                           contentPadding: EdgeInsets.only(top: 15, left: 20, bottom: 15),
                           isDense: true,
                           hintText: "Mobile number",

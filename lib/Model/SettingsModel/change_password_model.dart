@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final changePasswordModel = changePasswordModelFromJson(jsonString);
+
 import 'dart:convert';
 
 ChangePasswordModel changePasswordModelFromJson(String str) => ChangePasswordModel.fromJson(json.decode(str));
@@ -5,26 +9,52 @@ ChangePasswordModel changePasswordModelFromJson(String str) => ChangePasswordMod
 String changePasswordModelToJson(ChangePasswordModel data) => json.encode(data.toJson());
 
 class ChangePasswordModel {
+  String? status;
+  String? message;
+  List<Datum>? data;
+
   ChangePasswordModel({
     this.status,
+    this.message,
     this.data,
   });
 
-  String? status;
-  List<Datum>? data;
-
   factory ChangePasswordModel.fromJson(Map<String, dynamic> json) => ChangePasswordModel(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    message: json["message"],
+    data: json["data"] != null
+        ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)))
+        : null,
+
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
+    "message": message,
     "data": List<dynamic>.from(data!.map((x) => x.toJson())),
   };
 }
 
 class Datum {
+  int? usersCustomersId;
+  String? oneSignalId;
+  String? verifiedBadge;
+  String? firstName;
+  String? lastName;
+  String? phone;
+  String? email;
+  String? password;
+  String? accountType;
+  String? socialAccType;
+  String? googleAccessToken;
+  String? location;
+  String? about;
+  String? profilePic;
+  DateTime? dateAdded;
+  String? verifyCode;
+  String? notifications;
+  String? status;
+
   Datum({
     this.usersCustomersId,
     this.oneSignalId,
@@ -45,25 +75,6 @@ class Datum {
     this.notifications,
     this.status,
   });
-
-  int? usersCustomersId;
-  String? oneSignalId;
-  String? verifiedBadge;
-  String? firstName;
-  String? lastName;
-  String? phone;
-  String? email;
-  String? password;
-  String? accountType;
-  String? socialAccType;
-  String? googleAccessToken;
-  dynamic location;
-  dynamic about;
-  String? profilePic;
-  DateTime? dateAdded;
-  String? verifyCode;
-  String? notifications;
-  String? status;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     usersCustomersId: json["users_customers_id"],

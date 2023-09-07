@@ -93,7 +93,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                Text("Verify Phone",
+                Text("Verify Email",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 20, fontFamily: poppinBold, color: kWhite)),

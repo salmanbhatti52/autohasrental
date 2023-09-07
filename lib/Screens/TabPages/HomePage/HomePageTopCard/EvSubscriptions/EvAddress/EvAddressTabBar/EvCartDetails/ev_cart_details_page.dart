@@ -47,22 +47,46 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
 
   var emailController = TextEditingController();
 
-  File? image;
+  // File? image;
+  // Future pickCoverImage() async {
+  //   try {
+  //     final selectedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     if (selectedImage == null) return;
+  //     final imageTemporary = File(selectedImage.path);
+  //     setState(() {
+  //       image = imageTemporary;
+  //       print("newImage $image");
+  //       // onUploadImage();
+  //     });
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: ${e.toString()}');
+  //   }
+  // }
 
+  File? image;
+  String? base64img;
+
+  final ImagePicker _picker = ImagePicker();
   Future pickCoverImage() async {
     try {
-      final selectedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (selectedImage == null) return;
-      final imageTemporary = File(selectedImage.path);
+      final XFile? xFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (xFile == null) return;
+
+      Uint8List imageByte = await xFile.readAsBytes();
+      base64img = base64.encode(imageByte);
+      print("base64img $base64img");
+
+      final imageTemporary = File(xFile.path);
       setState(() {
         image = imageTemporary;
         print("newImage $image");
-        // onUploadImage();
       });
     } on PlatformException catch (e) {
       print('Failed to pick image: ${e.toString()}');
     }
   }
+
+
   bool isInAsyncCall = false;
 
   String? addressAvailableStatus;
@@ -102,15 +126,16 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     request.fields['billing_post_code'] = "${widget.billingPostCode}";
     request.fields['billing_state'] = "${widget.billingState}";
     request.fields['billing_country'] = "${widget.billingCountry}";
+    request.fields['driving_license'] =  base64img!;
 
-    request.files.add(
-      http.MultipartFile(
-        'driving_license',
-        image!.readAsBytes().asStream(),
-        image!.lengthSync(),
-        filename: image!.path.split('/').last,
-      ),
-    );
+    // request.files.add(
+    //   http.MultipartFile(
+    //     'driving_license',
+    //     image!.readAsBytes().asStream(),
+    //     image!.lengthSync(),
+    //     filename: image!.path.split('/').last,
+    //   ),
+    // );
 
     request.headers.addAll(headers);
     print("request: $request");
@@ -129,7 +154,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print("billingAddress: ${widget.billingAddress1} ${widget.billingAddress2}");
     print("billingPostCity: ${widget.billingCity} ${widget.billingPostCode}");
     print("billingState: ${widget.billingState} ${widget.billingCountry}");
-    print('licenseImage: ${image!.path.split('/').last}');
+    print('licenseImage: ${base64img}');
 
     var res = await request.send();
     http.Response response = await http.Response.fromStream(res);

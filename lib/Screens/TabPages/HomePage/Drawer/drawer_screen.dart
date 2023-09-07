@@ -183,9 +183,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
       onPressed: () {
         removeDataFormSharedPreferences();
         setState(() {});
-        Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => LoginPage()),
-        );
+        // Navigator.pushReplacement(context,
+        //   MaterialPageRoute(builder: (context) => LoginPage()),
+        // );
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) =>  LoginPage()),
+                (Route<dynamic> route) => false);
       },
     );
 

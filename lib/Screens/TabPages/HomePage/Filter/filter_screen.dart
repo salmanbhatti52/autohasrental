@@ -62,6 +62,12 @@ class _FilterScreenState extends State<FilterScreen> {
 
     prefs = await SharedPreferences.getInstance();
     print('in filterCarsModelApi');
+    print('users_customers_id $userId');
+    print('cars_usage_type $dropdownCarType');
+    print('cars_makes_id $selectedCarMakesId');
+    print('year $valueYear');
+    print('rent_start $rangeStartPrice');
+    print('rent_end $rangeEndPrice');
     // try {
     String apiUrl = topRentedCarsApiUrl;
     print("filterCarsApi: $apiUrl");
@@ -95,7 +101,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
   String? dropdownCarType;
 
-  var items = ['EV Subscriptions', 'Photography', 'Driving Experience'];
+  var items = ['EV Subscriptions'];
 
   @override
   void initState() {
@@ -325,8 +331,8 @@ class _FilterScreenState extends State<FilterScreen> {
       ),
       child: RangeSlider(
         values: priceRangeValues,
-        min: 500,
-        max: 2000,
+        min: 0,
+        max: 4000,
         divisions: 20,
         labels: RangeLabels(
           'RM ${priceRangeValues.start.round().toString()}',
