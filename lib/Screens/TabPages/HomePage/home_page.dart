@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../../../Model/filter_car_by_attribute_model.dart';
 import 'Drawer/drawer_screen.dart';
 import 'Filter/filter_screen.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,7 +26,9 @@ import 'package:auto_haus_rental_app/Model/Notification/notifications_unread_mod
 import 'package:auto_haus_rental_app/Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  FilterCarByAttributeModel? filterCarByAttributeModelObject;
+  bool? clearFilters;
+  HomePage({Key? key, this.filterCarByAttributeModelObject, this.clearFilters}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -38,6 +41,7 @@ class _HomePageState extends State<HomePage> {
   TopRentedCarsModel topRentedCarsModelObject = TopRentedCarsModel();
   var searchController = TextEditingController();
   SearchModel searchModelObject = SearchModel();
+  // Datum1? filterCarByAttributeModelObject;
 
   List<String> filteredData = [];
   bool loadingP = false;
@@ -416,15 +420,1182 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 20, fontFamily: poppinBold, color: kBlack),
                     ),
                   ),
+
                   loadingP
-                      ? Center(
-                          child: CircularProgressIndicator(color: borderColor))
-                      : topRentedCarsModelObject.data != null
+                      ? Center(child: CircularProgressIndicator(color: borderColor))
+                      : widget.clearFilters  == true
+                      ?  topRentedCarsModelObject.data != null
                           ? topRentedCars(searchController.text)
                           : Center(
                               child: Text('No Cars Found.',
                                   style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
+                                      TextStyle(fontWeight: FontWeight.bold))) : widget.filterCarByAttributeModelObject?.status == "success"
+                      ? Container(
+                    height: MediaQuery.of(context).size.height * 0.55,
+                    color: Colors.transparent,
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        if (constraints.maxWidth < 600) {
+                          return GridView.builder(
+                              physics: BouncingScrollPhysics(),
+                              gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 1 / 1.25,
+                                mainAxisSpacing: 0,
+                                crossAxisSpacing: 0,
+                              ),
+                              itemCount: widget.filterCarByAttributeModelObject
+                                  ?.data?.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 10),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        top: 50,
+                                        left: 0,
+                                        right: 0,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Container(
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                                0.21,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.47,
+                                            decoration: BoxDecoration(
+                                                color: kWhite,
+                                                borderRadius:
+                                                BorderRadius.circular(20)),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                      height:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                          0.06),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          // Text("${searchModelObject.data?[index].vehicalName} ",
+                                                          Container(
+                                                            width:
+                                                            MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                                0.15,
+                                                            child: Text(
+                                                                "${widget.filterCarByAttributeModelObject?.data?[index].vehicalName} ",
+                                                                overflow: TextOverflow
+                                                                    .ellipsis,
+                                                                maxLines: 1,
+                                                                style: TextStyle(
+                                                                    color: kBlack,
+                                                                    fontSize: 8,
+                                                                    fontFamily:
+                                                                    poppinBold)),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                                top: 4),
+                                                            child: Text(
+                                                                "${widget.filterCarByAttributeModelObject?.data?[index].carsColors?.name} ",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                    kBlack,
+                                                                    fontSize: 7,
+                                                                    fontFamily:
+                                                                    poppinRegular)),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          widget
+                                                              .filterCarByAttributeModelObject
+                                                              ?.data?[
+                                                          index]
+                                                              .rating ==
+                                                              null
+                                                              ? RatingBar(
+                                                            // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
+                                                              initialRating:
+                                                              0.0,
+                                                              direction: Axis
+                                                                  .horizontal,
+                                                              allowHalfRating:
+                                                              true,
+                                                              itemCount: 1,
+                                                              minRating: 0,
+                                                              itemSize:
+                                                              18.0,
+                                                              ignoreGestures:
+                                                              true,
+                                                              ratingWidget:
+                                                              RatingWidget(
+                                                                  full: Icon(Icons.star,
+                                                                      color:
+                                                                      borderColor),
+                                                                  half:
+                                                                  Icon(
+                                                                    Icons.star_half,
+                                                                    color:
+                                                                    borderColor,
+                                                                  ),
+                                                                  empty:
+                                                                  Icon(
+                                                                    Icons.star_outline,
+                                                                    color:
+                                                                    borderColor,
+                                                                  )),
+                                                              onRatingUpdate:
+                                                                  (value) {})
+                                                              : RatingBar(
+                                                              initialRating:
+                                                              double.parse(
+                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].rating}"),
+                                                              // initialRating: searchModelObject.data?[index].rating,
+                                                              direction: Axis
+                                                                  .horizontal,
+                                                              allowHalfRating:
+                                                              true,
+                                                              itemCount: 1,
+                                                              minRating: 0,
+                                                              itemSize:
+                                                              18.0,
+                                                              ignoreGestures:
+                                                              true,
+                                                              ratingWidget:
+                                                              RatingWidget(
+                                                                  full: Icon(Icons.star,
+                                                                      color:
+                                                                      borderColor),
+                                                                  half:
+                                                                  Icon(
+                                                                    Icons.star_half,
+                                                                    color:
+                                                                    borderColor,
+                                                                  ),
+                                                                  empty:
+                                                                  Icon(
+                                                                    Icons.star_outline,
+                                                                    color:
+                                                                    borderColor,
+                                                                  )),
+                                                              onRatingUpdate:
+                                                                  (value) {}),
+                                                          widget
+                                                              .filterCarByAttributeModelObject
+                                                              ?.data?[
+                                                          index]
+                                                              .rating ==
+                                                              null
+                                                              ? Text("0.0",
+                                                              style: TextStyle(
+                                                                  color:
+                                                                  kBlack,
+                                                                  fontSize:
+                                                                  10,
+                                                                  fontFamily:
+                                                                  poppinMedium))
+                                                              : Text(
+                                                              "${widget.filterCarByAttributeModelObject?.data?[index].rating}",
+                                                              style: TextStyle(
+                                                                  color:
+                                                                  kBlack,
+                                                                  fontSize:
+                                                                  10,
+                                                                  fontFamily:
+                                                                  poppinMedium)),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                      height:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                          "${widget.filterCarByAttributeModelObject?.data?[index].carsMakes?.name}, ",
+                                                          style: TextStyle(
+                                                              color: kBlack,
+                                                              fontSize: 7,
+                                                              fontFamily:
+                                                              poppinRegular)),
+                                                      Text(
+                                                          "${widget.filterCarByAttributeModelObject?.data?[index].carsModels?.name}, ",
+                                                          style: TextStyle(
+                                                              color: kBlack,
+                                                              fontSize: 7,
+                                                              fontFamily:
+                                                              poppinSemiBold)),
+                                                      Text(
+                                                          "${widget.filterCarByAttributeModelObject?.data?[index].year} ",
+                                                          style: TextStyle(
+                                                              color: kBlack,
+                                                              fontSize: 7,
+                                                              fontFamily:
+                                                              poppinRegular)),
+                                                    ],
+                                                  ),
+                                                  // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                                top: 04),
+                                                            child: Text("RM ",
+                                                                textAlign:
+                                                                TextAlign
+                                                                    .left,
+                                                                style: TextStyle(
+                                                                    color: kRed,
+                                                                    fontSize: 5,
+                                                                    fontFamily:
+                                                                    poppinLight)),
+                                                          ),
+                                                          topRentedCarsModelObject.data?[
+                                                          index]
+                                                              .carsUsageType ==
+                                                              "EV Subscriptions"
+                                                              ? originalPriceWidget(
+                                                              "${ widget
+                                                                  .filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerMonth}")
+                                                              : originalPriceWidget(
+                                                              "${ widget
+                                                                  .filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerMonth}"),
+                                                          // widget.filterCarByAttributeModelObject?.data?[index].carsUsageType == "Photography"
+                                                          // ? originalPriceWidget(
+                                                          //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerHour}")
+                                                          // : originalPriceWidget(
+                                                          //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerSlot}"),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                          width: MediaQuery.of(
+                                                              context)
+                                                              .size
+                                                              .width *
+                                                              0.01),
+                                                      Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                                top: 06),
+                                                            child: Text("RM ",
+                                                                textAlign:
+                                                                TextAlign
+                                                                    .left,
+                                                                style: TextStyle(
+                                                                    color:
+                                                                    borderColor,
+                                                                    fontSize: 7,
+                                                                    fontFamily:
+                                                                    poppinSemiBold)),
+                                                          ),
+                                                          widget
+                                                              .filterCarByAttributeModelObject
+                                                              ?.data?[
+                                                          index]
+                                                              .carsUsageType ==
+                                                              "EV Subscriptions"
+                                                              ? discountedPriceWidget(
+                                                              "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                              "Month")
+                                                              : discountedPriceWidget(
+                                                              "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                              "Month")
+                                                          // widget.filterCarByAttributeModelObject?.data?[
+                                                          //                                           index]
+                                                          //                                       .carsUsageType ==
+                                                          //                                   "Photography"
+                                                          //                               ? discountedPriceWidget(
+                                                          //                                   "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerHour}/",
+                                                          //                                   "Hour")
+                                                          //                               : discountedPriceWidget(
+                                                          //                                   "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerSlot}/",
+                                                          //                                   "Slot"),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+
+                                                  // Divider(),
+                                                  // Row(
+                                                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  //   children: [
+                                                  //     Row(
+                                                  //       children: [
+                                                  //         Image.asset("assets/home_page/Promoted.png"),
+                                                  //         SizedBox(width: 05),
+                                                  //         Text("Verified Dealer", textAlign: TextAlign.left,
+                                                  //             style: TextStyle(color: textLabelColor,
+                                                  //                 fontSize: 10, fontFamily: poppinRegular)),
+                                                  //       ],
+                                                  //     ),
+                                                  //     Container(
+                                                  //       height: 17, width: 35,
+                                                  //       decoration: BoxDecoration(
+                                                  //           color: kBlack,
+                                                  //           borderRadius: BorderRadius.circular(10)),
+                                                  //       child: Center(
+                                                  //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
+                                                  //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                                                  //       ),
+                                                  //     ),
+                                                  //   ],
+                                                  // ),
+                                                  SizedBox(
+                                                      height:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                          0.02),
+                                                  // GestureDetector(
+                                                  //   onTap: () {
+                                                  //     carID = topRentedCarsModelObject.data?[index]
+                                                  //         .carsId;
+                                                  //     print("cardId $carID");
+                                                  //     print(
+                                                  //         "carsUsageType ${widget.filterCarByAttributeModelObject?.data![index].carsUsageType}");
+                                                  //
+                                                  //     if (topRentedCarsModelObject.data![index].carsUsageType == "EV Subscriptions")
+                                                  //     {
+                                                  //       Navigator.push(
+                                                  //           context,
+                                                  //           MaterialPageRoute(
+                                                  //               builder:
+                                                  //                   (context) =>
+                                                  //                   EVCarDescription(
+                                                  //                     carName: topRentedCarsModelObject.data![index].vehicalName,
+                                                  //                     carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+                                                  //                     carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                  //                     carYear: "${topRentedCarsModelObject.data![index].year}",
+                                                  //                     carId: topRentedCarsModelObject.data![index].carsId,
+                                                  //                     carRating: topRentedCarsModelObject.data![index].rating,
+                                                  //                     carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                                  //                     carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                                  //                     carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                                  //                     carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                  //                     carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                  //                     discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                                  //                     carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                  //                     carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                  //                     carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                  //                     carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                  //                     myCarDescription: topRentedCarsModelObject.data![index].description,
+                                                  //                     myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
+                                                  //                     myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
+                                                  //                   )));
+                                                  //     }
+                                                  //     // else if (widget.filterCarByAttributeModelObject?.data![index].carsUsageType == "Photography") {
+                                                  //     //   Navigator.push(
+                                                  //     //       context,
+                                                  //     //       MaterialPageRoute(
+                                                  //     //           builder:
+                                                  //     //               (context) =>
+                                                  //     //                   BookForWeddingCarDescription(
+                                                  //     //                     carName: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .vehicalName,
+                                                  //     //                     carYear:
+                                                  //     //                         "${topRentedCarsModelObject.data![index].year}",
+                                                  //     //                     carId: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .carsId,
+                                                  //     //                     carRating: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .rating,
+                                                  //     //                     carColorName: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .carsColors!
+                                                  //     //                         .name,
+                                                  //     //                     carMakesName: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .carsMakes!
+                                                  //     //                         .name,
+                                                  //     //                     carModelName: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .carsModels!
+                                                  //     //                         .name,
+                                                  //     //                     carImage:
+                                                  //     //                         "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                  //     //                     carMakesImage:
+                                                  //     //                         "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                  //     //                     favouriteStatus: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .favouriteStatus,
+                                                  //     //                     discountPercentage: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .discountPercentage,
+                                                  //     //                     carDiscountPrice: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .carsPlans![0]
+                                                  //     //                         .discountedPricePerHour,
+                                                  //     //                     carPrice: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .carsPlans![0]
+                                                  //     //                         .pricePerHour,
+                                                  //     //                     carOwnerImage:
+                                                  //     //                         "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                  //     //                     carOwnerName:
+                                                  //     //                         "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                  //     //                     carOwnerId: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .usersCompanies!
+                                                  //     //                         .usersCompaniesId,
+                                                  //     //                     myCarDescription: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .description,
+                                                  //     //                     myCarRating: topRentedCarsModelObject
+                                                  //     //                         .data![index]
+                                                  //     //                         .rating,
+                                                  //     //                   )));
+                                                  //     // } else if (widget.filterCarByAttributeModelObject?.data![index].carsUsageType == "Driving Experience") {
+                                                  //     //   Navigator.push(
+                                                  //     //       context,
+                                                  //     //       MaterialPageRoute(
+                                                  //     //           builder:
+                                                  //     //               (context) =>
+                                                  //     //                   HomeDrivingBooking(
+                                                  //     //                     datum:
+                                                  //     //                         topRentedCarsModelObject.data![index],
+                                                  //     //                   )));
+                                                  //     // }
+                                                  //   },
+                                                  //   child: Container(
+                                                  //     height:
+                                                  //     MediaQuery.of(context)
+                                                  //         .size
+                                                  //         .height *
+                                                  //         0.035,
+                                                  //     width:
+                                                  //     MediaQuery.of(context)
+                                                  //         .size
+                                                  //         .width *
+                                                  //         0.4,
+                                                  //     decoration: BoxDecoration(
+                                                  //         color: borderColor,
+                                                  //         borderRadius:
+                                                  //         BorderRadius
+                                                  //             .circular(
+                                                  //             30)),
+                                                  //     child: Center(
+                                                  //       child: Row(
+                                                  //         mainAxisAlignment:
+                                                  //         MainAxisAlignment
+                                                  //             .center,
+                                                  //         children: [
+                                                  //           Text(
+                                                  //               "Click to see Details",
+                                                  //               textAlign:
+                                                  //               TextAlign
+                                                  //                   .left,
+                                                  //               style: TextStyle(
+                                                  //                   color:
+                                                  //                   kWhite,
+                                                  //                   fontFamily:
+                                                  //                   poppinMedium,
+                                                  //                   fontSize:
+                                                  //                   10)),
+                                                  //           SizedBox(width: 10),
+                                                  //           Image.asset(
+                                                  //               "assets/home_page/more_buttons_home.png")
+                                                  //         ],
+                                                  //       ),
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 30,
+                                        left: 10,
+                                        right: 10,
+                                        child: widget.filterCarByAttributeModelObject?.data?[index].image1 ==
+                                            null
+                                            ? ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            child: Image.asset(
+                                                'assets/icon/fade_in_image.jpeg'))
+                                            : ClipRRect(
+                                          borderRadius:
+                                          BorderRadius.circular(10),
+                                          child: FadeInImage(
+                                            placeholder: AssetImage(
+                                                "assets/icon/fade_in_image.jpeg"),
+                                            height: 65,
+                                            image: NetworkImage(
+                                                "$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}"),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 03,
+                                        left: 05,
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                              0.065,
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                              0.19,
+                                          decoration: BoxDecoration(
+                                            color: kRed.withOpacity(0.8),
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(15),
+                                                bottomLeft:
+                                                Radius.circular(15)),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(0.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    "${widget.filterCarByAttributeModelObject?.data?[index].discountPercentage}% ",
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        color: kWhite,
+                                                        fontSize: 12,
+                                                        fontFamily:
+                                                        poppinSemiBold)),
+                                                Text("OFF",
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        color: kWhite,
+                                                        fontSize: 8,
+                                                        fontFamily:
+                                                        poppinRegular)),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
+                        } else {
+                          return GridView.builder(
+                              physics: BouncingScrollPhysics(),
+                              gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 1.5,
+                                mainAxisSpacing: 0,
+                                crossAxisSpacing: 0,
+                              ),
+                              itemCount:widget.filterCarByAttributeModelObject
+                                  ?.data?.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 10),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        top: 50,
+                                        left: 0,
+                                        right: 0,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Container(
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                                0.21,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.47,
+                                            decoration: BoxDecoration(
+                                                color: kWhite,
+                                                borderRadius:
+                                                BorderRadius.circular(20)),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                      height:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                          0.06),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          // Text("${searchModelObject.data?[index].vehicalName} ",
+                                                          Container(
+                                                            width:
+                                                            MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                                0.15,
+                                                            child: Text(
+                                                                "${widget.filterCarByAttributeModelObject?.data?[index].vehicalName} ",
+                                                                overflow: TextOverflow
+                                                                    .ellipsis,
+                                                                maxLines: 1,
+                                                                style: TextStyle(
+                                                                    color: kBlack,
+                                                                    fontSize: 8,
+                                                                    fontFamily:
+                                                                    poppinBold)),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                                top: 4),
+                                                            child: Text(
+                                                                "${widget.filterCarByAttributeModelObject?.data?[index].carsColors?.name} ",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                    kBlack,
+                                                                    fontSize: 7,
+                                                                    fontFamily:
+                                                                    poppinRegular)),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          widget
+                                                              .filterCarByAttributeModelObject
+                                                              ?.data?[
+                                                          index]
+                                                              .rating ==
+                                                              null
+                                                              ? RatingBar(
+                                                            // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
+                                                              initialRating:
+                                                              0.0,
+                                                              direction: Axis
+                                                                  .horizontal,
+                                                              allowHalfRating:
+                                                              true,
+                                                              itemCount: 1,
+                                                              minRating: 0,
+                                                              itemSize:
+                                                              18.0,
+                                                              ignoreGestures:
+                                                              true,
+                                                              ratingWidget:
+                                                              RatingWidget(
+                                                                  full: Icon(Icons.star,
+                                                                      color:
+                                                                      borderColor),
+                                                                  half:
+                                                                  Icon(
+                                                                    Icons.star_half,
+                                                                    color:
+                                                                    borderColor,
+                                                                  ),
+                                                                  empty:
+                                                                  Icon(
+                                                                    Icons.star_outline,
+                                                                    color:
+                                                                    borderColor,
+                                                                  )),
+                                                              onRatingUpdate:
+                                                                  (value) {})
+                                                              : RatingBar(
+                                                              initialRating:
+                                                              double.parse(
+                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].rating}"),
+                                                              // initialRating: searchModelObject.data?[index].rating,
+                                                              direction: Axis
+                                                                  .horizontal,
+                                                              allowHalfRating:
+                                                              true,
+                                                              itemCount: 1,
+                                                              minRating: 0,
+                                                              itemSize:
+                                                              18.0,
+                                                              ignoreGestures:
+                                                              true,
+                                                              ratingWidget:
+                                                              RatingWidget(
+                                                                  full: Icon(Icons.star,
+                                                                      color:
+                                                                      borderColor),
+                                                                  half:
+                                                                  Icon(
+                                                                    Icons.star_half,
+                                                                    color:
+                                                                    borderColor,
+                                                                  ),
+                                                                  empty:
+                                                                  Icon(
+                                                                    Icons.star_outline,
+                                                                    color:
+                                                                    borderColor,
+                                                                  )),
+                                                              onRatingUpdate:
+                                                                  (value) {}),
+                                                          widget
+                                                              .filterCarByAttributeModelObject
+                                                              ?.data?[
+                                                          index]
+                                                              .rating ==
+                                                              null
+                                                              ? Text("0.0",
+                                                              style: TextStyle(
+                                                                  color:
+                                                                  kBlack,
+                                                                  fontSize:
+                                                                  10,
+                                                                  fontFamily:
+                                                                  poppinMedium))
+                                                              : Text(
+                                                              "${widget.filterCarByAttributeModelObject?.data?[index].rating}",
+                                                              style: TextStyle(
+                                                                  color:
+                                                                  kBlack,
+                                                                  fontSize:
+                                                                  10,
+                                                                  fontFamily:
+                                                                  poppinMedium)),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                      height:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                          "${widget.filterCarByAttributeModelObject?.data?[index].carsMakes?.name}, ",
+                                                          style: TextStyle(
+                                                              color: kBlack,
+                                                              fontSize: 7,
+                                                              fontFamily:
+                                                              poppinRegular)),
+                                                      Text(
+                                                          "${widget.filterCarByAttributeModelObject?.data?[index].carsModels?.name}, ",
+                                                          style: TextStyle(
+                                                              color: kBlack,
+                                                              fontSize: 7,
+                                                              fontFamily:
+                                                              poppinSemiBold)),
+                                                      Text(
+                                                          "${widget.filterCarByAttributeModelObject?.data?[index].year} ",
+                                                          style: TextStyle(
+                                                              color: kBlack,
+                                                              fontSize: 7,
+                                                              fontFamily:
+                                                              poppinRegular)),
+                                                    ],
+                                                  ),
+                                                  // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+                                                  Divider(),
+                                                  Row(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                                top: 04),
+                                                            child: Text("RM ",
+                                                                textAlign:
+                                                                TextAlign
+                                                                    .left,
+                                                                style: TextStyle(
+                                                                    color: kRed,
+                                                                    fontSize: 5,
+                                                                    fontFamily:
+                                                                    poppinLight)),
+                                                          ),
+                                                          topRentedCarsModelObject.data?[
+                                                          index]
+                                                              .carsUsageType ==
+                                                              "EV Subscriptions"
+                                                              ? originalPriceWidget(
+                                                              "${topRentedCarsModelObject.data?[index].carsPlans![0].pricePerMonth}")
+                                                              : originalPriceWidget(
+                                                              "${topRentedCarsModelObject.data?[index].carsPlans![0].pricePerMonth}"),
+                                                          // widget.filterCarByAttributeModelObject?.data?[index].carsUsageType == "Photography"
+                                                          // ? originalPriceWidget(
+                                                          //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerHour}")
+                                                          // : originalPriceWidget(
+                                                          //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerSlot}"),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                          width: MediaQuery.of(
+                                                              context)
+                                                              .size
+                                                              .width *
+                                                              0.01),
+                                                      Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                                top: 06),
+                                                            child: Text("RM ",
+                                                                textAlign:
+                                                                TextAlign
+                                                                    .left,
+                                                                style: TextStyle(
+                                                                    color:
+                                                                    borderColor,
+                                                                    fontSize: 7,
+                                                                    fontFamily:
+                                                                    poppinSemiBold)),
+                                                          ),
+                                                          widget
+                                                              .filterCarByAttributeModelObject
+                                                              ?.data?[
+                                                          index]
+                                                              .carsUsageType ==
+                                                              "EV Subscriptions"
+                                                              ? discountedPriceWidget(
+                                                              "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                              "Month")
+                                                              : discountedPriceWidget(
+                                                              "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                              "Month")
+                                                          // widget.filterCarByAttributeModelObject?.data?[
+                                                          //                                           index]
+                                                          //                                       .carsUsageType ==
+                                                          //                                   "Photography"
+                                                          //                               ? discountedPriceWidget(
+                                                          //                                   "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerHour}/",
+                                                          //                                   "Hour")
+                                                          //                               : discountedPriceWidget(
+                                                          //                                   "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerSlot}/",
+                                                          //                                   "Slot"),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+
+                                                  // Divider(),
+                                                  // Row(
+                                                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  //   children: [
+                                                  //     Row(
+                                                  //       children: [
+                                                  //         Image.asset("assets/home_page/Promoted.png"),
+                                                  //         SizedBox(width: 05),
+                                                  //         Text("Verified Dealer", textAlign: TextAlign.left,
+                                                  //             style: TextStyle(color: textLabelColor,
+                                                  //                 fontSize: 10, fontFamily: poppinRegular)),
+                                                  //       ],
+                                                  //     ),
+                                                  //     Container(
+                                                  //       height: 17, width: 35,
+                                                  //       decoration: BoxDecoration(
+                                                  //           color: kBlack,
+                                                  //           borderRadius: BorderRadius.circular(10)),
+                                                  //       child: Center(
+                                                  //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
+                                                  //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                                                  //       ),
+                                                  //     ),
+                                                  //   ],
+                                                  // ),
+                                                  SizedBox(
+                                                      height:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                          0.02),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      carID = widget
+                                                          .filterCarByAttributeModelObject
+                                                          ?.data?[index]
+                                                          .carsId;
+                                                      print("cardId $carID");
+                                                      print(
+                                                          "carsUsageType ${widget.filterCarByAttributeModelObject?.data![index].carsUsageType}");
+
+                                                      if (topRentedCarsModelObject.data![index].carsUsageType == "EV Subscriptions")
+                                                      {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                    EVCarDescription(
+                                                                      carName: topRentedCarsModelObject.data![index].vehicalName,
+                                                                      carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+                                                                      carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                                      carYear: "${topRentedCarsModelObject.data![index].year}",
+                                                                      carId: topRentedCarsModelObject.data![index].carsId,
+                                                                      carRating: topRentedCarsModelObject.data![index].rating,
+                                                                      carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                                                      carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                                                      carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                                                      carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                                      carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                      discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                                                      carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                      carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                                      carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                                      carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                                      myCarDescription: topRentedCarsModelObject.data![index].description,
+                                                                      myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
+                                                                      myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
+                                                                    )));
+                                                      }
+                                                      // else if (widget.filterCarByAttributeModelObject?.data![index].carsUsageType == "Photography") {
+                                                      //   Navigator.push(
+                                                      //       context,
+                                                      //       MaterialPageRoute(
+                                                      //           builder:
+                                                      //               (context) =>
+                                                      //                   BookForWeddingCarDescription(
+                                                      //                     carName: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .vehicalName,
+                                                      //                     carYear:
+                                                      //                         "${topRentedCarsModelObject.data![index].year}",
+                                                      //                     carId: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .carsId,
+                                                      //                     carRating: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .rating,
+                                                      //                     carColorName: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .carsColors!
+                                                      //                         .name,
+                                                      //                     carMakesName: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .carsMakes!
+                                                      //                         .name,
+                                                      //                     carModelName: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .carsModels!
+                                                      //                         .name,
+                                                      //                     carImage:
+                                                      //                         "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                      //                     carMakesImage:
+                                                      //                         "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                      //                     favouriteStatus: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .favouriteStatus,
+                                                      //                     discountPercentage: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .discountPercentage,
+                                                      //                     carDiscountPrice: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .carsPlans![0]
+                                                      //                         .discountedPricePerHour,
+                                                      //                     carPrice: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .carsPlans![0]
+                                                      //                         .pricePerHour,
+                                                      //                     carOwnerImage:
+                                                      //                         "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                      //                     carOwnerName:
+                                                      //                         "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                      //                     carOwnerId: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .usersCompanies!
+                                                      //                         .usersCompaniesId,
+                                                      //                     myCarDescription: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .description,
+                                                      //                     myCarRating: topRentedCarsModelObject
+                                                      //                         .data![index]
+                                                      //                         .rating,
+                                                      //                   )));
+                                                      // } else if (widget.filterCarByAttributeModelObject?.data![index].carsUsageType == "Driving Experience") {
+                                                      //   Navigator.push(
+                                                      //       context,
+                                                      //       MaterialPageRoute(
+                                                      //           builder:
+                                                      //               (context) =>
+                                                      //                   HomeDrivingBooking(
+                                                      //                     datum:
+                                                      //                         topRentedCarsModelObject.data![index],
+                                                      //                   )));
+                                                      // }
+                                                    },
+                                                    child: Container(
+                                                      height:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                          0.035,
+                                                      width:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                          0.4,
+                                                      decoration: BoxDecoration(
+                                                          color: borderColor,
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              30)),
+                                                      child: Center(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                          children: [
+                                                            Text(
+                                                                "Click to see Details",
+                                                                textAlign:
+                                                                TextAlign
+                                                                    .left,
+                                                                style: TextStyle(
+                                                                    color:
+                                                                    kWhite,
+                                                                    fontFamily:
+                                                                    poppinMedium,
+                                                                    fontSize:
+                                                                    10)),
+                                                            SizedBox(width: 10),
+                                                            Image.asset(
+                                                                "assets/home_page/more_buttons_home.png")
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 30,
+                                        left: 10,
+                                        right: 10,
+                                        child: widget.filterCarByAttributeModelObject?.data?[index].image1 ==
+                                            null
+                                            ? ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            child: Image.asset(
+                                                'assets/icon/fade_in_image.jpeg'))
+                                            : ClipRRect(
+                                          borderRadius:
+                                          BorderRadius.circular(10),
+                                          child: FadeInImage(
+                                            placeholder: AssetImage(
+                                                "assets/icon/fade_in_image.jpeg"),
+                                            height: 65,
+                                            image: NetworkImage(
+                                                "$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}"),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 03,
+                                        left: 05,
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                              0.065,
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                              0.19,
+                                          decoration: BoxDecoration(
+                                            color: kRed.withOpacity(0.8),
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(15),
+                                                bottomLeft:
+                                                Radius.circular(15)),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(0.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    "${widget.filterCarByAttributeModelObject?.data?[index].discountPercentage}% ",
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        color: kWhite,
+                                                        fontSize: 12,
+                                                        fontFamily:
+                                                        poppinSemiBold)),
+                                                Text("OFF",
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        color: kWhite,
+                                                        fontSize: 8,
+                                                        fontFamily:
+                                                        poppinRegular)),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
+                        }
+                      },
+                    ),
+                  )
+                      : topRentedCarsModelObject.data != null
+                      ? topRentedCars(searchController.text)
+                      : Center(
+                      child: Text('No Cars Found.',
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold))),
                 ],
               ),
             ),
@@ -1841,1231 +3012,1119 @@ class _HomePageState extends State<HomePage> {
                     }
                   },
                 )
-              : searchModelObject.data == null
-                  ? Center(
-                      child: Text("No Cars Found.",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w500)))
-                  : LayoutBuilder(
-                      builder:
-                          (BuildContext context, BoxConstraints constraints) {
-                        if (constraints.maxWidth < 600) {
-                          return GridView.builder(
-                              physics: BouncingScrollPhysics(),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 1 / 1.25,
-                                mainAxisSpacing: 0,
-                                crossAxisSpacing: 0,
-                              ),
-                              itemCount: searchModelObject.data?.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: EdgeInsets.only(top: 10),
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        top: 50,
-                                        left: 0,
-                                        right: 0,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.21,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.47,
-                                            decoration: BoxDecoration(
-                                                color: kWhite,
-                                                borderRadius:
-                                                    BorderRadius.circular(20)),
+              :  searchModelObject.data == null
+                      ? Center(
+                          child: Text("No Cars Found.",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w500)))
+                      : LayoutBuilder(
+                          builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            if (constraints.maxWidth < 600) {
+                              return GridView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 1 / 1.25,
+                                    mainAxisSpacing: 0,
+                                    crossAxisSpacing: 0,
+                                  ),
+                                  itemCount: searchModelObject.data?.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(top: 10),
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            top: 50,
+                                            left: 0,
+                                            right: 0,
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 10),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  SizedBox(
-                                                      height:
-                                                          MediaQuery.of(context)
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.21,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.47,
+                                                decoration: BoxDecoration(
+                                                    color: kWhite,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20)),
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
                                                                   .size
                                                                   .height *
                                                               0.06),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
                                                       Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
                                                         children: [
-                                                          // Text("${searchModelObject.data?[index].vehicalName} ",
-                                                          Text(
-                                                              "${searchModelObject.data?[index].vehicalName} ",
-                                                              style: TextStyle(
-                                                                  color: kBlack,
-                                                                  fontSize: 8,
-                                                                  fontFamily:
-                                                                      poppinBold)),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 4),
-                                                            child: Text(
-                                                                "${searchModelObject.data?[index].carsColors?.name} ",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        kBlack,
-                                                                    fontSize: 7,
-                                                                    fontFamily:
-                                                                        poppinRegular)),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          searchModelObject
-                                                                      .data?[
-                                                                          index]
-                                                                      .rating ==
-                                                                  null
-                                                              ? RatingBar(
-                                                                  // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
-                                                                  initialRating:
-                                                                      0.0,
-                                                                  direction: Axis
-                                                                      .horizontal,
-                                                                  allowHalfRating:
-                                                                      true,
-                                                                  itemCount: 1,
-                                                                  minRating: 0,
-                                                                  itemSize:
-                                                                      18.0,
-                                                                  ignoreGestures:
-                                                                      true,
-                                                                  ratingWidget:
-                                                                      RatingWidget(
-                                                                          full: Icon(Icons.star,
-                                                                              color:
-                                                                                  borderColor),
-                                                                          half:
-                                                                              Icon(
-                                                                            Icons.star_half,
-                                                                            color:
-                                                                                borderColor,
-                                                                          ),
-                                                                          empty:
-                                                                              Icon(
-                                                                            Icons.star_outline,
-                                                                            color:
-                                                                                borderColor,
-                                                                          )),
-                                                                  onRatingUpdate:
-                                                                      (value) {})
-                                                              : RatingBar(
-                                                                  initialRating:
-                                                                      double.parse(
-                                                                          "${searchModelObject.data?[index].rating}"),
-                                                                  // initialRating: searchModelObject.data?[index].rating,
-                                                                  direction: Axis
-                                                                      .horizontal,
-                                                                  allowHalfRating:
-                                                                      true,
-                                                                  itemCount: 1,
-                                                                  minRating: 0,
-                                                                  itemSize:
-                                                                      18.0,
-                                                                  ignoreGestures:
-                                                                      true,
-                                                                  ratingWidget:
-                                                                      RatingWidget(
-                                                                          full: Icon(Icons.star,
-                                                                              color:
-                                                                                  borderColor),
-                                                                          half:
-                                                                              Icon(
-                                                                            Icons.star_half,
-                                                                            color:
-                                                                                borderColor,
-                                                                          ),
-                                                                          empty:
-                                                                              Icon(
-                                                                            Icons.star_outline,
-                                                                            color:
-                                                                                borderColor,
-                                                                          )),
-                                                                  onRatingUpdate:
-                                                                      (value) {}),
-                                                          searchModelObject
-                                                                      .data?[
-                                                                          index]
-                                                                      .rating ==
-                                                                  null
-                                                              ? Text("0.0",
+                                                          Row(
+                                                            children: [
+                                                              // Text("${searchModelObject.data?[index].vehicalName} ",
+                                                              Text(
+                                                                  "${searchModelObject.data?[index].vehicalName} ",
                                                                   style: TextStyle(
                                                                       color:
                                                                           kBlack,
                                                                       fontSize:
-                                                                          10,
+                                                                          8,
                                                                       fontFamily:
-                                                                          poppinMedium))
-                                                              : Text(
-                                                                  "${searchModelObject.data?[index].rating}",
-                                                                  style: TextStyle(
-                                                                      color:
-                                                                          kBlack,
-                                                                      fontSize:
-                                                                          10,
-                                                                      fontFamily:
-                                                                          poppinMedium)),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.01),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                          "${searchModelObject.data?[index].carsMakes?.name}, ",
-                                                          style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 7,
-                                                              fontFamily:
-                                                                  poppinRegular)),
-                                                      Text(
-                                                          "${searchModelObject.data?[index].carsModels?.name}, ",
-                                                          style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 7,
-                                                              fontFamily:
-                                                                  poppinSemiBold)),
-                                                      Text(
-                                                          "${searchModelObject.data?[index].year} ",
-                                                          style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 7,
-                                                              fontFamily:
-                                                                  poppinRegular)),
-                                                    ],
-                                                  ),
-                                                  // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-
-                                                  Divider(),
-                                                  Row(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 04),
-                                                            child: Text("RM ",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left,
-                                                                style: TextStyle(
-                                                                    color: kRed,
-                                                                    fontSize: 5,
-                                                                    fontFamily:
-                                                                        poppinLight)),
+                                                                          poppinBold)),
+                                                              Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top: 4),
+                                                                child: Text(
+                                                                    "${searchModelObject.data?[index].carsColors?.name} ",
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            kBlack,
+                                                                        fontSize:
+                                                                            7,
+                                                                        fontFamily:
+                                                                            poppinRegular)),
+                                                              ),
+                                                            ],
                                                           ),
-                                                          searchModelObject
-                                                                      .data?[
-                                                                          index]
-                                                                      .carsUsageType ==
-                                                                  "EV Subscriptions"
-                                                              ? originalPriceWidget(
-                                                                  "${searchModelObject.data?[index].carsPlans![0].pricePerMonth}")
-                                                              : searchModelObject
+                                                          Row(
+                                                            children: [
+                                                              searchModelObject
                                                                           .data?[
                                                                               index]
-                                                                          .carsUsageType ==
-                                                                      "Photography"
-                                                                  ? originalPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans![0].pricePerHour}")
-                                                                  : originalPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans![0].pricePerSlot}"),
+                                                                          .rating ==
+                                                                      null
+                                                                  ? RatingBar(
+                                                                      // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
+                                                                      initialRating:
+                                                                          0.0,
+                                                                      direction:
+                                                                          Axis
+                                                                              .horizontal,
+                                                                      allowHalfRating:
+                                                                          true,
+                                                                      itemCount:
+                                                                          1,
+                                                                      minRating:
+                                                                          0,
+                                                                      itemSize:
+                                                                          18.0,
+                                                                      ignoreGestures:
+                                                                          true,
+                                                                      ratingWidget:
+                                                                          RatingWidget(
+                                                                              full: Icon(Icons.star,
+                                                                                  color:
+                                                                                      borderColor),
+                                                                              half:
+                                                                                  Icon(
+                                                                                Icons.star_half,
+                                                                                color: borderColor,
+                                                                              ),
+                                                                              empty:
+                                                                                  Icon(
+                                                                                Icons.star_outline,
+                                                                                color: borderColor,
+                                                                              )),
+                                                                      onRatingUpdate:
+                                                                          (value) {})
+                                                                  : RatingBar(
+                                                                      initialRating:
+                                                                          double.parse(
+                                                                              "${searchModelObject.data?[index].rating}"),
+                                                                      // initialRating: searchModelObject.data?[index].rating,
+                                                                      direction:
+                                                                          Axis
+                                                                              .horizontal,
+                                                                      allowHalfRating:
+                                                                          true,
+                                                                      itemCount:
+                                                                          1,
+                                                                      minRating:
+                                                                          0,
+                                                                      itemSize:
+                                                                          18.0,
+                                                                      ignoreGestures:
+                                                                          true,
+                                                                      ratingWidget: RatingWidget(
+                                                                          full: Icon(Icons.star, color: borderColor),
+                                                                          half: Icon(
+                                                                            Icons.star_half,
+                                                                            color:
+                                                                                borderColor,
+                                                                          ),
+                                                                          empty: Icon(
+                                                                            Icons.star_outline,
+                                                                            color:
+                                                                                borderColor,
+                                                                          )),
+                                                                      onRatingUpdate: (value) {}),
+                                                              searchModelObject
+                                                                          .data?[
+                                                                              index]
+                                                                          .rating ==
+                                                                      null
+                                                                  ? Text("0.0",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              kBlack,
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontFamily:
+                                                                              poppinMedium))
+                                                                  : Text(
+                                                                      "${searchModelObject.data?[index].rating}",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              kBlack,
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontFamily:
+                                                                              poppinMedium)),
+                                                            ],
+                                                          ),
                                                         ],
                                                       ),
                                                       SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.01),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                              "${searchModelObject.data?[index].carsMakes?.name}, ",
+                                                              style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 7,
+                                                                  fontFamily:
+                                                                      poppinRegular)),
+                                                          Text(
+                                                              "${searchModelObject.data?[index].carsModels?.name}, ",
+                                                              style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 7,
+                                                                  fontFamily:
+                                                                      poppinSemiBold)),
+                                                          Text(
+                                                              "${searchModelObject.data?[index].year} ",
+                                                              style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 7,
+                                                                  fontFamily:
+                                                                      poppinRegular)),
+                                                        ],
+                                                      ),
+                                                      // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+                                                      Divider(),
+                                                      Row(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            04),
+                                                                child: Text(
+                                                                    "RM ",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .left,
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            kRed,
+                                                                        fontSize:
+                                                                            5,
+                                                                        fontFamily:
+                                                                            poppinLight)),
+                                                              ),
+                                                              searchModelObject
+                                                                          .data?[
+                                                                              index]
+                                                                          .carsUsageType ==
+                                                                      "EV Subscriptions"
+                                                                  ? originalPriceWidget(
+                                                                      "${searchModelObject.data?[index].carsPlans![0].pricePerMonth}")
+                                                                  : searchModelObject
+                                                                              .data?[
+                                                                                  index]
+                                                                              .carsUsageType ==
+                                                                          "Photography"
+                                                                      ? originalPriceWidget(
+                                                                          "${searchModelObject.data?[index].carsPlans![0].pricePerHour}")
+                                                                      : originalPriceWidget(
+                                                                          "${searchModelObject.data?[index].carsPlans![0].pricePerSlot}"),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.01),
+                                                          Row(
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            06),
+                                                                child: Text(
+                                                                    "RM ",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .left,
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            borderColor,
+                                                                        fontSize:
+                                                                            7,
+                                                                        fontFamily:
+                                                                            poppinSemiBold)),
+                                                              ),
+                                                              searchModelObject
+                                                                          .data?[
+                                                                              index]
+                                                                          .carsUsageType ==
+                                                                      "EV Subscriptions"
+                                                                  ? discountedPriceWidget(
+                                                                      "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                                      "Month")
+                                                                  : searchModelObject
+                                                                              .data?[
+                                                                                  index]
+                                                                              .carsUsageType ==
+                                                                          "Photography"
+                                                                      ? discountedPriceWidget(
+                                                                          "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerHour}/",
+                                                                          "Hour")
+                                                                      : discountedPriceWidget(
+                                                                          "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerSlot}/",
+                                                                          "Slot"),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+
+                                                      // Divider(),
+                                                      // Row(
+                                                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      //   children: [
+                                                      //     Row(
+                                                      //       children: [
+                                                      //         Image.asset("assets/home_page/Promoted.png"),
+                                                      //         SizedBox(width: 05),
+                                                      //         Text("Verified Dealer", textAlign: TextAlign.left,
+                                                      //             style: TextStyle(color: textLabelColor,
+                                                      //                 fontSize: 10, fontFamily: poppinRegular)),
+                                                      //       ],
+                                                      //     ),
+                                                      //     Container(
+                                                      //       height: 17, width: 35,
+                                                      //       decoration: BoxDecoration(
+                                                      //           color: kBlack,
+                                                      //           borderRadius: BorderRadius.circular(10)),
+                                                      //       child: Center(
+                                                      //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
+                                                      //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                                                      //       ),
+                                                      //     ),
+                                                      //   ],
+                                                      // ),
+                                                      SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.02),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          carID =
+                                                              searchModelObject
+                                                                  .data?[index]
+                                                                  .carsId;
+                                                          print(
+                                                              "cardId $carID");
+                                                          print(
+                                                              "carsUsageType ${searchModelObject.data![index].carsUsageType}");
+
+                                                          if (topRentedCarsModelObject
+                                                                  .data![index]
+                                                                  .carsUsageType ==
+                                                              "EV Subscriptions") {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            EVCarDescription(
+                                                                              carName: topRentedCarsModelObject.data![index].vehicalName,
+                                                                              carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+                                                                              carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                                              carYear: "${topRentedCarsModelObject.data![index].year}",
+                                                                              carId: topRentedCarsModelObject.data![index].carsId,
+                                                                              carRating: topRentedCarsModelObject.data![index].rating,
+                                                                              carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                                                              carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                                                              carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                                                              carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                                              carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                              discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                                                              carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                              carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                                              carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                                              carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                                              myCarDescription: topRentedCarsModelObject.data![index].description,
+                                                                              myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
+                                                                              myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
+                                                                            )));
+                                                          } else if (topRentedCarsModelObject
+                                                                  .data![index]
+                                                                  .carsUsageType ==
+                                                              "Photography") {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            BookForWeddingCarDescription(
+                                                                              carName: topRentedCarsModelObject.data![index].vehicalName,
+                                                                              carYear: "${topRentedCarsModelObject.data![index].year}",
+                                                                              carId: topRentedCarsModelObject.data![index].carsId,
+                                                                              carRating: topRentedCarsModelObject.data![index].rating,
+                                                                              carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                                                              carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                                                              carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                                                              carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                                              carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                                              favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                              discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                                                              carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
+                                                                              carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
+                                                                              carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                                              carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                                              carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                                              myCarDescription: topRentedCarsModelObject.data![index].description,
+                                                                              myCarRating: topRentedCarsModelObject.data![index].rating,
+                                                                            )));
+                                                          } else if (topRentedCarsModelObject
+                                                                  .data![index]
+                                                                  .carsUsageType ==
+                                                              "Driving Experience") {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            HomeDrivingBooking(
+                                                                              datum: topRentedCarsModelObject.data![index],
+                                                                            )));
+                                                          }
+                                                        },
+                                                        child: Container(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.035,
                                                           width: MediaQuery.of(
                                                                       context)
                                                                   .size
                                                                   .width *
-                                                              0.01),
-                                                      Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 06),
-                                                            child: Text("RM ",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left,
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        borderColor,
-                                                                    fontSize: 7,
-                                                                    fontFamily:
-                                                                        poppinSemiBold)),
+                                                              0.4,
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  borderColor,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30)),
+                                                          child: Center(
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                    "Click to see Details",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .left,
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            kWhite,
+                                                                        fontFamily:
+                                                                            poppinMedium,
+                                                                        fontSize:
+                                                                            10)),
+                                                                SizedBox(
+                                                                    width: 10),
+                                                                Image.asset(
+                                                                    "assets/home_page/more_buttons_home.png")
+                                                              ],
+                                                            ),
                                                           ),
-                                                          searchModelObject
-                                                                      .data?[
-                                                                          index]
-                                                                      .carsUsageType ==
-                                                                  "EV Subscriptions"
-                                                              ? discountedPriceWidget(
-                                                                  "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/",
-                                                                  "Month")
-                                                              : searchModelObject
-                                                                          .data?[
-                                                                              index]
-                                                                          .carsUsageType ==
-                                                                      "Photography"
-                                                                  ? discountedPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerHour}/",
-                                                                      "Hour")
-                                                                  : discountedPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerSlot}/",
-                                                                      "Slot"),
-                                                        ],
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
-
-                                                  // Divider(),
-                                                  // Row(
-                                                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  //   children: [
-                                                  //     Row(
-                                                  //       children: [
-                                                  //         Image.asset("assets/home_page/Promoted.png"),
-                                                  //         SizedBox(width: 05),
-                                                  //         Text("Verified Dealer", textAlign: TextAlign.left,
-                                                  //             style: TextStyle(color: textLabelColor,
-                                                  //                 fontSize: 10, fontFamily: poppinRegular)),
-                                                  //       ],
-                                                  //     ),
-                                                  //     Container(
-                                                  //       height: 17, width: 35,
-                                                  //       decoration: BoxDecoration(
-                                                  //           color: kBlack,
-                                                  //           borderRadius: BorderRadius.circular(10)),
-                                                  //       child: Center(
-                                                  //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
-                                                  //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                                                  //       ),
-                                                  //     ),
-                                                  //   ],
-                                                  // ),
-                                                  SizedBox(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.02),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      carID = searchModelObject
-                                                          .data?[index].carsId;
-                                                      print("cardId $carID");
-                                                      print(
-                                                          "carsUsageType ${searchModelObject.data![index].carsUsageType}");
-
-                                                      if (topRentedCarsModelObject
-                                                              .data![index]
-                                                              .carsUsageType ==
-                                                          "EV Subscriptions") {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        EVCarDescription(
-                                                                          carName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .vehicalName,
-                                                                          carPrice: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsPlans![0]
-                                                                              .pricePerMonth,
-                                                                          carImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                          carYear:
-                                                                              "${topRentedCarsModelObject.data![index].year}",
-                                                                          carId: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsId,
-                                                                          carRating: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .rating,
-                                                                          carColorName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsColors!
-                                                                              .name,
-                                                                          carMakesName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsMakes!
-                                                                              .name,
-                                                                          carModelName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsModels!
-                                                                              .name,
-                                                                          carMakesImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                          carStatus: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .favouriteStatus,
-                                                                          discountPercentage: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .discountPercentage,
-                                                                          carDiscountPrice:
-                                                                              double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
-                                                                          carOwnerImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                          carOwnerName:
-                                                                              "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                          carOwnerId: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .usersCompanies!
-                                                                              .usersCompaniesId,
-                                                                          myCarDescription: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .description,
-                                                                          myCarRating: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsRatings![0]
-                                                                              .rateStars,
-                                                                          myCarComment: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsRatings![0]
-                                                                              .comments,
-                                                                        )));
-                                                      } else if (topRentedCarsModelObject
-                                                              .data![index]
-                                                              .carsUsageType ==
-                                                          "Photography") {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        BookForWeddingCarDescription(
-                                                                          carName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .vehicalName,
-                                                                          carYear:
-                                                                              "${topRentedCarsModelObject.data![index].year}",
-                                                                          carId: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsId,
-                                                                          carRating: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .rating,
-                                                                          carColorName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsColors!
-                                                                              .name,
-                                                                          carMakesName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsMakes!
-                                                                              .name,
-                                                                          carModelName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsModels!
-                                                                              .name,
-                                                                          carImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                          carMakesImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                          favouriteStatus: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .favouriteStatus,
-                                                                          discountPercentage: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .discountPercentage,
-                                                                          carDiscountPrice: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsPlans![0]
-                                                                              .discountedPricePerHour,
-                                                                          carPrice: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsPlans![0]
-                                                                              .pricePerHour,
-                                                                          carOwnerImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                          carOwnerName:
-                                                                              "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                          carOwnerId: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .usersCompanies!
-                                                                              .usersCompaniesId,
-                                                                          myCarDescription: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .description,
-                                                                          myCarRating: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .rating,
-                                                                        )));
-                                                      } else if (topRentedCarsModelObject
-                                                              .data![index]
-                                                              .carsUsageType ==
-                                                          "Driving Experience") {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        HomeDrivingBooking(
-                                                                          datum:
-                                                                              topRentedCarsModelObject.data![index],
-                                                                        )));
-                                                      }
-                                                    },
-                                                    child: Container(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.035,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.4,
-                                                      decoration: BoxDecoration(
-                                                          color: borderColor,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      30)),
-                                                      child: Center(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                                "Click to see Details",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left,
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        kWhite,
-                                                                    fontFamily:
-                                                                        poppinMedium,
-                                                                    fontSize:
-                                                                        10)),
-                                                            SizedBox(width: 10),
-                                                            Image.asset(
-                                                                "assets/home_page/more_buttons_home.png")
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 30,
-                                        left: 10,
-                                        right: 10,
-                                        child: searchModelObject
-                                                    .data?[index].image1 ==
-                                                null
-                                            ? ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: Image.asset(
-                                                    'assets/icon/fade_in_image.jpeg'))
-                                            : ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: FadeInImage(
-                                                  placeholder: AssetImage(
-                                                      "assets/icon/fade_in_image.jpeg"),
-                                                  height: 65,
-                                                  image: NetworkImage(
-                                                      "$baseUrlImage${searchModelObject.data?[index].image1}"),
                                                 ),
                                               ),
-                                      ),
-                                      Positioned(
-                                        top: 03,
-                                        left: 05,
-                                        child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.065,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.19,
-                                          decoration: BoxDecoration(
-                                            color: kRed.withOpacity(0.8),
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(15),
-                                                bottomLeft:
-                                                    Radius.circular(15)),
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.all(0.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                    "${searchModelObject.data?[index].discountPercentage}% ",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: kWhite,
-                                                        fontSize: 12,
-                                                        fontFamily:
-                                                            poppinSemiBold)),
-                                                Text("OFF",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: kWhite,
-                                                        fontSize: 8,
-                                                        fontFamily:
-                                                            poppinRegular)),
-                                              ],
                                             ),
                                           ),
-                                        ),
+                                          Positioned(
+                                            top: 30,
+                                            left: 10,
+                                            right: 10,
+                                            child: searchModelObject
+                                                        .data?[index].image1 ==
+                                                    null
+                                                ? ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child: Image.asset(
+                                                        'assets/icon/fade_in_image.jpeg'))
+                                                : ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child: FadeInImage(
+                                                      placeholder: AssetImage(
+                                                          "assets/icon/fade_in_image.jpeg"),
+                                                      height: 65,
+                                                      image: NetworkImage(
+                                                          "$baseUrlImage${searchModelObject.data?[index].image1}"),
+                                                    ),
+                                                  ),
+                                          ),
+                                          Positioned(
+                                            top: 03,
+                                            left: 05,
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.065,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.19,
+                                              decoration: BoxDecoration(
+                                                color: kRed.withOpacity(0.8),
+                                                borderRadius: BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                    bottomLeft:
+                                                        Radius.circular(15)),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(0.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                        "${searchModelObject.data?[index].discountPercentage}% ",
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
+                                                            color: kWhite,
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                poppinSemiBold)),
+                                                    Text("OFF",
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
+                                                            color: kWhite,
+                                                            fontSize: 8,
+                                                            fontFamily:
+                                                                poppinRegular)),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                    );
+                                  });
+                            } else {
+                              return GridView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 1.5,
+                                    mainAxisSpacing: 0,
+                                    crossAxisSpacing: 0,
                                   ),
-                                );
-                              });
-                        } else {
-                          return GridView.builder(
-                              physics: BouncingScrollPhysics(),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 1.5,
-                                mainAxisSpacing: 0,
-                                crossAxisSpacing: 0,
-                              ),
-                              itemCount: searchModelObject.data?.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: EdgeInsets.only(top: 10),
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        top: 50,
-                                        left: 0,
-                                        right: 0,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.21,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.47,
-                                            decoration: BoxDecoration(
-                                                color: kWhite,
-                                                borderRadius:
-                                                    BorderRadius.circular(20)),
+                                  itemCount: searchModelObject.data?.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(top: 10),
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            top: 50,
+                                            left: 0,
+                                            right: 0,
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 10),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  SizedBox(
-                                                      height:
-                                                          MediaQuery.of(context)
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.21,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.47,
+                                                decoration: BoxDecoration(
+                                                    color: kWhite,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20)),
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
                                                                   .size
                                                                   .height *
                                                               0.06),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
                                                       Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
                                                         children: [
-                                                          // Text("${searchModelObject.data?[index].vehicalName} ",
-                                                          Text(
-                                                              "${searchModelObject.data?[index].vehicalName} ",
-                                                              style: TextStyle(
-                                                                  color: kBlack,
-                                                                  fontSize: 8,
-                                                                  fontFamily:
-                                                                      poppinBold)),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 4),
-                                                            child: Text(
-                                                                "${searchModelObject.data?[index].carsColors?.name} ",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        kBlack,
-                                                                    fontSize: 7,
-                                                                    fontFamily:
-                                                                        poppinRegular)),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          searchModelObject
-                                                                      .data?[
-                                                                          index]
-                                                                      .rating ==
-                                                                  null
-                                                              ? RatingBar(
-                                                                  // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
-                                                                  initialRating:
-                                                                      0.0,
-                                                                  direction: Axis
-                                                                      .horizontal,
-                                                                  allowHalfRating:
-                                                                      true,
-                                                                  itemCount: 1,
-                                                                  minRating: 0,
-                                                                  itemSize:
-                                                                      18.0,
-                                                                  ignoreGestures:
-                                                                      true,
-                                                                  ratingWidget:
-                                                                      RatingWidget(
-                                                                          full: Icon(Icons.star,
-                                                                              color:
-                                                                                  borderColor),
-                                                                          half:
-                                                                              Icon(
-                                                                            Icons.star_half,
-                                                                            color:
-                                                                                borderColor,
-                                                                          ),
-                                                                          empty:
-                                                                              Icon(
-                                                                            Icons.star_outline,
-                                                                            color:
-                                                                                borderColor,
-                                                                          )),
-                                                                  onRatingUpdate:
-                                                                      (value) {})
-                                                              : RatingBar(
-                                                                  initialRating:
-                                                                      double.parse(
-                                                                          "${searchModelObject.data?[index].rating}"),
-                                                                  // initialRating: searchModelObject.data?[index].rating,
-                                                                  direction: Axis
-                                                                      .horizontal,
-                                                                  allowHalfRating:
-                                                                      true,
-                                                                  itemCount: 1,
-                                                                  minRating: 0,
-                                                                  itemSize:
-                                                                      18.0,
-                                                                  ignoreGestures:
-                                                                      true,
-                                                                  ratingWidget:
-                                                                      RatingWidget(
-                                                                          full: Icon(Icons.star,
-                                                                              color:
-                                                                                  borderColor),
-                                                                          half:
-                                                                              Icon(
-                                                                            Icons.star_half,
-                                                                            color:
-                                                                                borderColor,
-                                                                          ),
-                                                                          empty:
-                                                                              Icon(
-                                                                            Icons.star_outline,
-                                                                            color:
-                                                                                borderColor,
-                                                                          )),
-                                                                  onRatingUpdate:
-                                                                      (value) {}),
-                                                          searchModelObject
-                                                                      .data?[
-                                                                          index]
-                                                                      .rating ==
-                                                                  null
-                                                              ? Text("0.0",
+                                                          Row(
+                                                            children: [
+                                                              // Text("${searchModelObject.data?[index].vehicalName} ",
+                                                              Text(
+                                                                  "${searchModelObject.data?[index].vehicalName} ",
                                                                   style: TextStyle(
                                                                       color:
                                                                           kBlack,
                                                                       fontSize:
-                                                                          10,
+                                                                          8,
                                                                       fontFamily:
-                                                                          poppinMedium))
-                                                              : Text(
-                                                                  "${searchModelObject.data?[index].rating}",
-                                                                  style: TextStyle(
-                                                                      color:
-                                                                          kBlack,
-                                                                      fontSize:
-                                                                          10,
-                                                                      fontFamily:
-                                                                          poppinMedium)),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.01),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                          "${searchModelObject.data?[index].carsMakes?.name}, ",
-                                                          style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 7,
-                                                              fontFamily:
-                                                                  poppinRegular)),
-                                                      Text(
-                                                          "${searchModelObject.data?[index].carsModels?.name}, ",
-                                                          style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 7,
-                                                              fontFamily:
-                                                                  poppinSemiBold)),
-                                                      Text(
-                                                          "${searchModelObject.data?[index].year} ",
-                                                          style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 7,
-                                                              fontFamily:
-                                                                  poppinRegular)),
-                                                    ],
-                                                  ),
-                                                  // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-
-                                                  Divider(),
-                                                  Row(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 04),
-                                                            child: Text("RM ",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left,
-                                                                style: TextStyle(
-                                                                    color: kRed,
-                                                                    fontSize: 5,
-                                                                    fontFamily:
-                                                                        poppinLight)),
+                                                                          poppinBold)),
+                                                              Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top: 4),
+                                                                child: Text(
+                                                                    "${searchModelObject.data?[index].carsColors?.name} ",
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            kBlack,
+                                                                        fontSize:
+                                                                            7,
+                                                                        fontFamily:
+                                                                            poppinRegular)),
+                                                              ),
+                                                            ],
                                                           ),
-                                                          searchModelObject
-                                                                      .data?[
-                                                                          index]
-                                                                      .carsUsageType ==
-                                                                  "EV Subscriptions"
-                                                              ? originalPriceWidget(
-                                                                  "${searchModelObject.data?[index].carsPlans![0].pricePerMonth}")
-                                                              : searchModelObject
+                                                          Row(
+                                                            children: [
+                                                              searchModelObject
                                                                           .data?[
                                                                               index]
-                                                                          .carsUsageType ==
-                                                                      "Photography"
-                                                                  ? originalPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans![0].pricePerHour}")
-                                                                  : originalPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans![0].pricePerSlot}"),
+                                                                          .rating ==
+                                                                      null
+                                                                  ? RatingBar(
+                                                                      // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
+                                                                      initialRating:
+                                                                          0.0,
+                                                                      direction:
+                                                                          Axis
+                                                                              .horizontal,
+                                                                      allowHalfRating:
+                                                                          true,
+                                                                      itemCount:
+                                                                          1,
+                                                                      minRating:
+                                                                          0,
+                                                                      itemSize:
+                                                                          18.0,
+                                                                      ignoreGestures:
+                                                                          true,
+                                                                      ratingWidget:
+                                                                          RatingWidget(
+                                                                              full: Icon(Icons.star,
+                                                                                  color:
+                                                                                      borderColor),
+                                                                              half:
+                                                                                  Icon(
+                                                                                Icons.star_half,
+                                                                                color: borderColor,
+                                                                              ),
+                                                                              empty:
+                                                                                  Icon(
+                                                                                Icons.star_outline,
+                                                                                color: borderColor,
+                                                                              )),
+                                                                      onRatingUpdate:
+                                                                          (value) {})
+                                                                  : RatingBar(
+                                                                      initialRating:
+                                                                          double.parse(
+                                                                              "${searchModelObject.data?[index].rating}"),
+                                                                      // initialRating: searchModelObject.data?[index].rating,
+                                                                      direction:
+                                                                          Axis
+                                                                              .horizontal,
+                                                                      allowHalfRating:
+                                                                          true,
+                                                                      itemCount:
+                                                                          1,
+                                                                      minRating:
+                                                                          0,
+                                                                      itemSize:
+                                                                          18.0,
+                                                                      ignoreGestures:
+                                                                          true,
+                                                                      ratingWidget: RatingWidget(
+                                                                          full: Icon(Icons.star, color: borderColor),
+                                                                          half: Icon(
+                                                                            Icons.star_half,
+                                                                            color:
+                                                                                borderColor,
+                                                                          ),
+                                                                          empty: Icon(
+                                                                            Icons.star_outline,
+                                                                            color:
+                                                                                borderColor,
+                                                                          )),
+                                                                      onRatingUpdate: (value) {}),
+                                                              searchModelObject
+                                                                          .data?[
+                                                                              index]
+                                                                          .rating ==
+                                                                      null
+                                                                  ? Text("0.0",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              kBlack,
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontFamily:
+                                                                              poppinMedium))
+                                                                  : Text(
+                                                                      "${searchModelObject.data?[index].rating}",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              kBlack,
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontFamily:
+                                                                              poppinMedium)),
+                                                            ],
+                                                          ),
                                                         ],
                                                       ),
                                                       SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.01),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                              "${searchModelObject.data?[index].carsMakes?.name}, ",
+                                                              style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 7,
+                                                                  fontFamily:
+                                                                      poppinRegular)),
+                                                          Text(
+                                                              "${searchModelObject.data?[index].carsModels?.name}, ",
+                                                              style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 7,
+                                                                  fontFamily:
+                                                                      poppinSemiBold)),
+                                                          Text(
+                                                              "${searchModelObject.data?[index].year} ",
+                                                              style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 7,
+                                                                  fontFamily:
+                                                                      poppinRegular)),
+                                                        ],
+                                                      ),
+                                                      // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+                                                      Divider(),
+                                                      Row(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            04),
+                                                                child: Text(
+                                                                    "RM ",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .left,
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            kRed,
+                                                                        fontSize:
+                                                                            5,
+                                                                        fontFamily:
+                                                                            poppinLight)),
+                                                              ),
+                                                              searchModelObject
+                                                                          .data?[
+                                                                              index]
+                                                                          .carsUsageType ==
+                                                                      "EV Subscriptions"
+                                                                  ? originalPriceWidget(
+                                                                      "${searchModelObject.data?[index].carsPlans![0].pricePerMonth}")
+                                                                  : searchModelObject
+                                                                              .data?[
+                                                                                  index]
+                                                                              .carsUsageType ==
+                                                                          "Photography"
+                                                                      ? originalPriceWidget(
+                                                                          "${searchModelObject.data?[index].carsPlans![0].pricePerHour}")
+                                                                      : originalPriceWidget(
+                                                                          "${searchModelObject.data?[index].carsPlans![0].pricePerSlot}"),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.01),
+                                                          Row(
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            06),
+                                                                child: Text(
+                                                                    "RM ",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .left,
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            borderColor,
+                                                                        fontSize:
+                                                                            7,
+                                                                        fontFamily:
+                                                                            poppinSemiBold)),
+                                                              ),
+                                                              searchModelObject
+                                                                          .data?[
+                                                                              index]
+                                                                          .carsUsageType ==
+                                                                      "EV Subscriptions"
+                                                                  ? discountedPriceWidget(
+                                                                      "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                                      "Month")
+                                                                  : searchModelObject
+                                                                              .data?[
+                                                                                  index]
+                                                                              .carsUsageType ==
+                                                                          "Photography"
+                                                                      ? discountedPriceWidget(
+                                                                          "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerHour}/",
+                                                                          "Hour")
+                                                                      : discountedPriceWidget(
+                                                                          "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerSlot}/",
+                                                                          "Slot"),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+
+                                                      // Divider(),
+                                                      // Row(
+                                                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      //   children: [
+                                                      //     Row(
+                                                      //       children: [
+                                                      //         Image.asset("assets/home_page/Promoted.png"),
+                                                      //         SizedBox(width: 05),
+                                                      //         Text("Verified Dealer", textAlign: TextAlign.left,
+                                                      //             style: TextStyle(color: textLabelColor,
+                                                      //                 fontSize: 10, fontFamily: poppinRegular)),
+                                                      //       ],
+                                                      //     ),
+                                                      //     Container(
+                                                      //       height: 17, width: 35,
+                                                      //       decoration: BoxDecoration(
+                                                      //           color: kBlack,
+                                                      //           borderRadius: BorderRadius.circular(10)),
+                                                      //       child: Center(
+                                                      //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
+                                                      //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                                                      //       ),
+                                                      //     ),
+                                                      //   ],
+                                                      // ),
+                                                      SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.02),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          carID =
+                                                              searchModelObject
+                                                                  .data?[index]
+                                                                  .carsId;
+                                                          print(
+                                                              "cardId $carID");
+                                                          print(
+                                                              "carsUsageType ${searchModelObject.data![index].carsUsageType}");
+
+                                                          if (topRentedCarsModelObject
+                                                                  .data![index]
+                                                                  .carsUsageType ==
+                                                              "EV Subscriptions") {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            EVCarDescription(
+                                                                              carName: topRentedCarsModelObject.data![index].vehicalName,
+                                                                              carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+                                                                              carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                                              carYear: "${topRentedCarsModelObject.data![index].year}",
+                                                                              carId: topRentedCarsModelObject.data![index].carsId,
+                                                                              carRating: topRentedCarsModelObject.data![index].rating,
+                                                                              carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                                                              carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                                                              carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                                                              carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                                              carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                              discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                                                              carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                              carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                                              carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                                              carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                                              myCarDescription: topRentedCarsModelObject.data![index].description,
+                                                                              myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
+                                                                              myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
+                                                                            )));
+                                                          } else if (topRentedCarsModelObject
+                                                                  .data![index]
+                                                                  .carsUsageType ==
+                                                              "Photography") {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            BookForWeddingCarDescription(
+                                                                              carName: topRentedCarsModelObject.data![index].vehicalName,
+                                                                              carYear: "${topRentedCarsModelObject.data![index].year}",
+                                                                              carId: topRentedCarsModelObject.data![index].carsId,
+                                                                              carRating: topRentedCarsModelObject.data![index].rating,
+                                                                              carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                                                              carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                                                              carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                                                              carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                                              carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                                              favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                              discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                                                              carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
+                                                                              carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
+                                                                              carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                                              carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                                              carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                                              myCarDescription: topRentedCarsModelObject.data![index].description,
+                                                                              myCarRating: topRentedCarsModelObject.data![index].rating,
+                                                                            )));
+                                                          } else if (topRentedCarsModelObject
+                                                                  .data![index]
+                                                                  .carsUsageType ==
+                                                              "Driving Experience") {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            HomeDrivingBooking(
+                                                                              datum: topRentedCarsModelObject.data![index],
+                                                                            )));
+                                                          }
+                                                        },
+                                                        child: Container(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.035,
                                                           width: MediaQuery.of(
                                                                       context)
                                                                   .size
                                                                   .width *
-                                                              0.01),
-                                                      Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 06),
-                                                            child: Text("RM ",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left,
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        borderColor,
-                                                                    fontSize: 7,
-                                                                    fontFamily:
-                                                                        poppinSemiBold)),
+                                                              0.4,
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  borderColor,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30)),
+                                                          child: Center(
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                    "Click to see Details",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .left,
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            kWhite,
+                                                                        fontFamily:
+                                                                            poppinMedium,
+                                                                        fontSize:
+                                                                            10)),
+                                                                SizedBox(
+                                                                    width: 10),
+                                                                Image.asset(
+                                                                    "assets/home_page/more_buttons_home.png")
+                                                              ],
+                                                            ),
                                                           ),
-                                                          searchModelObject
-                                                                      .data?[
-                                                                          index]
-                                                                      .carsUsageType ==
-                                                                  "EV Subscriptions"
-                                                              ? discountedPriceWidget(
-                                                                  "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/",
-                                                                  "Month")
-                                                              : searchModelObject
-                                                                          .data?[
-                                                                              index]
-                                                                          .carsUsageType ==
-                                                                      "Photography"
-                                                                  ? discountedPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerHour}/",
-                                                                      "Hour")
-                                                                  : discountedPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerSlot}/",
-                                                                      "Slot"),
-                                                        ],
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
-
-                                                  // Divider(),
-                                                  // Row(
-                                                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  //   children: [
-                                                  //     Row(
-                                                  //       children: [
-                                                  //         Image.asset("assets/home_page/Promoted.png"),
-                                                  //         SizedBox(width: 05),
-                                                  //         Text("Verified Dealer", textAlign: TextAlign.left,
-                                                  //             style: TextStyle(color: textLabelColor,
-                                                  //                 fontSize: 10, fontFamily: poppinRegular)),
-                                                  //       ],
-                                                  //     ),
-                                                  //     Container(
-                                                  //       height: 17, width: 35,
-                                                  //       decoration: BoxDecoration(
-                                                  //           color: kBlack,
-                                                  //           borderRadius: BorderRadius.circular(10)),
-                                                  //       child: Center(
-                                                  //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
-                                                  //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                                                  //       ),
-                                                  //     ),
-                                                  //   ],
-                                                  // ),
-                                                  SizedBox(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.02),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      carID = searchModelObject
-                                                          .data?[index].carsId;
-                                                      print("cardId $carID");
-                                                      print(
-                                                          "carsUsageType ${searchModelObject.data![index].carsUsageType}");
-
-                                                      if (topRentedCarsModelObject
-                                                              .data![index]
-                                                              .carsUsageType ==
-                                                          "EV Subscriptions") {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        EVCarDescription(
-                                                                          carName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .vehicalName,
-                                                                          carPrice: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsPlans![0]
-                                                                              .pricePerMonth,
-                                                                          carImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                          carYear:
-                                                                              "${topRentedCarsModelObject.data![index].year}",
-                                                                          carId: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsId,
-                                                                          carRating: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .rating,
-                                                                          carColorName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsColors!
-                                                                              .name,
-                                                                          carMakesName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsMakes!
-                                                                              .name,
-                                                                          carModelName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsModels!
-                                                                              .name,
-                                                                          carMakesImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                          carStatus: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .favouriteStatus,
-                                                                          discountPercentage: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .discountPercentage,
-                                                                          carDiscountPrice:
-                                                                              double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
-                                                                          carOwnerImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                          carOwnerName:
-                                                                              "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                          carOwnerId: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .usersCompanies!
-                                                                              .usersCompaniesId,
-                                                                          myCarDescription: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .description,
-                                                                          myCarRating: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsRatings![0]
-                                                                              .rateStars,
-                                                                          myCarComment: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsRatings![0]
-                                                                              .comments,
-                                                                        )));
-                                                      } else if (topRentedCarsModelObject
-                                                              .data![index]
-                                                              .carsUsageType ==
-                                                          "Photography") {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        BookForWeddingCarDescription(
-                                                                          carName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .vehicalName,
-                                                                          carYear:
-                                                                              "${topRentedCarsModelObject.data![index].year}",
-                                                                          carId: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsId,
-                                                                          carRating: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .rating,
-                                                                          carColorName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsColors!
-                                                                              .name,
-                                                                          carMakesName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsMakes!
-                                                                              .name,
-                                                                          carModelName: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsModels!
-                                                                              .name,
-                                                                          carImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                          carMakesImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                          favouriteStatus: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .favouriteStatus,
-                                                                          discountPercentage: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .discountPercentage,
-                                                                          carDiscountPrice: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsPlans![0]
-                                                                              .discountedPricePerHour,
-                                                                          carPrice: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .carsPlans![0]
-                                                                              .pricePerHour,
-                                                                          carOwnerImage:
-                                                                              "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                          carOwnerName:
-                                                                              "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                          carOwnerId: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .usersCompanies!
-                                                                              .usersCompaniesId,
-                                                                          myCarDescription: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .description,
-                                                                          myCarRating: topRentedCarsModelObject
-                                                                              .data![index]
-                                                                              .rating,
-                                                                        )));
-                                                      } else if (topRentedCarsModelObject
-                                                              .data![index]
-                                                              .carsUsageType ==
-                                                          "Driving Experience") {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        HomeDrivingBooking(
-                                                                          datum:
-                                                                              topRentedCarsModelObject.data![index],
-                                                                        )));
-                                                      }
-                                                    },
-                                                    child: Container(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.035,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.4,
-                                                      decoration: BoxDecoration(
-                                                          color: borderColor,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      30)),
-                                                      child: Center(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                                "Click to see Details",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left,
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        kWhite,
-                                                                    fontFamily:
-                                                                        poppinMedium,
-                                                                    fontSize:
-                                                                        10)),
-                                                            SizedBox(width: 10),
-                                                            Image.asset(
-                                                                "assets/home_page/more_buttons_home.png")
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 30,
-                                        left: 10,
-                                        right: 10,
-                                        child: searchModelObject
-                                                    .data?[index].image1 ==
-                                                null
-                                            ? ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: Image.asset(
-                                                    'assets/icon/fade_in_image.jpeg'))
-                                            : ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: FadeInImage(
-                                                  placeholder: AssetImage(
-                                                      "assets/icon/fade_in_image.jpeg"),
-                                                  height: 65,
-                                                  image: NetworkImage(
-                                                      "$baseUrlImage${searchModelObject.data?[index].image1}"),
                                                 ),
                                               ),
-                                      ),
-                                      Positioned(
-                                        top: 03,
-                                        left: 05,
-                                        child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.065,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.19,
-                                          decoration: BoxDecoration(
-                                            color: kRed.withOpacity(0.8),
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(15),
-                                                bottomLeft:
-                                                    Radius.circular(15)),
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.all(0.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                    "${searchModelObject.data?[index].discountPercentage}% ",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: kWhite,
-                                                        fontSize: 12,
-                                                        fontFamily:
-                                                            poppinSemiBold)),
-                                                Text("OFF",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: kWhite,
-                                                        fontSize: 8,
-                                                        fontFamily:
-                                                            poppinRegular)),
-                                              ],
                                             ),
                                           ),
-                                        ),
+                                          Positioned(
+                                            top: 30,
+                                            left: 10,
+                                            right: 10,
+                                            child: searchModelObject
+                                                        .data?[index].image1 ==
+                                                    null
+                                                ? ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child: Image.asset(
+                                                        'assets/icon/fade_in_image.jpeg'))
+                                                : ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child: FadeInImage(
+                                                      placeholder: AssetImage(
+                                                          "assets/icon/fade_in_image.jpeg"),
+                                                      height: 65,
+                                                      image: NetworkImage(
+                                                          "$baseUrlImage${searchModelObject.data?[index].image1}"),
+                                                    ),
+                                                  ),
+                                          ),
+                                          Positioned(
+                                            top: 03,
+                                            left: 05,
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.065,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.19,
+                                              decoration: BoxDecoration(
+                                                color: kRed.withOpacity(0.8),
+                                                borderRadius: BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                    bottomLeft:
+                                                        Radius.circular(15)),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(0.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                        "${searchModelObject.data?[index].discountPercentage}% ",
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
+                                                            color: kWhite,
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                poppinSemiBold)),
+                                                    Text("OFF",
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
+                                                            color: kWhite,
+                                                            fontSize: 8,
+                                                            fontFamily:
+                                                                poppinRegular)),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                );
-                              });
-                        }
-                      },
-                    ),
+                                    );
+                                  });
+                            }
+                          },
+                        ),
     );
   }
 

@@ -45,6 +45,7 @@ String getCarFilterByNameApiUrl = '${baseUrl}get_cars_filters_by_name';
 
 /// TabBar Page API Urls
 String topRentedCarsApiUrl = '${baseUrl}cars_top_rented';
+String topRentedCarsFilterApiUrl = '${baseUrl}filter_cars_top_rented';
 String favoriteCarsApiUrl = '${baseUrl}cars_favourite';
 String likeUnlikeFavoriteCarsApiUrl = '${baseUrl}cars_favourite_like_unlike';
 

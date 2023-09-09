@@ -25,15 +25,15 @@ class _FilterScreenState extends State<FilterScreen> {
 
   GetCarMakesModel getCarMakesModelObject = GetCarMakesModel();
   FilterCarByAttributeModel filterCarByAttributeModelObject = FilterCarByAttributeModel();
-  bool loadingP = true;
   int? selectedCarMakesId, selectedCarsYear;
   String? selectedCarMakesName;
   String? valueYear;
   bool progress = false;
+  bool bProgress = false;
   final GlobalKey<FormState> filterFormKey = GlobalKey<FormState>();
 
   getCarMakesListWidget() async {
-    loadingP = true;
+    bProgress = true;
     setState(() {});
     print('in getCarMakesAPI');
     try {
@@ -52,12 +52,12 @@ class _FilterScreenState extends State<FilterScreen> {
     } catch (e) {
       print('Error: ${e.toString()}');
     }
-    loadingP = false;
+    bProgress = false;
     setState(() {});
   }
 
   filterCarsWidget() async {
-    loadingP = true;
+    progress = true;
     setState(() {});
 
     prefs = await SharedPreferences.getInstance();
@@ -69,7 +69,7 @@ class _FilterScreenState extends State<FilterScreen> {
     print('rent_start $rangeStartPrice');
     print('rent_end $rangeEndPrice');
     // try {
-    String apiUrl = topRentedCarsApiUrl;
+    String apiUrl = topRentedCarsFilterApiUrl;
     print("filterCarsApi: $apiUrl");
     final response = await http.post(Uri.parse(apiUrl),
         body: {
@@ -79,8 +79,8 @@ class _FilterScreenState extends State<FilterScreen> {
           "year" : valueYear,
           "rent_start" : "$rangeStartPrice",
           "rent_end" : "$rangeEndPrice",
-          "sort_column" : "cars_id",
-          "sort_order" : "DESC",
+          // "sort_column" : "cars_id",
+          // "sort_order" : "DESC",
         },
         headers: {
           'Accept': 'application/json'
@@ -95,13 +95,20 @@ class _FilterScreenState extends State<FilterScreen> {
     // } catch (e) {
     //   print('Error: ${e.toString()}');
     // }
-    loadingP = false;
+    progress = false;
     setState(() {});
   }
 
   String? dropdownCarType;
 
   var items = ['EV Subscriptions'];
+
+  bool clearFilters = false;
+  void clearFilter() {
+   setState(() {
+     clearFilters = true;
+   });
+  }
 
   @override
   void initState() {
@@ -142,11 +149,18 @@ class _FilterScreenState extends State<FilterScreen> {
                           style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
                       ),
                       Positioned(
-                        top: 5,
+                        // bottom:12,
                         right: 15,
-                        child: Text('Clear Filter', textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 14,
-                              fontFamily: poppinMedium, color: kWhite),),
+                        child: TextButton(
+                          onPressed: (){
+                            clearFilter();
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) => TabBarPage(clearFilters: clearFilters,)));
+                          },
+                          child: Text('Clear Filter', textAlign: TextAlign.right,
+                            style: TextStyle(fontSize: 14,
+                                fontFamily: poppinMedium, color: kWhite),),
+                        ),
                       ),
                     ],
                   ),
@@ -223,22 +237,22 @@ class _FilterScreenState extends State<FilterScreen> {
                           });
                           await filterCarsWidget();
 
-                          Future.delayed(Duration(seconds: 3), () {
-
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => TabBarPage()));
-
-                            setState(() {
-                              progress = false;
-                            });
-                            print("false: $progress");
+                          Future.delayed(Duration(seconds: 1), () {
+                            if(filterCarByAttributeModelObject.status == "success"){
+                              // for(int i = 0; i < filterCarByAttributeModelObject.data!.length; i++){
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) => TabBarPage(filterCarByAttributeModelObject: filterCarByAttributeModelObject,)));
+                                setState(() {
+                                  progress = false;
+                                });
+                                print("false: $progress");
+                              // }
+                            } else{
+                              toastFailedMessage("${filterCarByAttributeModelObject.message}", kRed);
+                            }
                           });
-
                         }
                       }
-
-
-
                     },
                     child: loginButton('Apply', context)),
               ],
@@ -271,13 +285,13 @@ class _FilterScreenState extends State<FilterScreen> {
   carMakersListWidget(){
     return Padding(
       padding:  EdgeInsets.symmetric(vertical: 08),
-      child: loadingP? CircularProgressIndicator(color: borderColor):
+      child: bProgress? CircularProgressIndicator(color: borderColor):
       Container(
         height: MediaQuery.of(context).size.height* 0.1,
         color: Colors.transparent,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: getCarMakesModelObject.data!.length,
+            itemCount: getCarMakesModelObject.data?.length,
             itemBuilder: (context, index){
               return Padding(
                 padding: EdgeInsets.all(8.0),
@@ -285,8 +299,8 @@ class _FilterScreenState extends State<FilterScreen> {
                   onTap: (){
                     setState(() {
                       selectedIndex = index;
-                      selectedCarMakesId = getCarMakesModelObject.data![selectedIndex].carsMakesId;
-                      selectedCarMakesName = getCarMakesModelObject.data![selectedIndex].name;
+                      selectedCarMakesId = getCarMakesModelObject.data?[selectedIndex].carsMakesId;
+                      selectedCarMakesName = getCarMakesModelObject.data?[selectedIndex].name;
                       print("myIndex $index");
                       print("selectedIndex $selectedIndex");
                       print("selectedCarMakesName $selectedCarMakesName");
@@ -300,7 +314,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         border: Border.all(width: 2,
                             color: selectedIndex == index ? borderColor : kWhite),
                         borderRadius: BorderRadius.circular(10.0)),
-                    child: Image.network("$baseUrlImage${getCarMakesModelObject.data![index].image}",
+                    child: Image.network("$baseUrlImage${getCarMakesModelObject.data?[index].image}",
                         height: 25, width: 25, fit: BoxFit.fill),
                   ),
                 ),
@@ -332,7 +346,7 @@ class _FilterScreenState extends State<FilterScreen> {
       child: RangeSlider(
         values: priceRangeValues,
         min: 0,
-        max: 4000,
+        max: 8000,
         divisions: 20,
         labels: RangeLabels(
           'RM ${priceRangeValues.start.round().toString()}',

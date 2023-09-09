@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final filterCarByAttributeModel = filterCarByAttributeModelFromJson(jsonString);
+
 import 'dart:convert';
 
 FilterCarByAttributeModel filterCarByAttributeModelFromJson(String str) => FilterCarByAttributeModel.fromJson(json.decode(str));
@@ -5,17 +9,20 @@ FilterCarByAttributeModel filterCarByAttributeModelFromJson(String str) => Filte
 String filterCarByAttributeModelToJson(FilterCarByAttributeModel data) => json.encode(data.toJson());
 
 class FilterCarByAttributeModel {
+  String? status;
+  String? message;
+  List<Datum1>? data;
+
   FilterCarByAttributeModel({
     this.status,
+    this.message,
     this.data,
   });
 
-  String? status;
-  List<DatumCarsFilter>? data;
-
   factory FilterCarByAttributeModel.fromJson(Map<String, dynamic> json) => FilterCarByAttributeModel(
     status: json["status"],
-    data: json["data"] != null ? List<DatumCarsFilter>.from(json["data"].map((x) => DatumCarsFilter.fromJson(x))): null,
+    message: json["message"],
+    data: json["data"] != null ? List<Datum1>.from(json["data"].map((x) => Datum1.fromJson(x))) : null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -24,8 +31,49 @@ class FilterCarByAttributeModel {
   };
 }
 
-class DatumCarsFilter {
-  DatumCarsFilter({
+class Datum1 {
+  int? carsId;
+  int? usersCompaniesId;
+  String? vehicalName;
+  String? licensePlate;
+  String? discountPercentage;
+  String? carsUsageType;
+  int? carsTypeId;
+  int? carsMakesId;
+  int? carsModelsId;
+  int? year;
+  int? carsColorsId;
+  String? description;
+  String? featuresSuv;
+  String? featuresSeats;
+  String? featuresSpeed;
+  String? featuresAutomatic;
+  String? featuresDrives;
+  String? featuresDoors;
+  String? featuresElectric;
+  String? featuresEngineCapacity;
+  String? featuresFuelCapacity;
+  String? featuresMeterReading;
+  dynamic featuresNewCars;
+  String? image1;
+  String? image2;
+  String? image3;
+  String? image4;
+  String? image5;
+  String? rating;
+  DateTime? dateAdded;
+  dynamic dateModified;
+  String? status;
+  CarsM? carsMakes;
+  CarsM? carsModels;
+  CarsColors? carsColors;
+  List<dynamic>? carsRatings;
+  int? totalBookings;
+  UsersCompanies? usersCompanies;
+  String? favouriteStatus;
+  List<CarsPlan>? carsPlans;
+
+  Datum1({
     this.carsId,
     this.usersCompaniesId,
     this.vehicalName,
@@ -68,48 +116,7 @@ class DatumCarsFilter {
     this.carsPlans,
   });
 
-  int? carsId;
-  int? usersCompaniesId;
-  String? vehicalName;
-  String? licensePlate;
-  String? discountPercentage;
-  String? carsUsageType;
-  int? carsTypeId;
-  int? carsMakesId;
-  int? carsModelsId;
-  int? year;
-  int? carsColorsId;
-  String? description;
-  dynamic featuresSuv;
-  String? featuresSeats;
-  String? featuresSpeed;
-  dynamic featuresAutomatic;
-  dynamic featuresDrives;
-  String? featuresDoors;
-  dynamic featuresElectric;
-  String? featuresEngineCapacity;
-  String? featuresFuelCapacity;
-  String? featuresMeterReading;
-  dynamic featuresNewCars;
-  String? image1;
-  String? image2;
-  String? image3;
-  String? image4;
-  String? image5;
-  String? rating;
-  DateTime? dateAdded;
-  dynamic dateModified;
-  String? status;
-  CarsM? carsMakes;
-  CarsM? carsModels;
-  CarsColors? carsColors;
-  List<dynamic>? carsRatings;
-  int? totalBookings;
-  UsersCompanies? usersCompanies;
-  String? favouriteStatus;
-  List<CarsPlan>? carsPlans;
-
-  factory DatumCarsFilter.fromJson(Map<String, dynamic> json) => DatumCarsFilter(
+  factory Datum1.fromJson(Map<String, dynamic> json) => Datum1(
     carsId: json["cars_id"],
     usersCompaniesId: json["users_companies_id"],
     vehicalName: json["vehical_name"],
@@ -197,15 +204,15 @@ class DatumCarsFilter {
 }
 
 class CarsColors {
+  int? carsColorsId;
+  String? name;
+  String? status;
+
   CarsColors({
     this.carsColorsId,
     this.name,
     this.status,
   });
-
-  int? carsColorsId;
-  String? name;
-  String? status;
 
   factory CarsColors.fromJson(Map<String, dynamic> json) => CarsColors(
     carsColorsId: json["cars_colors_id"],
@@ -221,6 +228,12 @@ class CarsColors {
 }
 
 class CarsM {
+  int? carsMakesId;
+  String? name;
+  String? image;
+  String? status;
+  int? carsModelsId;
+
   CarsM({
     this.carsMakesId,
     this.name,
@@ -228,12 +241,6 @@ class CarsM {
     this.status,
     this.carsModelsId,
   });
-
-  int? carsMakesId;
-  String? name;
-  String? image;
-  String? status;
-  int? carsModelsId;
 
   factory CarsM.fromJson(Map<String, dynamic> json) => CarsM(
     carsMakesId: json["cars_makes_id"],
@@ -253,6 +260,12 @@ class CarsM {
 }
 
 class CarsPlan {
+  int? carsPlansEvId;
+  int? carsId;
+  int? months;
+  String? pricePerMonth;
+  String? discountedPricePerMonth;
+
   CarsPlan({
     this.carsPlansEvId,
     this.carsId,
@@ -260,12 +273,6 @@ class CarsPlan {
     this.pricePerMonth,
     this.discountedPricePerMonth,
   });
-
-  int? carsPlansEvId;
-  int? carsId;
-  int? months;
-  String? pricePerMonth;
-  dynamic discountedPricePerMonth;
 
   factory CarsPlan.fromJson(Map<String, dynamic> json) => CarsPlan(
     carsPlansEvId: json["cars_plans_ev_id"],
@@ -285,6 +292,25 @@ class CarsPlan {
 }
 
 class UsersCompanies {
+  int? usersCompaniesId;
+  String? email;
+  String? password;
+  String? phone;
+  String? companyName;
+  String? companyRegistrationNumber;
+  String? companyLocation;
+  String? companyLogo;
+  dynamic about;
+  int? verifyEmailOtp;
+  dynamic forgotPasswordOtp;
+  dynamic bankName;
+  dynamic bankAccountNumber;
+  dynamic paypalEmail;
+  String? online;
+  String? status;
+  DateTime? dateAdded;
+  dynamic dateModified;
+
   UsersCompanies({
     this.usersCompaniesId,
     this.email,
@@ -305,25 +331,6 @@ class UsersCompanies {
     this.dateAdded,
     this.dateModified,
   });
-
-  int? usersCompaniesId;
-  String? email;
-  String? password;
-  String? phone;
-  String? companyName;
-  String? companyRegistrationNumber;
-  String? companyLocation;
-  String? companyLogo;
-  dynamic about;
-  int? verifyEmailOtp;
-  dynamic forgotPasswordOtp;
-  dynamic bankName;
-  dynamic bankAccountNumber;
-  dynamic paypalEmail;
-  String? online;
-  String? status;
-  DateTime? dateAdded;
-  dynamic dateModified;
 
   factory UsersCompanies.fromJson(Map<String, dynamic> json) => UsersCompanies(
     usersCompaniesId: json["users_companies_id"],

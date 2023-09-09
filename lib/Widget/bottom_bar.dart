@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Model/filter_car_by_attribute_model.dart';
 import '../Screens/TabPages/BookingPage/booking_page.dart';
 import '../Screens/TabPages/FavouritePage/favourite_page.dart';
 import '../Screens/TabPages/HomePage/home_page.dart';
@@ -7,7 +8,9 @@ import '../Screens/TabPages/tab_page.dart';
 import '../Utils/colors.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
-   MyBottomNavigationBar({Key? key}) : super(key: key);
+  FilterCarByAttributeModel? filterCarByAttributeModelObject;
+  bool? clearFilters;
+   MyBottomNavigationBar({Key? key, this.filterCarByAttributeModelObject, this.clearFilters}) : super(key: key);
 
   @override
   State<MyBottomNavigationBar> createState() => _MyBottomNavigationBarState();
@@ -20,12 +23,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     super.initState();
   }
 
-  List pages = [
-     HomePage(),
-     MessagePage(),
-     BookingPage(),
-     FavoritePage(),
-  ];
+
 
   int currentIndex = 0;
   void onTap(int index) {
@@ -53,6 +51,12 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    List pages = [
+      HomePage(filterCarByAttributeModelObject: widget.filterCarByAttributeModelObject, clearFilters: widget.clearFilters,),
+      MessagePage(),
+      BookingPage(),
+      FavoritePage(),
+    ];
     return  WillPopScope(
       onWillPop: backPressed,
       child: Scaffold(
