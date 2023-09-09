@@ -27,7 +27,8 @@ class _FilterScreenState extends State<FilterScreen> {
   FilterCarByAttributeModel filterCarByAttributeModelObject = FilterCarByAttributeModel();
   int? selectedCarMakesId, selectedCarsYear;
   String? selectedCarMakesName;
-  String? valueYear;
+  // String? valueYear;
+  String showYear = 'Select Year';
   bool progress = false;
   bool bProgress = false;
   final GlobalKey<FormState> filterFormKey = GlobalKey<FormState>();
@@ -65,7 +66,7 @@ class _FilterScreenState extends State<FilterScreen> {
     print('users_customers_id $userId');
     print('cars_usage_type $dropdownCarType');
     print('cars_makes_id $selectedCarMakesId');
-    print('year $valueYear');
+    print('year $showYear');
     print('rent_start $rangeStartPrice');
     print('rent_end $rangeEndPrice');
     // try {
@@ -76,7 +77,7 @@ class _FilterScreenState extends State<FilterScreen> {
           "users_customers_id" : userId,
           "cars_usage_type" : dropdownCarType,
           "cars_makes_id" : "$selectedCarMakesId",
-          "year" : valueYear,
+          "year" : showYear,
           "rent_start" : "$rangeStartPrice",
           "rent_end" : "$rangeEndPrice",
           // "sort_column" : "cars_id",
@@ -224,11 +225,11 @@ class _FilterScreenState extends State<FilterScreen> {
                     onTap: () async {
 
                       print("dropdownValue $dropdownCarType");
-                      print("valueYear $valueYear");
+                      print("valueYear $showYear");
                       if(filterFormKey.currentState!.validate()){
                         if (dropdownCarType == null) {
                           toastFailedMessage('carType cannot be empty', Colors.red);
-                        } else if (valueYear== null) {
+                        } else if (showYear == null) {
                           toastFailedMessage('Year cannot be empty',Colors.red);
                         }
                         else{
@@ -263,23 +264,56 @@ class _FilterScreenState extends State<FilterScreen> {
     );
   }
 
-  Future<void> _selectYear(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+  // Future<void> _selectYear(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime(1900),
+  //     lastDate: DateTime(2100),
+  //     initialDatePickerMode: DatePickerMode.year,
+  //   );
+  //
+  //   if (picked != null) {
+  //     setState(() {
+  //       valueYear = "${picked.year}";
+  //       print("pickedYear ${picked.year}");
+  //       print("pickedYear ${valueYear}");
+  //     });
+  //
+  //   }
+  // }
+
+  DateTime _selectedYear = DateTime.now();
+
+  selectYear(context) async {
+    print("Calling date picker");
+    showDialog(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
-      initialDatePickerMode: DatePickerMode.year,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Select Year"),
+          content: SizedBox(
+            width: 300,
+            height: 300,
+            child: YearPicker(
+              firstDate: DateTime(DateTime.now().year - 10, 1),
+              // lastDate: DateTime.now(),
+              lastDate: DateTime(2025),
+              initialDate: DateTime.now(),
+              selectedDate: _selectedYear,
+              onChanged: (DateTime dateTime) {
+                print(dateTime.year);
+                setState(() {
+                  _selectedYear = dateTime;
+                  showYear = "${dateTime.year}";
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        );
+      },
     );
-
-    if (picked != null) {
-      setState(() {
-        valueYear = "${picked.year}";
-        print("pickedYear ${picked.year}");
-        print("pickedYear ${valueYear}");
-      });
-
-    }
   }
 
   carMakersListWidget(){
@@ -346,7 +380,7 @@ class _FilterScreenState extends State<FilterScreen> {
       child: RangeSlider(
         values: priceRangeValues,
         min: 0,
-        max: 8000,
+        max: 15000,
         divisions: 20,
         labels: RangeLabels(
           'RM ${priceRangeValues.start.round().toString()}',
@@ -553,21 +587,21 @@ class _FilterScreenState extends State<FilterScreen> {
                           GestureDetector(
                             onTap: () {
                               print("clicked...");
-                              _selectYear(context);
+                              selectYear(context);
                             },
                             child: Container(
                               width: Get.width* 0.3,
                               height: Get.height* 0.04,
                               decoration: BoxDecoration(
-                                  color: valueYear == null? kWhite: borderColor,
+                                  color: showYear == null? kWhite: borderColor,
                                   borderRadius: BorderRadius.circular(50),
                                   border: Border.all(color: kWhite)
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(valueYear == null? "Select Year" : "$valueYear", textAlign: TextAlign.left,
-                                      style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: valueYear == null? borderColor: kWhite)),
+                                  Text(showYear == null? "Select Year" : "$showYear", textAlign: TextAlign.left,
+                                      style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: showYear == null? borderColor: kWhite)),
                                 ],
                               ),
                             ),

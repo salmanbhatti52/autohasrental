@@ -746,7 +746,6 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                     ],
                                                   ),
-
                                                   // Divider(),
                                                   // Row(
                                                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -780,14 +779,18 @@ class _HomePageState extends State<HomePage> {
                                                           0.02),
                                                   // GestureDetector(
                                                   //   onTap: () {
-                                                  //     carID = topRentedCarsModelObject.data?[index]
-                                                  //         .carsId;
+                                                  //     carID =
+                                                  //         widget.filterCarByAttributeModelObject?.data?[index]
+                                                  //             .carsId;
                                                   //     print("cardId $carID");
+                                                  //     print("carsRatings ${topRentedCarsModelObject.data![index].carsRatings![0].rateStars}");
                                                   //     print(
                                                   //         "carsUsageType ${widget.filterCarByAttributeModelObject?.data![index].carsUsageType}");
                                                   //
-                                                  //     if (topRentedCarsModelObject.data![index].carsUsageType == "EV Subscriptions")
-                                                  //     {
+                                                  //     if (topRentedCarsModelObject
+                                                  //         .data![index]
+                                                  //         .carsUsageType ==
+                                                  //         "EV Subscriptions") {
                                                   //       Navigator.push(
                                                   //           context,
                                                   //           MaterialPageRoute(
@@ -814,95 +817,63 @@ class _HomePageState extends State<HomePage> {
                                                   //                     myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
                                                   //                     myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
                                                   //                   )));
+                                                  //     } else if (topRentedCarsModelObject
+                                                  //         .data![index]
+                                                  //         .carsUsageType ==
+                                                  //         "Photography") {
+                                                  //       Navigator.push(
+                                                  //           context,
+                                                  //           MaterialPageRoute(
+                                                  //               builder:
+                                                  //                   (context) =>
+                                                  //                   BookForWeddingCarDescription(
+                                                  //                     carName: topRentedCarsModelObject.data![index].vehicalName,
+                                                  //                     carYear: "${topRentedCarsModelObject.data![index].year}",
+                                                  //                     carId: topRentedCarsModelObject.data![index].carsId,
+                                                  //                     carRating: topRentedCarsModelObject.data![index].rating,
+                                                  //                     carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                                  //                     carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                                  //                     carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                                  //                     carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                  //                     carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                  //                     favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                  //                     discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                                  //                     carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
+                                                  //                     carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
+                                                  //                     carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                  //                     carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                  //                     carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                  //                     myCarDescription: topRentedCarsModelObject.data![index].description,
+                                                  //                     myCarRating: topRentedCarsModelObject.data![index].rating,
+                                                  //                   )));
+                                                  //     } else if (topRentedCarsModelObject
+                                                  //         .data![index]
+                                                  //         .carsUsageType ==
+                                                  //         "Driving Experience") {
+                                                  //       Navigator.push(
+                                                  //           context,
+                                                  //           MaterialPageRoute(
+                                                  //               builder:
+                                                  //                   (context) =>
+                                                  //                   HomeDrivingBooking(
+                                                  //                     datum: topRentedCarsModelObject.data![index],
+                                                  //                   )));
                                                   //     }
-                                                  //     // else if (widget.filterCarByAttributeModelObject?.data![index].carsUsageType == "Photography") {
-                                                  //     //   Navigator.push(
-                                                  //     //       context,
-                                                  //     //       MaterialPageRoute(
-                                                  //     //           builder:
-                                                  //     //               (context) =>
-                                                  //     //                   BookForWeddingCarDescription(
-                                                  //     //                     carName: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .vehicalName,
-                                                  //     //                     carYear:
-                                                  //     //                         "${topRentedCarsModelObject.data![index].year}",
-                                                  //     //                     carId: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .carsId,
-                                                  //     //                     carRating: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .rating,
-                                                  //     //                     carColorName: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .carsColors!
-                                                  //     //                         .name,
-                                                  //     //                     carMakesName: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .carsMakes!
-                                                  //     //                         .name,
-                                                  //     //                     carModelName: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .carsModels!
-                                                  //     //                         .name,
-                                                  //     //                     carImage:
-                                                  //     //                         "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                  //     //                     carMakesImage:
-                                                  //     //                         "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                  //     //                     favouriteStatus: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .favouriteStatus,
-                                                  //     //                     discountPercentage: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .discountPercentage,
-                                                  //     //                     carDiscountPrice: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .carsPlans![0]
-                                                  //     //                         .discountedPricePerHour,
-                                                  //     //                     carPrice: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .carsPlans![0]
-                                                  //     //                         .pricePerHour,
-                                                  //     //                     carOwnerImage:
-                                                  //     //                         "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                  //     //                     carOwnerName:
-                                                  //     //                         "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                  //     //                     carOwnerId: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .usersCompanies!
-                                                  //     //                         .usersCompaniesId,
-                                                  //     //                     myCarDescription: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .description,
-                                                  //     //                     myCarRating: topRentedCarsModelObject
-                                                  //     //                         .data![index]
-                                                  //     //                         .rating,
-                                                  //     //                   )));
-                                                  //     // } else if (widget.filterCarByAttributeModelObject?.data![index].carsUsageType == "Driving Experience") {
-                                                  //     //   Navigator.push(
-                                                  //     //       context,
-                                                  //     //       MaterialPageRoute(
-                                                  //     //           builder:
-                                                  //     //               (context) =>
-                                                  //     //                   HomeDrivingBooking(
-                                                  //     //                     datum:
-                                                  //     //                         topRentedCarsModelObject.data![index],
-                                                  //     //                   )));
-                                                  //     // }
                                                   //   },
                                                   //   child: Container(
-                                                  //     height:
-                                                  //     MediaQuery.of(context)
+                                                  //     height: MediaQuery.of(
+                                                  //         context)
                                                   //         .size
                                                   //         .height *
                                                   //         0.035,
-                                                  //     width:
-                                                  //     MediaQuery.of(context)
+                                                  //     width: MediaQuery.of(
+                                                  //         context)
                                                   //         .size
                                                   //         .width *
                                                   //         0.4,
                                                   //     decoration: BoxDecoration(
-                                                  //         color: borderColor,
+                                                  //         color:
+                                                  //         borderColor,
                                                   //         borderRadius:
                                                   //         BorderRadius
                                                   //             .circular(
@@ -925,7 +896,8 @@ class _HomePageState extends State<HomePage> {
                                                   //                   poppinMedium,
                                                   //                   fontSize:
                                                   //                   10)),
-                                                  //           SizedBox(width: 10),
+                                                  //           SizedBox(
+                                                  //               width: 10),
                                                   //           Image.asset(
                                                   //               "assets/home_page/more_buttons_home.png")
                                                   //         ],
@@ -1351,163 +1323,134 @@ class _HomePageState extends State<HomePage> {
                                                           .size
                                                           .width *
                                                           0.02),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      carID = widget
-                                                          .filterCarByAttributeModelObject
-                                                          ?.data?[index]
-                                                          .carsId;
-                                                      print("cardId $carID");
-                                                      print(
-                                                          "carsUsageType ${widget.filterCarByAttributeModelObject?.data![index].carsUsageType}");
-
-                                                      if (topRentedCarsModelObject.data![index].carsUsageType == "EV Subscriptions")
-                                                      {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                    EVCarDescription(
-                                                                      carName: topRentedCarsModelObject.data![index].vehicalName,
-                                                                      carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
-                                                                      carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                      carYear: "${topRentedCarsModelObject.data![index].year}",
-                                                                      carId: topRentedCarsModelObject.data![index].carsId,
-                                                                      carRating: topRentedCarsModelObject.data![index].rating,
-                                                                      carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                                                      carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                                                      carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                                                      carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                      carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                                      discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                                                      carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
-                                                                      carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                      carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                      carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                                                      myCarDescription: topRentedCarsModelObject.data![index].description,
-                                                                      myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
-                                                                      myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
-                                                                    )));
-                                                      }
-                                                      // else if (widget.filterCarByAttributeModelObject?.data![index].carsUsageType == "Photography") {
-                                                      //   Navigator.push(
-                                                      //       context,
-                                                      //       MaterialPageRoute(
-                                                      //           builder:
-                                                      //               (context) =>
-                                                      //                   BookForWeddingCarDescription(
-                                                      //                     carName: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .vehicalName,
-                                                      //                     carYear:
-                                                      //                         "${topRentedCarsModelObject.data![index].year}",
-                                                      //                     carId: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .carsId,
-                                                      //                     carRating: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .rating,
-                                                      //                     carColorName: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .carsColors!
-                                                      //                         .name,
-                                                      //                     carMakesName: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .carsMakes!
-                                                      //                         .name,
-                                                      //                     carModelName: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .carsModels!
-                                                      //                         .name,
-                                                      //                     carImage:
-                                                      //                         "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                      //                     carMakesImage:
-                                                      //                         "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                      //                     favouriteStatus: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .favouriteStatus,
-                                                      //                     discountPercentage: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .discountPercentage,
-                                                      //                     carDiscountPrice: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .carsPlans![0]
-                                                      //                         .discountedPricePerHour,
-                                                      //                     carPrice: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .carsPlans![0]
-                                                      //                         .pricePerHour,
-                                                      //                     carOwnerImage:
-                                                      //                         "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                      //                     carOwnerName:
-                                                      //                         "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                      //                     carOwnerId: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .usersCompanies!
-                                                      //                         .usersCompaniesId,
-                                                      //                     myCarDescription: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .description,
-                                                      //                     myCarRating: topRentedCarsModelObject
-                                                      //                         .data![index]
-                                                      //                         .rating,
-                                                      //                   )));
-                                                      // } else if (widget.filterCarByAttributeModelObject?.data![index].carsUsageType == "Driving Experience") {
-                                                      //   Navigator.push(
-                                                      //       context,
-                                                      //       MaterialPageRoute(
-                                                      //           builder:
-                                                      //               (context) =>
-                                                      //                   HomeDrivingBooking(
-                                                      //                     datum:
-                                                      //                         topRentedCarsModelObject.data![index],
-                                                      //                   )));
-                                                      // }
-                                                    },
-                                                    child: Container(
-                                                      height:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.035,
-                                                      width:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.4,
-                                                      decoration: BoxDecoration(
-                                                          color: borderColor,
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              30)),
-                                                      child: Center(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                          children: [
-                                                            Text(
-                                                                "Click to see Details",
-                                                                textAlign:
-                                                                TextAlign
-                                                                    .left,
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    kWhite,
-                                                                    fontFamily:
-                                                                    poppinMedium,
-                                                                    fontSize:
-                                                                    10)),
-                                                            SizedBox(width: 10),
-                                                            Image.asset(
-                                                                "assets/home_page/more_buttons_home.png")
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  // GestureDetector(
+                                                  //   onTap: () {
+                                                  //     carID =
+                                                  //         widget.filterCarByAttributeModelObject?.data?[index]
+                                                  //             .carsId;
+                                                  //     print(
+                                                  //         "cardId $carID");
+                                                  //     print(
+                                                  //         "carsUsageType ${widget.filterCarByAttributeModelObject?.data![index].carsUsageType}");
+                                                  //
+                                                  //     if (topRentedCarsModelObject
+                                                  //         .data![index]
+                                                  //         .carsUsageType ==
+                                                  //         "EV Subscriptions") {
+                                                  //       Navigator.push(
+                                                  //           context,
+                                                  //           MaterialPageRoute(
+                                                  //               builder:
+                                                  //                   (context) =>
+                                                  //                   EVCarDescription(
+                                                  //                     carName: topRentedCarsModelObject.data![index].vehicalName,
+                                                  //                     carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+                                                  //                     carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                  //                     carYear: "${topRentedCarsModelObject.data![index].year}",
+                                                  //                     carId: topRentedCarsModelObject.data![index].carsId,
+                                                  //                     carRating: topRentedCarsModelObject.data![index].rating,
+                                                  //                     carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                                  //                     carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                                  //                     carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                                  //                     carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                  //                     carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                  //                     discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                                  //                     carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                  //                     carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                  //                     carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                  //                     carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                  //                     myCarDescription: topRentedCarsModelObject.data![index].description,
+                                                  //                     myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
+                                                  //                     myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
+                                                  //                   )));
+                                                  //     } else if (topRentedCarsModelObject
+                                                  //         .data![index]
+                                                  //         .carsUsageType ==
+                                                  //         "Photography") {
+                                                  //       Navigator.push(
+                                                  //           context,
+                                                  //           MaterialPageRoute(
+                                                  //               builder:
+                                                  //                   (context) =>
+                                                  //                   BookForWeddingCarDescription(
+                                                  //                     carName: topRentedCarsModelObject.data![index].vehicalName,
+                                                  //                     carYear: "${topRentedCarsModelObject.data![index].year}",
+                                                  //                     carId: topRentedCarsModelObject.data![index].carsId,
+                                                  //                     carRating: topRentedCarsModelObject.data![index].rating,
+                                                  //                     carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
+                                                  //                     carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
+                                                  //                     carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
+                                                  //                     carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                  //                     carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                  //                     favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                  //                     discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
+                                                  //                     carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
+                                                  //                     carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
+                                                  //                     carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                  //                     carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                  //                     carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                                  //                     myCarDescription: topRentedCarsModelObject.data![index].description,
+                                                  //                     myCarRating: topRentedCarsModelObject.data![index].rating,
+                                                  //                   )));
+                                                  //     } else if (topRentedCarsModelObject
+                                                  //         .data![index]
+                                                  //         .carsUsageType ==
+                                                  //         "Driving Experience") {
+                                                  //       Navigator.push(
+                                                  //           context,
+                                                  //           MaterialPageRoute(
+                                                  //               builder:
+                                                  //                   (context) =>
+                                                  //                   HomeDrivingBooking(
+                                                  //                     datum: topRentedCarsModelObject.data![index],
+                                                  //                   )));
+                                                  //     }
+                                                  //   },
+                                                  //   child: Container(
+                                                  //     height: MediaQuery.of(
+                                                  //         context)
+                                                  //         .size
+                                                  //         .height *
+                                                  //         0.035,
+                                                  //     width: MediaQuery.of(
+                                                  //         context)
+                                                  //         .size
+                                                  //         .width *
+                                                  //         0.4,
+                                                  //     decoration: BoxDecoration(
+                                                  //         color:
+                                                  //         borderColor,
+                                                  //         borderRadius:
+                                                  //         BorderRadius
+                                                  //             .circular(
+                                                  //             30)),
+                                                  //     child: Center(
+                                                  //       child: Row(
+                                                  //         mainAxisAlignment:
+                                                  //         MainAxisAlignment
+                                                  //             .center,
+                                                  //         children: [
+                                                  //           Text(
+                                                  //               "Click to see Details",
+                                                  //               textAlign:
+                                                  //               TextAlign
+                                                  //                   .left,
+                                                  //               style: TextStyle(
+                                                  //                   color:
+                                                  //                   kWhite,
+                                                  //                   fontFamily:
+                                                  //                   poppinMedium,
+                                                  //                   fontSize:
+                                                  //                   10)),
+                                                  //           SizedBox(
+                                                  //               width: 10),
+                                                  //           Image.asset(
+                                                  //               "assets/home_page/more_buttons_home.png")
+                                                  //         ],
+                                                  //       ),
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
                                                 ],
                                               ),
                                             ),
