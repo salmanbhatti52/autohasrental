@@ -56,7 +56,7 @@ class _FilterScreenState extends State<FilterScreen> {
     bProgress = false;
     setState(() {});
   }
-
+int BMW = 1;
   filterCarsWidget() async {
     progress = true;
     setState(() {});
@@ -67,6 +67,7 @@ class _FilterScreenState extends State<FilterScreen> {
     print('cars_usage_type $dropdownCarType');
     print('cars_makes_id $selectedCarMakesId');
     print('year $showYear');
+    print('BMW $BMW');
     print('rent_start $rangeStartPrice');
     print('rent_end $rangeEndPrice');
     // try {
@@ -76,7 +77,7 @@ class _FilterScreenState extends State<FilterScreen> {
         body: {
           "users_customers_id" : userId,
           "cars_usage_type" : dropdownCarType,
-          "cars_makes_id" : "$selectedCarMakesId",
+          "cars_makes_id" : "${selectedCarMakesId != null ? selectedCarMakesId : BMW}",
           "year" : showYear,
           "rent_start" : "$rangeStartPrice",
           "rent_end" : "$rangeEndPrice",

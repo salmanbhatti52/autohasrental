@@ -177,17 +177,25 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    data();
+    // data();
     sharedPrefs();
-    getUnreadNotificationWidget();
-    getUserProfileWidget();
+    loadData();
+    // getUnreadNotificationWidget();
+    // getUserProfileWidget();
     // getTopRentedCarsWidget();
     print("notificationStatusHome $notificationStatus");
   }
 
-  data() async {
+  // Create a new async method to handle the API calls
+  void loadData() async {
     await getTopRentedCarsWidget();
+    await getUnreadNotificationWidget();
+    await getUserProfileWidget();
   }
+
+  // data() async {
+  //   await getTopRentedCarsWidget();
+  // }
 
   sharedPrefs() async {
     // loadingP = true;
@@ -446,542 +454,748 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisSpacing: 0,
                                 crossAxisSpacing: 0,
                               ),
-                              itemCount: widget.filterCarByAttributeModelObject
-                                  ?.data?.length,
+                              itemCount: widget.filterCarByAttributeModelObject!.data!.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: EdgeInsets.only(top: 10),
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        top: 50,
-                                        left: 0,
-                                        right: 0,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Container(
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.21,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.47,
-                                            decoration: BoxDecoration(
-                                                color: kWhite,
-                                                borderRadius:
-                                                BorderRadius.circular(20)),
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: [
-                                                  SizedBox(
-                                                      height:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.06),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          // Text("${searchModelObject.data?[index].vehicalName} ",
-                                                          Container(
-                                                            width:
-                                                            MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                                0.15,
-                                                            child: Text(
-                                                                "${widget.filterCarByAttributeModelObject?.data?[index].vehicalName} ",
-                                                                overflow: TextOverflow
-                                                                    .ellipsis,
-                                                                maxLines: 1,
-                                                                style: TextStyle(
-                                                                    color: kBlack,
-                                                                    fontSize: 8,
-                                                                    fontFamily:
-                                                                    poppinBold)),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                            EdgeInsets.only(
-                                                                top: 4),
-                                                            child: Text(
-                                                                "${widget.filterCarByAttributeModelObject?.data?[index].carsColors?.name} ",
+
+                                if (index >= 0 && index < widget.filterCarByAttributeModelObject!.data!.length) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Stack(
+                                      children: [
+                                        Positioned(
+                                          top: 50,
+                                          left: 0,
+                                          right: 0,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10),
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                                  0.21,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.47,
+                                              decoration: BoxDecoration(
+                                                  color: kWhite,
+                                                  borderRadius:
+                                                  BorderRadius.circular(20)),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 10),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                        height:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                            0.06),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            // Text("${searchModelObject.data?[index].vehicalName} ",
+                                                            Container(
+                                                              width:
+                                                              MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                                  0.15,
+                                                              child: Text(
+                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].vehicalName} ",
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  maxLines: 1,
+                                                                  style: TextStyle(
+                                                                      color: kBlack,
+                                                                      fontSize: 8,
+                                                                      fontFamily:
+                                                                      poppinBold)),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                              EdgeInsets.only(
+                                                                  top: 4),
+                                                              child: Text(
+                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].carsColors?.name} ",
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                      kBlack,
+                                                                      fontSize: 7,
+                                                                      fontFamily:
+                                                                      poppinRegular)),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            widget
+                                                                .filterCarByAttributeModelObject
+                                                                ?.data?[
+                                                            index]
+                                                                .rating ==
+                                                                null
+                                                                ? RatingBar(
+                                                              // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
+                                                                initialRating:
+                                                                0.0,
+                                                                direction: Axis
+                                                                    .horizontal,
+                                                                allowHalfRating:
+                                                                true,
+                                                                itemCount: 1,
+                                                                minRating: 0,
+                                                                itemSize:
+                                                                18.0,
+                                                                ignoreGestures:
+                                                                true,
+                                                                ratingWidget:
+                                                                RatingWidget(
+                                                                    full: Icon(Icons.star,
+                                                                        color:
+                                                                        borderColor),
+                                                                    half:
+                                                                    Icon(
+                                                                      Icons.star_half,
+                                                                      color:
+                                                                      borderColor,
+                                                                    ),
+                                                                    empty:
+                                                                    Icon(
+                                                                      Icons.star_outline,
+                                                                      color:
+                                                                      borderColor,
+                                                                    )),
+                                                                onRatingUpdate:
+                                                                    (value) {})
+                                                                : RatingBar(
+                                                                initialRating:
+                                                                double.parse(
+                                                                    "${widget.filterCarByAttributeModelObject?.data?[index].rating}"),
+                                                                // initialRating: searchModelObject.data?[index].rating,
+                                                                direction: Axis
+                                                                    .horizontal,
+                                                                allowHalfRating:
+                                                                true,
+                                                                itemCount: 1,
+                                                                minRating: 0,
+                                                                itemSize:
+                                                                18.0,
+                                                                ignoreGestures:
+                                                                true,
+                                                                ratingWidget:
+                                                                RatingWidget(
+                                                                    full: Icon(Icons.star,
+                                                                        color:
+                                                                        borderColor),
+                                                                    half:
+                                                                    Icon(
+                                                                      Icons.star_half,
+                                                                      color:
+                                                                      borderColor,
+                                                                    ),
+                                                                    empty:
+                                                                    Icon(
+                                                                      Icons.star_outline,
+                                                                      color:
+                                                                      borderColor,
+                                                                    )),
+                                                                onRatingUpdate:
+                                                                    (value) {}),
+                                                            widget
+                                                                .filterCarByAttributeModelObject
+                                                                ?.data?[
+                                                            index]
+                                                                .rating ==
+                                                                null
+                                                                ? Text("0.0",
                                                                 style: TextStyle(
                                                                     color:
                                                                     kBlack,
-                                                                    fontSize: 7,
+                                                                    fontSize:
+                                                                    10,
                                                                     fontFamily:
-                                                                    poppinRegular)),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          widget
-                                                              .filterCarByAttributeModelObject
-                                                              ?.data?[
-                                                          index]
-                                                              .rating ==
-                                                              null
-                                                              ? RatingBar(
-                                                            // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
-                                                              initialRating:
-                                                              0.0,
-                                                              direction: Axis
-                                                                  .horizontal,
-                                                              allowHalfRating:
-                                                              true,
-                                                              itemCount: 1,
-                                                              minRating: 0,
-                                                              itemSize:
-                                                              18.0,
-                                                              ignoreGestures:
-                                                              true,
-                                                              ratingWidget:
-                                                              RatingWidget(
-                                                                  full: Icon(Icons.star,
-                                                                      color:
-                                                                      borderColor),
-                                                                  half:
-                                                                  Icon(
-                                                                    Icons.star_half,
+                                                                    poppinMedium))
+                                                                : Text(
+                                                                "${widget.filterCarByAttributeModelObject?.data?[index].rating}",
+                                                                style: TextStyle(
                                                                     color:
-                                                                    borderColor,
-                                                                  ),
-                                                                  empty:
-                                                                  Icon(
-                                                                    Icons.star_outline,
-                                                                    color:
-                                                                    borderColor,
-                                                                  )),
-                                                              onRatingUpdate:
-                                                                  (value) {})
-                                                              : RatingBar(
-                                                              initialRating:
-                                                              double.parse(
-                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].rating}"),
-                                                              // initialRating: searchModelObject.data?[index].rating,
-                                                              direction: Axis
-                                                                  .horizontal,
-                                                              allowHalfRating:
-                                                              true,
-                                                              itemCount: 1,
-                                                              minRating: 0,
-                                                              itemSize:
-                                                              18.0,
-                                                              ignoreGestures:
-                                                              true,
-                                                              ratingWidget:
-                                                              RatingWidget(
-                                                                  full: Icon(Icons.star,
-                                                                      color:
-                                                                      borderColor),
-                                                                  half:
-                                                                  Icon(
-                                                                    Icons.star_half,
-                                                                    color:
-                                                                    borderColor,
-                                                                  ),
-                                                                  empty:
-                                                                  Icon(
-                                                                    Icons.star_outline,
-                                                                    color:
-                                                                    borderColor,
-                                                                  )),
-                                                              onRatingUpdate:
-                                                                  (value) {}),
-                                                          widget
-                                                              .filterCarByAttributeModelObject
-                                                              ?.data?[
-                                                          index]
-                                                              .rating ==
-                                                              null
-                                                              ? Text("0.0",
-                                                              style: TextStyle(
-                                                                  color:
-                                                                  kBlack,
-                                                                  fontSize:
-                                                                  10,
-                                                                  fontFamily:
-                                                                  poppinMedium))
-                                                              : Text(
-                                                              "${widget.filterCarByAttributeModelObject?.data?[index].rating}",
-                                                              style: TextStyle(
-                                                                  color:
-                                                                  kBlack,
-                                                                  fontSize:
-                                                                  10,
-                                                                  fontFamily:
-                                                                  poppinMedium)),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.01),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                          "${widget.filterCarByAttributeModelObject?.data?[index].carsMakes?.name}, ",
-                                                          style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 7,
-                                                              fontFamily:
-                                                              poppinRegular)),
-                                                      Text(
-                                                          "${widget.filterCarByAttributeModelObject?.data?[index].carsModels?.name}, ",
-                                                          style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 7,
-                                                              fontFamily:
-                                                              poppinSemiBold)),
-                                                      Text(
-                                                          "${widget.filterCarByAttributeModelObject?.data?[index].year} ",
-                                                          style: TextStyle(
-                                                              color: kBlack,
-                                                              fontSize: 7,
-                                                              fontFamily:
-                                                              poppinRegular)),
-                                                    ],
-                                                  ),
-                                                  // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                                                    kBlack,
+                                                                    fontSize:
+                                                                    10,
+                                                                    fontFamily:
+                                                                    poppinMedium)),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                        height:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                            0.01),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                            "${widget.filterCarByAttributeModelObject?.data?[index].carsMakes?.name}, ",
+                                                            style: TextStyle(
+                                                                color: kBlack,
+                                                                fontSize: 7,
+                                                                fontFamily:
+                                                                poppinRegular)),
+                                                        Text(
+                                                            "${widget.filterCarByAttributeModelObject?.data?[index].carsModels?.name}, ",
+                                                            style: TextStyle(
+                                                                color: kBlack,
+                                                                fontSize: 7,
+                                                                fontFamily:
+                                                                poppinSemiBold)),
+                                                        Text(
+                                                            "${widget.filterCarByAttributeModelObject?.data?[index].year} ",
+                                                            style: TextStyle(
+                                                                color: kBlack,
+                                                                fontSize: 7,
+                                                                fontFamily:
+                                                                poppinRegular)),
+                                                      ],
+                                                    ),
+                                                    // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
 
-                                                  Divider(),
-                                                  Row(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                            EdgeInsets.only(
-                                                                top: 04),
-                                                            child: Text("RM ",
-                                                                textAlign:
-                                                                TextAlign
-                                                                    .left,
-                                                                style: TextStyle(
-                                                                    color: kRed,
-                                                                    fontSize: 5,
-                                                                    fontFamily:
-                                                                    poppinLight)),
+                                                    Divider(),
+                                                    Row(
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                              EdgeInsets.only(
+                                                                  top: 04),
+                                                              child: Text("RM ",
+                                                                  textAlign:
+                                                                  TextAlign
+                                                                      .left,
+                                                                  style: TextStyle(
+                                                                      color: kRed,
+                                                                      fontSize: 5,
+                                                                      fontFamily:
+                                                                      poppinLight)),
+                                                            ),
+                                                            widget
+                                                                .filterCarByAttributeModelObject?.data?[
+                                                            index]
+                                                                .carsUsageType ==
+                                                                "EV Subscriptions"
+                                                                ? originalPriceWidget(
+                                                                "${ widget
+                                                                    .filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerMonth}")
+                                                                : originalPriceWidget(
+                                                                "${ widget
+                                                                    .filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerMonth}"),
+                                                            // widget.filterCarByAttributeModelObject?.data?[index].carsUsageType == "Photography"
+                                                            // ? originalPriceWidget(
+                                                            //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerHour}")
+                                                            // : originalPriceWidget(
+                                                            //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerSlot}"),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                            width: MediaQuery.of(
+                                                                context)
+                                                                .size
+                                                                .width *
+                                                                0.01),
+                                                        Row(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                              EdgeInsets.only(
+                                                                  top: 06),
+                                                              child: Text("RM ",
+                                                                  textAlign:
+                                                                  TextAlign
+                                                                      .left,
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                      borderColor,
+                                                                      fontSize: 7,
+                                                                      fontFamily:
+                                                                      poppinSemiBold)),
+                                                            ),
+                                                            widget
+                                                                .filterCarByAttributeModelObject
+                                                                ?.data?[
+                                                            index]
+                                                                .carsUsageType ==
+                                                                "EV Subscriptions"
+                                                                ? discountedPriceWidget(
+                                                                "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                                "Month")
+                                                                : discountedPriceWidget(
+                                                                "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                                "Month")
+                                                            // widget.filterCarByAttributeModelObject?.data?[
+                                                            //                                           index]
+                                                            //                                       .carsUsageType ==
+                                                            //                                   "Photography"
+                                                            //                               ? discountedPriceWidget(
+                                                            //                                   "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerHour}/",
+                                                            //                                   "Hour")
+                                                            //                               : discountedPriceWidget(
+                                                            //                                   "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerSlot}/",
+                                                            //                                   "Slot"),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    // Divider(),
+                                                    // Row(
+                                                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    //   children: [
+                                                    //     Row(
+                                                    //       children: [
+                                                    //         Image.asset("assets/home_page/Promoted.png"),
+                                                    //         SizedBox(width: 05),
+                                                    //         Text("Verified Dealer", textAlign: TextAlign.left,
+                                                    //             style: TextStyle(color: textLabelColor,
+                                                    //                 fontSize: 10, fontFamily: poppinRegular)),
+                                                    //       ],
+                                                    //     ),
+                                                    //     Container(
+                                                    //       height: 17, width: 35,
+                                                    //       decoration: BoxDecoration(
+                                                    //           color: kBlack,
+                                                    //           borderRadius: BorderRadius.circular(10)),
+                                                    //       child: Center(
+                                                    //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
+                                                    //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+                                                    //       ),
+                                                    //     ),
+                                                    //   ],
+                                                    // ),
+                                                    SizedBox(
+                                                        height:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.02),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        carID = widget.filterCarByAttributeModelObject?.data![index].carsId;
+                                                        print("cardId $carID");
+                                                        print(
+                                                            "carsUsageType ${widget.filterCarByAttributeModelObject!.data?[index].carsUsageType}");
+                                                        print(
+                                                            "favouriteStatusHome ${widget.filterCarByAttributeModelObject!.data?[index].favouriteStatus}");
+
+                                                        if (widget.filterCarByAttributeModelObject!
+                                                            .data![index]
+                                                            .carsUsageType ==
+                                                            "EV Subscriptions") {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      EVCarDescription(
+                                                                        carName: widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .vehicalName,
+                                                                        carPrice: widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .carsPlans![
+                                                                        0]
+                                                                            .pricePerMonth,
+                                                                        carImage:
+                                                                        "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].image1}",
+                                                                        carYear:
+                                                                        "${widget.filterCarByAttributeModelObject!.data![index].year}",
+                                                                        carId:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .carsId,
+                                                                        carRating:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .rating,
+                                                                        carColorName:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .carsColors!
+                                                                            .name,
+                                                                        carMakesName:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .carsMakes!
+                                                                            .name,
+                                                                        carModelName:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .carsModels!
+                                                                            .name,
+                                                                        carMakesImage:
+                                                                        "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].carsMakes!.image}",
+                                                                        // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                        discountPercentage:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .discountPercentage,
+                                                                        carDiscountPrice:
+                                                                        double.parse(
+                                                                            "${widget.filterCarByAttributeModelObject!.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                        carOwnerImage:
+                                                                        "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
+                                                                        carOwnerName:
+                                                                        "${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyName}",
+                                                                        carOwnerId: widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .usersCompanies!
+                                                                            .usersCompaniesId,
+                                                                        myCarDescription:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .description,
+                                                                        favouriteStatus:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .favouriteStatus,
+
+                                                                        featureSuv:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresSuv,
+                                                                        featuresDoors:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresDoors,
+                                                                        featuresSeats:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresSeats,
+                                                                        featuresAutomatic:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresAutomatic,
+                                                                        featuresSpeed:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresSpeed,
+                                                                        featuresElectric:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresElectric,
+                                                                        featuresEngine_capacity:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresEngineCapacity,
+                                                                        featuresFuelCapacity:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresFuelCapacity,
+                                                                        featuresMeterReading:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresMeterReading,
+                                                                        featuresNewCars:
+                                                                        widget.filterCarByAttributeModelObject!
+                                                                            .data![
+                                                                        index]
+                                                                            .featuresNewCars,
+                                                                      )));
+                                                        }
+                                                        // else if (widget.filterCarByAttributeModelObject!
+                                                        //     .data![index]
+                                                        //     .carsUsageType ==
+                                                        //     "Photography") {
+                                                        //   Navigator.push(
+                                                        //       context,
+                                                        //       MaterialPageRoute(
+                                                        //           builder: (context) =>
+                                                        //               BookForWeddingCarDescription(
+                                                        //                 carName: widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .vehicalName,
+                                                        //                 carYear:
+                                                        //                 "${widget.filterCarByAttributeModelObject!.data![index].year}",
+                                                        //                 carId:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .carsId,
+                                                        //                 carRating:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .rating,
+                                                        //                 carColorName:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .carsColors!
+                                                        //                     .name,
+                                                        //                 carMakesName:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .carsMakes!
+                                                        //                     .name,
+                                                        //                 carModelName:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .carsModels!
+                                                        //                     .name,
+                                                        //                 carImage:
+                                                        //                 "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].image1}",
+                                                        //                 carMakesImage:
+                                                        //                 "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].carsMakes!.image}",
+                                                        //                 favouriteStatus:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .favouriteStatus,
+                                                        //                 discountPercentage:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .discountPercentage,
+                                                        //                 carDiscountPrice:topRentedCarsModelObject
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .carsPlans![
+                                                        //                 0]
+                                                        //                     .discountedPricePerHour,
+                                                        //                 carPrice: topRentedCarsModelObject
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .carsPlans![
+                                                        //                 0]
+                                                        //                     .pricePerHour,
+                                                        //                 carOwnerImage:
+                                                        //                 "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
+                                                        //                 carOwnerName:
+                                                        //                 "${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyName}",
+                                                        //                 carOwnerId: widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .usersCompanies!
+                                                        //                     .usersCompaniesId,
+                                                        //                 myCarDescription:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .description,
+                                                        //                 featureSuv:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresSuv,
+                                                        //                 featuresDoors:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresDoors,
+                                                        //                 featuresSeats:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresSeats,
+                                                        //                 featuresAutomatic:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresAutomatic,
+                                                        //                 featuresSpeed:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresSpeed,
+                                                        //                 featuresElectric:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresElectric,
+                                                        //                 featuresEngine_capacity:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresEngineCapacity,
+                                                        //                 featuresFuelCapacity:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresFuelCapacity,
+                                                        //                 featuresMeterReading:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresMeterReading,
+                                                        //                 featuresNewCars:
+                                                        //                 widget.filterCarByAttributeModelObject!
+                                                        //                     .data![
+                                                        //                 index]
+                                                        //                     .featuresNewCars,
+                                                        //               )));
+                                                        // } else if (widget.filterCarByAttributeModelObject!.data![index]
+                                                        //     .carsUsageType ==
+                                                        //     "Driving Experience") {
+                                                        //   Navigator.push(
+                                                        //       context,
+                                                        //       MaterialPageRoute(
+                                                        //           builder: (context) =>
+                                                        //               HomeDrivingBooking(
+                                                        //                 datum: topRentedCarsModelObject
+                                                        //                     .data![
+                                                        //                 index],
+                                                        //               )));
+                                                        // }
+                                                      },
+                                                      child: Container(
+                                                        height: MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                            0.035,
+                                                        width: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.4,
+                                                        decoration: BoxDecoration(
+                                                            color: borderColor,
+                                                            borderRadius:
+                                                            BorderRadius.circular(
+                                                                30)),
+                                                        child: Center(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                            children: [
+                                                              Text(
+                                                                  "Click to see Details",
+                                                                  textAlign:
+                                                                  TextAlign.left,
+                                                                  style: TextStyle(
+                                                                      color: kWhite,
+                                                                      fontFamily:
+                                                                      poppinMedium,
+                                                                      fontSize: 10)),
+                                                              SizedBox(width: 10),
+                                                              Image.asset(
+                                                                  "assets/home_page/more_buttons_home.png")
+                                                            ],
                                                           ),
-                                                          topRentedCarsModelObject.data?[
-                                                          index]
-                                                              .carsUsageType ==
-                                                              "EV Subscriptions"
-                                                              ? originalPriceWidget(
-                                                              "${ widget
-                                                                  .filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerMonth}")
-                                                              : originalPriceWidget(
-                                                              "${ widget
-                                                                  .filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerMonth}"),
-                                                          // widget.filterCarByAttributeModelObject?.data?[index].carsUsageType == "Photography"
-                                                          // ? originalPriceWidget(
-                                                          //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerHour}")
-                                                          // : originalPriceWidget(
-                                                          //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerSlot}"),
-                                                        ],
+                                                        ),
                                                       ),
-                                                      SizedBox(
-                                                          width: MediaQuery.of(
-                                                              context)
-                                                              .size
-                                                              .width *
-                                                              0.01),
-                                                      Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                            EdgeInsets.only(
-                                                                top: 06),
-                                                            child: Text("RM ",
-                                                                textAlign:
-                                                                TextAlign
-                                                                    .left,
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    borderColor,
-                                                                    fontSize: 7,
-                                                                    fontFamily:
-                                                                    poppinSemiBold)),
-                                                          ),
-                                                          widget
-                                                              .filterCarByAttributeModelObject
-                                                              ?.data?[
-                                                          index]
-                                                              .carsUsageType ==
-                                                              "EV Subscriptions"
-                                                              ? discountedPriceWidget(
-                                                              "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
-                                                              "Month")
-                                                              : discountedPriceWidget(
-                                                              "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
-                                                              "Month")
-                                                          // widget.filterCarByAttributeModelObject?.data?[
-                                                          //                                           index]
-                                                          //                                       .carsUsageType ==
-                                                          //                                   "Photography"
-                                                          //                               ? discountedPriceWidget(
-                                                          //                                   "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerHour}/",
-                                                          //                                   "Hour")
-                                                          //                               : discountedPriceWidget(
-                                                          //                                   "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerSlot}/",
-                                                          //                                   "Slot"),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  // Divider(),
-                                                  // Row(
-                                                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  //   children: [
-                                                  //     Row(
-                                                  //       children: [
-                                                  //         Image.asset("assets/home_page/Promoted.png"),
-                                                  //         SizedBox(width: 05),
-                                                  //         Text("Verified Dealer", textAlign: TextAlign.left,
-                                                  //             style: TextStyle(color: textLabelColor,
-                                                  //                 fontSize: 10, fontFamily: poppinRegular)),
-                                                  //       ],
-                                                  //     ),
-                                                  //     Container(
-                                                  //       height: 17, width: 35,
-                                                  //       decoration: BoxDecoration(
-                                                  //           color: kBlack,
-                                                  //           borderRadius: BorderRadius.circular(10)),
-                                                  //       child: Center(
-                                                  //         child: Text("New", textAlign: TextAlign.left, style: TextStyle(
-                                                  //             color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                                                  //       ),
-                                                  //     ),
-                                                  //   ],
-                                                  // ),
-                                                  SizedBox(
-                                                      height:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.02),
-                                                  // GestureDetector(
-                                                  //   onTap: () {
-                                                  //     carID =
-                                                  //         widget.filterCarByAttributeModelObject?.data?[index]
-                                                  //             .carsId;
-                                                  //     print("cardId $carID");
-                                                  //     print("carsRatings ${topRentedCarsModelObject.data![index].carsRatings![0].rateStars}");
-                                                  //     print(
-                                                  //         "carsUsageType ${widget.filterCarByAttributeModelObject?.data![index].carsUsageType}");
-                                                  //
-                                                  //     if (topRentedCarsModelObject
-                                                  //         .data![index]
-                                                  //         .carsUsageType ==
-                                                  //         "EV Subscriptions") {
-                                                  //       Navigator.push(
-                                                  //           context,
-                                                  //           MaterialPageRoute(
-                                                  //               builder:
-                                                  //                   (context) =>
-                                                  //                   EVCarDescription(
-                                                  //                     carName: topRentedCarsModelObject.data![index].vehicalName,
-                                                  //                     carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
-                                                  //                     carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                  //                     carYear: "${topRentedCarsModelObject.data![index].year}",
-                                                  //                     carId: topRentedCarsModelObject.data![index].carsId,
-                                                  //                     carRating: topRentedCarsModelObject.data![index].rating,
-                                                  //                     carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                                  //                     carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                                  //                     carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                                  //                     carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                  //                     carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                  //                     discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                                  //                     carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
-                                                  //                     carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                  //                     carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                  //                     carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                                  //                     myCarDescription: topRentedCarsModelObject.data![index].description,
-                                                  //                     myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
-                                                  //                     myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
-                                                  //                   )));
-                                                  //     } else if (topRentedCarsModelObject
-                                                  //         .data![index]
-                                                  //         .carsUsageType ==
-                                                  //         "Photography") {
-                                                  //       Navigator.push(
-                                                  //           context,
-                                                  //           MaterialPageRoute(
-                                                  //               builder:
-                                                  //                   (context) =>
-                                                  //                   BookForWeddingCarDescription(
-                                                  //                     carName: topRentedCarsModelObject.data![index].vehicalName,
-                                                  //                     carYear: "${topRentedCarsModelObject.data![index].year}",
-                                                  //                     carId: topRentedCarsModelObject.data![index].carsId,
-                                                  //                     carRating: topRentedCarsModelObject.data![index].rating,
-                                                  //                     carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                                  //                     carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                                  //                     carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                                  //                     carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                  //                     carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                  //                     favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                  //                     discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                                  //                     carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
-                                                  //                     carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
-                                                  //                     carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                  //                     carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                  //                     carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                                  //                     myCarDescription: topRentedCarsModelObject.data![index].description,
-                                                  //                     myCarRating: topRentedCarsModelObject.data![index].rating,
-                                                  //                   )));
-                                                  //     } else if (topRentedCarsModelObject
-                                                  //         .data![index]
-                                                  //         .carsUsageType ==
-                                                  //         "Driving Experience") {
-                                                  //       Navigator.push(
-                                                  //           context,
-                                                  //           MaterialPageRoute(
-                                                  //               builder:
-                                                  //                   (context) =>
-                                                  //                   HomeDrivingBooking(
-                                                  //                     datum: topRentedCarsModelObject.data![index],
-                                                  //                   )));
-                                                  //     }
-                                                  //   },
-                                                  //   child: Container(
-                                                  //     height: MediaQuery.of(
-                                                  //         context)
-                                                  //         .size
-                                                  //         .height *
-                                                  //         0.035,
-                                                  //     width: MediaQuery.of(
-                                                  //         context)
-                                                  //         .size
-                                                  //         .width *
-                                                  //         0.4,
-                                                  //     decoration: BoxDecoration(
-                                                  //         color:
-                                                  //         borderColor,
-                                                  //         borderRadius:
-                                                  //         BorderRadius
-                                                  //             .circular(
-                                                  //             30)),
-                                                  //     child: Center(
-                                                  //       child: Row(
-                                                  //         mainAxisAlignment:
-                                                  //         MainAxisAlignment
-                                                  //             .center,
-                                                  //         children: [
-                                                  //           Text(
-                                                  //               "Click to see Details",
-                                                  //               textAlign:
-                                                  //               TextAlign
-                                                  //                   .left,
-                                                  //               style: TextStyle(
-                                                  //                   color:
-                                                  //                   kWhite,
-                                                  //                   fontFamily:
-                                                  //                   poppinMedium,
-                                                  //                   fontSize:
-                                                  //                   10)),
-                                                  //           SizedBox(
-                                                  //               width: 10),
-                                                  //           Image.asset(
-                                                  //               "assets/home_page/more_buttons_home.png")
-                                                  //         ],
-                                                  //       ),
-                                                  //     ),
-                                                  //   ),
-                                                  // ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          top: 30,
+                                          left: 10,
+                                          right: 10,
+                                          child: widget.filterCarByAttributeModelObject?.data?[index].image1 ==
+                                              null
+                                              ? ClipRRect(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                              child: Image.asset(
+                                                  'assets/icon/fade_in_image.jpeg'))
+                                              : ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            child: FadeInImage(
+                                              placeholder: AssetImage(
+                                                  "assets/icon/fade_in_image.jpeg"),
+                                              height: 65,
+                                              image: NetworkImage(
+                                                  "$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}"),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          top: 03,
+                                          left: 05,
+                                          child: Container(
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.065,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.19,
+                                            decoration: BoxDecoration(
+                                              color: kRed.withOpacity(0.8),
+                                              borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(15),
+                                                  bottomLeft:
+                                                  Radius.circular(15)),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(0.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                      "${widget.filterCarByAttributeModelObject?.data?[index].discountPercentage}% ",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          color: kWhite,
+                                                          fontSize: 12,
+                                                          fontFamily:
+                                                          poppinSemiBold)),
+                                                  Text("OFF",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          color: kWhite,
+                                                          fontSize: 8,
+                                                          fontFamily:
+                                                          poppinRegular)),
                                                 ],
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Positioned(
-                                        top: 30,
-                                        left: 10,
-                                        right: 10,
-                                        child: widget.filterCarByAttributeModelObject?.data?[index].image1 ==
-                                            null
-                                            ? ClipRRect(
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                            child: Image.asset(
-                                                'assets/icon/fade_in_image.jpeg'))
-                                            : ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          child: FadeInImage(
-                                            placeholder: AssetImage(
-                                                "assets/icon/fade_in_image.jpeg"),
-                                            height: 65,
-                                            image: NetworkImage(
-                                                "$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}"),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 03,
-                                        left: 05,
-                                        child: Container(
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .width *
-                                              0.065,
-                                          width: MediaQuery.of(context)
-                                              .size
-                                              .width *
-                                              0.19,
-                                          decoration: BoxDecoration(
-                                            color: kRed.withOpacity(0.8),
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(15),
-                                                bottomLeft:
-                                                Radius.circular(15)),
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.all(0.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                    "${widget.filterCarByAttributeModelObject?.data?[index].discountPercentage}% ",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: kWhite,
-                                                        fontSize: 12,
-                                                        fontFamily:
-                                                        poppinSemiBold)),
-                                                Text("OFF",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: kWhite,
-                                                        fontSize: 8,
-                                                        fontFamily:
-                                                        poppinRegular)),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                                      ],
+                                    ),
+                                  );
+                                }  else {
+                                  // Handle the case where the index is out of bounds gracefully
+                                  return SizedBox.shrink(); // or any other placeholder widget
+                                }
                               });
                         } else {
                           return GridView.builder(
@@ -1323,134 +1537,335 @@ class _HomePageState extends State<HomePage> {
                                                           .size
                                                           .width *
                                                           0.02),
-                                                  // GestureDetector(
-                                                  //   onTap: () {
-                                                  //     carID =
-                                                  //         widget.filterCarByAttributeModelObject?.data?[index]
-                                                  //             .carsId;
-                                                  //     print(
-                                                  //         "cardId $carID");
-                                                  //     print(
-                                                  //         "carsUsageType ${widget.filterCarByAttributeModelObject?.data![index].carsUsageType}");
-                                                  //
-                                                  //     if (topRentedCarsModelObject
-                                                  //         .data![index]
-                                                  //         .carsUsageType ==
-                                                  //         "EV Subscriptions") {
-                                                  //       Navigator.push(
-                                                  //           context,
-                                                  //           MaterialPageRoute(
-                                                  //               builder:
-                                                  //                   (context) =>
-                                                  //                   EVCarDescription(
-                                                  //                     carName: topRentedCarsModelObject.data![index].vehicalName,
-                                                  //                     carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
-                                                  //                     carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                  //                     carYear: "${topRentedCarsModelObject.data![index].year}",
-                                                  //                     carId: topRentedCarsModelObject.data![index].carsId,
-                                                  //                     carRating: topRentedCarsModelObject.data![index].rating,
-                                                  //                     carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                                  //                     carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                                  //                     carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                                  //                     carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                  //                     carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                  //                     discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                                  //                     carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
-                                                  //                     carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                  //                     carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                  //                     carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                                  //                     myCarDescription: topRentedCarsModelObject.data![index].description,
-                                                  //                     myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
-                                                  //                     myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
-                                                  //                   )));
-                                                  //     } else if (topRentedCarsModelObject
-                                                  //         .data![index]
-                                                  //         .carsUsageType ==
-                                                  //         "Photography") {
-                                                  //       Navigator.push(
-                                                  //           context,
-                                                  //           MaterialPageRoute(
-                                                  //               builder:
-                                                  //                   (context) =>
-                                                  //                   BookForWeddingCarDescription(
-                                                  //                     carName: topRentedCarsModelObject.data![index].vehicalName,
-                                                  //                     carYear: "${topRentedCarsModelObject.data![index].year}",
-                                                  //                     carId: topRentedCarsModelObject.data![index].carsId,
-                                                  //                     carRating: topRentedCarsModelObject.data![index].rating,
-                                                  //                     carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                                  //                     carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                                  //                     carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                                  //                     carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                  //                     carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                  //                     favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                  //                     discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                                  //                     carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
-                                                  //                     carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
-                                                  //                     carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                  //                     carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                  //                     carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                                  //                     myCarDescription: topRentedCarsModelObject.data![index].description,
-                                                  //                     myCarRating: topRentedCarsModelObject.data![index].rating,
-                                                  //                   )));
-                                                  //     } else if (topRentedCarsModelObject
-                                                  //         .data![index]
-                                                  //         .carsUsageType ==
-                                                  //         "Driving Experience") {
-                                                  //       Navigator.push(
-                                                  //           context,
-                                                  //           MaterialPageRoute(
-                                                  //               builder:
-                                                  //                   (context) =>
-                                                  //                   HomeDrivingBooking(
-                                                  //                     datum: topRentedCarsModelObject.data![index],
-                                                  //                   )));
-                                                  //     }
-                                                  //   },
-                                                  //   child: Container(
-                                                  //     height: MediaQuery.of(
-                                                  //         context)
-                                                  //         .size
-                                                  //         .height *
-                                                  //         0.035,
-                                                  //     width: MediaQuery.of(
-                                                  //         context)
-                                                  //         .size
-                                                  //         .width *
-                                                  //         0.4,
-                                                  //     decoration: BoxDecoration(
-                                                  //         color:
-                                                  //         borderColor,
-                                                  //         borderRadius:
-                                                  //         BorderRadius
-                                                  //             .circular(
-                                                  //             30)),
-                                                  //     child: Center(
-                                                  //       child: Row(
-                                                  //         mainAxisAlignment:
-                                                  //         MainAxisAlignment
-                                                  //             .center,
-                                                  //         children: [
-                                                  //           Text(
-                                                  //               "Click to see Details",
-                                                  //               textAlign:
-                                                  //               TextAlign
-                                                  //                   .left,
-                                                  //               style: TextStyle(
-                                                  //                   color:
-                                                  //                   kWhite,
-                                                  //                   fontFamily:
-                                                  //                   poppinMedium,
-                                                  //                   fontSize:
-                                                  //                   10)),
-                                                  //           SizedBox(
-                                                  //               width: 10),
-                                                  //           Image.asset(
-                                                  //               "assets/home_page/more_buttons_home.png")
-                                                  //         ],
-                                                  //       ),
-                                                  //     ),
-                                                  //   ),
-                                                  // ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      carID = widget.filterCarByAttributeModelObject?.data![index].carsId;
+                                                      print("cardId $carID");
+                                                      print(
+                                                          "carsUsageType ${widget.filterCarByAttributeModelObject!.data?[index].carsUsageType}");
+                                                      print(
+                                                          "favouriteStatusHome ${widget.filterCarByAttributeModelObject!.data?[index].favouriteStatus}");
+
+                                                      if (widget.filterCarByAttributeModelObject!
+                                                          .data![index]
+                                                          .carsUsageType ==
+                                                          "EV Subscriptions") {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    EVCarDescription(
+                                                                      carName: widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .vehicalName,
+                                                                      carPrice: widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .carsPlans![
+                                                                      0]
+                                                                          .pricePerMonth,
+                                                                      carImage:
+                                                                      "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].image1}",
+                                                                      carYear:
+                                                                      "${widget.filterCarByAttributeModelObject!.data![index].year}",
+                                                                      carId:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .carsId,
+                                                                      carRating:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .rating,
+                                                                      carColorName:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .carsColors!
+                                                                          .name,
+                                                                      carMakesName:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .carsMakes!
+                                                                          .name,
+                                                                      carModelName:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .carsModels!
+                                                                          .name,
+                                                                      carMakesImage:
+                                                                      "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].carsMakes!.image}",
+                                                                      // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                      discountPercentage:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .discountPercentage,
+                                                                      carDiscountPrice:
+                                                                      double.parse(
+                                                                          "${widget.filterCarByAttributeModelObject!.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                      carOwnerImage:
+                                                                      "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
+                                                                      carOwnerName:
+                                                                      "${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyName}",
+                                                                      carOwnerId: widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .usersCompanies!
+                                                                          .usersCompaniesId,
+                                                                      myCarDescription:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .description,
+                                                                      favouriteStatus:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .favouriteStatus,
+
+                                                                      featureSuv:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresSuv,
+                                                                      featuresDoors:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresDoors,
+                                                                      featuresSeats:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresSeats,
+                                                                      featuresAutomatic:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresAutomatic,
+                                                                      featuresSpeed:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresSpeed,
+                                                                      featuresElectric:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresElectric,
+                                                                      featuresEngine_capacity:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresEngineCapacity,
+                                                                      featuresFuelCapacity:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresFuelCapacity,
+                                                                      featuresMeterReading:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresMeterReading,
+                                                                      featuresNewCars:
+                                                                      widget.filterCarByAttributeModelObject!
+                                                                          .data![
+                                                                      index]
+                                                                          .featuresNewCars,
+                                                                    )));
+                                                      }
+                                                      // else if (widget.filterCarByAttributeModelObject!
+                                                      //     .data![index]
+                                                      //     .carsUsageType ==
+                                                      //     "Photography") {
+                                                      //   Navigator.push(
+                                                      //       context,
+                                                      //       MaterialPageRoute(
+                                                      //           builder: (context) =>
+                                                      //               BookForWeddingCarDescription(
+                                                      //                 carName: widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .vehicalName,
+                                                      //                 carYear:
+                                                      //                 "${widget.filterCarByAttributeModelObject!.data![index].year}",
+                                                      //                 carId:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .carsId,
+                                                      //                 carRating:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .rating,
+                                                      //                 carColorName:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .carsColors!
+                                                      //                     .name,
+                                                      //                 carMakesName:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .carsMakes!
+                                                      //                     .name,
+                                                      //                 carModelName:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .carsModels!
+                                                      //                     .name,
+                                                      //                 carImage:
+                                                      //                 "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].image1}",
+                                                      //                 carMakesImage:
+                                                      //                 "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].carsMakes!.image}",
+                                                      //                 favouriteStatus:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .favouriteStatus,
+                                                      //                 discountPercentage:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .discountPercentage,
+                                                      //                 carDiscountPrice:
+                                                      //                 topRentedCarsModelObject
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .carsPlans![
+                                                      //                 0]
+                                                      //                     .discountedPricePerHour,
+                                                      //                 carPrice: topRentedCarsModelObject
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .carsPlans![
+                                                      //                 0]
+                                                      //                     .pricePerHour,
+                                                      //                 carOwnerImage:
+                                                      //                 "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
+                                                      //                 carOwnerName:
+                                                      //                 "${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyName}",
+                                                      //                 carOwnerId: widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .usersCompanies!
+                                                      //                     .usersCompaniesId,
+                                                      //                 myCarDescription:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .description,
+                                                      //                 featureSuv:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresSuv,
+                                                      //                 featuresDoors:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresDoors,
+                                                      //                 featuresSeats:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresSeats,
+                                                      //                 featuresAutomatic:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresAutomatic,
+                                                      //                 featuresSpeed:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresSpeed,
+                                                      //                 featuresElectric:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresElectric,
+                                                      //                 featuresEngine_capacity:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresEngineCapacity,
+                                                      //                 featuresFuelCapacity:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresFuelCapacity,
+                                                      //                 featuresMeterReading:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresMeterReading,
+                                                      //                 featuresNewCars:
+                                                      //                 widget.filterCarByAttributeModelObject!
+                                                      //                     .data![
+                                                      //                 index]
+                                                      //                     .featuresNewCars,
+                                                      //               )));
+                                                      // } else if (widget.filterCarByAttributeModelObject!.data![index]
+                                                      //     .carsUsageType ==
+                                                      //     "Driving Experience") {
+                                                      //   Navigator.push(
+                                                      //       context,
+                                                      //       MaterialPageRoute(
+                                                      //           builder: (context) =>
+                                                      //               HomeDrivingBooking(
+                                                      //                 datum: topRentedCarsModelObject
+                                                      //                     .data![
+                                                      //                 index],
+                                                      //               )));
+                                                      // }
+                                                    },
+                                                    child: Container(
+                                                      height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                          0.035,
+                                                      width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                          0.4,
+                                                      decoration: BoxDecoration(
+                                                          color: borderColor,
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              30)),
+                                                      child: Center(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                          children: [
+                                                            Text(
+                                                                "Click to see Details",
+                                                                textAlign:
+                                                                TextAlign.left,
+                                                                style: TextStyle(
+                                                                    color: kWhite,
+                                                                    fontFamily:
+                                                                    poppinMedium,
+                                                                    fontSize: 10)),
+                                                            SizedBox(width: 10),
+                                                            Image.asset(
+                                                                "assets/home_page/more_buttons_home.png")
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -1998,155 +2413,156 @@ class _HomePageState extends State<HomePage> {
                                                                             index]
                                                                         .featuresNewCars,
                                                               )));
-                                                } else if (topRentedCarsModelObject
-                                                        .data![index]
-                                                        .carsUsageType ==
-                                                    "Photography") {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              BookForWeddingCarDescription(
-                                                                carName: topRentedCarsModelObject
-                                                                    .data![
-                                                                        index]
-                                                                    .vehicalName,
-                                                                carYear:
-                                                                    "${topRentedCarsModelObject.data![index].year}",
-                                                                carId:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsId,
-                                                                carRating:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .rating,
-                                                                carColorName:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsColors!
-                                                                        .name,
-                                                                carMakesName:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsMakes!
-                                                                        .name,
-                                                                carModelName:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsModels!
-                                                                        .name,
-                                                                carImage:
-                                                                    "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                carMakesImage:
-                                                                    "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                favouriteStatus:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .favouriteStatus,
-                                                                discountPercentage:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .discountPercentage,
-                                                                carDiscountPrice:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsPlans![
-                                                                            0]
-                                                                        .discountedPricePerHour,
-                                                                carPrice: topRentedCarsModelObject
-                                                                    .data![
-                                                                        index]
-                                                                    .carsPlans![
-                                                                        0]
-                                                                    .pricePerHour,
-                                                                carOwnerImage:
-                                                                    "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                carOwnerName:
-                                                                    "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                carOwnerId: topRentedCarsModelObject
-                                                                    .data![
-                                                                        index]
-                                                                    .usersCompanies!
-                                                                    .usersCompaniesId,
-                                                                myCarDescription:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .description,
-                                                                featureSuv:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresSuv,
-                                                                featuresDoors:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresDoors,
-                                                                featuresSeats:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresSeats,
-                                                                featuresAutomatic:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresAutomatic,
-                                                                featuresSpeed:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresSpeed,
-                                                                featuresElectric:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresElectric,
-                                                                featuresEngine_capacity:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresEngineCapacity,
-                                                                featuresFuelCapacity:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresFuelCapacity,
-                                                                featuresMeterReading:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresMeterReading,
-                                                                featuresNewCars:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresNewCars,
-                                                              )));
-                                                } else if (topRentedCarsModelObject
-                                                        .data![index]
-                                                        .carsUsageType ==
-                                                    "Driving Experience") {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              HomeDrivingBooking(
-                                                                datum: topRentedCarsModelObject
-                                                                        .data![
-                                                                    index],
-                                                              )));
                                                 }
+                                                // else if (topRentedCarsModelObject
+                                                //         .data![index]
+                                                //         .carsUsageType ==
+                                                //     "Photography") {
+                                                //   Navigator.push(
+                                                //       context,
+                                                //       MaterialPageRoute(
+                                                //           builder: (context) =>
+                                                //               BookForWeddingCarDescription(
+                                                //                 carName: topRentedCarsModelObject
+                                                //                     .data![
+                                                //                         index]
+                                                //                     .vehicalName,
+                                                //                 carYear:
+                                                //                     "${topRentedCarsModelObject.data![index].year}",
+                                                //                 carId:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsId,
+                                                //                 carRating:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .rating,
+                                                //                 carColorName:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsColors!
+                                                //                         .name,
+                                                //                 carMakesName:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsMakes!
+                                                //                         .name,
+                                                //                 carModelName:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsModels!
+                                                //                         .name,
+                                                //                 carImage:
+                                                //                     "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                //                 carMakesImage:
+                                                //                     "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                //                 favouriteStatus:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .favouriteStatus,
+                                                //                 discountPercentage:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .discountPercentage,
+                                                //                 carDiscountPrice:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsPlans![
+                                                //                             0]
+                                                //                         .discountedPricePerHour,
+                                                //                 carPrice: topRentedCarsModelObject
+                                                //                     .data![
+                                                //                         index]
+                                                //                     .carsPlans![
+                                                //                         0]
+                                                //                     .pricePerHour,
+                                                //                 carOwnerImage:
+                                                //                     "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                //                 carOwnerName:
+                                                //                     "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                //                 carOwnerId: topRentedCarsModelObject
+                                                //                     .data![
+                                                //                         index]
+                                                //                     .usersCompanies!
+                                                //                     .usersCompaniesId,
+                                                //                 myCarDescription:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .description,
+                                                //                 featureSuv:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresSuv,
+                                                //                 featuresDoors:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresDoors,
+                                                //                 featuresSeats:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresSeats,
+                                                //                 featuresAutomatic:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresAutomatic,
+                                                //                 featuresSpeed:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresSpeed,
+                                                //                 featuresElectric:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresElectric,
+                                                //                 featuresEngine_capacity:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresEngineCapacity,
+                                                //                 featuresFuelCapacity:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresFuelCapacity,
+                                                //                 featuresMeterReading:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresMeterReading,
+                                                //                 featuresNewCars:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresNewCars,
+                                                //               )));
+                                                // } else if (topRentedCarsModelObject
+                                                //         .data![index]
+                                                //         .carsUsageType ==
+                                                //     "Driving Experience") {
+                                                //   Navigator.push(
+                                                //       context,
+                                                //       MaterialPageRoute(
+                                                //           builder: (context) =>
+                                                //               HomeDrivingBooking(
+                                                //                 datum: topRentedCarsModelObject
+                                                //                         .data![
+                                                //                     index],
+                                                //               )));
+                                                // }
                                               },
                                               child: Container(
                                                 height: MediaQuery.of(context)
@@ -2694,155 +3110,156 @@ class _HomePageState extends State<HomePage> {
                                                                             index]
                                                                         .featuresNewCars,
                                                               )));
-                                                } else if (topRentedCarsModelObject
-                                                        .data![index]
-                                                        .carsUsageType ==
-                                                    "Photography") {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              BookForWeddingCarDescription(
-                                                                carName: topRentedCarsModelObject
-                                                                    .data![
-                                                                        index]
-                                                                    .vehicalName,
-                                                                carYear:
-                                                                    "${topRentedCarsModelObject.data![index].year}",
-                                                                carId:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsId,
-                                                                carRating:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .rating,
-                                                                carColorName:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsColors!
-                                                                        .name,
-                                                                carMakesName:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsMakes!
-                                                                        .name,
-                                                                carModelName:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsModels!
-                                                                        .name,
-                                                                carImage:
-                                                                    "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                carMakesImage:
-                                                                    "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                favouriteStatus:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .favouriteStatus,
-                                                                discountPercentage:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .discountPercentage,
-                                                                carDiscountPrice:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .carsPlans![
-                                                                            0]
-                                                                        .discountedPricePerHour,
-                                                                carPrice: topRentedCarsModelObject
-                                                                    .data![
-                                                                        index]
-                                                                    .carsPlans![
-                                                                        0]
-                                                                    .pricePerHour,
-                                                                carOwnerImage:
-                                                                    "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                carOwnerName:
-                                                                    "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                carOwnerId: topRentedCarsModelObject
-                                                                    .data![
-                                                                        index]
-                                                                    .usersCompanies!
-                                                                    .usersCompaniesId,
-                                                                myCarDescription:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .description,
-                                                                featureSuv:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresSuv,
-                                                                featuresDoors:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresDoors,
-                                                                featuresSeats:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresSeats,
-                                                                featuresAutomatic:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresAutomatic,
-                                                                featuresSpeed:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresSpeed,
-                                                                featuresElectric:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresElectric,
-                                                                featuresEngine_capacity:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresEngineCapacity,
-                                                                featuresFuelCapacity:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresFuelCapacity,
-                                                                featuresMeterReading:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresMeterReading,
-                                                                featuresNewCars:
-                                                                    topRentedCarsModelObject
-                                                                        .data![
-                                                                            index]
-                                                                        .featuresNewCars,
-                                                              )));
-                                                } else if (topRentedCarsModelObject
-                                                        .data![index]
-                                                        .carsUsageType ==
-                                                    "Driving Experience") {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              HomeDrivingBooking(
-                                                                datum: topRentedCarsModelObject
-                                                                        .data![
-                                                                    index],
-                                                              )));
                                                 }
+                                                // else if (topRentedCarsModelObject
+                                                //         .data![index]
+                                                //         .carsUsageType ==
+                                                //     "Photography") {
+                                                //   Navigator.push(
+                                                //       context,
+                                                //       MaterialPageRoute(
+                                                //           builder: (context) =>
+                                                //               BookForWeddingCarDescription(
+                                                //                 carName: topRentedCarsModelObject
+                                                //                     .data![
+                                                //                         index]
+                                                //                     .vehicalName,
+                                                //                 carYear:
+                                                //                     "${topRentedCarsModelObject.data![index].year}",
+                                                //                 carId:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsId,
+                                                //                 carRating:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .rating,
+                                                //                 carColorName:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsColors!
+                                                //                         .name,
+                                                //                 carMakesName:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsMakes!
+                                                //                         .name,
+                                                //                 carModelName:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsModels!
+                                                //                         .name,
+                                                //                 carImage:
+                                                //                     "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                //                 carMakesImage:
+                                                //                     "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                //                 favouriteStatus:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .favouriteStatus,
+                                                //                 discountPercentage:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .discountPercentage,
+                                                //                 carDiscountPrice:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .carsPlans![
+                                                //                             0]
+                                                //                         .discountedPricePerHour,
+                                                //                 carPrice: topRentedCarsModelObject
+                                                //                     .data![
+                                                //                         index]
+                                                //                     .carsPlans![
+                                                //                         0]
+                                                //                     .pricePerHour,
+                                                //                 carOwnerImage:
+                                                //                     "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                //                 carOwnerName:
+                                                //                     "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                //                 carOwnerId: topRentedCarsModelObject
+                                                //                     .data![
+                                                //                         index]
+                                                //                     .usersCompanies!
+                                                //                     .usersCompaniesId,
+                                                //                 myCarDescription:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .description,
+                                                //                 featureSuv:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresSuv,
+                                                //                 featuresDoors:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresDoors,
+                                                //                 featuresSeats:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresSeats,
+                                                //                 featuresAutomatic:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresAutomatic,
+                                                //                 featuresSpeed:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresSpeed,
+                                                //                 featuresElectric:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresElectric,
+                                                //                 featuresEngine_capacity:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresEngineCapacity,
+                                                //                 featuresFuelCapacity:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresFuelCapacity,
+                                                //                 featuresMeterReading:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresMeterReading,
+                                                //                 featuresNewCars:
+                                                //                     topRentedCarsModelObject
+                                                //                         .data![
+                                                //                             index]
+                                                //                         .featuresNewCars,
+                                                //               )));
+                                                // } else if (topRentedCarsModelObject
+                                                //         .data![index]
+                                                //         .carsUsageType ==
+                                                //     "Driving Experience") {
+                                                //   Navigator.push(
+                                                //       context,
+                                                //       MaterialPageRoute(
+                                                //           builder: (context) =>
+                                                //               HomeDrivingBooking(
+                                                //                 datum: topRentedCarsModelObject
+                                                //                         .data![
+                                                //                     index],
+                                                //               )));
+                                                // }
                                               },
                                               child: Container(
                                                 height: MediaQuery.of(context)
@@ -3303,126 +3720,325 @@ class _HomePageState extends State<HomePage> {
                                                               0.02),
                                                       GestureDetector(
                                                         onTap: () {
-                                                          carID =
-                                                              searchModelObject
-                                                                  .data?[index]
-                                                                  .carsId;
+                                                          carID = searchModelObject
+                                                              .data![index].carsId;
+                                                          print("cardId $carID");
                                                           print(
-                                                              "cardId $carID");
+                                                              "carsUsageType ${searchModelObject.data?[index].carsUsageType}");
                                                           print(
-                                                              "carsUsageType ${searchModelObject.data![index].carsUsageType}");
+                                                              "favouriteStatusHome ${searchModelObject.data?[index].favouriteStatus}");
 
-                                                          if (topRentedCarsModelObject
-                                                                  .data![index]
-                                                                  .carsUsageType ==
+                                                          if (searchModelObject
+                                                              .data![index]
+                                                              .carsUsageType ==
                                                               "EV Subscriptions") {
                                                             Navigator.push(
                                                                 context,
                                                                 MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            EVCarDescription(
-                                                                              carName: topRentedCarsModelObject.data![index].vehicalName,
-                                                                              carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
-                                                                              carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                              carYear: "${topRentedCarsModelObject.data![index].year}",
-                                                                              carId: topRentedCarsModelObject.data![index].carsId,
-                                                                              carRating: topRentedCarsModelObject.data![index].rating,
-                                                                              carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                                                              carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                                                              carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                                                              carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                              carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                                              discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                                                              carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
-                                                                              carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                              carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                              carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                                                              myCarDescription: topRentedCarsModelObject.data![index].description,
-                                                                              myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
-                                                                              myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
-                                                                            )));
-                                                          } else if (topRentedCarsModelObject
-                                                                  .data![index]
-                                                                  .carsUsageType ==
-                                                              "Photography") {
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            BookForWeddingCarDescription(
-                                                                              carName: topRentedCarsModelObject.data![index].vehicalName,
-                                                                              carYear: "${topRentedCarsModelObject.data![index].year}",
-                                                                              carId: topRentedCarsModelObject.data![index].carsId,
-                                                                              carRating: topRentedCarsModelObject.data![index].rating,
-                                                                              carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                                                              carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                                                              carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                                                              carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                              carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                              favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                                              discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                                                              carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
-                                                                              carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
-                                                                              carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                              carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                              carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                                                              myCarDescription: topRentedCarsModelObject.data![index].description,
-                                                                              myCarRating: topRentedCarsModelObject.data![index].rating,
-                                                                            )));
-                                                          } else if (topRentedCarsModelObject
-                                                                  .data![index]
-                                                                  .carsUsageType ==
-                                                              "Driving Experience") {
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            HomeDrivingBooking(
-                                                                              datum: topRentedCarsModelObject.data![index],
-                                                                            )));
+                                                                    builder: (context) =>
+                                                                        EVCarDescription(
+                                                                          carName: searchModelObject.data![
+                                                                          index]
+                                                                              .vehicalName,
+                                                                          carPrice: searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsPlans![
+                                                                          0]
+                                                                              .pricePerMonth,
+                                                                          carImage:
+                                                                          "$baseUrlImage${searchModelObject.data![index].image1}",
+                                                                          carYear:
+                                                                          "${searchModelObject.data![index].year}",
+                                                                          carId:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsId,
+                                                                          carRating:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .rating,
+                                                                          carColorName:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsColors!
+                                                                              .name,
+                                                                          carMakesName:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsMakes!
+                                                                              .name,
+                                                                          carModelName:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsModels!
+                                                                              .name,
+                                                                          carMakesImage:
+                                                                          "$baseUrlImage${searchModelObject.data![index].carsMakes!.image}",
+                                                                          // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                          discountPercentage:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .discountPercentage,
+                                                                          carDiscountPrice:
+                                                                          double.parse(
+                                                                              "${searchModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                          carOwnerImage:
+                                                                          "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
+                                                                          carOwnerName:
+                                                                          "${searchModelObject.data![index].usersCompanies!.companyName}",
+                                                                          carOwnerId: searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .usersCompanies!
+                                                                              .usersCompaniesId,
+                                                                          myCarDescription:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .description,
+                                                                          favouriteStatus:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .favouriteStatus,
+
+                                                                          featureSuv:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresSuv,
+                                                                          featuresDoors:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresDoors,
+                                                                          featuresSeats:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresSeats,
+                                                                          featuresAutomatic:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresAutomatic,
+                                                                          featuresSpeed:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresSpeed,
+                                                                          featuresElectric:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresElectric,
+                                                                          featuresEngine_capacity:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresEngineCapacity,
+                                                                          featuresFuelCapacity:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresFuelCapacity,
+                                                                          featuresMeterReading:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresMeterReading,
+                                                                          featuresNewCars:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresNewCars,
+                                                                        )));
                                                           }
+                                                          // else if (searchModelObject
+                                                          //     .data![index]
+                                                          //     .carsUsageType ==
+                                                          //     "Photography") {
+                                                          //   Navigator.push(
+                                                          //       context,
+                                                          //       MaterialPageRoute(
+                                                          //           builder: (context) =>
+                                                          //               BookForWeddingCarDescription(
+                                                          //                 carName: searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .vehicalName,
+                                                          //                 carYear:
+                                                          //                 "${searchModelObject.data![index].year}",
+                                                          //                 carId:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsId,
+                                                          //                 carRating:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .rating,
+                                                          //                 carColorName:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsColors!
+                                                          //                     .name,
+                                                          //                 carMakesName:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsMakes!
+                                                          //                     .name,
+                                                          //                 carModelName:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsModels!
+                                                          //                     .name,
+                                                          //                 carImage:
+                                                          //                 "$baseUrlImage${searchModelObject.data![index].image1}",
+                                                          //                 carMakesImage:
+                                                          //                 "$baseUrlImage${searchModelObject.data![index].carsMakes!.image}",
+                                                          //                 favouriteStatus:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .favouriteStatus,
+                                                          //                 discountPercentage:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .discountPercentage,
+                                                          //                 carDiscountPrice:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsPlans![
+                                                          //                 0]
+                                                          //                     .discountedPricePerHour,
+                                                          //                 carPrice: searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsPlans![
+                                                          //                 0]
+                                                          //                     .pricePerHour,
+                                                          //                 carOwnerImage:
+                                                          //                 "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
+                                                          //                 carOwnerName:
+                                                          //                 "${searchModelObject.data![index].usersCompanies!.companyName}",
+                                                          //                 carOwnerId: searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .usersCompanies!
+                                                          //                     .usersCompaniesId,
+                                                          //                 myCarDescription:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .description,
+                                                          //                 featureSuv:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresSuv,
+                                                          //                 featuresDoors:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresDoors,
+                                                          //                 featuresSeats:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresSeats,
+                                                          //                 featuresAutomatic:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresAutomatic,
+                                                          //                 featuresSpeed:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresSpeed,
+                                                          //                 featuresElectric:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresElectric,
+                                                          //                 featuresEngine_capacity:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresEngineCapacity,
+                                                          //                 featuresFuelCapacity:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresFuelCapacity,
+                                                          //                 featuresMeterReading:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresMeterReading,
+                                                          //                 featuresNewCars:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresNewCars,
+                                                          //               )));
+                                                          // } else if (searchModelObject
+                                                          //     .data![index]
+                                                          //     .carsUsageType ==
+                                                          //     "Driving Experience") {
+                                                          //   Navigator.push(
+                                                          //     context,
+                                                          //     MaterialPageRoute(
+                                                          //       builder: (context) =>
+                                                          //           HomeDrivingBooking(
+                                                          //             datum: topRentedCarsModelObject.data![index],
+                                                          //           ),),);
+                                                          // }
                                                         },
                                                         child: Container(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
+                                                          height: MediaQuery.of(context)
+                                                              .size
+                                                              .height *
                                                               0.035,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
+                                                          width: MediaQuery.of(context)
+                                                              .size
+                                                              .width *
                                                               0.4,
                                                           decoration: BoxDecoration(
-                                                              color:
-                                                                  borderColor,
+                                                              color: borderColor,
                                                               borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          30)),
+                                                              BorderRadius.circular(
+                                                                  30)),
                                                           child: Center(
                                                             child: Row(
                                                               mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
+                                                              MainAxisAlignment
+                                                                  .center,
                                                               children: [
                                                                 Text(
                                                                     "Click to see Details",
                                                                     textAlign:
-                                                                        TextAlign
-                                                                            .left,
+                                                                    TextAlign.left,
                                                                     style: TextStyle(
-                                                                        color:
-                                                                            kWhite,
+                                                                        color: kWhite,
                                                                         fontFamily:
-                                                                            poppinMedium,
-                                                                        fontSize:
-                                                                            10)),
-                                                                SizedBox(
-                                                                    width: 10),
+                                                                        poppinMedium,
+                                                                        fontSize: 10)),
+                                                                SizedBox(width: 10),
                                                                 Image.asset(
                                                                     "assets/home_page/more_buttons_home.png")
                                                               ],
@@ -3854,126 +4470,325 @@ class _HomePageState extends State<HomePage> {
                                                               0.02),
                                                       GestureDetector(
                                                         onTap: () {
-                                                          carID =
-                                                              searchModelObject
-                                                                  .data?[index]
-                                                                  .carsId;
+                                                          carID = searchModelObject
+                                                              .data![index].carsId;
+                                                          print("cardId $carID");
                                                           print(
-                                                              "cardId $carID");
+                                                              "carsUsageType ${searchModelObject.data?[index].carsUsageType}");
                                                           print(
-                                                              "carsUsageType ${searchModelObject.data![index].carsUsageType}");
+                                                              "favouriteStatusHome ${searchModelObject.data?[index].favouriteStatus}");
 
-                                                          if (topRentedCarsModelObject
-                                                                  .data![index]
-                                                                  .carsUsageType ==
+                                                          if (searchModelObject
+                                                              .data![index]
+                                                              .carsUsageType ==
                                                               "EV Subscriptions") {
                                                             Navigator.push(
                                                                 context,
                                                                 MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            EVCarDescription(
-                                                                              carName: topRentedCarsModelObject.data![index].vehicalName,
-                                                                              carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerMonth,
-                                                                              carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                              carYear: "${topRentedCarsModelObject.data![index].year}",
-                                                                              carId: topRentedCarsModelObject.data![index].carsId,
-                                                                              carRating: topRentedCarsModelObject.data![index].rating,
-                                                                              carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                                                              carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                                                              carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                                                              carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                              carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                                              discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                                                              carDiscountPrice: double.parse("${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
-                                                                              carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                              carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                              carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                                                              myCarDescription: topRentedCarsModelObject.data![index].description,
-                                                                              myCarRating: topRentedCarsModelObject.data![index].carsRatings![0].rateStars,
-                                                                              myCarComment: topRentedCarsModelObject.data![index].carsRatings![0].comments,
-                                                                            )));
-                                                          } else if (topRentedCarsModelObject
-                                                                  .data![index]
-                                                                  .carsUsageType ==
-                                                              "Photography") {
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            BookForWeddingCarDescription(
-                                                                              carName: topRentedCarsModelObject.data![index].vehicalName,
-                                                                              carYear: "${topRentedCarsModelObject.data![index].year}",
-                                                                              carId: topRentedCarsModelObject.data![index].carsId,
-                                                                              carRating: topRentedCarsModelObject.data![index].rating,
-                                                                              carColorName: topRentedCarsModelObject.data![index].carsColors!.name,
-                                                                              carMakesName: topRentedCarsModelObject.data![index].carsMakes!.name,
-                                                                              carModelName: topRentedCarsModelObject.data![index].carsModels!.name,
-                                                                              carImage: "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
-                                                                              carMakesImage: "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                                                              favouriteStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                                              discountPercentage: topRentedCarsModelObject.data![index].discountPercentage,
-                                                                              carDiscountPrice: topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerHour,
-                                                                              carPrice: topRentedCarsModelObject.data![index].carsPlans![0].pricePerHour,
-                                                                              carOwnerImage: "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                              carOwnerName: "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                                                              carOwnerId: topRentedCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                                                              myCarDescription: topRentedCarsModelObject.data![index].description,
-                                                                              myCarRating: topRentedCarsModelObject.data![index].rating,
-                                                                            )));
-                                                          } else if (topRentedCarsModelObject
-                                                                  .data![index]
-                                                                  .carsUsageType ==
-                                                              "Driving Experience") {
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            HomeDrivingBooking(
-                                                                              datum: topRentedCarsModelObject.data![index],
-                                                                            )));
+                                                                    builder: (context) =>
+                                                                        EVCarDescription(
+                                                                          carName: searchModelObject.data![
+                                                                          index]
+                                                                              .vehicalName,
+                                                                          carPrice: searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsPlans![
+                                                                          0]
+                                                                              .pricePerMonth,
+                                                                          carImage:
+                                                                          "$baseUrlImage${searchModelObject.data![index].image1}",
+                                                                          carYear:
+                                                                          "${searchModelObject.data![index].year}",
+                                                                          carId:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsId,
+                                                                          carRating:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .rating,
+                                                                          carColorName:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsColors!
+                                                                              .name,
+                                                                          carMakesName:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsMakes!
+                                                                              .name,
+                                                                          carModelName:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .carsModels!
+                                                                              .name,
+                                                                          carMakesImage:
+                                                                          "$baseUrlImage${searchModelObject.data![index].carsMakes!.image}",
+                                                                          // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                          discountPercentage:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .discountPercentage,
+                                                                          carDiscountPrice:
+                                                                          double.parse(
+                                                                              "${searchModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                          carOwnerImage:
+                                                                          "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
+                                                                          carOwnerName:
+                                                                          "${searchModelObject.data![index].usersCompanies!.companyName}",
+                                                                          carOwnerId: searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .usersCompanies!
+                                                                              .usersCompaniesId,
+                                                                          myCarDescription:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .description,
+                                                                          favouriteStatus:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .favouriteStatus,
+
+                                                                          featureSuv:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresSuv,
+                                                                          featuresDoors:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresDoors,
+                                                                          featuresSeats:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresSeats,
+                                                                          featuresAutomatic:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresAutomatic,
+                                                                          featuresSpeed:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresSpeed,
+                                                                          featuresElectric:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresElectric,
+                                                                          featuresEngine_capacity:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresEngineCapacity,
+                                                                          featuresFuelCapacity:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresFuelCapacity,
+                                                                          featuresMeterReading:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresMeterReading,
+                                                                          featuresNewCars:
+                                                                          searchModelObject
+                                                                              .data![
+                                                                          index]
+                                                                              .featuresNewCars,
+                                                                        )));
                                                           }
+                                                          // else if (searchModelObject
+                                                          //     .data![index]
+                                                          //     .carsUsageType ==
+                                                          //     "Photography") {
+                                                          //   Navigator.push(
+                                                          //       context,
+                                                          //       MaterialPageRoute(
+                                                          //           builder: (context) =>
+                                                          //               BookForWeddingCarDescription(
+                                                          //                 carName: searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .vehicalName,
+                                                          //                 carYear:
+                                                          //                 "${searchModelObject.data![index].year}",
+                                                          //                 carId:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsId,
+                                                          //                 carRating:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .rating,
+                                                          //                 carColorName:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsColors!
+                                                          //                     .name,
+                                                          //                 carMakesName:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsMakes!
+                                                          //                     .name,
+                                                          //                 carModelName:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsModels!
+                                                          //                     .name,
+                                                          //                 carImage:
+                                                          //                 "$baseUrlImage${searchModelObject.data![index].image1}",
+                                                          //                 carMakesImage:
+                                                          //                 "$baseUrlImage${searchModelObject.data![index].carsMakes!.image}",
+                                                          //                 favouriteStatus:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .favouriteStatus,
+                                                          //                 discountPercentage:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .discountPercentage,
+                                                          //                 carDiscountPrice:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsPlans![
+                                                          //                 0]
+                                                          //                     .discountedPricePerHour,
+                                                          //                 carPrice: searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .carsPlans![
+                                                          //                 0]
+                                                          //                     .pricePerHour,
+                                                          //                 carOwnerImage:
+                                                          //                 "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
+                                                          //                 carOwnerName:
+                                                          //                 "${searchModelObject.data![index].usersCompanies!.companyName}",
+                                                          //                 carOwnerId: searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .usersCompanies!
+                                                          //                     .usersCompaniesId,
+                                                          //                 myCarDescription:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .description,
+                                                          //                 featureSuv:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresSuv,
+                                                          //                 featuresDoors:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresDoors,
+                                                          //                 featuresSeats:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresSeats,
+                                                          //                 featuresAutomatic:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresAutomatic,
+                                                          //                 featuresSpeed:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresSpeed,
+                                                          //                 featuresElectric:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresElectric,
+                                                          //                 featuresEngine_capacity:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresEngineCapacity,
+                                                          //                 featuresFuelCapacity:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresFuelCapacity,
+                                                          //                 featuresMeterReading:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresMeterReading,
+                                                          //                 featuresNewCars:
+                                                          //                 searchModelObject
+                                                          //                     .data![
+                                                          //                 index]
+                                                          //                     .featuresNewCars,
+                                                          //               )));
+                                                          // } else if (searchModelObject
+                                                          //     .data![index]
+                                                          //     .carsUsageType ==
+                                                          //     "Driving Experience") {
+                                                          //   Navigator.push(
+                                                          //       context,
+                                                          //       MaterialPageRoute(
+                                                          //           builder: (context) =>
+                                                          //               HomeDrivingBooking(
+                                                          //                 datum: topRentedCarsModelObject.data![index],
+                                                          //               ),),);
+                                                          // }
                                                         },
                                                         child: Container(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
+                                                          height: MediaQuery.of(context)
+                                                              .size
+                                                              .height *
                                                               0.035,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
+                                                          width: MediaQuery.of(context)
+                                                              .size
+                                                              .width *
                                                               0.4,
                                                           decoration: BoxDecoration(
-                                                              color:
-                                                                  borderColor,
+                                                              color: borderColor,
                                                               borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          30)),
+                                                              BorderRadius.circular(
+                                                                  30)),
                                                           child: Center(
                                                             child: Row(
                                                               mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
+                                                              MainAxisAlignment
+                                                                  .center,
                                                               children: [
                                                                 Text(
                                                                     "Click to see Details",
                                                                     textAlign:
-                                                                        TextAlign
-                                                                            .left,
+                                                                    TextAlign.left,
                                                                     style: TextStyle(
-                                                                        color:
-                                                                            kWhite,
+                                                                        color: kWhite,
                                                                         fontFamily:
-                                                                            poppinMedium,
-                                                                        fontSize:
-                                                                            10)),
-                                                                SizedBox(
-                                                                    width: 10),
+                                                                        poppinMedium,
+                                                                        fontSize: 10)),
+                                                                SizedBox(width: 10),
                                                                 Image.asset(
                                                                     "assets/home_page/more_buttons_home.png")
                                                               ],
