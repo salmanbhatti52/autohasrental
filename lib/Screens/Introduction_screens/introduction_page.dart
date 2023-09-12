@@ -159,8 +159,14 @@ class _IntroductionPageState extends State<IntroductionPage> {
                         },
 
                         child: Row(mainAxisSize: MainAxisSize.min, children: [
-                          Text("Skip", style: TextStyle(fontSize: 15.0, color: kWhite,
-                              fontFamily: poppinMedium),),
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => LoginPage()));
+                            },
+                            child: Text("Skip", style: TextStyle(fontSize: 15.0, color: kWhite,
+                                fontFamily: poppinMedium),),
+                          ),
                         ]),
                       ),
                       InkWell(
