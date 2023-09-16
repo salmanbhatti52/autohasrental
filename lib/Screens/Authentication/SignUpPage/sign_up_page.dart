@@ -446,6 +446,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             fontSize: 14),
                         controller: phoneController,
                         initialCountryCode: 'US',
+                        disableLengthCheck: false,
+                        disableAutoFillHints: false,
                         // showCountryFlag: false,
                         // showDropdownIcon: false,
                         dropdownTextStyle: TextStyle(color: borderColor),
