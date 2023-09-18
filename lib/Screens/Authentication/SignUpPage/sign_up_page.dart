@@ -500,11 +500,53 @@ class _SignUpPageState extends State<SignUpPage> {
                       textWidget("Email"),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.005),
-                      EditTextUtils().getCustomEditTextArea(
-                        hintValue: "rose.matthews@gmail.com",
-                        validation: true,
-                        textController: emailController,
-                        keyboardType: TextInputType.text,
+                      // EditTextUtils().getCustomEditTextArea(
+                      //   hintValue: "rose.matthews@gmail.com",
+                      //   validation: true,
+                      //   textController: emailController,
+                      //   keyboardType: TextInputType.text,
+                      // ),
+                      TextFormField(
+                        controller: emailController,
+                        textAlign: TextAlign.left,
+                        // style: const TextStyle(
+                        //   color: Color.fromRGBO(167, 169, 183, 1),
+                        //   fontFamily: "Outfit",
+                        //   fontWeight: FontWeight.w300,
+                        //   fontSize: 14,
+                        // ),
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return ("Please Enter Your Email");
+                          }
+                          // reg expression for email validation
+                          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                              .hasMatch(value)) {
+                            return ("Please Enter a valid email");
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(top: 15, left: 20, bottom: 15),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide(color: textLabelColor)
+                          ),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: textLabelColor),
+                              borderRadius: BorderRadius.circular(30)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide(color: borderColor)
+                          ),
+                          hintText: "rose.matthews@gmail.com",
+                          hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular,),
+                          focusColor: borderColor,
+                          // errorText: errorTextMsg,
+                        ),
+                        style: TextStyle(color: borderColor, fontSize: 14),
                       ),
                     ],
                   ),
