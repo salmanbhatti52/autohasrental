@@ -6,6 +6,8 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/drawer_screen.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_details_screen.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Notifications/notification_screen.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 Widget myHeaderDrawer(BuildContext context, backImage, titleText, rightImage) {
   return Padding(
@@ -130,11 +132,15 @@ class MyAppBarSingleImageWithText extends StatelessWidget
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 20, fontFamily: poppinBold, color: kBlack),
+            Container(
+              width: Get.width * 0.5,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 20, fontFamily: poppinBold, color: kBlack),
+              ),
             ),
             Text(
               subtitle,

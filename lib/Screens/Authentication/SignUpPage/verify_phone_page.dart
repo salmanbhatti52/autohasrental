@@ -211,7 +211,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
 
                           verifyOTP();
 
-                          Future.delayed(Duration(seconds: 3), () {
+                          Future.delayed(Duration(seconds: 1), () {
                             toastSuccessMessage("success", Colors.green);
                             Navigator.pushReplacement(
                                 context,

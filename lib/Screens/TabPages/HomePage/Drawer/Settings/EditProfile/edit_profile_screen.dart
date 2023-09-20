@@ -242,14 +242,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   if(updateProfileFormKey.currentState!.validate()){
                     if (firstNameController.text.isEmpty) {
                       toastFailedMessage('firstName cannot be empty', kRed);
+                    } else if (firstNameController.text.length < 3) {
+                      toastFailedMessage('firstName must have 3 characters', kRed);
                     } else if (lastNameController.text.isEmpty) {
                       toastFailedMessage('lastName cannot be empty', kRed);
                     } else if (emailController.text.isEmpty) {
                       toastFailedMessage('email cannot be empty', kRed);
+                    }  else if (lastNameController.text.length < 3) {
+                      toastFailedMessage('lastName must have 3 characters', kRed);
                     }
-                    // else if (base64img == null) {
-                    //   toastFailedMessage('profileImage cannot be empty', kRed);
-                    // }
                     else{
                       setState(() {
                         progress = true;

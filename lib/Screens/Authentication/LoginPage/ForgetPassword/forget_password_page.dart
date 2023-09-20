@@ -108,7 +108,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           await resetPasswordWidget();
                           if (forgetPasswordModel.status == "success") {
                             print("reset Success");
-                            Future.delayed(Duration(seconds: 3), () {
+                            Future.delayed(Duration(seconds: 1), () {
                               toastSuccessMessage("${forgetPasswordModel.data!.message}", colorGreen);
                               Navigator.pushReplacement(context, MaterialPageRoute(
                                       builder: (context) => VerifyForgetOTPPage(
@@ -162,13 +162,55 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 children: [
                   textWidget("Email"),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                  EditTextUtils().getCustomEditTextArea(
-                    hintValue: "rose.matthews@mail.com",
-                    validation: true,
-                    // autoFocus: true,
-                    textController: resetEmailController,
+                  // EditTextUtils().getCustomEditTextArea(
+                  //   hintValue: "rose.matthews@mail.com",
+                  //   validation: true,
+                  //   // autoFocus: true,
+                  //   textController: resetEmailController,
+                  //   keyboardType: TextInputType.emailAddress,
+                  //   // errorTextMsg: "Please Enter Email",
+                  // ),
+                  TextFormField(
+                    controller: resetEmailController,
+                    textAlign: TextAlign.left,
+                    // style: const TextStyle(
+                    //   color: Color.fromRGBO(167, 169, 183, 1),
+                    //   fontFamily: "Outfit",
+                    //   fontWeight: FontWeight.w300,
+                    //   fontSize: 14,
+                    // ),
                     keyboardType: TextInputType.emailAddress,
-                    // errorTextMsg: "Please Enter Email",
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return ("Please Enter Your Email");
+                      }
+                      // reg expression for email validation
+                      if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                          .hasMatch(value)) {
+                        return ("Please Enter a valid email");
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(top: 15, left: 20, bottom: 15),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(color: textLabelColor)
+                      ),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: textLabelColor),
+                          borderRadius: BorderRadius.circular(30)
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(color: borderColor)
+                      ),
+                      hintText: "rose.matthews@gmail.com",
+                      hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular,),
+                      focusColor: borderColor,
+                      // errorText: errorTextMsg,
+                    ),
+                    style: TextStyle(color: borderColor, fontSize: 14),
                   ),
                 ],
               ),

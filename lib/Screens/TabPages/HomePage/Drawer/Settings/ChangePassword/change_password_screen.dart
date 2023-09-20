@@ -110,10 +110,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     if (changePasswordFormKey.currentState!.validate()) {
                       if (oldPassController.text.isEmpty) {
                         toastFailedMessage('old password cannot be empty', Colors.red);
+                      } else if (oldPassController.text.length < 6) {
+                        toastFailedMessage('oldPassword must be 6 digit', Colors.red);
                       } else if (newPassController.text.isEmpty) {
                         toastFailedMessage('new password cannot be empty', Colors.red);
+                      } else if (newPassController.text.length < 6) {
+                        toastFailedMessage('password must be 6 digit', Colors.red);
                       } else if (confirmNewPassController.text.isEmpty) {
                         toastFailedMessage('confirm new password cannot be empty',Colors.red);
+                      } else if (confirmNewPassController.text.length < 6) {
+                        toastFailedMessage('password must be 6 digit',Colors.red);
                       } else if(newPassController.text != confirmNewPassController.text){
                         toastFailedMessage('password did not matched', Colors.red);
                       } else {

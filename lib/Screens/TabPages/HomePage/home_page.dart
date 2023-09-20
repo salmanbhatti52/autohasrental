@@ -84,12 +84,16 @@ class _HomePageState extends State<HomePage> {
   getTopRentedCarsWidget() async {
     loadingP = true;
     setState(() {});
+      prefs = await SharedPreferences.getInstance();
+      userId = prefs!.getString('userid');
+      print("users_customers_id: $userId");
 
     prefs = await SharedPreferences.getInstance();
     print('in topRenterCarModelApi');
     // try {
     String apiUrl = topRentedCarsApiUrl;
     print("topRenterCarModelApi: $apiUrl");
+    print("users_customers_id: $userId");
     final response = await http.post(Uri.parse(apiUrl),
         body: {"users_customers_id": userId},
         headers: {'Accept': 'application/json'});

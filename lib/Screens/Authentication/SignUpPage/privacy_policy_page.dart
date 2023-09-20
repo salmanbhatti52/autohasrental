@@ -8,6 +8,8 @@ import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 
+import '../../TabPages/tab_page.dart';
+
 class PrivacyPolicyPage extends StatefulWidget {
   PrivacyPolicyPage({Key? key}) : super(key: key);
 
@@ -97,7 +99,8 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
           ),
           GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => TabBarPage()));
               },
               child: loginButton("Accept", context)),
         ],

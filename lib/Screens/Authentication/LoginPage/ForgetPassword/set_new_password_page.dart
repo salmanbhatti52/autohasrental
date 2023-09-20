@@ -127,6 +127,10 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                         if (newPassController.text.isEmpty) {
                           toastFailedMessage(
                               'new password cannot be empty', Colors.red);
+                        }  else if (newPassController.text.length < 6) {
+                          toastFailedMessage(
+                              'password must be 6 digit',
+                              Colors.red);
                         } else if (confirmNewPassController.text.isEmpty) {
                           toastFailedMessage(
                               'confirm new password cannot be empty',
@@ -146,7 +150,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                             Future.delayed(Duration(seconds: 3), () {
                               print("passwordModify");
                               print("${modifyPasswordModel.status}");
-                              toastSuccessMessage("${modifyPasswordModel.status}", colorGreen);
+                              toastSuccessMessage("Password Update", colorGreen);
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) => LoginPage()));
                               setState(() {

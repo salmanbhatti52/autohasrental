@@ -28,7 +28,7 @@ class _FilterScreenState extends State<FilterScreen> {
   int? selectedCarMakesId, selectedCarsYear;
   String? selectedCarMakesName;
   // String? valueYear;
-  String showYear = 'Select Year';
+  String showYear = "";
   bool progress = false;
   bool bProgress = false;
   final GlobalKey<FormState> filterFormKey = GlobalKey<FormState>();
@@ -140,30 +140,57 @@ int BMW = 1;
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 30,
-                  child: Stack(
+                // SizedBox(
+                //   width: MediaQuery.of(context).size.width,
+                //   height: 30,
+                //   child: Stack(
+                //     children: [
+                //       Positioned(
+                //         left: 160,
+                //         child: Text('Filter', textAlign: TextAlign.center,
+                //           style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
+                //       ),
+                //       Positioned(
+                //         // bottom:12,
+                //         right: 15,
+                //         child: TextButton(
+                //           onPressed: (){
+                //             clearFilter();
+                //             Navigator.pushReplacement(context,
+                //                 MaterialPageRoute(builder: (context) => TabBarPage(clearFilters: clearFilters,)));
+                //           },
+                //           child: Text('Clear Filter', textAlign: TextAlign.right,
+                //             style: TextStyle(fontSize: 14,
+                //                 fontFamily: poppinMedium, color: kWhite),),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Positioned(
-                        left: 160,
+                      IconButton(onPressed: (){
+                        Get.back();
+                      }, icon: Image.asset('assets/live_chat_images/back_arrow.png',
+                          color: Colors.white, height: 25, width: 25),),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
                         child: Text('Filter', textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
                       ),
-                      Positioned(
-                        // bottom:12,
-                        right: 15,
-                        child: TextButton(
-                          onPressed: (){
-                            clearFilter();
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => TabBarPage(clearFilters: clearFilters,)));
-                          },
-                          child: Text('Clear Filter', textAlign: TextAlign.right,
-                            style: TextStyle(fontSize: 14,
-                                fontFamily: poppinMedium, color: kWhite),),
-                        ),
-                      ),
+          TextButton(
+                      onPressed: (){
+                        clearFilter();
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => TabBarPage(clearFilters: clearFilters,)));
+                      },
+                      child: Text('Clear Filter', textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 14,
+                            fontFamily: poppinMedium, color: kWhite),),
+                    ),
                     ],
                   ),
                 ),
@@ -227,13 +254,19 @@ int BMW = 1;
 
                       print("dropdownValue $dropdownCarType");
                       print("valueYear $showYear");
+                      print("rangeStartPrice $rangeStartPrice");
+                      print("rangeEndPrice $rangeEndPrice");
+                      print("selectedCarMakesId $selectedCarMakesId");
                       if(filterFormKey.currentState!.validate()){
-                        if (dropdownCarType == null) {
-                          toastFailedMessage('carType cannot be empty', Colors.red);
-                        } else if (showYear == null) {
+                        if (rangeStartPrice == null) {
+                          toastFailedMessage('Please select Your Start Price', Colors.red);
+                        } else if (rangeEndPrice == null) {
+                          toastFailedMessage('Please select Your End Price',Colors.red);
+                        } else if (dropdownCarType == null) {
+                          toastFailedMessage('CarType cannot be empty',Colors.red);
+                        } else if (showYear == "") {
                           toastFailedMessage('Year cannot be empty',Colors.red);
-                        }
-                        else{
+                        } else{
                           setState(() {
                             progress = true;
                           });
@@ -250,7 +283,8 @@ int BMW = 1;
                                 print("false: $progress");
                               // }
                             } else{
-                              toastFailedMessage("${filterCarByAttributeModelObject.message}", kRed);
+                              // toastFailedMessage("${filterCarByAttributeModelObject.message}", kRed);
+                              toastFailedMessage("No Car Found", kRed);
                             }
                           });
                         }
@@ -594,15 +628,15 @@ int BMW = 1;
                               width: Get.width* 0.3,
                               height: Get.height* 0.04,
                               decoration: BoxDecoration(
-                                  color: showYear == null? kWhite: borderColor,
+                                  color: showYear == ""? kWhite: borderColor,
                                   borderRadius: BorderRadius.circular(50),
                                   border: Border.all(color: kWhite)
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(showYear == null? "Select Year" : "$showYear", textAlign: TextAlign.left,
-                                      style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: showYear == null? borderColor: kWhite)),
+                                  Text(showYear == ""? "Select Year" : "$showYear", textAlign: TextAlign.left,
+                                      style: TextStyle(fontSize: 14, fontFamily: poppinSemiBold, color: showYear == ""? borderColor: kWhite)),
                                 ],
                               ),
                             ),

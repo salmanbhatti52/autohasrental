@@ -20,21 +20,24 @@ class _IntroductionPageState extends State<IntroductionPage> {
     IntroductionModel(
       img: 'assets/intro_images/intro_image_one.png',
       text: "Greater Accessibility",
-      desc: "Eliminating the barriers to EV \nownership through simplified \ncomprehensive solutions.",
+      desc:
+          "Eliminating the barriers to EV \nownership through simplified \ncomprehensive solutions.",
       bg: Colors.white,
       button: Color(0xFF4756DF),
     ),
     IntroductionModel(
       img: 'assets/intro_images/intro_image_two.png',
       text: "Ultimate Flexibility",
-      desc: "Providing multiple, easy-to-\nsubscribe package plans to \nsuite any requirements..",
+      desc:
+          "Providing multiple, easy-to-\nsubscribe package plans to \nsuite any requirements..",
       bg: Color(0xFF4756DF),
       button: Colors.white,
     ),
     IntroductionModel(
       img: 'assets/intro_images/intro_image_three.png',
       text: "Total Convenience",
-      desc: "We aim to take the hassle of \ncar ownership with concierge \nservices that is stress-free.",
+      desc:
+          "We aim to take the hassle of \ncar ownership with concierge \nservices that is stress-free.",
       bg: Colors.white,
       button: Color(0xFF4756DF),
     ),
@@ -64,135 +67,139 @@ class _IntroductionPageState extends State<IntroductionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appBgColor,
-      // appBar: AppBar(
-      //   title: Text("On boarding Screen"),
-      //   centerTitle: true,
-      // ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
         child: PageView.builder(
-            itemCount: screens.length,
-            controller: pageController,
-            physics: NeverScrollableScrollPhysics(),
-            onPageChanged: (int index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            itemBuilder: (_, index) {
-              return Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.2,),
-                  Container(
-                    height: 130,
-                    color: Colors.transparent,
-                    child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(screens[index].text,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20.0,
-                            fontFamily: poppinBold, color: kWhite),),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-                        Text(screens[index].desc,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 16.0,
-                              fontFamily: poppinLight, color: kWhite),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                  Image.asset(screens[index].img,
-                  height: MediaQuery.of(context).size.height* 0.2,
-                    width: MediaQuery.of(context).size.width,
-                  ),
-
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.23),
-                  Container(
-                    height: 10.0,
-                    color: Colors.transparent,
-                    child: ListView.builder(
-                      itemCount: screens.length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 3.0),
-                                width: currentIndex == index ? 20 : 8,
-                                height: 8,
-                                decoration: BoxDecoration(
-                                  color: currentIndex == index ? introColor : introColor,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                            ]);
-                      },
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          itemCount: screens.length,
+          controller: pageController,
+          physics: NeverScrollableScrollPhysics(),
+          onPageChanged: (int index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          itemBuilder: (_, index) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                ),
+                Container(
+                  height: 130,
+                  color: Colors.transparent,
+                  child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () async {
-
-
-                          if (index == screens.length - 1) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
-
-                            // await _storeOnboardInfo();
-
-                            // Navigator.pop(context);
-                          }
-                          pageController!.previousPage(
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.bounceIn,
-                          );
-
-                        },
-
-                        child: Row(mainAxisSize: MainAxisSize.min, children: [
-                          InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
-                            },
-                            child: Text("Skip", style: TextStyle(fontSize: 15.0, color: kWhite,
-                                fontFamily: poppinMedium),),
-                          ),
-                        ]),
+                      Text(
+                        screens[index].text,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: poppinBold,
+                            color: kWhite),
                       ),
-                      InkWell(
-                        onTap: () async {
-                          print(index);
-                          if (index == screens.length - 1) {
-                            // await storeOnboardInfo();
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => LoginPage()));
-                          }
-                          pageController!.nextPage(
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.bounceIn,
-                          );
-                        },
-                        child: Row(mainAxisSize: MainAxisSize.min, children: [
-                          Text("Next", style: TextStyle(
-                              fontSize: 15.0, color: kWhite, fontFamily: poppinMedium),
-                          ),
-                        ]),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      Text(
+                        screens[index].desc,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: poppinLight,
+                          color: kWhite,
+                        ),
                       ),
                     ],
-                  )
-                ],
-              );
-            }),
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                Image.asset(
+                  screens[index].img,
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  width: MediaQuery.of(context).size.width,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.23),
+                Container(
+                  height: 10.0,
+                  color: Colors.transparent,
+                  child: ListView.builder(
+                    itemCount: screens.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 3.0),
+                            width: currentIndex == index ? 20 : 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: currentIndex == index
+                                  ? introColor
+                                  : introColor,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Skip",
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          color: kWhite,
+                          fontFamily: poppinMedium,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        print(index);
+                        if (index == screens.length - 1) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
+                        }
+                        pageController!.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.bounceIn,
+                        );
+                      },
+                      child: Text(
+                        "Next",
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          color: kWhite,
+                          fontFamily: poppinMedium,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            );
+          },
+        ),
       ),
     );
   }

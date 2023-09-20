@@ -12,7 +12,7 @@ class GetCarsRatingById {
 
   factory GetCarsRatingById.fromJson(Map<String, dynamic> json) => GetCarsRatingById(
     status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: json["data"] != null ?List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))): null,
   );
 
   Map<String, dynamic> toJson() => {

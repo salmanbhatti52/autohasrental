@@ -9,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/AuthModels/user_sign_up_model.dart';
 import '../../../Widget/TextFields/password_text_field.dart';
 import '../../../Widget/TextFields/text_form_field.dart';
@@ -281,8 +282,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     if (singUpFormKey.currentState!.validate()) {
                       if (firstNameController.text.isEmpty) {
                         toastFailedMessage('firstName cannot be empty', kRed);
+                      } else if (firstNameController.text.length < 3) {
+                        toastFailedMessage('firstName must have 3 characters', kRed);
                       } else if (lastNameController.text.isEmpty) {
                         toastFailedMessage('lastName cannot be empty', kRed);
+                      } else if (lastNameController.text.length < 3) {
+                        toastFailedMessage('lastName must have 3 characters', kRed);
                       } else if (phoneController.text.isEmpty) {
                         toastFailedMessage(
                             'phone number cannot be empty', kRed);
@@ -302,6 +307,16 @@ class _SignUpPageState extends State<SignUpPage> {
                         if (signUpModel.status == "success") {
                           // Future.delayed(Duration(seconds: ), () {
                             // toastSuccessMessage("success", colorGreen);
+                          SharedPreferences sharedPref = await SharedPreferences.getInstance();
+                          await sharedPref.setString('userid', "${signUpModel.data?[0].usersCustomersId.toString()}");
+                          await sharedPref.setString('user_first_name', "${signUpModel.data?[0].firstName.toString()}");
+                          await sharedPref.setString('user_email', "${signUpModel.data?[0].email.toString()}");
+                          await sharedPref.setString('user_last_name', "${signUpModel.data?[0].lastName.toString()}");
+                          await sharedPref.setString('profile_pic', "${signUpModel.data?[0].profilePic}");
+                          print("userId: ${signUpModel.data![0].usersCustomersId.toString()}");
+                          print("userEmail: ${signUpModel.data![0].email}");
+                          print("userFirstName: ${signUpModel.data![0].firstName!}");
+                          print("userLastName: ${signUpModel.data![0].lastName!}");
                             toastSuccessMessage(
                                 "OTP Send in the Email",
                                 colorGreen);

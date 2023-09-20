@@ -149,6 +149,10 @@ class _LoginPageState extends State<LoginPage> {
                         toastFailedMessage('email cannot be empty', Colors.red);
                       } else if (loginPasswordController.text.isEmpty) {
                         toastFailedMessage('password cannot be empty',Colors.red);
+                      }  else if (loginPasswordController.text.length < 6) {
+                        toastFailedMessage(
+                            'password must be 6 digit', Colors.red);
+                        // }  else
                       }
                       else{
                         setState(() {
@@ -168,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                           print("userFirstName: ${userLoginModel.data!.firstName!}");
                           print("userLastName: ${userLoginModel.data!.lastName!}");
 
-                          Future.delayed(Duration(seconds: 3), () {
+                          Future.delayed(Duration(seconds: 1), () {
                             toastSuccessMessage("${userLoginModel.status}", Colors.green);
 
                             Navigator.pushReplacement(context,
@@ -235,12 +239,48 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         textWidget("Email"),
                         SizedBox(height: screenHeight * 0.005),
-                        EditTextUtils().getCustomEditTextArea(
-                            hintValue: "rose.matthews@gmail.com",
-                            validation: true,
-                            // autoFocus: true,
-                            textController: loginEmailController,
-                            keyboardType: TextInputType.emailAddress,
+                        // EditTextUtils().getCustomEditTextArea(
+                        //     hintValue: "rose.matthews@gmail.com",
+                        //     validation: true,
+                        //     // autoFocus: true,
+                        //     textController: loginEmailController,
+                        //     keyboardType: TextInputType.emailAddress,
+                        // ),
+                        TextFormField(
+                          controller: loginEmailController,
+                          textAlign: TextAlign.left,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return ("Please Enter Your Email");
+                            }
+                            // reg expression for email validation
+                            if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                .hasMatch(value)) {
+                              return ("Please Enter a valid email");
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(top: 15, left: 20, bottom: 15),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide(color: textLabelColor)
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: textLabelColor),
+                                borderRadius: BorderRadius.circular(30)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide(color: borderColor)
+                            ),
+                            hintText: "rose.matthews@gmail.com",
+                            hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular,),
+                            focusColor: borderColor,
+                            // errorText: errorTextMsg,
+                          ),
+                          style: TextStyle(color: borderColor, fontSize: 14),
                         ),
                       ],
                     ),
