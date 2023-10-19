@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../Model/filter_car_by_attribute_model.dart';
 import 'Drawer/drawer_screen.dart';
 import 'Filter/filter_screen.dart';
@@ -460,7 +461,37 @@ class _HomePageState extends State<HomePage> {
                               ),
                               itemCount: widget.filterCarByAttributeModelObject!.data!.length,
                               itemBuilder: (BuildContext context, int index) {
+                                var pricePerMonthString = widget.filterCarByAttributeModelObject!.data?[index].carsPlans![0].pricePerMonth;
+                                double pricePerMonth;
+                                String formattedPrice = "";
+                                if (pricePerMonthString != null) {
+                                  pricePerMonth = double.parse(pricePerMonthString);
+                                  if (pricePerMonth != null) {
+                                    final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                    formattedPrice = numberFormat.format(pricePerMonth);
+                                    print("RM $formattedPrice");
+                                  } else {
+                                    print("Invalid price format");
+                                  }
+                                } else {
+                                  print("Price not available");
+                                }
 
+                                var discountPricePerMonthString = widget.filterCarByAttributeModelObject!.data?[index].carsPlans![0].discountedPricePerMonth;
+                                double discountPricePerMonth;
+                                String discountFormattedPrice = "";
+                                if (discountPricePerMonthString != null) {
+                                  discountPricePerMonth = double.parse(discountPricePerMonthString);
+                                  if (discountPricePerMonth != null) {
+                                    final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                    discountFormattedPrice = numberFormat.format(discountPricePerMonth);
+                                    print("RM $discountFormattedPrice");
+                                  } else {
+                                    print("Invalid price format");
+                                  }
+                                } else {
+                                  print("Price not available");
+                                }
                                 if (index >= 0 && index < widget.filterCarByAttributeModelObject!.data!.length) {
                                   return Padding(
                                     padding: EdgeInsets.only(top: 10),
@@ -699,11 +730,9 @@ class _HomePageState extends State<HomePage> {
                                                                 .carsUsageType ==
                                                                 "EV Subscriptions"
                                                                 ? originalPriceWidget(
-                                                                "${ widget
-                                                                    .filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerMonth}")
+                                                                "${ formattedPrice}")
                                                                 : originalPriceWidget(
-                                                                "${ widget
-                                                                    .filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerMonth}"),
+                                                                "${ formattedPrice}"),
                                                             // widget.filterCarByAttributeModelObject?.data?[index].carsUsageType == "Photography"
                                                             // ? originalPriceWidget(
                                                             //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerHour}")
@@ -741,10 +770,10 @@ class _HomePageState extends State<HomePage> {
                                                                 .carsUsageType ==
                                                                 "EV Subscriptions"
                                                                 ? discountedPriceWidget(
-                                                                "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                                "${discountFormattedPrice}/",
                                                                 "Month")
                                                                 : discountedPriceWidget(
-                                                                "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                                "${discountFormattedPrice}/",
                                                                 "Month")
                                                             // widget.filterCarByAttributeModelObject?.data?[
                                                             //                                           index]
@@ -813,12 +842,7 @@ class _HomePageState extends State<HomePage> {
                                                                             .data![
                                                                         index]
                                                                             .vehicalName,
-                                                                        carPrice: widget.filterCarByAttributeModelObject!
-                                                                            .data![
-                                                                        index]
-                                                                            .carsPlans![
-                                                                        0]
-                                                                            .pricePerMonth,
+                                                                        carPrice: formattedPrice,
                                                                         carImage:
                                                                         "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].image1}",
                                                                         carYear:
@@ -861,7 +885,7 @@ class _HomePageState extends State<HomePage> {
                                                                             .discountPercentage,
                                                                         carDiscountPrice:
                                                                         double.parse(
-                                                                            "${widget.filterCarByAttributeModelObject!.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                            "${discountFormattedPrice}"),
                                                                         carOwnerImage:
                                                                         "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
                                                                         carOwnerName:
@@ -1214,6 +1238,37 @@ class _HomePageState extends State<HomePage> {
                               itemCount:widget.filterCarByAttributeModelObject
                                   ?.data?.length,
                               itemBuilder: (BuildContext context, int index) {
+                                var pricePerMonthString = widget.filterCarByAttributeModelObject!.data?[index].carsPlans![0].pricePerMonth;
+                                double pricePerMonth;
+                                String formattedPrice = "";
+                                if (pricePerMonthString != null) {
+                                  pricePerMonth = double.parse(pricePerMonthString);
+                                  if (pricePerMonth != null) {
+                                    final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                    formattedPrice = numberFormat.format(pricePerMonth);
+                                    print("RM $formattedPrice");
+                                  } else {
+                                    print("Invalid price format");
+                                  }
+                                } else {
+                                  print("Price not available");
+                                }
+
+                                var discountPricePerMonthString = widget.filterCarByAttributeModelObject!.data?[index].carsPlans![0].discountedPricePerMonth;
+                                double discountPricePerMonth;
+                                String discountFormattedPrice = "";
+                                if (discountPricePerMonthString != null) {
+                                  discountPricePerMonth = double.parse(discountPricePerMonthString);
+                                  if (discountPricePerMonth != null) {
+                                    final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                    discountFormattedPrice = numberFormat.format(discountPricePerMonth);
+                                    print("RM $discountFormattedPrice");
+                                  } else {
+                                    print("Invalid price format");
+                                  }
+                                } else {
+                                  print("Price not available");
+                                }
                                 return Padding(
                                   padding: EdgeInsets.only(top: 10),
                                   child: Stack(
@@ -1450,9 +1505,9 @@ class _HomePageState extends State<HomePage> {
                                                               .carsUsageType ==
                                                               "EV Subscriptions"
                                                               ? originalPriceWidget(
-                                                              "${topRentedCarsModelObject.data?[index].carsPlans![0].pricePerMonth}")
+                                                              "${formattedPrice}")
                                                               : originalPriceWidget(
-                                                              "${topRentedCarsModelObject.data?[index].carsPlans![0].pricePerMonth}"),
+                                                              "${formattedPrice}"),
                                                           // widget.filterCarByAttributeModelObject?.data?[index].carsUsageType == "Photography"
                                                           // ? originalPriceWidget(
                                                           //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerHour}")
@@ -1490,10 +1545,10 @@ class _HomePageState extends State<HomePage> {
                                                               .carsUsageType ==
                                                               "EV Subscriptions"
                                                               ? discountedPriceWidget(
-                                                              "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                              "${discountFormattedPrice}/",
                                                               "Month")
                                                               : discountedPriceWidget(
-                                                              "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                              "${discountFormattedPrice}/",
                                                               "Month")
                                                           // widget.filterCarByAttributeModelObject?.data?[
                                                           //                                           index]
@@ -1563,12 +1618,7 @@ class _HomePageState extends State<HomePage> {
                                                                           .data![
                                                                       index]
                                                                           .vehicalName,
-                                                                      carPrice: widget.filterCarByAttributeModelObject!
-                                                                          .data![
-                                                                      index]
-                                                                          .carsPlans![
-                                                                      0]
-                                                                          .pricePerMonth,
+                                                                      carPrice: formattedPrice,
                                                                       carImage:
                                                                       "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].image1}",
                                                                       carYear:
@@ -1611,7 +1661,7 @@ class _HomePageState extends State<HomePage> {
                                                                           .discountPercentage,
                                                                       carDiscountPrice:
                                                                       double.parse(
-                                                                          "${widget.filterCarByAttributeModelObject!.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                          "${discountFormattedPrice}"),
                                                                       carOwnerImage:
                                                                       "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
                                                                       carOwnerName:
@@ -1991,6 +2041,37 @@ class _HomePageState extends State<HomePage> {
                           ),
                           itemCount: topRentedCarsModelObject.data?.length,
                           itemBuilder: (BuildContext context, int index) {
+                            var pricePerMonthString = topRentedCarsModelObject.data?[index].carsPlans![0].pricePerMonth;
+                            double pricePerMonth;
+                            String formattedPrice = "";
+                            if (pricePerMonthString != null) {
+                              pricePerMonth = double.parse(pricePerMonthString);
+                              if (pricePerMonth != null) {
+                                final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                formattedPrice = numberFormat.format(pricePerMonth);
+                                print("RM $formattedPrice");
+                              } else {
+                                print("Invalid price format");
+                              }
+                            } else {
+                              print("Price not available");
+                            }
+
+                            var discountPricePerMonthString = topRentedCarsModelObject.data?[index].carsPlans![0].discountedPricePerMonth;
+                            double discountPricePerMonth;
+                            String discountFormattedPrice = "";
+                            if (discountPricePerMonthString != null) {
+                              discountPricePerMonth = double.parse(discountPricePerMonthString);
+                              if (discountPricePerMonth != null) {
+                                final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                discountFormattedPrice = numberFormat.format(discountPricePerMonth);
+                                print("RM $discountFormattedPrice");
+                              } else {
+                                print("Invalid price format");
+                              }
+                            } else {
+                              print("Price not available");
+                            }
                             // print("topRentedCarsModelObject1 ${topRentedCarsModelObject1.length}");
                             // carName = topRentedCarsModelObject.data![index].vehicalName;
                             // print("carName $carName");
@@ -2214,7 +2295,7 @@ class _HomePageState extends State<HomePage> {
                                                                 .carsUsageType ==
                                                             "EV Subscriptions"
                                                         ? originalPriceWidget(
-                                                            "${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerMonth}")
+                                                            "${formattedPrice}")
                                                         : topRentedCarsModelObject
                                                                     .data?[
                                                                         index]
@@ -2252,7 +2333,7 @@ class _HomePageState extends State<HomePage> {
                                                                 .carsUsageType ==
                                                             "EV Subscriptions"
                                                         ? discountedPriceWidget(
-                                                            "${topRentedCarsModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                            "${discountFormattedPrice}/",
                                                             "Month")
                                                         : topRentedCarsModelObject
                                                                     .data?[
@@ -2297,12 +2378,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .data![
                                                                         index]
                                                                     .vehicalName,
-                                                                carPrice: topRentedCarsModelObject
-                                                                    .data![
-                                                                        index]
-                                                                    .carsPlans![
-                                                                        0]
-                                                                    .pricePerMonth,
+                                                                carPrice: formattedPrice,
                                                                 carImage:
                                                                     "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
                                                                 carYear:
@@ -2345,7 +2421,7 @@ class _HomePageState extends State<HomePage> {
                                                                         .discountPercentage,
                                                                 carDiscountPrice:
                                                                     double.parse(
-                                                                        "${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                        "${discountFormattedPrice}"),
                                                                 carOwnerImage:
                                                                     "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
                                                                 carOwnerName:
@@ -2688,6 +2764,37 @@ class _HomePageState extends State<HomePage> {
                           ),
                           itemCount: topRentedCarsModelObject.data?.length,
                           itemBuilder: (BuildContext context, int index) {
+                            var pricePerMonthString = topRentedCarsModelObject.data?[index].carsPlans![0].pricePerMonth;
+                            double pricePerMonth;
+                            String formattedPrice = "";
+                            if (pricePerMonthString != null) {
+                              pricePerMonth = double.parse(pricePerMonthString);
+                              if (pricePerMonth != null) {
+                                final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                formattedPrice = numberFormat.format(pricePerMonth);
+                                print("RM $formattedPrice");
+                              } else {
+                                print("Invalid price format");
+                              }
+                            } else {
+                              print("Price not available");
+                            }
+
+                            var discountPricePerMonthString = topRentedCarsModelObject.data?[index].carsPlans![0].discountedPricePerMonth;
+                            double discountPricePerMonth;
+                            String discountFormattedPrice = "";
+                            if (discountPricePerMonthString != null) {
+                              discountPricePerMonth = double.parse(discountPricePerMonthString);
+                              if (discountPricePerMonth != null) {
+                                final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                discountFormattedPrice = numberFormat.format(discountPricePerMonth);
+                                print("RM $discountFormattedPrice");
+                              } else {
+                                print("Invalid price format");
+                              }
+                            } else {
+                              print("Price not available");
+                            }
                             // print("topRentedCarsModelObject1 ${topRentedCarsModelObject1.length}");
                             // carName = topRentedCarsModelObject.data![index].vehicalName;
                             // print("carName $carName");
@@ -2911,7 +3018,7 @@ class _HomePageState extends State<HomePage> {
                                                                 .carsUsageType ==
                                                             "EV Subscriptions"
                                                         ? originalPriceWidget(
-                                                            "${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerMonth}")
+                                                            "${formattedPrice}")
                                                         : topRentedCarsModelObject
                                                                     .data?[
                                                                         index]
@@ -2949,7 +3056,7 @@ class _HomePageState extends State<HomePage> {
                                                                 .carsUsageType ==
                                                             "EV Subscriptions"
                                                         ? discountedPriceWidget(
-                                                            "${topRentedCarsModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                            "${discountFormattedPrice}/",
                                                             "Month")
                                                         : topRentedCarsModelObject
                                                                     .data?[
@@ -2994,12 +3101,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .data![
                                                                         index]
                                                                     .vehicalName,
-                                                                carPrice: topRentedCarsModelObject
-                                                                    .data![
-                                                                        index]
-                                                                    .carsPlans![
-                                                                        0]
-                                                                    .pricePerMonth,
+                                                                carPrice: formattedPrice,
                                                                 carImage:
                                                                     "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
                                                                 carYear:
@@ -3042,7 +3144,7 @@ class _HomePageState extends State<HomePage> {
                                                                         .discountPercentage,
                                                                 carDiscountPrice:
                                                                     double.parse(
-                                                                        "${topRentedCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                        "${discountFormattedPrice}"),
                                                                 carOwnerImage:
                                                                     "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
                                                                 carOwnerName:
@@ -3397,6 +3499,37 @@ class _HomePageState extends State<HomePage> {
                                   itemCount: searchModelObject.data?.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
+                                        var pricePerMonthString = searchModelObject.data?[index].carsPlans![0].pricePerMonth;
+                                        double pricePerMonth;
+                                        String formattedPrice = "";
+                                        if (pricePerMonthString != null) {
+                                          pricePerMonth = double.parse(pricePerMonthString);
+                                          if (pricePerMonth != null) {
+                                            final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                            formattedPrice = numberFormat.format(pricePerMonth);
+                                            print("RM $formattedPrice");
+                                          } else {
+                                            print("Invalid price format");
+                                          }
+                                        } else {
+                                          print("Price not available");
+                                        }
+
+                                        var discountPricePerMonthString = searchModelObject.data?[index].carsPlans![0].discountedPricePerMonth;
+                                        double discountPricePerMonth;
+                                        String discountFormattedPrice = "";
+                                        if (discountPricePerMonthString != null) {
+                                          discountPricePerMonth = double.parse(discountPricePerMonthString.toString());
+                                          if (discountPricePerMonth != null) {
+                                            final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                            discountFormattedPrice = numberFormat.format(discountPricePerMonth);
+                                            print("RM $discountFormattedPrice");
+                                          } else {
+                                            print("Invalid price format");
+                                          }
+                                        } else {
+                                          print("Price not available");
+                                        }
                                     return Padding(
                                       padding: EdgeInsets.only(top: 10),
                                       child: Stack(
@@ -3629,7 +3762,7 @@ class _HomePageState extends State<HomePage> {
                                                                           .carsUsageType ==
                                                                       "EV Subscriptions"
                                                                   ? originalPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans![0].pricePerMonth}")
+                                                                      "${formattedPrice}")
                                                                   : searchModelObject
                                                                               .data?[
                                                                                   index]
@@ -3673,7 +3806,7 @@ class _HomePageState extends State<HomePage> {
                                                                           .carsUsageType ==
                                                                       "EV Subscriptions"
                                                                   ? discountedPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                                      "${discountFormattedPrice}/",
                                                                       "Month")
                                                                   : searchModelObject
                                                                               .data?[
@@ -3744,12 +3877,7 @@ class _HomePageState extends State<HomePage> {
                                                                           carName: searchModelObject.data![
                                                                           index]
                                                                               .vehicalName,
-                                                                          carPrice: searchModelObject
-                                                                              .data![
-                                                                          index]
-                                                                              .carsPlans![
-                                                                          0]
-                                                                              .pricePerMonth,
+                                                                          carPrice: formattedPrice,
                                                                           carImage:
                                                                           "$baseUrlImage${searchModelObject.data![index].image1}",
                                                                           carYear:
@@ -3792,7 +3920,7 @@ class _HomePageState extends State<HomePage> {
                                                                               .discountPercentage,
                                                                           carDiscountPrice:
                                                                           double.parse(
-                                                                              "${searchModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                              "${discountFormattedPrice}"),
                                                                           carOwnerImage:
                                                                           "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
                                                                           carOwnerName:
@@ -4147,6 +4275,37 @@ class _HomePageState extends State<HomePage> {
                                   itemCount: searchModelObject.data?.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
+                                        var pricePerMonthString = searchModelObject.data?[index].carsPlans![0].pricePerMonth;
+                                        double pricePerMonth;
+                                        String formattedPrice = "";
+                                        if (pricePerMonthString != null) {
+                                          pricePerMonth = double.parse(pricePerMonthString);
+                                          if (pricePerMonth != null) {
+                                            final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                            formattedPrice = numberFormat.format(pricePerMonth);
+                                            print("RM $formattedPrice");
+                                          } else {
+                                            print("Invalid price format");
+                                          }
+                                        } else {
+                                          print("Price not available");
+                                        }
+
+                                        var discountPricePerMonthString = searchModelObject.data?[index].carsPlans![0].discountedPricePerMonth;
+                                        double discountPricePerMonth;
+                                        String discountFormattedPrice = "";
+                                        if (discountPricePerMonthString != null) {
+                                          discountPricePerMonth = double.parse(discountPricePerMonthString);
+                                          if (discountPricePerMonth != null) {
+                                            final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                            discountFormattedPrice = numberFormat.format(discountPricePerMonth);
+                                            print("RM $discountFormattedPrice");
+                                          } else {
+                                            print("Invalid price format");
+                                          }
+                                        } else {
+                                          print("Price not available");
+                                        }
                                     return Padding(
                                       padding: EdgeInsets.only(top: 10),
                                       child: Stack(
@@ -4379,7 +4538,7 @@ class _HomePageState extends State<HomePage> {
                                                                           .carsUsageType ==
                                                                       "EV Subscriptions"
                                                                   ? originalPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans![0].pricePerMonth}")
+                                                                      "${formattedPrice}")
                                                                   : searchModelObject
                                                                               .data?[
                                                                                   index]
@@ -4423,7 +4582,7 @@ class _HomePageState extends State<HomePage> {
                                                                           .carsUsageType ==
                                                                       "EV Subscriptions"
                                                                   ? discountedPriceWidget(
-                                                                      "${searchModelObject.data?[index].carsPlans?[0].discountedPricePerMonth}/",
+                                                                      "${discountFormattedPrice}/",
                                                                       "Month")
                                                                   : searchModelObject
                                                                               .data?[
@@ -4494,12 +4653,7 @@ class _HomePageState extends State<HomePage> {
                                                                           carName: searchModelObject.data![
                                                                           index]
                                                                               .vehicalName,
-                                                                          carPrice: searchModelObject
-                                                                              .data![
-                                                                          index]
-                                                                              .carsPlans![
-                                                                          0]
-                                                                              .pricePerMonth,
+                                                                          carPrice: formattedPrice,
                                                                           carImage:
                                                                           "$baseUrlImage${searchModelObject.data![index].image1}",
                                                                           carYear:
@@ -4542,7 +4696,7 @@ class _HomePageState extends State<HomePage> {
                                                                               .discountPercentage,
                                                                           carDiscountPrice:
                                                                           double.parse(
-                                                                              "${searchModelObject.data![index].carsPlans![0].discountedPricePerMonth}"),
+                                                                              "${discountFormattedPrice}"),
                                                                           carOwnerImage:
                                                                           "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
                                                                           carOwnerName:
