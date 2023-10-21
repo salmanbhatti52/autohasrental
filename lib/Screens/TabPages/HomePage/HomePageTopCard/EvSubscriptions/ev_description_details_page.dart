@@ -34,7 +34,7 @@ class EvDescriptionDetailsPage extends StatefulWidget {
       carOwnerName,
       discountPercentage;
   final int? carId, carOwnerId;
-  final double? carDiscountPrice;
+  final String? carDiscountPrice;
 
   EvDescriptionDetailsPage(
       {Key? key,

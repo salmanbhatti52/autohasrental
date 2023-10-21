@@ -73,6 +73,7 @@ dependencies:
   dropdown_button2: ^1.9.2
   sizer: ^2.0.15
   google_fonts: ^4.0.0
+  babylonjs_viewer: 1.2.1
 
 flutter_icons:
   image_path: "assets/app_icon/app_icon_autohaus.png"

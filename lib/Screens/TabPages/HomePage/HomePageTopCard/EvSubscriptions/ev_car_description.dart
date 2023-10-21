@@ -24,7 +24,7 @@ class EVCarDescription extends StatefulWidget {
  final String? featureSuv, featuresSeats, featuresSpeed, featuresAutomatic, featuresDoors,
      featuresElectric, featuresEngine_capacity, featuresFuelCapacity, featuresMeterReading, featuresNewCars;
  final int? carId, carOwnerId;
- final double? carDiscountPrice;
+ final String? carDiscountPrice;
   EVCarDescription({super.key, this.carName, this.myCarDescription, this.favouriteStatus,
     this.myCarRating, this.myCarComment, this.carColorName, this.carModelName,
     this.discountPercentage, this.carDiscountPrice, this.carImage, this.carYear,

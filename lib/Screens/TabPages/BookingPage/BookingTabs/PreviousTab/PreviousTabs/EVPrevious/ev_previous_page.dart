@@ -102,7 +102,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
               carMakesImage: "$baseUrlImage${carDetailsByIdModelObject.data!.carsMakes!.image}",
               favouriteStatus: carDetailsByIdModelObject.data!.status,
               discountPercentage: carDetailsByIdModelObject.data!.discountPercentage,
-              carDiscountPrice: double.parse("${carDetailsByIdModelObject.data!.carsPlans![0].discountedPricePerMonth}"),
+              carDiscountPrice: "${carDetailsByIdModelObject.data!.carsPlans![0].discountedPricePerMonth}",
               carPrice: carDetailsByIdModelObject.data!.carsPlans![0].pricePerMonth,
               carOwnerImage: "$baseUrlImage${carDetailsByIdModelObject.data!.usersCompanies!.companyLogo}",
               carOwnerName: "${carDetailsByIdModelObject.data!.usersCompanies!.companyName}",

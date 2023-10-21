@@ -1,3 +1,4 @@
+import 'package:babylonjs_viewer/babylonjs_viewer.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../Model/filter_car_by_attribute_model.dart';
@@ -883,9 +884,7 @@ class _HomePageState extends State<HomePage> {
                                                                             .data![
                                                                         index]
                                                                             .discountPercentage,
-                                                                        carDiscountPrice:
-                                                                        double.parse(
-                                                                            "${discountFormattedPrice}"),
+                                                                        carDiscountPrice: discountFormattedPrice,
                                                                         carOwnerImage:
                                                                         "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
                                                                         carOwnerName:
@@ -1659,9 +1658,7 @@ class _HomePageState extends State<HomePage> {
                                                                           .data![
                                                                       index]
                                                                           .discountPercentage,
-                                                                      carDiscountPrice:
-                                                                      double.parse(
-                                                                          "${discountFormattedPrice}"),
+                                                                      carDiscountPrice: discountFormattedPrice,
                                                                       carOwnerImage:
                                                                       "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
                                                                       carOwnerName:
@@ -2041,7 +2038,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           itemCount: topRentedCarsModelObject.data?.length,
                           itemBuilder: (BuildContext context, int index) {
-                            var pricePerMonthString = topRentedCarsModelObject.data?[index].carsPlans![0].pricePerMonth;
+                            var pricePerMonthString = topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerMonth;
                             double pricePerMonth;
                             String formattedPrice = "";
                             if (pricePerMonthString != null) {
@@ -2419,9 +2416,7 @@ class _HomePageState extends State<HomePage> {
                                                                         .data![
                                                                             index]
                                                                         .discountPercentage,
-                                                                carDiscountPrice:
-                                                                    double.parse(
-                                                                        "${discountFormattedPrice}"),
+                                                                carDiscountPrice: discountFormattedPrice,
                                                                 carOwnerImage:
                                                                     "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
                                                                 carOwnerName:
@@ -2691,25 +2686,26 @@ class _HomePageState extends State<HomePage> {
                                   top: 30,
                                   left: 10,
                                   right: 10,
-                                  child: topRentedCarsModelObject
-                                              .data?[index].image1 ==
-                                          null
+                                  child: topRentedCarsModelObject.data?[index].image1 == null
                                       ? ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.asset(
-                                              'assets/icon/fade_in_image.jpeg'))
-                                      : ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: FadeInImage(
-                                            placeholder: AssetImage(
-                                                "assets/icon/fade_in_image.jpeg"),
-                                            height: 65,
-                                            image: NetworkImage(
-                                                "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"),
-                                          ),
-                                        ),
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                  )
+                                      : topRentedCarsModelObject.data![index].image1!.endsWith('.jpg') || topRentedCarsModelObject.data![index].image1!.endsWith('.png')
+                                      ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: FadeInImage(
+                                      placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                                      height: 65,
+                                      image: NetworkImage("$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"),
+                                    ),
+                                  )
+                                      : Container(
+                                    height: 65,
+                                        child: BabylonJSViewer(
+                                    src: 'https://models.babylonjs.com/boombox.glb',
+                                  ),
+                                      ),
                                 ),
                                 Positioned(
                                   top: 03,
@@ -3142,9 +3138,7 @@ class _HomePageState extends State<HomePage> {
                                                                         .data![
                                                                             index]
                                                                         .discountPercentage,
-                                                                carDiscountPrice:
-                                                                    double.parse(
-                                                                        "${discountFormattedPrice}"),
+                                                                carDiscountPrice:discountFormattedPrice,
                                                                 carOwnerImage:
                                                                     "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
                                                                 carOwnerName:
@@ -3918,9 +3912,7 @@ class _HomePageState extends State<HomePage> {
                                                                               .data![
                                                                           index]
                                                                               .discountPercentage,
-                                                                          carDiscountPrice:
-                                                                          double.parse(
-                                                                              "${discountFormattedPrice}"),
+                                                                          carDiscountPrice:discountFormattedPrice,
                                                                           carOwnerImage:
                                                                           "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
                                                                           carOwnerName:
@@ -4694,9 +4686,7 @@ class _HomePageState extends State<HomePage> {
                                                                               .data![
                                                                           index]
                                                                               .discountPercentage,
-                                                                          carDiscountPrice:
-                                                                          double.parse(
-                                                                              "${discountFormattedPrice}"),
+                                                                          carDiscountPrice:discountFormattedPrice,
                                                                           carOwnerImage:
                                                                           "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
                                                                           carOwnerName:
