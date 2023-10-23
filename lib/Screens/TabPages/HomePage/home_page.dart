@@ -1,6 +1,6 @@
-import 'package:babylonjs_viewer/babylonjs_viewer.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import '../../../Model/filter_car_by_attribute_model.dart';
 import 'Drawer/drawer_screen.dart';
 import 'Filter/filter_screen.dart';
@@ -470,7 +470,7 @@ class _HomePageState extends State<HomePage> {
                                   if (pricePerMonth != null) {
                                     final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                     formattedPrice = numberFormat.format(pricePerMonth);
-                                    print("RM $formattedPrice");
+                                    // print("RM $formattedPrice");
                                   } else {
                                     print("Invalid price format");
                                   }
@@ -486,7 +486,7 @@ class _HomePageState extends State<HomePage> {
                                   if (discountPricePerMonth != null) {
                                     final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                     discountFormattedPrice = numberFormat.format(discountPricePerMonth);
-                                    print("RM $discountFormattedPrice");
+                                    // print("RM $discountFormattedPrice");
                                   } else {
                                     print("Invalid price format");
                                   }
@@ -709,7 +709,8 @@ class _HomePageState extends State<HomePage> {
                                                     Divider(),
                                                     Row(
                                                       children: [
-                                                        Row(
+                                                        widget.filterCarByAttributeModelObject?.data?[index].discountPercentage != "0.00"
+                                                            ? Row(
                                                           children: [
                                                             Padding(
                                                               padding:
@@ -740,7 +741,8 @@ class _HomePageState extends State<HomePage> {
                                                             // : originalPriceWidget(
                                                             //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerSlot}"),
                                                           ],
-                                                        ),
+                                                        )
+                                                        : SizedBox(),
                                                         SizedBox(
                                                             width: MediaQuery.of(
                                                                 context)
@@ -1171,7 +1173,8 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                         ),
-                                        Positioned(
+                                        widget.filterCarByAttributeModelObject?.data?[index].discountPercentage != "0.00"
+                                            ? Positioned(
                                           top: 03,
                                           left: 05,
                                           child: Container(
@@ -1215,7 +1218,8 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                           ),
-                                        ),
+                                        )
+                                        : SizedBox(),
                                       ],
                                     ),
                                   );
@@ -1245,7 +1249,7 @@ class _HomePageState extends State<HomePage> {
                                   if (pricePerMonth != null) {
                                     final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                     formattedPrice = numberFormat.format(pricePerMonth);
-                                    print("RM $formattedPrice");
+                                    // print("RM $formattedPrice");
                                   } else {
                                     print("Invalid price format");
                                   }
@@ -1261,7 +1265,7 @@ class _HomePageState extends State<HomePage> {
                                   if (discountPricePerMonth != null) {
                                     final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                     discountFormattedPrice = numberFormat.format(discountPricePerMonth);
-                                    print("RM $discountFormattedPrice");
+                                    // print("RM $discountFormattedPrice");
                                   } else {
                                     print("Invalid price format");
                                   }
@@ -1483,7 +1487,8 @@ class _HomePageState extends State<HomePage> {
                                                   Divider(),
                                                   Row(
                                                     children: [
-                                                      Row(
+                                                      widget.filterCarByAttributeModelObject?.data?[index].discountPercentage != "0.00"
+                                                          ? Row(
                                                         children: [
                                                           Padding(
                                                             padding:
@@ -1513,7 +1518,8 @@ class _HomePageState extends State<HomePage> {
                                                           // : originalPriceWidget(
                                                           //     "${widget.filterCarByAttributeModelObject?.data?[index].carsPlans![0].pricePerSlot}"),
                                                         ],
-                                                      ),
+                                                      )
+                                                      : SizedBox(),
                                                       SizedBox(
                                                           width: MediaQuery.of(
                                                               context)
@@ -1946,7 +1952,8 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
                                       ),
-                                      Positioned(
+                                      widget.filterCarByAttributeModelObject?.data?[index].discountPercentage != "0.00"
+                                          ? Positioned(
                                         top: 03,
                                         left: 05,
                                         child: Container(
@@ -1990,7 +1997,8 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                         ),
-                                      ),
+                                      )
+                                      : SizedBox(),
                                     ],
                                   ),
                                 );
@@ -2038,21 +2046,36 @@ class _HomePageState extends State<HomePage> {
                           ),
                           itemCount: topRentedCarsModelObject.data?.length,
                           itemBuilder: (BuildContext context, int index) {
-                            var pricePerMonthString = topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerMonth;
                             double pricePerMonth;
                             String formattedPrice = "";
-                            if (pricePerMonthString != null) {
-                              pricePerMonth = double.parse(pricePerMonthString);
-                              if (pricePerMonth != null) {
-                                final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
-                                formattedPrice = numberFormat.format(pricePerMonth);
-                                print("RM $formattedPrice");
+
+                            if (topRentedCarsModelObject != null &&
+                                topRentedCarsModelObject.data != null &&
+                                index < topRentedCarsModelObject.data!.length &&
+                                topRentedCarsModelObject.data?[index] != null &&
+                                topRentedCarsModelObject.data?[index].carsPlans != null &&
+                                topRentedCarsModelObject.data![index].carsPlans!.isNotEmpty) {
+                              // print("Data length: ${topRentedCarsModelObject.data!.length}");
+                              // print("Data length: ${topRentedCarsModelObject.data?[index].discountPercentage}");
+                              var pricePerMonthString =
+                                  topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerMonth;
+
+                              if (pricePerMonthString != null) {
+                                try {
+                                  pricePerMonth = double.parse(pricePerMonthString);
+                                  final numberFormat = NumberFormat.decimalPattern();
+                                  formattedPrice = numberFormat.format(pricePerMonth);
+                                  print("formattedPrice $formattedPrice");
+                                } catch (e) {
+                                  print("Error parsing price: $e");
+                                }
                               } else {
-                                print("Invalid price format");
+                                print("Price not available");
                               }
                             } else {
-                              print("Price not available");
+                              print("Invalid data or index");
                             }
+
 
                             var discountPricePerMonthString = topRentedCarsModelObject.data?[index].carsPlans![0].discountedPricePerMonth;
                             double discountPricePerMonth;
@@ -2062,7 +2085,7 @@ class _HomePageState extends State<HomePage> {
                               if (discountPricePerMonth != null) {
                                 final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                 discountFormattedPrice = numberFormat.format(discountPricePerMonth);
-                                print("RM $discountFormattedPrice");
+                                // print("RM $discountFormattedPrice");
                               } else {
                                 print("Invalid price format");
                               }
@@ -2273,7 +2296,8 @@ class _HomePageState extends State<HomePage> {
                                             Divider(),
                                             Row(
                                               children: [
-                                                Row(
+                                                topRentedCarsModelObject.data?[index].discountPercentage != "0.00"
+                                                    ? Row(
                                                   children: [
                                                     Padding(
                                                       padding: EdgeInsets.only(
@@ -2303,7 +2327,8 @@ class _HomePageState extends State<HomePage> {
                                                             : originalPriceWidget(
                                                                 "${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerSlot}"),
                                                   ],
-                                                ),
+                                                )
+                                                    : SizedBox(),
                                                 SizedBox(
                                                     width:
                                                         MediaQuery.of(context)
@@ -2377,7 +2402,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .vehicalName,
                                                                 carPrice: formattedPrice,
                                                                 carImage:
-                                                                    "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                                    "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}",
                                                                 carYear:
                                                                     "${topRentedCarsModelObject.data![index].year}",
                                                                 carId:
@@ -2701,13 +2726,25 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   )
                                       : Container(
-                                    height: 65,
-                                        child: BabylonJSViewer(
-                                    src: 'https://models.babylonjs.com/boombox.glb',
-                                  ),
+                                    height: 100,
+                                        child: ModelViewer(
+                                          backgroundColor: Colors.transparent,
+                                          src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                          alt: "A 3D model of car",
+                                          autoPlay: false,
+                                          autoRotate: false,
+                                          cameraControls: true,
+                                          disableTap: false,
+                                          ar: false,
+                                          disablePan: true,
+                                          arModes: ["quicklook", "scene-viewer"],
+                                          iosSrc: "assets/images/fordeverst.glb",
+                                          disableZoom: true,
+                                        ),
                                       ),
                                 ),
-                                Positioned(
+                                topRentedCarsModelObject.data?[index].discountPercentage != "0.00"
+                                    ? Positioned(
                                   top: 03,
                                   left: 05,
                                   child: Container(
@@ -2744,7 +2781,8 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                   ),
-                                ),
+                                )
+                                    : SizedBox(),
                               ],
                             );
                           });
@@ -2768,7 +2806,7 @@ class _HomePageState extends State<HomePage> {
                               if (pricePerMonth != null) {
                                 final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                 formattedPrice = numberFormat.format(pricePerMonth);
-                                print("RM $formattedPrice");
+                                // print("RM $formattedPrice");
                               } else {
                                 print("Invalid price format");
                               }
@@ -2784,7 +2822,7 @@ class _HomePageState extends State<HomePage> {
                               if (discountPricePerMonth != null) {
                                 final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                 discountFormattedPrice = numberFormat.format(discountPricePerMonth);
-                                print("RM $discountFormattedPrice");
+                                // print("RM $discountFormattedPrice");
                               } else {
                                 print("Invalid price format");
                               }
@@ -2995,7 +3033,8 @@ class _HomePageState extends State<HomePage> {
                                             Divider(),
                                             Row(
                                               children: [
-                                                Row(
+                                                topRentedCarsModelObject.data?[index].discountPercentage != "0.00"
+                                                    ? Row(
                                                   children: [
                                                     Padding(
                                                       padding: EdgeInsets.only(
@@ -3025,7 +3064,8 @@ class _HomePageState extends State<HomePage> {
                                                             : originalPriceWidget(
                                                                 "${topRentedCarsModelObject.data?[index].carsPlans?[0].pricePerSlot}"),
                                                   ],
-                                                ),
+                                                )
+                                                    : SizedBox(),
                                                 SizedBox(
                                                     width:
                                                         MediaQuery.of(context)
@@ -3428,7 +3468,8 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
                                 ),
-                                Positioned(
+                                topRentedCarsModelObject.data?[index].discountPercentage != "0.00"
+                                    ? Positioned(
                                   top: 03,
                                   left: 05,
                                   child: Container(
@@ -3465,7 +3506,8 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                   ),
-                                ),
+                                )
+                                     : SizedBox(),
                               ],
                             );
                           });
@@ -3501,7 +3543,7 @@ class _HomePageState extends State<HomePage> {
                                           if (pricePerMonth != null) {
                                             final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                             formattedPrice = numberFormat.format(pricePerMonth);
-                                            print("RM $formattedPrice");
+                                            // print("RM $formattedPrice");
                                           } else {
                                             print("Invalid price format");
                                           }
@@ -3517,7 +3559,7 @@ class _HomePageState extends State<HomePage> {
                                           if (discountPricePerMonth != null) {
                                             final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                             discountFormattedPrice = numberFormat.format(discountPricePerMonth);
-                                            print("RM $discountFormattedPrice");
+                                            // print("RM $discountFormattedPrice");
                                           } else {
                                             print("Invalid price format");
                                           }
@@ -3730,7 +3772,8 @@ class _HomePageState extends State<HomePage> {
                                                       Divider(),
                                                       Row(
                                                         children: [
-                                                          Row(
+                                                          searchModelObject.data?[index].discountPercentage != "0.00"
+                                                              ?Row(
                                                             children: [
                                                               Padding(
                                                                 padding: EdgeInsets
@@ -3767,7 +3810,8 @@ class _HomePageState extends State<HomePage> {
                                                                       : originalPriceWidget(
                                                                           "${searchModelObject.data?[index].carsPlans![0].pricePerSlot}"),
                                                             ],
-                                                          ),
+                                                          )
+                                                          : SizedBox(),
                                                           SizedBox(
                                                               width: MediaQuery.of(
                                                                           context)
@@ -4202,7 +4246,8 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ),
                                           ),
-                                          Positioned(
+                                          searchModelObject.data?[index].discountPercentage != "0.00"
+                                              ? Positioned(
                                             top: 03,
                                             left: 05,
                                             child: Container(
@@ -4249,7 +4294,8 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                          )
+                                          : SizedBox(),
                                         ],
                                       ),
                                     );
@@ -4275,7 +4321,7 @@ class _HomePageState extends State<HomePage> {
                                           if (pricePerMonth != null) {
                                             final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                             formattedPrice = numberFormat.format(pricePerMonth);
-                                            print("RM $formattedPrice");
+                                            // print("RM $formattedPrice");
                                           } else {
                                             print("Invalid price format");
                                           }
@@ -4291,7 +4337,7 @@ class _HomePageState extends State<HomePage> {
                                           if (discountPricePerMonth != null) {
                                             final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                             discountFormattedPrice = numberFormat.format(discountPricePerMonth);
-                                            print("RM $discountFormattedPrice");
+                                            // print("RM $discountFormattedPrice");
                                           } else {
                                             print("Invalid price format");
                                           }
@@ -4504,7 +4550,8 @@ class _HomePageState extends State<HomePage> {
                                                       Divider(),
                                                       Row(
                                                         children: [
-                                                          Row(
+                                                          searchModelObject.data?[index].discountPercentage != "0.00"
+                                                              ? Row(
                                                             children: [
                                                               Padding(
                                                                 padding: EdgeInsets
@@ -4541,7 +4588,8 @@ class _HomePageState extends State<HomePage> {
                                                                       : originalPriceWidget(
                                                                           "${searchModelObject.data?[index].carsPlans![0].pricePerSlot}"),
                                                             ],
-                                                          ),
+                                                          )
+                                                              : SizedBox(),
                                                           SizedBox(
                                                               width: MediaQuery.of(
                                                                           context)
@@ -4976,7 +5024,8 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ),
                                           ),
-                                          Positioned(
+                                          searchModelObject.data?[index].discountPercentage != "0.00"
+                                              ? Positioned(
                                             top: 03,
                                             left: 05,
                                             child: Container(
@@ -5023,7 +5072,8 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                          )
+                                              : SizedBox(),
                                         ],
                                       ),
                                     );

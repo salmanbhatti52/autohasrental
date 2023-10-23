@@ -518,22 +518,27 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                   ),
                   Row(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 04),
-                        child: Text("RM ",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: kRed,
-                                fontSize: 5,
-                                fontFamily: poppinLight)),
-                      ),
-                      Text("${widget.carPrice}",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: kRed,
-                              fontFamily: poppinLight,
-                              fontSize: 10,
-                              decoration: TextDecoration.lineThrough)),
+                      widget.discountPercentage != "0.00"
+                      ? Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 04),
+                            child: Text("RM ",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: kRed,
+                                    fontSize: 5,
+                                    fontFamily: poppinLight)),
+                          ),
+                          Text("${widget.carPrice}",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: kRed,
+                                  fontFamily: poppinLight,
+                                  fontSize: 10,
+                                  decoration: TextDecoration.lineThrough)),
+                        ],
+                      ) : SizedBox(),
                       SizedBox(width: screenWidth * 0.01),
                       Padding(
                         padding: EdgeInsets.only(top: 06),
@@ -637,7 +642,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                   ),
                 ),
         ),
-        Positioned(
+        widget.discountPercentage != "0.00"
+        ? Positioned(
             top: 28,
             left: 25,
             child: Container(
@@ -666,7 +672,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                           fontFamily: poppinRegular)),
                 ],
               ),
-            )),
+            )) : SizedBox(),
         Positioned(
           top: 28,
           right: 27,
@@ -904,7 +910,9 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 10),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
             InkWell(
               onTap: () {
                 selectStartDateWidget(context);
@@ -937,6 +945,10 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                       ),
                     ),
             ),
+                Text(
+                  "to",
+                  style: TextStyle(color: kBlack, fontSize: 16),
+                ),
             InkWell(
                 onTap: () {
                   selectEndDateWidget(context);
@@ -968,7 +980,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                           ),
                         ),
                       )),
-          ]),
+          ]
+          ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

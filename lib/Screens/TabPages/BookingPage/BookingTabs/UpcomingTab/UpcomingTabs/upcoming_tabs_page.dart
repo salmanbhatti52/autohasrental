@@ -66,7 +66,7 @@ class _UpComingTabsPagesState extends State<UpComingTabsPages> with TickerProvid
 
         SizedBox(
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height*0.68,
           child: TabBarView(
             controller: tabController,
             children: [

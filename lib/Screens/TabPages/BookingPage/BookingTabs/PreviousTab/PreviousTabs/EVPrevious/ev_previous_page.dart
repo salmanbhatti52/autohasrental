@@ -461,10 +461,11 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
           ),
         ),
       ):
-    Padding(
-        padding: EdgeInsets.only(left: 100, top: 250),
-        child: Text('No booking Found',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
+    Center(
+      child: Text('No booking Found',
+          style: TextStyle(color: Colors.black,
+              fontSize: 20, fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins')),
     );
   }
 }

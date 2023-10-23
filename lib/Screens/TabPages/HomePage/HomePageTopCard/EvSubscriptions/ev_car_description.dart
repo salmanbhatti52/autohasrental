@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart'as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'ev_description_details_page.dart';
 import 'EvTaBBar/tabbar_description_page.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
@@ -296,11 +297,31 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                           height: 200, width: 300,
                         ),
                         Positioned(
-                          left: 30, right: 20,
-                          bottom: 30,
-                          child: Image.network("${widget.carImage}",
+                          left: 10, right: 10,
+                          bottom: 0,
+                          child: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png')
+                              ?  Image.network("${widget.carImage}",
                               fit: BoxFit.fill,
-                              height: 150, width: 180),
+                              height: 150, width: 180) :
+                          Container(
+                            height: 235,
+                            child: ModelViewer(
+                              backgroundColor: Colors.transparent,
+                              src: 'assets/images/fordeverst.glb',
+                              alt: "A 3D model of car",
+                              animationName: 'walk',
+                              withCredentials: false,
+                              xrEnvironment: false,
+                              autoPlay: false,
+                              autoRotate: false,
+                              cameraControls: true,
+                              disableTap: false,
+                              ar: false,
+                              arModes: ["quicklook", "scene-viewer"],
+                              iosSrc: "${widget.carImage}",
+                              disableZoom: true,
+                            ),
+                          ),
                         ),
                       ],
                     ),

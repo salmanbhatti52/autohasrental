@@ -31,7 +31,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
 
     prefs = await SharedPreferences.getInstance();
     userId = (prefs!.getString('userid'));
-    print('in upcomingBookingCarApi');
+    print(userId);
 
     String apiUrl = bookingUpcomingCarsApiUrl;
     print("upcomingBookingCarModelApi: $apiUrl");
@@ -69,10 +69,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return loadingP ? Padding(
-      padding: const EdgeInsets.only(bottom: 250.0),
-      child: Center(child: CircularProgressIndicator(color: borderColor)),
-    )
+    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor))
         : evUpcomingModelObject.data?[0].carsDetails?.carsUsageType == "EV Subscriptions" ?
       Padding(
         padding: EdgeInsets.only(top: 15),
@@ -336,10 +333,11 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
           ),
         ),
       ):
-    Padding(
-        padding: EdgeInsets.only(left: 100, top: 250),
-        child: Text('No booking Found',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
+    Center(
+      child: Text('No booking Found',
+          style: TextStyle(color: Colors.black,
+              fontSize: 20, fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins')),
     );
   }
 
