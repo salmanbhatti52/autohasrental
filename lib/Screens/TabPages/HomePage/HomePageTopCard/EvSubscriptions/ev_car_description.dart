@@ -307,7 +307,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                             height: 235,
                             child: ModelViewer(
                               backgroundColor: Colors.transparent,
-                              src: 'assets/images/fordeverst.glb',
+                              src: '${widget.carImage}',
                               alt: "A 3D model of car",
                               animationName: 'walk',
                               withCredentials: false,

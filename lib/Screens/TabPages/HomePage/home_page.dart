@@ -846,8 +846,9 @@ class _HomePageState extends State<HomePage> {
                                                                         index]
                                                                             .vehicalName,
                                                                         carPrice: formattedPrice,
-                                                                        carImage:
-                                                                        "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].image1}",
+                                                                        carImage: widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpg') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.png') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpeg')
+                                                                            ? "$baseUrlImage${widget.filterCarByAttributeModelObject!.data?[index].image1}"
+                                                                            : widget.filterCarByAttributeModelObject!.data?[index].image1,
                                                                         carYear:
                                                                         "${widget.filterCarByAttributeModelObject!.data![index].year}",
                                                                         carId:
@@ -1154,22 +1155,36 @@ class _HomePageState extends State<HomePage> {
                                           top: 30,
                                           left: 10,
                                           right: 10,
-                                          child: widget.filterCarByAttributeModelObject?.data?[index].image1 ==
-                                              null
+                                          child: widget.filterCarByAttributeModelObject!.data?[index].image1 == null
                                               ? ClipRRect(
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              child: Image.asset(
-                                                  'assets/icon/fade_in_image.jpeg'))
-                                              : ClipRRect(
-                                            borderRadius:
-                                            BorderRadius.circular(10),
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                          )
+                                              : widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpg') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.png') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpeg')
+                                              ? ClipRRect(
+                                            borderRadius: BorderRadius.circular(10),
                                             child: FadeInImage(
-                                              placeholder: AssetImage(
-                                                  "assets/icon/fade_in_image.jpeg"),
+                                              placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
                                               height: 65,
-                                              image: NetworkImage(
-                                                  "$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}"),
+                                              image: NetworkImage("$baseUrlImage${widget.filterCarByAttributeModelObject!.data?[index].image1}"),
+                                            ),
+                                          )
+                                              : Container(
+                                            height: 100,
+                                            child: ModelViewer(
+                                              backgroundColor: Colors.transparent,
+                                              // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                              src: '${widget.filterCarByAttributeModelObject!.data?[index].image1}',
+                                              alt: "A 3D model of car",
+                                              autoPlay: false,
+                                              autoRotate: false,
+                                              cameraControls: true,
+                                              disableTap: false,
+                                              ar: false,
+                                              disablePan: true,
+                                              arModes: ["quicklook", "scene-viewer"],
+                                              iosSrc: "${widget.filterCarByAttributeModelObject!.data?[index].image1}",
+                                              disableZoom: true,
                                             ),
                                           ),
                                         ),
@@ -1624,8 +1639,9 @@ class _HomePageState extends State<HomePage> {
                                                                       index]
                                                                           .vehicalName,
                                                                       carPrice: formattedPrice,
-                                                                      carImage:
-                                                                      "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].image1}",
+                                                                      carImage: widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpg') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.png') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpeg')
+                                                                          ? "$baseUrlImage${widget.filterCarByAttributeModelObject!.data?[index].image1}"
+                                                                          : widget.filterCarByAttributeModelObject!.data?[index].image1,
                                                                       carYear:
                                                                       "${widget.filterCarByAttributeModelObject!.data![index].year}",
                                                                       carId:
@@ -1933,22 +1949,36 @@ class _HomePageState extends State<HomePage> {
                                         top: 30,
                                         left: 10,
                                         right: 10,
-                                        child: widget.filterCarByAttributeModelObject?.data?[index].image1 ==
-                                            null
+                                        child:widget.filterCarByAttributeModelObject!.data?[index].image1 == null
                                             ? ClipRRect(
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                            child: Image.asset(
-                                                'assets/icon/fade_in_image.jpeg'))
-                                            : ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                        )
+                                            : widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpg') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.png') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpeg')
+                                            ? ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
                                           child: FadeInImage(
-                                            placeholder: AssetImage(
-                                                "assets/icon/fade_in_image.jpeg"),
+                                            placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
                                             height: 65,
-                                            image: NetworkImage(
-                                                "$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}"),
+                                            image: NetworkImage("$baseUrlImage${widget.filterCarByAttributeModelObject!.data?[index].image1}"),
+                                          ),
+                                        )
+                                            : Container(
+                                          height: 100,
+                                          child: ModelViewer(
+                                            backgroundColor: Colors.transparent,
+                                            // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                            src: '${widget.filterCarByAttributeModelObject!.data?[index].image1}',
+                                            alt: "A 3D model of car",
+                                            autoPlay: false,
+                                            autoRotate: false,
+                                            cameraControls: true,
+                                            disableTap: false,
+                                            ar: false,
+                                            disablePan: true,
+                                            arModes: ["quicklook", "scene-viewer"],
+                                            iosSrc: "${widget.filterCarByAttributeModelObject!.data?[index].image1}",
+                                            disableZoom: true,
                                           ),
                                         ),
                                       ),
@@ -2401,8 +2431,9 @@ class _HomePageState extends State<HomePage> {
                                                                         index]
                                                                     .vehicalName,
                                                                 carPrice: formattedPrice,
-                                                                carImage:
-                                                                    "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}",
+                                                                carImage: topRentedCarsModelObject.data![index].image1!.endsWith('.jpg') || topRentedCarsModelObject.data![index].image1!.endsWith('.png') || topRentedCarsModelObject.data![index].image1!.endsWith('.jpeg')
+                                                                    ? "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"
+                                                                    : topRentedCarsModelObject.data?[index].image1,
                                                                 carYear:
                                                                     "${topRentedCarsModelObject.data![index].year}",
                                                                 carId:
@@ -2716,7 +2747,7 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(10),
                                     child: Image.asset('assets/icon/fade_in_image.jpeg'),
                                   )
-                                      : topRentedCarsModelObject.data![index].image1!.endsWith('.jpg') || topRentedCarsModelObject.data![index].image1!.endsWith('.png')
+                                      : topRentedCarsModelObject.data![index].image1!.endsWith('.jpg') || topRentedCarsModelObject.data![index].image1!.endsWith('.png') || topRentedCarsModelObject.data![index].image1!.endsWith('.jpeg')
                                       ? ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     child: FadeInImage(
@@ -2729,7 +2760,8 @@ class _HomePageState extends State<HomePage> {
                                     height: 100,
                                         child: ModelViewer(
                                           backgroundColor: Colors.transparent,
-                                          src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                          // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                          src: '${topRentedCarsModelObject.data?[index].image1}',
                                           alt: "A 3D model of car",
                                           autoPlay: false,
                                           autoRotate: false,
@@ -2738,7 +2770,7 @@ class _HomePageState extends State<HomePage> {
                                           ar: false,
                                           disablePan: true,
                                           arModes: ["quicklook", "scene-viewer"],
-                                          iosSrc: "assets/images/fordeverst.glb",
+                                          iosSrc: "${topRentedCarsModelObject.data?[index].image1}",
                                           disableZoom: true,
                                         ),
                                       ),
@@ -3138,8 +3170,9 @@ class _HomePageState extends State<HomePage> {
                                                                         index]
                                                                     .vehicalName,
                                                                 carPrice: formattedPrice,
-                                                                carImage:
-                                                                    "$baseUrlImage${topRentedCarsModelObject.data![index].image1}",
+                                                                carImage: topRentedCarsModelObject.data![index].image1!.endsWith('.jpg') || topRentedCarsModelObject.data![index].image1!.endsWith('.png') || topRentedCarsModelObject.data![index].image1!.endsWith('.jpeg')
+                                                                    ? "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"
+                                                                    : topRentedCarsModelObject.data?[index].image1,
                                                                 carYear:
                                                                     "${topRentedCarsModelObject.data![index].year}",
                                                                 carId:
@@ -3448,25 +3481,38 @@ class _HomePageState extends State<HomePage> {
                                   top: 30,
                                   left: 10,
                                   right: 10,
-                                  child: topRentedCarsModelObject
-                                              .data?[index].image1 ==
-                                          null
+                                  child: topRentedCarsModelObject.data?[index].image1 == null
                                       ? ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.asset(
-                                              'assets/icon/fade_in_image.jpeg'))
-                                      : ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: FadeInImage(
-                                            placeholder: AssetImage(
-                                                "assets/icon/fade_in_image.jpeg"),
-                                            height: 65,
-                                            image: NetworkImage(
-                                                "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"),
-                                          ),
-                                        ),
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                  )
+                                      : topRentedCarsModelObject.data![index].image1!.endsWith('.jpg') || topRentedCarsModelObject.data![index].image1!.endsWith('.png') || topRentedCarsModelObject.data![index].image1!.endsWith('.jpeg')
+                                      ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: FadeInImage(
+                                      placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                                      height: 65,
+                                      image: NetworkImage("$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"),
+                                    ),
+                                  )
+                                      : Container(
+                                    height: 100,
+                                    child: ModelViewer(
+                                      backgroundColor: Colors.transparent,
+                                      // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                      src: '${topRentedCarsModelObject.data?[index].image1}',
+                                      alt: "A 3D model of car",
+                                      autoPlay: false,
+                                      autoRotate: false,
+                                      cameraControls: true,
+                                      disableTap: false,
+                                      ar: false,
+                                      disablePan: true,
+                                      arModes: ["quicklook", "scene-viewer"],
+                                      iosSrc: "${topRentedCarsModelObject.data?[index].image1}",
+                                      disableZoom: true,
+                                    ),
+                                  ),
                                 ),
                                 topRentedCarsModelObject.data?[index].discountPercentage != "0.00"
                                     ? Positioned(
@@ -3916,8 +3962,9 @@ class _HomePageState extends State<HomePage> {
                                                                           index]
                                                                               .vehicalName,
                                                                           carPrice: formattedPrice,
-                                                                          carImage:
-                                                                          "$baseUrlImage${searchModelObject.data![index].image1}",
+                                                                          carImage: searchModelObject.data![index].image1!.endsWith('.jpg') || searchModelObject.data![index].image1!.endsWith('.png') || searchModelObject.data![index].image1!.endsWith('.jpeg')
+                                                                              ? "$baseUrlImage${searchModelObject.data?[index].image1}"
+                                                                              : searchModelObject.data?[index].image1,
                                                                           carYear:
                                                                           "${searchModelObject.data![index].year}",
                                                                           carId:
@@ -4224,27 +4271,38 @@ class _HomePageState extends State<HomePage> {
                                             top: 30,
                                             left: 10,
                                             right: 10,
-                                            child: searchModelObject
-                                                        .data?[index].image1 ==
-                                                    null
+                                            child: searchModelObject.data?[index].image1 == null
                                                 ? ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    child: Image.asset(
-                                                        'assets/icon/fade_in_image.jpeg'))
-                                                : ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    child: FadeInImage(
-                                                      placeholder: AssetImage(
-                                                          "assets/icon/fade_in_image.jpeg"),
-                                                      height: 65,
-                                                      image: NetworkImage(
-                                                          "$baseUrlImage${searchModelObject.data?[index].image1}"),
-                                                    ),
-                                                  ),
+                                              borderRadius: BorderRadius.circular(10),
+                                              child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                            )
+                                                : searchModelObject.data![index].image1!.endsWith('.jpg') || searchModelObject.data![index].image1!.endsWith('.png') || searchModelObject.data![index].image1!.endsWith('.jpeg')
+                                                ? ClipRRect(
+                                              borderRadius: BorderRadius.circular(10),
+                                              child: FadeInImage(
+                                                placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                                                height: 65,
+                                                image: NetworkImage("$baseUrlImage${searchModelObject.data?[index].image1}"),
+                                              ),
+                                            )
+                                                : Container(
+                                              height: 100,
+                                              child: ModelViewer(
+                                                backgroundColor: Colors.transparent,
+                                                // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                                src: '${searchModelObject.data?[index].image1}',
+                                                alt: "A 3D model of car",
+                                                autoPlay: false,
+                                                autoRotate: false,
+                                                cameraControls: true,
+                                                disableTap: false,
+                                                ar: false,
+                                                disablePan: true,
+                                                arModes: ["quicklook", "scene-viewer"],
+                                                iosSrc: "${searchModelObject.data?[index].image1}",
+                                                disableZoom: true,
+                                              ),
+                                            ),
                                           ),
                                           searchModelObject.data?[index].discountPercentage != "0.00"
                                               ? Positioned(
@@ -4694,8 +4752,9 @@ class _HomePageState extends State<HomePage> {
                                                                           index]
                                                                               .vehicalName,
                                                                           carPrice: formattedPrice,
-                                                                          carImage:
-                                                                          "$baseUrlImage${searchModelObject.data![index].image1}",
+                                                                          carImage: searchModelObject.data![index].image1!.endsWith('.jpg') || searchModelObject.data![index].image1!.endsWith('.png') || searchModelObject.data![index].image1!.endsWith('.jpeg')
+                                                                              ? "$baseUrlImage${searchModelObject.data?[index].image1}"
+                                                                              : searchModelObject.data?[index].image1,
                                                                           carYear:
                                                                           "${searchModelObject.data![index].year}",
                                                                           carId:
@@ -5002,27 +5061,38 @@ class _HomePageState extends State<HomePage> {
                                             top: 30,
                                             left: 10,
                                             right: 10,
-                                            child: searchModelObject
-                                                        .data?[index].image1 ==
-                                                    null
+                                            child: searchModelObject.data?[index].image1 == null
                                                 ? ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    child: Image.asset(
-                                                        'assets/icon/fade_in_image.jpeg'))
-                                                : ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    child: FadeInImage(
-                                                      placeholder: AssetImage(
-                                                          "assets/icon/fade_in_image.jpeg"),
-                                                      height: 65,
-                                                      image: NetworkImage(
-                                                          "$baseUrlImage${searchModelObject.data?[index].image1}"),
-                                                    ),
-                                                  ),
+                                              borderRadius: BorderRadius.circular(10),
+                                              child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                            )
+                                                : searchModelObject.data![index].image1!.endsWith('.jpg') || searchModelObject.data![index].image1!.endsWith('.png') || searchModelObject.data![index].image1!.endsWith('.jpeg')
+                                                ? ClipRRect(
+                                              borderRadius: BorderRadius.circular(10),
+                                              child: FadeInImage(
+                                                placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                                                height: 65,
+                                                image: NetworkImage("$baseUrlImage${searchModelObject.data?[index].image1}"),
+                                              ),
+                                            )
+                                                : Container(
+                                              height: 100,
+                                              child: ModelViewer(
+                                                backgroundColor: Colors.transparent,
+                                                // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                                src: '${searchModelObject.data?[index].image1}',
+                                                alt: "A 3D model of car",
+                                                autoPlay: false,
+                                                autoRotate: false,
+                                                cameraControls: true,
+                                                disableTap: false,
+                                                ar: false,
+                                                disablePan: true,
+                                                arModes: ["quicklook", "scene-viewer"],
+                                                iosSrc: "${searchModelObject.data?[index].image1}",
+                                                disableZoom: true,
+                                              ),
+                                            ),
                                           ),
                                           searchModelObject.data?[index].discountPercentage != "0.00"
                                               ? Positioned(
