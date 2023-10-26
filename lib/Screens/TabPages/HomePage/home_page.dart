@@ -2076,6 +2076,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           itemCount: topRentedCarsModelObject.data?.length,
                           itemBuilder: (BuildContext context, int index) {
+                            print("CarID ${topRentedCarsModelObject.data?[index].carsId}");
                             double pricePerMonth;
                             String formattedPrice = "";
 
@@ -2760,12 +2761,11 @@ class _HomePageState extends State<HomePage> {
                                     height: 100,
                                         child: ModelViewer(
                                           backgroundColor: Colors.transparent,
-                                          // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
                                           src: '${topRentedCarsModelObject.data?[index].image1}',
                                           alt: "A 3D model of car",
                                           autoPlay: false,
                                           autoRotate: false,
-                                          cameraControls: true,
+                                          cameraControls: false, // Set cameraControls to false to disable user interaction
                                           disableTap: false,
                                           ar: false,
                                           disablePan: true,
@@ -2773,7 +2773,7 @@ class _HomePageState extends State<HomePage> {
                                           iosSrc: "${topRentedCarsModelObject.data?[index].image1}",
                                           disableZoom: true,
                                         ),
-                                      ),
+                                  ),
                                 ),
                                 topRentedCarsModelObject.data?[index].discountPercentage != "0.00"
                                     ? Positioned(

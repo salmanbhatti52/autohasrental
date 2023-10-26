@@ -66,6 +66,8 @@ String browseCarsApiUrl = '${baseUrl}cars';
 String carsPhotoGraphyApiUrl = '${baseUrl}cars_photography';
 String carDrivingExperienceApiUrl = '${baseUrl}cars_drivings';
 String carsEvSubscriptionApiUrl = '${baseUrl}cars_ev_subscriptions';
+String getMileagePlansApiUrl = '${baseUrl}get_mileage_plans';
+String getCarPlansEvApiUrl = '${baseUrl}get_car_plans_ev';
 
 /// checkout API
 String checkOutApiUrl = '${baseUrl}bookings_new';

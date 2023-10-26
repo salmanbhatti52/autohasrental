@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'EvAddress/ev_delivery_address.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
@@ -169,7 +170,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
   double totalAmount = 0.0;
 
   myTotalAmount() {
-    myServiceFee = (percentage! / 100) * int.parse("$tabPrice");
+    myServiceFee = (percentage! / 100) * double.parse("$tabPrice");
     print("myServiceFee $myServiceFee");
     print("tabMonthAndPrice11 $tabMonth $tabPrice");
     totalAmount = double.parse("$tabPrice") + myServiceFee!;
@@ -627,20 +628,31 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
         Positioned(
           left: 20,
           right: 20,
-          top: 20,
-          child: widget.carImage == null
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset('assets/icon/fade_in_image.jpeg'))
-              : ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: FadeInImage(
-                    placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-                    width: 350,
-                    height: 130,
-                    image: NetworkImage("${widget.carImage}"),
-                  ),
-                ),
+          top: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
+              ? 20
+              : 0,
+          child: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
+              ?  Image.network("${widget.carImage}",
+              fit: BoxFit.fill,
+              height: 150, width: 180) :
+          Container(
+            height: 200,
+            child: ModelViewer(
+              backgroundColor: Colors.transparent,
+              // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+              src: '${widget.carImage}',
+              alt: "A 3D model of car",
+              autoPlay: false,
+              autoRotate: false,
+              cameraControls: false,
+              disableTap: false,
+              ar: false,
+              disablePan: true,
+              arModes: ["quicklook", "scene-viewer"],
+              iosSrc: '${widget.carImage}',
+              disableZoom: true,
+            ),
+          ),
         ),
         widget.discountPercentage != "0.00"
         ? Positioned(

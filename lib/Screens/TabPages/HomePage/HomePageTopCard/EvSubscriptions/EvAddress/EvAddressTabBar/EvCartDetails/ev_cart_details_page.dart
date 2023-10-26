@@ -16,6 +16,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Model/CheckOutModels/ev_checkout_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class EvCartDetailsPage extends StatefulWidget {
   final String? mySelectedTabMonth, mySelectedTabPrice;
@@ -469,11 +470,41 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                         ),
                       ),
                     ),
+                    // Positioned(
+                    //   left: 30, right: 20, top: 30,
+                    //   child: Image.network("${widget.carImage}",
+                    //     width: 350,
+                    //     height: 130,),
+                    // ),
                     Positioned(
-                      left: 30, right: 20, top: 30,
-                      child: Image.network("${widget.carImage}",
+                      left: 30,
+                      right: 20,
+                      top: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
+                          ? 30
+                          : 0,
+                      child: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
+                          ?  Image.network("${widget.carImage}",
+                          fit: BoxFit.fill,
                         width: 350,
-                        height: 130,),
+                        height: 130,) :
+                      Container(
+                        height: 200,
+                        child: ModelViewer(
+                          backgroundColor: Colors.transparent,
+                          // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                          src: '${widget.carImage}',
+                          alt: "A 3D model of car",
+                          autoPlay: false,
+                          autoRotate: false,
+                          cameraControls: false,
+                          disableTap: false,
+                          ar: false,
+                          disablePan: true,
+                          arModes: ["quicklook", "scene-viewer"],
+                          iosSrc: '${widget.carImage}',
+                          disableZoom: true,
+                        ),
+                      ),
                     ),
                     Positioned(
                         top: 0, left: 20,
