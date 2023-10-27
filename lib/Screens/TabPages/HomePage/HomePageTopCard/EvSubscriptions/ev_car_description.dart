@@ -56,71 +56,71 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
 
   }
 
-  EvCarsModel evCarsModelObject = EvCarsModel();
+  // EvCarsModel evCarsModelObject = EvCarsModel();
   bool loadingP = true;
-  int selectedIndex = 0;
-  String? tabSelectMonth, tabSelectedPrice, carLikeStatus;
+  // int selectedIndex = 0;
+  String? tabSelectMonth, tabSelectedPrice, carLikeStatus, selectedMileagePlan;
   String? carOwnerName, carOwnerImage;
   int? carOwnerId;
 
-  getEvSubscriptionCarsWidget() async {
-    loadingP = true;
-    setState(() {});
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('in LoginPage shared prefs');
-    prefs = await SharedPreferences.getInstance();
-    userId = prefs.getString('userid');
-    print("userId in Prefs is = $userId");
-    try {
-      String apiUrl = carsEvSubscriptionApiUrl;
-      print("evSubscriptionApi: $apiUrl");
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        body: {
-          "users_customers_id" : userId
-        },
-        headers: {'Accept': 'application/json'},
-      );
-      print('${response.statusCode}');
-      print(response);
-      if (response.statusCode == 200) {
-        final responseString = response.body;
-        print("evSubscriptionResponse: ${responseString.toString()}");
-        evCarsModelObject = evCarsModelFromJson(responseString);
-        print("evSubscriptionObjectLength: ${evCarsModelObject.data!.length}");
-        // monthList();
-      }
-    } catch (e) {
-      print('Error in evSubscription: ${e.toString()}');
-    }
-    loadingP = false;
-    setState(() {});
-  }
+  // getEvSubscriptionCarsWidget() async {
+  //   loadingP = true;
+  //   setState(() {});
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   print('in LoginPage shared prefs');
+  //   prefs = await SharedPreferences.getInstance();
+  //   userId = prefs.getString('userid');
+  //   print("userId in Prefs is = $userId");
+  //   try {
+  //     String apiUrl = carsEvSubscriptionApiUrl;
+  //     print("evSubscriptionApi: $apiUrl");
+  //     final response = await http.post(
+  //       Uri.parse(apiUrl),
+  //       body: {
+  //         "users_customers_id" : userId
+  //       },
+  //       headers: {'Accept': 'application/json'},
+  //     );
+  //     print('${response.statusCode}');
+  //     print(response);
+  //     if (response.statusCode == 200) {
+  //       final responseString = response.body;
+  //       print("evSubscriptionResponse: ${responseString.toString()}");
+  //       evCarsModelObject = evCarsModelFromJson(responseString);
+  //       print("evSubscriptionObjectLength: ${evCarsModelObject.data!.length}");
+  //       monthList();
+  //     }
+  //   } catch (e) {
+  //     print('Error in evSubscription: ${e.toString()}');
+  //   }
+  //   loadingP = false;
+  //   setState(() {});
+  // }
 
-  List<CustomSubscriptionModel> monthNumber = [];
-  double? myCarPrice;
-  monthList(){
-    for (int i = 0; i< evCarsModelObject.data!.length; i++) {
-      print("OuterLoop:$i");
-      for (int j = 0; j < evCarsModelObject.data![i].carsPlans!.length; j++) {
-        if(evCarsModelObject.data![i].carsPlans![j].carsId == carID) {
-          print("fref");
-          monthNumber.add(CustomSubscriptionModel(
-              months: evCarsModelObject.data![i].carsPlans![j].months!.toString(),
-              price_per_months: evCarsModelObject.data![i].carsPlans![j].pricePerMonth!,
-              dis_price_per_months: evCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString()));
-          // myCarPrice = evCarsModelObject.data![i].carsPlans![j].months!.toString() * int.parse(evCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString());
-          myCarPrice = double.parse(evCarsModelObject.data![i].carsPlans![j].months!.toString()) *
-              double.parse(evCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString());
-          print('myCarPrice $myCarPrice');
-          tabSelectMonth = monthNumber[0].months;
-         tabSelectedPrice = monthNumber[0].dis_price_per_months;
-          print("monthNumber123 $tabSelectMonth $tabSelectedPrice");
-          print("InnerLoop:$j");
-        }
-      }
-    }
-  }
+  // List<CustomSubscriptionModel> monthNumber = [];
+  // double? myCarPrice;
+  // monthList(){
+  //   for (int i = 0; i< evCarsModelObject.data!.length; i++) {
+  //     print("OuterLoop:$i");
+  //     for (int j = 0; j < evCarsModelObject.data![i].carsPlans!.length; j++) {
+  //       if(evCarsModelObject.data![i].carsPlans![j].carsId == carID) {
+  //         print("fref");
+  //         monthNumber.add(CustomSubscriptionModel(
+  //             months: evCarsModelObject.data![i].carsPlans![j].months!.toString(),
+  //             price_per_months: evCarsModelObject.data![i].carsPlans![j].pricePerMonth!,
+  //             dis_price_per_months: evCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString()));
+  //         // myCarPrice = evCarsModelObject.data![i].carsPlans![j].months!.toString() * int.parse(evCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString());
+  //         myCarPrice = double.parse(evCarsModelObject.data![i].carsPlans![j].months!.toString()) *
+  //             double.parse(evCarsModelObject.data![i].carsPlans![j].discountedPricePerMonth!.toString());
+  //         print('myCarPrice $myCarPrice');
+  //         tabSelectMonth = monthNumber[0].months;
+  //        tabSelectedPrice = monthNumber[0].dis_price_per_months;
+  //         print("monthNumber123 $tabSelectMonth $tabSelectedPrice");
+  //         print("InnerLoop:$j");
+  //       }
+  //     }
+  //   }
+  // }
 
   startChatApiWidget() async {
     setState(() {
@@ -141,7 +141,6 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
     print('startChatApiResponse $jsonData');
 
     if (jsonData['message'] == 'chat already started') {
-      // toastSuccessMessage("chat already started", colorGreen);
       print('chat already started');
       setState(() {
         loadingP = false;
@@ -154,8 +153,8 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
     // TODO: implement initState
     super.initState();
     mySelectedData();
-    getEvSubscriptionCarsWidget();
-    milagePlansListWidget();
+    // getEvSubscriptionCarsWidget();
+    mileagePlansListWidget();
     carLikeStatus = widget.favouriteStatus;
     print('carLikeStatus ${carLikeStatus}');
 
@@ -334,20 +333,26 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              padding: const EdgeInsets.only(left: 10, top: 10),
+              child: Text("Choose Mileage Package",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: kBlack,
+                      fontSize: 14,
+                      fontFamily: poppinSemiBold)),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.1,
-                // child: MonthSlotContainer(),
-                child: milagePlansList(),
+                child: mileagePlansList(),
               ),
             ),
-            loadingP ? SizedBox() : Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.1,
-                // child: MonthSlotContainer(),
                 child: tabsList(),
               ),
             ),
@@ -369,25 +374,20 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
             ),
             GestureDetector(
                 onTap: () {
-                  print('selectedIndex123: $selectedIndex');
+                  print('selectedIndex123: $selectMileageIndex');
                   print('selectedTabMonth123: $tabSelectMonth');
                   print('selectedTabMonthPrice123: $tabSelectedPrice');
 
                   print('carLikeStatus ${carLikeStatus}');
                   if(formKeyEvTabbar.currentState!.validate()){
-                    // if(tabSelectMonth == null){
-                    //
-                    //   toastFailedMessage("select Month", kRed);
-                    // } else{
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => EvDescriptionDetailsPage(
-                            mySelectedTabMonth: tabSelectMonth,
-                            mySelectedTabPrice: tabSelectedPrice,
+                            getMileagePlansModel: getMileagePlansModel.data,
+                            selectedMileagePlan: selectedMileagePlan == null ? getMileagePlansModel.data![0].plansMileageDescription : selectedMileagePlan,
+                            mySelectedTabMonth: tabSelectMonth == null ? getMonthPlansModel.data![0].months.toString() : tabSelectMonth,
+                            mySelectedTabPrice: tabSelectedPrice == null ? getMonthPlansModel.data![0].pricePerMonth.toString() : tabSelectedPrice,
                             favouriteStatus: carLikeStatus,
                             carName: widget.carName,
-                            // carImage: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
-                            //     ? "${widget.carImage!}"
-                            //     : "${widget.carImage!}",
                             carImage: widget.carImage,
                             carYear: widget.carYear,
                             carPrice: widget.carPrice,
@@ -400,9 +400,9 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                             carOwnerId: widget.carOwnerId,
                             carMakesName: widget.carMakesName,
                             carModelName: widget.carModelName,
-                          )));
-                    // }
-
+                          ),
+                      ),
+                      );
                   }
                 },
                 child: loginButton('Book Now', context)),
@@ -412,11 +412,88 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
     );
   }
 
+  final GlobalKey<FormState> formKeyEvTabbar = GlobalKey<FormState>();
+  tabsList(){
+    TabController? tabController = getMonthPlansModel.data != null ? TabController(length: getMonthPlansModel.data!.length, vsync: this) : null;
+    return getMonthPlansModel.data != null ? loader2 ? Center(child: CircularProgressIndicator(color: borderColor)):
+    Form(
+      key: formKeyEvTabbar,
+      child: Column(
+        children: [
+          Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.1,
+              decoration: BoxDecoration(
+                  color: homeBgColor,
+                  borderRadius: BorderRadius.circular(15)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                child: TabBar(
+                  controller: tabController,
+                  indicator: BoxDecoration(
+                    // color: selectedIndex == ? borderColor: kWhite,
+                    color: borderColor,
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  onTap: (index){
+                    selectMileageIndex = index;
+                    tabSelectMonth = getMonthPlansModel.data?[selectMileageIndex].months.toString();
+                    tabSelectedPrice = getMonthPlansModel.data?[selectMileageIndex].pricePerMonth;
+                    print('selectedIndex: $selectMileageIndex');
+                    print('selectedTabMonth123: $tabSelectMonth');
+                    print('selectedTabMonthPrice: $tabSelectedPrice');
+                  },
+                  tabs: List<Widget>.generate(
+                      getMonthPlansModel.data!.length, (int index) {
+                    print("monthsTabBarLength111 ${getMonthPlansModel.data?.length}");
+                    // print("monthNumber111 ${getMonthPlansModel.data?[selectMileageIndex].months.toString()}");
+                    return Container(
+                      // color: Colors.transparent,
+                      height: MediaQuery.of(context).size.height * 0.12,
+                      child: Tab(
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              getMonthPlansModel.data?[index].months.toString() == "1" ? Text("${getMonthPlansModel.data?[index].months.toString()} month", style: TextStyle(
+                                color: kBlack, fontSize: 17, fontFamily: poppinMedium)):
+                              Text("${getMonthPlansModel.data?[index].months.toString()} months", style: TextStyle(
+                                  color: kBlack, fontSize: 17, fontFamily: poppinMedium)),
+
+                              Text("RM ${getMonthPlansModel.data?[index].pricePerMonth.toString()}",
+                                  textAlign: TextAlign.right, style: TextStyle(
+                                    fontSize: 14, fontFamily: poppinRegular, color: kBlack,)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  ),
+                  indicatorColor: kWhite,
+                  isScrollable: true,
+                  labelColor: kWhite,
+                  labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
+                  unselectedLabelColor: kBlack,
+                ),
+              ),
+          ),
+
+        ],
+      ),
+    ) : SizedBox();
+  }
+
+  //
   // final GlobalKey<FormState> formKeyEvTabbar = GlobalKey<FormState>();
   // tabsList(){
-  //   TabController tabController = TabController(length: monthNumber.length, vsync: this);
-  //   return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
-  //   Form(
+  //   TabController? tabController;
+  //   if (getMonthPlansModel.data != null) {
+  //     tabController = TabController(length: getMonthPlansModel.data!.length, vsync: this);
+  //   }
+  //   return Form(
   //     key: formKeyEvTabbar,
   //     child: Column(
   //       children: [
@@ -435,28 +512,28 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
   //                   color: borderColor,
   //                   borderRadius: BorderRadius.circular(15.0),
   //                 ),
-  //                 onTap: (index){
-  //                   selectedIndex = index;
-  //                   tabSelectMonth = monthNumber[selectedIndex].months;
-  //                   tabSelectedPrice = monthNumber[selectedIndex].dis_price_per_months;
-  //                   print('selectedIndex: $selectedIndex');
-  //                   print('selectedTabMonth123: $tabSelectMonth');
-  //                   print('selectedTabMonthPrice: $tabSelectedPrice');
-  //                 },
+  //                 // onTap: (index){
+  //                 //   selectedIndex = index;
+  //                 //   tabSelectMonth = monthNumber[selectedIndex].months;
+  //                 //   tabSelectedPrice = monthNumber[selectedIndex].dis_price_per_months;
+  //                 //   print('selectedIndex: $selectedIndex');
+  //                 //   print('selectedTabMonth123: $tabSelectMonth');
+  //                 //   print('selectedTabMonthPrice: $tabSelectedPrice');
+  //                 // },
   //                 tabs: List<Widget>.generate(
-  //                     monthNumber.length, (int index) {
+  //                     getMonthPlansModel.data!.length, (int index) {
   //
-  //                       // String price123 = ('${monthNumber[index].months}') * int.parse('${monthNumber[index].dis_price_per_months}');
+  //                   // String price123 = ('${monthNumber[index].months}') * int.parse('${monthNumber[index].dis_price_per_months}');
   //                   // print("price123 ${price123}");
-  //                   print("monthsTabBarLength111 ${monthNumber.length}");
-  //                   print("monthNumber111 ${monthNumber[index].months}");
+  //                   // print("monthsTabBarLength111 ${monthNumber.length}");
+  //                   // print("monthNumber111 ${monthNumber[index].months}");
   //                   // selectedIndex = index;
   //                   // tabSelectMonth = monthNumber[index].months;
   //                   // tabSelectedPrice = monthNumber[index].dis_price_per_months;
   //                   // print("tabSelectMonthAndPrice $tabSelectMonth $tabSelectedPrice");
   //                   return Container(
   //                     color: Colors.transparent,
-  //                     height: MediaQuery.of(context).size.height * 0.12,
+  //                     height: MediaQuery.of(context).size.height * 0.1,
   //                     child: Tab(
   //                       child: SizedBox(
   //                         width: MediaQuery.of(context).size.width * 0.3,
@@ -464,12 +541,12 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
   //                           mainAxisAlignment: MainAxisAlignment.center,
   //                           crossAxisAlignment: CrossAxisAlignment.start,
   //                           children: [
-  //                             monthNumber[index].months == "1" ? Text("${monthNumber[index].months} month", style: TextStyle(
-  //                               color: kBlack, fontSize: 17, fontFamily: poppinMedium)):
-  //                             Text("${monthNumber[index].months} months", style: TextStyle(
+  //                             Text("${getMonthPlansModel.data?[index].months} month", style: TextStyle(
   //                                 color: kBlack, fontSize: 17, fontFamily: poppinMedium)),
+  //                             // Text("${monthNumber[index].months} months", style: TextStyle(
+  //                             //     color: kBlack, fontSize: 17, fontFamily: poppinMedium)),
   //
-  //                             Text("RM ${monthNumber[index].dis_price_per_months}",
+  //                             Text("RM ${getMonthPlansModel.data?[index].pricePerMonth}",
   //                                 textAlign: TextAlign.right, style: TextStyle(
   //                                   fontSize: 14, fontFamily: poppinRegular, color: kBlack,)),
   //                           ],
@@ -490,88 +567,6 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
   //     ),
   //   );
   // }
-  //
-
-  final GlobalKey<FormState> formKeyEvTabbar = GlobalKey<FormState>();
-  tabsList(){
-    TabController? tabController;
-    if (getMonthPlansModel.data != null) {
-      tabController = TabController(length: getMonthPlansModel.data!.length, vsync: this);
-    }
-    return Form(
-      key: formKeyEvTabbar,
-      child: Column(
-        children: [
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.1,
-              decoration: BoxDecoration(
-                  color: homeBgColor,
-                  borderRadius: BorderRadius.circular(15)),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                child: TabBar(
-                  controller: tabController,
-                  indicator: BoxDecoration(
-                    // color: selectedIndex == ? borderColor: kWhite,
-                    color: borderColor,
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  // onTap: (index){
-                  //   selectedIndex = index;
-                  //   tabSelectMonth = monthNumber[selectedIndex].months;
-                  //   tabSelectedPrice = monthNumber[selectedIndex].dis_price_per_months;
-                  //   print('selectedIndex: $selectedIndex');
-                  //   print('selectedTabMonth123: $tabSelectMonth');
-                  //   print('selectedTabMonthPrice: $tabSelectedPrice');
-                  // },
-                  tabs: List<Widget>.generate(
-                      getMonthPlansModel.data!.length, (int index) {
-
-                    // String price123 = ('${monthNumber[index].months}') * int.parse('${monthNumber[index].dis_price_per_months}');
-                    // print("price123 ${price123}");
-                    // print("monthsTabBarLength111 ${monthNumber.length}");
-                    // print("monthNumber111 ${monthNumber[index].months}");
-                    // selectedIndex = index;
-                    // tabSelectMonth = monthNumber[index].months;
-                    // tabSelectedPrice = monthNumber[index].dis_price_per_months;
-                    // print("tabSelectMonthAndPrice $tabSelectMonth $tabSelectedPrice");
-                    return Container(
-                      color: Colors.transparent,
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      child: Tab(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("${getMonthPlansModel.data?[index].months} month", style: TextStyle(
-                                  color: kBlack, fontSize: 17, fontFamily: poppinMedium)),
-                              // Text("${monthNumber[index].months} months", style: TextStyle(
-                              //     color: kBlack, fontSize: 17, fontFamily: poppinMedium)),
-
-                              Text("RM ${getMonthPlansModel.data?[index].pricePerMonth}",
-                                  textAlign: TextAlign.right, style: TextStyle(
-                                    fontSize: 14, fontFamily: poppinRegular, color: kBlack,)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                  indicatorColor: kWhite,
-                  isScrollable: true,
-                  labelColor: kWhite,
-                  labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
-                  unselectedLabelColor: kBlack,
-                ),
-              )),
-
-        ],
-      ),
-    );
-  }
 
   LikeUnlikeCarModel carLikeUnlikeModelObject = LikeUnlikeCarModel();
   String? myCurrentCarIndex;
@@ -606,10 +601,10 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
     setState(() {});
   }
 
-  final GlobalKey<FormState> formKeyEvMilagePlans = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyEvMileagePlans = GlobalKey<FormState>();
   GetMileagePlansModel getMileagePlansModel = GetMileagePlansModel();
 
-  milagePlansListWidget() async {
+  mileagePlansListWidget() async {
     loadingP = true;
     setState(() {});
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -634,7 +629,6 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
         print("getMileagePlansResponse: ${responseString.toString()}");
         getMileagePlansModel = getMileagePlansModelFromJson(responseString);
         print("getMileagePlansLength: ${getMileagePlansModel.data!.length}");
-        // monthList();
         monthSelect();
       }
     } catch (e) {
@@ -644,13 +638,12 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
     setState(() {});
   }
 
-  int? selectMileageIndex = 1;
+  int selectMileageIndex = 1;
   GetMonthPlansModel getMonthPlansModel = GetMonthPlansModel();
 
+  bool loader2 = false;
   monthSelect() async {
-    loadingP = true;
-    setState(() {});
-    // try {
+    try {
       String apiUrl = getCarPlansEvApiUrl;
       print("carID ${widget.carId}");
       print("selectMileageIndex $selectMileageIndex");
@@ -666,104 +659,51 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
       print('${response.statusCode}');
       print(response);
       if (response.statusCode == 200) {
-        // setState(() {});
         final responseString = response.body;
         print("getMonthPlansEvResponse: ${responseString.toString()}");
         getMonthPlansModel = getMonthPlansModelFromJson(responseString);
         print("Length: ${getMonthPlansModel.data!.length}");
-        loadingP = false;
         setState(() {});
-        // monthList();
-      // }
-    // }
-    // catch (e) {
-    //   print('Error in getMonthPlans: ${e.toString()}');
+      }
+    }
+    catch (e) {
+      print('Error in getMonthPlans: ${e.toString()}');
     }
   }
 
-
-  milagePlansList(){
+  mileagePlansList(){
     TabController? tabController = getMileagePlansModel.data != null ? TabController(length: getMileagePlansModel.data!.length, vsync: this) : null;
     return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
     Form(
-      key: formKeyEvMilagePlans,
-      child: Column(
-        children: [
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.1,
-              decoration: BoxDecoration(
-                  color: homeBgColor,
-                  borderRadius: BorderRadius.circular(15)),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                child: TabBar(
-                  controller: tabController,
-                  indicator: BoxDecoration(
-                    // color: selectedIndex == ? borderColor: kWhite,
-                    color: borderColor,
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  onTap: (index){
-                    selectMileageIndex = index;
-                    selectMileageIndex = getMileagePlansModel.data?[index].plansMileageId;
-                    print('selectMileageIndex: $selectMileageIndex');
-                    monthSelect();
-                  },
-                  tabs: List<Widget>.generate(
-                      getMileagePlansModel.data!.length, (int index) {
-
-                    // String price123 = ('${monthNumber[index].months}') * int.parse('${monthNumber[index].dis_price_per_months}');
-                    // print("price123 ${price123}");
-
-                    // print("monthsTabBarLength111 ${monthNumber.length}");
-                    // print("monthNumber111 ${monthNumber[index].months}");
-
-                    // selectedIndex = index;
-                    // tabSelectMonth = monthNumber[index].months;
-                    // tabSelectedPrice = monthNumber[index].dis_price_per_months;
-                    // print("tabSelectMonthAndPrice $tabSelectMonth $tabSelectedPrice");
-                    return Container(
-                      color: Colors.transparent,
-                      height: MediaQuery.of(context).size.height * 0.12,
-                      child: Tab(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // monthNumber[index].months == "1" ? Text("${monthNumber[index].months} month", style: TextStyle(
-                              //     color: kBlack, fontSize: 17, fontFamily: poppinMedium)):
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: Text("${getMileagePlansModel.data?[index].plansMileageDescription}", maxLines: 2, style: TextStyle(
-                                    color: kBlack, fontSize: 17, fontFamily: poppinRegular)),
-                              ),
-
-                              // Text("RM ${monthNumber[index].dis_price_per_months}",
-                              //     textAlign: TextAlign.right, style: TextStyle(
-                              //       fontSize: 14, fontFamily: poppinRegular, color: kBlack,)
-                      // ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                  indicatorColor: kWhite,
-                  isScrollable: true,
-                  labelColor: kWhite,
-                  labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
-                  unselectedLabelColor: kBlack,
-                ),
+      key: formKeyEvMileagePlans,
+      child: Container(
+          height: MediaQuery.of(context).size.height * 0.07,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+            child: TabBar(
+              controller: tabController,
+              indicator: BoxDecoration(
+                color: homeBgColor,
+                borderRadius: BorderRadius.circular(25.0),
               ),
+              onTap: (index){
+                selectedMileagePlan = getMileagePlansModel.data?[index].plansMileageDescription;
+                selectMileageIndex = getMileagePlansModel.data![index].plansMileageId!.toInt();
+                monthSelect();
+              },
+              tabs: List<Widget>.generate(
+                  getMileagePlansModel.data!.length, (int index) {
+                return Tab(
+                  child: Text("${getMileagePlansModel.data?[index].plansMileageDescription}", maxLines: 2, style: TextStyle(
+                      color: kBlack, fontSize: 17, fontFamily: poppinRegular)),
+                );
+              }
+              ),
+              isScrollable: true,
+            ),
           ),
-
-        ],
       ),
     );
   }
-
 
 }

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
+import '../../../../../Model/GetMileagePlansModel.dart';
 import 'EvAddress/ev_delivery_address.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
@@ -19,7 +20,8 @@ import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_hea
 import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class EvDescriptionDetailsPage extends StatefulWidget {
-  final String? mySelectedTabMonth, mySelectedTabPrice;
+  List<Datum>? getMileagePlansModel;
+  final String? mySelectedTabMonth, mySelectedTabPrice, selectedMileagePlan;
   final String? carName,
       carImage,
       carYear,
@@ -40,6 +42,7 @@ class EvDescriptionDetailsPage extends StatefulWidget {
   EvDescriptionDetailsPage(
       {Key? key,
       this.carName,
+        this.getMileagePlansModel,
       this.carMakesName,
       this.favouriteStatus,
       this.discountPercentage,
@@ -51,6 +54,7 @@ class EvDescriptionDetailsPage extends StatefulWidget {
       this.carColorName,
       this.carModelName,
       this.carId,
+      this.selectedMileagePlan,
       this.carPrice,
       this.carRating,
       this.carOwnerId,
@@ -207,6 +211,50 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text("Mileage Package",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: kBlack,
+                                fontSize: 14,
+                                fontFamily: poppinSemiBold)),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                height: 30.0,
+                                decoration: BoxDecoration(
+                                  color: borderColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(horizontal: 10),
+                                    child: Text("${widget.selectedMileagePlan}",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: poppinRegular,
+                                            color: kWhite),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              // SizedBox(
+                              //     width:
+                              //     MediaQuery.of(context).size.width * 0.01),
+                              // GestureDetector(
+                              //     onTap: () {
+                              //       // showMyBottomSheet(context);
+                              //       _openBottomSheetWithInfo(context);
+                              //     },
+                              //     child: SvgPicture.asset(
+                              //         'assets/icon/edit_booking_icoon.svg')),
+                            ],
+                          ),
+                        ),
                         Text("Select Start and End Date Plan",
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -244,16 +292,16 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.01),
-                              GestureDetector(
-                                  onTap: () {
-                                    // showMyBottomSheet(context);
-                                    _openBottomSheetWithInfo(context);
-                                  },
-                                  child: SvgPicture.asset(
-                                      'assets/icon/edit_booking_icoon.svg')),
+                              // SizedBox(
+                              //     width:
+                              //         MediaQuery.of(context).size.width * 0.01),
+                              // GestureDetector(
+                              //     onTap: () {
+                              //       // showMyBottomSheet(context);
+                              //       _openBottomSheetWithInfo(context);
+                              //     },
+                              //     child: SvgPicture.asset(
+                              //         'assets/icon/edit_booking_icoon.svg')),
                             ],
                           ),
                         ),
