@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
@@ -21,30 +21,75 @@ import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_un
 import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class EVCarDescription extends StatefulWidget {
- final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
-     favouriteStatus, carModelName, carMakesName, carMakesImage, myCarDescription,
-     myCarRating, myCarComment, carRating, carOwnerImage, carOwnerName, discountPercentage;
- final String? featureSuv, featuresSeats, featuresSpeed, featuresAutomatic, featuresDoors,
-     featuresElectric, featuresEngine_capacity, featuresFuelCapacity, featuresMeterReading, featuresNewCars;
- final int? carId, carOwnerId;
- final String? carDiscountPrice;
-  EVCarDescription({super.key, this.carName, this.myCarDescription, this.favouriteStatus,
-    this.myCarRating, this.myCarComment, this.carColorName, this.carModelName,
-    this.discountPercentage, this.carDiscountPrice, this.carImage, this.carYear,
-    this.carMakesImage, this.carStatus, this.carMakesName, this.carId, this.carPrice,
-    this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
-
-    this.featureSuv, this.featuresSeats, this.featuresSpeed, this.featuresAutomatic,
-    this.featuresDoors, this.featuresElectric, this.featuresEngine_capacity,
-    this.featuresFuelCapacity, this.featuresMeterReading, this.featuresNewCars});
+  final String? carName,
+      carImage,
+      carYear,
+      carPrice,
+      carStatus,
+      carColorName,
+      favouriteStatus,
+      carModelName,
+      carMakesName,
+      carMakesImage,
+      myCarDescription,
+      myCarRating,
+      myCarComment,
+      carRating,
+      carOwnerImage,
+      carOwnerName,
+      discountPercentage;
+  final String? featureSuv,
+      featuresSeats,
+      featuresSpeed,
+      featuresAutomatic,
+      featuresDoors,
+      featuresElectric,
+      featuresEngine_capacity,
+      featuresFuelCapacity,
+      featuresMeterReading,
+      featuresNewCars;
+  final int? carId, carOwnerId;
+  final String? carDiscountPrice;
+  EVCarDescription(
+      {super.key,
+      this.carName,
+      this.myCarDescription,
+      this.favouriteStatus,
+      this.myCarRating,
+      this.myCarComment,
+      this.carColorName,
+      this.carModelName,
+      this.discountPercentage,
+      this.carDiscountPrice,
+      this.carImage,
+      this.carYear,
+      this.carMakesImage,
+      this.carStatus,
+      this.carMakesName,
+      this.carId,
+      this.carPrice,
+      this.carRating,
+      this.carOwnerId,
+      this.carOwnerImage,
+      this.carOwnerName,
+      this.featureSuv,
+      this.featuresSeats,
+      this.featuresSpeed,
+      this.featuresAutomatic,
+      this.featuresDoors,
+      this.featuresElectric,
+      this.featuresEngine_capacity,
+      this.featuresFuelCapacity,
+      this.featuresMeterReading,
+      this.featuresNewCars});
 
   @override
   State<EVCarDescription> createState() => _EVCarDescriptionState();
 }
 
-class _EVCarDescriptionState extends State<EVCarDescription> with TickerProviderStateMixin {
-
-  mySelectedData(){
+class _EVCarDescriptionState extends State<EVCarDescription>
+    with TickerProviderStateMixin {
+  mySelectedData() {
     carOwnerId = widget.carOwnerId;
     carOwnerName = widget.carOwnerName;
     carOwnerImage = "${widget.carOwnerImage}";
@@ -53,7 +98,6 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
     print("carOwnerId $carOwnerId");
     print("carOwnerName $carOwnerName");
     print("carOwnerImage $carOwnerImage");
-
   }
 
   // EvCarsModel evCarsModelObject = EvCarsModel();
@@ -132,10 +176,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
       "other_users_customers_id": "$carOwnerId",
     };
     http.Response response = await http.post(Uri.parse(startChatApiUrl),
-        body: body,
-        headers: {
-          "Accept": "application/json"
-        });
+        body: body, headers: {"Accept": "application/json"});
     Map jsonData = jsonDecode(response.body);
     print("startChatApiUrl: $startChatApiUrl");
     print('startChatApiResponse $jsonData');
@@ -157,8 +198,8 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
     mileagePlansListWidget();
     carLikeStatus = widget.favouriteStatus;
     print('carLikeStatus ${carLikeStatus}');
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,45 +208,55 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness:
-          Brightness.dark, //<-- For Android SEE HERE (dark icons)
+              Brightness.dark, //<-- For Android SEE HERE (dark icons)
           statusBarBrightness:
-          Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+              Brightness.dark, //<-- For iOS SEE HERE (dark icons)
         ),
         actions: [
           GestureDetector(
             onTap: () {
               print("clicked");
               startChatApiWidget();
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => MessageDetailsScreen(
-                    carOwnerName: carOwnerName,
-                    carOwnerImage: carOwnerImage,
-                    carOwnerId: "$carOwnerId",
-                  )));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MessageDetailsScreen(
+                            carOwnerName: carOwnerName,
+                            carOwnerImage: carOwnerImage,
+                            carOwnerId: "$carOwnerId",
+                          )));
               print("evCarOwnerName $carOwnerName");
               print("evCarOwnerLogo $carOwnerImage}");
               print("evCarOwnerId $carOwnerId");
-              },
+            },
             child: Padding(
               padding: EdgeInsets.only(top: 30, right: 20),
-              child: Image.asset("assets/car_description_images/chat.png",
-                height: 25, width: 25,
+              child: Image.asset(
+                "assets/car_description_images/chat.png",
+                height: 25,
+                width: 25,
               ),
             ),
           ),
         ],
-        backgroundColor: appBgColor, elevation: 0.0,
+        backgroundColor: appBgColor,
+        elevation: 0.0,
         centerTitle: true,
-
-          title: Padding(
-            padding: EdgeInsets.only(top: 30, right: 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("${widget.carName}, ", style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),),
-                Text("${widget.carYear}", style: TextStyle(fontSize: 16, fontFamily: poppinRegular, color: kWhite),),
-              ]),
-          ),
+        title: Padding(
+          padding: EdgeInsets.only(top: 30, right: 0),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(
+              "${widget.carName}, ",
+              style: TextStyle(
+                  fontSize: 16, fontFamily: poppinBold, color: kWhite),
+            ),
+            Text(
+              "${widget.carYear}",
+              style: TextStyle(
+                  fontSize: 16, fontFamily: poppinRegular, color: kWhite),
+            ),
+          ]),
+        ),
         leading: GestureDetector(
           onTap: () {
             print("clicked");
@@ -213,8 +264,11 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
           },
           child: Padding(
             padding: EdgeInsets.only(top: 30),
-            child: Image.asset("assets/live_chat_images/back_arrow.png",
-              color: kWhite, height: 25, width: 25,
+            child: Image.asset(
+              "assets/live_chat_images/back_arrow.png",
+              color: kWhite,
+              height: 25,
+              width: 25,
             ),
           ),
         ),
@@ -242,11 +296,17 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                       // Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
 
-                      widget.carRating == null?
-                      Text('0.0', style: TextStyle(fontSize: 16,
-                          color: kWhite, fontFamily: poppinSemiBold))
-                          : Text('${widget.carRating}', style: TextStyle(fontSize: 16,
-                          color: kWhite, fontFamily: poppinSemiBold)),
+                      widget.carRating == null
+                          ? Text('0.0',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: kWhite,
+                                  fontFamily: poppinSemiBold))
+                          : Text('${widget.carRating}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: kWhite,
+                                  fontFamily: poppinSemiBold)),
                     ],
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
@@ -255,38 +315,45 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                     children: [
                       Padding(
                         padding: EdgeInsets.only(left: 20),
-                          child:
-                          CachedNetworkImage(
-                            imageUrl: "${widget.carMakesImage}",
-                            height: 60, width: 50,
-                            fit: BoxFit.fill,
-                            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                CircularProgressIndicator(strokeWidth: 2, value: downloadProgress.progress, color: borderColor,),
-                            errorWidget: (context, url, error) => Image.asset("assets/icon/fade_in_image.jpeg"),
+                        child: CachedNetworkImage(
+                          imageUrl: "${widget.carMakesImage}",
+                          height: 60,
+                          width: 50,
+                          fit: BoxFit.fill,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                            strokeWidth: 2,
+                            value: downloadProgress.progress,
+                            color: borderColor,
                           ),
+                          errorWidget: (context, url, error) =>
+                              Image.asset("assets/icon/fade_in_image.jpeg"),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 20),
-                        child: carLikeStatus == "like"?
-                        Image.asset("assets/home_page/heart.png"):
-                        GestureDetector(
-                          onTap: () async {
-                            myCurrentCarIndex = "${widget.carId}";
-                            print("evCarIds $myCurrentCarIndex");
-                            await getLikeUnlikeCarWidget();
-                            // carLikeStatus = carLikeUnlikeModelObject.message;
-                            print('carLikeStatus123 $carLikeStatus');
-                            if (carLikeUnlikeModelObject.message == "Liked") {
-                              carLikeStatus = 'like';
-                            } else{
-                              carLikeStatus = 'dislike';
-                            }
-
-                          },
-                          child: carLikeStatus == "like" ?
-                          Image.asset("assets/home_page/heart.png") :
-                          Image.asset("assets/car_bookings_images/heart.png"),
-                        ),
+                        child: carLikeStatus == "like"
+                            ? Image.asset("assets/home_page/heart.png")
+                            : GestureDetector(
+                                onTap: () async {
+                                  myCurrentCarIndex = "${widget.carId}";
+                                  print("evCarIds $myCurrentCarIndex");
+                                  await getLikeUnlikeCarWidget();
+                                  // carLikeStatus = carLikeUnlikeModelObject.message;
+                                  print('carLikeStatus123 $carLikeStatus');
+                                  if (carLikeUnlikeModelObject.message ==
+                                      "Liked") {
+                                    carLikeStatus = 'like';
+                                  } else {
+                                    carLikeStatus = 'dislike';
+                                  }
+                                },
+                                child: carLikeStatus == "like"
+                                    ? Image.asset("assets/home_page/heart.png")
+                                    : Image.asset(
+                                        "assets/car_bookings_images/heart.png"),
+                              ),
                       ),
                     ],
                   ),
@@ -296,35 +363,40 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                     color: Colors.transparent,
                     child: Stack(
                       children: [
-                        Image.asset('assets/car_description_images/circle.png', fit: BoxFit.fill,
-                          height: 200, width: 300,
+                        Image.asset(
+                          'assets/car_description_images/circle.png',
+                          fit: BoxFit.fill,
+                          height: 200,
+                          width: 300,
                         ),
                         Positioned(
-                          left: 10, right: 10,
+                          left: 10,
+                          right: 10,
                           bottom: 0,
-                          child: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
-                              ?  Image.network("${widget.carImage}",
-                              fit: BoxFit.fill,
-                              height: 150, width: 180) :
-                          Container(
-                            height: 235,
-                            child: ModelViewer(
-                              backgroundColor: Colors.transparent,
-                              src: '${widget.carImage}',
-                              alt: "A 3D model of car",
-                              animationName: 'walk',
-                              withCredentials: false,
-                              xrEnvironment: false,
-                              autoPlay: false,
-                              autoRotate: false,
-                              cameraControls: true,
-                              disableTap: false,
-                              ar: false,
-                              arModes: ["quicklook", "scene-viewer"],
-                              iosSrc: "${widget.carImage}",
-                              disableZoom: true,
-                            ),
-                          ),
+                          child: widget.carImage!.endsWith('.jpg') ||
+                                  widget.carImage!.endsWith('.png') ||
+                                  widget.carImage!.endsWith('.jpeg')
+                              ? Image.network("${widget.carImage}",
+                                  fit: BoxFit.fill, height: 150, width: 180)
+                              : Container(
+                                  height: 235,
+                                  child: ModelViewer(
+                                    backgroundColor: Colors.transparent,
+                                    src: '${widget.carImage}',
+                                    alt: "A 3D model of car",
+                                    animationName: 'walk',
+                                    withCredentials: false,
+                                    xrEnvironment: false,
+                                    autoPlay: false,
+                                    autoRotate: false,
+                                    cameraControls: true,
+                                    disableTap: false,
+                                    ar: false,
+                                    arModes: ["quicklook", "scene-viewer"],
+                                    iosSrc: "${widget.carImage}",
+                                    disableZoom: true,
+                                  ),
+                                ),
                         ),
                       ],
                     ),
@@ -337,15 +409,41 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
               child: Text("Choose Mileage Package",
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      color: kBlack,
-                      fontSize: 14,
-                      fontFamily: poppinSemiBold)),
+                      color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                child: mileagePlansList(),
+                height: 35,
+                // child: mileagePlansList(),
+                child: getMileagePlansModel.data != null
+                    ? ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: getMileagePlansModel.data!.length,
+                    itemBuilder: (context, index) {
+                      bool isSelected = selectedMileagePlan == getMileagePlansModel.data![index].plansMileageDescription;
+                      var mileagePlan = getMileagePlansModel.data![index];
+                      return GestureDetector(
+                          onTap: () {
+                            selectedMileagePlan = getMileagePlansModel.data?[index].plansMileageDescription;
+                            selectMileageIndex = getMileagePlansModel.data![index].plansMileageId!.toInt();
+                            monthSelect();
+                          },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.35,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: isSelected  ? borderColor : homeBgColor,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Center(child: Text(mileagePlan.plansMileageDescription.toString()),
+                          ),
+                        ),
+                      );
+                    }
+                )
+                    : SizedBox(),
               ),
             ),
             Padding(
@@ -360,7 +458,6 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
               myDescription: widget.myCarDescription,
               myRating: widget.myCarRating,
               myComment: widget.myCarComment,
-
               featureSuv: widget.featureSuv,
               featuresDoors: widget.featuresDoors,
               featuresSeats: widget.featuresSeats,
@@ -379,30 +476,40 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
                   print('selectedTabMonthPrice123: $tabSelectedPrice');
 
                   print('carLikeStatus ${carLikeStatus}');
-                  if(formKeyEvTabbar.currentState!.validate()){
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => EvDescriptionDetailsPage(
-                            getMileagePlansModel: getMileagePlansModel.data,
-                            selectedMileagePlan: selectedMileagePlan == null ? getMileagePlansModel.data![0].plansMileageDescription : selectedMileagePlan,
-                            mySelectedTabMonth: tabSelectMonth == null ? getMonthPlansModel.data![0].months.toString() : tabSelectMonth,
-                            mySelectedTabPrice: tabSelectedPrice == null ? getMonthPlansModel.data![0].pricePerMonth.toString() : tabSelectedPrice,
-                            favouriteStatus: carLikeStatus,
-                            carName: widget.carName,
-                            carImage: widget.carImage,
-                            carYear: widget.carYear,
-                            carPrice: widget.carPrice,
-                            carDiscountPrice: widget.carDiscountPrice,
-                            carRating: widget.carRating,
-                            carColorName: widget.carColorName,
-                            discountPercentage: widget.discountPercentage,
-                            carStatus: widget.carStatus,
-                            carId: widget.carId,
-                            carOwnerId: widget.carOwnerId,
-                            carMakesName: widget.carMakesName,
-                            carModelName: widget.carModelName,
-                          ),
+                  if (formKeyEvTabbar.currentState!.validate()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EvDescriptionDetailsPage(
+                          getMileagePlansModel: getMileagePlansModel.data,
+                          selectedMileagePlan: selectedMileagePlan == null
+                              ? getMileagePlansModel
+                                  .data![0].plansMileageDescription
+                              : selectedMileagePlan,
+                          mySelectedTabMonth: tabSelectMonth == null
+                              ? getMonthPlansModel.data![0].months.toString()
+                              : tabSelectMonth,
+                          mySelectedTabPrice: tabSelectedPrice == null
+                              ? getMonthPlansModel.data![0].pricePerMonth
+                                  .toString()
+                              : tabSelectedPrice,
+                          favouriteStatus: carLikeStatus,
+                          carName: widget.carName,
+                          carImage: widget.carImage,
+                          carYear: widget.carYear,
+                          carPrice: widget.carPrice,
+                          carDiscountPrice: widget.carDiscountPrice,
+                          carRating: widget.carRating,
+                          carColorName: widget.carColorName,
+                          discountPercentage: widget.discountPercentage,
+                          carStatus: widget.carStatus,
+                          carId: widget.carId,
+                          carOwnerId: widget.carOwnerId,
+                          carMakesName: widget.carMakesName,
+                          carModelName: widget.carModelName,
+                        ),
                       ),
-                      );
+                    );
                   }
                 },
                 child: loginButton('Book Now', context)),
@@ -413,77 +520,103 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
   }
 
   final GlobalKey<FormState> formKeyEvTabbar = GlobalKey<FormState>();
-  tabsList(){
-    TabController? tabController = getMonthPlansModel.data != null ? TabController(length: getMonthPlansModel.data!.length, vsync: this) : null;
-    return getMonthPlansModel.data != null ? loader2 ? Center(child: CircularProgressIndicator(color: borderColor)):
-    Form(
-      key: formKeyEvTabbar,
-      child: Column(
-        children: [
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.1,
-              decoration: BoxDecoration(
-                  color: homeBgColor,
-                  borderRadius: BorderRadius.circular(15)),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                child: TabBar(
-                  controller: tabController,
-                  indicator: BoxDecoration(
-                    // color: selectedIndex == ? borderColor: kWhite,
-                    color: borderColor,
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  onTap: (index){
-                    selectMileageIndex = index;
-                    tabSelectMonth = getMonthPlansModel.data?[selectMileageIndex].months.toString();
-                    tabSelectedPrice = getMonthPlansModel.data?[selectMileageIndex].pricePerMonth;
-                    print('selectedIndex: $selectMileageIndex');
-                    print('selectedTabMonth123: $tabSelectMonth');
-                    print('selectedTabMonthPrice: $tabSelectedPrice');
-                  },
-                  tabs: List<Widget>.generate(
-                      getMonthPlansModel.data!.length, (int index) {
-                    print("monthsTabBarLength111 ${getMonthPlansModel.data?.length}");
-                    // print("monthNumber111 ${getMonthPlansModel.data?[selectMileageIndex].months.toString()}");
-                    return Container(
-                      // color: Colors.transparent,
-                      height: MediaQuery.of(context).size.height * 0.12,
-                      child: Tab(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              getMonthPlansModel.data?[index].months.toString() == "1" ? Text("${getMonthPlansModel.data?[index].months.toString()} month", style: TextStyle(
-                                color: kBlack, fontSize: 17, fontFamily: poppinMedium)):
-                              Text("${getMonthPlansModel.data?[index].months.toString()} months", style: TextStyle(
-                                  color: kBlack, fontSize: 17, fontFamily: poppinMedium)),
-
-                              Text("RM ${getMonthPlansModel.data?[index].pricePerMonth.toString()}",
-                                  textAlign: TextAlign.right, style: TextStyle(
-                                    fontSize: 14, fontFamily: poppinRegular, color: kBlack,)),
-                            ],
+  tabsList() {
+    TabController? tabController = getMonthPlansModel.data != null
+        ? TabController(length: getMonthPlansModel.data!.length, vsync: this)
+        : null;
+    return getMonthPlansModel.data != null
+        ? loader2
+            ? Center(child: CircularProgressIndicator(color: borderColor))
+            : Form(
+                key: formKeyEvTabbar,
+                child: Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      decoration: BoxDecoration(
+                          color: homeBgColor,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                        child: TabBar(
+                          controller: tabController,
+                          indicator: BoxDecoration(
+                            // color: selectedIndex == ? borderColor: kWhite,
+                            color: borderColor,
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
+                          onTap: (index) {
+                            selectMileageIndex = index;
+                            tabSelectMonth = getMonthPlansModel
+                                .data?[selectMileageIndex].months
+                                .toString();
+                            tabSelectedPrice = getMonthPlansModel
+                                .data?[selectMileageIndex].pricePerMonth;
+                            print('selectedIndex: $selectMileageIndex');
+                            print('selectedTabMonth123: $tabSelectMonth');
+                            print('selectedTabMonthPrice: $tabSelectedPrice');
+                          },
+                          tabs: List<Widget>.generate(
+                              getMonthPlansModel.data!.length, (int index) {
+                            print(
+                                "monthsTabBarLength111 ${getMonthPlansModel.data?.length}");
+                            // print("monthNumber111 ${getMonthPlansModel.data?[selectMileageIndex].months.toString()}");
+                            return Container(
+                              // color: Colors.transparent,
+                              height: MediaQuery.of(context).size.height * 0.12,
+                              child: Tab(
+                                child: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      getMonthPlansModel.data?[index].months
+                                                  .toString() ==
+                                              "1"
+                                          ? Text(
+                                              "${getMonthPlansModel.data?[index].months.toString()} month",
+                                              style: TextStyle(
+                                                  color: kBlack,
+                                                  fontSize: 17,
+                                                  fontFamily: poppinMedium))
+                                          : Text(
+                                              "${getMonthPlansModel.data?[index].months.toString()} months",
+                                              style: TextStyle(
+                                                  color: kBlack,
+                                                  fontSize: 17,
+                                                  fontFamily: poppinMedium)),
+                                      Text(
+                                          "RM ${getMonthPlansModel.data?[index].pricePerMonth.toString()}",
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: poppinRegular,
+                                            color: kBlack,
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                          indicatorColor: kWhite,
+                          isScrollable: true,
+                          labelColor: kWhite,
+                          labelStyle: TextStyle(
+                              fontSize: 12, fontFamily: poppinRegular),
+                          unselectedLabelColor: kBlack,
                         ),
                       ),
-                    );
-                  }
-                  ),
-                  indicatorColor: kWhite,
-                  isScrollable: true,
-                  labelColor: kWhite,
-                  labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
-                  unselectedLabelColor: kBlack,
+                    ),
+                  ],
                 ),
-              ),
-          ),
-
-        ],
-      ),
-    ) : SizedBox();
+              )
+        : SizedBox();
   }
 
   //
@@ -617,9 +750,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
       print("getMileagePlansApiUrl: $apiUrl");
       final response = await http.post(
         Uri.parse(apiUrl),
-        body: {
-          "users_customers_id" : userId
-        },
+        body: {"users_customers_id": userId},
         headers: {'Accept': 'application/json'},
       );
       print('${response.statusCode}');
@@ -639,6 +770,7 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
   }
 
   int selectMileageIndex = 1;
+  bool selectedPlan = false;
   GetMonthPlansModel getMonthPlansModel = GetMonthPlansModel();
 
   bool loader2 = false;
@@ -665,45 +797,53 @@ class _EVCarDescriptionState extends State<EVCarDescription> with TickerProvider
         print("Length: ${getMonthPlansModel.data!.length}");
         setState(() {});
       }
-    }
-    catch (e) {
+    } catch (e) {
       print('Error in getMonthPlans: ${e.toString()}');
     }
   }
 
-  mileagePlansList(){
-    TabController? tabController = getMileagePlansModel.data != null ? TabController(length: getMileagePlansModel.data!.length, vsync: this) : null;
-    return loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
-    Form(
-      key: formKeyEvMileagePlans,
-      child: Container(
-          height: MediaQuery.of(context).size.height * 0.07,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-            child: TabBar(
-              controller: tabController,
-              indicator: BoxDecoration(
-                color: homeBgColor,
-                borderRadius: BorderRadius.circular(25.0),
+  mileagePlansList() {
+    TabController? tabController = getMileagePlansModel.data != null
+        ? TabController(length: getMileagePlansModel.data!.length, vsync: this)
+        : null;
+    return loadingP
+        ? Center(child: CircularProgressIndicator(color: borderColor))
+        : Form(
+            key: formKeyEvMileagePlans,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.07,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                child: TabBar(
+                  controller: tabController,
+                  indicator: BoxDecoration(
+                    color: homeBgColor,
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  onTap: (index) {
+                    selectedMileagePlan = getMileagePlansModel
+                        .data?[index].plansMileageDescription;
+                    selectMileageIndex = getMileagePlansModel
+                        .data![index].plansMileageId!
+                        .toInt();
+                    monthSelect();
+                  },
+                  tabs: List<Widget>.generate(getMileagePlansModel.data!.length,
+                      (int index) {
+                    return Tab(
+                      child: Text(
+                          "${getMileagePlansModel.data?[index].plansMileageDescription}",
+                          maxLines: 2,
+                          style: TextStyle(
+                              color: kBlack,
+                              fontSize: 17,
+                              fontFamily: poppinRegular)),
+                    );
+                  }),
+                  isScrollable: true,
+                ),
               ),
-              onTap: (index){
-                selectedMileagePlan = getMileagePlansModel.data?[index].plansMileageDescription;
-                selectMileageIndex = getMileagePlansModel.data![index].plansMileageId!.toInt();
-                monthSelect();
-              },
-              tabs: List<Widget>.generate(
-                  getMileagePlansModel.data!.length, (int index) {
-                return Tab(
-                  child: Text("${getMileagePlansModel.data?[index].plansMileageDescription}", maxLines: 2, style: TextStyle(
-                      color: kBlack, fontSize: 17, fontFamily: poppinRegular)),
-                );
-              }
-              ),
-              isScrollable: true,
             ),
-          ),
-      ),
-    );
+          );
   }
-
 }
