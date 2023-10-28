@@ -16,10 +16,10 @@ class EvBillingAddress extends StatefulWidget {
 
   homeStreetAddress1, homeStreetAddress2, homeCity, homePostCode,
   homeSelectedState, homeSelectedCountry, evStartDate, evEndDate;
-  final int? carId, carOwnerId;
+  final int? carId, carOwnerId,mileagePlanID;
   final String? carDiscountPrice;
 
-  EvBillingAddress({Key? key, this.homeStreetAddress1, this.homeStreetAddress2,
+  EvBillingAddress({Key? key, this.mileagePlanID, this.homeStreetAddress1, this.homeStreetAddress2,
     this.favouriteStatus, this.homeCity, this.homePostCode, this.homeSelectedState,
     this.homeSelectedCountry, this.totalAmount, this.carName, this.carColorName,
     this.carModelName, this.carYear, this.discountPercentage, this.carDiscountPrice,
@@ -101,6 +101,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => EvCartDetailsPage(
                           // myDatum: widget.myDatum,
+                          mileagePlanID: widget.mileagePlanID,
                           mySelectedTabMonth: widget.mySelectedTabMonth,
                           mySelectedTabPrice: widget.mySelectedTabPrice,
                           favouriteStatus: widget.favouriteStatus,
@@ -181,7 +182,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                             mySelectedTabPrice: widget.mySelectedTabPrice,
                             totalAmount: widget.totalAmount,
                             favouriteStatus: widget.favouriteStatus,
-
+                            mileagePlanID: widget.mileagePlanID,
                             carName: widget.carName,
                             carImage: widget.carImage,
                             carYear: widget.carYear,

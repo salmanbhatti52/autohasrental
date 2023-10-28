@@ -36,12 +36,13 @@ class EvDescriptionDetailsPage extends StatefulWidget {
       carOwnerImage,
       carOwnerName,
       discountPercentage;
-  final int? carId, carOwnerId;
+  final int? carId, mileagePlanID, carOwnerId;
   final String? carDiscountPrice;
 
   EvDescriptionDetailsPage(
       {Key? key,
       this.carName,
+        this.mileagePlanID,
         this.getMileagePlansModel,
       this.carMakesName,
       this.favouriteStatus,
@@ -435,6 +436,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                           builder: (context) =>
                                               EvDeliveryAddress(
                                                 evStartDate: evStartDate,
+                                                mileagePlanID: widget.mileagePlanID,
                                                 evEndDate: enddate1,
                                                 // evDatum: widget.evDatum,
                                                 mySelectedTabMonth: tabMonth,

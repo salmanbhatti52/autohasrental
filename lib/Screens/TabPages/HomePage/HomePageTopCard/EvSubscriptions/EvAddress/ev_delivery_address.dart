@@ -13,11 +13,11 @@ class EvDeliveryAddress extends StatefulWidget {
   final String? carName, carImage, carYear, carPrice, carStatus, carRating,
       favouriteStatus, carColorName, carModelName, carMakesName, carOwnerName,
       carOwnerImage, evEndDate, discountPercentage, evStartDate, carMakesImage;
-  final int? carId, carOwnerId;
+  final int? carId, carOwnerId, mileagePlanID;
   final String? carDiscountPrice;
   final double?  serviceFee;
 
-  EvDeliveryAddress({Key? key, this.totalAmount, this.carName, this.evStartDate,
+  EvDeliveryAddress({Key? key, this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate,
     this.evEndDate, this.favouriteStatus, this.carColorName, this.carId,
     this.carModelName, this.discountPercentage, this.carDiscountPrice, this.serviceFee,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
@@ -63,6 +63,7 @@ class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
               EvAddressTabBar(
                 mySelectedTabMonth: widget.mySelectedTabMonth,
                 mySelectedTabPrice: widget.mySelectedTabPrice,
+                mileagePlanID: widget.mileagePlanID,
                 totalAmount: widget.totalAmount,
                 favouriteStatus: widget.favouriteStatus,
                 evStartDate: widget.evStartDate,

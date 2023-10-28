@@ -17,6 +17,8 @@ import 'package:auto_haus_rental_app/Model/AuthModels/user_login_model.dart';
 import 'package:auto_haus_rental_app/Widget/TextFields/password_text_field.dart';
 import 'package:auto_haus_rental_app/Screens/Authentication/SignUpPage/sign_up_page.dart';
 
+import 'KYC Pages/Kyc_selectionPage.dart';
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
 
@@ -175,8 +177,11 @@ class _LoginPageState extends State<LoginPage> {
                           Future.delayed(Duration(seconds: 1), () {
                             toastSuccessMessage("${userLoginModel.status}", Colors.green);
 
+                            // Navigator.pushReplacement(context,
+                            //     MaterialPageRoute(builder: (context) => TabBarPage()));
+
                             Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => TabBarPage()));
+                                MaterialPageRoute(builder: (context) => KYCSelectionScreen()));
 
                             setState(() {
                               progress = false;

@@ -12,10 +12,10 @@ class EvAddressTabBar extends StatefulWidget {
   final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
       carModelName, carMakesName, carMakesImage, carRating, carOwnerImage,
       carOwnerName, discountPercentage, evStartDate, evEndDate, favouriteStatus;
-  final int? carId, carOwnerId;
+  final int? carId, carOwnerId, mileagePlanID;
   final String? carDiscountPrice;
 
-  EvAddressTabBar({Key? key, this.totalAmount, this.carName, this.evStartDate,
+  EvAddressTabBar({Key? key, this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate,
     this.favouriteStatus, this.evEndDate, this.carColorName, this.carModelName,
     this.carId, this.carPrice, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
@@ -145,7 +145,7 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
                   mySelectedTabMonth: widget.mySelectedTabMonth,
                   mySelectedTabPrice: widget.mySelectedTabPrice,
                   totalAmount: widget.totalAmount,
-
+                  mileagePlanID: widget.mileagePlanID,
                   favouriteStatus: widget.favouriteStatus,
                   evStartDate: widget.evStartDate,
                   evEndDate: widget.evEndDate,

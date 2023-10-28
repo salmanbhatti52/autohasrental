@@ -105,7 +105,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
   // int selectedIndex = 0;
   String? tabSelectMonth, tabSelectedPrice, carLikeStatus, selectedMileagePlan;
   String? carOwnerName, carOwnerImage;
-  int? carOwnerId;
+  int? carOwnerId, mileagePlanID;
 
   // getEvSubscriptionCarsWidget() async {
   //   loadingP = true;
@@ -427,6 +427,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                       return GestureDetector(
                           onTap: () {
                             selectedMileagePlan = getMileagePlansModel.data?[index].plansMileageDescription;
+                            mileagePlanID = getMileagePlansModel.data?[index].plansMileageId;
                             selectMileageIndex = getMileagePlansModel.data![index].plansMileageId!.toInt();
                             monthSelect();
                           },
@@ -482,6 +483,10 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                       MaterialPageRoute(
                         builder: (context) => EvDescriptionDetailsPage(
                           getMileagePlansModel: getMileagePlansModel.data,
+                          mileagePlanID: mileagePlanID == null
+                              ? getMileagePlansModel
+                              .data![0].plansMileageId
+                              : mileagePlanID,
                           selectedMileagePlan: selectedMileagePlan == null
                               ? getMileagePlansModel
                                   .data![0].plansMileageDescription
@@ -821,11 +826,8 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                     borderRadius: BorderRadius.circular(25.0),
                   ),
                   onTap: (index) {
-                    selectedMileagePlan = getMileagePlansModel
-                        .data?[index].plansMileageDescription;
-                    selectMileageIndex = getMileagePlansModel
-                        .data![index].plansMileageId!
-                        .toInt();
+                    selectedMileagePlan = getMileagePlansModel.data?[index].plansMileageDescription;
+                    selectMileageIndex = getMileagePlansModel.data![index].plansMileageId!.toInt();
                     monthSelect();
                   },
                   tabs: List<Widget>.generate(getMileagePlansModel.data!.length,

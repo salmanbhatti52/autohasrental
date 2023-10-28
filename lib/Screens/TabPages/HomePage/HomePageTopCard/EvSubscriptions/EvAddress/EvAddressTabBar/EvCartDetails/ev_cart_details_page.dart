@@ -27,10 +27,10 @@ class EvCartDetailsPage extends StatefulWidget {
 
  final String? homeAddress1, homeAddress2, homeCity, homePostCode, homeState, homeCountry,
   billingAddress1, billingAddress2, billingCity, billingPostCode, billingState, billingCountry;
-  final int? carId, carOwnerId;
+  final int? carId, carOwnerId, mileagePlanID;
   final String? carDiscountPrice;
 
-  EvCartDetailsPage({Key? key, this.totalAmount, this.carName, this.evStartDate, this.evEndDate,
+  EvCartDetailsPage({Key? key, this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate, this.evEndDate,
     this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
     this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
@@ -109,6 +109,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     request.fields['users_customers_id'] = '$userId';
     request.fields['cars_id'] = '$carID';
     request.fields['plan_start_date'] = widget.evStartDate!;
+    request.fields['plans_mileage_id'] = widget.mileagePlanID.toString();
     request.fields['plan_end_date'] = widget.evEndDate!;
     request.fields['months'] = "$myMonth";
     request.fields['price_per_month'] = "$myDiscountedAmount";
