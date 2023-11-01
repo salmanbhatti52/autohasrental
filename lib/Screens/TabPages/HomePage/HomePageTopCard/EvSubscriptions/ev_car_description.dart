@@ -405,18 +405,10 @@ class _EVCarDescriptionState extends State<EVCarDescription>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
-              child: Text("Choose Mileage Package",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: kBlack, fontSize: 14, fontFamily: poppinSemiBold)),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 10),
               child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 35,
-                // child: mileagePlansList(),
+                width:  MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.07,
                 child: getMileagePlansModel.data != null
                     ? ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -431,14 +423,25 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                             selectMileageIndex = getMileagePlansModel.data![index].plansMileageId!.toInt();
                             monthSelect();
                           },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.35,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: isSelected  ? borderColor : homeBgColor,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Center(child: Text(mileagePlan.plansMileageDescription.toString()),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            decoration: BoxDecoration(
+                              color: isSelected  ? borderColor : homeBgColor,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(mileagePlan.plansMileageDescription.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: kBlack,
+                                      fontSize: 14,
+                                      fontFamily: poppinMedium
+                                  )),
+                            ),
                           ),
                         ),
                       );

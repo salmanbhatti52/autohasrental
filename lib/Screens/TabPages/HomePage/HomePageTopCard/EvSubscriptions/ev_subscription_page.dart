@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 import 'ev_car_description.dart';
 import 'package:flutter_svg/svg.dart';
@@ -437,7 +438,10 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                   carColorName: evCarsModelObject.data![index].carsColors!.name,
                                   carMakesName: evCarsModelObject.data![index].carsMakes!.name,
                                   carModelName: evCarsModelObject.data![index].carsModels!.name,
-                                  carImage: "$baseUrlImage${evCarsModelObject.data![index].image1}",
+                                  // carImage: "$baseUrlImage${evCarsModelObject.data![index].image1}",
+                                  carImage: evCarsModelObject.data![index].image1!.endsWith('.jpg') || evCarsModelObject.data![index].image1!.endsWith('.png') || evCarsModelObject.data![index].image1!.endsWith('.jpeg')
+                                      ? "$baseUrlImage${evCarsModelObject.data?[index].image1}"
+                                      : evCarsModelObject.data?[index].image1,
                                   carRating: evCarsModelObject.data![index].rating,
                                   carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
                                   carStatus: evCarsModelObject.data![index].favouriteStatus,
@@ -473,19 +477,54 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                       ],
                     ),
                   ),
+                  // Positioned(
+                  //   left: 20, right: 20,top: 30,
+                  //   child: evCarsModelObject.data![index].image1 == null ?
+                  //   ClipRRect(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       child: Image.asset('assets/icon/fade_in_image.jpeg')) :
+                  //   ClipRRect(
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     child: FadeInImage(
+                  //       placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
+                  //       width: MediaQuery.of(context).size.width * 0.3,
+                  //       height: MediaQuery.of(context).size.height * 0.15,
+                  //       image: NetworkImage("$baseUrlImage${evCarsModelObject.data![index].image1}"),),
+                  //   ),
+                  // ),
                   Positioned(
-                    left: 20, right: 20,top: 30,
-                    child: evCarsModelObject.data![index].image1 == null ?
-                    ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset('assets/icon/fade_in_image.jpeg')) :
-                    ClipRRect(
+                    left: 20, right: 20,top: 0,
+                    child: evCarsModelObject.data![index].image1 == null
+                        ? ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                    )
+                        : evCarsModelObject.data![index].image1!.endsWith('.jpg') || evCarsModelObject.data![index].image1!.endsWith('.png') || evCarsModelObject.data![index].image1!.endsWith('.jpeg')
+                        ? ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: FadeInImage(
-                        placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
-                        width: MediaQuery.of(context).size.width * 0.3,
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        image: NetworkImage("$baseUrlImage${evCarsModelObject.data![index].image1}"),),
+                        placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                        height: 65,
+                        image: NetworkImage("$baseUrlImage${evCarsModelObject.data?[index].image1}"),
+                      ),
+                    )
+                        : Container(
+                      height: 180,
+                      child: ModelViewer(
+                        cameraOrbit: Clipboard.kTextPlain,
+                        backgroundColor: Colors.transparent,
+                        src: '${evCarsModelObject.data?[index].image1}',
+                        alt: "A 3D model of car",
+                        autoPlay: false,
+                        autoRotate: false,
+                        cameraControls: false,
+                        disableTap: false,
+                        ar: false,
+                        disablePan: true,
+                        arModes: ["quicklook", "scene-viewer"],
+                        iosSrc: "${evCarsModelObject.data?[index].image1}",
+                        disableZoom: true,
+                      ),
                     ),
                   ),
                   Positioned(

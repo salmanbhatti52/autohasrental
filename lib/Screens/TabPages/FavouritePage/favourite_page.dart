@@ -3,7 +3,9 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/HomePageModels/FavoritesModel/favorite_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
@@ -358,18 +360,53 @@ class _FavoritePageState extends State<FavoritePage> {
                             ),
                           ),
                         ),
+                        // Positioned(
+                        //   left: 30, right: 30, top: 30,
+                        //   child: favoriteCarModelObject.data![index].image1 == null
+                        //       ? ClipRRect(
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       child: Image.asset('assets/icon/fade_in_image.jpeg'))
+                        //       : ClipRRect(
+                        //     borderRadius: BorderRadius.circular(10),
+                        //     child: FadeInImage(
+                        //         placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                        //         width: 350, height: 100,
+                        //         image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}")),
+                        //   ),
+                        // ),
                         Positioned(
                           left: 30, right: 30, top: 30,
                           child: favoriteCarModelObject.data![index].image1 == null
                               ? ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.asset('assets/icon/fade_in_image.jpeg'))
-                              : ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                          )
+                              : favoriteCarModelObject.data![index].image1!.endsWith('.jpg') || favoriteCarModelObject.data![index].image1!.endsWith('.png') || favoriteCarModelObject.data![index].image1!.endsWith('.jpeg')
+                              ? ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: FadeInImage(
-                                placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-                                width: 350, height: 100,
-                                image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}")),
+                              placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                              height: 65,
+                              image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}"),
+                            ),
+                          )
+                              : Container(
+                            height: 130,
+                            child: ModelViewer(
+                              cameraOrbit: Clipboard.kTextPlain,
+                              backgroundColor: Colors.transparent,
+                              src: '${favoriteCarModelObject.data![index].image1}',
+                              alt: "A 3D model of car",
+                              autoPlay: false,
+                              autoRotate: false,
+                              cameraControls: false,
+                              disableTap: false,
+                              ar: false,
+                              disablePan: true,
+                              arModes: ["quicklook", "scene-viewer"],
+                              iosSrc: "${favoriteCarModelObject.data![index].image1}",
+                              disableZoom: true,
+                            ),
                           ),
                         ),
                         Positioned(

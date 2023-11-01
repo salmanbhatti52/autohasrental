@@ -1152,7 +1152,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
                                         Positioned(
-                                          top: 30,
+                                          top: 0,
                                           left: 10,
                                           right: 10,
                                           child: widget.filterCarByAttributeModelObject!.data?[index].image1 == null
@@ -1170,7 +1170,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           )
                                               : Container(
-                                            height: 100,
+                                            height: 130,
                                             child: ModelViewer(
                                               backgroundColor: Colors.transparent,
                                               // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
@@ -1178,7 +1178,7 @@ class _HomePageState extends State<HomePage> {
                                               alt: "A 3D model of car",
                                               autoPlay: false,
                                               autoRotate: false,
-                                              cameraControls: true,
+                                              cameraControls: false,
                                               disableTap: false,
                                               ar: false,
                                               disablePan: true,
@@ -1946,7 +1946,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       Positioned(
-                                        top: 30,
+                                        top: 0,
                                         left: 10,
                                         right: 10,
                                         child:widget.filterCarByAttributeModelObject!.data?[index].image1 == null
@@ -1964,7 +1964,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         )
                                             : Container(
-                                          height: 100,
+                                          height: 130,
                                           child: ModelViewer(
                                             backgroundColor: Colors.transparent,
                                             // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
@@ -1972,7 +1972,7 @@ class _HomePageState extends State<HomePage> {
                                             alt: "A 3D model of car",
                                             autoPlay: false,
                                             autoRotate: false,
-                                            cameraControls: true,
+                                            cameraControls: false,
                                             disableTap: false,
                                             ar: false,
                                             disablePan: true,
@@ -2740,7 +2740,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Positioned(
-                                  top: 30,
+                                  top: 0,
                                   left: 10,
                                   right: 10,
                                   child: topRentedCarsModelObject.data?[index].image1 == null
@@ -2758,14 +2758,14 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   )
                                       : Container(
-                                    height: 100,
+                                    height: 130,
                                         child: ModelViewer(
                                           backgroundColor: Colors.transparent,
                                           src: '${topRentedCarsModelObject.data?[index].image1}',
                                           alt: "A 3D model of car",
                                           autoPlay: false,
                                           autoRotate: false,
-                                          cameraControls: false, // Set cameraControls to false to disable user interaction
+                                          cameraControls: false,
                                           disableTap: false,
                                           ar: false,
                                           disablePan: true,
@@ -3478,7 +3478,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Positioned(
-                                  top: 30,
+                                  top: 0,
                                   left: 10,
                                   right: 10,
                                   child: topRentedCarsModelObject.data?[index].image1 == null
@@ -3496,7 +3496,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   )
                                       : Container(
-                                    height: 100,
+                                    height: 130,
                                     child: ModelViewer(
                                       backgroundColor: Colors.transparent,
                                       // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
@@ -3504,7 +3504,7 @@ class _HomePageState extends State<HomePage> {
                                       alt: "A 3D model of car",
                                       autoPlay: false,
                                       autoRotate: false,
-                                      cameraControls: true,
+                                      cameraControls: false,
                                       disableTap: false,
                                       ar: false,
                                       disablePan: true,
@@ -4268,7 +4268,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                           Positioned(
-                                            top: 30,
+                                            top: 0,
                                             left: 10,
                                             right: 10,
                                             child: searchModelObject.data?[index].image1 == null
@@ -4286,7 +4286,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             )
                                                 : Container(
-                                              height: 100,
+                                              height: 130,
                                               child: ModelViewer(
                                                 backgroundColor: Colors.transparent,
                                                 // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
@@ -4294,7 +4294,7 @@ class _HomePageState extends State<HomePage> {
                                                 alt: "A 3D model of car",
                                                 autoPlay: false,
                                                 autoRotate: false,
-                                                cameraControls: true,
+                                                cameraControls: false,
                                                 disableTap: false,
                                                 ar: false,
                                                 disablePan: true,
@@ -5058,7 +5058,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                           Positioned(
-                                            top: 30,
+                                            top: 0,
                                             left: 10,
                                             right: 10,
                                             child: searchModelObject.data?[index].image1 == null
@@ -5076,7 +5076,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             )
                                                 : Container(
-                                              height: 100,
+                                              height: 130,
                                               child: ModelViewer(
                                                 backgroundColor: Colors.transparent,
                                                 // src: '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
@@ -5084,7 +5084,7 @@ class _HomePageState extends State<HomePage> {
                                                 alt: "A 3D model of car",
                                                 autoPlay: false,
                                                 autoRotate: false,
-                                                cameraControls: true,
+                                                cameraControls: false,
                                                 disableTap: false,
                                                 ar: false,
                                                 disablePan: true,

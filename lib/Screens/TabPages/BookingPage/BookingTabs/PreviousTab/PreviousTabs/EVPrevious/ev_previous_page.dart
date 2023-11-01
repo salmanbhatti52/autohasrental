@@ -6,6 +6,8 @@ import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../HomePage/HomePageTopCard/EvSubscriptions/ev_car_description.dart';
@@ -420,11 +422,46 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                           },
                             child: Image.asset("assets/car_bookings_images/more_button.png")),
                       ),
+                      // Positioned(
+                      //   left: 20, right: 20,top: 30,
+                      //   child: Image.network("$baseUrlImage${evPreviousObject.data![reversedindex].carsDetails!.image1}",
+                      //       width: MediaQuery.of(context).size.width * 0.3,
+                      //       height: MediaQuery.of(context).size.height * 0.1),
+                      // ),
                       Positioned(
-                        left: 20, right: 20,top: 30,
-                        child: Image.network("$baseUrlImage${evPreviousObject.data![reversedindex].carsDetails!.image1}",
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            height: MediaQuery.of(context).size.height * 0.1),
+                        left: 20, right: 20,top: 0,
+                        child: evPreviousObject.data![reversedindex].carsDetails!.image1 == null
+                            ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                        )
+                            : evPreviousObject.data![reversedindex].carsDetails!.image1!.endsWith('.jpg') || evPreviousObject.data![reversedindex].carsDetails!.image1!.endsWith('.png') || evPreviousObject.data![reversedindex].carsDetails!.image1!.endsWith('.jpeg')
+                            ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: FadeInImage(
+                            placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                            height: 65,
+                            image: NetworkImage("$baseUrlImage${evPreviousObject.data![reversedindex].carsDetails!.image1}"),
+                          ),
+                        )
+                            : Container(
+                          height: 130,
+                          child: ModelViewer(
+                            cameraOrbit: Clipboard.kTextPlain,
+                            backgroundColor: Colors.transparent,
+                            src: '${evPreviousObject.data![reversedindex].carsDetails!.image1}',
+                            alt: "A 3D model of car",
+                            autoPlay: false,
+                            autoRotate: false,
+                            cameraControls: false,
+                            disableTap: false,
+                            ar: false,
+                            disablePan: true,
+                            arModes: ["quicklook", "scene-viewer"],
+                            iosSrc: "${evPreviousObject.data![reversedindex].carsDetails!.image1}",
+                            disableZoom: true,
+                          ),
+                        ),
                       ),
                       Positioned(
                           top: 10, left: 15,
