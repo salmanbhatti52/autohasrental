@@ -161,6 +161,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
     super.initState();
     getEvSubscriptionCarsWidget();
     perMonthCalculate();
+    print("mileageID ${widget.mileagePlanID}");
     tabMonth = widget.mySelectedTabMonth;
     tabPrice = widget.mySelectedTabPrice;
     print("evCarID $carID");

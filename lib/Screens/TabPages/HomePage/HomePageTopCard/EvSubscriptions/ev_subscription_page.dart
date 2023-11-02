@@ -509,9 +509,9 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                       ),
                     )
                         : Container(
-                      height: 180,
+                      height: MediaQuery.of(context).size.height * 0.24,
                       child: ModelViewer(
-                        cameraOrbit: Clipboard.kTextPlain,
+                        // cameraOrbit: Clipboard.kTextPlain,
                         backgroundColor: Colors.transparent,
                         src: '${evCarsModelObject.data?[index].image1}',
                         alt: "A 3D model of car",

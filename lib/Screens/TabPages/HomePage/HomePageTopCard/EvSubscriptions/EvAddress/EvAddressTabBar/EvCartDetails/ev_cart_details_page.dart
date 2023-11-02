@@ -175,6 +175,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("mileageID ${widget.mileagePlanID}");
     myMonth = widget.mySelectedTabMonth;
     myDiscountedAmount = widget.mySelectedTabPrice;
     myTotalAmount = widget.totalAmount;

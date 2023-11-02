@@ -309,9 +309,9 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                           ),
                         )
                             : Container(
-                          height: 130,
+                          height: MediaQuery.of(context).size.height * 0.22,
                           child: ModelViewer(
-                            cameraOrbit: Clipboard.kTextPlain,
+                            // cameraOrbit: Clipboard.kTextPlain,
                             backgroundColor: Colors.transparent,
                             src: '${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}',
                             alt: "A 3D model of car",

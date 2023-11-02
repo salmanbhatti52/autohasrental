@@ -445,9 +445,9 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                           ),
                         )
                             : Container(
-                          height: 130,
+                          height: MediaQuery.of(context).size.height * 0.22,
                           child: ModelViewer(
-                            cameraOrbit: Clipboard.kTextPlain,
+                            // cameraOrbit: Clipboard.kTextPlain,
                             backgroundColor: Colors.transparent,
                             src: '${evPreviousObject.data![reversedindex].carsDetails!.image1}',
                             alt: "A 3D model of car",

@@ -375,7 +375,7 @@ class _FavoritePageState extends State<FavoritePage> {
                         //   ),
                         // ),
                         Positioned(
-                          left: 30, right: 30, top: 30,
+                          left: 30, right: 30, top: 0,
                           child: favoriteCarModelObject.data![index].image1 == null
                               ? ClipRRect(
                             borderRadius: BorderRadius.circular(10),
@@ -391,9 +391,8 @@ class _FavoritePageState extends State<FavoritePage> {
                             ),
                           )
                               : Container(
-                            height: 130,
+                            height: MediaQuery.of(context).size.height * 0.24,
                             child: ModelViewer(
-                              cameraOrbit: Clipboard.kTextPlain,
                               backgroundColor: Colors.transparent,
                               src: '${favoriteCarModelObject.data![index].image1}',
                               alt: "A 3D model of car",
