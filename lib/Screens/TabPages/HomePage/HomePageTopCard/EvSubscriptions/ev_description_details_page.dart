@@ -590,7 +590,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                   fontSize: 10,
                                   decoration: TextDecoration.lineThrough)),
                         ],
-                      ) : SizedBox(),
+                      )
+                          : SizedBox(),
                       SizedBox(width: screenWidth * 0.01),
                       Padding(
                         padding: EdgeInsets.only(top: 06),
@@ -735,7 +736,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                           fontFamily: poppinRegular)),
                 ],
               ),
-            )) : SizedBox(),
+            ))
+            : SizedBox(),
         Positioned(
           top: 28,
           right: 27,

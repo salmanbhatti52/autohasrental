@@ -463,7 +463,8 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                           ),
                         ),
                       ),
-                      Positioned(
+                      evPreviousObject.data![reversedindex].carsDetails!.discountPercentage != "0.00"
+                      ? Positioned(
                           top: 10, left: 15,
                           child: Container(
                             height: MediaQuery.of(context).size.width * 0.07,
@@ -486,7 +487,8 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                   fontWeight: FontWeight.w300, fontFamily: 'Poppins')),
                               ],
                             ),
-                          )),
+                          ))
+                      : Positioned(top: 10, left: 15, child: SizedBox()),
 
                       // Positioned(
                       //     top: 10, right: 15,

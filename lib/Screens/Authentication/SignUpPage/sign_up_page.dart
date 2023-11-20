@@ -144,7 +144,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "assets/images/license.png",
+                            "assets/intro_images/license.png",
                           ),
                           SizedBox(
                             width: 10,
@@ -174,7 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Image.asset(
-                              "assets/images/license.png",
+                              "assets/intro_images/license.png",
                             ),
                             SizedBox(
                               width: 10,

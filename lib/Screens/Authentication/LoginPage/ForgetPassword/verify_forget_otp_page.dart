@@ -176,7 +176,7 @@ class _VerifyForgetOTPPageState extends State<VerifyForgetOTPPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset("assets/images/timer.png"),
+                      Image.asset("assets/intro_images/timer.png"),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(" Expire on 02:00",
                         style: TextStyle(color: Color(0xffFF6666),

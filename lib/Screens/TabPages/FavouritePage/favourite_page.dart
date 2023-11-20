@@ -317,16 +317,18 @@ class _FavoritePageState extends State<FavoritePage> {
                                             SizedBox(height: screenHeight * 0.005),
                                             Row(
                                               children: [
-                                                Padding(
+                                                favoriteCarModelObject.data![index].discountPercentage != "0.00" ? Padding(
                                                   padding: EdgeInsets.only(top: 04),
                                                   child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
                                                       color: kRed, fontSize: 5, fontFamily: poppinRegular)),
-                                                ),
+                                                ) : SizedBox(),
                                                 favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
-                                                favoriteCarModelObject.data![index].carsUsageType == "Photography"?
-                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
-                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
+                                                favoriteCarModelObject.data![index].discountPercentage != "0.00" ? originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"): SizedBox() : SizedBox(),
+                                                // favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                                                // originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
+                                                // favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                                                // originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
+                                                // originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
                                                 SizedBox(width: 5),
                                                 Padding(
                                                   padding: EdgeInsets.only(top: 06),
@@ -408,7 +410,8 @@ class _FavoritePageState extends State<FavoritePage> {
                             ),
                           ),
                         ),
-                        Positioned(
+                        favoriteCarModelObject.data![index].discountPercentage != "0.00"
+                        ? Positioned(
                             top: 10, left: 15,
                             child: Container(
                               height: MediaQuery.of(context).size.width * 0.07,
@@ -429,7 +432,8 @@ class _FavoritePageState extends State<FavoritePage> {
                                       color: kWhite, fontSize: 8, fontFamily: poppinSemiBold)),
                                 ],
                               ),
-                            )),
+                            ))
+                        : Positioned(top: 10, left: 15, child: SizedBox()),
                         Positioned(
                             top: 10, right: 15,
                             child: GestureDetector(

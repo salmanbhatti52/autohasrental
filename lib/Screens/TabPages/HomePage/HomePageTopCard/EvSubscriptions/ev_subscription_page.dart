@@ -372,17 +372,21 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                       ),
                                       Row(
                                         children: [
-                                          Padding(
-                                            padding:  EdgeInsets.only(top: 04),
-                                            child: Text("RM",  textAlign: TextAlign.left,
-                                              style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinRegular),),
-                                          ),
-                                          Text("${evCarsModelObject.data![index].carsPlans![0].pricePerMonth}",
-                                              textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kRed, decoration: TextDecoration.lineThrough,
-                                                  decorationColor: kRed, decorationThickness: 3,
-                                                  fontSize: 10, fontFamily: poppinLight, height: 2)),
-                                           SizedBox(width: 5),
+                                          evCarsModelObject.data![index].discountPercentage != "0.00" ? Row(
+                                            children: [
+                                              Padding(
+                                                padding:  EdgeInsets.only(top: 04),
+                                                child: Text("RM",  textAlign: TextAlign.left,
+                                                  style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinRegular),),
+                                              ),
+                                              Text("${evCarsModelObject.data![index].carsPlans![0].pricePerMonth}",
+                                                  textAlign: TextAlign.left, style: TextStyle(
+                                                      color: kRed, decoration: TextDecoration.lineThrough,
+                                                      decorationColor: kRed, decorationThickness: 3,
+                                                      fontSize: 10, fontFamily: poppinLight, height: 2)),
+                                              SizedBox(width: 5),
+                                            ],
+                                          ) : SizedBox(),
                                           Padding(
                                             padding:  EdgeInsets.only(top: 06),
                                             child: Text("RM",  textAlign: TextAlign.left,
@@ -527,7 +531,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                       ),
                     ),
                   ),
-                  Positioned(
+                  evCarsModelObject.data![index].discountPercentage != "0.00" ? Positioned(
                       top: 10, left: 10,
                       child: Container(
                         height: MediaQuery.of(context).size.width * 0.07,
@@ -548,7 +552,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                 color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
                           ],
                         ),
-                      )),
+                      )) : Positioned( top: 10, left: 10,child: SizedBox()),
                   Positioned(
                     top: 15, right: 15,
                     child: evCarsModelObject.data![index].favouriteStatus == "like"?

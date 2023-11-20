@@ -235,7 +235,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "assets/images/timer.png",
+                        "assets/intro_images/timer.png",
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(

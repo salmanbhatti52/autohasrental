@@ -343,7 +343,7 @@ var start;
               decoration: BoxDecoration(
                 color: Color(0xff3d4a68),
                 image: DecorationImage(
-                    image: AssetImage('assets/images/background.png'),
+                    image: AssetImage('assets/intro_images/background.png'),
                     fit: BoxFit.cover),
               ),
               child: Column(
@@ -376,7 +376,7 @@ var start;
                       ],
                     ),
                   ),
-                  Image.asset("assets/images/crown_image.png"),
+                  Image.asset("assets/intro_images/crown_image.png"),
                   RichText(
                     text: TextSpan(text: 'Track Day Session \n', style: TextStyle(
                         fontSize: 25, fontFamily: poppinMedium, color: kWhite),
@@ -393,7 +393,7 @@ var start;
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  Image.asset("assets/images/crown_images_two.png")
+                  Image.asset("assets/intro_images/crown_images_two.png")
                 ],
               ),
             ),

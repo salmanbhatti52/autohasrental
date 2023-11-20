@@ -280,18 +280,24 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                 // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 04),
-                                      child: Text("RM ", textAlign: TextAlign.left,
-                                        style: TextStyle(color: kRed,
-                                            fontSize: 5, fontFamily: poppinLight)),
-                                    ),
-                                    Text("${widget.carPrice}", textAlign: TextAlign.left,
-                                      style: TextStyle(color: kRed,
-                                          decoration: TextDecoration.lineThrough,
-                                          fontSize: 10, fontFamily: poppinLight),
-                                    ),
-                                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                                    widget.discountPercentage != "0.00"
+                                    ? Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 04),
+                                          child: Text("RM ", textAlign: TextAlign.left,
+                                              style: TextStyle(color: kRed,
+                                                  fontSize: 5, fontFamily: poppinLight)),
+                                        ),
+                                        Text("${widget.carPrice}", textAlign: TextAlign.left,
+                                          style: TextStyle(color: kRed,
+                                              decoration: TextDecoration.lineThrough,
+                                              fontSize: 10, fontFamily: poppinLight),
+                                        ),
+                                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                                      ],
+                                    )
+                                    : SizedBox(),
                                     Padding(
                                       padding: EdgeInsets.only(top: 06),
                                       child: Text("RM ", textAlign: TextAlign.left,
@@ -508,7 +514,8 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                         ),
                       ),
                     ),
-                    Positioned(
+                    widget.discountPercentage != "0.00"
+                        ? Positioned(
                         top: 0, left: 20,
                         child: Container(
                           height: MediaQuery.of(context).size.width * 0.07,
@@ -533,7 +540,8 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                               ),
                             ],
                           ),
-                        )),
+                        ))
+                    : Positioned( top: 0, left: 20, child: SizedBox()),
                     Positioned(
                         top: 0, right: 20,
                         child: widget.favouriteStatus == 'like'?
