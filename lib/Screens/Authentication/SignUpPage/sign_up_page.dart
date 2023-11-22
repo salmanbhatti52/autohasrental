@@ -324,6 +324,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => VerifyPhonePage(
+                                      email: signUpModel.data?[0].email,
                                           userId: signUpModel
                                               .data![0].usersCustomersId
                                               .toString(),

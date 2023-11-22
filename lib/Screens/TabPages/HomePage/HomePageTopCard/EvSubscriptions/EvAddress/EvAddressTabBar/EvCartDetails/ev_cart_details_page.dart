@@ -20,7 +20,7 @@ import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class EvCartDetailsPage extends StatefulWidget {
   final String? mySelectedTabMonth, mySelectedTabPrice;
-  final double? totalAmount;
+  final String? totalAmount, setupCost;
   final String? carName, carImage, carYear, carPrice, carStatus,favouriteStatus,
       carColorName, carModelName, carMakesName, carMakesImage, carRating, carOwnerImage,
       carOwnerName, discountPercentage, evStartDate, evEndDate;
@@ -30,7 +30,7 @@ class EvCartDetailsPage extends StatefulWidget {
   final int? carId, carOwnerId, mileagePlanID;
   final String? carDiscountPrice;
 
-  EvCartDetailsPage({Key? key, this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate, this.evEndDate,
+  EvCartDetailsPage({Key? key, this.setupCost,  this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate, this.evEndDate,
     this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
     this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
@@ -100,6 +100,12 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
       loader = true;
     });
     var request = http.MultipartRequest('POST', Uri.parse(checkOutDrivingApiUrl));
+    String? formattedTotalAmount = myTotalAmount?.replaceAll(',', '');
+    String? formattedPerMonth = myTotalAmount?.replaceAll(',', '');
+    print("Formatted total amount: $formattedTotalAmount");
+    myTotalAmount = formattedTotalAmount;
+    myDiscountedAmount = formattedPerMonth;
+    print(myTotalAmount);
 
     Map<String, String> headers = {
       'Accept' : 'application/json',
@@ -112,9 +118,9 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     request.fields['plans_mileage_id'] = widget.mileagePlanID.toString();
     request.fields['plan_end_date'] = widget.evEndDate!;
     request.fields['months'] = "$myMonth";
-    request.fields['price_per_month'] = "$myDiscountedAmount";
+    request.fields['price_per_month'] = "$formattedPerMonth";
     request.fields['discount_percentage'] = "${widget.discountPercentage}";
-    request.fields['total_cost'] = "$myTotalAmount";
+    request.fields['total_cost'] = "$formattedTotalAmount";
     request.fields['addresses'] = "$addressAvailableStatus";
     request.fields['home_street_address_line1'] = "${widget.homeAddress1}";
     request.fields['home_street_address_line2'] = "${widget.homeAddress2}";
@@ -146,8 +152,8 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print('plan_start_date: ${widget.evStartDate}');
     print('plan_end_date: ${widget.evEndDate}');
     print('months: $myMonth');
-    print('totalCost: $myTotalAmount');
-    print('pricePerHour: $myDiscountedAmount');
+    print('totalCost: $formattedTotalAmount');
+    print('pricePerHour: $formattedPerMonth');
     print('discountPercentage: ${widget.discountPercentage}');
     print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
     print("addressAvailableStatus $addressAvailableStatus");
@@ -168,7 +174,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
 
   }
   String? myMonth, myDiscountedAmount;
-  double? myTotalAmount;
+  String? myTotalAmount;
   String? myHomeAddress1, myHomeAddress2, myHomeCity, myHomePostCode, myHomeState, myHomeCountry;
 
   @override
@@ -179,6 +185,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     myMonth = widget.mySelectedTabMonth;
     myDiscountedAmount = widget.mySelectedTabPrice;
     myTotalAmount = widget.totalAmount;
+    print("myTotalAmount $myTotalAmount");
     mySelectedData();
   }
   mySelectedData(){
@@ -240,7 +247,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.7,
+                          height: MediaQuery.of(context).size.height * 0.73,
                           width: MediaQuery.of(context).size.width * 0.47,
                           decoration: BoxDecoration(
                               color: kWhite,
@@ -379,6 +386,19 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                     Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),
+                                  ],
+                                ),
+                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Setup Cost",
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(color: textLabelColor,
+                                            fontSize: 14, fontFamily: poppinRegular)),
+                                    Text("RM ${widget.setupCost}", textAlign: TextAlign.right,
+                                        style: TextStyle(color: textLabelColor,
+                                            fontSize: 14, fontFamily: poppinRegular)),
                                   ],
                                 ),
                                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),

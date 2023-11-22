@@ -8,7 +8,7 @@ import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_hea
 class EvDeliveryAddress extends StatefulWidget {
 
   final String? mySelectedTabMonth, mySelectedTabPrice;
-  final double? totalAmount;
+  final String? totalAmount , setupCost;
 
   final String? carName, carImage, carYear, carPrice, carStatus, carRating,
       favouriteStatus, carColorName, carModelName, carMakesName, carOwnerName,
@@ -17,7 +17,7 @@ class EvDeliveryAddress extends StatefulWidget {
   final String? carDiscountPrice;
   final double?  serviceFee;
 
-  EvDeliveryAddress({Key? key, this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate,
+  EvDeliveryAddress({Key? key, this.setupCost, this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate,
     this.evEndDate, this.favouriteStatus, this.carColorName, this.carId,
     this.carModelName, this.discountPercentage, this.carDiscountPrice, this.serviceFee,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
@@ -61,6 +61,7 @@ class _EvDeliveryAddressState extends State<EvDeliveryAddress> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
               EvAddressTabBar(
+                setupCost: widget.setupCost,
                 mySelectedTabMonth: widget.mySelectedTabMonth,
                 mySelectedTabPrice: widget.mySelectedTabPrice,
                 mileagePlanID: widget.mileagePlanID,

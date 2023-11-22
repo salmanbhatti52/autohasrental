@@ -30,6 +30,7 @@ class Datum {
   int? plansMileageId;
   int? months;
   String? pricePerMonth;
+  String? setupCost;
 
   Datum({
     this.carsPlansEvId,
@@ -37,6 +38,7 @@ class Datum {
     this.plansMileageId,
     this.months,
     this.pricePerMonth,
+    this.setupCost
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -45,6 +47,7 @@ class Datum {
     plansMileageId: json["plans_mileage_id"],
     months: json["months"],
     pricePerMonth: json["price_per_month"],
+    setupCost: json["setup_cost"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -53,5 +56,6 @@ class Datum {
     "plans_mileage_id": plansMileageId,
     "months": months,
     "price_per_month": pricePerMonth,
+    "setup_cost": setupCost,
   };
 }

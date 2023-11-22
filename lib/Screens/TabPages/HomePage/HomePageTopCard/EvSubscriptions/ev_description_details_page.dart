@@ -22,7 +22,7 @@ import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev
 class EvDescriptionDetailsPage extends StatefulWidget {
   List<Datum>? getMileagePlansModel;
   final String? mySelectedTabMonth, mySelectedTabPrice, selectedMileagePlan;
-  final String? carName,
+  final String? carName, setupCost,
       carImage,
       carYear,
       carPrice,
@@ -42,6 +42,7 @@ class EvDescriptionDetailsPage extends StatefulWidget {
   EvDescriptionDetailsPage(
       {Key? key,
       this.carName,
+        this.setupCost,
         this.mileagePlanID,
         this.getMileagePlansModel,
       this.carMakesName,
@@ -86,6 +87,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
      double value2 = double.parse(widget.mySelectedTabPrice.toString());
      double perMonths = value2 / value1;
      String formattedPerMonth = perMonths.toStringAsFixed(2);
+     NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+     formattedPerMonth = format.format(perMonths);
      print("1 $value1");
      print("2 $value2");
      print("perMonth $perMonths");
@@ -164,6 +167,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
     print("mileageID ${widget.mileagePlanID}");
     tabMonth = widget.mySelectedTabMonth;
     tabPrice = widget.mySelectedTabPrice;
+    print("tabPrice $tabPrice");
     print("evCarID $carID");
     print("tabMonthAndPrice $tabMonth $tabPrice");
     print("carModelName ${widget.carModelName}");
@@ -174,13 +178,34 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
   }
 
   double totalAmount = 0.0;
-
+  double setupCosts = 0.0;
+  String formattedServiceFee = "";
   myTotalAmount() {
     myServiceFee = (percentage! / 100) * double.parse("$tabPrice");
     print("myServiceFee $myServiceFee");
     print("tabMonthAndPrice11 $tabMonth $tabPrice");
-    totalAmount = double.parse("$tabPrice") + myServiceFee!;
+    setupCosts = double.parse(widget.setupCost.toString());
+    totalAmount = double.parse("$tabPrice") + myServiceFee! + setupCosts;
+    double tabPriceAsDouble = double.parse(tabPrice ?? '0');
+    NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+    String formattedTabPrice = format.format(tabPriceAsDouble);
+    tabPrice = formattedTabPrice;
+    print("Formatted tabPrice: $tabPrice");
     print("selectedMonthTotal: $totalAmount");
+    var pricePerMonthString = totalAmount;
+    double pricePerMonth;
+    if (pricePerMonthString != null) {
+      pricePerMonth = double.parse(pricePerMonthString.toString());
+      if (pricePerMonth != null) {
+        final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+        formattedServiceFee = numberFormat.format(pricePerMonth);
+        // print("RM $formattedPrice");
+      } else {
+        print("Invalid price format");
+      }
+    } else {
+      print("Price not available");
+    }
 
     evStartDate?.isEmpty;
     evEndDate?.isEmpty;
@@ -436,13 +461,14 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               EvDeliveryAddress(
+                                                setupCost: widget.setupCost,
                                                 evStartDate: evStartDate,
                                                 mileagePlanID: widget.mileagePlanID,
                                                 evEndDate: enddate1,
                                                 // evDatum: widget.evDatum,
                                                 mySelectedTabMonth: tabMonth,
                                                 mySelectedTabPrice: tabPrice,
-                                                totalAmount: totalAmount,
+                                                totalAmount: formattedServiceFee.toString(),
                                                 favouriteStatus:
                                                     widget.favouriteStatus,
 
@@ -1094,11 +1120,29 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Text("Setup Cost",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: poppinRegular,
+                      color: detailsTextColor)),
+              Text("RM ${widget.setupCost}",
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: poppinRegular,
+                      color: detailsTextColor)),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Text("Total Amount",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),
-              Text("RM $totalAmount",
+              Text("RM $formattedServiceFee",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontSize: 16, fontFamily: poppinSemiBold, color: kBlack)),

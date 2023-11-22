@@ -243,7 +243,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                               // "${upcomingBookingModelObject.data![index].carsPlans![0].pricePerHour}",
                                               Text("${evUpcomingModelObject.data![reversedIndex].carsPlans![0].pricePerMonth}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                              Text("/Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+                                              Text("/", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
                                               showRatingStars(double.parse("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}")),
 
@@ -292,6 +292,8 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                       //       width: MediaQuery.of(context).size.width * 0.3,
                       //       height: MediaQuery.of(context).size.height * 0.1),
                       // ),
+
+
                       Positioned(
                         left: 20, right: 20,top: 0,
                         child: evUpcomingModelObject.data![reversedIndex].carsDetails!.image1 == null
@@ -309,7 +311,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                           ),
                         )
                             : Container(
-                          height: MediaQuery.of(context).size.height * 0.22,
+                          height: MediaQuery.of(context).size.height * 0.19,
                           child: ModelViewer(
                             // cameraOrbit: Clipboard.kTextPlain,
                             backgroundColor: Colors.transparent,

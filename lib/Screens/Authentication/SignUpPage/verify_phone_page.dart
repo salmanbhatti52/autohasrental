@@ -10,11 +10,12 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:http/http.dart' as http;
 import '../../../Model/AuthModels/verify_otp_model.dart';
+import '../../../Model/resendOTP.dart';
 import 'privacy_policy_page.dart';
 
 class VerifyPhonePage extends StatefulWidget {
-  final String? userId, verifyCode;
-  VerifyPhonePage({Key? key, this.userId, this.verifyCode})
+  final String? userId, email, verifyCode;
+  VerifyPhonePage({Key? key, this.email , this.userId, this.verifyCode})
       : super(key: key);
 
   @override
@@ -32,12 +33,65 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
 
   final focusNode = FocusNode();
 
+  Timer? timer;
+  int secondsRemaining = 120;
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (secondsRemaining > 0) {
+          secondsRemaining--;
+        } else {
+          timer.cancel();
+        }
+      });
+    });
+  }
+
+  String getTimerText() {
+    int minutes = secondsRemaining ~/ 60;
+    int seconds = secondsRemaining % 60;
+    return '${minutes}m:${seconds.toString().padLeft(2, '0')}s';
+  }
+  ResendOtp resendOtP = ResendOtp();
+
+  resendOtp() async {
+    try {
+      String apiUrl = resendOtpSignUpApiUrl;
+      print("emaillll: ${widget.email}");
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Accept': 'application/json'},
+        body: {
+          'email': widget.email,
+        },
+      );
+      final responseString = response.body;
+      print("response String: $responseString");
+      if (response.statusCode == 200) {
+        print("resS $responseString");
+        resendOtP = resendOtpFromJson(responseString);
+          setState(() {});
+          print('verifyModel status: ${resendOtP.status}');
+      }
+    } catch (e) {
+      print('verify error in catch = ${e.toString()}');
+      return null;
+    }
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print("object123 ${widget.userId} ${widget.verifyCode}");
+    startTimer();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer?.cancel();
+  }
+
 
   VerifyOtpModel verifyOtpModel = VerifyOtpModel();
 
@@ -66,6 +120,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
           verifyOtpModel = verifyOtpModelFromJson(responseString);
           setState(() {});
           print('verifyModel status: ${verifyOtpModel.status}');
+          toastSuccessMessage("${verifyOtpModel.message}", Colors.green);
         }
       }
     } catch (e) {
@@ -200,10 +255,8 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                         if (textEditingController.text.isEmpty) {
                           toastFailedMessage(
                               'pinController cannot be empty', Colors.red);
-                        } else if (textEditingController.text !=
-                            widget.verifyCode) {
-                          toastFailedMessage(
-                              'pin code did not matched', Colors.red);
+                        } else if (textEditingController.text != widget.verifyCode || textEditingController.text != widget.verifyCode) {
+                          toastFailedMessage('pin code did not matched', Colors.red);
                         } else {
                           setState(() {
                             progress = true;
@@ -239,7 +292,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(
-                        " Expire on 02:00",
+                        " Expire on ${getTimerText()}",
                         style: TextStyle(
                           color: Color(0xffFF6666),
                           fontSize: 12,
@@ -248,10 +301,38 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                         ),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text(
-                        "Resend Code (4)",
-                        style: TextStyle(
+                      // Text(
+                      //   "Resend Code (4)",
+                      //   style: TextStyle(
+                      //       color: borderColor,
+                      //       fontSize: 16,
+                      //       fontFamily: poppinSemiBold,
+                      //       fontWeight: FontWeight.w500),
+                      // ),
+                      secondsRemaining == 0
+                          ? GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            secondsRemaining = 120;
+                            startTimer();
+                          });
+                          resendOtp();
+                        },
+                        child: Text(
+                          "Resend",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
                             color: borderColor,
+                            fontSize: 16,
+                            fontFamily: poppinSemiBold,
+                            fontWeight: FontWeight.w500),
+                          ),
+                      )
+                          : Text(
+                        "Resend",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            color: Colors.grey,
                             fontSize: 16,
                             fontFamily: poppinSemiBold,
                             fontWeight: FontWeight.w500),

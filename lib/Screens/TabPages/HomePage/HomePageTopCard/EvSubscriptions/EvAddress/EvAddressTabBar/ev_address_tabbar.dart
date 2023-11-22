@@ -7,7 +7,7 @@ import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
 
 class EvAddressTabBar extends StatefulWidget {
   final String? mySelectedTabMonth, mySelectedTabPrice;
-  final double? totalAmount;
+  final String? totalAmount, setupCost;
 
   final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
       carModelName, carMakesName, carMakesImage, carRating, carOwnerImage,
@@ -15,7 +15,7 @@ class EvAddressTabBar extends StatefulWidget {
   final int? carId, carOwnerId, mileagePlanID;
   final String? carDiscountPrice;
 
-  EvAddressTabBar({Key? key, this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate,
+  EvAddressTabBar({Key? key, this.setupCost , this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate,
     this.favouriteStatus, this.evEndDate, this.carColorName, this.carModelName,
     this.carId, this.carPrice, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
@@ -142,6 +142,7 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
                 ),
 
                 EvBillingAddress(
+                  setupCost: widget.setupCost.toString(),
                   mySelectedTabMonth: widget.mySelectedTabMonth,
                   mySelectedTabPrice: widget.mySelectedTabPrice,
                   totalAmount: widget.totalAmount,
@@ -149,7 +150,6 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
                   favouriteStatus: widget.favouriteStatus,
                   evStartDate: widget.evStartDate,
                   evEndDate: widget.evEndDate,
-
                   carName: widget.carName,
                   carImage: widget.carImage,
                   carYear: widget.carYear,
@@ -179,7 +179,7 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
   }
 
   myFunction(
-  final double? totalAmount,
+  final String? totalAmount,
   final String? mySelectedTabMonth, mySelectedTabPrice, carName, carImage, carYear, carPrice, carStatus,
       carColorName, carModelName, carMakesName, carMakesImage, favouriteStatus,
       carRating, carOwnerImage, carOwnerName, discountPercentage,

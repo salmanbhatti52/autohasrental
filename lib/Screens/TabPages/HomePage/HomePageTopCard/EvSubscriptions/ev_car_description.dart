@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import '../../../../../Model/GetMileagePlansModel.dart';
 import '../../../../../Model/GetMonthPlansModel.dart';
@@ -486,6 +487,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                       MaterialPageRoute(
                         builder: (context) => EvDescriptionDetailsPage(
                           getMileagePlansModel: getMileagePlansModel.data,
+                          setupCost: getMonthPlansModel.data?[0].setupCost,
                           mileagePlanID: mileagePlanID == null
                               ? getMileagePlansModel
                               .data![0].plansMileageId
@@ -568,6 +570,20 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                           },
                           tabs: List<Widget>.generate(
                               getMonthPlansModel.data!.length, (int index) {
+                            var pricePerMonthString = getMonthPlansModel.data?[index].pricePerMonth;
+                            double pricePerMonth;
+                            if (pricePerMonthString != null) {
+                              pricePerMonth = double.parse(pricePerMonthString);
+                              if (pricePerMonth != null) {
+                                final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
+                                formattedPrice = numberFormat.format(pricePerMonth);
+                                print("RM $formattedPrice");
+                              } else {
+                                print("Invalid price format");
+                              }
+                            } else {
+                              print("Price not available");
+                            }
                             print(
                                 "monthsTabBarLength111 ${getMonthPlansModel.data?.length}");
                             // print("monthNumber111 ${getMonthPlansModel.data?[selectMileageIndex].months.toString()}");
@@ -599,7 +615,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                                                   fontSize: 17,
                                                   fontFamily: poppinMedium)),
                                       Text(
-                                          "RM ${getMonthPlansModel.data?[index].pricePerMonth.toString()}",
+                                          "RM ${formattedPrice}",
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                             fontSize: 14,
@@ -767,6 +783,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
         final responseString = response.body;
         print("getMileagePlansResponse: ${responseString.toString()}");
         getMileagePlansModel = getMileagePlansModelFromJson(responseString);
+        selectedMileagePlan = getMileagePlansModel.data![0].plansMileageDescription;
         print("getMileagePlansLength: ${getMileagePlansModel.data!.length}");
         monthSelect();
       }
@@ -782,6 +799,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
   GetMonthPlansModel getMonthPlansModel = GetMonthPlansModel();
 
   bool loader2 = false;
+  String formattedPrice = "";
   monthSelect() async {
     try {
       String apiUrl = getCarPlansEvApiUrl;

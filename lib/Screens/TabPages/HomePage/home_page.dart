@@ -774,10 +774,10 @@ class _HomePageState extends State<HomePage> {
                                                                 "EV Subscriptions"
                                                                 ? discountedPriceWidget(
                                                                 "${discountFormattedPrice}/",
-                                                                "Month")
+                                                                "")
                                                                 : discountedPriceWidget(
                                                                 "${discountFormattedPrice}/",
-                                                                "Month")
+                                                                "")
                                                             // widget.filterCarByAttributeModelObject?.data?[
                                                             //                                           index]
                                                             //                                       .carsUsageType ==
@@ -1566,10 +1566,10 @@ class _HomePageState extends State<HomePage> {
                                                               "EV Subscriptions"
                                                               ? discountedPriceWidget(
                                                               "${discountFormattedPrice}/",
-                                                              "Month")
+                                                              "")
                                                               : discountedPriceWidget(
                                                               "${discountFormattedPrice}/",
-                                                              "Month")
+                                                              "")
                                                           // widget.filterCarByAttributeModelObject?.data?[
                                                           //                                           index]
                                                           //                                       .carsUsageType ==
@@ -2387,7 +2387,7 @@ class _HomePageState extends State<HomePage> {
                                                             "EV Subscriptions"
                                                         ? discountedPriceWidget(
                                                             "${discountFormattedPrice}/",
-                                                            "Month")
+                                                            "")
                                                         : topRentedCarsModelObject
                                                                     .data?[
                                                                         index]
@@ -3125,7 +3125,7 @@ class _HomePageState extends State<HomePage> {
                                                             "EV Subscriptions"
                                                         ? discountedPriceWidget(
                                                             "${discountFormattedPrice}/",
-                                                            "Month")
+                                                            "")
                                                         : topRentedCarsModelObject
                                                                     .data?[
                                                                         index]
@@ -3891,7 +3891,7 @@ class _HomePageState extends State<HomePage> {
                                                                       "EV Subscriptions"
                                                                   ? discountedPriceWidget(
                                                                       "${discountFormattedPrice}/",
-                                                                      "Month")
+                                                                      "")
                                                                   : searchModelObject
                                                                               .data?[
                                                                                   index]
@@ -4681,7 +4681,7 @@ class _HomePageState extends State<HomePage> {
                                                                       "EV Subscriptions"
                                                                   ? discountedPriceWidget(
                                                                       "${discountFormattedPrice}/",
-                                                                      "Month")
+                                                                      "")
                                                                   : searchModelObject
                                                                               .data?[
                                                                                   index]

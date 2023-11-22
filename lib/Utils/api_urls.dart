@@ -13,6 +13,7 @@ String baseUrlImage = 'https://autohauscarrental.eigix.net/public/';
 /// Authentication Page API Urls
 String signUpApiUrl = '${baseUrl}signup';
 String verifyOtpSignUpApiUrl = '${baseUrl}verify_otp';
+String resendOtpSignUpApiUrl = '${baseUrl}resend_otp';
 
 String loginApiUrl = '${baseUrl}signin';
 String forgetPasswordApiUrl = '${baseUrl}forgot_password';

@@ -371,7 +371,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                               ),
                                               Text("${evPreviousObject.data![reversedindex].carsPlans![0].pricePerMonth}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                              Text("/Month", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+                                              Text("/", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.height * 0.01,),
 
@@ -445,7 +445,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                           ),
                         )
                             : Container(
-                          height: MediaQuery.of(context).size.height * 0.22,
+                          height: MediaQuery.of(context).size.height * 0.19,
                           child: ModelViewer(
                             // cameraOrbit: Clipboard.kTextPlain,
                             backgroundColor: Colors.transparent,

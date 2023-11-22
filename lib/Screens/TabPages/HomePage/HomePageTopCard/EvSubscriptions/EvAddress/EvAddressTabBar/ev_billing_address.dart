@@ -9,7 +9,7 @@ import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
 
 class EvBillingAddress extends StatefulWidget {
   final String? mySelectedTabMonth, mySelectedTabPrice;
-  final double? totalAmount;
+  final String? totalAmount, setupCost;
   final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
       carModelName, carMakesName, carMakesImage, favouriteStatus, carRating,
       carOwnerImage, carOwnerName, discountPercentage,
@@ -19,7 +19,7 @@ class EvBillingAddress extends StatefulWidget {
   final int? carId, carOwnerId,mileagePlanID;
   final String? carDiscountPrice;
 
-  EvBillingAddress({Key? key, this.mileagePlanID, this.homeStreetAddress1, this.homeStreetAddress2,
+  EvBillingAddress({Key? key, this.setupCost , this.mileagePlanID, this.homeStreetAddress1, this.homeStreetAddress2,
     this.favouriteStatus, this.homeCity, this.homePostCode, this.homeSelectedState,
     this.homeSelectedCountry, this.totalAmount, this.carName, this.carColorName,
     this.carModelName, this.carYear, this.discountPercentage, this.carDiscountPrice,
@@ -101,6 +101,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => EvCartDetailsPage(
                           // myDatum: widget.myDatum,
+                          setupCost: widget.setupCost,
                           mileagePlanID: widget.mileagePlanID,
                           mySelectedTabMonth: widget.mySelectedTabMonth,
                           mySelectedTabPrice: widget.mySelectedTabPrice,
@@ -178,6 +179,7 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => EvCartDetailsPage(
+                            setupCost: widget.setupCost,
                             mySelectedTabMonth: widget.mySelectedTabMonth,
                             mySelectedTabPrice: widget.mySelectedTabPrice,
                             totalAmount: widget.totalAmount,
