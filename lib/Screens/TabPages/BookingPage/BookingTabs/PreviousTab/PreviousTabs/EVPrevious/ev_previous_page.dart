@@ -7,6 +7,7 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -100,7 +101,9 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
               carColorName: carDetailsByIdModelObject.data!.carsColors!.name,
               carMakesName: carDetailsByIdModelObject.data!.carsMakes!.name,
               carModelName: carDetailsByIdModelObject.data!.carsModels!.name,
-              carImage: "$baseUrlImage${carDetailsByIdModelObject.data!.image1}",
+              carImage: carDetailsByIdModelObject!.data!.image1!.endsWith('.jpg') || carDetailsByIdModelObject.data!.image1!.endsWith('.png') || carDetailsByIdModelObject.data!.image1!.endsWith('.jpeg')
+                  ? "$baseUrlImage${carDetailsByIdModelObject.data?.image1}"
+                  : carDetailsByIdModelObject.data?.image1,
               carMakesImage: "$baseUrlImage${carDetailsByIdModelObject.data!.carsMakes!.image}",
               favouriteStatus: carDetailsByIdModelObject.data!.status,
               discountPercentage: carDetailsByIdModelObject.data!.discountPercentage,
@@ -137,6 +140,10 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                 itemCount: evPreviousObject.data!.length,
                 itemBuilder: (BuildContext context, int index) {
                   int reversedindex = evPreviousObject.data!.length - 1 - index;
+                  String priceString = evPreviousObject.data![reversedindex].carsPlans![0].pricePerMonth.toString();
+                  double price = double.parse(priceString);
+                  NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+                  String formattedPrice = format.format(price);
                   // print("previousBookingModelObject ${previousBookingModelObject.data?.length}");
                   return Stack(
                     children: [
@@ -369,7 +376,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                                 child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
                                                     color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
-                                              Text("${evPreviousObject.data![reversedindex].carsPlans![0].pricePerMonth}", textAlign: TextAlign.left, style: TextStyle(
+                                              Text("${formattedPrice}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                               Text("/", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(

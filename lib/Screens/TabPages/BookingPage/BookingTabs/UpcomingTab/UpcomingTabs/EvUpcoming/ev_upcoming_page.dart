@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
+import 'package:intl/intl.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -88,6 +89,10 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                   int reversedIndex = evUpcomingModelObject.data!.length - 1 - index;
                   selectedBookingId = evUpcomingModelObject.data![reversedIndex].bookingsId;
                   print('selectedBookingId $selectedBookingId');
+                  String priceString = evUpcomingModelObject.data![reversedIndex].carsPlans![0].pricePerMonth.toString();
+                  double price = double.parse(priceString);
+                  NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+                  String formattedPrice = format.format(price);
                   return Stack(
                     children: [
                       Padding(
@@ -241,7 +246,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                                     color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                               ),
                                               // "${upcomingBookingModelObject.data![index].carsPlans![0].pricePerHour}",
-                                              Text("${evUpcomingModelObject.data![reversedIndex].carsPlans![0].pricePerMonth}", textAlign: TextAlign.left, style: TextStyle(
+                                              Text("${formattedPrice}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                               Text("/", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                               SizedBox(width: MediaQuery.of(context).size.height * 0.01,),

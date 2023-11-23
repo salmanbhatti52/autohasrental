@@ -73,17 +73,33 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
         resendOtP = resendOtpFromJson(responseString);
           setState(() {});
           print('verifyModel status: ${resendOtP.status}');
+          print('Code: ${resendOtP.data?.verifyCode}');
+          toastSuccessMessage("OTP has been send successfully", colorGreen);
+        otpCodes();
       }
     } catch (e) {
       print('verify error in catch = ${e.toString()}');
       return null;
     }
   }
+  String? selectedVerifyCode;
 
+  otpCodes() {
+    if (resendOtP.data?.verifyCode != null) {
+       selectedVerifyCode = resendOtP.data!.verifyCode.toString();
+    } else if (widget.verifyCode != null) {
+      selectedVerifyCode = widget.verifyCode;
+    }else if( widget.verifyCode != null && resendOtP.data?.verifyCode != null) {
+      selectedVerifyCode = resendOtP.data!.verifyCode.toString();
+    } else{
+      print("error");
+    }
+  }
   @override
   void initState() {
     super.initState();
     startTimer();
+    otpCodes();
   }
 
   @override
@@ -255,8 +271,9 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                         if (textEditingController.text.isEmpty) {
                           toastFailedMessage(
                               'pinController cannot be empty', Colors.red);
-                        } else if (textEditingController.text != widget.verifyCode || textEditingController.text != widget.verifyCode) {
-                          toastFailedMessage('pin code did not matched', Colors.red);
+                        } else if (textEditingController.text != selectedVerifyCode) {
+                          toastFailedMessage(
+                              'pin code did not matched', Colors.red);
                         } else {
                           setState(() {
                             progress = true;
@@ -312,6 +329,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                       secondsRemaining == 0
                           ? GestureDetector(
                         onTap: () {
+
                           setState(() {
                             secondsRemaining = 120;
                             startTimer();

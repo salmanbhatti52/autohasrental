@@ -6,20 +6,40 @@ String resendOtpToJson(ResendOtp data) => json.encode(data.toJson());
 
 class ResendOtp {
   String? status;
-  String? message;
+  Data? data;
 
   ResendOtp({
     this.status,
-    this.message,
+    this.data,
   });
 
   factory ResendOtp.fromJson(Map<String, dynamic> json) => ResendOtp(
     status: json["status"],
-    message: json["message"],
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "message": message,
+    "data": data?.toJson(),
+  };
+}
+
+class Data {
+  String? email;
+  int? verifyCode;
+
+  Data({
+    this.email,
+    this.verifyCode,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    email: json["email"],
+    verifyCode: json["verify_code"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "email": email,
+    "verify_code": verifyCode,
   };
 }

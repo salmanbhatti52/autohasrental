@@ -5,6 +5,7 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/HomePageModels/FavoritesModel/favorite_cars_model.dart';
@@ -247,6 +248,10 @@ class _FavoritePageState extends State<FavoritePage> {
                   itemCount: favoriteCarModelObject.data!.length,
                   itemBuilder: (BuildContext context, int index) {
                     carID = favoriteCarModelObject.data![index].carsId;
+                    String priceString = favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth.toString();
+                    double price = double.parse(priceString);
+                    NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+                    String formattedPrice = format.format(price);
                     return Stack(
                       children: [
                         Padding(
@@ -338,7 +343,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                                 ),
 
                                                 favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth}/", "Month"):
+                                                discountedPriceText("${formattedPrice }/", ""):
                                                 favoriteCarModelObject.data![index].carsUsageType == "Photography"?
                                                 discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
                                                 discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
@@ -467,6 +472,10 @@ class _FavoritePageState extends State<FavoritePage> {
                   itemCount: favoriteCarModelObject.data!.length,
                   itemBuilder: (BuildContext context, int index) {
                     carID = favoriteCarModelObject.data![index].carsId;
+                    String priceString = favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth.toString();
+                    double price = double.parse(priceString);
+                    NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+                    String formattedPrice = format.format(price);
                     return Stack(
                       children: [
                         Padding(
@@ -556,7 +565,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                                 ),
 
                                                 favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerMonth}/", "Month"):
+                                                discountedPriceText("${formattedPrice}/", ""):
                                                 favoriteCarModelObject.data![index].carsUsageType == "Photography"?
                                                 discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
                                                 discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),

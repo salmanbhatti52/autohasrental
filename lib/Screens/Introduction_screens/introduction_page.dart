@@ -181,8 +181,8 @@ class _IntroductionPageState extends State<IntroductionPage> {
                           );
                         }
                         pageController!.nextPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.bounceIn,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeIn,
                         );
                       },
                       child: Text(

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 import 'ev_car_description.dart';
@@ -37,7 +38,6 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
   var searchController = TextEditingController();
   int? selectedCarMakesId, evCarMakesId;
   String? selectedCarMakesName;
-
   @override
   void initState() {
     super.initState();
@@ -308,6 +308,9 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
             scrollDirection: Axis.vertical,
             itemCount: evCarsModelObject.data!.length,
             itemBuilder: (BuildContext context, int index) {
+              int discountedPrice = evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth;
+              NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+              String formattedPrice = format.format(discountedPrice);
               return Stack(
                 children: [
                   Padding(
@@ -392,10 +395,10 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                             child: Text("RM",  textAlign: TextAlign.left,
                                                 style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                           ),
-                                          Text("${evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}",
+                                          Text("${formattedPrice}",
                                               textAlign: TextAlign.left, style: TextStyle(
                                                   color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                          Text("/Month", textAlign: TextAlign.left, style: TextStyle(
+                                          Text("/", textAlign: TextAlign.left, style: TextStyle(
                                               color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                           SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
                                           showRatingStars(double.parse("${evCarsModelObject.data![index].rating}")),
@@ -450,7 +453,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                   carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
                                   carStatus: evCarsModelObject.data![index].favouriteStatus,
                                   discountPercentage: evCarsModelObject.data![index].discountPercentage,
-                                  carDiscountPrice: "${evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth}",
+                                  carDiscountPrice: "${formattedPrice}",
                                   carPrice: evCarsModelObject.data![index].carsPlans![0].pricePerMonth,
                                   carOwnerImage: "$baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}",
                                   carOwnerName: "${evCarsModelObject.data![index].usersCompanies!.companyName}",
@@ -579,6 +582,9 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
            scrollDirection: Axis.vertical,
            itemCount: searchModelObject.data?.length,
            itemBuilder: (BuildContext context, int index) {
+             int discountedPrice = evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth;
+             NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+             String formattedPrice = format.format(discountedPrice);
              return Stack(
                children: [
                  Padding(
@@ -659,10 +665,10 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                            child: Text("RM",  textAlign: TextAlign.left,
                                                style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
                                          ),
-                                         Text("${searchModelObject.data![index].carsPlans![0].discountedPricePerMonth}",
+                                         Text("${formattedPrice}",
                                              textAlign: TextAlign.left, style: TextStyle(
                                                  color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                         Text("/Month", textAlign: TextAlign.left, style: TextStyle(
+                                         Text("/", textAlign: TextAlign.left, style: TextStyle(
                                              color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                          SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
                                          showRatingStars(double.parse("${searchModelObject.data![index].rating}")),
@@ -710,7 +716,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                  carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
                                  carStatus: evCarsModelObject.data![index].favouriteStatus,
                                  discountPercentage: evCarsModelObject.data![index].discountPercentage,
-                                 carDiscountPrice: "${evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth.toString()}",
+                                 carDiscountPrice: "${formattedPrice.toString()}",
                                  carPrice: evCarsModelObject.data![index].carsPlans![0].pricePerMonth,
                                  carOwnerImage: "$baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}",
                                  carOwnerName: "${evCarsModelObject.data![index].usersCompanies!.companyName}",

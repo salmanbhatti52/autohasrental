@@ -180,6 +180,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
   double totalAmount = 0.0;
   double setupCosts = 0.0;
   String formattedServiceFee = "";
+  String formattedSetupCost = "";
   myTotalAmount() {
     myServiceFee = (percentage! / 100) * double.parse("$tabPrice");
     print("myServiceFee $myServiceFee");
@@ -188,6 +189,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
     totalAmount = double.parse("$tabPrice") + myServiceFee! + setupCosts;
     double tabPriceAsDouble = double.parse(tabPrice ?? '0');
     NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+    formattedSetupCost = format.format(setupCosts);
     String formattedTabPrice = format.format(tabPriceAsDouble);
     tabPrice = formattedTabPrice;
     print("Formatted tabPrice: $tabPrice");
@@ -461,7 +463,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               EvDeliveryAddress(
-                                                setupCost: widget.setupCost,
+                                                setupCost: formattedSetupCost,
                                                 evStartDate: evStartDate,
                                                 mileagePlanID: widget.mileagePlanID,
                                                 evEndDate: enddate1,
@@ -1126,7 +1128,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                       fontSize: 14,
                       fontFamily: poppinRegular,
                       color: detailsTextColor)),
-              Text("RM ${widget.setupCost}",
+              Text("RM ${formattedSetupCost}",
                   textAlign: TextAlign.right,
                   style: TextStyle(
                       fontSize: 14,
