@@ -97,8 +97,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
   bool loadingP = true;
 
   getEvSubscriptionCarsWidget() async {
-    // loadingP = true;
-    // setState(() {});
+    loadingP = true;
+    setState(() {});
     // try {
     selectedCarMakesId ?? (selectedCarMakesId = 1);
       String apiUrl = carsEvSubscriptionApiUrl;
@@ -119,7 +119,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("evSubscriptionResponse: ${responseString.toString()}");
-        loadingP = false;
+        // loadingP = false;
         setState(() {});
         evCarsModelObject = evCarsModelFromJson(responseString);
         print("evCarsLength: ${evCarsModelObject.data?.length}");
@@ -128,8 +128,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
     // } catch (e) {
     //   print('Error in evSubscription: ${e.toString()}');
     // }
-    // loadingP = false;
-    // setState(() {});
+    loadingP = false;
+    setState(() {});
   }
 
   getUnreadNotificationWidget() async {
@@ -234,15 +234,13 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
           centerTitle: true,
         ),
 
-      body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
-
-           SingleChildScrollView(
+      body: SingleChildScrollView(
             child: Column(
               children: [
 
                 carMakersListWidget(),
 
-                loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
+                loadingP ? Center(child: CircularProgressIndicator(color: Colors.transparent)) :
                 allEvSubscriptionItemsList(searchController.text),
 
               ],
@@ -283,8 +281,21 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                         border: Border.all(width: 2,
                             color: selectedIndex == index ? borderColor : kWhite),
                         borderRadius: BorderRadius.circular(10.0)),
-                    child: Image.network("$baseUrlImage${getCarMakesModelObject.data?[index].image}",
-                        height: 25, width: 25, fit: BoxFit.fill),
+                    child: Image.network(
+                      "$baseUrlImage${getCarMakesModelObject.data?[index].image}",
+                      height: 25,
+                      width: 25,
+                      fit: BoxFit.fill,
+                      errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                        // Display a placeholder image when the main image fails to load
+                        return Image.asset(
+                          'assets/icon/fade_in_image.jpeg', // Change the placeholder image path accordingly
+                          height: 25,
+                          width: 25,
+                          fit: BoxFit.fill,
+                        );
+                      },
+                    ),
                   ),
                 ),
               );

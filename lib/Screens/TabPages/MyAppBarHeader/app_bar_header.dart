@@ -128,12 +128,12 @@ class MyAppBarSingleImageWithText extends StatelessWidget
       ),
       // leadingWidth: 80,
       title: Padding(
-        padding:  EdgeInsets.only(top: 30),
+        padding:  EdgeInsets.only(top: 30, right: 30),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: Get.width * 0.5,
+              // width: Get.width * 0.5,
               child: Text(
                 title,
                 textAlign: TextAlign.center,
