@@ -62,7 +62,7 @@ dependencies:
   fluttertoast: ^8.1.2
   modal_progress_hud_nsn: ^0.3.0
   intl_utils: ^2.8.1
-  intl: ^0.18.0
+  intl: ^0.18.1
   font_awesome_flutter: ^10.4.0
 #  flutter_html:
   flutter_widget_from_html:
