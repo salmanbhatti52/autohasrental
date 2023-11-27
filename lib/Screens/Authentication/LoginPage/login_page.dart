@@ -15,7 +15,7 @@ import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Widget/TextFields/text_form_field.dart';
 import 'package:auto_haus_rental_app/Model/AuthModels/user_login_model.dart';
 import 'package:auto_haus_rental_app/Widget/TextFields/password_text_field.dart';
-import 'package:flutter_idensic_mobile_sdk_plugin/flutter_idensic_mobile_sdk_plugin.dart';
+// import 'package:flutter_idensic_mobile_sdk_plugin/flutter_idensic_mobile_sdk_plugin.dart';
 import 'package:auto_haus_rental_app/Screens/Authentication/SignUpPage/sign_up_page.dart';
 
 import 'KYC Pages/Kyc_selectionPage.dart';
@@ -225,40 +225,40 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void launchSDK() async {
-
-    // From your backend get an access token for the applicant to be verified.
-    // The token must be generated with `levelName` and `userId`,
-    // where `levelName` is the name of a level configured in your dashboard.
-    //
-    // The sdk will work in the production or in the sandbox environment
-    // depend on which one the `accessToken` has been generated on.
-    //
-    final String accessToken = "your_access_token";
-
-    // The access token has a limited lifespan and when it's expired, you must provide another one.
-    // So be prepared to get a new token from your backend.
-    final onTokenExpiration = () async {
-      // call your backend to fetch a new access token (this is just an example)
-      return Future<String>.delayed(Duration(seconds: 2), () => "your new access token");
-    };
-
-    final SNSStatusChangedHandler onStatusChanged = (SNSMobileSDKStatus newStatus, SNSMobileSDKStatus prevStatus) {
-      print("The SDK status was changed: $prevStatus -> $newStatus");
-    };
-
-    final snsMobileSDK = SNSMobileSDK.init(accessToken, onTokenExpiration)
-        .withHandlers( // optional handlers
-        onStatusChanged: onStatusChanged
-    )
-        .withDebug(true) // set debug mode if required
-        .withLocale(Locale("en")) // optional, for cases when you need to override the system locale
-        .build();
-
-    final SNSMobileSDKResult result = await snsMobileSDK.launch();
-
-    print("Completed with result: $result");
-  }
+  // void launchSDK() async {
+  //
+  //   // From your backend get an access token for the applicant to be verified.
+  //   // The token must be generated with `levelName` and `userId`,
+  //   // where `levelName` is the name of a level configured in your dashboard.
+  //   //
+  //   // The sdk will work in the production or in the sandbox environment
+  //   // depend on which one the `accessToken` has been generated on.
+  //   //
+  //   final String accessToken = "your_access_token";
+  //
+  //   // The access token has a limited lifespan and when it's expired, you must provide another one.
+  //   // So be prepared to get a new token from your backend.
+  //   final onTokenExpiration = () async {
+  //     // call your backend to fetch a new access token (this is just an example)
+  //     return Future<String>.delayed(Duration(seconds: 2), () => "your new access token");
+  //   };
+  //
+  //   final SNSStatusChangedHandler onStatusChanged = (SNSMobileSDKStatus newStatus, SNSMobileSDKStatus prevStatus) {
+  //     print("The SDK status was changed: $prevStatus -> $newStatus");
+  //   };
+  //
+  //   final snsMobileSDK = SNSMobileSDK.init(accessToken, onTokenExpiration)
+  //       .withHandlers( // optional handlers
+  //       onStatusChanged: onStatusChanged
+  //   )
+  //       .withDebug(true) // set debug mode if required
+  //       .withLocale(Locale("en")) // optional, for cases when you need to override the system locale
+  //       .build();
+  //
+  //   final SNSMobileSDKResult result = await snsMobileSDK.launch();
+  //
+  //   print("Completed with result: $result");
+  // }
 
   Widget buildTextFields() {
     final screenHeight = MediaQuery.of(context).size.height;
