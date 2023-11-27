@@ -89,5 +89,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.sumsub.sns:idensic-mobile-sdk-videoident:1.24.0"
+//    implementation "com.sumsub.sns:idensic-mobile-sdk-videoident:1.24.0"
 }
