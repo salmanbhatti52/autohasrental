@@ -74,7 +74,6 @@ dependencies:
   sizer: ^2.0.15
   google_fonts: ^4.0.0
   model_viewer_plus:
-  flutter_idensic_mobile_sdk_plugin: ^1.27.0
 
 
 flutter_icons:
