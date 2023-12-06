@@ -378,13 +378,13 @@ int BMW = 1;
                   },
                   child: Container(
                     height: 50, width: 70,
+                    padding: EdgeInsets.all(3),
                     decoration: BoxDecoration(
                         color: selectedIndex == index? borderColor: kWhite,
                         border: Border.all(width: 2,
                             color: selectedIndex == index ? borderColor : kWhite),
                         borderRadius: BorderRadius.circular(10.0)),
-                    child: Image.network("$baseUrlImage${getCarMakesModelObject.data?[index].image}",
-                        height: 25, width: 25, fit: BoxFit.fill),
+                    child: Image.network("$baseUrlImage${getCarMakesModelObject.data?[index].image}",),
                   ),
                 ),
               );

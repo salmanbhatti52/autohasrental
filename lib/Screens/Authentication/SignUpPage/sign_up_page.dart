@@ -318,7 +318,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           print("userFirstName: ${signUpModel.data![0].firstName!}");
                           print("userLastName: ${signUpModel.data![0].lastName!}");
                             toastSuccessMessage(
-                                "OTP Send in the Email",
+                                "OTP has been sent successfully.",
                                 colorGreen);
                             Navigator.push(
                                 context,

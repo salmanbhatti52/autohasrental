@@ -74,7 +74,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
           setState(() {});
           print('verifyModel status: ${resendOtP.status}');
           print('Code: ${resendOtP.data?.verifyCode}');
-          toastSuccessMessage("OTP has been send successfully", colorGreen);
+          toastSuccessMessage("OTP has been sent successfully.", colorGreen);
         otpCodes();
       }
     } catch (e) {
@@ -175,9 +175,9 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 25),
                   child: Text(
-                    "We sent you an SMS with a 6 digit code. Enter the code to verify your mobile.",
+                    "We have sent a One-Time Password(OTP),a six digit code, to the email you provided. Kindly review your email inbox to locate the OTP. Enter the provide code below to verify your email address.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,

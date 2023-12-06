@@ -319,7 +319,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                         child: CachedNetworkImage(
                           imageUrl: "${widget.carMakesImage}",
                           height: 60,
-                          width: 50,
+                          width: 60,
                           fit: BoxFit.fill,
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>

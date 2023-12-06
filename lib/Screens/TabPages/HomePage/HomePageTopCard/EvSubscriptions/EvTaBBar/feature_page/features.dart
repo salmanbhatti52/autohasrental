@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Features extends StatefulWidget {
 
@@ -73,71 +74,73 @@ class _FeaturesState extends State<Features> {
 
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Container(
+              // width: MediaQuery.of(context).size.width * 0.48,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
+                child: Row(
                   children: [
-                    carFeaturesData('assets/car_description_images/jeep.png', featureSuv == 'Yes'? 'SUV': 'PWD' ),
-                    carFeaturesData('assets/car_description_images/car_door.png', '$featuresDoors' ),
-                    carFeaturesData('assets/car_description_images/car_seat.png', '$featuresSeats' ),
+                    carFeaturesData('assets/car_description_images/car_engine.svg', '$featuresEngineCapacity' ),
+                    SizedBox(width: 5,),
+                    carFeaturesData('assets/car_description_images/car_door.svg', '$featuresDoors' ),
+                    SizedBox(width: 5,),
+                    carFeaturesData('assets/car_description_images/car_seat.svg', '$featuresSeats' ),
+                    SizedBox(width: 5,),
+                    carFeaturesData('assets/car_description_images/car_speed.svg', '$featuresSpeed' ),
+                    SizedBox(width: 5,),
+                    carFeaturesData('assets/car_description_images/car_reading.svg', "$featuresMeterReading"),
+                    SizedBox(width: 5,),
+                    carFeaturesData('assets/car_description_images/car_mileage.svg', '$featuresFuelCapacity' ),
                   ],
                 ),
-                SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    carFeaturesData('assets/car_description_images/car_gear.png', '$featuresAutomatic' ),
-                    carFeaturesData('assets/car_description_images/car_down_view.png', 'ADW' ),
-                    carFeaturesData('assets/car_description_images/car_speedometer.png', '$featuresSpeed' ),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    carFeaturesData('assets/car_description_images/car_battery.png', '$featuresElectric' ),
-                    carFeaturesData('assets/car_description_images/car_engine.png', '$featuresEngineCapacity' ),
-                    carFeaturesData('assets/car_description_images/car_wheel.png', '$featuresMeterReading' ),
-                  ],
-                ),
-                // SizedBox(height: 15),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     carFeaturesData('assets/car_description_images/car_oil.png', 'TBD' ),
-                //     carFeaturesData('assets/car_description_images/car_front_view.png', '5,000 KM' ),
-                //     carFeaturesData('assets/car_description_images/star.png', 'New Car' ),
-                //   ],
-                // ),
-                SizedBox(height: 10),
-              ],
+              ),
             ),
           ),
-          // myHorizontalCard3(context),
         ],
       ),
     );
   }
 
   Widget carFeaturesData(String featureImage, String featureName){
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    // return Row(
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: [
+    //     Padding(
+    //       padding:  EdgeInsets.only(top: 2),
+    //       child: Image.asset(featureImage,
+    //           height: 20, width: 34),
+    //     ),
+    //     SizedBox(width: 6),
+    //     Padding(
+    //       padding: EdgeInsets.only(top: 4),
+    //       child: Text(featureName,
+    //         textAlign: TextAlign.left, style: TextStyle(
+    //             fontSize: 13, fontFamily: poppinMedium, color: kBlack),
+    //       ),
+    //     )
+    //   ],
+    // );
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.28,
+      height: MediaQuery.of(context).size.height * 0.07,
+      decoration: BoxDecoration(
+        color: borderColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Padding(
-          padding:  EdgeInsets.only(top: 2),
-          child: Image.asset(featureImage,
-              height: 20, width: 34),
-        ),
-        SizedBox(width: 6),
-        Padding(
-          padding: EdgeInsets.only(top: 4),
-          child: Text(featureName,
-            textAlign: TextAlign.left, style: TextStyle(
-                fontSize: 13, fontFamily: poppinMedium, color: kBlack),
-          ),
+        SvgPicture.asset(featureImage,
+            height: 20, width: 34),
+        SizedBox(height: 4,),
+        Text(featureName,
+          textAlign: TextAlign.left, style: TextStyle(
+              fontSize: 13, fontFamily: poppinMedium, color: kBlack),
         )
       ],
+    ),
     );
   }
 

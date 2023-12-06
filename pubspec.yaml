@@ -73,7 +73,7 @@ dependencies:
   dropdown_button2: ^1.9.2
   sizer: ^2.0.15
   google_fonts: ^4.0.0
-  model_viewer_plus:
+  model_viewer_plus: ^1.5.1
 
 
 flutter_icons:

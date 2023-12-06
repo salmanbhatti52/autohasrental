@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
-
 import 'ev_car_description.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +32,8 @@ class EvSubscriptionPage extends StatefulWidget {
 
 class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
   EvCarsModel evCarsModelObject = EvCarsModel();
-  SearchModel searchModelObject = SearchModel();
-  var searchController = TextEditingController();
+  // SearchModel searchModelObject = SearchModel();
+  // var searchController = TextEditingController();
   int? selectedCarMakesId, evCarMakesId;
   String? selectedCarMakesName;
   @override
@@ -89,7 +87,6 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
     loadingP = false;
     setState(() {
       getEvSubscriptionCarsWidget();
-      getUnreadNotificationWidget();
     });
   }
 
@@ -123,7 +120,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
         setState(() {});
         evCarsModelObject = evCarsModelFromJson(responseString);
         print("evCarsLength: ${evCarsModelObject.data?.length}");
-        searchController.clear();
+        getUnreadNotificationWidget();
+        // searchController.clear();
       }
     // } catch (e) {
     //   print('Error in evSubscription: ${e.toString()}');
@@ -241,7 +239,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                 carMakersListWidget(),
 
                 loadingP ? Center(child: CircularProgressIndicator(color: Colors.transparent)) :
-                allEvSubscriptionItemsList(searchController.text),
+                allEvSubscriptionItemsList(),
 
               ],
             ),
@@ -275,6 +273,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                   },
                   child: Container(
                     height: 50,
+                    padding: EdgeInsets.all(3),
                     width: Get.width * 0.2,
                     decoration: BoxDecoration(
                         color: selectedIndex == index? borderColor: kWhite,
@@ -283,9 +282,6 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                         borderRadius: BorderRadius.circular(10.0)),
                     child: Image.network(
                       "$baseUrlImage${getCarMakesModelObject.data?[index].image}",
-                      height: 25,
-                      width: 25,
-                      fit: BoxFit.fill,
                       errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                         // Display a placeholder image when the main image fails to load
                         return Image.asset(
@@ -304,7 +300,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
     );
   }
 
-  Widget allEvSubscriptionItemsList(String search) {
+  Widget allEvSubscriptionItemsList() {
     return SingleChildScrollView(
       child: Container(
         color: Colors.transparent,
@@ -313,7 +309,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
         evCarsModelObject.status != "success" ?
          Center(child: Text('No Cars Found.',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))):
-        search.isEmpty? ListView.builder(
+        // search.isEmpty?
+        ListView.builder(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
@@ -409,7 +406,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                           Text("${formattedPrice}",
                                               textAlign: TextAlign.left, style: TextStyle(
                                                   color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                          Text("/", textAlign: TextAlign.left, style: TextStyle(
+                                          Text("", textAlign: TextAlign.left, style: TextStyle(
                                               color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                           SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
                                           showRatingStars(double.parse("${evCarsModelObject.data![index].rating}")),
@@ -583,223 +580,224 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                   ),
                 ],
               );
-            }):
-        searchModelObject.data?.length == null?
-        Center(child: Text("No Cars Found.", style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w500))):
-        ListView.builder(
-           shrinkWrap: true,
-           physics:  BouncingScrollPhysics(),
-           scrollDirection: Axis.vertical,
-           itemCount: searchModelObject.data?.length,
-           itemBuilder: (BuildContext context, int index) {
-             int discountedPrice = evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth;
-             NumberFormat format = NumberFormat('#,##0.00', 'en_US');
-             String formattedPrice = format.format(discountedPrice);
-             return Stack(
-               children: [
-                 Padding(
-                   padding:  EdgeInsets.symmetric(vertical: 20),
-                   child: Container(
-                       height: MediaQuery.of(context).size.height * 0.33),
-                 ),
-                 Positioned(
-                   top: 90,
-                   left: 30,
-                   right: 30,
-                   child: Padding(
-                     padding:  EdgeInsets.only(left: 9),
-                     child: Container(
-                       height: MediaQuery.of(context).size.height * 0.26,
-                       width: 343,
-                       decoration: BoxDecoration(
-                         color: kWhite,
-                         borderRadius: BorderRadius.circular(20),
-                         boxShadow: [
-                           BoxShadow(
-                             color: Colors.grey.withOpacity(0.1),
-                             spreadRadius: 5,
-                             blurRadius: 5,
-                             offset:  Offset(3, 3),
-                           ),
-                         ],
-                       ),
-                       child: Column(
-                         children: [
-                           Container(height: MediaQuery.of(context).size.height*0.1,),
-                           Row(
-                             children: [
-                                SizedBox(height: 93.6),
-                               Padding(
-                                 padding:  EdgeInsets.symmetric(horizontal: 15),
-                                 child: Column(
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                     Row(
-                                       children: [
-                                         Text("${searchModelObject.data![index].vehicalName} ",
-                                             style: TextStyle(color: kBlack, fontSize: 14,
-                                                 fontFamily: poppinBold), textAlign: TextAlign.left),
-                                         Text("${searchModelObject.data![index].carsColors!.name} ",
-                                           textAlign: TextAlign.left, style: TextStyle(
-                                               color: kBlack, fontSize: 14, fontFamily: poppinRegular),),
-                                       ],
-                                     ),
-                                     Row(
-                                       children: [
-                                         Text("${searchModelObject.data![index].carsMakes!.name}, ",
-                                             style: TextStyle(color: kBlack, fontSize: 12,
-                                                 fontFamily: poppinRegular), textAlign: TextAlign.left),
-                                         Text("${searchModelObject.data![index].carsModels!.name}, ",
-                                             textAlign: TextAlign.left, style: TextStyle(
-                                                 color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
-                                         Text("${searchModelObject.data![index].year}",
-                                             textAlign: TextAlign.left, style: TextStyle(
-                                                 color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                                       ],
-                                     ),
-                                     Row(
-                                       children: [
-                                         Padding(
-                                           padding:  EdgeInsets.only(top: 04),
-                                           child: Text("RM",  textAlign: TextAlign.left,
-                                             style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinRegular),),
-                                         ),
-                                         Text("${searchModelObject.data![index].carsPlans![0].pricePerMonth}",
-                                             textAlign: TextAlign.left, style: TextStyle(
-                                                 color: kRed, decoration: TextDecoration.lineThrough,
-                                                 decorationColor: kRed, decorationThickness: 3,
-                                                 fontSize: 10, fontFamily: poppinLight, height: 2)),
-                                          SizedBox(width: 5),
-                                         Padding(
-                                           padding:  EdgeInsets.only(top: 06),
-                                           child: Text("RM",  textAlign: TextAlign.left,
-                                               style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
-                                         ),
-                                         Text("${formattedPrice}",
-                                             textAlign: TextAlign.left, style: TextStyle(
-                                                 color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                         Text("/", textAlign: TextAlign.left, style: TextStyle(
-                                             color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
-                                         SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                                         showRatingStars(double.parse("${searchModelObject.data![index].rating}")),
-                                         searchModelObject.data![index].rating == null
-                                             ? Text("0.0", style: TextStyle(color: kBlack, fontSize: 12,
-                                             fontFamily: poppinRegular), textAlign: TextAlign.left) :
-                                         Text("${searchModelObject.data![index].rating}",
-                                             style: TextStyle(color: kBlack, fontSize: 12,
-                                                 fontFamily: poppinRegular), textAlign: TextAlign.left),
-                                       ],
-                                     ),
-                                     SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                     // verifiedDealerText(),
-                                   ],
-                                 ),
-                               ),
-                             ],
-                           ),
-                         ],
-                       ),
-                     ),
-                   ),
-                 ),
-                 Positioned(
-                   right: 30, bottom: 35,
-                   child: Column(
-                     mainAxisAlignment: MainAxisAlignment.end,
-                     crossAxisAlignment: CrossAxisAlignment.end,
-                     children: [
-                       GestureDetector(
-                         onTap: () {
-                           print("clickedddd");
-                           carID = evCarsModelObject.data![index].carsId;
-                           Navigator.push(context, MaterialPageRoute(
-                               builder: (context) => EVCarDescription(
-                                 carName: evCarsModelObject.data![index].vehicalName,
-                                 carYear: "${evCarsModelObject.data![index].year}",
-                                 carId: evCarsModelObject.data![index].carsId,
-                                 carColorName: evCarsModelObject.data![index].carsColors!.name,
-                                 carMakesName: evCarsModelObject.data![index].carsMakes!.name,
-                                 carModelName: evCarsModelObject.data![index].carsModels!.name,
-                                 carImage: "$baseUrlImage${evCarsModelObject.data![index].image1}",
-                                 carRating: evCarsModelObject.data![index].rating,
-                                 favouriteStatus: evCarsModelObject.data![index].favouriteStatus,
-                                 carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
-                                 carStatus: evCarsModelObject.data![index].favouriteStatus,
-                                 discountPercentage: evCarsModelObject.data![index].discountPercentage,
-                                 carDiscountPrice: "${formattedPrice.toString()}",
-                                 carPrice: evCarsModelObject.data![index].carsPlans![0].pricePerMonth,
-                                 carOwnerImage: "$baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                 carOwnerName: "${evCarsModelObject.data![index].usersCompanies!.companyName}",
-                                 carOwnerId: evCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                 myCarDescription: evCarsModelObject.data![index].description,
-                               )));
-                           print("evCarName ${evCarsModelObject.data![index].vehicalName}");
-                           print("evCarYear ${evCarsModelObject.data![index].year}");
-                           print("evCarImage $baseUrlImage${evCarsModelObject.data![index].image1}");
-                           print("ownerImage $baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}");
-                           print("ownerName ${evCarsModelObject.data![index].usersCompanies!.companyName}");
-                           print("ownerId ${evCarsModelObject.data![index].usersCompanies!.usersCompaniesId}");
-                         },
-                         child: Image.asset("assets/car_bookings_images/more_button.png"),
-                       ),
-                     ],
-                   ),
-                 ),
-                 Positioned(
-                   top: 10,
-                   left: 10, right: 10,
-                   child: searchModelObject.data![index].image1 == null ?
-                   ClipRRect(
-                       borderRadius: BorderRadius.circular(10),
-                       child: Image.asset('assets/icon/fade_in_image.jpeg')) :
-                   ClipRRect(
-                     borderRadius: BorderRadius.circular(10),
-                     child: FadeInImage(
-                       placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
-                       height: 130, width: 350,
-                       image: NetworkImage("$baseUrlImage${searchModelObject.data![index].image1}"),),
-                   ),
-                 ),
-                 Positioned(
-                     top: 10, left: 10,
-                     child: Container(
-                       height: MediaQuery.of(context).size.width * 0.07,
-                       width: MediaQuery.of(context).size.width * 0.18,
-                       decoration: BoxDecoration(
-                         color: kRed.withOpacity(0.8),
-                         borderRadius:  BorderRadius.only(
-                             topRight: Radius.circular(15),
-                             bottomLeft: Radius.circular(15)),
-                       ),
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: [
-                           Text("${searchModelObject.data![index].discountPercentage}",
-                               textAlign: TextAlign.left, style: TextStyle(color: kWhite,
-                                   fontSize: 13, fontFamily: poppinSemiBold)),
-                           Text(" OFF ", textAlign: TextAlign.left, style: TextStyle(
-                               color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                         ],
-                       ),
-                     )),
-                 Positioned(
-                   top: 15, right: 15,
-                   child: searchModelObject.data![index].favouriteStatus == "like"?
-                   Image.asset("assets/home_page/heart.png"):
-                   GestureDetector(
-                     onTap: () async {
-                       myCurrentCarIndex = "${searchModelObject.data![index].carsId}";
-                       print("evCarIds $myCurrentCarIndex");
-                       await getLikeUnlikeCarWidget();
-                       getEvSubscriptionCarsWidget();
-                     },
-                     child: Image.asset("assets/car_bookings_images/heart.png"),
-                   ),
-                 ),
-               ],
-             );
-           })
+            })
+        //     :
+        // searchModelObject.data?.length == null?
+        // Center(child: Text("No Cars Found.", style: TextStyle(
+        //     fontSize: 15, fontWeight: FontWeight.w500))):
+        // ListView.builder(
+        //    shrinkWrap: true,
+        //    physics:  BouncingScrollPhysics(),
+        //    scrollDirection: Axis.vertical,
+        //    itemCount: searchModelObject.data?.length,
+        //    itemBuilder: (BuildContext context, int index) {
+        //      int discountedPrice = evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth;
+        //      NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+        //      String formattedPrice = format.format(discountedPrice);
+        //      return Stack(
+        //        children: [
+        //          Padding(
+        //            padding:  EdgeInsets.symmetric(vertical: 20),
+        //            child: Container(
+        //                height: MediaQuery.of(context).size.height * 0.33),
+        //          ),
+        //          Positioned(
+        //            top: 90,
+        //            left: 30,
+        //            right: 30,
+        //            child: Padding(
+        //              padding:  EdgeInsets.only(left: 9),
+        //              child: Container(
+        //                height: MediaQuery.of(context).size.height * 0.26,
+        //                width: 343,
+        //                decoration: BoxDecoration(
+        //                  color: kWhite,
+        //                  borderRadius: BorderRadius.circular(20),
+        //                  boxShadow: [
+        //                    BoxShadow(
+        //                      color: Colors.grey.withOpacity(0.1),
+        //                      spreadRadius: 5,
+        //                      blurRadius: 5,
+        //                      offset:  Offset(3, 3),
+        //                    ),
+        //                  ],
+        //                ),
+        //                child: Column(
+        //                  children: [
+        //                    Container(height: MediaQuery.of(context).size.height*0.1,),
+        //                    Row(
+        //                      children: [
+        //                         SizedBox(height: 93.6),
+        //                        Padding(
+        //                          padding:  EdgeInsets.symmetric(horizontal: 15),
+        //                          child: Column(
+        //                            crossAxisAlignment: CrossAxisAlignment.start,
+        //                            children: [
+        //                              Row(
+        //                                children: [
+        //                                  Text("${searchModelObject.data![index].vehicalName} ",
+        //                                      style: TextStyle(color: kBlack, fontSize: 14,
+        //                                          fontFamily: poppinBold), textAlign: TextAlign.left),
+        //                                  Text("${searchModelObject.data![index].carsColors!.name} ",
+        //                                    textAlign: TextAlign.left, style: TextStyle(
+        //                                        color: kBlack, fontSize: 14, fontFamily: poppinRegular),),
+        //                                ],
+        //                              ),
+        //                              Row(
+        //                                children: [
+        //                                  Text("${searchModelObject.data![index].carsMakes!.name}, ",
+        //                                      style: TextStyle(color: kBlack, fontSize: 12,
+        //                                          fontFamily: poppinRegular), textAlign: TextAlign.left),
+        //                                  Text("${searchModelObject.data![index].carsModels!.name}, ",
+        //                                      textAlign: TextAlign.left, style: TextStyle(
+        //                                          color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
+        //                                  Text("${searchModelObject.data![index].year}",
+        //                                      textAlign: TextAlign.left, style: TextStyle(
+        //                                          color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+        //                                ],
+        //                              ),
+        //                              Row(
+        //                                children: [
+        //                                  Padding(
+        //                                    padding:  EdgeInsets.only(top: 04),
+        //                                    child: Text("RM",  textAlign: TextAlign.left,
+        //                                      style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinRegular),),
+        //                                  ),
+        //                                  Text("${searchModelObject.data![index].carsPlans![0].pricePerMonth}",
+        //                                      textAlign: TextAlign.left, style: TextStyle(
+        //                                          color: kRed, decoration: TextDecoration.lineThrough,
+        //                                          decorationColor: kRed, decorationThickness: 3,
+        //                                          fontSize: 10, fontFamily: poppinLight, height: 2)),
+        //                                   SizedBox(width: 5),
+        //                                  Padding(
+        //                                    padding:  EdgeInsets.only(top: 06),
+        //                                    child: Text("RM",  textAlign: TextAlign.left,
+        //                                        style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
+        //                                  ),
+        //                                  Text("${formattedPrice}",
+        //                                      textAlign: TextAlign.left, style: TextStyle(
+        //                                          color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+        //                                  Text("/", textAlign: TextAlign.left, style: TextStyle(
+        //                                      color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+        //                                  SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+        //                                  showRatingStars(double.parse("${searchModelObject.data![index].rating}")),
+        //                                  searchModelObject.data![index].rating == null
+        //                                      ? Text("0.0", style: TextStyle(color: kBlack, fontSize: 12,
+        //                                      fontFamily: poppinRegular), textAlign: TextAlign.left) :
+        //                                  Text("${searchModelObject.data![index].rating}",
+        //                                      style: TextStyle(color: kBlack, fontSize: 12,
+        //                                          fontFamily: poppinRegular), textAlign: TextAlign.left),
+        //                                ],
+        //                              ),
+        //                              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+        //                              // verifiedDealerText(),
+        //                            ],
+        //                          ),
+        //                        ),
+        //                      ],
+        //                    ),
+        //                  ],
+        //                ),
+        //              ),
+        //            ),
+        //          ),
+        //          Positioned(
+        //            right: 30, bottom: 35,
+        //            child: Column(
+        //              mainAxisAlignment: MainAxisAlignment.end,
+        //              crossAxisAlignment: CrossAxisAlignment.end,
+        //              children: [
+        //                GestureDetector(
+        //                  onTap: () {
+        //                    print("clickedddd");
+        //                    carID = evCarsModelObject.data![index].carsId;
+        //                    Navigator.push(context, MaterialPageRoute(
+        //                        builder: (context) => EVCarDescription(
+        //                          carName: evCarsModelObject.data![index].vehicalName,
+        //                          carYear: "${evCarsModelObject.data![index].year}",
+        //                          carId: evCarsModelObject.data![index].carsId,
+        //                          carColorName: evCarsModelObject.data![index].carsColors!.name,
+        //                          carMakesName: evCarsModelObject.data![index].carsMakes!.name,
+        //                          carModelName: evCarsModelObject.data![index].carsModels!.name,
+        //                          carImage: "$baseUrlImage${evCarsModelObject.data![index].image1}",
+        //                          carRating: evCarsModelObject.data![index].rating,
+        //                          favouriteStatus: evCarsModelObject.data![index].favouriteStatus,
+        //                          carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
+        //                          carStatus: evCarsModelObject.data![index].favouriteStatus,
+        //                          discountPercentage: evCarsModelObject.data![index].discountPercentage,
+        //                          carDiscountPrice: "${formattedPrice.toString()}",
+        //                          carPrice: evCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+        //                          carOwnerImage: "$baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}",
+        //                          carOwnerName: "${evCarsModelObject.data![index].usersCompanies!.companyName}",
+        //                          carOwnerId: evCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+        //                          myCarDescription: evCarsModelObject.data![index].description,
+        //                        )));
+        //                    print("evCarName ${evCarsModelObject.data![index].vehicalName}");
+        //                    print("evCarYear ${evCarsModelObject.data![index].year}");
+        //                    print("evCarImage $baseUrlImage${evCarsModelObject.data![index].image1}");
+        //                    print("ownerImage $baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}");
+        //                    print("ownerName ${evCarsModelObject.data![index].usersCompanies!.companyName}");
+        //                    print("ownerId ${evCarsModelObject.data![index].usersCompanies!.usersCompaniesId}");
+        //                  },
+        //                  child: Image.asset("assets/car_bookings_images/more_button.png"),
+        //                ),
+        //              ],
+        //            ),
+        //          ),
+        //          Positioned(
+        //            top: 10,
+        //            left: 10, right: 10,
+        //            child: searchModelObject.data![index].image1 == null ?
+        //            ClipRRect(
+        //                borderRadius: BorderRadius.circular(10),
+        //                child: Image.asset('assets/icon/fade_in_image.jpeg')) :
+        //            ClipRRect(
+        //              borderRadius: BorderRadius.circular(10),
+        //              child: FadeInImage(
+        //                placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
+        //                height: 130, width: 350,
+        //                image: NetworkImage("$baseUrlImage${searchModelObject.data![index].image1}"),),
+        //            ),
+        //          ),
+        //          Positioned(
+        //              top: 10, left: 10,
+        //              child: Container(
+        //                height: MediaQuery.of(context).size.width * 0.07,
+        //                width: MediaQuery.of(context).size.width * 0.18,
+        //                decoration: BoxDecoration(
+        //                  color: kRed.withOpacity(0.8),
+        //                  borderRadius:  BorderRadius.only(
+        //                      topRight: Radius.circular(15),
+        //                      bottomLeft: Radius.circular(15)),
+        //                ),
+        //                child: Row(
+        //                  mainAxisAlignment: MainAxisAlignment.center,
+        //                  children: [
+        //                    Text("${searchModelObject.data![index].discountPercentage}",
+        //                        textAlign: TextAlign.left, style: TextStyle(color: kWhite,
+        //                            fontSize: 13, fontFamily: poppinSemiBold)),
+        //                    Text(" OFF ", textAlign: TextAlign.left, style: TextStyle(
+        //                        color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+        //                  ],
+        //                ),
+        //              )),
+        //          Positioned(
+        //            top: 15, right: 15,
+        //            child: searchModelObject.data![index].favouriteStatus == "like"?
+        //            Image.asset("assets/home_page/heart.png"):
+        //            GestureDetector(
+        //              onTap: () async {
+        //                myCurrentCarIndex = "${searchModelObject.data![index].carsId}";
+        //                print("evCarIds $myCurrentCarIndex");
+        //                await getLikeUnlikeCarWidget();
+        //                getEvSubscriptionCarsWidget();
+        //              },
+        //              child: Image.asset("assets/car_bookings_images/heart.png"),
+        //            ),
+        //          ),
+        //        ],
+        //      );
+        //    })
       ),
     );
   }
