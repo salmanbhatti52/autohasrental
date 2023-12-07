@@ -81,17 +81,17 @@ class _FeaturesState extends State<Features> {
                 physics: BouncingScrollPhysics(),
                 child: Row(
                   children: [
-                    carFeaturesData('assets/car_description_images/car_engine.svg', '$featuresEngineCapacity' ),
+                    carFeaturesData('assets/car_description_images/car_engine.svg', "Engine Capacity", '$featuresEngineCapacity' ),
                     SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_door.svg', '$featuresDoors' ),
+                    carFeaturesData('assets/car_description_images/car_door.svg', "Doors", '$featuresDoors' ),
                     SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_seat.svg', '$featuresSeats' ),
+                    carFeaturesData('assets/car_description_images/car_seat.svg', "Seats", '$featuresSeats' ),
                     SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_speed.svg', '$featuresSpeed' ),
+                    carFeaturesData('assets/car_description_images/car_speed.svg', "Speed", '$featuresSpeed' ),
                     SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_reading.svg', "$featuresMeterReading"),
+                    carFeaturesData('assets/car_description_images/car_reading.svg', "Meter Reading", "$featuresMeterReading"),
                     SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_mileage.svg', '$featuresFuelCapacity' ),
+                    carFeaturesData('assets/car_description_images/car_mileage.svg', "Fuel Capacity", '$featuresFuelCapacity' ),
                   ],
                 ),
               ),
@@ -102,7 +102,7 @@ class _FeaturesState extends State<Features> {
     );
   }
 
-  Widget carFeaturesData(String featureImage, String featureName){
+  Widget carFeaturesData(String featureImage, String featureName, String featureName2){
     // return Row(
     //   crossAxisAlignment: CrossAxisAlignment.start,
     //   children: [
@@ -122,7 +122,7 @@ class _FeaturesState extends State<Features> {
     //   ],
     // );
     return Container(
-      width: MediaQuery.of(context).size.width * 0.28,
+      width: MediaQuery.of(context).size.width * 0.35,
       height: MediaQuery.of(context).size.height * 0.07,
       decoration: BoxDecoration(
         color: borderColor,
@@ -132,13 +132,23 @@ class _FeaturesState extends State<Features> {
         mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SvgPicture.asset(featureImage,
-            height: 20, width: 34),
-        SizedBox(height: 4,),
         Text(featureName,
-          textAlign: TextAlign.left, style: TextStyle(
-              fontSize: 13, fontFamily: poppinMedium, color: kBlack),
-        )
+        textAlign: TextAlign.center, style: TextStyle(
+          fontSize: 12, fontFamily: poppinMedium, color: kWhite),),
+        SizedBox(height: 5,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(featureImage,
+                height: 20, width: 20),
+            SizedBox(width: 5,),
+            Text(featureName2,
+              textAlign: TextAlign.left, style: TextStyle(
+                  fontSize: 15, fontFamily: poppinMedium, color: kWhite),
+            ),
+          ],
+        ),
       ],
     ),
     );
