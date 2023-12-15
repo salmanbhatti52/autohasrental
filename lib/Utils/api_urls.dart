@@ -1,11 +1,3 @@
-
-// String baseUrl = 'https://autohasrental.eigix.net/api/';
-// String baseUrlImage = 'https://autohasrental.eigix.net/public/';
-
-/// Api old url
-// String baseUrl = 'https://app.autohauscarrental.com/api/';
-// String baseUrlImage = 'https://app.autohauscarrental.com/public/';
-
 /// API new url
 String baseUrl = 'https://autohauscarrental.eigix.net/api/';
 String baseUrlImage = 'https://autohauscarrental.eigix.net/public/';
@@ -59,7 +51,6 @@ String getCarRatingByIdApiUrl = '${baseUrl}get_cars_rating';
 
 String getCarDetailsByIdApiUrl = '${baseUrl}cars_by_id';
 
-// String cancelBookingUpcomingCarsApiUrl = '${baseUrl}bookings_cancelled';
 String cancelBookingDialogBoxApiUrl = '${baseUrl}bookings_cancel';
 
 /// HomePage Top Widgets API Urls

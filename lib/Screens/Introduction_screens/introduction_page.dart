@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Utils/colors.dart';
 import '../Authentication/LoginPage/login_page.dart';
-import '../TabPages/Homepage/home_page.dart';
 import 'introduction_model.dart';
 
 class IntroductionPage extends StatefulWidget {

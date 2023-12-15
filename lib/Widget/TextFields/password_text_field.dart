@@ -1,7 +1,6 @@
-
-import 'package:flutter/material.dart';
 import '../../Utils/colors.dart';
 import '../../Utils/fontFamily.dart';
+import 'package:flutter/material.dart';
 
 class PasswordEditTextUtils {
   TextField getPasswordTextField(
@@ -38,7 +37,6 @@ class PasswordEditTextUtils {
         hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular,letterSpacing: 3,),
         focusColor: borderColor,
         suffixIcon: suffixIcon,
-        // errorText: errorTextMsg,
       ),
       style: TextStyle(color: borderColor, fontSize: 14, fontFamily: poppinRegular),
     );

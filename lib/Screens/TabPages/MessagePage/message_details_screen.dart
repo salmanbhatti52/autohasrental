@@ -52,7 +52,6 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     print("responseData: $jsonData");
 
     if (jsonData['status'] == 'error') {
-      // toastSuccessMessage("no chat history", kRed);
       print('no chat history');
       setState(() {
         loading = false;
@@ -381,10 +380,4 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
       ),
     );
   }
-}
-
-class ChatMessage {
-  String? messageContent;
-  String? messageType;
-  ChatMessage({@required this.messageContent, @required this.messageType});
 }

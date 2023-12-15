@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'EvSubscriptions/ev_subscription_page.dart';
-import 'BookForWedding/book_for_wedding_car_page.dart';
-import 'DrivingExperience/driving_experience_page.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 
@@ -27,15 +25,6 @@ Widget homeTopHorizontalCard(BuildContext context){
                     case 0:
                       Navigator.push(context, MaterialPageRoute(
                             builder: (context) => EvSubscriptionPage()));
-                      break;
-                    case 1:
-                      Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => BookForWeddingPage(
-                        )));
-                      break;
-                    case 2:
-                      Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => DrivingExperiencePage()));
                       break;
                   }
                 },

@@ -406,33 +406,6 @@ class _CartDetailsState extends State<CartDetails> {
                                         fontFamily: poppinRegular, color: borderColor)),
                                 ),
                                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                                // Center(
-                                //   child: GestureDetector(
-                                //     onTap: (){
-                                //       // Navigator.pushReplacement(context, MaterialPageRoute(
-                                //       //     builder: (context) => BookForWeddingBookingDetails(
-                                //       //       carName: widget.carName,
-                                //       //       carYear: widget.carYear,
-                                //       //       selectedStartTime: widget.selectedStartTime,
-                                //       //       selectedEndTime: widget.selectedEndTime,
-                                //       //       selectedHours: widget.selectedHours,
-                                //       //       hours: widget.totalHoursInNumber,
-                                //       //       selectedDate: widget.myDate,
-                                //       //       selectedDay: widget.myDay,)));
-                                //     },
-                                //     child: Container(
-                                //       height: MediaQuery.of(context).size.height*0.03,
-                                //       width: MediaQuery.of(context).size.width *0.3,
-                                //       decoration: BoxDecoration(
-                                //           borderRadius: BorderRadius.circular(20),
-                                //           border: Border.all(color: borderColor)),
-                                //       child: Center(
-                                //           child: Text("Edit", textAlign: TextAlign.center,
-                                //               style: TextStyle(fontSize: 12,
-                                //                   fontFamily: poppinRegular, color: borderColor))),
-                                //     ),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),

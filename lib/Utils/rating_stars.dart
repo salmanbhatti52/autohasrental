@@ -1,8 +1,6 @@
-
-
+import 'colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'colors.dart';
 
 Widget showRatingStars( ratingValue){
   return RatingBar(
@@ -22,12 +20,7 @@ Widget showRatingStars( ratingValue){
           empty: Icon(
             Icons.star_outline,
             color: borderColor,
-          )),
-
-      onRatingUpdate: (value) {
-        // setState(() {
-        // photoPreviousObject.data![index].carsDetails!.rating = "$value";
-        // print("ratingValue ${photoPreviousObject.data![index].carsDetails!.rating}");
-        // });
-      });
+          ),
+      ),
+      onRatingUpdate: (value) {});
 }

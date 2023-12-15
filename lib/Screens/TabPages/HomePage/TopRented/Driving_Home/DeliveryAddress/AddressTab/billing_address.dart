@@ -33,20 +33,6 @@ class _BillingAddressState extends State<BillingAddress> {
   var cityControllerBilling = TextEditingController();
   var postCodeControllerBilling = TextEditingController();
 
-  // String selectedCountryBilling = 'United Kingdom';
-  //
-  // // Initial Selected Value
-  // String selectedStateBilling = 'Select state';
-  //
-  // // List of items in our dropdown menu
-  // var items = [
-  //   'Select state',
-  //   'Select state 1',
-  //   'Select state 2',
-  //   'Select state 3',
-  //   'Select state 4',
-  //   'Select state 5',
-  // ];
   mySelectedData(){
     print("carDayDate: ${widget.selectedDate}");
     print("carStartEndTime: ${widget.startTime} ${widget.endTime}");
@@ -162,134 +148,6 @@ class _BillingAddressState extends State<BillingAddress> {
                     print("state $billingState");
                   }),
                 ),
-                // Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     textWidgetBlack("State"),
-                //     SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                //     Container(
-                //       height: MediaQuery.of(context).size.height *0.06,
-                //       width: MediaQuery.of(context).size.width,
-                //       decoration: BoxDecoration(
-                //           color: kWhite,
-                //           borderRadius: BorderRadius.circular(30)
-                //       ),
-                //       padding: EdgeInsets.symmetric(horizontal: 10, ),
-                //       child: DropdownButtonHideUnderline(
-                //         child: Padding(
-                //           padding: EdgeInsets.only(left: 10),
-                //           child: DropdownButton(
-                //             // Initial Value
-                //             value: selectedStateBilling,
-                //             // hint: Text("Select state", style: TextStyle(color: textLabelColor, fontFamily: poppinRegular,
-                //             // ),
-                //             // ),
-                //
-                //             // Down Arrow Icon
-                //             icon: Icon(Icons.keyboard_arrow_down),
-                //
-                //             // Array list of items
-                //             items: items.map((String items) {
-                //               return DropdownMenuItem(
-                //                 value: items,
-                //                 child: Text(items),
-                //               );
-                //             }).toList(),
-                //             // After selecting the desired option,it will
-                //             // change button value to selected value
-                //             onChanged: (String? newValue) {
-                //               setState(() {
-                //                 selectedStateBilling = newValue!;
-                //               });
-                //             },
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                //
-                // Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     textWidgetBlack("Country"),
-                //     SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                //     GestureDetector(
-                //       onTap: () {
-                //         showCountryPicker(
-                //           context: context,
-                //           exclude: <String>['KN', 'MF'],
-                //           //Optional. Shows phone code before the country name.
-                //           showPhoneCode: true,
-                //           showWorldWide: false,
-                //           onSelect: (Country country) {
-                //             print('Select country: ${country.displayName}');
-                //
-                //             setState(() {
-                //               selectedCountryBilling = country.name;
-                //             });
-                //           },
-                //           // Optional. Sets the theme for the country list picker.
-                //           countryListTheme: CountryListThemeData(
-                //             borderRadius: BorderRadius.only(
-                //               topLeft: Radius.circular(40.0),
-                //               topRight: Radius.circular(40.0),
-                //             ),
-                //             // Optional. Styles the search field.
-                //             inputDecoration: InputDecoration(
-                //               labelText: 'Search',
-                //               hintText: 'Start typing to search',
-                //               prefixIcon: Icon(Icons.search),
-                //               border: OutlineInputBorder(
-                //                 borderSide: BorderSide(
-                //                   color:
-                //                   Color(0xFF8C98A8).withOpacity(0.2),
-                //                 ),
-                //               ),
-                //             ),
-                //           ),
-                //         );
-                //       },
-                //       child: Container(
-                //           padding: EdgeInsets.only(left: 10),
-                //           height: MediaQuery.of(context).size.height * 0.06,
-                //           width: MediaQuery.of(context).size.width,
-                //           decoration: BoxDecoration(
-                //               color: kWhite,
-                //               borderRadius: BorderRadius.circular(30)
-                //           ),
-                //           margin: EdgeInsets.only(left: 0, right: 0),
-                //           alignment: Alignment.centerLeft,
-                //           child: Padding(
-                //             padding: EdgeInsets.symmetric(horizontal: 10),
-                //             child: Row(
-                //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //                 children: [
-                //                   Text(
-                //                     selectedCountryBilling.toString(),
-                //                     style: TextStyle(fontSize: 16),
-                //                   ),
-                //                   Container(
-                //                     //padding: EdgeInsets.only(right: 6),
-                //                     alignment: Alignment.center,
-                //                     height: MediaQuery.of(context).size.height,
-                //                     width: MediaQuery.of(context).size.width * 0.07,
-                //                     decoration: BoxDecoration(
-                //                       // color: Colors.black12,
-                //                         borderRadius: BorderRadius.only(
-                //                             topRight: Radius.circular(4),
-                //                             bottomRight: Radius.circular(4))),
-                //                     child: Icon(Icons.keyboard_arrow_down_outlined),
-                //                   ),
-                //                 ]),
-                //           )),
-                //     ),
-                //
-                //   ],
-                // ),
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
                 GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(
@@ -314,13 +172,13 @@ class _BillingAddressState extends State<BillingAddress> {
                             billingPostCode: postCodeControllerBilling.text,
                             billingState: billingState,
                             billingCountry: billingCountry,
-                          )));
+                          ),
+                      ),
+                      );
                     },
                     child: loginButton("Save", context)),
               ],
             ),
-
-
           ],
         ),
       ),
@@ -441,6 +299,7 @@ class _BillingAddressState extends State<BillingAddress> {
               ),
             ],
           ),
-        ));
+        ),
+    );
   }
 }

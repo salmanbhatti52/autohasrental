@@ -5,7 +5,6 @@ import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +13,6 @@ import '../../../Model/AuthModels/user_sign_up_model.dart';
 import '../../../Widget/TextFields/password_text_field.dart';
 import '../../../Widget/TextFields/text_form_field.dart';
 import '../../../Widget/myTextWidget.dart';
-import '../../TabPages/MyAppBarHeader/app_bar_header.dart';
 import '../LoginPage/login_page.dart';
 import 'verify_phone_page.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -38,7 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   SignUpModel signUpModel = SignUpModel();
   registerUser() async {
-    // try {
     String apiUrl = signUpApiUrl;
     print("api: $apiUrl");
     print("one_signal_id: 123456");
@@ -69,10 +66,6 @@ class _SignUpPageState extends State<SignUpPage> {
       setState(() {});
       print('signUpModel status: ${signUpModel.status}');
     }
-    // } catch (e) {
-    //   print('singUp error in catch = ${e.toString()}');
-    //   return null;
-    // }
   }
 
   bool isInAsyncCall = false;
@@ -108,33 +101,6 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.03,
               ),
-              // Center(
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: [
-              //       Image.asset(
-              //         "assets/images/license.png",
-              //       ),
-              //       SizedBox(
-              //         width: 10,
-              //       ),
-              //       Container(
-              //         color: Colors.transparent,
-              //         width: MediaQuery.of(context).size.width * 0.6,
-              //         child: Text(
-              //           "Enter your name as it appears on your driving license.",
-              //           maxLines: 2,
-              //           textAlign: TextAlign.left,
-              //           style: TextStyle(
-              //               fontSize: 12,
-              //               fontFamily: poppinRegular,
-              //               color: kWhite),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
               LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
                   if (constraints.maxWidth < 600) {
@@ -221,9 +187,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             fontSize: 12,
                             color: borderColor,
                           ),
-                          // recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
-                          //     context, MaterialPageRoute(builder: (context) => PrivacyPolicy())),
-                        ),
+                           ),
                         TextSpan(
                             text: " and ",
                             style: TextStyle(
@@ -235,10 +199,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: borderColor,
                             fontFamily: poppinRegular,
                           ),
-                          // recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(
-                          //     context, MaterialPageRoute(builder: (context) => TermsAndCondition())),
-                        ),
-                      ]),
+                          ),
+                      ],
+                  ),
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -435,20 +398,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     ],
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     textWidget("Mobile number"),
-                  //     SizedBox(
-                  //         height: MediaQuery.of(context).size.height * 0.005),
-                  //     EditTextUtils().getCustomEditTextArea(
-                  //       hintValue: "+971 | Mobile number",
-                  //       validation: true,
-                  //       textController: phoneController,
-                  //       keyboardType: TextInputType.phone,
-                  //     ),
-                  //   ],
-                  // ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -463,9 +412,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         controller: phoneController,
                         initialCountryCode: 'US',
                         disableLengthCheck: true,
-                        // disableAutoFillHints: true,
-                        // showCountryFlag: false,
-                        // showDropdownIcon: false,
                         dropdownTextStyle: TextStyle(color: borderColor),
                         dropdownIcon: Icon(Icons.arrow_drop_down, color: textLabelColor,),
                         onChanged: onCountryChange,
@@ -516,21 +462,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       textWidget("Email"),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.005),
-                      // EditTextUtils().getCustomEditTextArea(
-                      //   hintValue: "rose.matthews@gmail.com",
-                      //   validation: true,
-                      //   textController: emailController,
-                      //   keyboardType: TextInputType.text,
-                      // ),
                       TextFormField(
                         controller: emailController,
                         textAlign: TextAlign.left,
-                        // style: const TextStyle(
-                        //   color: Color.fromRGBO(167, 169, 183, 1),
-                        //   fontFamily: "Outfit",
-                        //   fontWeight: FontWeight.w300,
-                        //   fontSize: 14,
-                        // ),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value!.isEmpty) {

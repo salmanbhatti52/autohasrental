@@ -17,7 +17,6 @@ import 'package:auto_haus_rental_app/Model/get_rate_cars_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';
 
 import '../../../../../tab_page.dart';
-import '../DrivingPrevious/driving_previous_page.dart';
 
 class PreviousBookingDetailsPage extends StatefulWidget {
   final String? myStatus;

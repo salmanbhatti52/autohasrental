@@ -10,20 +10,19 @@ import '../Utils/colors.dart';
 class MyBottomNavigationBar extends StatefulWidget {
   FilterCarByAttributeModel? filterCarByAttributeModelObject;
   bool? clearFilters;
-   MyBottomNavigationBar({Key? key, this.filterCarByAttributeModelObject, this.clearFilters}) : super(key: key);
+  MyBottomNavigationBar(
+      {Key? key, this.filterCarByAttributeModelObject, this.clearFilters})
+      : super(key: key);
 
   @override
   State<MyBottomNavigationBar> createState() => _MyBottomNavigationBarState();
 }
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
-
   @override
   void initState() {
     super.initState();
   }
-
-
 
   int currentIndex = 0;
   void onTap(int index) {
@@ -34,15 +33,13 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   Future<bool> backPressed() async {
     print("currentIndex $currentIndex");
     if (currentIndex != 0) {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) =>  TabBarPage()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => TabBarPage()));
       print("currentIndex1111 $currentIndex");
       return false;
     }
 
     if (currentIndex == 0) {
-      // Navigator.pushReplacement(context,
-      //     MaterialPageRoute(builder: (context) =>  TabBarPage()));
       print("currentIndex1111 $currentIndex");
       return false;
     }
@@ -52,12 +49,15 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     List pages = [
-      HomePage(filterCarByAttributeModelObject: widget.filterCarByAttributeModelObject, clearFilters: widget.clearFilters,),
+      HomePage(
+        filterCarByAttributeModelObject: widget.filterCarByAttributeModelObject,
+        clearFilters: widget.clearFilters,
+      ),
       MessagePage(),
       BookingPage(),
       FavoritePage(),
     ];
-    return  WillPopScope(
+    return WillPopScope(
       onWillPop: backPressed,
       child: Scaffold(
         body: Container(
@@ -67,11 +67,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           height: MediaQuery.of(context).size.height * 0.1,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              color: appBgColor,
-              borderRadius:  BorderRadius.only(
-                topRight: Radius.circular(12),
-                  topLeft: Radius.circular(12)
-              ),
+            color: appBgColor,
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(12), topLeft: Radius.circular(12)),
           ),
           child: BottomNavigationBar(
               selectedItemColor: borderColor,
@@ -83,31 +81,38 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               elevation: 0,
               items: [
                 BottomNavigationBarItem(
-                  icon: Image.asset('assets/tab_images/home_image.png',
+                  icon: Image.asset(
+                    'assets/tab_images/home_image.png',
                     color: currentIndex == 0 ? borderColor : kWhite,
                     width: 30,
                   ),
                   label: 'Home',
-
                 ),
                 BottomNavigationBarItem(
-                    icon: Image.asset('assets/tab_images/messages_image.png',
+                    icon: Image.asset(
+                      'assets/tab_images/messages_image.png',
                       color: currentIndex == 1 ? borderColor : kWhite,
                       width: 30,
                     ),
-                    label: 'Messages'),
+                    label: 'Messages',
+                ),
                 BottomNavigationBarItem(
-                    icon: Image.asset('assets/tab_images/calendar_image.png',
+                    icon: Image.asset(
+                      'assets/tab_images/calendar_image.png',
                       color: currentIndex == 2 ? borderColor : kWhite,
                       width: 30,
                     ),
-                    label: 'Booking'),
+                    label: 'Booking',
+                ),
                 BottomNavigationBarItem(
                     icon: Image.asset('assets/tab_images/heart_image.png',
                         color: currentIndex == 3 ? borderColor : kWhite,
-                        width: 30),
-                    label: 'Favorities'),
-              ]),
+                        width: 30,
+                    ),
+                    label: 'Favorities',
+                ),
+              ],
+          ),
         ),
       ),
     );

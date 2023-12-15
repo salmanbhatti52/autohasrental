@@ -134,152 +134,11 @@ class _DrivingAddressTabBarState extends State<DrivingAddressTabBar>
                           print("state $selectedState");
                         }),
                       ),
-                      // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     textWidgetBlack("State"),
-                      //     SizedBox(
-                      //         height: MediaQuery.of(context).size.height * 0.005),
-                      //     Container(
-                      //       height: MediaQuery.of(context).size.height * 0.06,
-                      //       width: MediaQuery.of(context).size.width,
-                      //       decoration: BoxDecoration(
-                      //           color: kWhite,
-                      //           borderRadius: BorderRadius.circular(30)),
-                      //       padding: EdgeInsets.symmetric(horizontal: 10),
-                      //       child: DropdownButtonHideUnderline(
-                      //         child: Padding(
-                      //           padding: EdgeInsets.only(left: 10),
-                      //           child: DropdownButton(
-                      //             // Initial Value
-                      //             value: dropdownValue,
-                      //             // hint: Text("Select state", style: TextStyle(color: textLabelColor, fontFamily: poppinRegular,
-                      //             // ),
-                      //             // ),
-                      //
-                      //             // Down Arrow Icon
-                      //             icon: Icon(Icons.keyboard_arrow_down),
-                      //
-                      //             // Array list of items
-                      //             items: items.map((String items) {
-                      //               return DropdownMenuItem(
-                      //                 value: items,
-                      //                 child: Text(items),
-                      //               );
-                      //             }).toList(),
-                      //             // After selecting the desired option,it will
-                      //             // change button value to selected value
-                      //             onChanged: (String? newValue) {
-                      //               setState(() {
-                      //                 dropdownValue = newValue!;
-                      //                 print("selectedState $dropdownValue");
-                      //               });
-                      //             },
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     textWidgetBlack("Country"),
-                      //     SizedBox(
-                      //         height: MediaQuery.of(context).size.height * 0.01),
-                      //     GestureDetector(
-                      //       onTap: () {
-                      //         showCountryPicker(
-                      //           context: context,
-                      //           exclude: <String>['KN', 'MF'],
-                      //           //Optional. Shows phone code before the country name.
-                      //           showPhoneCode: true,
-                      //           showWorldWide: false,
-                      //           onSelect: (Country country) {
-                      //             print('Select country: ${country.displayName}');
-                      //
-                      //             setState(() {
-                      //               _country = country.name;
-                      //               print("selectedCountry $_country");
-                      //             });
-                      //           },
-                      //           // Optional. Sets the theme for the country list picker.
-                      //           countryListTheme: CountryListThemeData(
-                      //             borderRadius: BorderRadius.only(
-                      //               topLeft: Radius.circular(40.0),
-                      //               topRight: Radius.circular(40.0),
-                      //             ),
-                      //             // Optional. Styles the search field.
-                      //             inputDecoration: InputDecoration(
-                      //               labelText: 'Search',
-                      //               hintText: 'Start typing to search',
-                      //               prefixIcon: Icon(Icons.search),
-                      //               border: OutlineInputBorder(
-                      //                 borderSide: BorderSide(
-                      //                   color: Color(0xFF8C98A8)
-                      //                       .withOpacity(0.2),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         );
-                      //       },
-                      //       child: Container(
-                      //           padding: EdgeInsets.only(left: 10),
-                      //           height: MediaQuery.of(context).size.height * 0.06,
-                      //           width: MediaQuery.of(context).size.width,
-                      //           decoration: BoxDecoration(
-                      //               color: kWhite,
-                      //               borderRadius: BorderRadius.circular(30)),
-                      //           margin: EdgeInsets.only(left: 0, right: 0),
-                      //           alignment: Alignment.centerLeft,
-                      //           child: Padding(
-                      //             padding:
-                      //                 EdgeInsets.symmetric(horizontal: 10),
-                      //             child: Row(
-                      //                 mainAxisAlignment:
-                      //                     MainAxisAlignment.spaceBetween,
-                      //                 children: [
-                      //                   Text(
-                      //                     _country.toString(),
-                      //                     style: TextStyle(fontSize: 16),
-                      //                   ),
-                      //                   Container(
-                      //                     //padding: EdgeInsets.only(right: 6),
-                      //                     alignment: Alignment.center,
-                      //                     height:
-                      //                         MediaQuery.of(context).size.height,
-                      //                     width:
-                      //                         MediaQuery.of(context).size.width *
-                      //                             0.07,
-                      //                     decoration: BoxDecoration(
-                      //                         // color: Colors.black12,
-                      //                         borderRadius: BorderRadius.only(
-                      //                             topRight: Radius.circular(4),
-                      //                             bottomRight:
-                      //                                 Radius.circular(4))),
-                      //                     child: Icon(
-                      //                         Icons.keyboard_arrow_down_outlined),
-                      //                   ),
-                      //                 ]),
-                      //           )),
-                      //     ),
-                      //   ],
-                      // ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                       GestureDetector(
                         onTap: () {
                           final newIndex = tabController!.index + 1;
                           tabController!.animateTo(newIndex);
-                          // myFunction(widget.totalAmount, widget.mySelectedTabMonth, widget.favouriteStatus,
-                          //     widget.mySelectedTabPrice, widget.carName, widget.carImage,
-                          //     widget.carYear, widget.carPrice, widget.carStatus, widget.carColorName,
-                          //     widget.carModelName, widget.carMakesName, widget.carMakesImage, widget.carRating,
-                          //     address2ControllerHome.text, cityControllerHome.text, postCodeControllerHome.text, selectedState,
-                          //     widget.carOwnerImage, widget.carOwnerName, widget.discountPercentage, address1ControllerHome.text,
-                          //     selectedCountry, widget.evStartDate, widget.evEndDate, widget.carId, widget.carOwnerId, widget.carDiscountPrice);
                           print('newIndex $newIndex');
                         },
                         child: Container(
@@ -437,6 +296,7 @@ class _DrivingAddressTabBarState extends State<DrivingAddressTabBar>
               ),
             ],
           ),
-        ));
+        ),
+    );
   }
 }

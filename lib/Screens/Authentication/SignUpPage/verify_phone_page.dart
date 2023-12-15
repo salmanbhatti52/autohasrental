@@ -318,14 +318,6 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                         ),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      // Text(
-                      //   "Resend Code (4)",
-                      //   style: TextStyle(
-                      //       color: borderColor,
-                      //       fontSize: 16,
-                      //       fontFamily: poppinSemiBold,
-                      //       fontWeight: FontWeight.w500),
-                      // ),
                       secondsRemaining == 0
                           ? GestureDetector(
                         onTap: () {

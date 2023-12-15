@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:flutter/material.dart';
 
 class EditTextUtils {
   TextField getCustomEditTextArea({
@@ -35,7 +35,6 @@ class EditTextUtils {
         hintText: hintValue,
         hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular,),
         focusColor: borderColor,
-        // errorText: errorTextMsg,
       ),
       style: TextStyle(color: borderColor, fontSize: 14),
 

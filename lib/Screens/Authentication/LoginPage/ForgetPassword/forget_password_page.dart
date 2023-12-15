@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../Model/AuthModels/forget_password_model.dart';
-import '../../../../Widget/TextFields/text_form_field.dart';
 import '../../../../Widget/myTextWidget.dart';
 import '../../../../Widget/toast_message.dart';
 import '../../../TabPages/MyAppBarHeader/app_bar_header.dart';
@@ -138,7 +137,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 0),
                       child: loginButton("Send Reset Link", context),
-                    )),
+                    ),
+                ),
               ],
             ),
           ),
@@ -162,23 +162,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 children: [
                   textWidget("Email"),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                  // EditTextUtils().getCustomEditTextArea(
-                  //   hintValue: "rose.matthews@mail.com",
-                  //   validation: true,
-                  //   // autoFocus: true,
-                  //   textController: resetEmailController,
-                  //   keyboardType: TextInputType.emailAddress,
-                  //   // errorTextMsg: "Please Enter Email",
-                  // ),
                   TextFormField(
                     controller: resetEmailController,
                     textAlign: TextAlign.left,
-                    // style: const TextStyle(
-                    //   color: Color.fromRGBO(167, 169, 183, 1),
-                    //   fontFamily: "Outfit",
-                    //   fontWeight: FontWeight.w300,
-                    //   fontSize: 14,
-                    // ),
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value!.isEmpty) {

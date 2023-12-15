@@ -6,7 +6,6 @@ import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,7 +62,6 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getPreviousBookingCarWidget();
   }
@@ -91,7 +89,6 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
       final responseString = response.body;
       print("responseGetCarDetailByID: ${responseString.toString()}");
       carDetailsByIdModelObject = carDetailsByIdModelFromJson(responseString);
-      // Future.delayed( Duration(seconds: 2), () {
         Navigator.push(context, MaterialPageRoute(
             builder: (context) => EVCarDescription(
               carName: carDetailsByIdModelObject.data?.vehicalName,
@@ -101,7 +98,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
               carColorName: carDetailsByIdModelObject.data!.carsColors!.name,
               carMakesName: carDetailsByIdModelObject.data!.carsMakes!.name,
               carModelName: carDetailsByIdModelObject.data!.carsModels!.name,
-              carImage: carDetailsByIdModelObject!.data!.image1!.endsWith('.jpg') || carDetailsByIdModelObject.data!.image1!.endsWith('.png') || carDetailsByIdModelObject.data!.image1!.endsWith('.jpeg')
+              carImage: carDetailsByIdModelObject.data!.image1!.endsWith('.jpg') || carDetailsByIdModelObject.data!.image1!.endsWith('.png') || carDetailsByIdModelObject.data!.image1!.endsWith('.jpeg')
                   ? "$baseUrlImage${carDetailsByIdModelObject.data?.image1}"
                   : carDetailsByIdModelObject.data?.image1,
               carMakesImage: "$baseUrlImage${carDetailsByIdModelObject.data!.carsMakes!.image}",

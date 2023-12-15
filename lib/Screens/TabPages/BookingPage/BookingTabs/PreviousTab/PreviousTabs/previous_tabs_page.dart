@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../../../../../Utils/fontFamily.dart';
-import 'DrivingPrevious/driving_previous_page.dart';
 import 'EVPrevious/ev_previous_page.dart';
-import 'PhotoPrevious/photo_previous_page.dart';
 
 class PreviousTabsPages extends StatefulWidget {
   PreviousTabsPages({super.key});
@@ -70,8 +68,6 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
             controller: tabController,
             physics: BouncingScrollPhysics(),
             children: [
-              // PhotoPreviousPage(),
-              // DrivingPreviousPage(),
               EvPreviousPage(),
             ],
           ),

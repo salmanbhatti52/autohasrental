@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../../../../../Utils/fontFamily.dart';
 import 'EvUpcoming/ev_upcoming_page.dart';
-import 'PhotoUpcoming/photo_upcoming_page.dart';
-import 'DrivingUpcoming/driving_upcoming_page.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 
 class UpComingTabsPages extends StatefulWidget {

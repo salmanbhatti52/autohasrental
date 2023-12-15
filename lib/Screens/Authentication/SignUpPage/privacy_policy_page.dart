@@ -1,6 +1,5 @@
 import 'dart:core';
 import 'package:auto_haus_rental_app/Model/privacy_policy_model.dart';
-import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -83,7 +82,6 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             ),
           ):
           Container(
-            // width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.693,
             color: Colors.transparent,
             padding: EdgeInsets.symmetric(horizontal: 20),

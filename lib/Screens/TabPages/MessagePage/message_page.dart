@@ -180,7 +180,6 @@ class _MessagePageState extends State<MessagePage> {
     print("chatHistoryApiUrl: $getAllChatApiUrl");
     print('chatHistoryApiResponse == $jsonData');
     if (jsonData['message'] == 'chat unavailable.') {
-      // toastSuccessMessage("Chat Not found", kRed);
       print('Chat not found!');
       setState(() {
         loading = false;
@@ -260,6 +259,7 @@ class _MessagePageState extends State<MessagePage> {
               ],
             ),
           );
-        });
+        },
+    );
   }
 }

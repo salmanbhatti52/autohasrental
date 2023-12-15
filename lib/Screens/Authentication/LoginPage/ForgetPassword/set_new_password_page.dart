@@ -265,6 +265,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
               ),
             ],
           ),
-        ));
+        ),
+    );
   }
 }

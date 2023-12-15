@@ -78,13 +78,6 @@ class _HomeDrivingBookingState extends State<HomeDrivingBooking> with SingleTick
     compareDates();
   }
 
-  // getTodayDate() {
-  //   var formatter = DateFormat('yyyy-MM-dd');
-  //   var now = DateTime.now();
-  //   valueDate = formatter.format(now);
-  //   print("currentDate $valueDate");
-  //   compareDates();
-  // }
   String? formattedDate, matchDate;
   List dateList = [];
   List<CustomSlotModel> myCarPlan = [];

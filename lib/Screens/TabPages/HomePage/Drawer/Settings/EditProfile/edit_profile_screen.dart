@@ -270,15 +270,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           });
                           print("false: $progress");
                         });
-                      // }
-                      // if (updateProfileModel.status != "success") {
-                      //   setState(() {
-                      //     progress = false;
-                      //   });
-                      //   print("updateProfileModel");
-                      //   toastFailedMessage("updateProfile Error", Colors.red);
-                      // }
-                    }
+                       }
                   }
 
                   // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SettingsScreen()));

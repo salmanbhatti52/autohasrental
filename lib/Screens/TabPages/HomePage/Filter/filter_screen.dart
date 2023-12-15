@@ -132,106 +132,59 @@ int BMW = 1;
           color: borderColor,
         ),
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           color: appBgColor,
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-                // SizedBox(
-                //   width: MediaQuery.of(context).size.width,
-                //   height: 30,
-                //   child: Stack(
-                //     children: [
-                //       Positioned(
-                //         left: 160,
-                //         child: Text('Filter', textAlign: TextAlign.center,
-                //           style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
-                //       ),
-                //       Positioned(
-                //         // bottom:12,
-                //         right: 15,
-                //         child: TextButton(
-                //           onPressed: (){
-                //             clearFilter();
-                //             Navigator.pushReplacement(context,
-                //                 MaterialPageRoute(builder: (context) => TabBarPage(clearFilters: clearFilters,)));
-                //           },
-                //           child: Text('Clear Filter', textAlign: TextAlign.right,
-                //             style: TextStyle(fontSize: 14,
-                //                 fontFamily: poppinMedium, color: kWhite),),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                SizedBox(height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.08),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(onPressed: (){
+                      IconButton(onPressed: () {
                         Get.back();
-                      }, icon: Image.asset('assets/live_chat_images/back_arrow.png',
-                          color: Colors.white, height: 25, width: 25),),
+                      },
+                        icon: Image.asset(
+                            'assets/live_chat_images/back_arrow.png',
+                            color: Colors.white, height: 25, width: 25),),
                       Padding(
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Text('Filter', textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kWhite),),
+                          style: TextStyle(fontSize: 20,
+                              fontFamily: poppinBold,
+                              color: kWhite),),
                       ),
-          TextButton(
-                      onPressed: (){
-                        clearFilter();
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => TabBarPage(clearFilters: clearFilters,)));
-                      },
-                      child: Text('Clear Filter', textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 14,
-                            fontFamily: poppinMedium, color: kWhite),),
-                    ),
+                      TextButton(
+                        onPressed: () {
+                          clearFilter();
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) =>
+                                  TabBarPage(clearFilters: clearFilters,)));
+                        },
+                        child: Text('Clear Filter', textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 14,
+                              fontFamily: poppinMedium, color: kWhite),),
+                      ),
                     ],
                   ),
                 ),
-                 SizedBox(height: 10),
-                // Padding(
-                //   padding:  EdgeInsets.symmetric(horizontal: 20),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.start,
-                //     children: [
-                //       Text('TESLA', textAlign: TextAlign.left,
-                //         style: TextStyle(fontSize: 10,
-                //             fontFamily: poppinRegular, color: kWhite),
-                //       ),
-                //        SizedBox(width: 5),
-                //       Icon(Icons.close, color: borderColor, size: 10,),
-                //        SizedBox(width: 10),
-                //       Text('Low to High', textAlign: TextAlign.left,
-                //         style: TextStyle(fontSize: 10,
-                //             fontFamily: poppinRegular, color: kWhite),
-                //       ),
-                //        SizedBox(width: 5),
-                //       Icon(Icons.close, color: borderColor, size: 10,),
-                //        SizedBox(width: 10),
-                //       Text('400 km to 800', textAlign: TextAlign.left,
-                //         style: TextStyle(
-                //             fontSize: 10,
-                //             fontFamily: poppinRegular,
-                //             color: kWhite),
-                //       ),
-                //        SizedBox(width: 5),
-                //       Icon(
-                //         Icons.close,
-                //         color: borderColor,
-                //         size: 10,
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                SizedBox(height: 10),
                 dividerWidget(),
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
@@ -244,45 +197,51 @@ int BMW = 1;
                     ),
                   ),
                 ),
-                 SizedBox(height: 10),
+                SizedBox(height: 10),
 
                 buildTextFields(),
 
-                SizedBox(height: Get.height* 0.15),
+                SizedBox(height: Get.height * 0.15),
                 GestureDetector(
                     onTap: () async {
-
                       print("dropdownValue $dropdownCarType");
                       print("valueYear $showYear");
                       print("rangeStartPrice $rangeStartPrice");
                       print("rangeEndPrice $rangeEndPrice");
                       print("selectedCarMakesId $selectedCarMakesId");
-                      if(filterFormKey.currentState!.validate()){
+                      if (filterFormKey.currentState!.validate()) {
                         if (rangeStartPrice == null) {
-                          toastFailedMessage('Please select Your Start Price', Colors.red);
+                          toastFailedMessage(
+                              'Please select Your Start Price', Colors.red);
                         } else if (rangeEndPrice == null) {
-                          toastFailedMessage('Please select Your End Price',Colors.red);
+                          toastFailedMessage(
+                              'Please select Your End Price', Colors.red);
                         } else if (dropdownCarType == null) {
-                          toastFailedMessage('CarType cannot be empty',Colors.red);
+                          toastFailedMessage(
+                              'CarType cannot be empty', Colors.red);
                         } else if (showYear == "") {
-                          toastFailedMessage('Year cannot be empty',Colors.red);
-                        } else{
+                          toastFailedMessage('Year cannot be empty', Colors
+                              .red);
+                        } else {
                           setState(() {
                             progress = true;
                           });
                           await filterCarsWidget();
 
                           Future.delayed(Duration(seconds: 1), () {
-                            if(filterCarByAttributeModelObject.status == "success"){
+                            if (filterCarByAttributeModelObject.status ==
+                                "success") {
                               // for(int i = 0; i < filterCarByAttributeModelObject.data!.length; i++){
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) => TabBarPage(filterCarByAttributeModelObject: filterCarByAttributeModelObject,)));
-                                setState(() {
-                                  progress = false;
-                                });
-                                print("false: $progress");
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) =>
+                                      TabBarPage(
+                                        filterCarByAttributeModelObject: filterCarByAttributeModelObject,)));
+                              setState(() {
+                                progress = false;
+                              });
+                              print("false: $progress");
                               // }
-                            } else{
+                            } else {
                               // toastFailedMessage("${filterCarByAttributeModelObject.message}", kRed);
                               toastFailedMessage("No Car Found", kRed);
                             }
@@ -298,25 +257,6 @@ int BMW = 1;
       ),
     );
   }
-
-  // Future<void> _selectYear(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: DateTime.now(),
-  //     firstDate: DateTime(1900),
-  //     lastDate: DateTime(2100),
-  //     initialDatePickerMode: DatePickerMode.year,
-  //   );
-  //
-  //   if (picked != null) {
-  //     setState(() {
-  //       valueYear = "${picked.year}";
-  //       print("pickedYear ${picked.year}");
-  //       print("pickedYear ${valueYear}");
-  //     });
-  //
-  //   }
-  // }
 
   DateTime _selectedYear = DateTime.now();
 
@@ -518,48 +458,7 @@ int BMW = 1;
                     ),
                     SizedBox(height: 10),
                     priceRangeSliderWidget(),
-                    // SizedBox(height: 10),
-                    // ChooseFilterPrice(),
                     dividerWidget(),
-
-                    // Padding(
-                    //   padding:  EdgeInsets.symmetric(horizontal: 20),
-                    //   child: Row(
-                    //     children: [
-                    //       Text('Mileage', textAlign: TextAlign.left,
-                    //         style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),),
-                    //        SizedBox(width: 10),
-                    //       RichText(
-                    //         text: TextSpan(
-                    //           text: 'from KM ',
-                    //           style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: borderColor),
-                    //           children: [
-                    //             TextSpan(
-                    //                 text: '400 ',
-                    //                 style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: Colors.white)),
-                    //             TextSpan(
-                    //                 text: 'to KM ',
-                    //                 style: TextStyle(fontSize: 14, fontFamily: poppinMedium)),
-                    //             TextSpan(
-                    //                 text: '800',
-                    //                 style: TextStyle(fontSize: 14, fontFamily: poppinMedium, color: Colors.white)),
-                    //           ],
-                    //         ),
-                    //         textAlign: TextAlign.left,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    //  SizedBox(height: 10),
-                    //  CustomRangeSlider2(),
-                    //  SizedBox(height: 10),
-                    //  ChooseFilterMileage(),
-                    //  SizedBox(height: 10),
-                    //  Divider(
-                    //   color: Color(0xff3F4655),
-                    //   indent: 20,
-                    //   endIndent: 20,
-                    // ),
                     SizedBox(height: 10),
 
                     Padding(
@@ -640,16 +539,6 @@ int BMW = 1;
                                 ],
                               ),
                             ),
-
-                            // GestureDetector(
-                            //   onTap: (){
-                            //     _selectYear(context);
-                            //   },
-                            //
-                            //   child: Text('Select Year', textAlign: TextAlign.left,
-                            //     style: TextStyle(fontSize: 16, fontFamily: poppinBold, color: kWhite),
-                            //   ),
-                            // ),
                           ),
                         ],
                       ),

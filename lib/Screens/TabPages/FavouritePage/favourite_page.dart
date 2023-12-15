@@ -367,20 +367,6 @@ class _FavoritePageState extends State<FavoritePage> {
                             ),
                           ),
                         ),
-                        // Positioned(
-                        //   left: 30, right: 30, top: 30,
-                        //   child: favoriteCarModelObject.data![index].image1 == null
-                        //       ? ClipRRect(
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       child: Image.asset('assets/icon/fade_in_image.jpeg'))
-                        //       : ClipRRect(
-                        //     borderRadius: BorderRadius.circular(10),
-                        //     child: FadeInImage(
-                        //         placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-                        //         width: 350, height: 100,
-                        //         image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}")),
-                        //   ),
-                        // ),
                         Positioned(
                           left: 30, right: 30, top: 0,
                           child: favoriteCarModelObject.data![index].image1 == null

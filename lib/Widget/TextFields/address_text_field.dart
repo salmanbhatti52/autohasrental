@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-
 import '../../Utils/colors.dart';
 import '../../Utils/fontFamily.dart';
+import 'package:flutter/material.dart';
 
 class AddressTextUtils {
   TextField getCustomEditTextArea(
@@ -25,7 +24,6 @@ class AddressTextUtils {
         fillColor: kWhite,
         hintStyle: TextStyle(color: textLabelColor, fontFamily: poppinRegular,),
         focusColor: borderColor,
-        // errorText: errorTextMsg,
       ),
       style: TextStyle(color: borderColor, fontSize: 14),
 
