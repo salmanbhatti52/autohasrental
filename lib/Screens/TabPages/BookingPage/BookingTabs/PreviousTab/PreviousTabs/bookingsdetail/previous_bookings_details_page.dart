@@ -152,31 +152,33 @@ class _PreviousBookingDetailsPageState
             //         child: loginButton('Give Ratings', context))
             //   ),
             // ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: widget.myStatus == "Completed"
-                      ? Container(
-                          height: 0,
-                          color: Colors.transparent,
-                          child: getRateCarsModel.message ==
-                                  "Rating already given"
-                              ? loginButton('Rated', context)
-                              : GestureDetector(
-                                  onTap: () {
-                                    ratingsDialogBox(context);
-                                  },
-                                  child: loginButton('Give Ratings', context)),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            toastSuccessMessage(
-                                "You can give rating once status is completed.",
-                                kRed);
-                          },
-                          child: loginButton('Give Ratings', context))),
-            ),
+
+
+            // Expanded(
+            //   flex: 1,
+            //   child: Padding(
+            //       padding: EdgeInsets.all(8.0),
+            //       child: widget.myStatus == "Completed"
+            //           ? Container(
+            //               height: 0,
+            //               color: Colors.transparent,
+            //               child: getRateCarsModel.message ==
+            //                       "Rating already given"
+            //                   ? loginButton('Rated', context)
+            //                   : GestureDetector(
+            //                       onTap: () {
+            //                         ratingsDialogBox(context);
+            //                       },
+            //                       child: loginButton('Give Ratings', context)),
+            //             )
+            //           : GestureDetector(
+            //               onTap: () {
+            //                 toastSuccessMessage(
+            //                     "You can give rating once status is completed.",
+            //                     kRed);
+            //               },
+            //               child: loginButton('Give Ratings', context))),
+            // ),
           ],
         ),
       ),

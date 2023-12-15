@@ -149,11 +149,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
                 },
                 child: myListTile("assets/drawer_images/settings_icon.png", "Setting")),
-            GestureDetector(
-                onTap: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LiveChatPage()));
-                },
-                child: myListTile("assets/drawer_images/call_phone_icon.png", "Live Chat")),
+            // GestureDetector(
+            //     onTap: (){
+            //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LiveChatPage()));
+            //     },
+            //     child: myListTile("assets/drawer_images/call_phone_icon.png", "Live Chat")),
             GestureDetector(
                 onTap: (){
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AboutUsPage()));

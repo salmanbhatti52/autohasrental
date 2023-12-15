@@ -6,7 +6,7 @@ import 'package:country_state_picker/country_state_picker.dart';
 import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
 
 class EvAddressTabBar extends StatefulWidget {
-  final String? mySelectedTabMonth, mySelectedTabPrice;
+  final String? mySelectedTabMonth, startDate, endDate, mySelectedTabPrice;
   final String? totalAmount, setupCost;
 
   final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
@@ -15,7 +15,7 @@ class EvAddressTabBar extends StatefulWidget {
   final int? carId, carOwnerId, mileagePlanID;
   final String? carDiscountPrice;
 
-  EvAddressTabBar({Key? key, this.setupCost , this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate,
+  EvAddressTabBar({Key? key, this.startDate, this.endDate, this.setupCost , this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate,
     this.favouriteStatus, this.evEndDate, this.carColorName, this.carModelName,
     this.carId, this.carPrice, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
@@ -142,6 +142,8 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
                 ),
 
                 EvBillingAddress(
+                  startDate: widget.startDate,
+                  endDate: widget.endDate,
                   setupCost: widget.setupCost.toString(),
                   mySelectedTabMonth: widget.mySelectedTabMonth,
                   mySelectedTabPrice: widget.mySelectedTabPrice,

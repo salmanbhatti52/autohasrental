@@ -249,18 +249,18 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                               Text("${formattedPrice}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                               Text("/", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
-                                              SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                                              showRatingStars(double.parse("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}")),
-
-                                              SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-
-                                              evUpcomingModelObject.data![reversedIndex].carsDetails!.rating == null?
-                                              Text("0.0", textAlign: TextAlign.left,
-                                                style: TextStyle(color: kBlack,
-                                                    fontSize: 12, fontFamily: poppinRegular)):
-                                              Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}", textAlign: TextAlign.left,
-                                                  style: TextStyle(color: kBlack,
-                                                      fontSize: 12, fontFamily: poppinRegular)),
+                                              // SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+                                              // showRatingStars(double.parse("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}")),
+                                              //
+                                              // SizedBox(width: MediaQuery.of(context).size.height * 0.01),
+                                              //
+                                              // evUpcomingModelObject.data![reversedIndex].carsDetails!.rating == null?
+                                              // Text("0.0", textAlign: TextAlign.left,
+                                              //   style: TextStyle(color: kBlack,
+                                              //       fontSize: 12, fontFamily: poppinRegular)):
+                                              // Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}", textAlign: TextAlign.left,
+                                              //     style: TextStyle(color: kBlack,
+                                              //         fontSize: 12, fontFamily: poppinRegular)),
                                             ],
                                           ),
 

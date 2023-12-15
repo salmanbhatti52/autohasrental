@@ -14,7 +14,6 @@ import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Drawer/Settings/EditProfile/edit_profile_screen.dart';
 import 'package:auto_haus_rental_app/Model/search_model.dart';
@@ -501,106 +500,107 @@ class _HomePageState extends State<HomePage> {
                                                             ),
                                                           ],
                                                         ),
-                                                        Row(
-                                                          children: [
-                                                            widget
-                                                                .filterCarByAttributeModelObject
-                                                                ?.data?[
-                                                            index]
-                                                                .rating ==
-                                                                null
-                                                                ? RatingBar(
-                                                              // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
-                                                                initialRating:
-                                                                0.0,
-                                                                direction: Axis
-                                                                    .horizontal,
-                                                                allowHalfRating:
-                                                                true,
-                                                                itemCount: 1,
-                                                                minRating: 0,
-                                                                itemSize:
-                                                                18.0,
-                                                                ignoreGestures:
-                                                                true,
-                                                                ratingWidget:
-                                                                RatingWidget(
-                                                                    full: Icon(Icons.star,
-                                                                        color:
-                                                                        borderColor),
-                                                                    half:
-                                                                    Icon(
-                                                                      Icons.star_half,
-                                                                      color:
-                                                                      borderColor,
-                                                                    ),
-                                                                    empty:
-                                                                    Icon(
-                                                                      Icons.star_outline,
-                                                                      color:
-                                                                      borderColor,
-                                                                    )),
-                                                                onRatingUpdate:
-                                                                    (value) {})
-                                                                : RatingBar(
-                                                                initialRating:
-                                                                double.parse(
-                                                                    "${widget.filterCarByAttributeModelObject?.data?[index].rating}"),
-                                                                // initialRating: searchModelObject.data?[index].rating,
-                                                                direction: Axis
-                                                                    .horizontal,
-                                                                allowHalfRating:
-                                                                true,
-                                                                itemCount: 1,
-                                                                minRating: 0,
-                                                                itemSize:
-                                                                18.0,
-                                                                ignoreGestures:
-                                                                true,
-                                                                ratingWidget:
-                                                                RatingWidget(
-                                                                    full: Icon(Icons.star,
-                                                                        color:
-                                                                        borderColor),
-                                                                    half:
-                                                                    Icon(
-                                                                      Icons.star_half,
-                                                                      color:
-                                                                      borderColor,
-                                                                    ),
-                                                                    empty:
-                                                                    Icon(
-                                                                      Icons.star_outline,
-                                                                      color:
-                                                                      borderColor,
-                                                                    )),
-                                                                onRatingUpdate:
-                                                                    (value) {}),
-                                                            widget
-                                                                .filterCarByAttributeModelObject
-                                                                ?.data?[
-                                                            index]
-                                                                .rating ==
-                                                                null
-                                                                ? Text("0.0",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    kBlack,
-                                                                    fontSize:
-                                                                    10,
-                                                                    fontFamily:
-                                                                    poppinMedium))
-                                                                : Text(
-                                                                "${widget.filterCarByAttributeModelObject?.data?[index].rating}",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    kBlack,
-                                                                    fontSize:
-                                                                    10,
-                                                                    fontFamily:
-                                                                    poppinMedium)),
-                                                          ],
-                                                        ),
+                                                        SizedBox(),
+                                                        // Row(
+                                                        //   children: [
+                                                        //     widget
+                                                        //         .filterCarByAttributeModelObject
+                                                        //         ?.data?[
+                                                        //     index]
+                                                        //         .rating ==
+                                                        //         null
+                                                        //         ? RatingBar(
+                                                        //       // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
+                                                        //         initialRating:
+                                                        //         0.0,
+                                                        //         direction: Axis
+                                                        //             .horizontal,
+                                                        //         allowHalfRating:
+                                                        //         true,
+                                                        //         itemCount: 1,
+                                                        //         minRating: 0,
+                                                        //         itemSize:
+                                                        //         18.0,
+                                                        //         ignoreGestures:
+                                                        //         true,
+                                                        //         ratingWidget:
+                                                        //         RatingWidget(
+                                                        //             full: Icon(Icons.star,
+                                                        //                 color:
+                                                        //                 borderColor),
+                                                        //             half:
+                                                        //             Icon(
+                                                        //               Icons.star_half,
+                                                        //               color:
+                                                        //               borderColor,
+                                                        //             ),
+                                                        //             empty:
+                                                        //             Icon(
+                                                        //               Icons.star_outline,
+                                                        //               color:
+                                                        //               borderColor,
+                                                        //             )),
+                                                        //         onRatingUpdate:
+                                                        //             (value) {})
+                                                        //         : RatingBar(
+                                                        //         initialRating:
+                                                        //         double.parse(
+                                                        //             "${widget.filterCarByAttributeModelObject?.data?[index].rating}"),
+                                                        //         // initialRating: searchModelObject.data?[index].rating,
+                                                        //         direction: Axis
+                                                        //             .horizontal,
+                                                        //         allowHalfRating:
+                                                        //         true,
+                                                        //         itemCount: 1,
+                                                        //         minRating: 0,
+                                                        //         itemSize:
+                                                        //         18.0,
+                                                        //         ignoreGestures:
+                                                        //         true,
+                                                        //         ratingWidget:
+                                                        //         RatingWidget(
+                                                        //             full: Icon(Icons.star,
+                                                        //                 color:
+                                                        //                 borderColor),
+                                                        //             half:
+                                                        //             Icon(
+                                                        //               Icons.star_half,
+                                                        //               color:
+                                                        //               borderColor,
+                                                        //             ),
+                                                        //             empty:
+                                                        //             Icon(
+                                                        //               Icons.star_outline,
+                                                        //               color:
+                                                        //               borderColor,
+                                                        //             )),
+                                                        //         onRatingUpdate:
+                                                        //             (value) {}),
+                                                        //     widget
+                                                        //         .filterCarByAttributeModelObject
+                                                        //         ?.data?[
+                                                        //     index]
+                                                        //         .rating ==
+                                                        //         null
+                                                        //         ? Text("0.0",
+                                                        //         style: TextStyle(
+                                                        //             color:
+                                                        //             kBlack,
+                                                        //             fontSize:
+                                                        //             10,
+                                                        //             fontFamily:
+                                                        //             poppinMedium))
+                                                        //         : Text(
+                                                        //         "${widget.filterCarByAttributeModelObject?.data?[index].rating}",
+                                                        //         style: TextStyle(
+                                                        //             color:
+                                                        //             kBlack,
+                                                        //             fontSize:
+                                                        //             10,
+                                                        //             fontFamily:
+                                                        //             poppinMedium)),
+                                                        //   ],
+                                                        // ),
                                                       ],
                                                     ),
                                                     SizedBox(
@@ -1103,105 +1103,106 @@ class _HomePageState extends State<HomePage> {
                                                           ),
                                                         ],
                                                       ),
-                                                      Row(
-                                                        children: [
-                                                          widget
-                                                              .filterCarByAttributeModelObject
-                                                              ?.data?[
-                                                          index]
-                                                              .rating ==
-                                                              null
-                                                              ? RatingBar(
-                                                            initialRating:
-                                                              0.0,
-                                                              direction: Axis
-                                                                  .horizontal,
-                                                              allowHalfRating:
-                                                              true,
-                                                              itemCount: 1,
-                                                              minRating: 0,
-                                                              itemSize:
-                                                              18.0,
-                                                              ignoreGestures:
-                                                              true,
-                                                              ratingWidget:
-                                                              RatingWidget(
-                                                                  full: Icon(Icons.star,
-                                                                      color:
-                                                                      borderColor),
-                                                                  half:
-                                                                  Icon(
-                                                                    Icons.star_half,
-                                                                    color:
-                                                                    borderColor,
-                                                                  ),
-                                                                  empty:
-                                                                  Icon(
-                                                                    Icons.star_outline,
-                                                                    color:
-                                                                    borderColor,
-                                                                  )),
-                                                              onRatingUpdate:
-                                                                  (value) {})
-                                                              : RatingBar(
-                                                              initialRating:
-                                                              double.parse(
-                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].rating}"),
-                                                              // initialRating: searchModelObject.data?[index].rating,
-                                                              direction: Axis
-                                                                  .horizontal,
-                                                              allowHalfRating:
-                                                              true,
-                                                              itemCount: 1,
-                                                              minRating: 0,
-                                                              itemSize:
-                                                              18.0,
-                                                              ignoreGestures:
-                                                              true,
-                                                              ratingWidget:
-                                                              RatingWidget(
-                                                                  full: Icon(Icons.star,
-                                                                      color:
-                                                                      borderColor),
-                                                                  half:
-                                                                  Icon(
-                                                                    Icons.star_half,
-                                                                    color:
-                                                                    borderColor,
-                                                                  ),
-                                                                  empty:
-                                                                  Icon(
-                                                                    Icons.star_outline,
-                                                                    color:
-                                                                    borderColor,
-                                                                  )),
-                                                              onRatingUpdate:
-                                                                  (value) {}),
-                                                          widget
-                                                              .filterCarByAttributeModelObject
-                                                              ?.data?[
-                                                          index]
-                                                              .rating ==
-                                                              null
-                                                              ? Text("0.0",
-                                                              style: TextStyle(
-                                                                  color:
-                                                                  kBlack,
-                                                                  fontSize:
-                                                                  10,
-                                                                  fontFamily:
-                                                                  poppinMedium))
-                                                              : Text(
-                                                              "${widget.filterCarByAttributeModelObject?.data?[index].rating}",
-                                                              style: TextStyle(
-                                                                  color:
-                                                                  kBlack,
-                                                                  fontSize:
-                                                                  10,
-                                                                  fontFamily:
-                                                                  poppinMedium)),
-                                                        ],
-                                                      ),
+                                                      SizedBox()
+                                                      // Row(
+                                                      //   children: [
+                                                      //     widget
+                                                      //         .filterCarByAttributeModelObject
+                                                      //         ?.data?[
+                                                      //     index]
+                                                      //         .rating ==
+                                                      //         null
+                                                      //         ? RatingBar(
+                                                      //       initialRating:
+                                                      //         0.0,
+                                                      //         direction: Axis
+                                                      //             .horizontal,
+                                                      //         allowHalfRating:
+                                                      //         true,
+                                                      //         itemCount: 1,
+                                                      //         minRating: 0,
+                                                      //         itemSize:
+                                                      //         18.0,
+                                                      //         ignoreGestures:
+                                                      //         true,
+                                                      //         ratingWidget:
+                                                      //         RatingWidget(
+                                                      //             full: Icon(Icons.star,
+                                                      //                 color:
+                                                      //                 borderColor),
+                                                      //             half:
+                                                      //             Icon(
+                                                      //               Icons.star_half,
+                                                      //               color:
+                                                      //               borderColor,
+                                                      //             ),
+                                                      //             empty:
+                                                      //             Icon(
+                                                      //               Icons.star_outline,
+                                                      //               color:
+                                                      //               borderColor,
+                                                      //             )),
+                                                      //         onRatingUpdate:
+                                                      //             (value) {})
+                                                      //         : RatingBar(
+                                                      //         initialRating:
+                                                      //         double.parse(
+                                                      //             "${widget.filterCarByAttributeModelObject?.data?[index].rating}"),
+                                                      //         // initialRating: searchModelObject.data?[index].rating,
+                                                      //         direction: Axis
+                                                      //             .horizontal,
+                                                      //         allowHalfRating:
+                                                      //         true,
+                                                      //         itemCount: 1,
+                                                      //         minRating: 0,
+                                                      //         itemSize:
+                                                      //         18.0,
+                                                      //         ignoreGestures:
+                                                      //         true,
+                                                      //         ratingWidget:
+                                                      //         RatingWidget(
+                                                      //             full: Icon(Icons.star,
+                                                      //                 color:
+                                                      //                 borderColor),
+                                                      //             half:
+                                                      //             Icon(
+                                                      //               Icons.star_half,
+                                                      //               color:
+                                                      //               borderColor,
+                                                      //             ),
+                                                      //             empty:
+                                                      //             Icon(
+                                                      //               Icons.star_outline,
+                                                      //               color:
+                                                      //               borderColor,
+                                                      //             )),
+                                                      //         onRatingUpdate:
+                                                      //             (value) {}),
+                                                      //     widget
+                                                      //         .filterCarByAttributeModelObject
+                                                      //         ?.data?[
+                                                      //     index]
+                                                      //         .rating ==
+                                                      //         null
+                                                      //         ? Text("0.0",
+                                                      //         style: TextStyle(
+                                                      //             color:
+                                                      //             kBlack,
+                                                      //             fontSize:
+                                                      //             10,
+                                                      //             fontFamily:
+                                                      //             poppinMedium))
+                                                      //         : Text(
+                                                      //         "${widget.filterCarByAttributeModelObject?.data?[index].rating}",
+                                                      //         style: TextStyle(
+                                                      //             color:
+                                                      //             kBlack,
+                                                      //             fontSize:
+                                                      //             10,
+                                                      //             fontFamily:
+                                                      //             poppinMedium)),
+                                                      //   ],
+                                                      // ),
                                                     ],
                                                   ),
                                                   SizedBox(
@@ -1736,97 +1737,98 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    topRentedCarsModelObject
-                                                                .data?[index]
-                                                                .rating ==
-                                                            null
-                                                        ? RatingBar(
-                                                            initialRating: 0.0,
-                                                            direction:
-                                                                Axis.horizontal,
-                                                            allowHalfRating:
-                                                                true,
-                                                            itemCount: 1,
-                                                            minRating: 0,
-                                                            itemSize: 18.0,
-                                                            ignoreGestures:
-                                                                true,
-                                                            ratingWidget:
-                                                                RatingWidget(
-                                                                    full: Icon(
-                                                                        Icons
-                                                                            .star,
-                                                                        color:
-                                                                            borderColor),
-                                                                    half: Icon(
-                                                                      Icons
-                                                                          .star_half,
-                                                                      color:
-                                                                          borderColor,
-                                                                    ),
-                                                                    empty: Icon(
-                                                                      Icons
-                                                                          .star_outline,
-                                                                      color:
-                                                                          borderColor,
-                                                                    )),
-                                                            onRatingUpdate:
-                                                                (value) {})
-                                                        : RatingBar(
-                                                            initialRating:
-                                                                double.parse(
-                                                                    "${topRentedCarsModelObject.data![index].rating}"),
-                                                            direction:
-                                                                Axis.horizontal,
-                                                            allowHalfRating:
-                                                                true,
-                                                            itemCount: 1,
-                                                            minRating: 0,
-                                                            itemSize: 18.0,
-                                                            ignoreGestures:
-                                                                true,
-                                                            ratingWidget:
-                                                                RatingWidget(
-                                                                    full: Icon(
-                                                                        Icons
-                                                                            .star,
-                                                                        color:
-                                                                            borderColor),
-                                                                    half: Icon(
-                                                                      Icons
-                                                                          .star_half,
-                                                                      color:
-                                                                          borderColor,
-                                                                    ),
-                                                                    empty: Icon(
-                                                                      Icons
-                                                                          .star_outline,
-                                                                      color:
-                                                                          borderColor,
-                                                                    )),
-                                                            onRatingUpdate:
-                                                                (value) {}),
-                                                    topRentedCarsModelObject
-                                                                .data?[index]
-                                                                .rating ==
-                                                            null
-                                                        ? Text("0.0",
-                                                            style: TextStyle(
-                                                                color: kBlack,
-                                                                fontSize: 10,
-                                                                fontFamily:
-                                                                    poppinMedium))
-                                                        : Text(
-                                                            "${topRentedCarsModelObject.data?[index].rating}",
-                                                            style: TextStyle(
-                                                                color: kBlack,
-                                                                fontSize: 10,
-                                                                fontFamily:
-                                                                    poppinMedium)),
-                                                  ],
-                                                ),
+                                                SizedBox()
+                                                // Row(
+                                                //   children: [
+                                                //     topRentedCarsModelObject
+                                                //                 .data?[index]
+                                                //                 .rating ==
+                                                //             null
+                                                //         ? RatingBar(
+                                                //             initialRating: 0.0,
+                                                //             direction:
+                                                //                 Axis.horizontal,
+                                                //             allowHalfRating:
+                                                //                 true,
+                                                //             itemCount: 1,
+                                                //             minRating: 0,
+                                                //             itemSize: 18.0,
+                                                //             ignoreGestures:
+                                                //                 true,
+                                                //             ratingWidget:
+                                                //                 RatingWidget(
+                                                //                     full: Icon(
+                                                //                         Icons
+                                                //                             .star,
+                                                //                         color:
+                                                //                             borderColor),
+                                                //                     half: Icon(
+                                                //                       Icons
+                                                //                           .star_half,
+                                                //                       color:
+                                                //                           borderColor,
+                                                //                     ),
+                                                //                     empty: Icon(
+                                                //                       Icons
+                                                //                           .star_outline,
+                                                //                       color:
+                                                //                           borderColor,
+                                                //                     )),
+                                                //             onRatingUpdate:
+                                                //                 (value) {})
+                                                //         : RatingBar(
+                                                //             initialRating:
+                                                //                 double.parse(
+                                                //                     "${topRentedCarsModelObject.data![index].rating}"),
+                                                //             direction:
+                                                //                 Axis.horizontal,
+                                                //             allowHalfRating:
+                                                //                 true,
+                                                //             itemCount: 1,
+                                                //             minRating: 0,
+                                                //             itemSize: 18.0,
+                                                //             ignoreGestures:
+                                                //                 true,
+                                                //             ratingWidget:
+                                                //                 RatingWidget(
+                                                //                     full: Icon(
+                                                //                         Icons
+                                                //                             .star,
+                                                //                         color:
+                                                //                             borderColor),
+                                                //                     half: Icon(
+                                                //                       Icons
+                                                //                           .star_half,
+                                                //                       color:
+                                                //                           borderColor,
+                                                //                     ),
+                                                //                     empty: Icon(
+                                                //                       Icons
+                                                //                           .star_outline,
+                                                //                       color:
+                                                //                           borderColor,
+                                                //                     )),
+                                                //             onRatingUpdate:
+                                                //                 (value) {}),
+                                                //     topRentedCarsModelObject
+                                                //                 .data?[index]
+                                                //                 .rating ==
+                                                //             null
+                                                //         ? Text("0.0",
+                                                //             style: TextStyle(
+                                                //                 color: kBlack,
+                                                //                 fontSize: 10,
+                                                //                 fontFamily:
+                                                //                     poppinMedium))
+                                                //         : Text(
+                                                //             "${topRentedCarsModelObject.data?[index].rating}",
+                                                //             style: TextStyle(
+                                                //                 color: kBlack,
+                                                //                 fontSize: 10,
+                                                //                 fontFamily:
+                                                //                     poppinMedium)),
+                                                //   ],
+                                                // ),
                                               ],
                                             ),
                                             SizedBox(
@@ -2325,97 +2327,98 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    topRentedCarsModelObject
-                                                                .data?[index]
-                                                                .rating ==
-                                                            null
-                                                        ? RatingBar(
-                                                            initialRating: 0.0,
-                                                            direction:
-                                                                Axis.horizontal,
-                                                            allowHalfRating:
-                                                                true,
-                                                            itemCount: 1,
-                                                            minRating: 0,
-                                                            itemSize: 18.0,
-                                                            ignoreGestures:
-                                                                true,
-                                                            ratingWidget:
-                                                                RatingWidget(
-                                                                    full: Icon(
-                                                                        Icons
-                                                                            .star,
-                                                                        color:
-                                                                            borderColor),
-                                                                    half: Icon(
-                                                                      Icons
-                                                                          .star_half,
-                                                                      color:
-                                                                          borderColor,
-                                                                    ),
-                                                                    empty: Icon(
-                                                                      Icons
-                                                                          .star_outline,
-                                                                      color:
-                                                                          borderColor,
-                                                                    )),
-                                                            onRatingUpdate:
-                                                                (value) {})
-                                                        : RatingBar(
-                                                            initialRating:
-                                                                double.parse(
-                                                                    "${topRentedCarsModelObject.data![index].rating}"),
-                                                            direction:
-                                                                Axis.horizontal,
-                                                            allowHalfRating:
-                                                                true,
-                                                            itemCount: 1,
-                                                            minRating: 0,
-                                                            itemSize: 18.0,
-                                                            ignoreGestures:
-                                                                true,
-                                                            ratingWidget:
-                                                                RatingWidget(
-                                                                    full: Icon(
-                                                                        Icons
-                                                                            .star,
-                                                                        color:
-                                                                            borderColor),
-                                                                    half: Icon(
-                                                                      Icons
-                                                                          .star_half,
-                                                                      color:
-                                                                          borderColor,
-                                                                    ),
-                                                                    empty: Icon(
-                                                                      Icons
-                                                                          .star_outline,
-                                                                      color:
-                                                                          borderColor,
-                                                                    )),
-                                                            onRatingUpdate:
-                                                                (value) {}),
-                                                    topRentedCarsModelObject
-                                                                .data?[index]
-                                                                .rating ==
-                                                            null
-                                                        ? Text("0.0",
-                                                            style: TextStyle(
-                                                                color: kBlack,
-                                                                fontSize: 10,
-                                                                fontFamily:
-                                                                    poppinMedium))
-                                                        : Text(
-                                                            "${topRentedCarsModelObject.data?[index].rating}",
-                                                            style: TextStyle(
-                                                                color: kBlack,
-                                                                fontSize: 10,
-                                                                fontFamily:
-                                                                    poppinMedium)),
-                                                  ],
-                                                ),
+                                                SizedBox()
+                                                // Row(
+                                                //   children: [
+                                                //     topRentedCarsModelObject
+                                                //                 .data?[index]
+                                                //                 .rating ==
+                                                //             null
+                                                //         ? RatingBar(
+                                                //             initialRating: 0.0,
+                                                //             direction:
+                                                //                 Axis.horizontal,
+                                                //             allowHalfRating:
+                                                //                 true,
+                                                //             itemCount: 1,
+                                                //             minRating: 0,
+                                                //             itemSize: 18.0,
+                                                //             ignoreGestures:
+                                                //                 true,
+                                                //             ratingWidget:
+                                                //                 RatingWidget(
+                                                //                     full: Icon(
+                                                //                         Icons
+                                                //                             .star,
+                                                //                         color:
+                                                //                             borderColor),
+                                                //                     half: Icon(
+                                                //                       Icons
+                                                //                           .star_half,
+                                                //                       color:
+                                                //                           borderColor,
+                                                //                     ),
+                                                //                     empty: Icon(
+                                                //                       Icons
+                                                //                           .star_outline,
+                                                //                       color:
+                                                //                           borderColor,
+                                                //                     )),
+                                                //             onRatingUpdate:
+                                                //                 (value) {})
+                                                //         : RatingBar(
+                                                //             initialRating:
+                                                //                 double.parse(
+                                                //                     "${topRentedCarsModelObject.data![index].rating}"),
+                                                //             direction:
+                                                //                 Axis.horizontal,
+                                                //             allowHalfRating:
+                                                //                 true,
+                                                //             itemCount: 1,
+                                                //             minRating: 0,
+                                                //             itemSize: 18.0,
+                                                //             ignoreGestures:
+                                                //                 true,
+                                                //             ratingWidget:
+                                                //                 RatingWidget(
+                                                //                     full: Icon(
+                                                //                         Icons
+                                                //                             .star,
+                                                //                         color:
+                                                //                             borderColor),
+                                                //                     half: Icon(
+                                                //                       Icons
+                                                //                           .star_half,
+                                                //                       color:
+                                                //                           borderColor,
+                                                //                     ),
+                                                //                     empty: Icon(
+                                                //                       Icons
+                                                //                           .star_outline,
+                                                //                       color:
+                                                //                           borderColor,
+                                                //                     )),
+                                                //             onRatingUpdate:
+                                                //                 (value) {}),
+                                                //     topRentedCarsModelObject
+                                                //                 .data?[index]
+                                                //                 .rating ==
+                                                //             null
+                                                //         ? Text("0.0",
+                                                //             style: TextStyle(
+                                                //                 color: kBlack,
+                                                //                 fontSize: 10,
+                                                //                 fontFamily:
+                                                //                     poppinMedium))
+                                                //         : Text(
+                                                //             "${topRentedCarsModelObject.data?[index].rating}",
+                                                //             style: TextStyle(
+                                                //                 color: kBlack,
+                                                //                 fontSize: 10,
+                                                //                 fontFamily:
+                                                //                     poppinMedium)),
+                                                //   ],
+                                                // ),
                                               ],
                                             ),
                                             SizedBox(
@@ -2923,102 +2926,103 @@ class _HomePageState extends State<HomePage> {
                                                               ),
                                                             ],
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              searchModelObject
-                                                                          .data?[
-                                                                              index]
-                                                                          .rating ==
-                                                                      null
-                                                                  ? RatingBar(
-                                                                      // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
-                                                                      initialRating:
-                                                                          0.0,
-                                                                      direction:
-                                                                          Axis
-                                                                              .horizontal,
-                                                                      allowHalfRating:
-                                                                          true,
-                                                                      itemCount:
-                                                                          1,
-                                                                      minRating:
-                                                                          0,
-                                                                      itemSize:
-                                                                          18.0,
-                                                                      ignoreGestures:
-                                                                          true,
-                                                                      ratingWidget:
-                                                                          RatingWidget(
-                                                                              full: Icon(Icons.star,
-                                                                                  color:
-                                                                                      borderColor),
-                                                                              half:
-                                                                                  Icon(
-                                                                                Icons.star_half,
-                                                                                color: borderColor,
-                                                                              ),
-                                                                              empty:
-                                                                                  Icon(
-                                                                                Icons.star_outline,
-                                                                                color: borderColor,
-                                                                              )),
-                                                                      onRatingUpdate:
-                                                                          (value) {})
-                                                                  : RatingBar(
-                                                                      initialRating:
-                                                                          double.parse(
-                                                                              "${searchModelObject.data?[index].rating}"),
-                                                                      // initialRating: searchModelObject.data?[index].rating,
-                                                                      direction:
-                                                                          Axis
-                                                                              .horizontal,
-                                                                      allowHalfRating:
-                                                                          true,
-                                                                      itemCount:
-                                                                          1,
-                                                                      minRating:
-                                                                          0,
-                                                                      itemSize:
-                                                                          18.0,
-                                                                      ignoreGestures:
-                                                                          true,
-                                                                      ratingWidget: RatingWidget(
-                                                                          full: Icon(Icons.star, color: borderColor),
-                                                                          half: Icon(
-                                                                            Icons.star_half,
-                                                                            color:
-                                                                                borderColor,
-                                                                          ),
-                                                                          empty: Icon(
-                                                                            Icons.star_outline,
-                                                                            color:
-                                                                                borderColor,
-                                                                          )),
-                                                                      onRatingUpdate: (value) {}),
-                                                              searchModelObject
-                                                                          .data?[
-                                                                              index]
-                                                                          .rating ==
-                                                                      null
-                                                                  ? Text("0.0",
-                                                                      style: TextStyle(
-                                                                          color:
-                                                                              kBlack,
-                                                                          fontSize:
-                                                                              10,
-                                                                          fontFamily:
-                                                                              poppinMedium))
-                                                                  : Text(
-                                                                      "${searchModelObject.data?[index].rating}",
-                                                                      style: TextStyle(
-                                                                          color:
-                                                                              kBlack,
-                                                                          fontSize:
-                                                                              10,
-                                                                          fontFamily:
-                                                                              poppinMedium)),
-                                                            ],
-                                                          ),
+                                                          SizedBox()
+                                                          // Row(
+                                                          //   children: [
+                                                          //     searchModelObject
+                                                          //                 .data?[
+                                                          //                     index]
+                                                          //                 .rating ==
+                                                          //             null
+                                                          //         ? RatingBar(
+                                                          //             // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
+                                                          //             initialRating:
+                                                          //                 0.0,
+                                                          //             direction:
+                                                          //                 Axis
+                                                          //                     .horizontal,
+                                                          //             allowHalfRating:
+                                                          //                 true,
+                                                          //             itemCount:
+                                                          //                 1,
+                                                          //             minRating:
+                                                          //                 0,
+                                                          //             itemSize:
+                                                          //                 18.0,
+                                                          //             ignoreGestures:
+                                                          //                 true,
+                                                          //             ratingWidget:
+                                                          //                 RatingWidget(
+                                                          //                     full: Icon(Icons.star,
+                                                          //                         color:
+                                                          //                             borderColor),
+                                                          //                     half:
+                                                          //                         Icon(
+                                                          //                       Icons.star_half,
+                                                          //                       color: borderColor,
+                                                          //                     ),
+                                                          //                     empty:
+                                                          //                         Icon(
+                                                          //                       Icons.star_outline,
+                                                          //                       color: borderColor,
+                                                          //                     )),
+                                                          //             onRatingUpdate:
+                                                          //                 (value) {})
+                                                          //         : RatingBar(
+                                                          //             initialRating:
+                                                          //                 double.parse(
+                                                          //                     "${searchModelObject.data?[index].rating}"),
+                                                          //             // initialRating: searchModelObject.data?[index].rating,
+                                                          //             direction:
+                                                          //                 Axis
+                                                          //                     .horizontal,
+                                                          //             allowHalfRating:
+                                                          //                 true,
+                                                          //             itemCount:
+                                                          //                 1,
+                                                          //             minRating:
+                                                          //                 0,
+                                                          //             itemSize:
+                                                          //                 18.0,
+                                                          //             ignoreGestures:
+                                                          //                 true,
+                                                          //             ratingWidget: RatingWidget(
+                                                          //                 full: Icon(Icons.star, color: borderColor),
+                                                          //                 half: Icon(
+                                                          //                   Icons.star_half,
+                                                          //                   color:
+                                                          //                       borderColor,
+                                                          //                 ),
+                                                          //                 empty: Icon(
+                                                          //                   Icons.star_outline,
+                                                          //                   color:
+                                                          //                       borderColor,
+                                                          //                 )),
+                                                          //             onRatingUpdate: (value) {}),
+                                                          //     searchModelObject
+                                                          //                 .data?[
+                                                          //                     index]
+                                                          //                 .rating ==
+                                                          //             null
+                                                          //         ? Text("0.0",
+                                                          //             style: TextStyle(
+                                                          //                 color:
+                                                          //                     kBlack,
+                                                          //                 fontSize:
+                                                          //                     10,
+                                                          //                 fontFamily:
+                                                          //                     poppinMedium))
+                                                          //         : Text(
+                                                          //             "${searchModelObject.data?[index].rating}",
+                                                          //             style: TextStyle(
+                                                          //                 color:
+                                                          //                     kBlack,
+                                                          //                 fontSize:
+                                                          //                     10,
+                                                          //                 fontFamily:
+                                                          //                     poppinMedium)),
+                                                          //   ],
+                                                          // ),
                                                         ],
                                                       ),
                                                       SizedBox(
@@ -3542,102 +3546,103 @@ class _HomePageState extends State<HomePage> {
                                                               ),
                                                             ],
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              searchModelObject
-                                                                          .data?[
-                                                                              index]
-                                                                          .rating ==
-                                                                      null
-                                                                  ? RatingBar(
-                                                                      // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
-                                                                      initialRating:
-                                                                          0.0,
-                                                                      direction:
-                                                                          Axis
-                                                                              .horizontal,
-                                                                      allowHalfRating:
-                                                                          true,
-                                                                      itemCount:
-                                                                          1,
-                                                                      minRating:
-                                                                          0,
-                                                                      itemSize:
-                                                                          18.0,
-                                                                      ignoreGestures:
-                                                                          true,
-                                                                      ratingWidget:
-                                                                          RatingWidget(
-                                                                              full: Icon(Icons.star,
-                                                                                  color:
-                                                                                      borderColor),
-                                                                              half:
-                                                                                  Icon(
-                                                                                Icons.star_half,
-                                                                                color: borderColor,
-                                                                              ),
-                                                                              empty:
-                                                                                  Icon(
-                                                                                Icons.star_outline,
-                                                                                color: borderColor,
-                                                                              )),
-                                                                      onRatingUpdate:
-                                                                          (value) {})
-                                                                  : RatingBar(
-                                                                      initialRating:
-                                                                          double.parse(
-                                                                              "${searchModelObject.data?[index].rating}"),
-                                                                      // initialRating: searchModelObject.data?[index].rating,
-                                                                      direction:
-                                                                          Axis
-                                                                              .horizontal,
-                                                                      allowHalfRating:
-                                                                          true,
-                                                                      itemCount:
-                                                                          1,
-                                                                      minRating:
-                                                                          0,
-                                                                      itemSize:
-                                                                          18.0,
-                                                                      ignoreGestures:
-                                                                          true,
-                                                                      ratingWidget: RatingWidget(
-                                                                          full: Icon(Icons.star, color: borderColor),
-                                                                          half: Icon(
-                                                                            Icons.star_half,
-                                                                            color:
-                                                                                borderColor,
-                                                                          ),
-                                                                          empty: Icon(
-                                                                            Icons.star_outline,
-                                                                            color:
-                                                                                borderColor,
-                                                                          )),
-                                                                      onRatingUpdate: (value) {}),
-                                                              searchModelObject
-                                                                          .data?[
-                                                                              index]
-                                                                          .rating ==
-                                                                      null
-                                                                  ? Text("0.0",
-                                                                      style: TextStyle(
-                                                                          color:
-                                                                              kBlack,
-                                                                          fontSize:
-                                                                              10,
-                                                                          fontFamily:
-                                                                              poppinMedium))
-                                                                  : Text(
-                                                                      "${searchModelObject.data?[index].rating}",
-                                                                      style: TextStyle(
-                                                                          color:
-                                                                              kBlack,
-                                                                          fontSize:
-                                                                              10,
-                                                                          fontFamily:
-                                                                              poppinMedium)),
-                                                            ],
-                                                          ),
+                                                          SizedBox()
+                                                          // Row(
+                                                          //   children: [
+                                                          //     searchModelObject
+                                                          //                 .data?[
+                                                          //                     index]
+                                                          //                 .rating ==
+                                                          //             null
+                                                          //         ? RatingBar(
+                                                          //             // initialRating: double.parse("${searchModelObject.data?[index].rating}"),
+                                                          //             initialRating:
+                                                          //                 0.0,
+                                                          //             direction:
+                                                          //                 Axis
+                                                          //                     .horizontal,
+                                                          //             allowHalfRating:
+                                                          //                 true,
+                                                          //             itemCount:
+                                                          //                 1,
+                                                          //             minRating:
+                                                          //                 0,
+                                                          //             itemSize:
+                                                          //                 18.0,
+                                                          //             ignoreGestures:
+                                                          //                 true,
+                                                          //             ratingWidget:
+                                                          //                 RatingWidget(
+                                                          //                     full: Icon(Icons.star,
+                                                          //                         color:
+                                                          //                             borderColor),
+                                                          //                     half:
+                                                          //                         Icon(
+                                                          //                       Icons.star_half,
+                                                          //                       color: borderColor,
+                                                          //                     ),
+                                                          //                     empty:
+                                                          //                         Icon(
+                                                          //                       Icons.star_outline,
+                                                          //                       color: borderColor,
+                                                          //                     )),
+                                                          //             onRatingUpdate:
+                                                          //                 (value) {})
+                                                          //         : RatingBar(
+                                                          //             initialRating:
+                                                          //                 double.parse(
+                                                          //                     "${searchModelObject.data?[index].rating}"),
+                                                          //             // initialRating: searchModelObject.data?[index].rating,
+                                                          //             direction:
+                                                          //                 Axis
+                                                          //                     .horizontal,
+                                                          //             allowHalfRating:
+                                                          //                 true,
+                                                          //             itemCount:
+                                                          //                 1,
+                                                          //             minRating:
+                                                          //                 0,
+                                                          //             itemSize:
+                                                          //                 18.0,
+                                                          //             ignoreGestures:
+                                                          //                 true,
+                                                          //             ratingWidget: RatingWidget(
+                                                          //                 full: Icon(Icons.star, color: borderColor),
+                                                          //                 half: Icon(
+                                                          //                   Icons.star_half,
+                                                          //                   color:
+                                                          //                       borderColor,
+                                                          //                 ),
+                                                          //                 empty: Icon(
+                                                          //                   Icons.star_outline,
+                                                          //                   color:
+                                                          //                       borderColor,
+                                                          //                 )),
+                                                          //             onRatingUpdate: (value) {}),
+                                                          //     searchModelObject
+                                                          //                 .data?[
+                                                          //                     index]
+                                                          //                 .rating ==
+                                                          //             null
+                                                          //         ? Text("0.0",
+                                                          //             style: TextStyle(
+                                                          //                 color:
+                                                          //                     kBlack,
+                                                          //                 fontSize:
+                                                          //                     10,
+                                                          //                 fontFamily:
+                                                          //                     poppinMedium))
+                                                          //         : Text(
+                                                          //             "${searchModelObject.data?[index].rating}",
+                                                          //             style: TextStyle(
+                                                          //                 color:
+                                                          //                     kBlack,
+                                                          //                 fontSize:
+                                                          //                     10,
+                                                          //                 fontFamily:
+                                                          //                     poppinMedium)),
+                                                          //   ],
+                                                          // ),
                                                         ],
                                                       ),
                                                       SizedBox(

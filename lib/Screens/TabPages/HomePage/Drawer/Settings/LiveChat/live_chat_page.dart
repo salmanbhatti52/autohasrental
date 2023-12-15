@@ -7,6 +7,7 @@ import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:flutter/material.dart';
+import '../../drawer_screen.dart';
 import 'live_chat_details_page.dart';
 import 'package:http/http.dart'as http;
 
@@ -54,12 +55,36 @@ class _LiveChatPageState extends State<LiveChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      appBar: MyAppBarSettingsPage(
-        backImage: "assets/home_page/Side_Menu.png", title: "Live Chat", ),
+      // appBar: MyAppBarSettingsPage(
+      //   backImage: "assets/home_page/Side_Menu.png", title: "Live Chat", ),
       body: loadingP ? Center(
           child: CircularProgressIndicator(backgroundColor: borderColor)) :
       Column(
         children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    print("clicked");
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => DrawerScreen()));
+                  },
+                  child: Image.asset("assets/home_page/Side_Menu.png",
+                    height: 25,
+                    width: 25,
+                  ),
+                ),
+                Text("Live Chat", textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack)),
+
+                SizedBox(),
+              ],
+            ),
+          ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
 
           Image.asset('assets/live_chat_images/service _24_7.png'),
@@ -145,7 +170,7 @@ class _LiveChatPageState extends State<LiveChatPage> {
               ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height* 0.1),
+          SizedBox(height: MediaQuery.of(context).size.height* 0.08),
           GestureDetector(
               onTap: () async {
                await startLiveChatApiWidget();

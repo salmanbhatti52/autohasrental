@@ -19,7 +19,7 @@ import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_hea
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class EvCartDetailsPage extends StatefulWidget {
-  final String? mySelectedTabMonth, mySelectedTabPrice;
+  final String? mySelectedTabMonth,startDate, endDate,  mySelectedTabPrice;
   final String? totalAmount, setupCost;
   final String? carName, carImage, carYear, carPrice, carStatus,favouriteStatus,
       carColorName, carModelName, carMakesName, carMakesImage, carRating, carOwnerImage,
@@ -30,7 +30,7 @@ class EvCartDetailsPage extends StatefulWidget {
   final int? carId, carOwnerId, mileagePlanID;
   final String? carDiscountPrice;
 
-  EvCartDetailsPage({Key? key, this.setupCost,  this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate, this.evEndDate,
+  EvCartDetailsPage({Key? key, this.startDate, this.endDate, this.setupCost,  this.mileagePlanID, this.totalAmount, this.carName, this.evStartDate, this.evEndDate,
     this.carColorName, this.carModelName, this.discountPercentage, this.carDiscountPrice,
     this.carImage, this.carYear, this.carMakesImage, this.carStatus, this.carMakesName,
     this.carId, this.carPrice, this.carRating, this.carOwnerId, this.carOwnerImage, this.carOwnerName,
@@ -305,44 +305,43 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                       ],
                                     )
                                     : SizedBox(),
+                                  ],
+                                ),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                Row(
+                                  children: [
+                                    // Row(
+                                    //   children: [
+                                    //     SizedBox(width: MediaQuery.of(context).size.height * 0.01),
+                                    //     showRatingStars(double.parse("${widget.carRating}")),
+                                    //     SizedBox(
+                                    //       width: MediaQuery.of(context).size.height * 0.01),
+                                    //
+                                    //     widget.carRating == null?
+                                    //     Text("0.0", textAlign: TextAlign.left,
+                                    //       style: TextStyle(color: kBlack,
+                                    //           fontSize: 12, fontFamily: poppinRegular)):
+                                    //     Text("${widget.carRating}", textAlign: TextAlign.left,
+                                    //         style: TextStyle(color: kBlack,
+                                    //             fontSize: 12, fontFamily: poppinRegular))
+                                    //   ],
+                                    // ),
                                     Padding(
                                       padding: EdgeInsets.only(top: 06),
                                       child: Text("RM ", textAlign: TextAlign.left,
-                                        style: TextStyle(color: borderColor,
-                                            fontSize: 7, fontFamily: poppinSemiBold)),
+                                          style: TextStyle(color: borderColor,
+                                              fontSize: 7, fontFamily: poppinSemiBold)),
                                     ),
                                     Text("${widget.carDiscountPrice}",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(color: borderColor,
-                                          fontSize: 20, fontFamily: poppinSemiBold)),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(color: borderColor,
+                                            fontSize: 20, fontFamily: poppinSemiBold)),
                                     Padding(
                                       padding: EdgeInsets.only(top: 4),
                                       child: Text("/month", textAlign: TextAlign.left,
                                         style: TextStyle(color: kBlack,
                                             fontSize: 8, fontFamily: poppinRegular),
                                       ),
-                                    ),
-                                  ],
-                                ),
-
-                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                                        showRatingStars(double.parse("${widget.carRating}")),
-                                        SizedBox(
-                                          width: MediaQuery.of(context).size.height * 0.01),
-
-                                        widget.carRating == null?
-                                        Text("0.0", textAlign: TextAlign.left,
-                                          style: TextStyle(color: kBlack,
-                                              fontSize: 12, fontFamily: poppinRegular)):
-                                        Text("${widget.carRating}", textAlign: TextAlign.left,
-                                            style: TextStyle(color: kBlack,
-                                                fontSize: 12, fontFamily: poppinRegular))
-                                      ],
                                     ),
                                     SizedBox(width: MediaQuery.of(context).size.height * 0.1),
                                     Container(
@@ -362,6 +361,30 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                   padding: EdgeInsets.symmetric(vertical: 05),
                                   child: Divider(),
                                 ),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Text("Start Date", textAlign: TextAlign.left,
+                                //       style: TextStyle(color: textLabelColor,
+                                //           fontSize: 14, fontFamily: poppinRegular)),
+                                //     Text("${widget.startDate}", textAlign: TextAlign.right,
+                                //       style: TextStyle(color: textLabelColor,
+                                //           fontSize: 14, fontFamily: poppinRegular)),
+                                //   ],
+                                // ),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Text("End Date", textAlign: TextAlign.left,
+                                //       style: TextStyle(color: textLabelColor,
+                                //           fontSize: 14, fontFamily: poppinRegular)),
+                                //     Text("${widget.endDate}", textAlign: TextAlign.right,
+                                //       style: TextStyle(color: textLabelColor,
+                                //           fontSize: 14, fontFamily: poppinRegular)),
+                                //   ],
+                                // ),
                                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -374,7 +397,6 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                           fontSize: 14, fontFamily: poppinRegular)),
                                   ],
                                 ),
-
                                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -388,19 +410,19 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                           fontSize: 14, fontFamily: poppinRegular)),
                                   ],
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Setup Cost",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(color: textLabelColor,
-                                            fontSize: 14, fontFamily: poppinRegular)),
-                                    Text("RM ${widget.setupCost}", textAlign: TextAlign.right,
-                                        style: TextStyle(color: textLabelColor,
-                                            fontSize: 14, fontFamily: poppinRegular)),
-                                  ],
-                                ),
+                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Text("Setup Cost",
+                                //         textAlign: TextAlign.left,
+                                //         style: TextStyle(color: textLabelColor,
+                                //             fontSize: 14, fontFamily: poppinRegular)),
+                                //     Text("RM ${widget.setupCost}", textAlign: TextAlign.right,
+                                //         style: TextStyle(color: textLabelColor,
+                                //             fontSize: 14, fontFamily: poppinRegular)),
+                                //   ],
+                                // ),
                                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

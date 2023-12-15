@@ -25,12 +25,12 @@ abstract class TickerProvider {}
 
 class _TabbarCarDescriptionState extends State<TabbarCarDescription>
     with TickerProviderStateMixin {
-  List<String> tabs = ["Description", "Features", "Ratings"];
+  List<String> tabs = ["Description", "Features"];
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 3, vsync: this);
+    TabController tabController = TabController(length: 2, vsync: this);
 
     return Column(
       children: [
@@ -58,7 +58,6 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
                   tabs: [
                     Tab(text: "Description"),
                     Tab(text: "Features"),
-                    Tab(text: "Ratings"),
                   ],
                 ),
               )),
@@ -82,7 +81,7 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
                 featuresNewCars: widget.featuresNewCars,
                 featuresFuelCapacity: widget.featuresFuelCapacity,
               ),
-              EvRating(),
+              // EvRating(),
             ]
           ),
         ),

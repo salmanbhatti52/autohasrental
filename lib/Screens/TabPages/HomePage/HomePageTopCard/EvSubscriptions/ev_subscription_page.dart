@@ -407,13 +407,13 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                                           Text("", textAlign: TextAlign.left, style: TextStyle(
                                               color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
                                           SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                                          showRatingStars(double.parse("${evCarsModelObject.data![index].rating}")),
-                                          evCarsModelObject.data![index].rating == null
-                                              ? Text("0.0", style: TextStyle(color: kBlack, fontSize: 12,
-                                              fontFamily: poppinRegular), textAlign: TextAlign.left) :
-                                          Text("${evCarsModelObject.data![index].rating}",
-                                              style: TextStyle(color: kBlack, fontSize: 12,
-                                                  fontFamily: poppinRegular), textAlign: TextAlign.left),
+                                          // showRatingStars(double.parse("${evCarsModelObject.data![index].rating}")),
+                                          // evCarsModelObject.data![index].rating == null
+                                          //     ? Text("0.0", style: TextStyle(color: kBlack, fontSize: 12,
+                                          //     fontFamily: poppinRegular), textAlign: TextAlign.left) :
+                                          // Text("${evCarsModelObject.data![index].rating}",
+                                          //     style: TextStyle(color: kBlack, fontSize: 12,
+                                          //         fontFamily: poppinRegular), textAlign: TextAlign.left),
                                         ],
                                       ),
                                       SizedBox(height: MediaQuery.of(context).size.height * 0.01),

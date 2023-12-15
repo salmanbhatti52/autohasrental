@@ -21,7 +21,7 @@ import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev
 class EvDescriptionDetailsPage extends StatefulWidget {
   List<Datum>? getMileagePlansModel;
   final String? mySelectedTabMonth, mySelectedTabPrice, selectedMileagePlan;
-  final String? carName, setupCost,
+  final String? carName,
       carImage,
       carYear,
       carPrice,
@@ -41,7 +41,6 @@ class EvDescriptionDetailsPage extends StatefulWidget {
   EvDescriptionDetailsPage(
       {Key? key,
       this.carName,
-        this.setupCost,
         this.mileagePlanID,
         this.getMileagePlansModel,
       this.carMakesName,
@@ -177,18 +176,19 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
   }
 
   double totalAmount = 0.0;
-  double setupCosts = 0.0;
+  // double setupCosts = 0.0;
   String formattedServiceFee = "";
-  String formattedSetupCost = "";
+  // String formattedSetupCost = "";
   myTotalAmount() {
     myServiceFee = (percentage! / 100) * double.parse("$tabPrice");
     print("myServiceFee $myServiceFee");
     print("tabMonthAndPrice11 $tabMonth $tabPrice");
-    setupCosts = double.parse(widget.setupCost.toString());
-    totalAmount = double.parse("$tabPrice") + myServiceFee! + setupCosts;
+    // setupCosts = double.parse(widget.setupCost.toString());
+    totalAmount = double.parse("$tabPrice") + myServiceFee!;
+    // totalAmount = double.parse("$tabPrice") + myServiceFee! + setupCosts;
     double tabPriceAsDouble = double.parse(tabPrice ?? '0');
     NumberFormat format = NumberFormat('#,##0.00', 'en_US');
-    formattedSetupCost = format.format(setupCosts);
+    // formattedSetupCost = format.format(setupCosts);
     String formattedTabPrice = format.format(tabPriceAsDouble);
     tabPrice = formattedTabPrice;
     print("Formatted tabPrice: $tabPrice");
@@ -462,7 +462,9 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               EvDeliveryAddress(
-                                                setupCost: formattedSetupCost,
+                                                startDate: evStartDate,
+                                                endDate: evEndDate,
+                                                setupCost: "",
                                                 evStartDate: evStartDate,
                                                 mileagePlanID: widget.mileagePlanID,
                                                 evEndDate: enddate1,
@@ -492,7 +494,9 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                                     widget.carMakesName,
                                                 carModelName:
                                                     widget.carModelName,
-                                              )));
+                                              ),
+                                      ),
+                                  );
                                 }
                               }
                             },
@@ -619,7 +623,32 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                         ],
                       )
                           : SizedBox(),
-                      SizedBox(width: screenWidth * 0.01),
+                      // SizedBox(width: screenWidth * 0.01),
+                    ],
+                  ),
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Row(
+                      //   children: [
+                      //     showRatingStars(double.parse("${widget.carRating}")),
+                      //     SizedBox(
+                      //         width: MediaQuery.of(context).size.height * 0.01),
+                      //     widget.carRating == null
+                      //         ? Text("0.0",
+                      //             textAlign: TextAlign.left,
+                      //             style: TextStyle(
+                      //                 color: kBlack,
+                      //                 fontSize: 14,
+                      //                 fontFamily: poppinRegular))
+                      //         : Text("${widget.carRating}",
+                      //             textAlign: TextAlign.left,
+                      //             style: TextStyle(
+                      //                 color: kBlack,
+                      //                 fontSize: 14,
+                      //                 fontFamily: poppinRegular)),
+                      //   ],
+                      // ),
                       Padding(
                         padding: EdgeInsets.only(top: 06),
                         child: Text("RM ",
@@ -641,31 +670,6 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                               color: kBlack,
                               fontSize: 8,
                               fontFamily: poppinRegular)),
-                    ],
-                  ),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          showRatingStars(double.parse("${widget.carRating}")),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.height * 0.01),
-                          widget.carRating == null
-                              ? Text("0.0",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: kBlack,
-                                      fontSize: 14,
-                                      fontFamily: poppinRegular))
-                              : Text("${widget.carRating}",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: kBlack,
-                                      fontSize: 14,
-                                      fontFamily: poppinRegular)),
-                        ],
-                      ),
                       SizedBox(width: screenWidth * 0.25),
                       Container(
                         height: 25,
@@ -976,24 +980,24 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                       color: detailsTextColor)),
             ],
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Setup Cost",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: poppinRegular,
-                      color: detailsTextColor)),
-              Text("RM ${formattedSetupCost}",
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: poppinRegular,
-                      color: detailsTextColor)),
-            ],
-          ),
+          // SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text("Setup Cost",
+          //         textAlign: TextAlign.left,
+          //         style: TextStyle(
+          //             fontSize: 14,
+          //             fontFamily: poppinRegular,
+          //             color: detailsTextColor)),
+          //     Text("RM ${formattedSetupCost}",
+          //         textAlign: TextAlign.right,
+          //         style: TextStyle(
+          //             fontSize: 14,
+          //             fontFamily: poppinRegular,
+          //             color: detailsTextColor)),
+          //   ],
+          // ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.015),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

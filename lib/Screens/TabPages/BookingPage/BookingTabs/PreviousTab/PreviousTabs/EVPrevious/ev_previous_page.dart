@@ -376,20 +376,20 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                               Text("${formattedPrice}", textAlign: TextAlign.left, style: TextStyle(
                                                       color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
                                               Text("/", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
-                                              SizedBox(
-                                                width: MediaQuery.of(context).size.height * 0.01,),
-
-                                              showRatingStars(double.parse("${evPreviousObject.data![reversedindex].carsDetails!.rating}")),
-                                              SizedBox(
-                                                width: MediaQuery.of(context).size.height * 0.01),
-
-                                              evPreviousObject.data![reversedindex].carsDetails!.rating == null?
-                                              Text("0.0", textAlign: TextAlign.left,
-                                                style: TextStyle(color: kBlack,
-                                                    fontSize: 12, fontFamily: poppinRegular)):
-                                              Text("${evPreviousObject.data![reversedindex].carsDetails!.rating}", textAlign: TextAlign.left,
-                                                  style: TextStyle(color: kBlack,
-                                                      fontSize: 12, fontFamily: poppinRegular)),
+                                              // SizedBox(
+                                              //   width: MediaQuery.of(context).size.height * 0.01,),
+                                              //
+                                              // showRatingStars(double.parse("${evPreviousObject.data![reversedindex].carsDetails!.rating}")),
+                                              // SizedBox(
+                                              //   width: MediaQuery.of(context).size.height * 0.01),
+                                              //
+                                              // evPreviousObject.data![reversedindex].carsDetails!.rating == null?
+                                              // Text("0.0", textAlign: TextAlign.left,
+                                              //   style: TextStyle(color: kBlack,
+                                              //       fontSize: 12, fontFamily: poppinRegular)):
+                                              // Text("${evPreviousObject.data![reversedindex].carsDetails!.rating}", textAlign: TextAlign.left,
+                                              //     style: TextStyle(color: kBlack,
+                                              //         fontSize: 12, fontFamily: poppinRegular)),
                                             ],
                                           ),
                                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),

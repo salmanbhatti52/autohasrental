@@ -8,7 +8,7 @@ import 'package:country_state_picker/country_state_picker.dart';
 import 'package:auto_haus_rental_app/Widget/TextFields/address_text_field.dart';
 
 class EvBillingAddress extends StatefulWidget {
-  final String? mySelectedTabMonth, mySelectedTabPrice;
+  final String? mySelectedTabMonth, startDate, endDate,  mySelectedTabPrice;
   final String? totalAmount, setupCost;
   final String? carName, carImage, carYear, carPrice, carStatus, carColorName,
       carModelName, carMakesName, carMakesImage, favouriteStatus, carRating,
@@ -19,7 +19,7 @@ class EvBillingAddress extends StatefulWidget {
   final int? carId, carOwnerId,mileagePlanID;
   final String? carDiscountPrice;
 
-  EvBillingAddress({Key? key, this.setupCost , this.mileagePlanID, this.homeStreetAddress1, this.homeStreetAddress2,
+  EvBillingAddress({Key? key, this.startDate, this.endDate, this.setupCost , this.mileagePlanID, this.homeStreetAddress1, this.homeStreetAddress2,
     this.favouriteStatus, this.homeCity, this.homePostCode, this.homeSelectedState,
     this.homeSelectedCountry, this.totalAmount, this.carName, this.carColorName,
     this.carModelName, this.carYear, this.discountPercentage, this.carDiscountPrice,
@@ -100,6 +100,8 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
 
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => EvCartDetailsPage(
+                          startDate: widget.startDate,
+                          endDate: widget.endDate,
                           // myDatum: widget.myDatum,
                           setupCost: widget.setupCost,
                           mileagePlanID: widget.mileagePlanID,
@@ -179,6 +181,8 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => EvCartDetailsPage(
+                            startDate: widget.startDate,
+                            endDate: widget.endDate,
                             setupCost: widget.setupCost,
                             mySelectedTabMonth: widget.mySelectedTabMonth,
                             mySelectedTabPrice: widget.mySelectedTabPrice,

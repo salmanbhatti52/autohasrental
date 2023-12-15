@@ -154,38 +154,38 @@ class _EVCarDescriptionState extends State<EVCarDescription>
           statusBarBrightness:
               Brightness.dark, //<-- For iOS SEE HERE (dark icons)
         ),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              print("clicked");
-              startChatApiWidget();
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MessageDetailsScreen(
-                            carOwnerName: carOwnerName,
-                            carOwnerImage: carOwnerImage,
-                            carOwnerId: "$carOwnerId",
-                          )));
-              print("evCarOwnerName $carOwnerName");
-              print("evCarOwnerLogo $carOwnerImage}");
-              print("evCarOwnerId $carOwnerId");
-            },
-            child: Padding(
-              padding: EdgeInsets.only(top: 30, right: 20),
-              child: Image.asset(
-                "assets/car_description_images/chat.png",
-                height: 25,
-                width: 25,
-              ),
-            ),
-          ),
-        ],
+        // actions: [
+        //   GestureDetector(
+        //     onTap: () {
+        //       print("clicked");
+        //       startChatApiWidget();
+        //       Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //               builder: (context) => MessageDetailsScreen(
+        //                     carOwnerName: carOwnerName,
+        //                     carOwnerImage: carOwnerImage,
+        //                     carOwnerId: "$carOwnerId",
+        //                   )));
+        //       print("evCarOwnerName $carOwnerName");
+        //       print("evCarOwnerLogo $carOwnerImage}");
+        //       print("evCarOwnerId $carOwnerId");
+        //     },
+        //     child: Padding(
+        //       padding: EdgeInsets.only(top: 30, right: 20),
+        //       child: Image.asset(
+        //         "assets/car_description_images/chat.png",
+        //         height: 25,
+        //         width: 25,
+        //       ),
+        //     ),
+        //   ),
+        // ],
         backgroundColor: appBgColor,
         elevation: 0.0,
         centerTitle: true,
         title: Padding(
-          padding: EdgeInsets.only(top: 30, right: 0),
+          padding: EdgeInsets.only(top: 30, right: 35),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(
               "${widget.carName}, ",
@@ -230,28 +230,28 @@ class _EVCarDescriptionState extends State<EVCarDescription>
               ),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // showRatingStars("${widget.carRating}"),
-                      showRatingStars(double.parse("${widget.carRating}")),
-                      // Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-
-                      widget.carRating == null
-                          ? Text('0.0',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: kWhite,
-                                  fontFamily: poppinSemiBold))
-                          : Text('${widget.carRating}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: kWhite,
-                                  fontFamily: poppinSemiBold)),
-                    ],
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     // showRatingStars("${widget.carRating}"),
+                  //     showRatingStars(double.parse("${widget.carRating}")),
+                  //     // Image.asset('assets/home_page/9004787_star_favorite_award_like_icon.png',),
+                  //     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                  //
+                  //     widget.carRating == null
+                  //         ? Text('0.0',
+                  //             style: TextStyle(
+                  //                 fontSize: 16,
+                  //                 color: kWhite,
+                  //                 fontFamily: poppinSemiBold))
+                  //         : Text('${widget.carRating}',
+                  //             style: TextStyle(
+                  //                 fontSize: 16,
+                  //                 color: kWhite,
+                  //                 fontFamily: poppinSemiBold)),
+                  //   ],
+                  // ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -428,7 +428,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                       MaterialPageRoute(
                         builder: (context) => EvDescriptionDetailsPage(
                           getMileagePlansModel: getMileagePlansModel.data,
-                          setupCost: getMonthPlansModel.data?[0].setupCost,
+                          // setupCost: getMonthPlansModel.data?[0].setupCost,
                           mileagePlanID: mileagePlanID == null
                               ? getMileagePlansModel
                               .data![0].plansMileageId

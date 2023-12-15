@@ -29,22 +29,15 @@ Widget homeTopHorizontalCard(BuildContext context){
                   }
                 },
               child: Container(
-                height: 70, width: 220,
+                height: 70, width: 200,
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                    color: cardItemsList[index].color,
+                    color: Color(0xffFDDC5C),
                     borderRadius: BorderRadius.circular(15)
                 ),
-                child: Row(
-                  children: [
-                   Image.asset(cardItemsList[index].image),
-                    SizedBox(width: 10),
-                    Container(
-                        color: Colors.transparent,
-                        // width: MediaQuery.of(context).size.width* 0.3,
-                        child: Text(cardItemsList[index].title, textAlign: TextAlign.left,
-                          style: TextStyle(color: kBlack, fontFamily: poppinRegular, fontSize: 14),)),
-                  ],
+                child: Center(
+                  child: Text(cardItemsList[index].title, textAlign: TextAlign.left,
+                    style: TextStyle(color: kBlack, fontFamily: poppinRegular, fontWeight: FontWeight.bold, fontSize: 14),),
                 ),
               ),
             ),
@@ -54,7 +47,7 @@ Widget homeTopHorizontalCard(BuildContext context){
 }
 
 List cardItemsList = [
-  CardItems( "assets/home_page/pin.png", 'Get Ev\nSubscription', Color(0xffF9E7EF)),
+  CardItems( "assets/home_page/pin.png", 'Get Ev Subscription', Color(0xffF9E7EF)),
   // CardItems( "assets/home_page/camera.png", 'Book for Wedding\n& Photography', Color(0xffD2EEFF)),
   // CardItems( "assets/home_page/steering.png", 'Get Driving\nExperiences', Color(0xffFFE2DB)),
 ];

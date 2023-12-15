@@ -349,11 +349,11 @@ class _FavoritePageState extends State<FavoritePage> {
                                                 discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
 
                                                 SizedBox(width: screenWidth * 0.01),
-                                                showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
-                                                SizedBox(width: screenWidth * 0.01),
-                                                Text("${favoriteCarModelObject.data![index].rating}",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                                                // showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
+                                                // SizedBox(width: screenWidth * 0.01),
+                                                // Text("${favoriteCarModelObject.data![index].rating}",
+                                                //     textAlign: TextAlign.left, style: TextStyle(
+                                                //         color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
                                               ],
                                             ),
 

@@ -185,31 +185,31 @@ var start;
             statusBarIconBrightness: Brightness.dark,
             statusBarBrightness: Brightness.dark,
           ),
-          actions: [
-            GestureDetector(
-              onTap: () {
-                print("clicked");
-                // startChatApiWidget();
-
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => MessageDetailsScreen(
-                      carOwnerName: companyName,
-                      carOwnerImage: companyImage,
-                      carOwnerId: companyId,
-                    )));
-                print("drivingOwnerId $companyId");
-                print("drivingOwnerName $companyName");
-                print("drivingOwnerImage $companyImage");
-
-                },
-              child: Padding(
-                padding: EdgeInsets.only(top: 30, right: 20),
-                child: Image.asset("assets/car_description_images/chat.png",
-                  height: 25, width: 25,
-                ),
-              ),
-            ),
-          ],
+          // actions: [
+          //   GestureDetector(
+          //     onTap: () {
+          //       print("clicked");
+          //       // startChatApiWidget();
+          //
+          //       Navigator.push(context, MaterialPageRoute(
+          //           builder: (context) => MessageDetailsScreen(
+          //             carOwnerName: companyName,
+          //             carOwnerImage: companyImage,
+          //             carOwnerId: companyId,
+          //           )));
+          //       print("drivingOwnerId $companyId");
+          //       print("drivingOwnerName $companyName");
+          //       print("drivingOwnerImage $companyImage");
+          //
+          //       },
+          //     child: Padding(
+          //       padding: EdgeInsets.only(top: 30, right: 20),
+          //       child: Image.asset("assets/car_description_images/chat.png",
+          //         height: 25, width: 25,
+          //       ),
+          //     ),
+          //   ),
+          // ],
           backgroundColor: appBgColor, elevation: 0.0,
           centerTitle: true,
           leading: GestureDetector(
@@ -218,14 +218,14 @@ var start;
               Navigator.pop(context);
               },
             child: Padding(
-              padding: EdgeInsets.only(top: 30),
+              padding: EdgeInsets.only(top: 30,),
               child: Image.asset("assets/live_chat_images/back_arrow.png",
                 color: kWhite, height: 25, width: 25,
               ),
             ),
           ),
           title: Padding(
-            padding: EdgeInsets.only(top: 30, right: 0),
+            padding: EdgeInsets.only(top: 30, right: 35),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -1,3 +1,4 @@
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/Settings/LiveChat/live_chat_page.dart';
 import 'package:flutter/material.dart';
 import '../Model/filter_car_by_attribute_model.dart';
 import '../Screens/TabPages/BookingPage/booking_page.dart';
@@ -53,7 +54,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         filterCarByAttributeModelObject: widget.filterCarByAttributeModelObject,
         clearFilters: widget.clearFilters,
       ),
-      MessagePage(),
+      LiveChatPage(),
       BookingPage(),
       FavoritePage(),
     ];
@@ -94,7 +95,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
                       color: currentIndex == 1 ? borderColor : kWhite,
                       width: 30,
                     ),
-                    label: 'Messages',
+                    label: 'Live Chat',
                 ),
                 BottomNavigationBarItem(
                     icon: Image.asset(
