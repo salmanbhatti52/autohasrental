@@ -234,9 +234,9 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+              // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               Container(
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: MediaQuery.of(context).size.height * 0.83,
                 color: Colors.transparent,
                 child: Stack(
                   children: [
@@ -247,7 +247,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.73,
+                          height: MediaQuery.of(context).size.height * 0.75,
                           width: MediaQuery.of(context).size.width * 0.47,
                           decoration: BoxDecoration(
                               color: kWhite,
@@ -357,22 +357,56 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.33),
+                                      child: Text("Start Date", textAlign: TextAlign.left,
+                                        style: TextStyle(color: kBlack,
+                                            fontSize: 14, fontFamily: poppinRegular)),
+                                    ),
+                                    Text("End Date", textAlign: TextAlign.right,
+                                      style: TextStyle(color: kBlack,
+                                          fontSize: 14, fontFamily: poppinRegular)),
+                                  ],
+                                ),
+                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      height: 40,
+                                      width: 120,
+                                      decoration: BoxDecoration(
+                                          color: borderColor,
+                                          borderRadius: BorderRadius.circular(10)),
+                                      child: Center(
+                                        child: Text(
+                                          "${widget.startDate}",
+                                          style: TextStyle(color: kWhite, fontSize: 16),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 40,
+                                      width: 120,
+                                      decoration: BoxDecoration(
+                                          color: borderColor,
+                                          borderRadius: BorderRadius.circular(10)),
+                                      child: Center(
+                                        child: Text(
+                                          "${widget.endDate}",
+                                          style: TextStyle(color: kWhite, fontSize: 16),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(vertical: 05),
                                   child: Divider(),
                                 ),
-                                // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Text("Start Date", textAlign: TextAlign.left,
-                                //       style: TextStyle(color: textLabelColor,
-                                //           fontSize: 14, fontFamily: poppinRegular)),
-                                //     Text("${widget.startDate}", textAlign: TextAlign.right,
-                                //       style: TextStyle(color: textLabelColor,
-                                //           fontSize: 14, fontFamily: poppinRegular)),
-                                //   ],
-                                // ),
                                 // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 // Row(
                                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
