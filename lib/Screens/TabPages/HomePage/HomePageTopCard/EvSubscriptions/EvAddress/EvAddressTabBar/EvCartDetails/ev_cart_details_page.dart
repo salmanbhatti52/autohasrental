@@ -363,12 +363,20 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                     Padding(
                                       padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.33),
                                       child: Text("Start Date", textAlign: TextAlign.left,
-                                        style: TextStyle(color: kBlack,
-                                            fontSize: 14, fontFamily: poppinRegular)),
+                                        style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinSemiBold,
+                                        ),
+                                      ),
                                     ),
                                     Text("End Date", textAlign: TextAlign.right,
-                                      style: TextStyle(color: kBlack,
-                                          fontSize: 14, fontFamily: poppinRegular)),
+                                      style: TextStyle(
+                                          color: kBlack,
+                                          fontSize: 14,
+                                          fontFamily: poppinSemiBold,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -561,16 +569,17 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                     //     height: 130,),
                     // ),
                     Positioned(
-                      left: 30,
-                      right: 20,
-                      top: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
-                          ? 30
-                          : 0,
+                      left: 40,
+                      right: 40,
+                      top: -15,
+                      // top: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
+                      //     ? 20
+                      //     : -50,
                       child: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
                           ?  Image.network("${widget.carImage}",
-                          fit: BoxFit.fill,
-                        width: 350,
-                        height: 130,) :
+                        // fit: BoxFit.contain,
+                        // height: 200, width: 200,
+                      ) :
                       Container(
                         height: 200,
                         child: ModelViewer(

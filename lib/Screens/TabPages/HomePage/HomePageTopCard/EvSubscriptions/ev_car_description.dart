@@ -24,6 +24,7 @@ import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev
 class EVCarDescription extends StatefulWidget {
   final String? carName,
       carImage,
+      carImageModel,
       carYear,
       carPrice,
       carStatus,
@@ -54,6 +55,7 @@ class EVCarDescription extends StatefulWidget {
   EVCarDescription(
       {super.key,
       this.carName,
+        this.carImageModel,
       this.myCarDescription,
       this.favouriteStatus,
       this.myCarRating,
@@ -145,7 +147,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: homeBgColor,
+      backgroundColor: kWhite,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -301,30 +303,31 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.05),
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.2,
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    height: MediaQuery.of(context).size.height * 0.27,
                     color: Colors.transparent,
                     child: Stack(
                       children: [
                         Image.asset(
                           'assets/car_description_images/circle.png',
                           fit: BoxFit.fill,
-                          height: 200,
-                          width: 300,
+                          height: 300,
+                          width: 400,
                         ),
                         Positioned(
-                          left: 10,
-                          right: 10,
-                          bottom: 0,
-                          child: widget.carImage!.endsWith('.jpg') ||
-                                  widget.carImage!.endsWith('.png') ||
-                                  widget.carImage!.endsWith('.jpeg')
+                          bottom: -20,
+                          left: 0,
+                          right: 0,
+                          child: widget.carImageModel!.endsWith('.jpg') ||
+                                  widget.carImageModel!.endsWith('.png') ||
+                                  widget.carImageModel!.endsWith('.jpeg')
                               ? Image.network("${widget.carImage}",
                                   fit: BoxFit.fill, height: 150, width: 180)
                               : Container(
-                                  height: 235,
+                                  height: 335,
                                   child: ModelViewer(
                                     backgroundColor: Colors.transparent,
-                                    src: '${widget.carImage}',
+                                    src: '${widget.carImageModel}',
                                     alt: "A 3D model of car",
                                     animationName: 'walk',
                                     withCredentials: false,
@@ -335,7 +338,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                                     disableTap: false,
                                     ar: false,
                                     arModes: ["quicklook", "scene-viewer"],
-                                    iosSrc: "${widget.carImage}",
+                                    iosSrc: "${widget.carImageModel}",
                                     disableZoom: true,
                                   ),
                                 ),
@@ -371,7 +374,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                             width: MediaQuery.of(context).size.width * 0.3,
                             height: MediaQuery.of(context).size.height * 0.07,
                             decoration: BoxDecoration(
-                              color: isSelected  ? borderColor : homeBgColor,
+                              color: isSelected  ? borderColor : kWhite,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Padding(
@@ -486,7 +489,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.1,
                       decoration: BoxDecoration(
-                          color: homeBgColor,
+                          color: kWhite,
                           borderRadius: BorderRadius.circular(15)),
                       child: Padding(
                         padding:

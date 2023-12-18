@@ -9,7 +9,7 @@ import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:flutter/material.dart';
 import '../../drawer_screen.dart';
 import 'live_chat_details_page.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 
 class LiveChatPage extends StatefulWidget {
   LiveChatPage({super.key});
@@ -20,22 +20,22 @@ class LiveChatPage extends StatefulWidget {
 
 class _LiveChatPageState extends State<LiveChatPage> {
   GetAdminListModel getAdminListModelObject = GetAdminListModel();
-  bool loadingP = true;
+  bool loadingP = false;
 
   getAdminListWidget() async {
     loadingP = true;
     setState(() {});
-    print('in getAdminListAPI');
     try {
       String apiUrl = getAdminListApiUrl;
       print("getAdminListApi: $apiUrl");
-     final response = await http.get(Uri.parse(apiUrl));
+      final response = await http.get(Uri.parse(apiUrl));
       print('${response.statusCode}');
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("getAdminResponse: ${responseString.toString()}");
         getAdminListModelObject = getAdminListModelFromJson(responseString);
-        print("getAdminEmail: ${getAdminListModelObject.data![0].email}");
+        loadingP = false;
+        setState(() {});
       }
     } catch (e) {
       print('Error: ${e.toString()}');
@@ -55,11 +55,7 @@ class _LiveChatPageState extends State<LiveChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: homeBgColor,
-      // appBar: MyAppBarSettingsPage(
-      //   backImage: "assets/home_page/Side_Menu.png", title: "Live Chat", ),
-      body: loadingP ? Center(
-          child: CircularProgressIndicator(backgroundColor: borderColor)) :
-      Column(
+      body: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Padding(
@@ -70,23 +66,28 @@ class _LiveChatPageState extends State<LiveChatPage> {
                 GestureDetector(
                   onTap: () {
                     print("clicked");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => DrawerScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DrawerScreen()));
                   },
-                  child: Image.asset("assets/home_page/Side_Menu.png",
+                  child: Image.asset(
+                    "assets/home_page/Side_Menu.png",
                     height: 25,
                     width: 25,
                   ),
                 ),
-                Text("Live Chat", textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, fontFamily: poppinBold, color: kBlack)),
-
+                Text("Live Chat",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20, fontFamily: poppinBold, color: kBlack)),
                 SizedBox(),
               ],
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
-
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.04,
+          ),
           Image.asset('assets/live_chat_images/service _24_7.png'),
           SizedBox(height: 10),
           RichText(
@@ -95,8 +96,12 @@ class _LiveChatPageState extends State<LiveChatPage> {
               style: TextStyle(
                   fontSize: 20, fontFamily: poppinBold, color: appBgColor),
               children: [
-                TextSpan(text: "We're here", style: TextStyle(
-                    fontSize: 20, fontFamily: poppinBold, color: borderColor)),
+                TextSpan(
+                    text: "We're here",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: poppinBold,
+                        color: borderColor)),
               ],
             ),
           ),
@@ -122,15 +127,25 @@ class _LiveChatPageState extends State<LiveChatPage> {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  Text(
-                    '${getAdminListModelObject.data![0].mobile}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: poppinRegular,
-                      color: Color(0xff8d8d8d),
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
+                  loadingP
+                      ? Text(
+                          '',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: poppinRegular,
+                            color: Color(0xff8d8d8d),
+                          ),
+                          textAlign: TextAlign.left,
+                        )
+                      : Text(
+                          '${getAdminListModelObject.data![0].mobile}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: poppinRegular,
+                            color: Color(0xff8d8d8d),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
                 ],
               ),
             ),
@@ -157,7 +172,17 @@ class _LiveChatPageState extends State<LiveChatPage> {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  Text(
+                  loadingP
+                      ? Text(
+                    '',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: poppinRegular,
+                      color: Color(0xff8d8d8d),
+                    ),
+                    textAlign: TextAlign.left,
+                  )
+                      :  Text(
                     '${getAdminListModelObject.data![0].email}',
                     style: TextStyle(
                       fontSize: 16,
@@ -170,19 +195,24 @@ class _LiveChatPageState extends State<LiveChatPage> {
               ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height* 0.08),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.08),
           GestureDetector(
-              onTap: () async {
-               await startLiveChatApiWidget();
+            onTap: () async {
+              await startLiveChatApiWidget();
 
-                Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => LiveChatDetailsPage(
-                          adminId: getAdminListModelObject.data![0].usersSystemId,
-                          adminImage: getAdminListModelObject.data![0].userImage,
-                        )));
-                print("userImage $baseUrlImage${getAdminListModelObject.data![0].userImage}");
-              },
-              child: loginButton('Chat with us', context),
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LiveChatDetailsPage(
+                            adminId:
+                                getAdminListModelObject.data![0].usersSystemId,
+                            adminImage:
+                                getAdminListModelObject.data![0].userImage,
+                          )));
+              print(
+                  "userImage $baseUrlImage${getAdminListModelObject.data![0].userImage}");
+            },
+            child: loginButton('Chat with us', context),
           ),
         ],
       ),
@@ -196,17 +226,16 @@ class _LiveChatPageState extends State<LiveChatPage> {
     Map body = {
       "requestType": "startChat",
       "users_customers_id": userId,
-      "other_users_customers_id": "${getAdminListModelObject.data![0].usersSystemId}",
+      "other_users_customers_id":
+          "${getAdminListModelObject.data![0].usersSystemId}",
     };
     http.Response response = await http.post(Uri.parse(startLiveChatApiUrl),
-        body: body,
-        headers: {
-          "Accept": "application/json"
-        });
+        body: body, headers: {"Accept": "application/json"});
     Map jsonData = jsonDecode(response.body);
     print("startLiveChatApiUrl: $startLiveChatApiUrl");
     print('userId $userId');
-    print('otherUsersCustomersId ${getAdminListModelObject.data![0].usersSystemId}');
+    print(
+        'otherUsersCustomersId ${getAdminListModelObject.data![0].usersSystemId}');
     print('startLiveChatApiResponse $jsonData');
 
     if (jsonData['message'] == 'chat already started') {

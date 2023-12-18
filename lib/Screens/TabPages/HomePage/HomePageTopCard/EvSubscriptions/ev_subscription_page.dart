@@ -317,267 +317,457 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
               int discountedPrice = evCarsModelObject.data![index].carsPlans![0].discountedPricePerMonth;
               NumberFormat format = NumberFormat('#,##0.00', 'en_US');
               String formattedPrice = format.format(discountedPrice);
-              return Stack(
-                children: [
-                  Padding(
-                    padding:  EdgeInsets.symmetric(vertical: 20),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.33),
-                  ),
-                  Positioned(
-                    top: 90,
-                    left: 30,
-                    right: 30,
-                    child: Padding(
-                      padding:  EdgeInsets.only(left: 9),
+              return  Container(
+                height: Get.height * 0.18,
+                margin: EdgeInsets.only(bottom: 10),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned(
+                      bottom: 0,
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.26,
-                        width: 343,
+                        width: Get.width * 0.9,
+                        height: Get.height * 0.15,
+                        margin: EdgeInsets.only(bottom: 10),
                         decoration: BoxDecoration(
                           color: kWhite,
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(30),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.1),
-                              spreadRadius: 5,
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
                               blurRadius: 5,
-                              offset:  Offset(3, 3),
+                              offset: Offset(3,3),
                             ),
                           ],
                         ),
                         child: Column(
                           children: [
-                            Container(height: MediaQuery.of(context).size.height*0.1,),
-                            Row(
-                              children: [
-                                 SizedBox(height: 93.6),
-                                Padding(
-                                  padding:  EdgeInsets.symmetric(horizontal: 15),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text("${evCarsModelObject.data![index].vehicalName}, ",
-                                              style: TextStyle(color: kBlack, fontSize: 14,
-                                                  fontFamily: poppinBold), textAlign: TextAlign.left),
-                                          Text("${evCarsModelObject.data![index].carsColors!.name} ",
-                                            textAlign: TextAlign.left, style: TextStyle(
-                                                color: kBlack, fontSize: 14, fontFamily: poppinRegular),),
-                                        ],
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 18.0, top: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "${evCarsModelObject.data?[index].vehicalName}",
+                                      style: TextStyle(
+                                        color: kBlack,
+                                        fontSize: 14,
+                                        fontFamily: poppinBold,
                                       ),
-                                      Row(
-                                        children: [
-                                          Text("${evCarsModelObject.data![index].carsMakes!.name}, ",
-                                              style: TextStyle(color: kBlack, fontSize: 12,
-                                                  fontFamily: poppinRegular), textAlign: TextAlign.left),
-                                          Text("${evCarsModelObject.data![index].carsModels!.name}, ",
-                                              textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
-                                          Text("${evCarsModelObject.data![index].year}",
-                                              textAlign: TextAlign.left, style: TextStyle(
-                                                  color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                                        ],
+                                    ),
+                                    Text(
+                                      "${evCarsModelObject.data?[index].year}",
+                                      style: TextStyle(
+                                        color: textLabelColor,
+                                        fontSize: 14,
+                                        fontFamily: poppinSemiBold,
                                       ),
-                                      Row(
-                                        children: [
-                                          evCarsModelObject.data![index].discountPercentage != "0.00" ? Row(
-                                            children: [
-                                              Padding(
-                                                padding:  EdgeInsets.only(top: 04),
-                                                child: Text("RM",  textAlign: TextAlign.left,
-                                                  style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinRegular),),
-                                              ),
-                                              Text("${evCarsModelObject.data![index].carsPlans![0].pricePerMonth}",
-                                                  textAlign: TextAlign.left, style: TextStyle(
-                                                      color: kRed, decoration: TextDecoration.lineThrough,
-                                                      decorationColor: kRed, decorationThickness: 3,
-                                                      fontSize: 10, fontFamily: poppinLight, height: 2)),
-                                              SizedBox(width: 5),
-                                            ],
-                                          ) : SizedBox(),
-                                          Padding(
-                                            padding:  EdgeInsets.only(top: 06),
-                                            child: Text("RM",  textAlign: TextAlign.left,
-                                                style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
-                                          ),
-                                          Text("${formattedPrice}",
-                                              textAlign: TextAlign.left, style: TextStyle(
-                                                  color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                          Text("", textAlign: TextAlign.left, style: TextStyle(
-                                              color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
-                                          SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                                          // showRatingStars(double.parse("${evCarsModelObject.data![index].rating}")),
-                                          // evCarsModelObject.data![index].rating == null
-                                          //     ? Text("0.0", style: TextStyle(color: kBlack, fontSize: 12,
-                                          //     fontFamily: poppinRegular), textAlign: TextAlign.left) :
-                                          // Text("${evCarsModelObject.data![index].rating}",
-                                          //     style: TextStyle(color: kBlack, fontSize: 12,
-                                          //         fontFamily: poppinRegular), textAlign: TextAlign.left),
-                                        ],
-                                      ),
-                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                      // verifiedDealerText(),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    right: 30, bottom: 30,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            print("clickedddd");
-                            carID = evCarsModelObject.data![index].carsId;
-                            String desc = "${evCarsModelObject.data![index].description}";
-                            print("object123 $carID");
-                            print("desc123 $desc");
-                            print("favouriteStatus ${evCarsModelObject.data![index].favouriteStatus}");
-
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => EVCarDescription(
-                                  carName: evCarsModelObject.data![index].vehicalName,
-                                  carYear: "${evCarsModelObject.data![index].year}",
-                                  carId: evCarsModelObject.data![index].carsId,
-                                  carColorName: evCarsModelObject.data![index].carsColors!.name,
-                                  carMakesName: evCarsModelObject.data![index].carsMakes!.name,
-                                  carModelName: evCarsModelObject.data![index].carsModels!.name,
-                                  // carImage: "$baseUrlImage${evCarsModelObject.data![index].image1}",
-                                  carImage: evCarsModelObject.data![index].image1!.endsWith('.jpg') || evCarsModelObject.data![index].image1!.endsWith('.png') || evCarsModelObject.data![index].image1!.endsWith('.jpeg')
-                                      ? "$baseUrlImage${evCarsModelObject.data?[index].image1}"
-                                      : evCarsModelObject.data?[index].image1,
-                                  carRating: evCarsModelObject.data![index].rating,
-                                  carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
-                                  carStatus: evCarsModelObject.data![index].favouriteStatus,
-                                  discountPercentage: evCarsModelObject.data![index].discountPercentage,
-                                  carDiscountPrice: "${formattedPrice}",
-                                  carPrice: evCarsModelObject.data![index].carsPlans![0].pricePerMonth,
-                                  carOwnerImage: "$baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                  carOwnerName: "${evCarsModelObject.data![index].usersCompanies!.companyName}",
-                                  carOwnerId: evCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
-                                  myCarDescription: evCarsModelObject.data![index].description,
-                                  favouriteStatus: evCarsModelObject.data![index].favouriteStatus,
-
-                                  featureSuv: evCarsModelObject.data![index].featuresSuv,
-                                  featuresDoors: evCarsModelObject.data![index].featuresDoors,
-                                  featuresSeats: evCarsModelObject.data![index].featuresSeats,
-                                  featuresAutomatic: evCarsModelObject.data![index].featuresAutomatic,
-                                  featuresSpeed: evCarsModelObject.data![index].featuresSpeed,
-                                  featuresElectric: evCarsModelObject.data![index].featuresElectric,
-                                  featuresEngine_capacity: evCarsModelObject.data![index].featuresEngineCapacity,
-                                  featuresFuelCapacity: evCarsModelObject.data![index].featuresFuelCapacity,
-                                  featuresMeterReading: evCarsModelObject.data![index].featuresMeterReading,
-                                  featuresNewCars: evCarsModelObject.data![index].featuresNewCars,
-                                )));
-                            print("evCarName ${evCarsModelObject.data![index].vehicalName}");
-                            print("evCarYear ${evCarsModelObject.data![index].year}");
-                            print("evCarImage $baseUrlImage${evCarsModelObject.data![index].image1}");
-                            print("ownerImage $baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}");
-                            print("ownerName ${evCarsModelObject.data![index].usersCompanies!.companyName}");
-                            print("ownerId ${evCarsModelObject.data![index].usersCompanies!.usersCompaniesId}");
-                            },
-                          child: Image.asset("assets/car_bookings_images/more_button.png"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Positioned(
-                  //   left: 20, right: 20,top: 30,
-                  //   child: evCarsModelObject.data![index].image1 == null ?
-                  //   ClipRRect(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //       child: Image.asset('assets/icon/fade_in_image.jpeg')) :
-                  //   ClipRRect(
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     child: FadeInImage(
-                  //       placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
-                  //       width: MediaQuery.of(context).size.width * 0.3,
-                  //       height: MediaQuery.of(context).size.height * 0.15,
-                  //       image: NetworkImage("$baseUrlImage${evCarsModelObject.data![index].image1}"),),
-                  //   ),
-                  // ),
-                  Positioned(
-                    left: 20, right: 20,top: 0,
-                    child: evCarsModelObject.data![index].image1 == null
-                        ? ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset('assets/icon/fade_in_image.jpeg'),
-                    )
-                        : evCarsModelObject.data![index].image1!.endsWith('.jpg') || evCarsModelObject.data![index].image1!.endsWith('.png') || evCarsModelObject.data![index].image1!.endsWith('.jpeg')
-                        ? ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: FadeInImage(
-                        placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-                        height: 65,
-                        image: NetworkImage("$baseUrlImage${evCarsModelObject.data?[index].image1}"),
-                      ),
-                    )
-                        : Container(
-                      height: MediaQuery.of(context).size.height * 0.24,
-                      child: ModelViewer(
-                        // cameraOrbit: Clipboard.kTextPlain,
-                        backgroundColor: Colors.transparent,
-                        src: '${evCarsModelObject.data?[index].image1}',
-                        alt: "A 3D model of car",
-                        autoPlay: false,
-                        autoRotate: false,
-                        cameraControls: false,
-                        disableTap: false,
-                        ar: false,
-                        disablePan: true,
-                        arModes: ["quicklook", "scene-viewer"],
-                        iosSrc: "${evCarsModelObject.data?[index].image1}",
-                        disableZoom: true,
+                    Positioned(
+                      left: 40,
+                      bottom: 20,
+                      child: Row(
+                        children: [
+                          Text(
+                            "RM",
+                            style: TextStyle(
+                              color: kBlack,
+                              fontSize: 14,
+                              fontFamily: poppinSemiBold,
+                            ),
+                          ),
+                          Text(
+                            "${formattedPrice}",
+                            style: TextStyle(
+                              color: kBlack,
+                              fontSize: 14,
+                              fontFamily: poppinSemiBold,
+                            ),
+                          ),
+                          Text(
+                            "/Month",
+                            style: TextStyle(
+                              color: textLabelColor,
+                              fontSize: 14,
+                              fontFamily: poppinSemiBold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  evCarsModelObject.data![index].discountPercentage != "0.00" ? Positioned(
-                      top: 10, left: 10,
-                      child: Container(
-                        height: MediaQuery.of(context).size.width * 0.07,
-                        width: MediaQuery.of(context).size.width * 0.18,
-                        decoration: BoxDecoration(
-                          color: kRed.withOpacity(0.8),
-                          borderRadius:  BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15)),
+                    Positioned(
+                      right: 19,
+                      bottom: 10,
+                      child: GestureDetector(
+                                    onTap: () {
+                                      print("clickedddd");
+                                      carID = evCarsModelObject.data![index].carsId;
+                                      String desc = "${evCarsModelObject.data![index].description}";
+                                      print("object123 $carID");
+                                      print("desc123 $desc");
+                                      print("favouriteStatus ${evCarsModelObject.data![index].favouriteStatus}");
+
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) => EVCarDescription(
+                                            carName: evCarsModelObject.data![index].vehicalName,
+                                            carYear: "${evCarsModelObject.data![index].year}",
+                                            carId: evCarsModelObject.data![index].carsId,
+                                            carColorName: evCarsModelObject.data![index].carsColors!.name,
+                                            carMakesName: evCarsModelObject.data![index].carsMakes!.name,
+                                            carModelName: evCarsModelObject.data![index].carsModels!.name,
+                                            carImageModel: evCarsModelObject.data?[index].objectImage,
+                                            carImage: evCarsModelObject.data![index].image1!.endsWith('.jpg') || evCarsModelObject.data![index].image1!.endsWith('.png') || evCarsModelObject.data![index].image1!.endsWith('.jpeg')
+                                                ? "$baseUrlImage${evCarsModelObject.data?[index].image1}"
+                                                : evCarsModelObject.data?[index].image1,
+                                            carRating: evCarsModelObject.data![index].rating,
+                                            carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
+                                            carStatus: evCarsModelObject.data![index].favouriteStatus,
+                                            discountPercentage: evCarsModelObject.data![index].discountPercentage,
+                                            carDiscountPrice: "${formattedPrice}",
+                                            carPrice: evCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+                                            carOwnerImage: "$baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                            carOwnerName: "${evCarsModelObject.data![index].usersCompanies!.companyName}",
+                                            carOwnerId: evCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+                                            myCarDescription: evCarsModelObject.data![index].description,
+                                            favouriteStatus: evCarsModelObject.data![index].favouriteStatus,
+
+                                            featureSuv: evCarsModelObject.data![index].featuresSuv,
+                                            featuresDoors: evCarsModelObject.data![index].featuresDoors,
+                                            featuresSeats: evCarsModelObject.data![index].featuresSeats,
+                                            featuresAutomatic: evCarsModelObject.data![index].featuresAutomatic,
+                                            featuresSpeed: evCarsModelObject.data![index].featuresSpeed,
+                                            featuresElectric: evCarsModelObject.data![index].featuresElectric,
+                                            featuresEngine_capacity: evCarsModelObject.data![index].featuresEngineCapacity,
+                                            featuresFuelCapacity: evCarsModelObject.data![index].featuresFuelCapacity,
+                                            featuresMeterReading: evCarsModelObject.data![index].featuresMeterReading,
+                                            featuresNewCars: evCarsModelObject.data![index].featuresNewCars,
+                                          )));
+                                      print("evCarName ${evCarsModelObject.data![index].vehicalName}");
+                                      print("evCarYear ${evCarsModelObject.data![index].year}");
+                                      print("evCarImage $baseUrlImage${evCarsModelObject.data![index].image1}");
+                                      print("ownerImage $baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}");
+                                      print("ownerName ${evCarsModelObject.data![index].usersCompanies!.companyName}");
+                                      print("ownerId ${evCarsModelObject.data![index].usersCompanies!.usersCompaniesId}");
+                                      },
+                        child: Container(
+                          width: Get.width * 0.4,
+                          height: 55,
+                          alignment: Alignment.bottomRight,
+                          decoration: BoxDecoration(
+                            color: Colors.blueAccent,
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(30),
+                              topLeft: Radius.circular(30),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Click to see Details",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: kWhite,
+                                fontFamily: poppinMedium,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("${evCarsModelObject.data![index].discountPercentage}",
-                                textAlign: TextAlign.left, style: TextStyle(color: kWhite,
-                                    fontSize: 13, fontFamily: poppinSemiBold)),
-                            Text(" OFF ", textAlign: TextAlign.left, style: TextStyle(
-                                color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
-                          ],
-                        ),
-                      )) : Positioned( top: 10, left: 10,child: SizedBox()),
-                  Positioned(
-                    top: 15, right: 15,
-                    child: evCarsModelObject.data![index].favouriteStatus == "like"?
-                    Image.asset("assets/home_page/heart.png"):
-                    GestureDetector(
-                      onTap: () async {
-                        myCurrentCarIndex = "${evCarsModelObject.data![index].carsId}";
-                        print("evCarIds $myCurrentCarIndex");
-                        await getLikeUnlikeCarWidget();
-                        getEvSubscriptionCarsWidget();
-                      },
-                      child: Image.asset("assets/car_bookings_images/heart.png"),
+                      ),
                     ),
-                  ),
-                ],
+                    Positioned(
+                      left: 30,
+                      top: -45,
+                      child: evCarsModelObject.data?[index].image1 == null
+                          ? Padding(
+                        padding: const EdgeInsets.only(top: 80.0),
+                        child: Image.asset('assets/icon/fade_in_image.jpeg', width: 50,
+                          height: 50, ),
+                      )
+                          :FadeInImage(
+                        placeholder: AssetImage(
+                          "assets/icon/fade_in_image.jpeg",),
+                        width: 180,
+                        height: 180,
+                        image: NetworkImage(
+                          "$baseUrlImage${evCarsModelObject.data?[index].image1}",),
+                      ),
+                    ),
+                  ],
+                ),
               );
+
+              //   Stack(
+              //   children: [
+              //     Padding(
+              //       padding:  EdgeInsets.symmetric(vertical: 20),
+              //       child: Container(
+              //         height: MediaQuery.of(context).size.height * 0.33),
+              //     ),
+              //     Positioned(
+              //       top: 90,
+              //       left: 30,
+              //       right: 30,
+              //       child: Padding(
+              //         padding:  EdgeInsets.only(left: 9),
+              //         child: Container(
+              //           height: MediaQuery.of(context).size.height * 0.26,
+              //           width: 343,
+              //           decoration: BoxDecoration(
+              //             color: kWhite,
+              //             borderRadius: BorderRadius.circular(20),
+              //             boxShadow: [
+              //               BoxShadow(
+              //                 color: Colors.grey.withOpacity(0.1),
+              //                 spreadRadius: 5,
+              //                 blurRadius: 5,
+              //                 offset:  Offset(3, 3),
+              //               ),
+              //             ],
+              //           ),
+              //           child: Column(
+              //             children: [
+              //               Container(height: MediaQuery.of(context).size.height*0.1,),
+              //               Row(
+              //                 children: [
+              //                    SizedBox(height: 93.6),
+              //                   Padding(
+              //                     padding:  EdgeInsets.symmetric(horizontal: 15),
+              //                     child: Column(
+              //                       crossAxisAlignment: CrossAxisAlignment.start,
+              //                       children: [
+              //                         Row(
+              //                           children: [
+              //                             Text("${evCarsModelObject.data![index].vehicalName}, ",
+              //                                 style: TextStyle(color: kBlack, fontSize: 14,
+              //                                     fontFamily: poppinBold), textAlign: TextAlign.left),
+              //                             Text("${evCarsModelObject.data![index].carsColors!.name} ",
+              //                               textAlign: TextAlign.left, style: TextStyle(
+              //                                   color: kBlack, fontSize: 14, fontFamily: poppinRegular),),
+              //                           ],
+              //                         ),
+              //                         Row(
+              //                           children: [
+              //                             Text("${evCarsModelObject.data![index].carsMakes!.name}, ",
+              //                                 style: TextStyle(color: kBlack, fontSize: 12,
+              //                                     fontFamily: poppinRegular), textAlign: TextAlign.left),
+              //                             Text("${evCarsModelObject.data![index].carsModels!.name}, ",
+              //                                 textAlign: TextAlign.left, style: TextStyle(
+              //                                     color: kBlack, fontSize: 12, fontFamily: poppinSemiBold)),
+              //                             Text("${evCarsModelObject.data![index].year}",
+              //                                 textAlign: TextAlign.left, style: TextStyle(
+              //                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+              //                           ],
+              //                         ),
+              //                         Row(
+              //                           children: [
+              //                             evCarsModelObject.data![index].discountPercentage != "0.00" ? Row(
+              //                               children: [
+              //                                 Padding(
+              //                                   padding:  EdgeInsets.only(top: 04),
+              //                                   child: Text("RM",  textAlign: TextAlign.left,
+              //                                     style: TextStyle(color: kRed, fontSize: 5, fontFamily: poppinRegular),),
+              //                                 ),
+              //                                 Text("${evCarsModelObject.data![index].carsPlans![0].pricePerMonth}",
+              //                                     textAlign: TextAlign.left, style: TextStyle(
+              //                                         color: kRed, decoration: TextDecoration.lineThrough,
+              //                                         decorationColor: kRed, decorationThickness: 3,
+              //                                         fontSize: 10, fontFamily: poppinLight, height: 2)),
+              //                                 SizedBox(width: 5),
+              //                               ],
+              //                             ) : SizedBox(),
+              //                             Padding(
+              //                               padding:  EdgeInsets.only(top: 06),
+              //                               child: Text("RM",  textAlign: TextAlign.left,
+              //                                   style: TextStyle(color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
+              //                             ),
+              //                             Text("${formattedPrice}",
+              //                                 textAlign: TextAlign.left, style: TextStyle(
+              //                                     color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+              //                             Text("", textAlign: TextAlign.left, style: TextStyle(
+              //                                 color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+              //                             SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+              //                             // showRatingStars(double.parse("${evCarsModelObject.data![index].rating}")),
+              //                             // evCarsModelObject.data![index].rating == null
+              //                             //     ? Text("0.0", style: TextStyle(color: kBlack, fontSize: 12,
+              //                             //     fontFamily: poppinRegular), textAlign: TextAlign.left) :
+              //                             // Text("${evCarsModelObject.data![index].rating}",
+              //                             //     style: TextStyle(color: kBlack, fontSize: 12,
+              //                             //         fontFamily: poppinRegular), textAlign: TextAlign.left),
+              //                           ],
+              //                         ),
+              //                         SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              //                         // verifiedDealerText(),
+              //                       ],
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     Positioned(
+              //       right: 30, bottom: 30,
+              //       child: Column(
+              //         mainAxisAlignment: MainAxisAlignment.end,
+              //         crossAxisAlignment: CrossAxisAlignment.end,
+              //         children: [
+              //           GestureDetector(
+              //             onTap: () {
+              //               print("clickedddd");
+              //               carID = evCarsModelObject.data![index].carsId;
+              //               String desc = "${evCarsModelObject.data![index].description}";
+              //               print("object123 $carID");
+              //               print("desc123 $desc");
+              //               print("favouriteStatus ${evCarsModelObject.data![index].favouriteStatus}");
+              //
+              //               Navigator.push(context, MaterialPageRoute(
+              //                   builder: (context) => EVCarDescription(
+              //                     carName: evCarsModelObject.data![index].vehicalName,
+              //                     carYear: "${evCarsModelObject.data![index].year}",
+              //                     carId: evCarsModelObject.data![index].carsId,
+              //                     carColorName: evCarsModelObject.data![index].carsColors!.name,
+              //                     carMakesName: evCarsModelObject.data![index].carsMakes!.name,
+              //                     carModelName: evCarsModelObject.data![index].carsModels!.name,
+              //                     // carImage: "$baseUrlImage${evCarsModelObject.data![index].image1}",
+              //                     carImage: evCarsModelObject.data![index].image1!.endsWith('.jpg') || evCarsModelObject.data![index].image1!.endsWith('.png') || evCarsModelObject.data![index].image1!.endsWith('.jpeg')
+              //                         ? "$baseUrlImage${evCarsModelObject.data?[index].image1}"
+              //                         : evCarsModelObject.data?[index].image1,
+              //                     carRating: evCarsModelObject.data![index].rating,
+              //                     carMakesImage: "$baseUrlImage${evCarsModelObject.data![index].carsMakes!.image}",
+              //                     carStatus: evCarsModelObject.data![index].favouriteStatus,
+              //                     discountPercentage: evCarsModelObject.data![index].discountPercentage,
+              //                     carDiscountPrice: "${formattedPrice}",
+              //                     carPrice: evCarsModelObject.data![index].carsPlans![0].pricePerMonth,
+              //                     carOwnerImage: "$baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}",
+              //                     carOwnerName: "${evCarsModelObject.data![index].usersCompanies!.companyName}",
+              //                     carOwnerId: evCarsModelObject.data![index].usersCompanies!.usersCompaniesId,
+              //                     myCarDescription: evCarsModelObject.data![index].description,
+              //                     favouriteStatus: evCarsModelObject.data![index].favouriteStatus,
+              //
+              //                     featureSuv: evCarsModelObject.data![index].featuresSuv,
+              //                     featuresDoors: evCarsModelObject.data![index].featuresDoors,
+              //                     featuresSeats: evCarsModelObject.data![index].featuresSeats,
+              //                     featuresAutomatic: evCarsModelObject.data![index].featuresAutomatic,
+              //                     featuresSpeed: evCarsModelObject.data![index].featuresSpeed,
+              //                     featuresElectric: evCarsModelObject.data![index].featuresElectric,
+              //                     featuresEngine_capacity: evCarsModelObject.data![index].featuresEngineCapacity,
+              //                     featuresFuelCapacity: evCarsModelObject.data![index].featuresFuelCapacity,
+              //                     featuresMeterReading: evCarsModelObject.data![index].featuresMeterReading,
+              //                     featuresNewCars: evCarsModelObject.data![index].featuresNewCars,
+              //                   )));
+              //               print("evCarName ${evCarsModelObject.data![index].vehicalName}");
+              //               print("evCarYear ${evCarsModelObject.data![index].year}");
+              //               print("evCarImage $baseUrlImage${evCarsModelObject.data![index].image1}");
+              //               print("ownerImage $baseUrlImage${evCarsModelObject.data![index].usersCompanies!.companyLogo}");
+              //               print("ownerName ${evCarsModelObject.data![index].usersCompanies!.companyName}");
+              //               print("ownerId ${evCarsModelObject.data![index].usersCompanies!.usersCompaniesId}");
+              //               },
+              //             child: Image.asset("assets/car_bookings_images/more_button.png"),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     // Positioned(
+              //     //   left: 20, right: 20,top: 30,
+              //     //   child: evCarsModelObject.data![index].image1 == null ?
+              //     //   ClipRRect(
+              //     //       borderRadius: BorderRadius.circular(10),
+              //     //       child: Image.asset('assets/icon/fade_in_image.jpeg')) :
+              //     //   ClipRRect(
+              //     //     borderRadius: BorderRadius.circular(10),
+              //     //     child: FadeInImage(
+              //     //       placeholder:  AssetImage("assets/icon/fade_in_image.jpeg"),
+              //     //       width: MediaQuery.of(context).size.width * 0.3,
+              //     //       height: MediaQuery.of(context).size.height * 0.15,
+              //     //       image: NetworkImage("$baseUrlImage${evCarsModelObject.data![index].image1}"),),
+              //     //   ),
+              //     // ),
+              //     Positioned(
+              //       left: 20, right: 20,top: 0,
+              //       child: evCarsModelObject.data![index].image1 == null
+              //           ? ClipRRect(
+              //         borderRadius: BorderRadius.circular(10),
+              //         child: Image.asset('assets/icon/fade_in_image.jpeg'),
+              //       )
+              //           : evCarsModelObject.data![index].image1!.endsWith('.jpg') || evCarsModelObject.data![index].image1!.endsWith('.png') || evCarsModelObject.data![index].image1!.endsWith('.jpeg')
+              //           ? ClipRRect(
+              //         borderRadius: BorderRadius.circular(10),
+              //         child: FadeInImage(
+              //           placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+              //           height: 65,
+              //           image: NetworkImage("$baseUrlImage${evCarsModelObject.data?[index].image1}"),
+              //         ),
+              //       )
+              //           : Container(
+              //         height: MediaQuery.of(context).size.height * 0.24,
+              //         child: ModelViewer(
+              //           // cameraOrbit: Clipboard.kTextPlain,
+              //           backgroundColor: Colors.transparent,
+              //           src: '${evCarsModelObject.data?[index].image1}',
+              //           alt: "A 3D model of car",
+              //           autoPlay: false,
+              //           autoRotate: false,
+              //           cameraControls: false,
+              //           disableTap: false,
+              //           ar: false,
+              //           disablePan: true,
+              //           arModes: ["quicklook", "scene-viewer"],
+              //           iosSrc: "${evCarsModelObject.data?[index].image1}",
+              //           disableZoom: true,
+              //         ),
+              //       ),
+              //     ),
+              //     evCarsModelObject.data![index].discountPercentage != "0.00" ? Positioned(
+              //         top: 10, left: 10,
+              //         child: Container(
+              //           height: MediaQuery.of(context).size.width * 0.07,
+              //           width: MediaQuery.of(context).size.width * 0.18,
+              //           decoration: BoxDecoration(
+              //             color: kRed.withOpacity(0.8),
+              //             borderRadius:  BorderRadius.only(
+              //                 topRight: Radius.circular(15),
+              //                 bottomLeft: Radius.circular(15)),
+              //           ),
+              //           child: Row(
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             children: [
+              //               Text("${evCarsModelObject.data![index].discountPercentage}",
+              //                   textAlign: TextAlign.left, style: TextStyle(color: kWhite,
+              //                       fontSize: 13, fontFamily: poppinSemiBold)),
+              //               Text(" OFF ", textAlign: TextAlign.left, style: TextStyle(
+              //                   color: kWhite, fontSize: 8, fontFamily: poppinRegular)),
+              //             ],
+              //           ),
+              //         )) : Positioned( top: 10, left: 10,child: SizedBox()),
+              //     Positioned(
+              //       top: 15, right: 15,
+              //       child: evCarsModelObject.data![index].favouriteStatus == "like"?
+              //       Image.asset("assets/home_page/heart.png"):
+              //       GestureDetector(
+              //         onTap: () async {
+              //           myCurrentCarIndex = "${evCarsModelObject.data![index].carsId}";
+              //           print("evCarIds $myCurrentCarIndex");
+              //           await getLikeUnlikeCarWidget();
+              //           getEvSubscriptionCarsWidget();
+              //         },
+              //         child: Image.asset("assets/car_bookings_images/heart.png"),
+              //       ),
+              //     ),
+              //   ],
+              // );
             })
       ),
     );

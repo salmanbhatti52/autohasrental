@@ -5,6 +5,7 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -160,8 +161,7 @@ class _FavoritePageState extends State<FavoritePage> {
     // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: homeBgColor,
-      body: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
-      Column(
+      body: Column(
         children: [
           SizedBox(height: screenHeight * 0.04),
 
@@ -219,6 +219,7 @@ class _FavoritePageState extends State<FavoritePage> {
               ],
             ),
           ),
+          loadingP ? Center(child: CircularProgressIndicator(color: borderColor)):
           allFavItem(),
         ],
       ),
@@ -252,31 +253,25 @@ class _FavoritePageState extends State<FavoritePage> {
                     double price = double.parse(priceString);
                     NumberFormat format = NumberFormat('#,##0.00', 'en_US');
                     String formattedPrice = format.format(price);
-                    return Stack(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: Container(
-                            height: screenHeight * 0.25,
-                          ),
-                        ),
-                        Positioned(
-                          top: 90,
-                          left: 30,
-                          right: 30,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 9),
+                    return Container(
+                      height: Get.height * 0.18,
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Positioned(
+                            bottom: 0,
                             child: Container(
-                              height: screenHeight * 0.19,
-                              // width: 343,
-                              width: screenWidth,
+                              width: Get.width * 0.9,
+                              height: Get.height * 0.15,
+                              margin: EdgeInsets.only(bottom: 10),
                               decoration: BoxDecoration(
                                 color: kWhite,
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(30),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    spreadRadius: 5,
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
                                     blurRadius: 5,
                                     offset: Offset(3, 3),
                                   ),
@@ -284,159 +279,296 @@ class _FavoritePageState extends State<FavoritePage> {
                               ),
                               child: Column(
                                 children: [
-                                  Container(height: screenHeight * 0.06),
-                                  Row(
-                                    children: [
-                                      SizedBox(height: 93.6),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 15),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text("${favoriteCarModelObject.data![index].vehicalName} | ",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-
-                                                Text("${favoriteCarModelObject.data![index].carsColors!.name} ",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
-                                              ],
+                                  Align(
+                                    alignment: Alignment.topRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 18.0, top: 10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            "${favoriteCarModelObject.data?[index].vehicalName}",
+                                            style: TextStyle(
+                                              color: kBlack,
+                                              fontSize: 14,
+                                              fontFamily: poppinBold,
                                             ),
-                                            SizedBox(height: screenHeight * 0.005),
-                                            Row(
-                                              children: [
-                                                Text("${favoriteCarModelObject.data![index].carsModels!.name} ",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-
-                                                Text("${favoriteCarModelObject.data![index].carsMakes!.name} ",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
-                                                Text("${favoriteCarModelObject.data![index].year}",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                                              ],
+                                          ),
+                                          Text(
+                                            "${favoriteCarModelObject.data?[index].year}",
+                                            style: TextStyle(
+                                              color: textLabelColor,
+                                              fontSize: 14,
+                                              fontFamily: poppinSemiBold,
                                             ),
-                                            SizedBox(height: screenHeight * 0.005),
-                                            Row(
-                                              children: [
-                                                favoriteCarModelObject.data![index].discountPercentage != "0.00" ? Padding(
-                                                  padding: EdgeInsets.only(top: 04),
-                                                  child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
-                                                      color: kRed, fontSize: 5, fontFamily: poppinRegular)),
-                                                ) : SizedBox(),
-                                                favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                                favoriteCarModelObject.data![index].discountPercentage != "0.00" ? originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"): SizedBox() : SizedBox(),
-                                                // favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                                // originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
-                                                // favoriteCarModelObject.data![index].carsUsageType == "Photography"?
-                                                // originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
-                                                // originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
-                                                SizedBox(width: 5),
-                                                Padding(
-                                                  padding: EdgeInsets.only(top: 06),
-                                                  child: Text("RM",  textAlign: TextAlign.left,
-                                                      style: TextStyle(color: borderColor,
-                                                          fontSize: 7, fontFamily: poppinSemiBold)),
-                                                ),
-
-                                                favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                                discountedPriceText("${formattedPrice }/", ""):
-                                                favoriteCarModelObject.data![index].carsUsageType == "Photography"?
-                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
-                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
-
-                                                SizedBox(width: screenWidth * 0.01),
-                                                // showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
-                                                // SizedBox(width: screenWidth * 0.01),
-                                                // Text("${favoriteCarModelObject.data![index].rating}",
-                                                //     textAlign: TextAlign.left, style: TextStyle(
-                                                //         color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                                              ],
-                                            ),
-
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          left: 30, right: 30, top: 0,
-                          child: favoriteCarModelObject.data![index].image1 == null
-                              ? ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset('assets/icon/fade_in_image.jpeg'),
-                          )
-                              : favoriteCarModelObject.data![index].image1!.endsWith('.jpg') || favoriteCarModelObject.data![index].image1!.endsWith('.png') || favoriteCarModelObject.data![index].image1!.endsWith('.jpeg')
-                              ? ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: FadeInImage(
-                              placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-                              height: 65,
-                              image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}"),
-                            ),
-                          )
-                              : Container(
-                            height: MediaQuery.of(context).size.height * 0.24,
-                            child: ModelViewer(
-                              backgroundColor: Colors.transparent,
-                              src: '${favoriteCarModelObject.data![index].image1}',
-                              alt: "A 3D model of car",
-                              autoPlay: false,
-                              autoRotate: false,
-                              cameraControls: false,
-                              disableTap: false,
-                              ar: false,
-                              disablePan: true,
-                              arModes: ["quicklook", "scene-viewer"],
-                              iosSrc: "${favoriteCarModelObject.data![index].image1}",
-                              disableZoom: true,
+                          Positioned(
+                            left: 40,
+                            bottom: 20,
+                            child: Row(
+                              children: [
+                                Text(
+                                  "RM",
+                                  style: TextStyle(
+                                    color: kBlack,
+                                    fontSize: 14,
+                                    fontFamily: poppinSemiBold,
+                                  ),
+                                ),
+                                Text(
+                                  "${formattedPrice}",
+                                  style: TextStyle(
+                                    color: kBlack,
+                                    fontSize: 14,
+                                    fontFamily: poppinSemiBold,
+                                  ),
+                                ),
+                                Text(
+                                  "/Month",
+                                  style: TextStyle(
+                                    color: textLabelColor,
+                                    fontSize: 14,
+                                    fontFamily: poppinSemiBold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                        favoriteCarModelObject.data![index].discountPercentage != "0.00"
-                        ? Positioned(
-                            top: 10, left: 15,
-                            child: Container(
-                              height: MediaQuery.of(context).size.width * 0.07,
-                              width: MediaQuery.of(context).size.width * 0.16,
-                              decoration: BoxDecoration(
-                                color: kRed.withOpacity(0.8),
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15)),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("${favoriteCarModelObject.data![index].discountPercentage} %",
-                                      textAlign: TextAlign.left, style: TextStyle(
-                                          color: kWhite, fontSize: 10, fontFamily: poppinSemiBold)),
-                                  Text(" OFF ",  textAlign: TextAlign.left, style: TextStyle(
-                                      color: kWhite, fontSize: 8, fontFamily: poppinSemiBold)),
-                                ],
-                              ),
-                            ))
-                        : Positioned(top: 10, left: 15, child: SizedBox()),
-                        Positioned(
-                            top: 10, right: 15,
+                          Positioned(
+                            right: 50,
+                            bottom: 20,
                             child: GestureDetector(
-                                onTap: () async {
-                                  carID = favoriteCarModelObject.data![index].carsId;
-                                  print("selectedCarId $carID");
-                                  await getLikeUnlikeCarWidget();
-                                  getFavoriteCarWidget();
-                                },
-                                child: Image.asset("assets/home_page/heart.png"))),
-                      ],
+                                          onTap: () async {
+                                            carID = favoriteCarModelObject.data![index].carsId;
+                                            print("selectedCarId $carID");
+                                            await getLikeUnlikeCarWidget();
+                                            getFavoriteCarWidget();
+                                          },
+                                          child: Image.asset("assets/home_page/heart.png", width: 50, height: 50,),),
+                          ),
+                          Positioned(
+                            left: 30,
+                            top: -45,
+                            child: favoriteCarModelObject
+                                .data?[index].image1 ==
+                                null
+                                ? Padding(
+                              padding: const EdgeInsets.only(top: 80.0),
+                              child: Image.asset(
+                                'assets/icon/fade_in_image.jpeg',
+                                width: 50,
+                                height: 50,
+                              ),
+                            )
+                                : FadeInImage(
+                              placeholder: AssetImage(
+                                "assets/icon/fade_in_image.jpeg",
+                              ),
+                              width: 180,
+                              height: 180,
+                              image: NetworkImage(
+                                "$baseUrlImage${favoriteCarModelObject.data?[index].image1}",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     );
+                    //   Stack(
+                    //   children: [
+                    //     Padding(
+                    //       padding: EdgeInsets.symmetric(vertical: 20),
+                    //       child: Container(
+                    //         height: screenHeight * 0.25,
+                    //       ),
+                    //     ),
+                    //     Positioned(
+                    //       top: 90,
+                    //       left: 30,
+                    //       right: 30,
+                    //       child: Padding(
+                    //         padding: EdgeInsets.only(left: 9),
+                    //         child: Container(
+                    //           height: screenHeight * 0.19,
+                    //           // width: 343,
+                    //           width: screenWidth,
+                    //           decoration: BoxDecoration(
+                    //             color: kWhite,
+                    //             borderRadius: BorderRadius.circular(20),
+                    //             boxShadow: [
+                    //               BoxShadow(
+                    //                 color: Colors.grey.withOpacity(0.1),
+                    //                 spreadRadius: 5,
+                    //                 blurRadius: 5,
+                    //                 offset: Offset(3, 3),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //           child: Column(
+                    //             children: [
+                    //               Container(height: screenHeight * 0.06),
+                    //               Row(
+                    //                 children: [
+                    //                   SizedBox(height: 93.6),
+                    //                   Padding(
+                    //                     padding: EdgeInsets.symmetric(horizontal: 15),
+                    //                     child: Column(
+                    //                       crossAxisAlignment: CrossAxisAlignment.start,
+                    //                       children: [
+                    //                         Row(
+                    //                           children: [
+                    //                             Text("${favoriteCarModelObject.data![index].vehicalName} | ",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+                    //
+                    //                             Text("${favoriteCarModelObject.data![index].carsColors!.name} ",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
+                    //                           ],
+                    //                         ),
+                    //                         SizedBox(height: screenHeight * 0.005),
+                    //                         Row(
+                    //                           children: [
+                    //                             Text("${favoriteCarModelObject.data![index].carsModels!.name} ",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                    //
+                    //                             Text("${favoriteCarModelObject.data![index].carsMakes!.name} ",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
+                    //                             Text("${favoriteCarModelObject.data![index].year}",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                    //                           ],
+                    //                         ),
+                    //                         SizedBox(height: screenHeight * 0.005),
+                    //                         Row(
+                    //                           children: [
+                    //                             favoriteCarModelObject.data![index].discountPercentage != "0.00" ? Padding(
+                    //                               padding: EdgeInsets.only(top: 04),
+                    //                               child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
+                    //                                   color: kRed, fontSize: 5, fontFamily: poppinRegular)),
+                    //                             ) : SizedBox(),
+                    //                             favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                    //                             favoriteCarModelObject.data![index].discountPercentage != "0.00" ? originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"): SizedBox() : SizedBox(),
+                    //                             // favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                    //                             // originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
+                    //                             // favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                    //                             // originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
+                    //                             // originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
+                    //                             SizedBox(width: 5),
+                    //                             Padding(
+                    //                               padding: EdgeInsets.only(top: 06),
+                    //                               child: Text("RM",  textAlign: TextAlign.left,
+                    //                                   style: TextStyle(color: borderColor,
+                    //                                       fontSize: 7, fontFamily: poppinSemiBold)),
+                    //                             ),
+                    //
+                    //                             favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                    //                             discountedPriceText("${formattedPrice }/", ""):
+                    //                             favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                    //                             discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
+                    //                             discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
+                    //
+                    //                             SizedBox(width: screenWidth * 0.01),
+                    //                             // showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
+                    //                             // SizedBox(width: screenWidth * 0.01),
+                    //                             // Text("${favoriteCarModelObject.data![index].rating}",
+                    //                             //     textAlign: TextAlign.left, style: TextStyle(
+                    //                             //         color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                    //                           ],
+                    //                         ),
+                    //
+                    //                       ],
+                    //                     ),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Positioned(
+                    //       left: 30, right: 30, top: 0,
+                    //       child: favoriteCarModelObject.data![index].image1 == null
+                    //           ? ClipRRect(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //         child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                    //       )
+                    //           : favoriteCarModelObject.data![index].image1!.endsWith('.jpg') || favoriteCarModelObject.data![index].image1!.endsWith('.png') || favoriteCarModelObject.data![index].image1!.endsWith('.jpeg')
+                    //           ? ClipRRect(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //         child: FadeInImage(
+                    //           placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                    //           height: 65,
+                    //           image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}"),
+                    //         ),
+                    //       )
+                    //           : Container(
+                    //         height: MediaQuery.of(context).size.height * 0.24,
+                    //         child: ModelViewer(
+                    //           backgroundColor: Colors.transparent,
+                    //           src: '${favoriteCarModelObject.data![index].image1}',
+                    //           alt: "A 3D model of car",
+                    //           autoPlay: false,
+                    //           autoRotate: false,
+                    //           cameraControls: false,
+                    //           disableTap: false,
+                    //           ar: false,
+                    //           disablePan: true,
+                    //           arModes: ["quicklook", "scene-viewer"],
+                    //           iosSrc: "${favoriteCarModelObject.data![index].image1}",
+                    //           disableZoom: true,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     favoriteCarModelObject.data![index].discountPercentage != "0.00"
+                    //     ? Positioned(
+                    //         top: 10, left: 15,
+                    //         child: Container(
+                    //           height: MediaQuery.of(context).size.width * 0.07,
+                    //           width: MediaQuery.of(context).size.width * 0.16,
+                    //           decoration: BoxDecoration(
+                    //             color: kRed.withOpacity(0.8),
+                    //             borderRadius: BorderRadius.only(
+                    //                 topRight: Radius.circular(15),
+                    //                 bottomLeft: Radius.circular(15)),
+                    //           ),
+                    //           child: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: [
+                    //               Text("${favoriteCarModelObject.data![index].discountPercentage} %",
+                    //                   textAlign: TextAlign.left, style: TextStyle(
+                    //                       color: kWhite, fontSize: 10, fontFamily: poppinSemiBold)),
+                    //               Text(" OFF ",  textAlign: TextAlign.left, style: TextStyle(
+                    //                   color: kWhite, fontSize: 8, fontFamily: poppinSemiBold)),
+                    //             ],
+                    //           ),
+                    //         ))
+                    //     : Positioned(top: 10, left: 15, child: SizedBox()),
+                    //     Positioned(
+                    //         top: 10, right: 15,
+                    //         child: GestureDetector(
+                    //             onTap: () async {
+                    //               carID = favoriteCarModelObject.data![index].carsId;
+                    //               print("selectedCarId $carID");
+                    //               await getLikeUnlikeCarWidget();
+                    //               getFavoriteCarWidget();
+                    //             },
+                    //             child: Image.asset("assets/home_page/heart.png"))),
+                    //   ],
+                    // );
                   }),
             ),
           );
@@ -462,31 +594,25 @@ class _FavoritePageState extends State<FavoritePage> {
                     double price = double.parse(priceString);
                     NumberFormat format = NumberFormat('#,##0.00', 'en_US');
                     String formattedPrice = format.format(price);
-                    return Stack(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: Container(
-                            height: screenHeight * 0.25,
-                          ),
-                        ),
-                        Positioned(
-                          top: 90,
-                          left: 30,
-                          right: 30,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 9),
+                    return Container(
+                      height: Get.height * 0.18,
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Positioned(
+                            bottom: 0,
                             child: Container(
-                              height: screenHeight * 0.19,
-                              // width: 343,
-                              width: screenWidth,
+                              width: Get.width * 0.9,
+                              height: Get.height * 0.15,
+                              margin: EdgeInsets.only(bottom: 10),
                               decoration: BoxDecoration(
                                 color: kWhite,
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(30),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    spreadRadius: 5,
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
                                     blurRadius: 5,
                                     offset: Offset(3, 3),
                                   ),
@@ -494,135 +620,272 @@ class _FavoritePageState extends State<FavoritePage> {
                               ),
                               child: Column(
                                 children: [
-                                  Container(height: screenHeight * 0.06),
-                                  Row(
-                                    children: [
-                                      SizedBox(height: 93.6),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 15),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text("${favoriteCarModelObject.data![index].vehicalName} | ",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-
-                                                Text("${favoriteCarModelObject.data![index].carsColors!.name} ",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
-                                              ],
+                                  Align(
+                                    alignment: Alignment.topRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 18.0, top: 10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            "${favoriteCarModelObject.data?[index].vehicalName}",
+                                            style: TextStyle(
+                                              color: kBlack,
+                                              fontSize: 14,
+                                              fontFamily: poppinBold,
                                             ),
-                                            SizedBox(height: screenHeight * 0.005),
-                                            Row(
-                                              children: [
-                                                Text("${favoriteCarModelObject.data![index].carsModels!.name} ",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-
-                                                Text("${favoriteCarModelObject.data![index].carsMakes!.name} ",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
-                                                Text("${favoriteCarModelObject.data![index].year}",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                                              ],
+                                          ),
+                                          Text(
+                                            "${favoriteCarModelObject.data?[index].year}",
+                                            style: TextStyle(
+                                              color: textLabelColor,
+                                              fontSize: 14,
+                                              fontFamily: poppinSemiBold,
                                             ),
-                                            SizedBox(height: screenHeight * 0.005),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsets.only(top: 04),
-                                                  child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
-                                                      color: kRed, fontSize: 5, fontFamily: poppinRegular)),
-                                                ),
-                                                favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
-                                                favoriteCarModelObject.data![index].carsUsageType == "Photography"?
-                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
-                                                originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
-                                                SizedBox(width: 5),
-                                                Padding(
-                                                  padding: EdgeInsets.only(top: 06),
-                                                  child: Text("RM",  textAlign: TextAlign.left,
-                                                      style: TextStyle(color: borderColor,
-                                                          fontSize: 7, fontFamily: poppinSemiBold)),
-                                                ),
-
-                                                favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
-                                                discountedPriceText("${formattedPrice}/", ""):
-                                                favoriteCarModelObject.data![index].carsUsageType == "Photography"?
-                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
-                                                discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
-
-                                                SizedBox(width: screenWidth * 0.01),
-                                                showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
-                                                SizedBox(width: screenWidth * 0.01),
-                                                Text("${favoriteCarModelObject.data![index].rating}",
-                                                    textAlign: TextAlign.left, style: TextStyle(
-                                                        color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                                              ],
-                                            ),
-
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          left: 30, right: 30, top: 30,
-                          child: favoriteCarModelObject.data![index].image1 == null
-                              ? ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.asset('assets/icon/fade_in_image.jpeg'))
-                              : ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: FadeInImage(
-                                placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-                                width: 350, height: 100,
-                                image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}")),
+                          Positioned(
+                            left: 40,
+                            bottom: 20,
+                            child: Row(
+                              children: [
+                                Text(
+                                  "RM",
+                                  style: TextStyle(
+                                    color: kBlack,
+                                    fontSize: 14,
+                                    fontFamily: poppinSemiBold,
+                                  ),
+                                ),
+                                Text(
+                                  "${formattedPrice}",
+                                  style: TextStyle(
+                                    color: kBlack,
+                                    fontSize: 14,
+                                    fontFamily: poppinSemiBold,
+                                  ),
+                                ),
+                                Text(
+                                  "/Month",
+                                  style: TextStyle(
+                                    color: textLabelColor,
+                                    fontSize: 14,
+                                    fontFamily: poppinSemiBold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Positioned(
-                            top: 10, left: 15,
-                            child: Container(
-                              height: MediaQuery.of(context).size.width * 0.07,
-                              width: MediaQuery.of(context).size.width * 0.16,
-                              decoration: BoxDecoration(
-                                color: kRed.withOpacity(0.8),
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15)),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("${favoriteCarModelObject.data![index].discountPercentage} %",
-                                      textAlign: TextAlign.left, style: TextStyle(
-                                          color: kWhite, fontSize: 10, fontFamily: poppinSemiBold)),
-                                  Text(" OFF ",  textAlign: TextAlign.left, style: TextStyle(
-                                      color: kWhite, fontSize: 8, fontFamily: poppinSemiBold)),
-                                ],
-                              ),
-                            )),
-                        Positioned(
-                            top: 10, right: 15,
+                          Positioned(
+                            right: 50,
+                            bottom: 20,
                             child: GestureDetector(
-                                onTap: () async {
-                                  carID = favoriteCarModelObject.data![index].carsId;
-                                  print("selectedCarId $carID");
-                                  await getLikeUnlikeCarWidget();
-                                  getFavoriteCarWidget();
-                                },
-                                child: Image.asset("assets/home_page/heart.png"))),
-                      ],
+                              onTap: () async {
+                                carID = favoriteCarModelObject.data![index].carsId;
+                                print("selectedCarId $carID");
+                                await getLikeUnlikeCarWidget();
+                                getFavoriteCarWidget();
+                              },
+                              child: Image.asset("assets/home_page/heart.png", width: 50, height: 50,),),
+                          ),
+                          Positioned(
+                            left: 30,
+                            top: -45,
+                            child: favoriteCarModelObject
+                                .data?[index].image1 ==
+                                null
+                                ? Padding(
+                              padding: const EdgeInsets.only(top: 80.0),
+                              child: Image.asset(
+                                'assets/icon/fade_in_image.jpeg',
+                                width: 50,
+                                height: 50,
+                              ),
+                            )
+                                : FadeInImage(
+                              placeholder: AssetImage(
+                                "assets/icon/fade_in_image.jpeg",
+                              ),
+                              width: 180,
+                              height: 180,
+                              image: NetworkImage(
+                                "$baseUrlImage${favoriteCarModelObject.data?[index].image1}",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     );
+                    //   Stack(
+                    //   children: [
+                    //     Padding(
+                    //       padding: EdgeInsets.symmetric(vertical: 20),
+                    //       child: Container(
+                    //         height: screenHeight * 0.25,
+                    //       ),
+                    //     ),
+                    //     Positioned(
+                    //       top: 90,
+                    //       left: 30,
+                    //       right: 30,
+                    //       child: Padding(
+                    //         padding: EdgeInsets.only(left: 9),
+                    //         child: Container(
+                    //           height: screenHeight * 0.19,
+                    //           // width: 343,
+                    //           width: screenWidth,
+                    //           decoration: BoxDecoration(
+                    //             color: kWhite,
+                    //             borderRadius: BorderRadius.circular(20),
+                    //             boxShadow: [
+                    //               BoxShadow(
+                    //                 color: Colors.grey.withOpacity(0.1),
+                    //                 spreadRadius: 5,
+                    //                 blurRadius: 5,
+                    //                 offset: Offset(3, 3),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //           child: Column(
+                    //             children: [
+                    //               Container(height: screenHeight * 0.06),
+                    //               Row(
+                    //                 children: [
+                    //                   SizedBox(height: 93.6),
+                    //                   Padding(
+                    //                     padding: EdgeInsets.symmetric(horizontal: 15),
+                    //                     child: Column(
+                    //                       crossAxisAlignment: CrossAxisAlignment.start,
+                    //                       children: [
+                    //                         Row(
+                    //                           children: [
+                    //                             Text("${favoriteCarModelObject.data![index].vehicalName} | ",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+                    //
+                    //                             Text("${favoriteCarModelObject.data![index].carsColors!.name} ",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
+                    //                           ],
+                    //                         ),
+                    //                         SizedBox(height: screenHeight * 0.005),
+                    //                         Row(
+                    //                           children: [
+                    //                             Text("${favoriteCarModelObject.data![index].carsModels!.name} ",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                    //
+                    //                             Text("${favoriteCarModelObject.data![index].carsMakes!.name} ",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 10, fontFamily: poppinMedium)),
+                    //                             Text("${favoriteCarModelObject.data![index].year}",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                    //                           ],
+                    //                         ),
+                    //                         SizedBox(height: screenHeight * 0.005),
+                    //                         Row(
+                    //                           children: [
+                    //                             Padding(
+                    //                               padding: EdgeInsets.only(top: 04),
+                    //                               child: Text("RM",  textAlign: TextAlign.left, style: TextStyle(
+                    //                                   color: kRed, fontSize: 5, fontFamily: poppinRegular)),
+                    //                             ),
+                    //                             favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                    //                             originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerMonth}"):
+                    //                             favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                    //                             originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerHour}"):
+                    //                             originalPriceText("${favoriteCarModelObject.data![index].carsPlans![0].pricePerSlot}"),
+                    //                             SizedBox(width: 5),
+                    //                             Padding(
+                    //                               padding: EdgeInsets.only(top: 06),
+                    //                               child: Text("RM",  textAlign: TextAlign.left,
+                    //                                   style: TextStyle(color: borderColor,
+                    //                                       fontSize: 7, fontFamily: poppinSemiBold)),
+                    //                             ),
+                    //
+                    //                             favoriteCarModelObject.data![index].carsUsageType == "EV Subscriptions"?
+                    //                             discountedPriceText("${formattedPrice}/", ""):
+                    //                             favoriteCarModelObject.data![index].carsUsageType == "Photography"?
+                    //                             discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerHour}/", "Hour"):
+                    //                             discountedPriceText("${favoriteCarModelObject.data![index].carsPlans![0].discountedPricePerSlot}/", "Slot"),
+                    //
+                    //                             SizedBox(width: screenWidth * 0.01),
+                    //                             showRatingStars(double.parse("${favoriteCarModelObject.data![index].rating}")),
+                    //                             SizedBox(width: screenWidth * 0.01),
+                    //                             Text("${favoriteCarModelObject.data![index].rating}",
+                    //                                 textAlign: TextAlign.left, style: TextStyle(
+                    //                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                    //                           ],
+                    //                         ),
+                    //
+                    //                       ],
+                    //                     ),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Positioned(
+                    //       left: 30, right: 30, top: 30,
+                    //       child: favoriteCarModelObject.data![index].image1 == null
+                    //           ? ClipRRect(
+                    //           borderRadius: BorderRadius.circular(10),
+                    //           child: Image.asset('assets/icon/fade_in_image.jpeg'))
+                    //           : ClipRRect(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //         child: FadeInImage(
+                    //             placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                    //             width: 350, height: 100,
+                    //             image: NetworkImage("$baseUrlImage${favoriteCarModelObject.data![index].image1}")),
+                    //       ),
+                    //     ),
+                    //     Positioned(
+                    //         top: 10, left: 15,
+                    //         child: Container(
+                    //           height: MediaQuery.of(context).size.width * 0.07,
+                    //           width: MediaQuery.of(context).size.width * 0.16,
+                    //           decoration: BoxDecoration(
+                    //             color: kRed.withOpacity(0.8),
+                    //             borderRadius: BorderRadius.only(
+                    //                 topRight: Radius.circular(15),
+                    //                 bottomLeft: Radius.circular(15)),
+                    //           ),
+                    //           child: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: [
+                    //               Text("${favoriteCarModelObject.data![index].discountPercentage} %",
+                    //                   textAlign: TextAlign.left, style: TextStyle(
+                    //                       color: kWhite, fontSize: 10, fontFamily: poppinSemiBold)),
+                    //               Text(" OFF ",  textAlign: TextAlign.left, style: TextStyle(
+                    //                   color: kWhite, fontSize: 8, fontFamily: poppinSemiBold)),
+                    //             ],
+                    //           ),
+                    //         )),
+                    //     Positioned(
+                    //         top: 10, right: 15,
+                    //         child: GestureDetector(
+                    //             onTap: () async {
+                    //               carID = favoriteCarModelObject.data![index].carsId;
+                    //               print("selectedCarId $carID");
+                    //               await getLikeUnlikeCarWidget();
+                    //               getFavoriteCarWidget();
+                    //             },
+                    //             child: Image.asset("assets/home_page/heart.png"))),
+                    //   ],
+                    // );
                   }),
             ),
           );

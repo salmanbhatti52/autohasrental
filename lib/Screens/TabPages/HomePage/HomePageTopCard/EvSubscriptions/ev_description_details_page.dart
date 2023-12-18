@@ -709,15 +709,17 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
           ),
         ),
         Positioned(
-          left: 20,
-          right: 20,
-          top: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
-              ? 20
-              : 0,
+          left: 40,
+          right: 40,
+          top: -15,
+          // top: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
+          //     ? 20
+          //     : -50,
           child: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
               ?  Image.network("${widget.carImage}",
-              fit: BoxFit.fill,
-              height: 150, width: 180) :
+              // fit: BoxFit.contain,
+              // height: 200, width: 200,
+          ) :
           Container(
             height: 200,
             child: ModelViewer(

@@ -60,6 +60,7 @@ class Datum1 {
   String? image3;
   String? image4;
   String? image5;
+  String? objectImage;
   String? rating;
   DateTime? dateAdded;
   dynamic dateModified;
@@ -102,6 +103,7 @@ class Datum1 {
     this.image3,
     this.image4,
     this.image5,
+    this.objectImage,
     this.rating,
     this.dateAdded,
     this.dateModified,
@@ -145,6 +147,7 @@ class Datum1 {
     image3: json["image3"],
     image4: json["image4"],
     image5: json["image5"],
+    objectImage: json["object_image"],
     rating: json["rating"],
     dateAdded: DateTime.parse(json["date_added"]),
     dateModified: json["date_modified"],
@@ -188,6 +191,7 @@ class Datum1 {
     "image3": image3,
     "image4": image4,
     "image5": image5,
+    "object_image": objectImage,
     "rating": rating,
     "date_added": dateAdded!.toIso8601String(),
     "date_modified": dateModified,

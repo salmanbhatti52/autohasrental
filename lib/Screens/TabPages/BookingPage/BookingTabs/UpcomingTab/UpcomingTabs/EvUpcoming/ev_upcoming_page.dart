@@ -93,289 +93,501 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                   double price = double.parse(priceString);
                   NumberFormat format = NumberFormat('#,##0.00', 'en_US');
                   String formattedPrice = format.format(price);
-                  return Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.33)),
-                      Positioned(
-                        top: 90,
-                        left: 30,
-                        right: 30,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 9),
+                  return Container(
+                    height: Get.height * 0.25,
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Positioned(
+                          bottom: 0,
                           child: Container(
-                            height:
-                            MediaQuery.of(context).size.height * 0.24,
-                            width: 343,
+                            width: Get.width * 0.9,
+                            height: Get.height * 0.22,
+                            margin: EdgeInsets.only(bottom: 10),
                             decoration: BoxDecoration(
                               color: kWhite,
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(30),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  spreadRadius: 5,
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
                                   blurRadius: 5,
-                                  offset: Offset(3, 3),
+                                  offset: Offset(3,3),
                                 ),
                               ],
                             ),
                             child: Column(
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-
-                                    evUpcomingModelObject.data![reversedIndex].status == "Pending"?
-                                    Container(
-                                      height: MediaQuery.of(context).size.height * 0.1,
-                                      color: Colors.transparent,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(top: 40, left: 20),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Container(
-                                            width: 100, height: 30,
-                                            decoration: BoxDecoration(
-                                                color: borderColor,
-                                                borderRadius: BorderRadius.circular(30)
-                                            ),
-                                            child: Center(
-                                              child: Text('${evUpcomingModelObject.data![reversedIndex].status}', textAlign: TextAlign.center,
-                                                  style: TextStyle(fontSize: 12,
-                                                      fontFamily: poppinRegular, color: kWhite)),
-
-                                            ),
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 18.0, top: 10),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "${evUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}",
+                                          style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinBold,
                                           ),
                                         ),
-                                      ),
-                                    ):
-                                    Container(
-                                      height: MediaQuery.of(context).size.height * 0.1,
-                                      color: Colors.transparent,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(top: 40, left: 20),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Container(
-                                            width: 100, height: 30,
-                                            decoration: BoxDecoration(
-                                                color: colorGreen,
-                                                borderRadius: BorderRadius.circular(30)
-                                            ),
-                                            child: Center(
-                                              child: Text('${evUpcomingModelObject.data![reversedIndex].status}', textAlign: TextAlign.center,
-                                                  style: TextStyle(fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
-                                            ),
+                                        Text(
+                                          "${evUpcomingModelObject.data![reversedIndex].carsDetails!.year}",
+                                          style: TextStyle(
+                                            color: textLabelColor,
+                                            fontSize: 14,
+                                            fontFamily: poppinSemiBold,
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 20,
+                          bottom: 70,
+                          child:
+                                            evUpcomingModelObject.data![reversedIndex].status == "Pending"?
+                                            Container(
+                                              height: MediaQuery.of(context).size.height * 0.1,
+                                              color: Colors.transparent,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(top: 40, left: 20),
+                                                child: Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Container(
+                                                    width: 100, height: 30,
+                                                    decoration: BoxDecoration(
+                                                        color: borderColor,
+                                                        borderRadius: BorderRadius.circular(30)
+                                                    ),
+                                                    child: Center(
+                                                      child: Text('${evUpcomingModelObject.data![reversedIndex].status}', textAlign: TextAlign.center,
+                                                          style: TextStyle(fontSize: 12,
+                                                              fontFamily: poppinRegular, color: kWhite)),
 
-                                    GestureDetector(
-                                      onTap: () {
-                                        print('selectedBookingId $selectedBookingId');
-                                        showCancelDialog();
-                                      },
-
-                                      child: Container(
-                                        height: MediaQuery.of(context).size.height * 0.1,
-                                        color: Colors.transparent,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(top: 40, right: 20),
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ):
+                                            Container(
+                                              height: MediaQuery.of(context).size.height * 0.1,
+                                              color: Colors.transparent,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(top: 40, left: 20),
+                                                child: Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Container(
+                                                    width: 100, height: 30,
+                                                    decoration: BoxDecoration(
+                                                        color: colorGreen,
+                                                        borderRadius: BorderRadius.circular(30)
+                                                    ),
+                                                    child: Center(
+                                                      child: Text('${evUpcomingModelObject.data![reversedIndex].status}', textAlign: TextAlign.center,
+                                                          style: TextStyle(fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                          //
+                        ),
+                        Positioned(
+                          right: 20,
+                          bottom: 70,
+                          child: GestureDetector(
+                                            onTap: () {
+                                              print('selectedBookingId $selectedBookingId');
+                                              showCancelDialog();
+                                            },
                                             child: Container(
-                                              width: 100, height: 30,
-                                              decoration: BoxDecoration(
-                                                  color: kRed,
-                                                  borderRadius: BorderRadius.circular(30)
-                                              ),
-                                              child: Center(
-                                                child: Text('Cancel', textAlign: TextAlign.center,
-                                                    style: TextStyle(fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
+                                              height: MediaQuery.of(context).size.height * 0.1,
+                                              color: Colors.transparent,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(top: 40, right: 20),
+                                                child: Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Container(
+                                                    width: 100, height: 30,
+                                                    decoration: BoxDecoration(
+                                                        color: kRed,
+                                                        borderRadius: BorderRadius.circular(30)
+                                                    ),
+                                                    child: Center(
+                                                      child: Text('Cancel', textAlign: TextAlign.center,
+                                                          style: TextStyle(fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    ),
-
-                                  ],
+                        ),
+                        Positioned(
+                          left: 40,
+                          bottom: 20,
+                          child: Row(
+                            children: [
+                              Text(
+                                "RM",
+                                style: TextStyle(
+                                  color: kBlack,
+                                  fontSize: 14,
+                                  fontFamily: poppinSemiBold,
                                 ),
-                                Row(
-                                  children: [
-                                    SizedBox(height: 93.6),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 15),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}  ",
-                                                textAlign: TextAlign.left, style: TextStyle(
-                                                      color: kBlack, fontSize: 14, fontFamily: poppinBold)),
-                                              Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsColors!.name}",
-                                                  textAlign: TextAlign.left, style: TextStyle(
-                                                      color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsMakes!.name}, ",
-                                                textAlign: TextAlign.left, style: TextStyle(
-                                                    color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                                              Text(
-                                                "${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsModels}, ",
-                                                textAlign: TextAlign.left, style: TextStyle(
-                                                    color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
-                                              Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.year}",
-                                                  textAlign: TextAlign.left, style: TextStyle(
-                                                      color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
-                                            ],
-                                          ),
-                                          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                          Row(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(top: 06),
-                                                child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
-                                                    color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
-                                              ),
-                                              // "${upcomingBookingModelObject.data![index].carsPlans![0].pricePerHour}",
-                                              Text("${formattedPrice}", textAlign: TextAlign.left, style: TextStyle(
-                                                      color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
-                                              Text("/", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
-                                              // SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
-                                              // showRatingStars(double.parse("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}")),
-                                              //
-                                              // SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                                              //
-                                              // evUpcomingModelObject.data![reversedIndex].carsDetails!.rating == null?
-                                              // Text("0.0", textAlign: TextAlign.left,
-                                              //   style: TextStyle(color: kBlack,
-                                              //       fontSize: 12, fontFamily: poppinRegular)):
-                                              // Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}", textAlign: TextAlign.left,
-                                              //     style: TextStyle(color: kBlack,
-                                              //         fontSize: 12, fontFamily: poppinRegular)),
-                                            ],
-                                          ),
-
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                              ),
+                              Text(
+                                "${formattedPrice}",
+                                style: TextStyle(
+                                  color: kBlack,
+                                  fontSize: 14,
+                                  fontFamily: poppinSemiBold,
                                 ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                "/Month",
+                                style: TextStyle(
+                                  color: textLabelColor,
+                                  fontSize: 14,
+                                  fontFamily: poppinSemiBold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      Positioned(
-                        right: 30, bottom: 30,
-                        child: GestureDetector(
-                          onTap: (){
-                            carBookingsId = "${evUpcomingModelObject.data![reversedIndex].bookingsId}";
-                            print("bookingId $carBookingsId");
-                            print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}");
-                            print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsModels}");
-                            print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}");
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => UpcomingBookingDetailsPage(
-                                  bookingId: "${evUpcomingModelObject.data![reversedIndex].bookingsId}",
-                                )));
-                          },
-                            child: Image.asset("assets/car_bookings_images/more_button.png"),
-                        ),
-                      ),
-                      // Positioned(
-                      //   left: 20, right: 20,top: 30,
-                      //   child: Image.network("$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",
-                      //       width: MediaQuery.of(context).size.width * 0.3,
-                      //       height: MediaQuery.of(context).size.height * 0.1),
-                      // ),
-
-
-                      Positioned(
-                        left: 20, right: 20,top: 0,
-                        child: evUpcomingModelObject.data![reversedIndex].carsDetails!.image1 == null
-                            ? ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset('assets/icon/fade_in_image.jpeg'),
-                        )
-                            : evUpcomingModelObject.data![reversedIndex].carsDetails!.image1!.endsWith('.jpg') || evUpcomingModelObject.data![reversedIndex].carsDetails!.image1!.endsWith('.png') || evUpcomingModelObject.data![reversedIndex].carsDetails!.image1!.endsWith('.jpeg')
-                            ? ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: FadeInImage(
-                            placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
-                            height: 65,
-                            image: NetworkImage("$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}"),
-                          ),
-                        )
-                            : Container(
-                          height: MediaQuery.of(context).size.height * 0.19,
-                          child: ModelViewer(
-                            // cameraOrbit: Clipboard.kTextPlain,
-                            backgroundColor: Colors.transparent,
-                            src: '${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}',
-                            alt: "A 3D model of car",
-                            autoPlay: false,
-                            autoRotate: false,
-                            cameraControls: false,
-                            disableTap: false,
-                            ar: false,
-                            disablePan: true,
-                            arModes: ["quicklook", "scene-viewer"],
-                            iosSrc: "${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",
-                            disableZoom: true,
+                        Positioned(
+                          right: 19,
+                          bottom: 10,
+                          child:  GestureDetector(
+                                    onTap: (){
+                                      carBookingsId = "${evUpcomingModelObject.data![reversedIndex].bookingsId}";
+                                      print("bookingId $carBookingsId");
+                                      print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}");
+                                      print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsModels}");
+                                      print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}");
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) => UpcomingBookingDetailsPage(
+                                            bookingId: "${evUpcomingModelObject.data![reversedIndex].bookingsId}",
+                                          )));
+                                    },
+                            child: Image.asset(
+                                "assets/car_bookings_images/more_button.png"),
                           ),
                         ),
-                      ),
-                      evUpcomingModelObject.data![reversedIndex].carsDetails!.discountPercentage != "0.00"
-                      ? Positioned(
-                          top: 10, left: 15,
-                          child: Container(
-                            height: MediaQuery.of(context).size.width * 0.07,
-                            width: MediaQuery.of(context).size.width * 0.16,
-                            decoration: BoxDecoration(
-                              color: kRed.withOpacity(0.8),
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(15),
-                                  bottomLeft: Radius.circular(15)),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.discountPercentage}",
-                                  style: TextStyle(color: kWhite,
-                                    fontSize: 13, fontWeight: FontWeight.bold,
-                                    fontFamily: 'Poppins')),
-                                Text(" OFF ", style: TextStyle(
-                                  color: kWhite, fontSize: 8,
-                                  fontWeight: FontWeight.w300, fontFamily: 'Poppins')),
-                              ],
-                            ),
+                        Positioned(
+                          left: 30,
+                          top: -45,
+                          child: evUpcomingModelObject.data![reversedIndex].carsDetails!.image1 == null
+                              ? Padding(
+                            padding: const EdgeInsets.only(top: 80.0),
+                            child: Image.asset('assets/icon/fade_in_image.jpeg', width: 50,
+                              height: 50, ),
+                          )
+                              :FadeInImage(
+                            placeholder: AssetImage(
+                              "assets/icon/fade_in_image.jpeg",),
+                            width: 180,
+                            height: 180,
+                            image: NetworkImage(
+                              "$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",),
                           ),
-                      )
-                      : Positioned(top: 10, left: 15,child: SizedBox()),
-
-                  //     Positioned(
-                  //         top: 10, right: 15,
-                  //         child:
-                  //         // evUpcomingModelObject.data![index].userFavouriteCars!.length> 0 ?
-                  //         // evUpcomingModelObject.data![index].userFavouriteCars![0].status == "dislike"?
-                  //         // Image.asset("assets/home_page/heart.png") :
-                  //         // Image.asset("assets/car_bookings_images/heart.png"),
-                  //         Image.asset("assets/car_bookings_images/heart.png"),
-                  //
-                  // // Image.asset("assets/car_bookings_images/heart.png"):
-                  //
-                  //     ),
-                    ],
+                        ),
+                      ],
+                    ),
                   );
+
+                  //   Stack(
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.symmetric(vertical: 20),
+                  //       child: Container(
+                  //         height: MediaQuery.of(context).size.height * 0.33)),
+                  //     Positioned(
+                  //       top: 90,
+                  //       left: 30,
+                  //       right: 30,
+                  //       child: Padding(
+                  //         padding: EdgeInsets.only(left: 9),
+                  //         child: Container(
+                  //           height:
+                  //           MediaQuery.of(context).size.height * 0.24,
+                  //           width: 343,
+                  //           decoration: BoxDecoration(
+                  //             color: kWhite,
+                  //             borderRadius: BorderRadius.circular(20),
+                  //             boxShadow: [
+                  //               BoxShadow(
+                  //                 color: Colors.grey.withOpacity(0.1),
+                  //                 spreadRadius: 5,
+                  //                 blurRadius: 5,
+                  //                 offset: Offset(3, 3),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //           child: Column(
+                  //             children: [
+                  //               Row(
+                  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //                 children: [
+                  //
+                  //                   evUpcomingModelObject.data![reversedIndex].status == "Pending"?
+                  //                   Container(
+                  //                     height: MediaQuery.of(context).size.height * 0.1,
+                  //                     color: Colors.transparent,
+                  //                     child: Padding(
+                  //                       padding: EdgeInsets.only(top: 40, left: 20),
+                  //                       child: Align(
+                  //                         alignment: Alignment.centerLeft,
+                  //                         child: Container(
+                  //                           width: 100, height: 30,
+                  //                           decoration: BoxDecoration(
+                  //                               color: borderColor,
+                  //                               borderRadius: BorderRadius.circular(30)
+                  //                           ),
+                  //                           child: Center(
+                  //                             child: Text('${evUpcomingModelObject.data![reversedIndex].status}', textAlign: TextAlign.center,
+                  //                                 style: TextStyle(fontSize: 12,
+                  //                                     fontFamily: poppinRegular, color: kWhite)),
+                  //
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ):
+                  //                   Container(
+                  //                     height: MediaQuery.of(context).size.height * 0.1,
+                  //                     color: Colors.transparent,
+                  //                     child: Padding(
+                  //                       padding: EdgeInsets.only(top: 40, left: 20),
+                  //                       child: Align(
+                  //                         alignment: Alignment.centerLeft,
+                  //                         child: Container(
+                  //                           width: 100, height: 30,
+                  //                           decoration: BoxDecoration(
+                  //                               color: colorGreen,
+                  //                               borderRadius: BorderRadius.circular(30)
+                  //                           ),
+                  //                           child: Center(
+                  //                             child: Text('${evUpcomingModelObject.data![reversedIndex].status}', textAlign: TextAlign.center,
+                  //                                 style: TextStyle(fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //
+                  //                   GestureDetector(
+                  //                     onTap: () {
+                  //                       print('selectedBookingId $selectedBookingId');
+                  //                       showCancelDialog();
+                  //                     },
+                  //
+                  //                     child: Container(
+                  //                       height: MediaQuery.of(context).size.height * 0.1,
+                  //                       color: Colors.transparent,
+                  //                       child: Padding(
+                  //                         padding: EdgeInsets.only(top: 40, right: 20),
+                  //                         child: Align(
+                  //                           alignment: Alignment.centerLeft,
+                  //                           child: Container(
+                  //                             width: 100, height: 30,
+                  //                             decoration: BoxDecoration(
+                  //                                 color: kRed,
+                  //                                 borderRadius: BorderRadius.circular(30)
+                  //                             ),
+                  //                             child: Center(
+                  //                               child: Text('Cancel', textAlign: TextAlign.center,
+                  //                                   style: TextStyle(fontSize: 12, fontFamily: poppinRegular, color: kWhite)),
+                  //                             ),
+                  //                           ),
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //
+                  //                 ],
+                  //               ),
+                  //               Row(
+                  //                 children: [
+                  //                   SizedBox(height: 93.6),
+                  //                   Padding(
+                  //                     padding: EdgeInsets.symmetric(horizontal: 15),
+                  //                     child: Column(
+                  //                       crossAxisAlignment: CrossAxisAlignment.start,
+                  //                       children: [
+                  //                         Row(
+                  //                           children: [
+                  //                             Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}  ",
+                  //                               textAlign: TextAlign.left, style: TextStyle(
+                  //                                     color: kBlack, fontSize: 14, fontFamily: poppinBold)),
+                  //                             Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsColors!.name}",
+                  //                                 textAlign: TextAlign.left, style: TextStyle(
+                  //                                     color: kBlack, fontSize: 10, fontFamily: poppinRegular)),
+                  //                           ],
+                  //                         ),
+                  //                         Row(
+                  //                           children: [
+                  //                             Text(
+                  //                               "${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsMakes!.name}, ",
+                  //                               textAlign: TextAlign.left, style: TextStyle(
+                  //                                   color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                  //                             Text(
+                  //                               "${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsModels}, ",
+                  //                               textAlign: TextAlign.left, style: TextStyle(
+                  //                                   color: kBlack, fontSize: 12, fontFamily: poppinMedium)),
+                  //                             Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.year}",
+                  //                                 textAlign: TextAlign.left, style: TextStyle(
+                  //                                     color: kBlack, fontSize: 12, fontFamily: poppinRegular)),
+                  //                           ],
+                  //                         ),
+                  //                         SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  //                         Row(
+                  //                           children: [
+                  //                             Padding(
+                  //                               padding: EdgeInsets.only(top: 06),
+                  //                               child: Text("RM", textAlign: TextAlign.left, style: TextStyle(
+                  //                                   color: borderColor, fontSize: 7, fontFamily: poppinSemiBold)),
+                  //                             ),
+                  //                             // "${upcomingBookingModelObject.data![index].carsPlans![0].pricePerHour}",
+                  //                             Text("${formattedPrice}", textAlign: TextAlign.left, style: TextStyle(
+                  //                                     color: borderColor, fontSize: 16, fontFamily: poppinSemiBold)),
+                  //                             Text("/", textAlign: TextAlign.left, style: TextStyle(color: kBlack, fontSize: 8, fontFamily: poppinRegular)),
+                  //                             // SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
+                  //                             // showRatingStars(double.parse("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}")),
+                  //                             //
+                  //                             // SizedBox(width: MediaQuery.of(context).size.height * 0.01),
+                  //                             //
+                  //                             // evUpcomingModelObject.data![reversedIndex].carsDetails!.rating == null?
+                  //                             // Text("0.0", textAlign: TextAlign.left,
+                  //                             //   style: TextStyle(color: kBlack,
+                  //                             //       fontSize: 12, fontFamily: poppinRegular)):
+                  //                             // Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}", textAlign: TextAlign.left,
+                  //                             //     style: TextStyle(color: kBlack,
+                  //                             //         fontSize: 12, fontFamily: poppinRegular)),
+                  //                           ],
+                  //                         ),
+                  //
+                  //                       ],
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     Positioned(
+                  //       right: 30, bottom: 30,
+                  //       child: GestureDetector(
+                  //         onTap: (){
+                  //           carBookingsId = "${evUpcomingModelObject.data![reversedIndex].bookingsId}";
+                  //           print("bookingId $carBookingsId");
+                  //           print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.vehicalName}");
+                  //           print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.carsModels}");
+                  //           print("${evUpcomingModelObject.data![reversedIndex].carsDetails!.rating}");
+                  //           Navigator.push(context, MaterialPageRoute(
+                  //               builder: (context) => UpcomingBookingDetailsPage(
+                  //                 bookingId: "${evUpcomingModelObject.data![reversedIndex].bookingsId}",
+                  //               )));
+                  //         },
+                  //           child: Image.asset("assets/car_bookings_images/more_button.png"),
+                  //       ),
+                  //     ),
+                  //     // Positioned(
+                  //     //   left: 20, right: 20,top: 30,
+                  //     //   child: Image.network("$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",
+                  //     //       width: MediaQuery.of(context).size.width * 0.3,
+                  //     //       height: MediaQuery.of(context).size.height * 0.1),
+                  //     // ),
+                  //
+                  //
+                  //     Positioned(
+                  //       left: 20, right: 20,top: 0,
+                  //       child: evUpcomingModelObject.data![reversedIndex].carsDetails!.image1 == null
+                  //           ? ClipRRect(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                  //       )
+                  //           : evUpcomingModelObject.data![reversedIndex].carsDetails!.image1!.endsWith('.jpg') || evUpcomingModelObject.data![reversedIndex].carsDetails!.image1!.endsWith('.png') || evUpcomingModelObject.data![reversedIndex].carsDetails!.image1!.endsWith('.jpeg')
+                  //           ? ClipRRect(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         child: FadeInImage(
+                  //           placeholder: AssetImage("assets/icon/fade_in_image.jpeg"),
+                  //           height: 65,
+                  //           image: NetworkImage("$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}"),
+                  //         ),
+                  //       )
+                  //           : Container(
+                  //         height: MediaQuery.of(context).size.height * 0.19,
+                  //         child: ModelViewer(
+                  //           // cameraOrbit: Clipboard.kTextPlain,
+                  //           backgroundColor: Colors.transparent,
+                  //           src: '${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}',
+                  //           alt: "A 3D model of car",
+                  //           autoPlay: false,
+                  //           autoRotate: false,
+                  //           cameraControls: false,
+                  //           disableTap: false,
+                  //           ar: false,
+                  //           disablePan: true,
+                  //           arModes: ["quicklook", "scene-viewer"],
+                  //           iosSrc: "${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",
+                  //           disableZoom: true,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     evUpcomingModelObject.data![reversedIndex].carsDetails!.discountPercentage != "0.00"
+                  //     ? Positioned(
+                  //         top: 10, left: 15,
+                  //         child: Container(
+                  //           height: MediaQuery.of(context).size.width * 0.07,
+                  //           width: MediaQuery.of(context).size.width * 0.16,
+                  //           decoration: BoxDecoration(
+                  //             color: kRed.withOpacity(0.8),
+                  //             borderRadius: BorderRadius.only(
+                  //                 topRight: Radius.circular(15),
+                  //                 bottomLeft: Radius.circular(15)),
+                  //           ),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: [
+                  //               Text("${evUpcomingModelObject.data![reversedIndex].carsDetails!.discountPercentage}",
+                  //                 style: TextStyle(color: kWhite,
+                  //                   fontSize: 13, fontWeight: FontWeight.bold,
+                  //                   fontFamily: 'Poppins')),
+                  //               Text(" OFF ", style: TextStyle(
+                  //                 color: kWhite, fontSize: 8,
+                  //                 fontWeight: FontWeight.w300, fontFamily: 'Poppins')),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //     )
+                  //     : Positioned(top: 10, left: 15,child: SizedBox()),
+                  //
+                  // //     Positioned(
+                  // //         top: 10, right: 15,
+                  // //         child:
+                  // //         // evUpcomingModelObject.data![index].userFavouriteCars!.length> 0 ?
+                  // //         // evUpcomingModelObject.data![index].userFavouriteCars![0].status == "dislike"?
+                  // //         // Image.asset("assets/home_page/heart.png") :
+                  // //         // Image.asset("assets/car_bookings_images/heart.png"),
+                  // //         Image.asset("assets/car_bookings_images/heart.png"),
+                  // //
+                  // // // Image.asset("assets/car_bookings_images/heart.png"):
+                  // //
+                  // //     ),
+                  //   ],
+                  // );
                 }),
           ),
         ),
