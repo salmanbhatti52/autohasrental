@@ -639,7 +639,7 @@ class _HomePageState extends State<HomePage> {
                                                             Alignment.bottomRight,
                                                         decoration: BoxDecoration(
                                                           color:
-                                                              Colors.blueAccent,
+                                                              borderColor,
                                                           borderRadius:
                                                               BorderRadius.only(
                                                             bottomRight:
@@ -1504,7 +1504,7 @@ class _HomePageState extends State<HomePage> {
                                                             Alignment.bottomRight,
                                                         decoration: BoxDecoration(
                                                           color:
-                                                              Colors.blueAccent,
+                                                              borderColor,
                                                           borderRadius:
                                                               BorderRadius.only(
                                                             bottomRight:
@@ -2396,7 +2396,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 55,
                                   alignment: Alignment.bottomRight,
                                   decoration: BoxDecoration(
-                                    color: Colors.blueAccent,
+                                    color: borderColor,
                                     borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(30),
                                       topLeft: Radius.circular(30),
@@ -3312,7 +3312,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 55,
                                   alignment: Alignment.bottomRight,
                                   decoration: BoxDecoration(
-                                    color: Colors.blueAccent,
+                                    color: borderColor,
                                     borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(30),
                                       topLeft: Radius.circular(30),
@@ -3606,7 +3606,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 55,
                                       alignment: Alignment.bottomRight,
                                       decoration: BoxDecoration(
-                                        color: Colors.blueAccent,
+                                        color: borderColor,
                                         borderRadius: BorderRadius.only(
                                           bottomRight: Radius.circular(30),
                                           topLeft: Radius.circular(30),
@@ -4559,7 +4559,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 55,
                                       alignment: Alignment.bottomRight,
                                       decoration: BoxDecoration(
-                                        color: Colors.blueAccent,
+                                        color: borderColor,
                                         borderRadius: BorderRadius.only(
                                           bottomRight: Radius.circular(30),
                                           topLeft: Radius.circular(30),

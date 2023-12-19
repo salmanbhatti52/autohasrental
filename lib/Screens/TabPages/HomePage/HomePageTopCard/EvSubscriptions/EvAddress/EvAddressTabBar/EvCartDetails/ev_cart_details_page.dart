@@ -269,21 +269,21 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                             fontSize: 12, fontFamily: poppinRegular)),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-
-                                    Text("${widget.carMakesName}, ", textAlign: TextAlign.left,
-                                      style: TextStyle(color: kBlack,
-                                        fontSize: 12, fontFamily: poppinRegular)),
-                                    Text("${widget.carModelName}, ", textAlign: TextAlign.left,
-                                        style: TextStyle(color: kBlack,
-                                            fontSize: 12, fontFamily: poppinSemiBold)),
-                                    Text("${widget.carYear} ", textAlign: TextAlign.left,
-                                        style: TextStyle(color: kBlack,
-                                            fontSize: 12, fontFamily: poppinRegular)),
-
-                                  ],
-                                ),
+                                // Row(
+                                //   children: [
+                                //
+                                //     Text("${widget.carMakesName}, ", textAlign: TextAlign.left,
+                                //       style: TextStyle(color: kBlack,
+                                //         fontSize: 12, fontFamily: poppinRegular)),
+                                //     Text("${widget.carModelName}, ", textAlign: TextAlign.left,
+                                //         style: TextStyle(color: kBlack,
+                                //             fontSize: 12, fontFamily: poppinSemiBold)),
+                                //     Text("${widget.carYear} ", textAlign: TextAlign.left,
+                                //         style: TextStyle(color: kBlack,
+                                //             fontSize: 12, fontFamily: poppinRegular)),
+                                //
+                                //   ],
+                                // ),
                                 // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                 Row(
                                   children: [
@@ -395,6 +395,10 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                           style: TextStyle(color: kWhite, fontSize: 16),
                                         ),
                                       ),
+                                    ),
+                                    Text(
+                                      "to",
+                                      style: TextStyle(color: kBlack, fontSize: 16),
                                     ),
                                     Container(
                                       height: 40,

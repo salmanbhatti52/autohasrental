@@ -577,28 +577,28 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                               fontFamily: poppinSemiBold)),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Text("${widget.carMakesName}, ",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: kBlack,
-                              fontSize: 12,
-                              fontFamily: poppinRegular)),
-                      Text("${widget.carModelName}, ",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: kBlack,
-                              fontSize: 12,
-                              fontFamily: poppinSemiBold)),
-                      Text("${widget.carYear} ",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: kBlack,
-                              fontSize: 12,
-                              fontFamily: poppinRegular)),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Text("${widget.carMakesName}, ",
+                  //         textAlign: TextAlign.left,
+                  //         style: TextStyle(
+                  //             color: kBlack,
+                  //             fontSize: 12,
+                  //             fontFamily: poppinRegular)),
+                  //     Text("${widget.carModelName}, ",
+                  //         textAlign: TextAlign.left,
+                  //         style: TextStyle(
+                  //             color: kBlack,
+                  //             fontSize: 12,
+                  //             fontFamily: poppinSemiBold)),
+                  //     Text("${widget.carYear} ",
+                  //         textAlign: TextAlign.left,
+                  //         style: TextStyle(
+                  //             color: kBlack,
+                  //             fontSize: 12,
+                  //             fontFamily: poppinRegular)),
+                  //   ],
+                  // ),
                   Row(
                     children: [
                       widget.discountPercentage != "0.00"

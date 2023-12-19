@@ -379,7 +379,7 @@ class _PreviousBookingDetailsPageState
                                   color: borderColor,
                                   borderRadius: BorderRadius.circular(30)),
                               child: Center(
-                                child: CircularProgressIndicator(color: Colors.blueAccent,)
+                                child: CircularProgressIndicator(color: borderColor,)
                               ),
                             ),
                           )

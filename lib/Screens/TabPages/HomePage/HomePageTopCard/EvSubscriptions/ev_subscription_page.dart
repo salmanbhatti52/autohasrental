@@ -465,7 +465,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                           height: 55,
                           alignment: Alignment.bottomRight,
                           decoration: BoxDecoration(
-                            color: Colors.blueAccent,
+                            color: borderColor,
                             borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(30),
                               topLeft: Radius.circular(30),
