@@ -318,7 +318,7 @@ class _FavoritePageState extends State<FavoritePage> {
                             child: Row(
                               children: [
                                 Text(
-                                  "RM",
+                                  "RM ",
                                   style: TextStyle(
                                     color: kBlack,
                                     fontSize: 14,
@@ -333,14 +333,14 @@ class _FavoritePageState extends State<FavoritePage> {
                                     fontFamily: poppinSemiBold,
                                   ),
                                 ),
-                                Text(
-                                  "/Month",
-                                  style: TextStyle(
-                                    color: textLabelColor,
-                                    fontSize: 14,
-                                    fontFamily: poppinSemiBold,
-                                  ),
-                                ),
+                                // Text(
+                                //   "/Month",
+                                //   style: TextStyle(
+                                //     color: textLabelColor,
+                                //     fontSize: 14,
+                                //     fontFamily: poppinSemiBold,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),

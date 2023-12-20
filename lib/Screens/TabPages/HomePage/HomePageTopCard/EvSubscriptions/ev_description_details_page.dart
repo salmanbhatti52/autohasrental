@@ -83,7 +83,8 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
    perMonthCalculate(){
      double value1 = double.parse(widget.mySelectedTabMonth.toString());
      double value2 = double.parse(widget.mySelectedTabPrice.toString());
-     double perMonths = value2 / value1;
+     double perMonths = value2;
+     // double perMonths = value2 / value1;
      String formattedPerMonth = perMonths.toStringAsFixed(2);
      NumberFormat format = NumberFormat('#,##0.00', 'en_US');
      formattedPerMonth = format.format(perMonths);
@@ -163,8 +164,11 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
     getEvSubscriptionCarsWidget();
     perMonthCalculate();
     print("mileageID ${widget.mileagePlanID}");
+    double value1 = double.parse(widget.mySelectedTabMonth.toString());
+    double value2 = double.parse(widget.mySelectedTabPrice.toString());
+    double perMonths = value1 * value2;
     tabMonth = widget.mySelectedTabMonth;
-    tabPrice = widget.mySelectedTabPrice;
+    tabPrice =perMonths.toString();
     print("tabPrice $tabPrice");
     print("evCarID $carID");
     print("tabMonthAndPrice $tabMonth $tabPrice");

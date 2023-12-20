@@ -515,7 +515,7 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        "RM",
+                                        "RM ",
                                         style: TextStyle(
                                           color: kBlack,
                                           fontSize: 14,
@@ -530,14 +530,14 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                           fontFamily: poppinSemiBold,
                                         ),
                                       ),
-                                      Text(
-                                        "/Month",
-                                        style: TextStyle(
-                                          color: textLabelColor,
-                                          fontSize: 14,
-                                          fontFamily: poppinSemiBold,
-                                        ),
-                                      ),
+                                      // Text(
+                                      //   "/Month",
+                                      //   style: TextStyle(
+                                      //     color: textLabelColor,
+                                      //     fontSize: 14,
+                                      //     fontFamily: poppinSemiBold,
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ),

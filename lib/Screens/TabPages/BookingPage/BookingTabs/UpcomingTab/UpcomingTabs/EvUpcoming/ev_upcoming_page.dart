@@ -153,8 +153,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                         Positioned(
                           left: 20,
                           bottom: 70,
-                          child:
-                                            evUpcomingModelObject.data![reversedIndex].status == "Pending"?
+                          child: evUpcomingModelObject.data![reversedIndex].status == "Pending"?
                                             Container(
                                               height: MediaQuery.of(context).size.height * 0.1,
                                               color: Colors.transparent,
@@ -238,7 +237,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                           child: Row(
                             children: [
                               Text(
-                                "RM",
+                                "RM ",
                                 style: TextStyle(
                                   color: kBlack,
                                   fontSize: 14,
@@ -253,14 +252,14 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                                   fontFamily: poppinSemiBold,
                                 ),
                               ),
-                              Text(
-                                "/Month",
-                                style: TextStyle(
-                                  color: textLabelColor,
-                                  fontSize: 14,
-                                  fontFamily: poppinSemiBold,
-                                ),
-                              ),
+                              // Text(
+                              //   "/Month",
+                              //   style: TextStyle(
+                              //     color: textLabelColor,
+                              //     fontSize: 14,
+                              //     fontFamily: poppinSemiBold,
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

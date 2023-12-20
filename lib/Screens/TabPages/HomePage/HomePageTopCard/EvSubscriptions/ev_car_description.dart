@@ -514,13 +514,19 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                           },
                           tabs: List<Widget>.generate(
                               getMonthPlansModel.data!.length, (int index) {
+                            var monthsString = getMonthPlansModel.data?[index].months;
                             var pricePerMonthString = getMonthPlansModel.data?[index].pricePerMonth;
+                            print("Months $monthsString");
+                            print("Months $pricePerMonthString");
                             double pricePerMonth;
-                            if (pricePerMonthString != null) {
+                            double months;
+                            if (pricePerMonthString != null && monthsString != null) {
+                              months = double.parse(monthsString.toString());
                               pricePerMonth = double.parse(pricePerMonthString);
-                              if (pricePerMonth != null) {
+                              if (months != null && pricePerMonth != null) {
+                                double calculatedPrice = months * pricePerMonth;
                                 final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
-                                formattedPrice = numberFormat.format(pricePerMonth);
+                                formattedPrice = numberFormat.format(calculatedPrice);
                                 print("RM $formattedPrice");
                               } else {
                                 print("Invalid price format");
