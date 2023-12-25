@@ -48,22 +48,6 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
 
   var emailController = TextEditingController();
 
-  // File? image;
-  // Future pickCoverImage() async {
-  //   try {
-  //     final selectedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //     if (selectedImage == null) return;
-  //     final imageTemporary = File(selectedImage.path);
-  //     setState(() {
-  //       image = imageTemporary;
-  //       print("newImage $image");
-  //       // onUploadImage();
-  //     });
-  //   } on PlatformException catch (e) {
-  //     print('Failed to pick image: ${e.toString()}');
-  //   }
-  // }
-
   File? image;
   String? base64img;
 
@@ -101,7 +85,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     });
     var request = http.MultipartRequest('POST', Uri.parse(checkOutDrivingApiUrl));
     String? formattedTotalAmount = myTotalAmount?.replaceAll(',', '');
-    String? formattedPerMonth = myTotalAmount?.replaceAll(',', '');
+    String? formattedPerMonth = myDiscountedAmount?.replaceAll(',', '');
     print("Formatted total amount: $formattedTotalAmount");
     myTotalAmount = formattedTotalAmount;
     myDiscountedAmount = formattedPerMonth;
