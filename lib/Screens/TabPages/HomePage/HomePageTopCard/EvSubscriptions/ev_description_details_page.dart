@@ -182,16 +182,20 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
   double totalAmount = 0.0;
   // double setupCosts = 0.0;
   String formattedServiceFee = "";
+  String? formattedFeeService;
   // String formattedSetupCost = "";
   myTotalAmount() {
     myServiceFee = (percentage! / 100) * double.parse("$tabPrice");
-    print("myServiceFee $myServiceFee");
+    double serviceFeeAsDouble = double.parse(myServiceFee.toString());
+    NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+    formattedFeeService = format.format(serviceFeeAsDouble);
+    // myServiceFee = double.parse(formattedFeeService);
+    print("myServiceFee $formattedFeeService");
     print("tabMonthAndPrice11 $tabMonth $tabPrice");
     // setupCosts = double.parse(widget.setupCost.toString());
     totalAmount = double.parse("$tabPrice") + myServiceFee!;
     // totalAmount = double.parse("$tabPrice") + myServiceFee! + setupCosts;
     double tabPriceAsDouble = double.parse(tabPrice ?? '0');
-    NumberFormat format = NumberFormat('#,##0.00', 'en_US');
     // formattedSetupCost = format.format(setupCosts);
     String formattedTabPrice = format.format(tabPriceAsDouble);
     tabPrice = formattedTabPrice;
@@ -479,7 +483,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                                 favouriteStatus:
                                                     widget.favouriteStatus,
 
-                                                serviceFee: myServiceFee,
+                                                serviceFee: formattedFeeService.toString(),
                                                 carName: widget.carName,
                                                 carImage: widget.carImage,
                                                 carYear: widget.carYear,
@@ -713,9 +717,9 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
           ),
         ),
         Positioned(
-          left: 40,
-          right: 40,
-          top: -15,
+          left: 50,
+          right: 50,
+          top: 0,
           // top: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
           //     ? 20
           //     : -50,
@@ -978,7 +982,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                       fontSize: 14,
                       fontFamily: poppinRegular,
                       color: detailsTextColor)),
-              Text("RM ${myServiceFee!.toStringAsFixed(2)}",
+              Text("RM ${formattedFeeService}",
                   textAlign: TextAlign.right,
                   style: TextStyle(
                       fontSize: 14,

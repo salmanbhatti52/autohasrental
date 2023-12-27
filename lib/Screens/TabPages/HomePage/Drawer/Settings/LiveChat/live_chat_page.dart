@@ -7,6 +7,7 @@ import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../drawer_screen.dart';
 import 'live_chat_details_page.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +22,7 @@ class LiveChatPage extends StatefulWidget {
 class _LiveChatPageState extends State<LiveChatPage> {
   GetAdminListModel getAdminListModelObject = GetAdminListModel();
   bool loadingP = false;
+  bool loading2 = false;
 
   getAdminListWidget() async {
     loadingP = true;
@@ -101,116 +103,133 @@ class _LiveChatPageState extends State<LiveChatPage> {
                     style: TextStyle(
                         fontSize: 20,
                         fontFamily: poppinBold,
-                        color: borderColor)),
+                        color: borderColor,
+                    ),
+                ),
               ],
             ),
           ),
           SizedBox(height: 30),
-          Container(
-            width: 343,
-            height: 69,
-            decoration: BoxDecoration(
-              color: Color(0xfffbfbfb),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(left: 15, top: 10, bottom: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Give us a call',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: poppinSemiBold,
-                      color: kBlack,
+          GestureDetector(
+            onTap: () async {
+              String url = 'tel:${getAdminListModelObject.data![0].mobile}';
+              if (await canLaunchUrl(Uri.parse(url))) {
+                await launchUrl(Uri.parse(url));
+              }
+            },
+            child: Container(
+              width: 343,
+              height: 69,
+              decoration: BoxDecoration(
+                color: Color(0xfffbfbfb),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Give us a call',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: poppinSemiBold,
+                        color: kBlack,
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
-                  ),
-                  loadingP
-                      ? Text(
-                          '',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: poppinRegular,
-                            color: Color(0xff8d8d8d),
+                    loadingP
+                        ? Text(
+                            '',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: poppinRegular,
+                              color: Color(0xff8d8d8d),
+                            ),
+                            textAlign: TextAlign.left,
+                          )
+                        : Text(
+                            '${getAdminListModelObject.data![0].mobile}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: poppinRegular,
+                              color: Color(0xff8d8d8d),
+                            ),
+                            textAlign: TextAlign.left,
                           ),
-                          textAlign: TextAlign.left,
-                        )
-                      : Text(
-                          '${getAdminListModelObject.data![0].mobile}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: poppinRegular,
-                            color: Color(0xff8d8d8d),
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
           SizedBox(height: 15),
-          Container(
-            width: 343,
-            height: 69,
-            decoration: BoxDecoration(
-              color: Color(0xfffbfbfb),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(left: 15, top: 10, bottom: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Email us',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: poppinBold,
-                      color: kBlack,
+          GestureDetector(
+            onTap: () async {
+              final Uri _emailLaunchUri = Uri(
+                  scheme: 'mailto',
+                  path: '${getAdminListModelObject.data![0].email}',
+                  queryParameters: {'': ''});
+              launch(_emailLaunchUri.toString());
+            },
+            child: Container(
+              width: 343,
+              height: 69,
+              decoration: BoxDecoration(
+                color: Color(0xfffbfbfb),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Email us',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: poppinBold,
+                        color: kBlack,
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
-                  ),
-                  loadingP
-                      ? Text(
-                    '',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: poppinRegular,
-                      color: Color(0xff8d8d8d),
-                    ),
-                    textAlign: TextAlign.left,
-                  )
-                      :  Text(
-                    '${getAdminListModelObject.data![0].email}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: poppinRegular,
-                      color: Color(0xff8d8d8d),
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
+                    loadingP
+                        ? Text(
+                            '',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: poppinRegular,
+                              color: Color(0xff8d8d8d),
+                            ),
+                            textAlign: TextAlign.left,
+                          )
+                        : Text(
+                            '${getAdminListModelObject.data![0].email}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: poppinRegular,
+                              color: Color(0xff8d8d8d),
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                  ],
+                ),
               ),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.08),
           GestureDetector(
             onTap: () async {
+
               await startLiveChatApiWidget();
 
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => LiveChatDetailsPage(
-                            adminId:
-                                getAdminListModelObject.data![0].usersSystemId,
-                            adminImage:
-                                getAdminListModelObject.data![0].userImage,
-                          )));
-              print(
-                  "userImage $baseUrlImage${getAdminListModelObject.data![0].userImage}");
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LiveChatDetailsPage(
+                    adminId: getAdminListModelObject.data![0].usersSystemId,
+                  ),
+                ),
+              );
             },
             child: loginButton('Chat with us', context),
           ),
@@ -221,7 +240,7 @@ class _LiveChatPageState extends State<LiveChatPage> {
 
   startLiveChatApiWidget() async {
     setState(() {
-      loadingP = true;
+      loading2 = true;
     });
     Map body = {
       "requestType": "startChat",
@@ -241,7 +260,7 @@ class _LiveChatPageState extends State<LiveChatPage> {
     if (jsonData['message'] == 'chat already started') {
       print('chat already started');
       setState(() {
-        loadingP = false;
+        loading2 = false;
       });
     }
   }

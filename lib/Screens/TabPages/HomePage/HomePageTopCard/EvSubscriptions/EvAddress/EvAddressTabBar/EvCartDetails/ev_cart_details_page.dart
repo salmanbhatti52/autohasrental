@@ -12,6 +12,7 @@ import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Model/CheckOutModels/ev_checkout_model.dart';
@@ -172,12 +173,18 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     print("myTotalAmount $myTotalAmount");
     mySelectedData();
   }
+  String? formattedFeeService;
   mySelectedData(){
     print("userId carId: $userId $carID");
     print("selectedTabMonth123: $myMonth");
     print("evTotalPrice: $myTotalAmount");
     print('evStartEndDate: ${widget.evStartDate} ${widget.evEndDate}');
     print("pricePerMonth: $myDiscountedAmount");
+    double serviceFeeAsDouble = double.parse(myServiceFee.toString());
+    NumberFormat format = NumberFormat('#,##0.00', 'en_US');
+    formattedFeeService = format.format(serviceFeeAsDouble);
+    // myServiceFee = double.parse(formattedFeeService);
+    print("myServiceFee $formattedFeeService");
     print("myServiceFee: $myServiceFee");
     print("carDiscountPercentage: ${widget.discountPercentage}");
     print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
@@ -435,7 +442,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                       textAlign: TextAlign.left,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),
-                                    Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right,
+                                    Text("RM ${formattedFeeService}", textAlign: TextAlign.right,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),
                                   ],
@@ -557,9 +564,9 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                     //     height: 130,),
                     // ),
                     Positioned(
-                      left: 40,
-                      right: 40,
-                      top: -15,
+                      left: 50,
+                      right: 50,
+                      top: 0,
                       // top: widget.carImage!.endsWith('.jpg') || widget.carImage!.endsWith('.png') || widget.carImage!.endsWith('.jpeg')
                       //     ? 20
                       //     : -50,

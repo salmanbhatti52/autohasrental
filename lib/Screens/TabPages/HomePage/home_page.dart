@@ -538,7 +538,7 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ),
                                                   Positioned(
-                                                    left: 40,
+                                                    left: 25,
                                                     bottom: 20,
                                                     child: Row(
                                                       children: [
@@ -667,8 +667,8 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ),
                                                   Positioned(
-                                                    left: 30,
-                                                    top: -45,
+                                                    left: 20,
+                                                    top: -35,
                                                     child: widget
                                                                 .filterCarByAttributeModelObject
                                                                 ?.data?[index]
@@ -1403,7 +1403,7 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ),
                                                   Positioned(
-                                                    left: 40,
+                                                    left: 25,
                                                     bottom: 20,
                                                     child: Row(
                                                       children: [
@@ -1532,8 +1532,8 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ),
                                                   Positioned(
-                                                    left: 30,
-                                                    top: -45,
+                                                    left: 20,
+                                                    top: -35,
                                                     child: widget
                                                                 .filterCarByAttributeModelObject
                                                                 ?.data?[index]
@@ -2258,7 +2258,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Positioned(
-                              left: 40,
+                              left: 25,
                               bottom: 20,
                               child: Row(
                                 children: [
@@ -2417,8 +2417,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Positioned(
-                              left: 30,
-                              top: -45,
+                              left: 20,
+                              top: -35,
                               child: topRentedCarsModelObject
                                           .data?[index].image1 ==
                                       null
@@ -3174,7 +3174,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Positioned(
-                              left: 40,
+                              left: 25,
                               bottom: 20,
                               child: Row(
                                 children: [
@@ -3333,8 +3333,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Positioned(
-                              left: 30,
-                              top: -45,
+                              left: 20,
+                              top: -35,
                               child: topRentedCarsModelObject
                                           .data?[index].image1 ==
                                       null
@@ -3466,7 +3466,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Positioned(
-                                  left: 40,
+                                  left: 25,
                                   bottom: 20,
                                   child: Row(
                                     children: [
@@ -3627,8 +3627,8 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Positioned(
-                                  left: 30,
-                                  top: -45,
+                                  left: 20,
+                                  top: -35,
                                   child: searchModelObject
                                               .data?[index].image1 ==
                                           null
@@ -4380,7 +4380,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Positioned(
-                                  left: 40,
+                                  left: 25,
                                   bottom: 20,
                                   child: Row(
                                     children: [
@@ -4580,8 +4580,8 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Positioned(
-                                  left: 30,
-                                  top: -45,
+                                  left: 20,
+                                  top: -35,
                                   child: searchModelObject
                                               .data?[index].image1 ==
                                           null

@@ -279,6 +279,7 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                             color: selectedIndex == index ? borderColor : kWhite),
                         borderRadius: BorderRadius.circular(10.0)),
                     child: Image.network(
+                      color: selectedIndex == index? kWhite: kBlack,
                       "$baseUrlImage${getCarMakesModelObject.data?[index].image}",
                       errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                         // Display a placeholder image when the main image fails to load
@@ -375,8 +376,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                       ),
                     ),
                     Positioned(
-                      left: 40,
-                      bottom: 20,
+                      left: 35,
+                      bottom: 15,
                       child: Row(
                         children: [
                           Text(
@@ -486,8 +487,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                       ),
                     ),
                     Positioned(
-                      left: 30,
-                      top: -45,
+                      left: 20,
+                      top: -35,
                       child: evCarsModelObject.data?[index].image1 == null
                           ? Padding(
                         padding: const EdgeInsets.only(top: 80.0),

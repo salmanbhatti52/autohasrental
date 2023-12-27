@@ -218,7 +218,7 @@ int BMW = 1;
                               'Please select Your End Price', Colors.red);
                         } else if (dropdownCarType == null) {
                           toastFailedMessage(
-                              'CarType cannot be empty', Colors.red);
+                              'Car Type cannot be empty', Colors.red);
                         } else if (showYear == "") {
                           toastFailedMessage('Year cannot be empty', Colors
                               .red);
@@ -324,7 +324,7 @@ int BMW = 1;
                         border: Border.all(width: 2,
                             color: selectedIndex == index ? borderColor : kWhite),
                         borderRadius: BorderRadius.circular(10.0)),
-                    child: Image.network("$baseUrlImage${getCarMakesModelObject.data?[index].image}",),
+                    child: Image.network("$baseUrlImage${getCarMakesModelObject.data?[index].image}", color: selectedIndex == index? kWhite: kBlack,),
                   ),
                 ),
               );
@@ -466,7 +466,7 @@ int BMW = 1;
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Select CarType', style: TextStyle(color: kWhite),),
+                          Text('Select Car Type', style: TextStyle(color: kWhite),),
                           SizedBox(height: MediaQuery.of(context).size.height * 0.005),
                           Container(
                             height: MediaQuery.of(context).size.height * 0.06,

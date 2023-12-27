@@ -263,6 +263,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                           imageUrl: "${widget.carMakesImage}",
                           height: 60,
                           width: 60,
+                          color: kWhite,
                           fit: BoxFit.fill,
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) =>

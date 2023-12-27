@@ -333,14 +333,14 @@ class _FavoritePageState extends State<FavoritePage> {
                                     fontFamily: poppinSemiBold,
                                   ),
                                 ),
-                                // Text(
-                                //   "/Month",
-                                //   style: TextStyle(
-                                //     color: textLabelColor,
-                                //     fontSize: 14,
-                                //     fontFamily: poppinSemiBold,
-                                //   ),
-                                // ),
+                                Text(
+                                  "/Month",
+                                  style: TextStyle(
+                                    color: textLabelColor,
+                                    fontSize: 14,
+                                    fontFamily: poppinSemiBold,
+                                  ),
+                                ),
                               ],
                             ),
                           ),

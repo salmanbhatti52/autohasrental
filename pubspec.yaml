@@ -36,6 +36,7 @@ dependencies:
   is_first_run: ^1.0.0
   sizer: ^2.0.15
   model_viewer_plus: ^1.5.1
+  url_launcher: ^6.1.10
 
 
 flutter_icons:

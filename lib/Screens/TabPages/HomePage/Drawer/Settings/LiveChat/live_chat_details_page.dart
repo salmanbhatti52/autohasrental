@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'package:auto_haus_rental_app/Model/LiveChat/get_admin_list_model.dart';
 import 'package:auto_haus_rental_app/Model/LiveChat/get_live_msg_model.dart';
 import 'package:auto_haus_rental_app/Model/LiveChat/send_live_msg_model.dart';
 import 'package:auto_haus_rental_app/Model/LiveChat/update_live_msg_model.dart';
@@ -15,8 +17,7 @@ import 'package:http/http.dart'as http;
 
 class LiveChatDetailsPage extends StatefulWidget {
   final int? adminId;
-  final String? adminImage;
- LiveChatDetailsPage({super.key, this.adminId, this.adminImage});
+ LiveChatDetailsPage({super.key, this.adminId});
 
   @override
   State<LiveChatDetailsPage> createState() => _LiveChatDetailsPageState();
@@ -27,32 +28,67 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
   final GlobalKey<FormState> sendMessageFormKey = GlobalKey<FormState>();
   var sendMessageController = TextEditingController();
   GetLiveMessagesModel getLiveMessagesModel = GetLiveMessagesModel();
-  List<UpdateLiveMessagesModel> updateMessageModelObject = [];
-  bool progress = false;
+  ScrollController _scrollController = ScrollController();
   SendLiveMessagesModel sendLiveMessagesModel = SendLiveMessagesModel();
   bool loading = true;
-  String? adminImage;
+
+  // Declare a timer variable
+  Timer? timer;
+
+  void startTimer() {
+    // Start the timer and call getMessageApi() every 1 second
+    timer = Timer.periodic(Duration(seconds: 2), (Timer t) {
+      allLiveChatApiWidget();
+    });
+  }
+
+  void cancelTimer() {
+    // Cancel the timer if it's active
+    timer?.cancel();
+  }
+
+// Call this function when the user enters the page
+  void onPageEnter() {
+    // Start the timer to call getMessageApi() every 1 second
+    startTimer();
+  }
+
+// Call this function when the user leaves the page
+  void onPageExit() {
+    // Cancel the timer to stop calling getMessageApi()
+    cancelTimer();
+  }
+
 
   sharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('in msgs details shared prefs');
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userid');
-    print("userId in Prefs is = $userId");
-    print("adminId ${widget.adminId}");
-    adminImage = "$baseUrlImage${widget.adminImage}";
-    print("adminImage $adminImage");
+    allLiveChatApiWidget();
+  }
 
-    setState(() {
-      allLiveChatApiWidget();
-    });
+  void scrollToBottom() {
+    final bottomOffset = _scrollController.position.maxScrollExtent;
+    _scrollController.animateTo(
+      bottomOffset,
+      duration: Duration(milliseconds: 1000),
+      curve: Curves.easeInOut,
+    );
+  }
 
+  @override
+  void dispose() {
+    onPageExit();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
     sharedPrefs();
+    onPageEnter();
+    _scrollController = ScrollController();
   }
 
   @override
@@ -68,153 +104,148 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
           ),
           leading: GestureDetector(
             onTap: () {
-              print("clicked");
               Navigator.pop(context);
             },
             child: Padding(
               padding:EdgeInsets.only(top: 30),
               child: Image.asset("assets/live_chat_images/back_arrow.png",
-                height: 25, width: 25),
+                height: 25, width: 25,
+              ),
             ),
           ),
           title: Padding(
-            padding:EdgeInsets.only(top: 30, left: 50),
-            child: Row(
-              children: [
-                // Image.asset(profileImage!, width: 24, height: 24),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: CachedNetworkImage(
-                    imageUrl: "$adminImage",
-                    height: 25, width: 25,
-                    fit: BoxFit.fill,
-                    progressIndicatorBuilder: (context, url, downloadProgress) =>
-                        CircularProgressIndicator(strokeWidth: 2, value: downloadProgress.progress, color: borderColor,),
-                    errorWidget: (context, url, error) => Image.asset("assets/icon/fade_in_image.jpeg"),
-                  ),
-                ),
-               SizedBox(width: 5),
-                Text("Live Chat",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 20, fontFamily: poppinBold, color: kBlack)),
-              ],
-            ),
+            padding:EdgeInsets.only(top: 30),
+            child: Text("Live Chat",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 20, fontFamily: poppinBold, color: kBlack)),
           ),
           backgroundColor: homeBgColor,
           elevation: 0.0,
           centerTitle: true,
         ),
       backgroundColor: homeBgColor,
-      body: loading? Center(child: CircularProgressIndicator(color: borderColor)):
-      // getLiveMessagesModel.status == "error"?Text("no chat history"):
-      SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.78,
-              color: Colors.transparent,
-              child: Stack(
-                children: [
-               getLiveMessagesModel.status == "error"?Center(child: Text("no chat history")):
-                  ListView.builder(
-                    itemCount: getLiveMessagesModel.data?.length,
-                    shrinkWrap: true,
-                    padding:EdgeInsets.only(top: 10, bottom: 10),
-                    physics:BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding:EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
-                        child: Align(
-                          alignment: (getLiveMessagesModel.data?[index].senderType == "Users"
-                              ? Alignment.topRight : Alignment.topLeft),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: (getLiveMessagesModel.data?[index].senderType == "Users"
-                                  ? borderColor : kWhite),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                getLiveMessagesModel.data != null
+                    ? Container(
+                  height: MediaQuery.of(context).size.height * 0.78,
+                  color: Colors.transparent,
+                  child:  Stack(
+                    children: [
+                   ListView.builder(
+                        itemCount: getLiveMessagesModel.data?.length,
+                     controller: _scrollController,
+                        reverse: true,
+                        padding:EdgeInsets.only(top: 10, bottom: 10),
+                        physics:BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          int reverseIndex = getLiveMessagesModel.data!.length - 1 - index;
+                          return getLiveMessagesModel.data!.isEmpty
+                              ? Center(child: Text("no chat history"),)
+                              : Container(
+                            padding:EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
+                            child: Align(
+                              alignment: (getLiveMessagesModel.data?[reverseIndex].senderType == "Users"
+                                  ? Alignment.topRight : Alignment.topLeft),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: (getLiveMessagesModel.data?[reverseIndex].senderType == "Users"
+                                      ? borderColor : kWhite),
+                                ),
+                                padding:EdgeInsets.all(10),
+                                child: getLiveMessagesModel.data?[reverseIndex].senderType == "Users"
+                                    ? Column(
+                                  children: [
+                                    Text("${getLiveMessagesModel.data?[reverseIndex].message.toString()}",
+                                        maxLines: 3, overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left, style: TextStyle(
+                                            fontSize: 14, fontFamily: poppinLight, color: kWhite)),
+                                   SizedBox(height: 03),
+                                    Text("${getLiveMessagesModel.data?[reverseIndex].time.toString()} ${getLiveMessagesModel.data?[reverseIndex].date.toString()}",
+                                        maxLines: 1, overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left, style: TextStyle(
+                                            fontSize: 10, color: kWhite, fontFamily: poppinLight)),
+                                  ],
+                                ) :
+                                Column(
+                                  children: [
+                                    Text("${getLiveMessagesModel.data?[reverseIndex].message.toString()}",
+                                        maxLines: 3, overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left, style: TextStyle(
+                                            fontSize: 14, color: kBlack, fontFamily: poppinLight)),
+                                   SizedBox(height: 03),
+                                    Text("${getLiveMessagesModel.data?[reverseIndex].time.toString()} ${getLiveMessagesModel.data?[reverseIndex].date.toString()}",
+                                        maxLines: 1, overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left, style: TextStyle(
+                                            fontSize: 10, color: kBlack, fontFamily: poppinLight)),
+                                  ],
+                                ),
+                              ),
                             ),
-                            padding:EdgeInsets.all(10),
-                            child: getLiveMessagesModel.data?[index].senderType == "Users"
-                                ? Column(
-                              children: [
-                                Text("${getLiveMessagesModel.data?[index].message.toString()}",
-                                    maxLines: 3, overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left, style: TextStyle(
-                                        fontSize: 14, fontFamily: poppinLight, color: kWhite)),
-                               SizedBox(height: 03),
-                                Text("${getLiveMessagesModel.data?[index].time.toString()} ${getLiveMessagesModel.data?[index].date.toString()}",
-                                    maxLines: 1, overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left, style: TextStyle(
-                                        fontSize: 10, color: kWhite, fontFamily: poppinLight)),
-                              ],
-                            ) :
-                            Column(
-                              children: [
-                                Text("${getLiveMessagesModel.data?[index].message.toString()}",
-                                    maxLines: 3, overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left, style: TextStyle(
-                                        fontSize: 14, color: kBlack, fontFamily: poppinLight)),
-                               SizedBox(height: 03),
-                                Text("${getLiveMessagesModel.data?[index].time.toString()} ${getLiveMessagesModel.data?[index].date.toString()}",
-                                    maxLines: 1, overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left, style: TextStyle(
-                                        fontSize: 10, color: kBlack, fontFamily: poppinLight)),
-                              ],
-                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                )  : Container(
+                  height: MediaQuery.of(context).size.height * 0.78,
+        ),
+
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Container(
+                    padding:EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                    height: 65,
+                    child: Row(
+                      children: <Widget>[
+                        sendMessageTextFields(),
+                       SizedBox(width: 05),
+                        FloatingActionButton(
+                          onPressed: () async {
+                            final currentFocus = FocusScope.of(context);
+                            if (!currentFocus.hasPrimaryFocus &&
+                                currentFocus.focusedChild != null) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            }
+                            if(sendMessageFormKey.currentState!.validate()){
+                              if (sendMessageController.text.isEmpty) {
+                                toastFailedMessage('please type a message', kRed);
+                              } else{
+                                setState(() {
+                                  loading = true;
+                                });
+                                await sendMessageApiWidget();
+                                Future.delayed(Duration(seconds: 3), () {
+                                  print("sendMessage Success");
+                                  // toastSuccessMessage("Message sent successfully2.", colorGreen);
+                                  setState(() {
+                                    loading = false;
+                                  });
+                                  print("false: $loading");
+                                });
+                              }
+                            }
+                          },
+                          backgroundColor: borderColor,
+                          elevation: 0,
+                          child: Image.asset(
+                            'assets/live_chat_images/send.png',
+                            height: 30,
+                            width: 30,
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Container(
-                padding:EdgeInsets.only(left: 10, bottom: 10, top: 10),
-                height: 65,
-                child: Row(
-                  children: <Widget>[
-                    sendMessageTextFields(),
-                   SizedBox(width: 05),
-                    FloatingActionButton(
-                      onPressed: () async {
-                        if(sendMessageFormKey.currentState!.validate()){
-                          if (sendMessageController.text.isEmpty) {
-                            toastFailedMessage('please type a message', kRed);
-                          } else{
-                            setState(() {
-                              progress = true;
-                            });
-                            await sendMessageApiWidget();
-                            Future.delayed(Duration(seconds: 3), () {
-                              print("sendMessage Success");
-                              // toastSuccessMessage("Message sent successfully2.", colorGreen);
-                              setState(() {
-                                progress = false;
-                                sendMessageController.clear();
-                              });
-                              print("false: $progress");
-                            });
-                          }
-                        }
-                      },
-                      backgroundColor: borderColor,
-                      elevation: 0,
-                      child: Image.asset(
-                        'assets/live_chat_images/send.png',
-                        height: 30,
-                        width: 30,
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -244,9 +275,9 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
   }
 
   allLiveChatApiWidget() async {
-    setState(() {
-      loading = true;
-    });
+    // setState(() {
+    //   loading = true;
+    // });
     Map body = {
       "requestType": "getMessages",
       "users_customers_id": userId,
@@ -267,15 +298,15 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
         loading = false;
       });
     }
-      setState(() {
-        loading = false;
-        updateChatApiWidget();
-      });
+      // setState(() {
+      //   loading = false;
+      // });
   }
 
   sendMessageApiWidget() async {
-    loading = true;
-    setState(() {});
+    setState(() {
+      loading = true;
+    });
     // try {
       String apiUrl = sendLiveMsgApiUrl;
       print("sendLiveMsgApiUrl $sendLiveMsgApiUrl");
@@ -296,57 +327,16 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
       print('statusCodeSendMessage ${response.statusCode}');
 
       if (response.statusCode == 200) {
+        sendMessageController.clear();
         final responseString = response.body;
         print("sendMessageResponse: ${responseString.toString()}");
         sendLiveMessagesModel = sendLiveMessagesModelFromJson(responseString);
         print("sendMessage: ${sendLiveMessagesModel.message}");
       }
-    // } catch (e) {
-    //   print('Error in  "messageType": "1",: ${e.toString()}');
-    // }
     setState(() {
       loading = false;
       allLiveChatApiWidget();
     });
   }
 
-  updateChatApiWidget() async {
-    // setState(() {
-    //   loading = true;
-    // });
-    Map body = {
-      "requestType": "updateMessages",
-      "users_customers_id": userId,
-      "other_users_customers_id": "${widget.adminId}",
-    };
-    http.Response response = await http.post(Uri.parse(updateLiveMsgApiUrl),
-        body: body,
-        headers: {
-          "Accept": "application/json"
-        });
-    Map jsonData = jsonDecode(response.body);
-    print("updateMessageApiUrl: $updateMessageApiUrl");
-    print('updateMessageApiResponse $jsonData');
-
-    if (jsonData['message'] == 'no chat found') {
-      // toastSuccessMessage("no chat found", kRed);
-      print('no chat found');
-      // setState(() {
-      //   loading = false;
-      // });
-    }
-    else if (response.statusCode == 200) {
-      for (int i = 0; i < jsonData['data'].length; i++) {
-        Map<String, dynamic> obj = jsonData['data'][i];
-        print(obj['id']);
-        var pos = UpdateLiveMessagesModel();
-        pos = UpdateLiveMessagesModel.fromJson(obj);
-        updateMessageModelObject.add(pos);
-        print("updateLiveMessagesLength: ${updateMessageModelObject.length}");
-        // setState(() {
-        //   loading = false;
-        // });
-      }
-    }
-  }
 }
