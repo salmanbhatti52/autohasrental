@@ -1,4 +1,5 @@
 import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/EvSubscriptions/ev_car_description.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
@@ -253,135 +254,231 @@ class _FavoritePageState extends State<FavoritePage> {
                     double price = double.parse(priceString);
                     NumberFormat format = NumberFormat('#,##0.00', 'en_US');
                     String formattedPrice = format.format(price);
-                    return Container(
-                      height: Get.height * 0.18,
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Positioned(
-                            bottom: 0,
-                            child: Container(
-                              width: Get.width * 0.9,
-                              height: Get.height * 0.15,
-                              margin: EdgeInsets.only(bottom: 10),
-                              decoration: BoxDecoration(
-                                color: kWhite,
-                                borderRadius: BorderRadius.circular(30),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: Offset(3, 3),
-                                  ),
-                                ],
+                    return GestureDetector(
+                      onTap: () {
+                        carID = favoriteCarModelObject.data?[index].carsId;
+                        if (favoriteCarModelObject.data?[index].carsUsageType == "EV Subscriptions") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EVCarDescription(
+                                carName: favoriteCarModelObject.data?[index].vehicalName,
+                                carPrice: formattedPrice,
+                                carImageModel: favoriteCarModelObject.data?[index].objectImage,
+                                carImage: favoriteCarModelObject
+                                    .data![index].image1!
+                                    .endsWith('.jpg') ||
+                                    favoriteCarModelObject
+                                        .data![index].image1!
+                                        .endsWith('.png') ||
+                                    favoriteCarModelObject
+                                        .data![index].image1!
+                                        .endsWith('.jpeg')
+                                    ? "$baseUrlImage${favoriteCarModelObject.data?[index].image1}"
+                                    : favoriteCarModelObject
+                                    .data?[index].image1,
+                                carYear:
+                                "${favoriteCarModelObject.data![index].year}",
+                                carId: favoriteCarModelObject
+                                    .data![index].carsId,
+                                carRating: favoriteCarModelObject
+                                    .data![index].rating,
+                                carColorName: favoriteCarModelObject
+                                    .data![index].carsColors!.name,
+                                carMakesName: favoriteCarModelObject
+                                    .data![index].carsMakes!.name,
+                                carModelName: favoriteCarModelObject
+                                    .data![index].carsModels!.name,
+                                carMakesImage:
+                                "$baseUrlImage${favoriteCarModelObject.data![index].carsMakes!.image}",
+                                discountPercentage:
+                                favoriteCarModelObject
+                                    .data![index]
+                                    .discountPercentage,
+                                carDiscountPrice: formattedPrice,
+                                carOwnerImage:
+                                "$baseUrlImage${favoriteCarModelObject.data![index].usersCompanies!.companyLogo}",
+                                carOwnerName:
+                                "${favoriteCarModelObject.data![index].usersCompanies!.companyName}",
+                                carOwnerId: favoriteCarModelObject
+                                    .data![index]
+                                    .usersCompanies!
+                                    .usersCompaniesId,
+                                myCarDescription:
+                                favoriteCarModelObject
+                                    .data![index].description,
+                                favouriteStatus:
+                                favoriteCarModelObject
+                                    .data![index].favouriteStatus,
+                                featureSuv: favoriteCarModelObject
+                                    .data![index].featuresSuv,
+                                featuresDoors:
+                                favoriteCarModelObject
+                                    .data![index].featuresDoors,
+                                featuresSeats:
+                                favoriteCarModelObject
+                                    .data![index].featuresSeats,
+                                featuresAutomatic:
+                                favoriteCarModelObject
+                                    .data![index]
+                                    .featuresAutomatic,
+                                featuresSpeed:
+                                favoriteCarModelObject
+                                    .data![index].featuresSpeed,
+                                featuresElectric:
+                                favoriteCarModelObject
+                                    .data![index]
+                                    .featuresElectric,
+                                featuresEngine_capacity:
+                                favoriteCarModelObject
+                                    .data![index]
+                                    .featuresEngineCapacity,
+                                featuresFuelCapacity:
+                                favoriteCarModelObject
+                                    .data![index]
+                                    .featuresFuelCapacity,
+                                featuresMeterReading:
+                                favoriteCarModelObject
+                                    .data![index]
+                                    .featuresMeterReading,
+                                featuresNewCars:
+                                favoriteCarModelObject
+                                    .data![index].featuresNewCars,
                               ),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 18.0, top: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "${favoriteCarModelObject.data?[index].vehicalName}",
-                                            style: TextStyle(
-                                              color: kBlack,
-                                              fontSize: 14,
-                                              fontFamily: poppinBold,
+                            ),
+                          );
+                        }
+                      },
+                      child: Container(
+                        height: Get.height * 0.18,
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Positioned(
+                              bottom: 0,
+                              child: Container(
+                                width: Get.width * 0.9,
+                                height: Get.height * 0.15,
+                                margin: EdgeInsets.only(bottom: 10),
+                                decoration: BoxDecoration(
+                                  color: kWhite,
+                                  borderRadius: BorderRadius.circular(30),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: Offset(3, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 18.0, top: 10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              "${favoriteCarModelObject.data?[index].vehicalName}",
+                                              style: TextStyle(
+                                                color: kBlack,
+                                                fontSize: 14,
+                                                fontFamily: poppinBold,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            "${favoriteCarModelObject.data?[index].year}",
-                                            style: TextStyle(
-                                              color: textLabelColor,
-                                              fontSize: 14,
-                                              fontFamily: poppinSemiBold,
+                                            Text(
+                                              "${favoriteCarModelObject.data?[index].year}",
+                                              style: TextStyle(
+                                                color: textLabelColor,
+                                                fontSize: 14,
+                                                fontFamily: poppinSemiBold,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              left: 40,
+                              bottom: 20,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "RM ",
+                                    style: TextStyle(
+                                      color: kBlack,
+                                      fontSize: 14,
+                                      fontFamily: poppinSemiBold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${formattedPrice}",
+                                    style: TextStyle(
+                                      color: kBlack,
+                                      fontSize: 14,
+                                      fontFamily: poppinSemiBold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "/Month",
+                                    style: TextStyle(
+                                      color: textLabelColor,
+                                      fontSize: 14,
+                                      fontFamily: poppinSemiBold,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                          Positioned(
-                            left: 40,
-                            bottom: 20,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "RM ",
-                                  style: TextStyle(
-                                    color: kBlack,
-                                    fontSize: 14,
-                                    fontFamily: poppinSemiBold,
-                                  ),
-                                ),
-                                Text(
-                                  "${formattedPrice}",
-                                  style: TextStyle(
-                                    color: kBlack,
-                                    fontSize: 14,
-                                    fontFamily: poppinSemiBold,
-                                  ),
-                                ),
-                                Text(
-                                  "/Month",
-                                  style: TextStyle(
-                                    color: textLabelColor,
-                                    fontSize: 14,
-                                    fontFamily: poppinSemiBold,
-                                  ),
-                                ),
-                              ],
+                            Positioned(
+                              right: 50,
+                              bottom: 20,
+                              child: GestureDetector(
+                                            onTap: () async {
+                                              carID = favoriteCarModelObject.data![index].carsId;
+                                              print("selectedCarId $carID");
+                                              await getLikeUnlikeCarWidget();
+                                              getFavoriteCarWidget();
+                                            },
+                                            child: Image.asset("assets/home_page/heart.png", width: 50, height: 50,),),
                             ),
-                          ),
-                          Positioned(
-                            right: 50,
-                            bottom: 20,
-                            child: GestureDetector(
-                                          onTap: () async {
-                                            carID = favoriteCarModelObject.data![index].carsId;
-                                            print("selectedCarId $carID");
-                                            await getLikeUnlikeCarWidget();
-                                            getFavoriteCarWidget();
-                                          },
-                                          child: Image.asset("assets/home_page/heart.png", width: 50, height: 50,),),
-                          ),
-                          Positioned(
-                            left: 30,
-                            top: -45,
-                            child: favoriteCarModelObject
-                                .data?[index].image1 ==
-                                null
-                                ? Padding(
-                              padding: const EdgeInsets.only(top: 80.0),
-                              child: Image.asset(
-                                'assets/icon/fade_in_image.jpeg',
-                                width: 50,
-                                height: 50,
-                              ),
-                            )
-                                : FadeInImage(
-                              placeholder: AssetImage(
-                                "assets/icon/fade_in_image.jpeg",
-                              ),
-                              width: 180,
-                              height: 180,
-                              image: NetworkImage(
-                                "$baseUrlImage${favoriteCarModelObject.data?[index].image1}",
+                            Positioned(
+                              left: 30,
+                              top: -45,
+                              child: favoriteCarModelObject
+                                  .data?[index].image1 ==
+                                  null
+                                  ? Padding(
+                                padding: const EdgeInsets.only(top: 80.0),
+                                child: Image.asset(
+                                  'assets/icon/fade_in_image.jpeg',
+                                  width: 50,
+                                  height: 50,
+                                ),
+                              )
+                                  : FadeInImage(
+                                placeholder: AssetImage(
+                                  "assets/icon/fade_in_image.jpeg",
+                                ),
+                                width: 180,
+                                height: 180,
+                                image: NetworkImage(
+                                  "$baseUrlImage${favoriteCarModelObject.data?[index].image1}",
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                     //   Stack(

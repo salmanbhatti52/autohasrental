@@ -309,14 +309,14 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                     color: Colors.transparent,
                     child: Stack(
                       children: [
-                        Image.asset(
-                          'assets/car_description_images/circle.png',
-                          fit: BoxFit.fill,
-                          height: 300,
-                          width: 400,
-                        ),
+                        // Image.asset(
+                        //   'assets/car_description_images/circle.png',
+                        //   fit: BoxFit.fill,
+                        //   height: 300,
+                        //   width: 400,
+                        // ),
                         Positioned(
-                          bottom: -20,
+                          bottom: -80,
                           left: 0,
                           right: 0,
                           child: widget.carImageModel!.endsWith('.jpg') ||
@@ -325,7 +325,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                               ? Image.network("${widget.carImage}",
                                   fit: BoxFit.fill, height: 150, width: 180)
                               : Container(
-                                  height: 335,
+                                  height: 400,
                                   child: ModelViewer(
                                     backgroundColor: Colors.transparent,
                                     src: '${widget.carImageModel}',

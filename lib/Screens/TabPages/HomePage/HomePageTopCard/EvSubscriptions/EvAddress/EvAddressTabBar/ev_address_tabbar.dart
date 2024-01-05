@@ -142,8 +142,8 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
                 ),
 
                 EvBillingAddress(
-                  startDate: widget.startDate,
-                  endDate: widget.endDate,
+                  startDate: widget.evStartDate,
+                  endDate: widget.evEndDate,
                   setupCost: widget.setupCost.toString(),
                   mySelectedTabMonth: widget.mySelectedTabMonth,
                   mySelectedTabPrice: widget.mySelectedTabPrice,

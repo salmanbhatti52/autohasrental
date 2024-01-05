@@ -475,7 +475,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                                                 setupCost: "",
                                                 evStartDate: evStartDate,
                                                 mileagePlanID: widget.mileagePlanID,
-                                                evEndDate: enddate1,
+                                                evEndDate: evEndDate,
                                                 // evDatum: widget.evDatum,
                                                 mySelectedTabMonth: tabMonth,
                                                 mySelectedTabPrice: tabPrice,
@@ -794,7 +794,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
 
   int? totalDaysOfMonth;
   Future<void> selectStartDateWidget(BuildContext context) async {
-    totalDaysOfMonth = int.parse("$tabMonth") * 30;
+    totalDaysOfMonth = (int.parse("$tabMonth") * 30.4167).toInt();
     print("totalDaysOfMonth $totalDaysOfMonth");
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -916,9 +916,9 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                 ),
             InkWell(
                 onTap: () {
-                  selectEndDateWidget(context);
+                  // selectEndDateWidget(context);
                 },
-                child: enddate1 == null
+                child: evEndDate == null
                     ? Container(
                         height: 40,
                         width: 120,

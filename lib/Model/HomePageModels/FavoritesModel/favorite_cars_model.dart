@@ -32,6 +32,7 @@ class Datum {
     this.licensePlate,
     this.discountPercentage,
     this.carsUsageType,
+    this.objectImage,
     this.carsTypeId,
     this.carsMakesId,
     this.carsModelsId,
@@ -76,6 +77,7 @@ class Datum {
   String? carsUsageType;
   int? carsTypeId;
   int? carsMakesId;
+  String? objectImage;
   int? carsModelsId;
   int? year;
   int? carsColorsId;
@@ -116,6 +118,7 @@ class Datum {
     licensePlate: json["license_plate"],
     discountPercentage: json["discount_percentage"],
     carsUsageType: json["cars_usage_type"],
+    objectImage: json["object_image"],
     carsTypeId: json["cars_type_id"],
     carsMakesId: json["cars_makes_id"],
     carsModelsId: json["cars_models_id"],
@@ -171,6 +174,7 @@ class Datum {
     "features_automatic": featuresAutomatic,
     "features_drives": featuresDrives,
     "features_doors": featuresDoors,
+    "object_image": objectImage,
     "features_electric": featuresElectric,
     "features_engine_capacity": featuresEngineCapacity,
     "features_fuel_capacity": featuresFuelCapacity,

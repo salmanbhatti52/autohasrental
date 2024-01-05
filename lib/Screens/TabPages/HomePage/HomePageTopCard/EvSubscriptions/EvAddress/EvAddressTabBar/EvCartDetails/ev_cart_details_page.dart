@@ -382,7 +382,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                           borderRadius: BorderRadius.circular(10)),
                                       child: Center(
                                         child: Text(
-                                          "${widget.startDate}",
+                                          "${widget.evStartDate}",
                                           style: TextStyle(color: kWhite, fontSize: 16),
                                         ),
                                       ),
@@ -399,7 +399,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                                           borderRadius: BorderRadius.circular(10)),
                                       child: Center(
                                         child: Text(
-                                          "${widget.endDate}",
+                                          "${widget.evEndDate}",
                                           style: TextStyle(color: kWhite, fontSize: 16),
                                         ),
                                       ),
@@ -622,12 +622,12 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                           ),
                         ))
                     : Positioned( top: 0, left: 20, child: SizedBox()),
-                    Positioned(
-                        top: 0, right: 20,
-                        child: widget.favouriteStatus == 'like'?
-                        Image.asset("assets/home_page/heart.png") :
-                        Image.asset("assets/car_bookings_images/heart.png"),
-                    ),
+                    // Positioned(
+                    //     top: 0, right: 20,
+                    //     child: widget.favouriteStatus == 'like'?
+                    //     Image.asset("assets/home_page/heart.png") :
+                    //     Image.asset("assets/car_bookings_images/heart.png"),
+                    // ),
                   ],
                 ),
               ),

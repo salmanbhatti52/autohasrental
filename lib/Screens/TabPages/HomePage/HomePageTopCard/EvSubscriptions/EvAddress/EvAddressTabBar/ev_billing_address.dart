@@ -100,8 +100,8 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
 
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => EvCartDetailsPage(
-                          startDate: widget.startDate,
-                          endDate: widget.endDate,
+                          startDate: widget.evStartDate,
+                          endDate: widget.evEndDate,
                           // myDatum: widget.myDatum,
                           setupCost: widget.setupCost,
                           mileagePlanID: widget.mileagePlanID,
@@ -181,8 +181,8 @@ class _EvBillingAddressState extends State<EvBillingAddress> {
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => EvCartDetailsPage(
-                            startDate: widget.startDate,
-                            endDate: widget.endDate,
+                            startDate: widget.evStartDate,
+                            endDate: widget.evEndDate,
                             setupCost: widget.setupCost,
                             mySelectedTabMonth: widget.mySelectedTabMonth,
                             mySelectedTabPrice: widget.mySelectedTabPrice,
