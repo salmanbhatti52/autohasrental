@@ -114,9 +114,9 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
       if (response.statusCode == 200) {
         final responseString = response.body;
         print("evSubscriptionResponse: ${responseString.toString()}");
-        // loadingP = false;
-        setState(() {});
         evCarsModelObject = evCarsModelFromJson(responseString);
+        loadingP = false;
+        setState(() {});
         print("evCarsLength: ${evCarsModelObject.data?.length}");
         getUnreadNotificationWidget();
         // searchController.clear();
@@ -124,8 +124,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
     // } catch (e) {
     //   print('Error in evSubscription: ${e.toString()}');
     // }
-    loadingP = false;
-    setState(() {});
+    // loadingP = false;
+    // setState(() {});
   }
 
   getUnreadNotificationWidget() async {
@@ -233,12 +233,8 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
       body: SingleChildScrollView(
             child: Column(
               children: [
-
                 carMakersListWidget(),
-
-                loadingP ? Center(child: CircularProgressIndicator(color: Colors.transparent)) :
                 allEvSubscriptionItemsList(),
-
               ],
             ),
           )
@@ -307,8 +303,10 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
         child: loadingP ? Center(child: CircularProgressIndicator(color: borderColor)) :
         evCarsModelObject.status != "success" ?
          Center(child: Text('No Cars Found.',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))):
-        // search.isEmpty?
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,
+            ),
+         ),
+         ):
         ListView.builder(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
@@ -489,20 +487,49 @@ class _EvSubscriptionPageState extends State<EvSubscriptionPage> {
                     Positioned(
                       left: 20,
                       top: -35,
-                      child: evCarsModelObject.data?[index].image1 == null
-                          ? Padding(
-                        padding: const EdgeInsets.only(top: 80.0),
-                        child: Image.asset('assets/icon/fade_in_image.jpeg', width: 50,
-                          height: 50, ),
-                      )
-                          :FadeInImage(
-                        placeholder: AssetImage(
-                          "assets/icon/fade_in_image.jpeg",),
+                      child: SizedBox(
                         width: 180,
                         height: 180,
-                        image: NetworkImage(
-                          "$baseUrlImage${evCarsModelObject.data?[index].image1}",),
+                        child: Image.network(
+                          '$baseUrlImage${evCarsModelObject.data?[index].image1}',
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace? stackTrace) {
+                            return Container(
+                              child: Image.asset(
+                                  'assets/icon/fade_in_image.jpeg'),
+                            );
+                          },
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: borderColor,
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
+                        ),
                       ),
+                      // evCarsModelObject.data?[index].image1 == null
+                      //     ? Padding(
+                      //   padding: const EdgeInsets.only(top: 80.0),
+                      //   child: Image.asset('assets/icon/fade_in_image.jpeg', width: 50,
+                      //     height: 50, ),
+                      // )
+                      //     :FadeInImage(
+                      //   placeholder: AssetImage(
+                      //     "assets/icon/fade_in_image.jpeg",),
+                      //   width: 180,
+                      //   height: 180,
+                      //   image: NetworkImage(
+                      //     "$baseUrlImage${evCarsModelObject.data?[index].image1}",),
+                      // ),
                     ),
                   ],
                 ),

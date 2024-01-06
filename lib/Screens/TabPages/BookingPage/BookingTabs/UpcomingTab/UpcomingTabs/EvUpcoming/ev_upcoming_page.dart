@@ -285,20 +285,50 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                         Positioned(
                           left: 30,
                           top: -45,
-                          child: evUpcomingModelObject.data![reversedIndex].carsDetails!.image1 == null
-                              ? Padding(
-                            padding: const EdgeInsets.only(top: 80.0),
-                            child: Image.asset('assets/icon/fade_in_image.jpeg', width: 50,
-                              height: 50, ),
-                          )
-                              :FadeInImage(
-                            placeholder: AssetImage(
-                              "assets/icon/fade_in_image.jpeg",),
+                          child: SizedBox(
                             width: 180,
                             height: 180,
-                            image: NetworkImage(
-                              "$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",),
+                            child: Image.network(
+                              '$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}',
+                              errorBuilder: (BuildContext context, Object exception,
+                                  StackTrace? stackTrace) {
+                                return Container(
+                                  child: Image.asset(
+                                      'assets/icon/fade_in_image.jpeg'),
+                                );
+                              },
+                              loadingBuilder: (BuildContext context, Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                }
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    color: borderColor,
+                                    value: loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
+
+                          // evUpcomingModelObject.data![reversedIndex].carsDetails!.image1 == null
+                          //     ? Padding(
+                          //   padding: const EdgeInsets.only(top: 80.0),
+                          //   child: Image.asset('assets/icon/fade_in_image.jpeg', width: 50,
+                          //     height: 50, ),
+                          // )
+                          //     :FadeInImage(
+                          //   placeholder: AssetImage(
+                          //     "assets/icon/fade_in_image.jpeg",),
+                          //   width: 180,
+                          //   height: 180,
+                          //   image: NetworkImage(
+                          //     "$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}",),
+                          // ),
                         ),
                       ],
                     ),

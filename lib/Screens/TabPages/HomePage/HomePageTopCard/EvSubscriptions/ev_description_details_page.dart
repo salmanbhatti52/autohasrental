@@ -779,13 +779,13 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
               ),
             ))
             : SizedBox(),
-        Positioned(
-          top: 28,
-          right: 27,
-          child: widget.favouriteStatus == 'like'
-              ? Image.asset("assets/home_page/heart.png")
-              : Image.asset("assets/car_bookings_images/heart.png"),
-        ),
+        // Positioned(
+        //   top: 28,
+        //   right: 27,
+        //   child: widget.favouriteStatus == 'like'
+        //       ? Image.asset("assets/home_page/heart.png")
+        //       : Image.asset("assets/car_bookings_images/heart.png"),
+        // ),
       ],
     );
   }

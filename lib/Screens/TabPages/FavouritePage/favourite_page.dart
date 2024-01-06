@@ -455,27 +455,57 @@ class _FavoritePageState extends State<FavoritePage> {
                             Positioned(
                               left: 30,
                               top: -45,
-                              child: favoriteCarModelObject
-                                  .data?[index].image1 ==
-                                  null
-                                  ? Padding(
-                                padding: const EdgeInsets.only(top: 80.0),
-                                child: Image.asset(
-                                  'assets/icon/fade_in_image.jpeg',
-                                  width: 50,
-                                  height: 50,
-                                ),
-                              )
-                                  : FadeInImage(
-                                placeholder: AssetImage(
-                                  "assets/icon/fade_in_image.jpeg",
-                                ),
+                              child: SizedBox(
                                 width: 180,
                                 height: 180,
-                                image: NetworkImage(
-                                  "$baseUrlImage${favoriteCarModelObject.data?[index].image1}",
+                                child: Image.network(
+                                  '$baseUrlImage${favoriteCarModelObject.data?[index].image1}',
+                                  errorBuilder: (BuildContext context, Object exception,
+                                      StackTrace? stackTrace) {
+                                    return Container(
+                                      child: Image.asset(
+                                          'assets/icon/fade_in_image.jpeg'),
+                                    );
+                                  },
+                                  loadingBuilder: (BuildContext context, Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    }
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        color: borderColor,
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
+
+                              // favoriteCarModelObject
+                              //     .data?[index].image1 ==
+                              //     null
+                              //     ? Padding(
+                              //   padding: const EdgeInsets.only(top: 80.0),
+                              //   child: Image.asset(
+                              //     'assets/icon/fade_in_image.jpeg',
+                              //     width: 50,
+                              //     height: 50,
+                              //   ),
+                              // )
+                              //     : FadeInImage(
+                              //   placeholder: AssetImage(
+                              //     "assets/icon/fade_in_image.jpeg",
+                              //   ),
+                              //   width: 180,
+                              //   height: 180,
+                              //   image: NetworkImage(
+                              //     "$baseUrlImage${favoriteCarModelObject.data?[index].image1}",
+                              //   ),
+                              // ),
                             ),
                           ],
                         ),
@@ -797,27 +827,57 @@ class _FavoritePageState extends State<FavoritePage> {
                           Positioned(
                             left: 30,
                             top: -45,
-                            child: favoriteCarModelObject
-                                .data?[index].image1 ==
-                                null
-                                ? Padding(
-                              padding: const EdgeInsets.only(top: 80.0),
-                              child: Image.asset(
-                                'assets/icon/fade_in_image.jpeg',
-                                width: 50,
-                                height: 50,
-                              ),
-                            )
-                                : FadeInImage(
-                              placeholder: AssetImage(
-                                "assets/icon/fade_in_image.jpeg",
-                              ),
+                            child: SizedBox(
                               width: 180,
                               height: 180,
-                              image: NetworkImage(
-                                "$baseUrlImage${favoriteCarModelObject.data?[index].image1}",
+                              child: Image.network(
+                                '$baseUrlImage${favoriteCarModelObject.data?[index].image1}',
+                                errorBuilder: (BuildContext context, Object exception,
+                                    StackTrace? stackTrace) {
+                                  return Container(
+                                    child: Image.asset(
+                                        'assets/icon/fade_in_image.jpeg'),
+                                  );
+                                },
+                                loadingBuilder: (BuildContext context, Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  }
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      color: borderColor,
+                                      value: loadingProgress.expectedTotalBytes != null
+                                          ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                          : null,
+                                    ),
+                                  );
+                                },
                               ),
                             ),
+
+                            // favoriteCarModelObject
+                            //     .data?[index].image1 ==
+                            //     null
+                            //     ? Padding(
+                            //   padding: const EdgeInsets.only(top: 80.0),
+                            //   child: Image.asset(
+                            //     'assets/icon/fade_in_image.jpeg',
+                            //     width: 50,
+                            //     height: 50,
+                            //   ),
+                            // )
+                            //     : FadeInImage(
+                            //   placeholder: AssetImage(
+                            //     "assets/icon/fade_in_image.jpeg",
+                            //   ),
+                            //   width: 180,
+                            //   height: 180,
+                            //   image: NetworkImage(
+                            //     "$baseUrlImage${favoriteCarModelObject.data?[index].image1}",
+                            //   ),
+                            // ),
                           ),
                         ],
                       ),
