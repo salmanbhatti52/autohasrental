@@ -1,3 +1,5 @@
+import 'package:flutter_stripe/flutter_stripe.dart';
+
 import 'Utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -7,9 +9,13 @@ import 'Screens/Splash/splash_screen.dart';
 
     // Flutter Version :: 3.7.8 //
 
-void main() => runApp(
-      MyApp(),
-    );
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = 'pk_test_51MCIlnAKaZkeJzUqrlMsIfqg6yVEmZTVGGqCImU2CFSejO1BDBykgCK2ue7C1LAg65WARxcXPKtMujKUAYvKStWY0025YZd14E';
+  Stripe.merchantIdentifier = 'MYR';
+  await Stripe.instance.applySettings();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});

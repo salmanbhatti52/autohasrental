@@ -37,6 +37,7 @@ dependencies:
   sizer: ^2.0.15
   model_viewer_plus: ^1.5.1
   url_launcher: ^6.1.10
+  flutter_stripe: ^9.1.1
 
 
 flutter_icons:

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart'as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -634,53 +635,28 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
               SizedBox(height: 10),
               GestureDetector(
                   onTap: () async {
-                    // bottomSheetWidget(context);
+                    // if(formKeyCheckOut.currentState!.validate()){
+                    //   setState(() {
+                    //     isInAsyncCall = true;
+                    //   });
+                    //   if(image == null){
+                    //     toastFailedMessage("image error", kRed);
+                    //     setState(() {
+                    //       isInAsyncCall = false;
+                    //     });
+                    //   }
+                    //   await checkOutWidget();
+                    //     Future.delayed(Duration(seconds: 3), () {
+                    //       Navigator.push(context, MaterialPageRoute(
+                    //           builder: (context) => TabBarPage(),),);
+                    //       setState(() {
+                    //         isInAsyncCall = false;
+                    //       });
+                    //       print("false: $isInAsyncCall");
+                    //     });
+                    // }
 
-                    if(formKeyCheckOut.currentState!.validate()){
-                      setState(() {
-                        isInAsyncCall = true;
-                      });
-                      if(image == null){
-                        toastFailedMessage("image error", kRed);
-                        setState(() {
-                          isInAsyncCall = false;
-                        });
-                      }
-                      await checkOutWidget();
-
-                      // if (evCheckOutModelObject.status == "success") {
-                      //   print("booking Success");
-                      //   Future.delayed(Duration(seconds: 3), () {
-                      //     // toastSuccessMessage("CheckOut Successful ", Colors.green);
-                      //
-                      //     Navigator.push(context, MaterialPageRoute(
-                      //         builder: (context) => TabBarPage()));
-                      //     setState(() {
-                      //       isInAsyncCall = false;
-                      //     });
-                      //     print("false: $isInAsyncCall");
-                      //   });
-                      // }
-                      // // if (evCheckOutModelObject.status != "success") {
-                      // //   setState(() {
-                      // //     isInAsyncCall = false;
-                      // //   });
-                      // //   print("bookingErrorMessage: bookingError");
-                      // //   toastFailedMessage("${evCheckOutModelObject.status}", kRed);
-                      // // }
-
-
-                        Future.delayed(Duration(seconds: 3), () {
-
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => TabBarPage()));
-                          setState(() {
-                            isInAsyncCall = false;
-                          });
-                          print("false: $isInAsyncCall");
-                        });
-                    }
-
+                    await makePayment();
                   },
                   child: loginButton("Check out", context)),
               SizedBox(height: 10,),
@@ -690,4 +666,113 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
       ),
     );
   }
+
+  Map<String, dynamic>? paymentIntent;
+
+  createPaymentIntent() async {
+    try {
+      Map<String, dynamic> body = {
+        'amount': "1000",
+        'currency': "MYR",
+      };
+
+      var response = await http.post(
+        Uri.parse('https://api.stripe.com/v1/payment_intents'),
+        headers: {
+          'Authorization':
+          'Bearer sk_test_51MCIlnAKaZkeJzUqFf0vOzFKEuQVelqjMu5tLr15EdTn8fo3LHLlSfH96hxBhCwy6oJqWC68kBql5GBQ3kaWTl0o000mzoqWFH',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: body,
+      );
+      var decoded = json.decode(response.body);
+      print('response api: ${decoded["id"]}');
+      print('response api: ${decoded["amount"]}');
+
+      return json.decode(response.body);
+    } catch (err) {
+      throw Exception(err.toString());
+    }
+  }
+
+  displayPaymentSheet() async {
+    try {
+       await Stripe.instance.presentPaymentSheet();
+        //     (value) async {
+        //   var response;
+        //
+        //   openLoadingDialog(context, "buying");
+        //   response = await DioService.post('user_purchase_tickets_google_pay', {
+        //     "eventPostId": widget.transactionDetailModel.eventPostId,
+        //     "userId": widget.transactionDetailModel.usersId,
+        //     "token": tokenStripe,
+        //     "totalAmount": totalAmount.toStringAsFixed(2),
+        //     "stripeFees": stripeFees,
+        //     "conneventFees": connEventFees,
+        //     if (widget.transactionDetailModel.discount != null)
+        //       "discount": widget.transactionDetailModel.discount,
+        //     "payment_status": "succeeded",
+        //     "paymentType": widget.transactionDetailModel.paymentType,
+        //     "purchasedTickets": widget.transactionDetailModel.purchasedTickets,
+        //   });
+        //
+        //   if (response['status'] == "success") {
+        //     var purchasedDetail = response;
+        //     PurchasedTicket purchased =
+        //     PurchasedTicket.fromJson(purchasedDetail);
+        //     print(purchased);
+        //     Navigator.of(context).pop();
+        //     showSuccessToast(
+        //         "Congratulations! Ticket has been successfully purchased");
+        //     //  CustomNavigator.pushReplacement(context, TabsPage());
+        //     CustomNavigator.navigateTo(
+        //         context,
+        //         RefundTicketPage(
+        //           purchasedData: purchased,
+        //           totalAmount: totalAmount.toStringAsFixed(2),
+        //           event: widget.event,
+        //         ));
+        //   } else if (response['status'] == "error") {
+        //     print(response);
+        //     Navigator.of(context).pop();
+        //     showErrorToast(response['message']);
+        //   }
+        // },
+      // ).onError((error, stackTrace) {
+      //   print('Error is:--->$error $stackTrace');
+      // });
+    // } on StripeException catch (e) {
+    //   print('Error is:---> $e');
+    //   showDialog(
+    //       context: context,
+    //       builder: (_) => const AlertDialog(
+    //         content: Text("Cancelled "),
+    //       ));
+    }
+    catch (e) {
+      print('$e');
+    }
+  }
+
+  Future<void> makePayment() async {
+    try {
+      paymentIntent = await createPaymentIntent();
+
+      var gpay = const PaymentSheetGooglePay(
+          merchantCountryCode: "MYR", currencyCode: "MYR", testEnv: true);
+      await Stripe.instance
+          .initPaymentSheet(
+          paymentSheetParameters: SetupPaymentSheetParameters(
+              paymentIntentClientSecret: paymentIntent![
+              'client_secret'],
+              style: ThemeMode.light,
+              merchantDisplayName: 'Hammad',
+              googlePay: gpay))
+          .then((value) {});
+      displayPaymentSheet();
+    } catch (err) {
+      print(err);
+    }
+  }
+
 }
