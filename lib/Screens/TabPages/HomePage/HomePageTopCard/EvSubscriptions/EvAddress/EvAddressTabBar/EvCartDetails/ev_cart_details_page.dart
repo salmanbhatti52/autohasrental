@@ -10,7 +10,6 @@ import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Utils/cookies_utils.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:intl/intl.dart';
@@ -214,7 +213,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
         backImage: "assets/messages_images/Back.png",
       ),
       body: ModalProgressHUD(
-        inAsyncCall: isInAsyncCall,
+        inAsyncCall: loader,
         opacity: 0.02,
         blur: 0.5,
         color: Colors.transparent,
@@ -635,28 +634,20 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
               SizedBox(height: 10),
               GestureDetector(
                   onTap: () async {
-                    // if(formKeyCheckOut.currentState!.validate()){
-                    //   setState(() {
-                    //     isInAsyncCall = true;
-                    //   });
-                    //   if(image == null){
-                    //     toastFailedMessage("image error", kRed);
-                    //     setState(() {
-                    //       isInAsyncCall = false;
-                    //     });
-                    //   }
-                    //   await checkOutWidget();
-                    //     Future.delayed(Duration(seconds: 3), () {
-                    //       Navigator.push(context, MaterialPageRoute(
-                    //           builder: (context) => TabBarPage(),),);
-                    //       setState(() {
-                    //         isInAsyncCall = false;
-                    //       });
-                    //       print("false: $isInAsyncCall");
-                    //     });
-                    // }
-
-                    await makePayment();
+                    if(formKeyCheckOut.currentState!.validate()){
+                      // setState(() {
+                      //   isInAsyncCall = true;
+                      // });
+                      if(image == null){
+                        toastFailedMessage("image error", kRed);
+                        // setState(() {
+                        //   isInAsyncCall = false;
+                        // });
+                      } else{
+                        await makePayment();
+                      }
+                    }
+                    // await makePayment();
                   },
                   child: loginButton("Check out", context)),
               SizedBox(height: 10,),
@@ -668,12 +659,24 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
   }
 
   Map<String, dynamic>? paymentIntent;
+  String? tokenStripe;
 
-  createPaymentIntent() async {
+  String calculateAmount(String? amount) {
+    int parsedAmount = int.parse(amount?.replaceAll(',', '') ?? "0");
+
+    int parsedTotalAmount = int.parse(myTotalAmount?.replaceAll(',', '') ?? "0");
+
+    int result = (parsedAmount * parsedTotalAmount).toInt();
+
+    return result.toString();
+  }
+
+
+  createPaymentIntent(String amount, String currency) async {
     try {
       Map<String, dynamic> body = {
-        'amount': "1000",
-        'currency': "MYR",
+        'amount': calculateAmount(amount),
+        'currency': currency,
       };
 
       var response = await http.post(
@@ -689,6 +692,8 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
       print('response api: ${decoded["id"]}');
       print('response api: ${decoded["amount"]}');
 
+      tokenStripe = decoded["id"];
+
       return json.decode(response.body);
     } catch (err) {
       throw Exception(err.toString());
@@ -697,69 +702,112 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
 
   displayPaymentSheet() async {
     try {
-       await Stripe.instance.presentPaymentSheet();
-        //     (value) async {
-        //   var response;
-        //
-        //   openLoadingDialog(context, "buying");
-        //   response = await DioService.post('user_purchase_tickets_google_pay', {
-        //     "eventPostId": widget.transactionDetailModel.eventPostId,
-        //     "userId": widget.transactionDetailModel.usersId,
-        //     "token": tokenStripe,
-        //     "totalAmount": totalAmount.toStringAsFixed(2),
-        //     "stripeFees": stripeFees,
-        //     "conneventFees": connEventFees,
-        //     if (widget.transactionDetailModel.discount != null)
-        //       "discount": widget.transactionDetailModel.discount,
-        //     "payment_status": "succeeded",
-        //     "paymentType": widget.transactionDetailModel.paymentType,
-        //     "purchasedTickets": widget.transactionDetailModel.purchasedTickets,
-        //   });
-        //
-        //   if (response['status'] == "success") {
-        //     var purchasedDetail = response;
-        //     PurchasedTicket purchased =
-        //     PurchasedTicket.fromJson(purchasedDetail);
-        //     print(purchased);
-        //     Navigator.of(context).pop();
-        //     showSuccessToast(
-        //         "Congratulations! Ticket has been successfully purchased");
-        //     //  CustomNavigator.pushReplacement(context, TabsPage());
-        //     CustomNavigator.navigateTo(
-        //         context,
-        //         RefundTicketPage(
-        //           purchasedData: purchased,
-        //           totalAmount: totalAmount.toStringAsFixed(2),
-        //           event: widget.event,
-        //         ));
-        //   } else if (response['status'] == "error") {
-        //     print(response);
-        //     Navigator.of(context).pop();
-        //     showErrorToast(response['message']);
-        //   }
-        // },
-      // ).onError((error, stackTrace) {
-      //   print('Error is:--->$error $stackTrace');
-      // });
-    // } on StripeException catch (e) {
-    //   print('Error is:---> $e');
-    //   showDialog(
-    //       context: context,
-    //       builder: (_) => const AlertDialog(
-    //         content: Text("Cancelled "),
-    //       ));
-    }
-    catch (e) {
+      var response1 = await Stripe.instance.presentPaymentSheet().then(
+            (value) async {
+              setState(() {
+                loader = true;
+              });
+              var request = http.MultipartRequest('POST', Uri.parse(checkOutDrivingApiUrl));
+              String? formattedTotalAmount = myTotalAmount?.replaceAll(',', '');
+              String? formattedPerMonth = myDiscountedAmount?.replaceAll(',', '');
+              print("Formatted total amount: $formattedTotalAmount");
+              myTotalAmount = formattedTotalAmount;
+              myDiscountedAmount = formattedPerMonth;
+              print(myTotalAmount);
+
+              Map<String, String> headers = {
+                'Accept' : 'application/json',
+                'Cookie': cookieCheckOutDrivingApi,
+              };
+              print("apiRequest: $request");
+              request.fields['users_customers_id'] = '$userId';
+              request.fields['cars_id'] = '$carID';
+              request.fields['plan_start_date'] = widget.evStartDate!;
+              request.fields['plans_mileage_id'] = widget.mileagePlanID.toString();
+              request.fields['plan_end_date'] = widget.evEndDate!;
+              request.fields['months'] = "$myMonth";
+              request.fields['price_per_month'] = "$formattedPerMonth";
+              request.fields['discount_percentage'] = "${widget.discountPercentage}";
+              request.fields['total_cost'] = "$formattedTotalAmount";
+              request.fields['addresses'] = "$addressAvailableStatus";
+              request.fields['home_street_address_line1'] = "${widget.homeAddress1}";
+              request.fields['home_street_address_line2'] = "${widget.homeAddress2}";
+              request.fields['home_city'] = "${widget.homeCity}";
+              request.fields['home_post_code'] = "${widget.homePostCode}";
+              request.fields['home_state'] = "${widget.homeState}";
+              request.fields['home_country'] = "${widget.homeCountry}";
+              request.fields['billing_street_address_line1']= "${widget.billingAddress1}";
+              request.fields['billing_street_address_line2']= "${widget.billingAddress2}";
+              request.fields['billing_city'] = "${widget.billingCity}";
+              request.fields['billing_post_code'] = "${widget.billingPostCode}";
+              request.fields['billing_state'] = "${widget.billingState}";
+              request.fields['billing_country'] = "${widget.billingCountry}";
+              request.fields['driving_license'] =  base64img!;
+
+              // request.files.add(
+              //   http.MultipartFile(
+              //     'driving_license',
+              //     image!.readAsBytes().asStream(),
+              //     image!.lengthSync(),
+              //     filename: image!.path.split('/').last,
+              //   ),
+              // );
+
+              request.headers.addAll(headers);
+              print("request: $request");
+              print('usersId: $userId');
+              print('carsId: $carID');
+              print('plan_start_date: ${widget.evStartDate}');
+              print('plan_end_date: ${widget.evEndDate}');
+              print('months: $myMonth');
+              print('totalCost: $formattedTotalAmount');
+              print('pricePerHour: $formattedPerMonth');
+              print('discountPercentage: ${widget.discountPercentage}');
+              print("homeAddress: ${widget.homeAddress1} ${widget.homeAddress2}");
+              print("addressAvailableStatus $addressAvailableStatus");
+              print("homePostCity: ${widget.homeCity} ${widget.homePostCode}");
+              print("homeState: ${widget.homeState} ${widget.homeCountry}");
+              print("billingAddress: ${widget.billingAddress1} ${widget.billingAddress2}");
+              print("billingPostCity: ${widget.billingCity} ${widget.billingPostCode}");
+              print("billingState: ${widget.billingState} ${widget.billingCountry}");
+              print('licenseImage: ${base64img}');
+
+              var res = await request.send();
+              http.Response response = await http.Response.fromStream(res);
+              final resJson = jsonDecode(response.body);
+              print("jsonResponseCheckOutApi $resJson");
+              // Future.delayed(Duration(seconds: 3), () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => TabBarPage(),),);
+                // setState(() {
+                //   isInAsyncCall = false;
+                // });
+                // print("false: $isInAsyncCall");
+              // });
+              setState(() {
+                loader = false;
+              });
+            }).onError((error, stackTrace) {
+        print('Error is:--->$error $stackTrace');
+      });
+    } on StripeException catch (e) {
+      print('Error is:---> $e');
+      showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+            content: Text("Cancelled "),
+          ));
+    } catch (e) {
       print('$e');
     }
   }
 
   Future<void> makePayment() async {
     try {
-      paymentIntent = await createPaymentIntent();
+      paymentIntent = await createPaymentIntent('100', 'MYR');
 
       var gpay = const PaymentSheetGooglePay(
-          merchantCountryCode: "MYR", currencyCode: "MYR", testEnv: true);
+          merchantCountryCode: "RM", currencyCode: "RM", testEnv: true);
       await Stripe.instance
           .initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
