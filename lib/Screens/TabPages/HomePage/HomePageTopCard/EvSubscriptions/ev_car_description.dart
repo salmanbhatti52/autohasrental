@@ -383,10 +383,11 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                               child: Text(mileagePlan.plansMileageDescription.toString(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: kBlack,
+                                      color: isSelected  ? kWhite : kBlack,
                                       fontSize: 14,
                                       fontFamily: poppinMedium
-                                  )),
+                                  ),
+                              ),
                             ),
                           ),
                         ),
@@ -498,7 +499,6 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                         child: TabBar(
                           controller: tabController,
                           indicator: BoxDecoration(
-                            // color: selectedIndex == ? borderColor: kWhite,
                             color: borderColor,
                             borderRadius: BorderRadius.circular(15.0),
                           ),
@@ -556,13 +556,13 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                                           ? Text(
                                               "${getMonthPlansModel.data?[index].months.toString()} month",
                                               style: TextStyle(
-                                                  color: kBlack,
+                                                  // color: kBlack,
                                                   fontSize: 17,
                                                   fontFamily: poppinMedium))
                                           : Text(
                                               "${getMonthPlansModel.data?[index].months.toString()} months",
                                               style: TextStyle(
-                                                  color: kBlack,
+                                                  // color: kBlack,
                                                   fontSize: 17,
                                                   fontFamily: poppinMedium)),
                                       Text(
@@ -571,7 +571,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontFamily: poppinRegular,
-                                            color: kBlack,
+                                            // color: kBlack,
                                           )),
                                     ],
                                   ),

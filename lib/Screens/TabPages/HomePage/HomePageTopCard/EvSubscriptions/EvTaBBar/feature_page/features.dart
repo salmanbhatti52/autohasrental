@@ -1,30 +1,51 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Features extends StatefulWidget {
+  final String? featureSuv,
+      featuresSeats,
+      featuresSpeed,
+      featuresDoors,
+      featuresAutomatic,
+      featuresElectric,
+      featuresEngine_capacity,
+      featuresFuelCapacity,
+      featuresMeterReading,
+      featuresNewCars;
 
-  final String? featureSuv, featuresSeats, featuresSpeed, featuresDoors,
-      featuresAutomatic,  featuresElectric, featuresEngine_capacity,
-      featuresFuelCapacity, featuresMeterReading, featuresNewCars;
-
-  Features({super.key, this.featureSuv, this.featuresSeats, this.featuresSpeed,
-    this.featuresAutomatic, this.featuresDoors, this.featuresElectric, this.featuresEngine_capacity,
-    this.featuresFuelCapacity, this.featuresMeterReading, this.featuresNewCars});
+  Features(
+      {super.key,
+      this.featureSuv,
+      this.featuresSeats,
+      this.featuresSpeed,
+      this.featuresAutomatic,
+      this.featuresDoors,
+      this.featuresElectric,
+      this.featuresEngine_capacity,
+      this.featuresFuelCapacity,
+      this.featuresMeterReading,
+      this.featuresNewCars});
 
   @override
   State<Features> createState() => _FeaturesState();
 }
 
 class _FeaturesState extends State<Features> {
+  String? featureSuv,
+      featuresSeats,
+      featuresSpeed,
+      featuresAutomatic,
+      featuresDoors,
+      featuresElectric,
+      featuresEngineCapacity,
+      featuresFuelCapacity,
+      featuresMeterReading,
+      featuresNewCars;
 
-  String? featureSuv, featuresSeats, featuresSpeed, featuresAutomatic,
-      featuresDoors, featuresElectric, featuresEngineCapacity,
-      featuresFuelCapacity, featuresMeterReading, featuresNewCars;
-
-  getData(){
+  getData() {
     featureSuv = widget.featureSuv;
     featuresSeats = widget.featuresSeats;
     featuresSpeed = widget.featuresSpeed;
@@ -59,21 +80,23 @@ class _FeaturesState extends State<Features> {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          featureTextWidget("\u2022", "Drive this car up to 1,250 KM/month", context),
-          featureTextWidget("\u2022", "Comprehensive insurance", context),
-          featureTextWidget("\u2022", "Road tax", context),
-          featureTextWidget("\u2022", "Regularly scheduled maintenance", context),
-          featureTextWidget("\u2022", "Concierge service", context),
-          featureTextWidget("\u2022", "24/7 nationwide roadside assistance", context),
-          featureTextWidget("\u2022", "Ability to swap a car", context),
-          featureTextWidget("\u2022", "Anti-theft system", context),
-          featureTextWidget("\u2022", "Independently rated car inspection", context),
-           SizedBox(height: 10),
+          // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          // featureTextWidget("\u2022", "Drive this car up to 1,250 KM/month", context),
+          // featureTextWidget("\u2022", "Comprehensive insurance", context),
+          // featureTextWidget("\u2022", "Road tax", context),
+          // featureTextWidget("\u2022", "Regularly scheduled maintenance", context),
+          // featureTextWidget("\u2022", "Concierge service", context),
+          // featureTextWidget("\u2022", "24/7 nationwide roadside assistance", context),
+          // featureTextWidget("\u2022", "Ability to swap a car", context),
+          // featureTextWidget("\u2022", "Anti-theft system", context),
+          // featureTextWidget("\u2022", "Independently rated car inspection", context),
+          //  SizedBox(height: 10),
 
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Container(
               // width: MediaQuery.of(context).size.width * 0.48,
               child: SingleChildScrollView(
@@ -81,19 +104,55 @@ class _FeaturesState extends State<Features> {
                 physics: BouncingScrollPhysics(),
                 child: Row(
                   children: [
-                    carFeaturesData('assets/car_description_images/car_engine.svg', "Engine Capacity", '$featuresEngineCapacity' ),
-                    SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_door.svg', "Doors", '$featuresDoors' ),
-                    SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_seat.svg', "Seats", '$featuresSeats' ),
-                    SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_speed.svg', "Speed", '$featuresSpeed' ),
-                    SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_reading.svg', "Meter Reading", "$featuresMeterReading"),
-                    SizedBox(width: 5,),
-                    carFeaturesData('assets/car_description_images/car_mileage.svg', "Fuel Capacity", '$featuresFuelCapacity' ),
+                    carFeaturesData(
+                        'assets/car_description_images/car_engine.svg',
+                        "Engine Capacity",
+                        '$featuresEngineCapacity'),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    carFeaturesData(
+                        'assets/car_description_images/car_door.svg',
+                        "Doors",
+                        '$featuresDoors'),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    carFeaturesData(
+                        'assets/car_description_images/car_seat.svg',
+                        "Seats",
+                        '$featuresSeats'),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    carFeaturesData(
+                        'assets/car_description_images/car_speed.svg',
+                        "Speed",
+                        '$featuresSpeed'),
                   ],
                 ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              child: Row(
+                children: [
+                  carFeaturesData(
+                      'assets/car_description_images/car_reading.svg',
+                      "Meter Reading",
+                      "$featuresMeterReading"),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  carFeaturesData(
+                      'assets/car_description_images/car_mileage.svg',
+                      "Fuel Capacity",
+                      '$featuresFuelCapacity'),
+                ],
               ),
             ),
           ),
@@ -102,7 +161,8 @@ class _FeaturesState extends State<Features> {
     );
   }
 
-  Widget carFeaturesData(String featureImage, String featureName, String featureName2){
+  Widget carFeaturesData(
+      String featureImage, String featureName, String featureName2) {
     // return Row(
     //   crossAxisAlignment: CrossAxisAlignment.start,
     //   children: [
@@ -122,52 +182,75 @@ class _FeaturesState extends State<Features> {
     //   ],
     // );
     return Container(
-      width: MediaQuery.of(context).size.width * 0.35,
-      height: MediaQuery.of(context).size.height * 0.07,
+      width: MediaQuery.of(context).size.width * 0.28,
+      height: MediaQuery.of(context).size.height * 0.11,
       decoration: BoxDecoration(
         color: borderColor,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(featureName,
-        textAlign: TextAlign.center, style: TextStyle(
-          fontSize: 12, fontFamily: poppinMedium, color: kWhite),),
-        SizedBox(height: 5,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset(featureImage,
-                height: 20, width: 20),
-            SizedBox(width: 5,),
-            Text(featureName2,
-              textAlign: TextAlign.left, style: TextStyle(
-                  fontSize: 15, fontFamily: poppinMedium, color: kWhite),
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            featureName,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+              fontFamily: poppinMedium,
+              color: kWhite,
             ),
-          ],
-        ),
-      ],
-    ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                featureImage,
+                height: 30,
+                width: 30,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                featureName2,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontFamily: poppinMedium,
+                  color: kWhite,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
   Widget featureTextWidget(text1, text2, context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          Text(text1,
-            style: TextStyle(
-                fontSize: 30, fontFamily: poppinRegular, height: 0.8),
+          Text(
+            text1,
+            style:
+                TextStyle(fontSize: 30, fontFamily: poppinRegular, height: 0.8),
           ), //bullet text
-           SizedBox(width: 10), //space between bullet and text
+          SizedBox(width: 10), //space between bullet and text
           Expanded(
-            child: Text(text2, style: TextStyle(
-                fontSize: 12, fontFamily: poppinRegular,
-                color: kBlack, height: 0.8,
+            child: Text(
+              text2,
+              style: TextStyle(
+                fontSize: 12,
+                fontFamily: poppinRegular,
+                color: kBlack,
+                height: 0.8,
               ),
             ), //text
           ),
@@ -180,10 +263,10 @@ class _FeaturesState extends State<Features> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.33,
       width: double.infinity,
-      padding:  EdgeInsets.only(left: 20, right: 20),
+      padding: EdgeInsets.only(left: 20, right: 20),
       child: GridView.builder(
-          physics:  NeverScrollableScrollPhysics(),
-          gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 150,
               childAspectRatio: 3,
               crossAxisSpacing: 8.5,
@@ -196,16 +279,20 @@ class _FeaturesState extends State<Features> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:  EdgeInsets.only(top: 2),
+                      padding: EdgeInsets.only(top: 2),
                       child: Image.asset(cardItemsList[index].imageUrl,
-                        height: 20, width: 34),
+                          height: 20, width: 34),
                     ),
                     SizedBox(width: 6),
                     Padding(
                       padding: EdgeInsets.only(top: 4),
-                      child: Text(cardItemsList[index].title,
-                        textAlign: TextAlign.left, style: TextStyle(
-                            fontSize: 13, fontFamily: poppinMedium, color: kBlack),
+                      child: Text(
+                        cardItemsList[index].title,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 13,
+                            fontFamily: poppinMedium,
+                            color: kBlack),
                       ),
                     )
                   ],

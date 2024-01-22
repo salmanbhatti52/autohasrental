@@ -21,55 +21,23 @@ class TabbarCarDescription extends StatefulWidget {
   State<TabbarCarDescription> createState() => _TabbarCarDescriptionState();
 }
 
-abstract class TickerProvider {}
-
-class _TabbarCarDescriptionState extends State<TabbarCarDescription>
-    with TickerProviderStateMixin {
-  List<String> tabs = ["Description", "Features"];
-  int selectedIndex = 0;
+class _TabbarCarDescriptionState extends State<TabbarCarDescription>{
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 2, vsync: this);
-
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 05),
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 48,
-              decoration: BoxDecoration(
-                  color: Color(0xffd4dce1),
-                  borderRadius: BorderRadius.circular(30)),
-              child: Padding(
-                padding: EdgeInsets.all(5),
-                child: TabBar(
-                  controller: tabController,
-                  indicator: BoxDecoration(
-                    color: kWhite,
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  indicatorColor: kWhite,
-                  // isScrollable: true,
-                  labelColor: kBlack,
-                  labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),
-                  unselectedLabelColor: kBlack,
-                  tabs: [
-                    Tab(text: "Description"),
-                    Tab(text: "Features"),
-                  ],
-                ),
-              )),
-        ),
+        Container(
+            width: MediaQuery.of(context).size.width,
+            height: 30,
+            child: Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Text("Features", style: TextStyle(fontSize: 16, color: kBlack, fontWeight: FontWeight.bold, fontFamily: poppinRegular),),
+            ),),
         SizedBox(
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height * 0.28,
-          child: TabBarView(
-            controller: tabController,
-            children: [
-              Description(carDescription: widget.myDescription),
-              Features(
+          height: MediaQuery.of(context).size.height * 0.25,
+          child: Features(
                 featureSuv: widget.featureSuv,
                 featuresDoors: widget.featuresDoors,
                 featuresSeats: widget.featuresSeats,
@@ -81,9 +49,6 @@ class _TabbarCarDescriptionState extends State<TabbarCarDescription>
                 featuresNewCars: widget.featuresNewCars,
                 featuresFuelCapacity: widget.featuresFuelCapacity,
               ),
-              // EvRating(),
-            ]
-          ),
         ),
       ],
     );
