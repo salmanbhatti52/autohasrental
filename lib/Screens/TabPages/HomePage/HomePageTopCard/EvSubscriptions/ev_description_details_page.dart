@@ -83,6 +83,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
    perMonthCalculate(){
      double value1 = double.parse(widget.mySelectedTabMonth.toString());
      double value2 = double.parse(widget.mySelectedTabPrice.toString());
+     print("mySelectedTabPrice ${widget.mySelectedTabPrice.toString()}");
      double perMonths = value2;
      // double perMonths = value2 / value1;
      String formattedPerMonth = perMonths.toStringAsFixed(2);

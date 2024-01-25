@@ -525,7 +525,8 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                               months = double.parse(monthsString.toString());
                               pricePerMonth = double.parse(pricePerMonthString);
                               if (months != null && pricePerMonth != null) {
-                                double calculatedPrice = months * pricePerMonth;
+                                double calculatedPrice = pricePerMonth;
+                                // double calculatedPrice = months * pricePerMonth;
                                 final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
                                 formattedPrice = numberFormat.format(calculatedPrice);
                                 print("RM $formattedPrice");

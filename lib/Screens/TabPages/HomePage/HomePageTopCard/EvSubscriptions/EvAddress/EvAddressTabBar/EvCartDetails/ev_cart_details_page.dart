@@ -660,11 +660,12 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
 
   Map<String, dynamic>? paymentIntent;
   String? tokenStripe;
+  int totalAmount = 1000;
 
   String calculateAmount(String? amount) {
     int parsedAmount = int.parse(amount?.replaceAll(',', '') ?? "0");
 
-    int parsedTotalAmount = int.parse(myTotalAmount?.replaceAll(',', '') ?? "0");
+    int parsedTotalAmount = totalAmount;
 
     int result = (parsedAmount * parsedTotalAmount).toInt();
 
