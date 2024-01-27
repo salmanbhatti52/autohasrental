@@ -405,6 +405,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                 child: tabsList(),
               ),
             ),
+
             TabbarCarDescription(
               myDescription: widget.myCarDescription,
               myRating: widget.myCarRating,
@@ -656,6 +657,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
         selectedMileagePlan = getMileagePlansModel.data![0].plansMileageDescription;
         print("getMileagePlansLength: ${getMileagePlansModel.data!.length}");
         monthSelect();
+        getFeaturesData();
       }
     } catch (e) {
       print('Error in getMileagePlans: ${e.toString()}');
@@ -695,6 +697,41 @@ class _EVCarDescriptionState extends State<EVCarDescription>
       }
     } catch (e) {
       print('Error in getMonthPlans: ${e.toString()}');
+    }
+  }
+
+  List getFeatures = [];
+  bool isLoading = false;
+
+  getFeaturesData() async {
+    setState(() {
+      isLoading = true;
+    });
+    String getFeaturesApiUrl = 'https://autohauscarrental.eigix.net/api/getCarFeatures';
+    http.Response response = await http.post(
+      Uri.parse(getFeaturesApiUrl),
+      headers: {"Accept": "application/json"},
+      body: {
+        "cars_id": widget.carId.toString(),
+      },
+    );
+    if (mounted) {
+      setState(() {
+        if (response.statusCode == 200) {
+          var jsonResponse = json.decode(response.body);
+          if (jsonResponse['data'] != null &&
+              jsonResponse['data'] is List<dynamic>) {
+            getFeatures = jsonResponse['data'];
+            debugPrint("getFeatures: $getFeatures");
+            isLoading = false;
+          } else {
+            isLoading = false;
+          }
+        } else {
+          debugPrint("Response Bode::${response.body}");
+          isLoading = false;
+        }
+      });
     }
   }
 
