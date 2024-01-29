@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,7 +57,7 @@ class EVCarDescription extends StatefulWidget {
   EVCarDescription(
       {super.key,
       this.carName,
-        this.carImageModel,
+      this.carImageModel,
       this.myCarDescription,
       this.favouriteStatus,
       this.myCarRating,
@@ -353,47 +355,55 @@ class _EVCarDescriptionState extends State<EVCarDescription>
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 10),
               child: SizedBox(
-                width:  MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.07,
                 child: getMileagePlansModel.data != null
                     ? ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: getMileagePlansModel.data!.length,
-                    itemBuilder: (context, index) {
-                      bool isSelected = selectedMileagePlan == getMileagePlansModel.data![index].plansMileageDescription;
-                      var mileagePlan = getMileagePlansModel.data![index];
-                      return GestureDetector(
-                          onTap: () {
-                            selectedMileagePlan = getMileagePlansModel.data?[index].plansMileageDescription;
-                            mileagePlanID = getMileagePlansModel.data?[index].plansMileageId;
-                            selectMileageIndex = getMileagePlansModel.data![index].plansMileageId!.toInt();
-                            monthSelect();
-                          },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            height: MediaQuery.of(context).size.height * 0.07,
-                            decoration: BoxDecoration(
-                              color: isSelected  ? borderColor : kWhite,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: getMileagePlansModel.data!.length,
+                        itemBuilder: (context, index) {
+                          bool isSelected = selectedMileagePlan ==
+                              getMileagePlansModel
+                                  .data![index].plansMileageDescription;
+                          var mileagePlan = getMileagePlansModel.data![index];
+                          return GestureDetector(
+                            onTap: () {
+                              selectedMileagePlan = getMileagePlansModel
+                                  .data?[index].plansMileageDescription;
+                              mileagePlanID = getMileagePlansModel
+                                  .data?[index].plansMileageId;
+                              selectMileageIndex = getMileagePlansModel
+                                  .data![index].plansMileageId!
+                                  .toInt();
+                              monthSelect();
+                            },
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(mileagePlan.plansMileageDescription.toString(),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: isSelected  ? kWhite : kBlack,
-                                      fontSize: 14,
-                                      fontFamily: poppinMedium
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.07,
+                                decoration: BoxDecoration(
+                                  color: isSelected ? borderColor : kWhite,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    mileagePlan.plansMileageDescription
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: isSelected ? kWhite : kBlack,
+                                        fontSize: 14,
+                                        fontFamily: poppinMedium),
                                   ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      );
-                    }
-                )
+                          );
+                        })
                     : SizedBox(),
               ),
             ),
@@ -405,21 +415,134 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                 child: tabsList(),
               ),
             ),
+            // TabbarCarDescription(
+            //   myDescription: widget.myCarDescription,
+            //   myRating: widget.myCarRating,
+            //   myComment: widget.myCarComment,
+            //   featureSuv: widget.featureSuv,
+            //   featuresDoors: widget.featuresDoors,
+            //   featuresSeats: widget.featuresSeats,
+            //   featuresAutomatic: widget.featuresAutomatic,
+            //   featuresSpeed: widget.featuresSpeed,
+            //   featuresElectric: widget.featuresElectric,
+            //   featuresEngine_capacity: widget.featuresEngine_capacity,
+            //   featuresMeterReading: widget.featuresMeterReading,
+            //   featuresNewCars: widget.featuresNewCars,
+            //   featuresFuelCapacity: widget.featuresFuelCapacity,
+            // ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 30,
+              child: Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: Text(
+                  "Features",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: kBlack,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: poppinRegular),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: SizedBox(
+                width: double.maxFinite,
+                // height: MediaQuery.of(context).size.height * 0.11,
+                child: isLoading
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.11,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: borderColor,
+                          ),
+                        ),
+                      )
+                    : Column(
+                  children: List.generate(
+                    (getFeatures.length / 3).ceil(), // Calculate the number of rows
+                        (rowIndex) {
+                      int startIndex = rowIndex * 3;
+                      int endIndex = (rowIndex + 1) * 3;
+                      endIndex = endIndex > getFeatures.length ? getFeatures.length : endIndex;
 
-            TabbarCarDescription(
-              myDescription: widget.myCarDescription,
-              myRating: widget.myCarRating,
-              myComment: widget.myCarComment,
-              featureSuv: widget.featureSuv,
-              featuresDoors: widget.featuresDoors,
-              featuresSeats: widget.featuresSeats,
-              featuresAutomatic: widget.featuresAutomatic,
-              featuresSpeed: widget.featuresSpeed,
-              featuresElectric: widget.featuresElectric,
-              featuresEngine_capacity: widget.featuresEngine_capacity,
-              featuresMeterReading: widget.featuresMeterReading,
-              featuresNewCars: widget.featuresNewCars,
-              featuresFuelCapacity: widget.featuresFuelCapacity,
+                      return Row(
+                        children: List.generate(
+                          endIndex - startIndex,
+                              (index) {
+                            int currentIndex = startIndex + index;
+
+                            return Container(
+                              width: MediaQuery.of(context).size.width * 0.28,
+                              height: MediaQuery.of(context).size.height * 0.11,
+                              margin: EdgeInsets.only(left: index == 0 ? 0 : 5, bottom: index == 0 ? 5 : 0),
+                              decoration: BoxDecoration(
+                                color: borderColor,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    getFeatures[currentIndex]["features_name"],
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontFamily: poppinMedium,
+                                      color: kWhite,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 40,
+                                    height: 40,
+                                    child: Image.network(
+                                      '$baseUrlImage${getFeatures[currentIndex]["features_icon"]}',
+                                      color: kBlack,
+                                      errorBuilder: (BuildContext context, Object exception,
+                                          StackTrace? stackTrace) {
+                                        return Container(
+                                          child: Image.asset(
+                                              'assets/icon/fade_in_image.jpeg'),
+                                        );
+                                      },
+                                      loadingBuilder: (BuildContext context, Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            color: kBlack,
+                                            value: loadingProgress.expectedTotalBytes != null
+                                                ? loadingProgress.cumulativeBytesLoaded /
+                                                loadingProgress.expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  Text(
+                                    getFeatures[currentIndex]["features_value"],
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: poppinMedium,
+                                      color: kWhite,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
             ),
             GestureDetector(
                 onTap: () {
@@ -436,8 +559,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                           getMileagePlansModel: getMileagePlansModel.data,
                           // setupCost: getMonthPlansModel.data?[0].setupCost,
                           mileagePlanID: mileagePlanID == null
-                              ? getMileagePlansModel
-                              .data![0].plansMileageId
+                              ? getMileagePlansModel.data![0].plansMileageId
                               : mileagePlanID,
                           selectedMileagePlan: selectedMileagePlan == null
                               ? getMileagePlansModel
@@ -516,20 +638,25 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                           },
                           tabs: List<Widget>.generate(
                               getMonthPlansModel.data!.length, (int index) {
-                            var monthsString = getMonthPlansModel.data?[index].months;
-                            var pricePerMonthString = getMonthPlansModel.data?[index].pricePerMonth;
+                            var monthsString =
+                                getMonthPlansModel.data?[index].months;
+                            var pricePerMonthString =
+                                getMonthPlansModel.data?[index].pricePerMonth;
                             print("Months $monthsString");
                             print("Months $pricePerMonthString");
                             double pricePerMonth;
                             double months;
-                            if (pricePerMonthString != null && monthsString != null) {
+                            if (pricePerMonthString != null &&
+                                monthsString != null) {
                               months = double.parse(monthsString.toString());
                               pricePerMonth = double.parse(pricePerMonthString);
                               if (months != null && pricePerMonth != null) {
                                 double calculatedPrice = pricePerMonth;
                                 // double calculatedPrice = months * pricePerMonth;
-                                final numberFormat = NumberFormat.decimalPattern(); // Creates a number format with commas for thousands
-                                formattedPrice = numberFormat.format(calculatedPrice);
+                                final numberFormat = NumberFormat
+                                    .decimalPattern(); // Creates a number format with commas for thousands
+                                formattedPrice =
+                                    numberFormat.format(calculatedPrice);
                                 print("RM $formattedPrice");
                               } else {
                                 print("Invalid price format");
@@ -567,8 +694,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                                                   // color: kBlack,
                                                   fontSize: 17,
                                                   fontFamily: poppinMedium)),
-                                      Text(
-                                          "RM ${formattedPrice}",
+                                      Text("RM ${formattedPrice}",
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                             fontSize: 14,
@@ -654,7 +780,8 @@ class _EVCarDescriptionState extends State<EVCarDescription>
         final responseString = response.body;
         print("getMileagePlansResponse: ${responseString.toString()}");
         getMileagePlansModel = getMileagePlansModelFromJson(responseString);
-        selectedMileagePlan = getMileagePlansModel.data![0].plansMileageDescription;
+        selectedMileagePlan =
+            getMileagePlansModel.data![0].plansMileageDescription;
         print("getMileagePlansLength: ${getMileagePlansModel.data!.length}");
         monthSelect();
         getFeaturesData();
@@ -707,7 +834,8 @@ class _EVCarDescriptionState extends State<EVCarDescription>
     setState(() {
       isLoading = true;
     });
-    String getFeaturesApiUrl = 'https://autohauscarrental.eigix.net/api/getCarFeatures';
+    String getFeaturesApiUrl =
+        'https://autohauscarrental.eigix.net/api/getCarFeatures';
     http.Response response = await http.post(
       Uri.parse(getFeaturesApiUrl),
       headers: {"Accept": "application/json"},
@@ -754,8 +882,11 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                     borderRadius: BorderRadius.circular(25.0),
                   ),
                   onTap: (index) {
-                    selectedMileagePlan = getMileagePlansModel.data?[index].plansMileageDescription;
-                    selectMileageIndex = getMileagePlansModel.data![index].plansMileageId!.toInt();
+                    selectedMileagePlan = getMileagePlansModel
+                        .data?[index].plansMileageDescription;
+                    selectMileageIndex = getMileagePlansModel
+                        .data![index].plansMileageId!
+                        .toInt();
                     monthSelect();
                   },
                   tabs: List<Widget>.generate(getMileagePlansModel.data!.length,

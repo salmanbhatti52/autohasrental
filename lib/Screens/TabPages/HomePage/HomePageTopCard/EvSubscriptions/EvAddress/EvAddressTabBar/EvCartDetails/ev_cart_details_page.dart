@@ -649,7 +649,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                     }
                     // await makePayment();
                   },
-                  child: loginButton("Check out", context)),
+                  child: loginButton("Prebook Now", context)),
               SizedBox(height: 10,),
             ],
           ),
