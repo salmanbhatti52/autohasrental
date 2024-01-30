@@ -551,7 +551,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Container(
-            height: screenHeight * 0.4,
+            height: screenHeight * 0.35,
             decoration: BoxDecoration(
                 color: kWhite, borderRadius: BorderRadius.circular(20)),
           ),
@@ -706,7 +706,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
                           fontFamily: poppinSemiBold)),
                   SizedBox(height: screenHeight * 0.01),
                   Text(
-                      "This vehicle may take more than 7 days to deliver, based on vehicle’s availability",
+                      "This vehicle may take more than 7 days to deliver, based on\nvehicle’s availability",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           color: kBlack,

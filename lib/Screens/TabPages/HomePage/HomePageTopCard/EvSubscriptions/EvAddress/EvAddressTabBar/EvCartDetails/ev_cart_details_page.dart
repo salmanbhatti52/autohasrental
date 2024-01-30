@@ -672,7 +672,6 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     return result.toString();
   }
 
-
   createPaymentIntent(String amount, String currency) async {
     try {
       Map<String, dynamic> body = {
@@ -777,6 +776,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
               http.Response response = await http.Response.fromStream(res);
               final resJson = jsonDecode(response.body);
               print("jsonResponseCheckOutApi $resJson");
+              toastSuccessMessage("Payment Successful Check Your Email ", colorGreen);
               // Future.delayed(Duration(seconds: 3), () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => TabBarPage(),),);

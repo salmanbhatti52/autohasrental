@@ -446,7 +446,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: SizedBox(
                 width: double.maxFinite,
                 // height: MediaQuery.of(context).size.height * 0.11,
