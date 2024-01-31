@@ -647,7 +647,6 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                         await makePayment();
                       }
                     }
-                    // await makePayment();
                   },
                   child: loginButton("Prebook Now", context)),
               SizedBox(height: 10,),
@@ -661,6 +660,140 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
   Map<String, dynamic>? paymentIntent;
   String? tokenStripe;
   int totalAmount = 1000;
+
+  void showSuccessDialog() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: homeBgColor,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.check_circle,
+                            color: Colors.white,
+                            size: 50,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                      Text("Payment Successful Check Your Email",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: kBlack,
+                              fontSize: 20, fontFamily: poppinMedium)),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => TabBarPage(),),);
+                          },
+                          child: dialogButtonGradientSmall("OK", context),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+      );
+  }
+
+  void showFailedDialog() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: homeBgColor,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.add_alert,
+                            color: Colors.white,
+                            size: 50,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                      Text("Payment Unsuccessful Check Your Email",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: kBlack,
+                              fontSize: 20, fontFamily: poppinMedium,),),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => TabBarPage(),),);
+                          },
+                          child: dialogButtonGradientSmall("OK", context),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+      );
+  }
+
+  Widget dialogButtonGradientSmall(buttonText, context) {
+    return Center(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.06,
+        width: MediaQuery.of(context).size.width * 0.35,
+        decoration: BoxDecoration(
+          color: borderColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: Text(
+            buttonText,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: kWhite,
+              fontSize: 16,
+              fontFamily: 'Syne-Medium',
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
   String calculateAmount(String? amount) {
     int parsedAmount = int.parse(amount?.replaceAll(',', '') ?? "0");
@@ -776,28 +909,17 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
               http.Response response = await http.Response.fromStream(res);
               final resJson = jsonDecode(response.body);
               print("jsonResponseCheckOutApi $resJson");
-              toastSuccessMessage("Payment Successful Check Your Email ", colorGreen);
-              // Future.delayed(Duration(seconds: 3), () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => TabBarPage(),),);
-                // setState(() {
-                //   isInAsyncCall = false;
-                // });
-                // print("false: $isInAsyncCall");
-              // });
+              showSuccessDialog();
               setState(() {
                 loader = false;
               });
             }).onError((error, stackTrace) {
         print('Error is:--->$error $stackTrace');
+        showFailedDialog();
       });
     } on StripeException catch (e) {
       print('Error is:---> $e');
-      showDialog(
-          context: context,
-          builder: (_) => const AlertDialog(
-            content: Text("Cancelled "),
-          ));
+      showFailedDialog();
     } catch (e) {
       print('$e');
     }
@@ -819,9 +941,9 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
               googlePay: gpay))
           .then((value) {});
       displayPaymentSheet();
-    } catch (err) {
-      print(err);
+    } catch (stripeException) {
+      print('Stripe Exception: $stripeException');
+      showFailedDialog();
     }
   }
-
 }
