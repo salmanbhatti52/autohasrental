@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.1.1+4
+version: 1.2.1+5
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
@@ -21,7 +21,7 @@ dependencies:
   flutter_switch: ^0.3.2
   image_picker: ^0.8.5+3
   cron: ^0.5.1
-  cached_network_image: ^3.2.3
+  cached_network_image:
   flutter_rating_bar: ^4.0.1
   flutter_inappwebview: ^5.7.2+3
   country_state_picker:
