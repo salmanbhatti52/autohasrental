@@ -23,12 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
-	<key>NSCameraUsageDescription</key>
-    <string>Scan your card to add it automatically</string>
-    <key>NSCameraUsageDescription
-    &lt;string&gt;To scan cards&lt;/string&gt;</key>
-    <string>To scan cards</string>
+	<string>4</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sms</string>
@@ -36,6 +31,11 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Scan your card to add it automatically</string>
+	<key>NSCameraUsageDescription
+    &lt;string&gt;To scan cards&lt;/string&gt;</key>
+	<string>To scan cards</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>App needs access your microphone to get your conversation for car security</string>
 	<key>NSPhotoLibraryUsageDescription</key>
