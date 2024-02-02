@@ -1,18 +1,15 @@
 import 'package:intl/intl.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import '../../../../../Model/GetMileagePlansModel.dart';
 import 'EvAddress/ev_delivery_address.dart';
-import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:auto_haus_rental_app/Model/custom_subscription_model.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/MyAppBarHeader/app_bar_header.dart';

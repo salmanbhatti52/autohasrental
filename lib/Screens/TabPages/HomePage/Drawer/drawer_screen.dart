@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../Model/SettingsModel/ProfileModels/get_user_profile_model.dart';
 import 'Settings/AboutUs/about_us.dart';
-import 'Settings/LiveChat/live_chat_page.dart';
 import 'Settings/settings_screen.dart';
 import 'package:http/http.dart'as http;
 

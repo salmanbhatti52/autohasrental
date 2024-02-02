@@ -14,7 +14,6 @@ import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:auto_haus_rental_app/Widget/toast_message.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:auto_haus_rental_app/Model/HomePageModels/top_rented_cars_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_details_screen.dart';
 import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
 
 class HomeDrivingBooking extends StatefulWidget {

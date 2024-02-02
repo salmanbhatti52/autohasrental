@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:model_viewer_plus/model_viewer_plus.dart';
 import '../../../Model/filter_car_by_attribute_model.dart';
 import 'Drawer/drawer_screen.dart';
 import 'Filter/filter_screen.dart';
@@ -19,7 +18,6 @@ import 'Drawer/Settings/EditProfile/edit_profile_screen.dart';
 import 'package:auto_haus_rental_app/Model/search_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'HomePageTopCard/EvSubscriptions/ev_car_description.dart';
-import 'package:auto_haus_rental_app/Widget/cars_home_widget.dart';
 import 'package:auto_haus_rental_app/Model/HomePageModels/top_rented_cars_model.dart';
 import 'package:auto_haus_rental_app/Model/Notification/notifications_unread_model.dart';
 import 'package:auto_haus_rental_app/Model/SettingsModel/ProfileModels/get_user_profile_model.dart';

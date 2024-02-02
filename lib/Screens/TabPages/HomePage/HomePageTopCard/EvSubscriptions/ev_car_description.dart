@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,19 +7,14 @@ import 'package:model_viewer_plus/model_viewer_plus.dart';
 import '../../../../../Model/GetMileagePlansModel.dart';
 import '../../../../../Model/GetMonthPlansModel.dart';
 import 'ev_description_details_page.dart';
-import 'EvTaBBar/tabbar_description_page.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Widget/button.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:auto_haus_rental_app/Model/custom_subscription_model.dart';
-import 'package:auto_haus_rental_app/Screens/TabPages/MessagePage/message_details_screen.dart';
 import 'package:auto_haus_rental_app/Model/HomePageModels/FavoritesModel/like_unlike_model.dart';
-import 'package:auto_haus_rental_app/Model/HomePageModels/HomeTopWidgetModels/ev_cars_model.dart';
 
 class EVCarDescription extends StatefulWidget {
   final String? carName,

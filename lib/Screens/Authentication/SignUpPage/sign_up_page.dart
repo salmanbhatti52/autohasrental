@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:http/http.dart' as http;
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/AuthModels/user_sign_up_model.dart';
 import '../../../Widget/TextFields/password_text_field.dart';
@@ -35,7 +36,11 @@ class _SignUpPageState extends State<SignUpPage> {
   var passwordController = TextEditingController();
 
   SignUpModel signUpModel = SignUpModel();
+  String tokenId = "";
   registerUser() async {
+    var status = await OneSignal.shared.getDeviceState();
+    tokenId = status!.userId ?? "12345";
+    print("OneSignal User ID: $tokenId ");
     String apiUrl = signUpApiUrl;
     print("api: $apiUrl");
     print("one_signal_id: 123456");
@@ -48,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final response = await http.post(Uri.parse(apiUrl), headers: {
       'Accept': 'application/json'
     }, body: {
-      'one_signal_id': "123456",
+      'one_signal_id': tokenId.toString(),
       'first_name': firstNameController.text.trim(),
       'last_name': lastNameController.text.trim(),
       'phone': phoneController.text.trim(),

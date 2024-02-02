@@ -4,7 +4,6 @@ import '../Model/filter_car_by_attribute_model.dart';
 import '../Screens/TabPages/BookingPage/booking_page.dart';
 import '../Screens/TabPages/FavouritePage/favourite_page.dart';
 import '../Screens/TabPages/HomePage/home_page.dart';
-import '../Screens/TabPages/MessagePage/message_page.dart';
 import '../Screens/TabPages/tab_page.dart';
 import '../Utils/colors.dart';
 

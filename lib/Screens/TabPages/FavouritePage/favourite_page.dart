@@ -3,12 +3,10 @@ import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/HomePageTopCard/E
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/constants.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
-import 'package:auto_haus_rental_app/Utils/rating_stars.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/HomePageModels/FavoritesModel/favorite_cars_model.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';

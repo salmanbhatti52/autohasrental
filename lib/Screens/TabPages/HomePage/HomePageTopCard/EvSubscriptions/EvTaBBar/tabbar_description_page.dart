@@ -1,7 +1,5 @@
 import 'feature_page/features.dart';
 import 'package:flutter/material.dart';
-import 'rating_page.dart/ev_rating.dart';
-import 'description_page/description.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:auto_haus_rental_app/Utils/fontFamily.dart';
 
