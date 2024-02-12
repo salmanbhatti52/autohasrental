@@ -36,10 +36,10 @@ class _SignUpPageState extends State<SignUpPage> {
   var passwordController = TextEditingController();
 
   SignUpModel signUpModel = SignUpModel();
-  String tokenId = "";
+  String? tokenId;
   registerUser() async {
-    var status = await OneSignal.shared.getDeviceState();
-    tokenId = status!.userId ?? "12345";
+    final status = await OneSignal.shared.getDeviceState();
+    tokenId = status?.userId;
     print("OneSignal User ID: $tokenId ");
     String apiUrl = signUpApiUrl;
     print("api: $apiUrl");
