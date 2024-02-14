@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../../../../Utils/fontFamily.dart';
 import 'EvUpcoming/ev_upcoming_page.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';

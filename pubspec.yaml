@@ -21,7 +21,6 @@ dependencies:
   flutter_switch: ^0.3.2
   image_picker: ^0.8.5+3
   cron: ^0.5.1
-#  cached_network_image: ^3.2.3
   flutter_rating_bar: ^4.0.1
   flutter_inappwebview: ^5.7.2+3
   country_state_picker:

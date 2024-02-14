@@ -1,7 +1,6 @@
 import 'package:auto_haus_rental_app/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../../../../Utils/fontFamily.dart';
 import 'EVPrevious/ev_previous_page.dart';
 
