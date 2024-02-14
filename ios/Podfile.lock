@@ -21,6 +21,19 @@ PODS:
     - Flutter
   - modal_progress_hud_nsn (0.0.1):
     - Flutter
+  - onesignal_flutter (3.5.2):
+    - Flutter
+    - OneSignalXCFramework (= 3.12.7)
+  - OneSignalXCFramework (3.12.7):
+    - OneSignalXCFramework/OneSignalCore (= 3.12.7)
+    - OneSignalXCFramework/OneSignalExtension (= 3.12.7)
+    - OneSignalXCFramework/OneSignalOutcomes (= 3.12.7)
+  - OneSignalXCFramework/OneSignalCore (3.12.7)
+  - OneSignalXCFramework/OneSignalExtension (3.12.7):
+    - OneSignalXCFramework/OneSignalCore
+    - OneSignalXCFramework/OneSignalOutcomes
+  - OneSignalXCFramework/OneSignalOutcomes (3.12.7):
+    - OneSignalXCFramework/OneSignalCore
   - OrderedSet (5.0.0)
   - package_info_plus (0.4.5):
     - Flutter
@@ -87,6 +100,7 @@ DEPENDENCIES:
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - modal_progress_hud_nsn (from `.symlinks/plugins/modal_progress_hud_nsn/ios`)
+  - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
@@ -100,6 +114,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - FMDB
+    - OneSignalXCFramework
     - OrderedSet
     - Stripe
     - StripeApplePay
@@ -126,6 +141,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/just_audio/ios"
   modal_progress_hud_nsn:
     :path: ".symlinks/plugins/modal_progress_hud_nsn/ios"
+  onesignal_flutter:
+    :path: ".symlinks/plugins/onesignal_flutter/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
@@ -154,6 +171,8 @@ SPEC CHECKSUMS:
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
   modal_progress_hud_nsn: f6fb744cd060653d66ed8f325360ef3650eb2fde
+  onesignal_flutter: 86b451a4f1d81cdc7a6f131d7b5bc2e44ae15227
+  OneSignalXCFramework: 0fca311799488cb50419c0b96594aa8df4300115
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
   package_info_plus: fd030dabf36271f146f1f3beacd48f564b0f17f7
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
