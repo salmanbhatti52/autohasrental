@@ -1,11 +1,11 @@
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-
 import 'Utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/material.dart';
 import 'Screens/Splash/splash_screen.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:auto_haus_rental_app/Widget/StripeKeysFetching.dart';
 
 // Flutter Version :: 3.7.8 //
 
@@ -13,8 +13,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
   OneSignal.shared.setAppId("4f793a22-6af2-47f1-ae82-fff9e12139b1");
-  Stripe.publishableKey =
-      'pk_test_51MCIlnAKaZkeJzUqrlMsIfqg6yVEmZTVGGqCImU2CFSejO1BDBykgCK2ue7C1LAg65WARxcXPKtMujKUAYvKStWY0025YZd14E';
+  final stripeKeys = await StripeKeysFetcher.fetchStripeKeys();
+  Stripe.publishableKey = stripeKeys['publishableKey']!;
+  print("stripeKeys ${stripeKeys['publishableKey']}");
   Stripe.merchantIdentifier = 'MYR';
   await Stripe.instance.applySettings();
   runApp(MyApp());

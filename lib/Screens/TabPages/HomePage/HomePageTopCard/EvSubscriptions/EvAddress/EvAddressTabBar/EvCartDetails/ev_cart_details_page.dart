@@ -162,6 +162,26 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
   String? myTotalAmount;
   String? myHomeAddress1, myHomeAddress2, myHomeCity, myHomePostCode, myHomeState, myHomeCountry;
 
+  String Keys = "";
+  Future<Map<String, String>> fetchStripeKeys() async {
+    final response = await http.get(Uri.parse('https://autohauscarrental.eigix.net/api/get_stripe_keys'));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      if (data['status'] == 'success') {
+        final List<dynamic> keys = data['data'];
+        return {
+          'publishableKey': keys.firstWhere((key) => key['keys_type'] == 'Publishable')['key'],
+          'secretKey': keys.firstWhere((key) => key['keys_type'] == 'Secret')['key'],
+        };
+      } else {
+        throw Exception('Failed to load Stripe keys');
+      }
+    } else {
+      throw Exception('Failed to load Stripe keys');
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -172,6 +192,13 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
     myTotalAmount = widget.totalAmount;
     print("myTotalAmount $myTotalAmount");
     mySelectedData();
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+    final stripeKeys = await fetchStripeKeys();
+    Keys =  stripeKeys['secretKey']!;
+    print("stripeKeys $Keys");
   }
   String? formattedFeeService;
   mySelectedData(){
@@ -644,7 +671,9 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                         //   isInAsyncCall = false;
                         // });
                       } else{
+                        print("stripeKeys $Keys");
                         await makePayment();
+
                       }
                     }
                   },
@@ -816,7 +845,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
         headers: {
           'Authorization':
-          'Bearer sk_test_51MCIlnAKaZkeJzUqFf0vOzFKEuQVelqjMu5tLr15EdTn8fo3LHLlSfH96hxBhCwy6oJqWC68kBql5GBQ3kaWTl0o000mzoqWFH',
+          'Bearer $Keys',
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: body,
