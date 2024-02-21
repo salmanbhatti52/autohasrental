@@ -666,7 +666,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                       //   isInAsyncCall = true;
                       // });
                       if(image == null){
-                        toastFailedMessage("image error", kRed);
+                        toastFailedMessage("Insert Your Driving License Photo", kRed);
                         // setState(() {
                         //   isInAsyncCall = false;
                         // });
@@ -745,7 +745,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
       );
   }
 
-  void showFailedDialog() {
+  void showFailedDialog(String message,) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -767,7 +767,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
-                          color: Colors.green,
+                          color: Colors.red,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
@@ -779,7 +779,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                      Text("Payment Unsuccessful Check Your Email",
+                      Text(message,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: kBlack,
                               fontSize: 20, fontFamily: poppinMedium,),),
@@ -906,15 +906,6 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
               request.fields['billing_country'] = "${widget.billingCountry}";
               request.fields['driving_license'] =  base64img!;
 
-              // request.files.add(
-              //   http.MultipartFile(
-              //     'driving_license',
-              //     image!.readAsBytes().asStream(),
-              //     image!.lengthSync(),
-              //     filename: image!.path.split('/').last,
-              //   ),
-              // );
-
               request.headers.addAll(headers);
               print("request: $request");
               print('usersId: $userId');
@@ -938,17 +929,22 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
               http.Response response = await http.Response.fromStream(res);
               final resJson = jsonDecode(response.body);
               print("jsonResponseCheckOutApi $resJson");
-              showSuccessDialog();
-              setState(() {
-                loader = false;
-              });
+              if(resJson['status'] == "success"){
+                showSuccessDialog();
+                setState(() {
+                  loader = false;
+                });
+              } else {
+                showFailedDialog("Payment Unsuccessful Check Your Email");
+                setState(() {
+                  loader = false;
+                });
+              }
             }).onError((error, stackTrace) {
         print('Error is:--->$error $stackTrace');
-        showFailedDialog();
       });
     } on StripeException catch (e) {
       print('Error is:---> $e');
-      showFailedDialog();
     } catch (e) {
       print('$e');
     }
@@ -972,7 +968,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
       displayPaymentSheet();
     } catch (stripeException) {
       print('Stripe Exception: $stripeException');
-      showFailedDialog();
+      // showFailedDialog("Stripe Exception: Payment Unsuccessful");
     }
   }
 }
