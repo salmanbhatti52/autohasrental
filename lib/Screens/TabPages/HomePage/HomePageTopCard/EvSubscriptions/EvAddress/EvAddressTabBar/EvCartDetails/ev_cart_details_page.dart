@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart'as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -855,6 +856,8 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
       print('response api: ${decoded["amount"]}');
 
       tokenStripe = decoded["id"];
+      print('tokenStripe $tokenStripe');
+
 
       return json.decode(response.body);
     } catch (err) {
@@ -884,6 +887,7 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
               print("apiRequest: $request");
               request.fields['users_customers_id'] = '$userId';
               request.fields['cars_id'] = '$carID';
+              request.fields['stripe_id'] = '$tokenStripe';
               request.fields['plan_start_date'] = widget.evStartDate!;
               request.fields['plans_mileage_id'] = widget.mileagePlanID.toString();
               request.fields['plan_end_date'] = widget.evEndDate!;
@@ -909,7 +913,8 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
               request.headers.addAll(headers);
               print("request: $request");
               print('usersId: $userId');
-              print('carsId: $carID');
+              print('usersId: $userId');
+              print('tokenStripe: $tokenStripe');
               print('plan_start_date: ${widget.evStartDate}');
               print('plan_end_date: ${widget.evEndDate}');
               print('months: $myMonth');
@@ -971,4 +976,5 @@ class _EvCartDetailsPageState extends State<EvCartDetailsPage> {
       // showFailedDialog("Stripe Exception: Payment Unsuccessful");
     }
   }
+
 }

@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -64,6 +66,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
     // TODO: implement initState
     super.initState();
     getUpcomingBookingCarWidget();
+    initializeData();
   }
   var selectedBookingId;
 
@@ -732,6 +735,8 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                             onTap: () async {
                               await cancelBookingWidget();
                               if (cancelBookingModelObject.status == "success"){
+                                print("stripeKeys $Keys");
+                                await refundPayment("100");
                                 Fluttertoast.showToast(
                                     msg: "${cancelBookingModelObject.status}",
                                     toastLength: Toast.LENGTH_LONG,
@@ -794,11 +799,63 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
 
         cancelBookingModelObject = cancelBookingModelFromJson(responseString);
         setState(() {});
-        print('cancelBookingModelMessage: ${cancelBookingModelObject.message}');
       }
     } catch (e) {
       print('cancelBookingModel error in catch = ${e.toString()}');
       return null;
     }
   }
+
+  String Keys = "";
+  int totalAmount = 1000;
+  Future<Map<String, String>> fetchStripeKeys() async {
+    final response = await http.get(Uri.parse('https://autohauscarrental.eigix.net/api/get_stripe_keys'));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      if (data['status'] == 'success') {
+        final List<dynamic> keys = data['data'];
+        return {
+          'publishableKey': keys.firstWhere((key) => key['keys_type'] == 'Publishable')['key'],
+          'secretKey': keys.firstWhere((key) => key['keys_type'] == 'Secret')['key'],
+        };
+      } else {
+        throw Exception('Failed to load Stripe keys');
+      }
+    } else {
+      throw Exception('Failed to load Stripe keys');
+    }
+  }
+
+  Future<void> initializeData() async {
+    final stripeKeys = await fetchStripeKeys();
+    Keys =  stripeKeys['secretKey']!;
+    print("stripeKeys $Keys");
+  }
+
+  String calculateAmount(String? amount) {
+    int parsedAmount = int.parse(amount?.replaceAll(',', '') ?? "0");
+
+    int parsedTotalAmount = totalAmount;
+
+    int result = (parsedAmount * parsedTotalAmount).toInt();
+
+    return result.toString();
+  }
+
+  Future<void> refundPayment(String amount,) async {
+    debugPrint("tokenStripe ${cancelBookingModelObject.data?.stripeId}");
+    var response = http.post(Uri.parse("https://api.stripe.com/v1/refunds"),
+        headers: {
+          'Authorization': 'Bearer $Keys',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: {
+          "payment_intent" : cancelBookingModelObject.data?.stripeId,
+          "amount" : calculateAmount(amount),
+        }
+    );
+    debugPrint("Response Refund Amount $response");
+  }
+
 }
