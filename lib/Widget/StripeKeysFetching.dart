@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class StripeKeysFetcher {
   static Future<Map<String, String>> fetchStripeKeys() async {
-    final response = await http.get(Uri.parse('https://autohauscarrental.eigix.net/api/get_stripe_keys'));
+    final response = await http.get(Uri.parse('https://admin.autohauscarrental.com/api/get_stripe_keys'));
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
       if (data['status'] == 'success') {

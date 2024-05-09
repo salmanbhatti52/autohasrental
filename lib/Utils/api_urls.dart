@@ -1,6 +1,6 @@
 /// API new url
-String baseUrl = 'https://autohauscarrental.eigix.net/api/';
-String baseUrlImage = 'https://autohauscarrental.eigix.net/public/';
+String baseUrl = 'https://admin.autohauscarrental.com/api/';
+String baseUrlImage = 'https://admin.autohauscarrental.com/public/';
 
 /// Authentication Page API Urls
 String signUpApiUrl = '${baseUrl}signup';

@@ -828,7 +828,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
       isLoading = true;
     });
     String getFeaturesApiUrl =
-        'https://autohauscarrental.eigix.net/api/getCarFeatures';
+        'https://admin.autohauscarrental.com/api/getCarFeatures';
     http.Response response = await http.post(
       Uri.parse(getFeaturesApiUrl),
       headers: {"Accept": "application/json"},

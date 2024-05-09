@@ -809,7 +809,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
   String Keys = "";
   int totalAmount = 1000;
   Future<Map<String, String>> fetchStripeKeys() async {
-    final response = await http.get(Uri.parse('https://autohauscarrental.eigix.net/api/get_stripe_keys'));
+    final response = await http.get(Uri.parse('https://admin.autohauscarrental.com/api/get_stripe_keys'));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
