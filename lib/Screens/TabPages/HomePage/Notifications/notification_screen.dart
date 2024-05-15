@@ -136,11 +136,11 @@ formattedDate(){
               ),
               child: ListTile(
                 leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
+                  borderRadius: BorderRadius.circular(80),
                   child: CachedNetworkImage(
                     imageUrl: "$baseUrlImage${notificationsModel.data![reverseIndex].companyLogo}",
-                    height: 30, width: 30,
-                    fit: BoxFit.fill,
+                    height: 40, width: 40,
+                    fit: BoxFit.contain,
                     progressIndicatorBuilder: (context, url, downloadProgress) =>
                         CircularProgressIndicator(strokeWidth: 2, value: downloadProgress.progress, color: borderColor,),
                     errorWidget: (context, url, error) => Image.asset("assets/icon/fade_in_image.jpeg"),

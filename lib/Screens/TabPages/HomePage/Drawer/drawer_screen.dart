@@ -1,4 +1,5 @@
 import 'package:auto_haus_rental_app/Screens/Authentication/LoginPage/login_page.dart';
+import 'package:auto_haus_rental_app/Screens/TabPages/HomePage/Drawer/Settings/updates_check.dart';
 import 'package:auto_haus_rental_app/Screens/TabPages/tab_page.dart';
 import 'package:auto_haus_rental_app/Utils/api_urls.dart';
 import 'package:auto_haus_rental_app/Utils/colors.dart';
@@ -158,6 +159,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AboutUsPage()));
                 },
                 child: myListTile("assets/drawer_images/customer_help_icon.png", "About Us")),
+            GestureDetector(
+                onTap: (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CheckAppUpdates()));
+                },
+                child: myListTile("assets/drawer_images/refresh.png", "Check Updates"),),
             SizedBox(height: MediaQuery.of(context).size.height * 0.25),
             GestureDetector(
                 onTap: (){
@@ -218,7 +224,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: ListTile(
-        leading: Image.asset(myImage),
+        leading: Image.asset(myImage, width: 25, color: kWhite,),
         title: Text(myTitle, textAlign: TextAlign.left, style: TextStyle(
             color: kWhite, fontSize: 14, fontFamily: poppinRegular)),
       ),

@@ -25,7 +25,7 @@ class EvUpcomingPage extends StatefulWidget {
 
 class _EvUpcomingPageState extends State<EvUpcomingPage> {
   EvUpcomingModel evUpcomingModelObject = EvUpcomingModel();
-  bool loadingP = true;
+  bool loadingP = false;
 
   getUpcomingBookingCarWidget() async {
     loadingP = true;
@@ -649,6 +649,26 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
     );
   }
 
+  Widget wait() {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      child: Container(
+        height: screenHeight * 0.05,
+        width: screenWidth * 0.6,
+        decoration: BoxDecoration(
+          color: borderColor,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Center(
+          child: Text("PLease wait", textAlign: TextAlign.center, style: TextStyle(
+              color: kWhite, fontFamily: poppinRegular, fontSize: 16)),
+        ),
+      ),
+    );
+  }
+
   Widget noButton() {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
@@ -673,104 +693,114 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Container(
-            color: Color(0xffb0b0b0),
-            child: Container(
-              color: Color(0xff0f172a).withOpacity(0.5),
-              child: Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)), //this right here
+          return StatefulBuilder(
+            builder: (context, StateSetter setState) {
+              return Container(
+                color: Color(0xffb0b0b0),
                 child: Container(
-                  decoration: BoxDecoration(
-                      color: homeBgColor,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.end,
-                        //   crossAxisAlignment: CrossAxisAlignment.end,
-                        //   children: [
-                        //     GestureDetector(
-                        //       onTap: () {
-                        //         Navigator.pop(context);
-                        //       },
-                        //       child: Image.asset("assets/payment_card_images/cancle.png",),
-                        //     ),
-                        //   ],
-                        // ),
-                        Text(
-                          "Cancellation Confirmation",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
+                  color: Color(0xff0f172a).withOpacity(0.5),
+                  child: Dialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)), //this right here
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: homeBgColor,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.end,
+                            //   crossAxisAlignment: CrossAxisAlignment.end,
+                            //   children: [
+                            //     GestureDetector(
+                            //       onTap: () {
+                            //         Navigator.pop(context);
+                            //       },
+                            //       child: Image.asset("assets/payment_card_images/cancle.png",),
+                            //     ),
+                            //   ],
+                            // ),
+                            Text(
+                              "Cancellation Confirmation",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
                                 color: borderColor,
                                 fontSize: 20,
                                 fontFamily: poppinSemiBold,
+                              ),
                             ),
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                        Text("Are you sure you want to cancel this booking?",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: kBlack,
-                                fontSize: 20, fontFamily: poppinMedium)),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                        Text("PLease Note:",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(color: kRed,
-                                fontSize: 14, fontFamily: poppinRegular)),
-                        Text("* Once Cancelled, the refund process will be initiated",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: kRed,
-                                fontSize: 14, fontFamily: poppinRegular)),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                        Text("* Refund typically take 7 to 14 working days to reflect in your account",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: kRed,
-                                fontSize: 14, fontFamily: poppinRegular)),
-                        GestureDetector(
-                            onTap: () async {
-                              await cancelBookingWidget();
-                              if (cancelBookingModelObject.status == "success"){
-                                print("stripeKeys $Keys");
-                                await refundPayment("100");
-                                Fluttertoast.showToast(
-                                    msg: "${cancelBookingModelObject.status}",
-                                    toastLength: Toast.LENGTH_LONG,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: colorGreen,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                                Navigator.pop(context);
-                                await getUpcomingBookingCarWidget();
-                              }
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                            Text("Are you sure you want to cancel this booking?",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: kBlack,
+                                    fontSize: 20, fontFamily: poppinMedium)),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                            Text("PLease Note:",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(color: kRed,
+                                    fontSize: 14, fontFamily: poppinRegular)),
+                            Text("* Once Cancelled, the refund process will be initiated",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: kRed,
+                                    fontSize: 14, fontFamily: poppinRegular)),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                            Text("* Refund typically take 7 to 14 working days to reflect in your account",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: kRed,
+                                    fontSize: 14, fontFamily: poppinRegular)),
+                            GestureDetector(
+                              onTap: () async {
+                                setState(() {
+                                  loadingP = true;
+                                });
+                                await cancelBookingWidget();
+                                if (cancelBookingModelObject.status == "success"){
+                                  print("stripeKeys $Keys");
+                                  await refundPayment("100");
+                                  Fluttertoast.showToast(
+                                      msg: "${cancelBookingModelObject.status}",
+                                      toastLength: Toast.LENGTH_LONG,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: colorGreen,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                  setState(() {
+                                    loadingP = false;
+                                  });
+                                  Navigator.pop(context);
+                                  await getUpcomingBookingCarWidget();
+                                }
 
-                              else{
-                                print('cancelBookingMessage ${cancelBookingModelObject.message}');
-                              }
-                              // if (cancelBookingModelObject.status != "success"){
-                              //   print('cancelBookingMessage ${cancelBookingModelObject.message}');
-                              //   toastFailedMessage(cancelBookingModelObject.message, kRed);
-                              // }
-                            },
-                            child: yesButton()
+                                else{
+                                  print('cancelBookingMessage ${cancelBookingModelObject.message}');
+                                }
+                                // if (cancelBookingModelObject.status != "success"){
+                                //   print('cancelBookingMessage ${cancelBookingModelObject.message}');
+                                //   toastFailedMessage(cancelBookingModelObject.message, kRed);
+                                // }
+                              },
+                              child: loadingP ? wait() : yesButton(),
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: noButton()),
+                            SizedBox(height: Get.height * 0.0),
+                          ],
                         ),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: noButton()),
-                        SizedBox(height: Get.height * 0.0),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           );
         });
   }
