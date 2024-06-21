@@ -156,26 +156,28 @@ class _LiveChatDetailsPageState extends State<LiveChatDetailsPage> {
                                 padding:EdgeInsets.all(10),
                                 child: getLiveMessagesModel.data?[reverseIndex].senderType == "Users"
                                     ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text("${getLiveMessagesModel.data?[reverseIndex].message.toString()}",
                                         maxLines: 3, overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left, style: TextStyle(
                                             fontSize: 14, fontFamily: poppinLight, color: kWhite)),
                                    SizedBox(height: 03),
-                                    Text("${getLiveMessagesModel.data?[reverseIndex].time.toString()} ${getLiveMessagesModel.data?[reverseIndex].date.toString()}",
+                                    Text("${getLiveMessagesModel.data?[reverseIndex].date.toString()}",
                                         maxLines: 1, overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left, style: TextStyle(
                                             fontSize: 10, color: kWhite, fontFamily: poppinLight)),
                                   ],
                                 ) :
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text("${getLiveMessagesModel.data?[reverseIndex].message.toString()}",
                                         maxLines: 3, overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left, style: TextStyle(
                                             fontSize: 14, color: kBlack, fontFamily: poppinLight)),
                                    SizedBox(height: 03),
-                                    Text("${getLiveMessagesModel.data?[reverseIndex].time.toString()} ${getLiveMessagesModel.data?[reverseIndex].date.toString()}",
+                                    Text("${getLiveMessagesModel.data?[reverseIndex].date.toString()}",
                                         maxLines: 1, overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left, style: TextStyle(
                                             fontSize: 10, color: kBlack, fontFamily: poppinLight)),
