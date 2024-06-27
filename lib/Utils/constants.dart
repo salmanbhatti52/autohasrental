@@ -16,7 +16,7 @@ double? evSelectedMonthTotalPrice = 0.0;
 int? carID;
 
 double? myServiceFee;
-double? percentage = 6;
+double? percentage = 8;
 
 List timeHoursList = [
   '6 hours',

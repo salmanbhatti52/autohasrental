@@ -974,7 +974,7 @@ class _EvDescriptionDetailsPageState extends State<EvDescriptionDetailsPage>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Service Fee (6%)",
+              Text("Service Fee (8%)",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontSize: 14,

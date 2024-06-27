@@ -332,7 +332,7 @@ class _CartDetailsState extends State<CartDetails> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Service Fee (6%)",
+                                    Text("Service Fee (8%)",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(color: textLabelColor,
                                           fontSize: 14, fontFamily: poppinRegular)),

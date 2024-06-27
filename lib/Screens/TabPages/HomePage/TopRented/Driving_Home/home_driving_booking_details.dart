@@ -143,7 +143,7 @@ class _HomeDrivingBookingDetailsState extends State<HomeDrivingBookingDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Service Fee (6%)", textAlign: TextAlign.left, style: TextStyle(
+                            Text("Service Fee (8%)", textAlign: TextAlign.left, style: TextStyle(
                                   fontFamily: poppinRegular, fontSize: 14, color: detailsTextColor)),
                             Text("RM ${myServiceFee!.toStringAsFixed(2)}", textAlign: TextAlign.right, style: TextStyle(
                                   fontFamily: poppinRegular, fontSize: 14, color: detailsTextColor)),
