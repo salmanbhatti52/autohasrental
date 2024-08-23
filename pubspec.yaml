@@ -17,6 +17,7 @@ dependencies:
   pin_code_fields: ^7.4.0
   flutter_svg: ^1.1.6
   bottom_sheet: ^3.1.2
+  cached_network_image:
   get: ^4.6.5
   flutter_switch: ^0.3.2
   image_picker: ^0.8.5+3
