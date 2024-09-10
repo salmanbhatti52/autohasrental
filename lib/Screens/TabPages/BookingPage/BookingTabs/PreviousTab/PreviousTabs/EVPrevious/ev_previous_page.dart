@@ -566,10 +566,10 @@ class _EvPreviousPageState extends State<EvPreviousPage> {
                                 ),
                                 Positioned(
                                   left: 30,
-                                  top: -45,
+                                  top: 0,
                                   child: SizedBox(
-                                    width: 180,
-                                    height: 180,
+                                    width: Get.width * 0.5,
+                                    // height: 180,
                                     child: Image.network(
                                       '$baseUrlImage${evPreviousObject.data![reversedindex].carsDetails!.image1}',
                                       errorBuilder: (BuildContext context, Object exception,

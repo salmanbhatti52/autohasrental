@@ -312,9 +312,9 @@ class _HomePageState extends State<HomePage> {
                           autofocus: false,
                           style: TextStyle(color: borderColor),
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                                left: 10.0, right: 10.0, top: 14.0),
+                            contentPadding: EdgeInsets.only(top: 15.0, bottom: 10, left: 10.0),
                             hintText: 'Search for Cars',
+                            isDense: true,
                             border: InputBorder.none,
                             suffixIcon: searchController.text.isNotEmpty
                                 ? GestureDetector(
@@ -456,274 +456,211 @@ class _HomePageState extends State<HomePage> {
                                               print("Invalid data or index");
                                             }
                                             return Container(
-                                              height: Get.height * 0.18,
-                                              margin:
-                                                  EdgeInsets.only(bottom: 10),
-                                              child: Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  Positioned(
-                                                    bottom: 0,
-                                                    child: Container(
-                                                      width: Get.width * 0.9,
-                                                      height: Get.height * 0.15,
-                                                      margin: EdgeInsets.only(
-                                                          bottom: 10),
-                                                      decoration: BoxDecoration(
-                                                        color: kWhite,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: Colors.grey
-                                                                .withOpacity(
-                                                                    0.5),
-                                                            spreadRadius: 1,
-                                                            blurRadius: 5,
-                                                            offset:
-                                                                Offset(3, 3),
+                                              height: Get.height * 0.15,
+                                              margin: EdgeInsets.only(bottom: 25, left: 20, right: 20),
+                                              child: Container(
+                                                width: Get.width * 0.9,
+                                                height: Get.height * 0.15,
+                                                decoration: BoxDecoration(
+                                                  color: kWhite,
+                                                  borderRadius: BorderRadius.circular(30),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey.withOpacity(0.5),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 5,
+                                                      offset: Offset(3, 3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    // Left side (Image + Price)
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 5),
+                                                      child: Column(
+                                                        // crossAxisAlignment: CrossAxisAlignment.center,
+                                                        // mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          // Car image
+                                                          Container(
+                                                            width: Get.width * 0.47,
+                                                            height: Get.height * 0.12,
+                                                            child: Image.network(
+                                                              '$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}',
+                                                              errorBuilder: (BuildContext context, Object exception,
+                                                                  StackTrace? stackTrace) {
+                                                                return Container(
+                                                                  child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                                                );
+                                                              },
+                                                              loadingBuilder: (BuildContext context, Widget child,
+                                                                  ImageChunkEvent? loadingProgress) {
+                                                                if (loadingProgress == null) {
+                                                                  return child;
+                                                                }
+                                                                return Center(
+                                                                  child: CircularProgressIndicator(
+                                                                    color: borderColor,
+                                                                    value: loadingProgress.expectedTotalBytes != null
+                                                                        ? loadingProgress.cumulativeBytesLoaded /
+                                                                        loadingProgress.expectedTotalBytes!
+                                                                        : null,
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                          // Price (RM, formattedPrice, /Month)
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                            children: [
+                                                              Text(
+                                                                "RM",
+                                                                style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 14,
+                                                                  fontFamily: poppinSemiBold,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                "${formattedPrice}",
+                                                                style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 14,
+                                                                  fontFamily: poppinSemiBold,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                "/Month",
+                                                                style: TextStyle(
+                                                                  color: textLabelColor,
+                                                                  fontSize: 14,
+                                                                  fontFamily: poppinSemiBold,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
+                                                    ),
+                                                    // Right side info
+                                                    Expanded(
                                                       child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
-                                                          Align(
-                                                            alignment: Alignment
-                                                                .topRight,
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right:
-                                                                          18.0,
-                                                                      top: 10),
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  Text(
-                                                                    "${widget.filterCarByAttributeModelObject?.data?[index].vehicalName}",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color:
-                                                                          kBlack,
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontFamily:
-                                                                          poppinBold,
-                                                                    ),
+                                                          // Vehicle name and year
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(top: 15.0, right: 15),
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                                              children: [
+                                                                Text(
+                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].vehicalName}",
+                                                                  style: TextStyle(
+                                                                    color: kBlack,
+                                                                    fontSize: 14,
+                                                                    fontFamily: poppinBold,
                                                                   ),
-                                                                  Text(
-                                                                    "${widget.filterCarByAttributeModelObject?.data?[index].year}",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color:
-                                                                          textLabelColor,
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontFamily:
-                                                                          poppinSemiBold,
-                                                                    ),
+                                                                ),
+                                                                Text(
+                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].year}",
+                                                                  style: TextStyle(
+                                                                    color: textLabelColor,
+                                                                    fontSize: 14,
+                                                                    fontFamily: poppinSemiBold,
                                                                   ),
-                                                                ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          // Click to see Details Button
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              carID = widget
+                                                                  .filterCarByAttributeModelObject
+                                                                  ?.data![
+                                                              index]
+                                                                  .carsId;
+                                                              print(
+                                                                  "cardId $carID");
+                                                              print(
+                                                                  "carsUsageType ${widget.filterCarByAttributeModelObject!.data?[index].carsUsageType}");
+                                                              print(
+                                                                  "favouriteStatusHome ${widget.filterCarByAttributeModelObject!.data?[index].favouriteStatus}");
+
+                                                              if (widget
+                                                                  .filterCarByAttributeModelObject!
+                                                                  .data![index]
+                                                                  .carsUsageType ==
+                                                                  "EV Subscriptions") {
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder: (context) => EVCarDescription(
+                                                                          carName: widget.filterCarByAttributeModelObject!.data![index].vehicalName,
+                                                                          carPrice: formattedPrice,
+                                                                          carImage: widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpg') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.png') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpeg') ? "$baseUrlImage${widget.filterCarByAttributeModelObject!.data?[index].image1}" : widget.filterCarByAttributeModelObject!.data?[index].image1,
+                                                                          carImageModel: widget.filterCarByAttributeModelObject!.data?[index].objectImage,
+                                                                          carYear: "${widget.filterCarByAttributeModelObject!.data![index].year}",
+                                                                          carId: widget.filterCarByAttributeModelObject!.data![index].carsId,
+                                                                          carRating: widget.filterCarByAttributeModelObject!.data![index].rating,
+                                                                          carColorName: widget.filterCarByAttributeModelObject!.data![index].carsColors!.name,
+                                                                          carMakesName: widget.filterCarByAttributeModelObject!.data![index].carsMakes!.name,
+                                                                          carModelName: widget.filterCarByAttributeModelObject!.data![index].carsModels!.name,
+                                                                          carMakesImage: "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].carsMakes!.image}",
+                                                                          // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                          discountPercentage: widget.filterCarByAttributeModelObject!.data![index].discountPercentage,
+                                                                          carDiscountPrice: formattedPrice,
+                                                                          carOwnerImage: "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
+                                                                          carOwnerName: "${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyName}",
+                                                                          carOwnerId: widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.usersCompaniesId,
+                                                                          myCarDescription: widget.filterCarByAttributeModelObject!.data![index].description,
+                                                                          favouriteStatus: widget.filterCarByAttributeModelObject!.data![index].favouriteStatus,
+
+                                                                          featureSuv: widget.filterCarByAttributeModelObject!.data![index].featuresSuv,
+                                                                          featuresDoors: widget.filterCarByAttributeModelObject!.data![index].featuresDoors,
+                                                                          featuresSeats: widget.filterCarByAttributeModelObject!.data![index].featuresSeats,
+                                                                          featuresAutomatic: widget.filterCarByAttributeModelObject!.data![index].featuresAutomatic,
+                                                                          featuresSpeed: widget.filterCarByAttributeModelObject!.data![index].featuresSpeed,
+                                                                          featuresElectric: widget.filterCarByAttributeModelObject!.data![index].featuresElectric,
+                                                                          featuresEngine_capacity: widget.filterCarByAttributeModelObject!.data![index].featuresEngineCapacity,
+                                                                          featuresFuelCapacity: widget.filterCarByAttributeModelObject!.data![index].featuresFuelCapacity,
+                                                                          featuresMeterReading: widget.filterCarByAttributeModelObject!.data![index].featuresMeterReading,
+                                                                          featuresNewCars: widget.filterCarByAttributeModelObject!.data![index].featuresNewCars,
+                                                                        )));
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: Get.width * 0.4,
+                                                              height: Get.height * 0.065,
+                                                              alignment: Alignment.bottomRight,
+                                                              decoration: BoxDecoration(
+                                                                color: borderColor,
+                                                                borderRadius: BorderRadius.only(
+                                                                  bottomRight: Radius.circular(30),
+                                                                  topLeft: Radius.circular(30),
+                                                                ),
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Click to see Details",
+                                                                  textAlign: TextAlign.left,
+                                                                  style: TextStyle(
+                                                                    color: kWhite,
+                                                                    fontFamily: poppinMedium,
+                                                                    fontSize: 12,
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
                                                         ],
                                                       ),
                                                     ),
-                                                  ),
-                                                  Positioned(
-                                                    left: 25,
-                                                    bottom: 20,
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          "RM",
-                                                          style: TextStyle(
-                                                            color: kBlack,
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                poppinSemiBold,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          "${formattedPrice}",
-                                                          style: TextStyle(
-                                                            color: kBlack,
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                poppinSemiBold,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          "/Month",
-                                                          style: TextStyle(
-                                                            color:
-                                                                textLabelColor,
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                poppinSemiBold,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    right: 14,
-                                                    bottom: 10,
-                                                    child: GestureDetector(
-                                                                                onTap: () {
-                                                                                  carID = widget
-                                                                                      .filterCarByAttributeModelObject
-                                                                                      ?.data![
-                                                                                          index]
-                                                                                      .carsId;
-                                                                                  print(
-                                                                                      "cardId $carID");
-                                                                                  print(
-                                                                                      "carsUsageType ${widget.filterCarByAttributeModelObject!.data?[index].carsUsageType}");
-                                                                                  print(
-                                                                                      "favouriteStatusHome ${widget.filterCarByAttributeModelObject!.data?[index].favouriteStatus}");
-
-                                                                                  if (widget
-                                                                                          .filterCarByAttributeModelObject!
-                                                                                          .data![index]
-                                                                                          .carsUsageType ==
-                                                                                      "EV Subscriptions") {
-                                                                                    Navigator.push(
-                                                                                        context,
-                                                                                        MaterialPageRoute(
-                                                                                            builder: (context) => EVCarDescription(
-                                                                                                  carName: widget.filterCarByAttributeModelObject!.data![index].vehicalName,
-                                                                                                  carPrice: formattedPrice,
-                                                                                                  carImage: widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpg') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.png') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpeg') ? "$baseUrlImage${widget.filterCarByAttributeModelObject!.data?[index].image1}" : widget.filterCarByAttributeModelObject!.data?[index].image1,
-                                                                                                  carImageModel: widget.filterCarByAttributeModelObject!.data?[index].objectImage,
-                                                                                                  carYear: "${widget.filterCarByAttributeModelObject!.data![index].year}",
-                                                                                                  carId: widget.filterCarByAttributeModelObject!.data![index].carsId,
-                                                                                                  carRating: widget.filterCarByAttributeModelObject!.data![index].rating,
-                                                                                                  carColorName: widget.filterCarByAttributeModelObject!.data![index].carsColors!.name,
-                                                                                                  carMakesName: widget.filterCarByAttributeModelObject!.data![index].carsMakes!.name,
-                                                                                                  carModelName: widget.filterCarByAttributeModelObject!.data![index].carsModels!.name,
-                                                                                                  carMakesImage: "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].carsMakes!.image}",
-                                                                                                  // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                                                                  discountPercentage: widget.filterCarByAttributeModelObject!.data![index].discountPercentage,
-                                                                                                  carDiscountPrice: formattedPrice,
-                                                                                                  carOwnerImage: "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
-                                                                                                  carOwnerName: "${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyName}",
-                                                                                                  carOwnerId: widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.usersCompaniesId,
-                                                                                                  myCarDescription: widget.filterCarByAttributeModelObject!.data![index].description,
-                                                                                                  favouriteStatus: widget.filterCarByAttributeModelObject!.data![index].favouriteStatus,
-
-                                                                                                  featureSuv: widget.filterCarByAttributeModelObject!.data![index].featuresSuv,
-                                                                                                  featuresDoors: widget.filterCarByAttributeModelObject!.data![index].featuresDoors,
-                                                                                                  featuresSeats: widget.filterCarByAttributeModelObject!.data![index].featuresSeats,
-                                                                                                  featuresAutomatic: widget.filterCarByAttributeModelObject!.data![index].featuresAutomatic,
-                                                                                                  featuresSpeed: widget.filterCarByAttributeModelObject!.data![index].featuresSpeed,
-                                                                                                  featuresElectric: widget.filterCarByAttributeModelObject!.data![index].featuresElectric,
-                                                                                                  featuresEngine_capacity: widget.filterCarByAttributeModelObject!.data![index].featuresEngineCapacity,
-                                                                                                  featuresFuelCapacity: widget.filterCarByAttributeModelObject!.data![index].featuresFuelCapacity,
-                                                                                                  featuresMeterReading: widget.filterCarByAttributeModelObject!.data![index].featuresMeterReading,
-                                                                                                  featuresNewCars: widget.filterCarByAttributeModelObject!.data![index].featuresNewCars,
-                                                                                                )));
-                                                                                  }
-                                                                                },
-                                                      child: Container(
-                                                        width: Get.width * 0.4,
-                                                        height: 55,
-                                                        alignment:
-                                                            Alignment.bottomRight,
-                                                        decoration: BoxDecoration(
-                                                          color:
-                                                              borderColor,
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    30),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    30),
-                                                          ),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Click to see Details",
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                            style: TextStyle(
-                                                              color: kWhite,
-                                                              fontFamily:
-                                                                  poppinMedium,
-                                                              fontSize: 12,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    left: 20,
-                                                    top: -35,
-                                                    child: SizedBox(
-                                                      width: 180,
-                                                      height: 180,
-                                                      child: Image.network(
-                                                        '$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}',
-                                                        errorBuilder: (BuildContext context, Object exception,
-                                                            StackTrace? stackTrace) {
-                                                          return Container(
-                                                            child: Image.asset(
-                                                                'assets/icon/fade_in_image.jpeg'),
-                                                          );
-                                                        },
-                                                        loadingBuilder: (BuildContext context, Widget child,
-                                                            ImageChunkEvent? loadingProgress) {
-                                                          if (loadingProgress == null) {
-                                                            return child;
-                                                          }
-                                                          return Center(
-                                                            child: CircularProgressIndicator(
-                                                              color: borderColor,
-                                                              value: loadingProgress.expectedTotalBytes != null
-                                                                  ? loadingProgress.cumulativeBytesLoaded /
-                                                                  loadingProgress.expectedTotalBytes!
-                                                                  : null,
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-
-                                                    // widget
-                                                    //             .filterCarByAttributeModelObject
-                                                    //             ?.data?[index]
-                                                    //             .image1 ==
-                                                    //         null
-                                                    //     ? Padding(
-                                                    //         padding:
-                                                    //             const EdgeInsets
-                                                    //                     .only(
-                                                    //                 top: 80.0),
-                                                    //         child: Image.asset(
-                                                    //           'assets/icon/fade_in_image.jpeg',
-                                                    //           width: 50,
-                                                    //           height: 50,
-                                                    //         ),
-                                                    //       )
-                                                    //     : FadeInImage(
-                                                    //         placeholder: AssetImage(
-                                                    //             "assets/icon/fade_in_image.jpeg"),
-                                                    //         width: 180,
-                                                    //         height: 180,
-                                                    //         image: NetworkImage(
-                                                    //           "$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}",
-                                                    //         ),
-                                                    //       ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             );
                                           },
@@ -1351,274 +1288,211 @@ class _HomePageState extends State<HomePage> {
                                               print("Invalid data or index");
                                             }
                                             return Container(
-                                              height: Get.height * 0.18,
-                                              margin:
-                                                  EdgeInsets.only(bottom: 10),
-                                              child: Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  Positioned(
-                                                    bottom: 0,
-                                                    child: Container(
-                                                      width: Get.width * 0.9,
-                                                      height: Get.height * 0.15,
-                                                      margin: EdgeInsets.only(
-                                                          bottom: 10),
-                                                      decoration: BoxDecoration(
-                                                        color: kWhite,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: Colors.grey
-                                                                .withOpacity(
-                                                                    0.5),
-                                                            spreadRadius: 1,
-                                                            blurRadius: 5,
-                                                            offset:
-                                                                Offset(3, 3),
+                                              height: Get.height * 0.15,
+                                              margin: EdgeInsets.only(bottom: 25, left: 20, right: 20),
+                                              child: Container(
+                                                width: Get.width * 0.9,
+                                                height: Get.height * 0.15,
+                                                decoration: BoxDecoration(
+                                                  color: kWhite,
+                                                  borderRadius: BorderRadius.circular(30),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey.withOpacity(0.5),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 5,
+                                                      offset: Offset(3, 3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    // Left side (Image + Price)
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 5),
+                                                      child: Column(
+                                                        // crossAxisAlignment: CrossAxisAlignment.center,
+                                                        // mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          // Car image
+                                                          Container(
+                                                            width: Get.width * 0.47,
+                                                            height: Get.height * 0.12,
+                                                            child: Image.network(
+                                                              '$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}',
+                                                              errorBuilder: (BuildContext context, Object exception,
+                                                                  StackTrace? stackTrace) {
+                                                                return Container(
+                                                                  child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                                                );
+                                                              },
+                                                              loadingBuilder: (BuildContext context, Widget child,
+                                                                  ImageChunkEvent? loadingProgress) {
+                                                                if (loadingProgress == null) {
+                                                                  return child;
+                                                                }
+                                                                return Center(
+                                                                  child: CircularProgressIndicator(
+                                                                    color: borderColor,
+                                                                    value: loadingProgress.expectedTotalBytes != null
+                                                                        ? loadingProgress.cumulativeBytesLoaded /
+                                                                        loadingProgress.expectedTotalBytes!
+                                                                        : null,
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                          // Price (RM, formattedPrice, /Month)
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                            children: [
+                                                              Text(
+                                                                "RM",
+                                                                style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 14,
+                                                                  fontFamily: poppinSemiBold,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                "${formattedPrice}",
+                                                                style: TextStyle(
+                                                                  color: kBlack,
+                                                                  fontSize: 14,
+                                                                  fontFamily: poppinSemiBold,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                "/Month",
+                                                                style: TextStyle(
+                                                                  color: textLabelColor,
+                                                                  fontSize: 14,
+                                                                  fontFamily: poppinSemiBold,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
+                                                    ),
+                                                    // Right side info
+                                                    Expanded(
                                                       child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
-                                                          Align(
-                                                            alignment: Alignment
-                                                                .topRight,
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right:
-                                                                          18.0,
-                                                                      top: 10),
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  Text(
-                                                                    "${widget.filterCarByAttributeModelObject?.data?[index].vehicalName}",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color:
-                                                                          kBlack,
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontFamily:
-                                                                          poppinBold,
-                                                                    ),
+                                                          // Vehicle name and year
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(top: 15.0, right: 15),
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                                              children: [
+                                                                Text(
+                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].vehicalName}",
+                                                                  style: TextStyle(
+                                                                    color: kBlack,
+                                                                    fontSize: 14,
+                                                                    fontFamily: poppinBold,
                                                                   ),
-                                                                  Text(
-                                                                    "${widget.filterCarByAttributeModelObject?.data?[index].year}",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color:
-                                                                          textLabelColor,
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontFamily:
-                                                                          poppinSemiBold,
-                                                                    ),
+                                                                ),
+                                                                Text(
+                                                                  "${widget.filterCarByAttributeModelObject?.data?[index].year}",
+                                                                  style: TextStyle(
+                                                                    color: textLabelColor,
+                                                                    fontSize: 14,
+                                                                    fontFamily: poppinSemiBold,
                                                                   ),
-                                                                ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          // Click to see Details Button
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              carID = widget
+                                                                  .filterCarByAttributeModelObject
+                                                                  ?.data![
+                                                              index]
+                                                                  .carsId;
+                                                              print(
+                                                                  "cardId $carID");
+                                                              print(
+                                                                  "carsUsageType ${widget.filterCarByAttributeModelObject!.data?[index].carsUsageType}");
+                                                              print(
+                                                                  "favouriteStatusHome ${widget.filterCarByAttributeModelObject!.data?[index].favouriteStatus}");
+
+                                                              if (widget
+                                                                  .filterCarByAttributeModelObject!
+                                                                  .data![index]
+                                                                  .carsUsageType ==
+                                                                  "EV Subscriptions") {
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder: (context) => EVCarDescription(
+                                                                          carName: widget.filterCarByAttributeModelObject!.data![index].vehicalName,
+                                                                          carPrice: formattedPrice,
+                                                                          carImage: widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpg') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.png') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpeg') ? "$baseUrlImage${widget.filterCarByAttributeModelObject!.data?[index].image1}" : widget.filterCarByAttributeModelObject!.data?[index].image1,
+                                                                          carImageModel: widget.filterCarByAttributeModelObject!.data?[index].objectImage,
+                                                                          carYear: "${widget.filterCarByAttributeModelObject!.data![index].year}",
+                                                                          carId: widget.filterCarByAttributeModelObject!.data![index].carsId,
+                                                                          carRating: widget.filterCarByAttributeModelObject!.data![index].rating,
+                                                                          carColorName: widget.filterCarByAttributeModelObject!.data![index].carsColors!.name,
+                                                                          carMakesName: widget.filterCarByAttributeModelObject!.data![index].carsMakes!.name,
+                                                                          carModelName: widget.filterCarByAttributeModelObject!.data![index].carsModels!.name,
+                                                                          carMakesImage: "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].carsMakes!.image}",
+                                                                          // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                                          discountPercentage: widget.filterCarByAttributeModelObject!.data![index].discountPercentage,
+                                                                          carDiscountPrice: formattedPrice,
+                                                                          carOwnerImage: "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
+                                                                          carOwnerName: "${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyName}",
+                                                                          carOwnerId: widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.usersCompaniesId,
+                                                                          myCarDescription: widget.filterCarByAttributeModelObject!.data![index].description,
+                                                                          favouriteStatus: widget.filterCarByAttributeModelObject!.data![index].favouriteStatus,
+
+                                                                          featureSuv: widget.filterCarByAttributeModelObject!.data![index].featuresSuv,
+                                                                          featuresDoors: widget.filterCarByAttributeModelObject!.data![index].featuresDoors,
+                                                                          featuresSeats: widget.filterCarByAttributeModelObject!.data![index].featuresSeats,
+                                                                          featuresAutomatic: widget.filterCarByAttributeModelObject!.data![index].featuresAutomatic,
+                                                                          featuresSpeed: widget.filterCarByAttributeModelObject!.data![index].featuresSpeed,
+                                                                          featuresElectric: widget.filterCarByAttributeModelObject!.data![index].featuresElectric,
+                                                                          featuresEngine_capacity: widget.filterCarByAttributeModelObject!.data![index].featuresEngineCapacity,
+                                                                          featuresFuelCapacity: widget.filterCarByAttributeModelObject!.data![index].featuresFuelCapacity,
+                                                                          featuresMeterReading: widget.filterCarByAttributeModelObject!.data![index].featuresMeterReading,
+                                                                          featuresNewCars: widget.filterCarByAttributeModelObject!.data![index].featuresNewCars,
+                                                                        )));
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: Get.width * 0.4,
+                                                              height: Get.height * 0.065,
+                                                              alignment: Alignment.bottomRight,
+                                                              decoration: BoxDecoration(
+                                                                color: borderColor,
+                                                                borderRadius: BorderRadius.only(
+                                                                  bottomRight: Radius.circular(30),
+                                                                  topLeft: Radius.circular(30),
+                                                                ),
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Click to see Details",
+                                                                  textAlign: TextAlign.left,
+                                                                  style: TextStyle(
+                                                                    color: kWhite,
+                                                                    fontFamily: poppinMedium,
+                                                                    fontSize: 12,
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
                                                         ],
                                                       ),
                                                     ),
-                                                  ),
-                                                  Positioned(
-                                                    left: 25,
-                                                    bottom: 20,
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          "RM",
-                                                          style: TextStyle(
-                                                            color: kBlack,
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                poppinSemiBold,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          "${formattedPrice}",
-                                                          style: TextStyle(
-                                                            color: kBlack,
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                poppinSemiBold,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          "/Month",
-                                                          style: TextStyle(
-                                                            color:
-                                                                textLabelColor,
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                poppinSemiBold,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    right: 14,
-                                                    bottom: 10,
-                                                    child: GestureDetector(
-                                                                                onTap: () {
-                                                                                  carID = widget
-                                                                                      .filterCarByAttributeModelObject
-                                                                                      ?.data![
-                                                                                          index]
-                                                                                      .carsId;
-                                                                                  print(
-                                                                                      "cardId $carID");
-                                                                                  print(
-                                                                                      "carsUsageType ${widget.filterCarByAttributeModelObject!.data?[index].carsUsageType}");
-                                                                                  print(
-                                                                                      "favouriteStatusHome ${widget.filterCarByAttributeModelObject!.data?[index].favouriteStatus}");
-
-                                                                                  if (widget
-                                                                                          .filterCarByAttributeModelObject!
-                                                                                          .data![index]
-                                                                                          .carsUsageType ==
-                                                                                      "EV Subscriptions") {
-                                                                                    Navigator.push(
-                                                                                        context,
-                                                                                        MaterialPageRoute(
-                                                                                            builder: (context) => EVCarDescription(
-                                                                                                  carName: widget.filterCarByAttributeModelObject!.data![index].vehicalName,
-                                                                                                  carPrice: formattedPrice,
-                                                                                                  carImage: widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpg') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.png') || widget.filterCarByAttributeModelObject!.data![index].image1!.endsWith('.jpeg') ? "$baseUrlImage${widget.filterCarByAttributeModelObject!.data?[index].image1}" : widget.filterCarByAttributeModelObject!.data?[index].image1,
-                                                                                              carImageModel: widget.filterCarByAttributeModelObject!.data?[index].objectImage,
-                                                                                              carYear: "${widget.filterCarByAttributeModelObject!.data![index].year}",
-                                                                                                  carId: widget.filterCarByAttributeModelObject!.data![index].carsId,
-                                                                                                  carRating: widget.filterCarByAttributeModelObject!.data![index].rating,
-                                                                                                  carColorName: widget.filterCarByAttributeModelObject!.data![index].carsColors!.name,
-                                                                                                  carMakesName: widget.filterCarByAttributeModelObject!.data![index].carsMakes!.name,
-                                                                                                  carModelName: widget.filterCarByAttributeModelObject!.data![index].carsModels!.name,
-                                                                                                  carMakesImage: "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].carsMakes!.image}",
-                                                                                                  // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                                                                  discountPercentage: widget.filterCarByAttributeModelObject!.data![index].discountPercentage,
-                                                                                                  carDiscountPrice: formattedPrice,
-                                                                                                  carOwnerImage: "$baseUrlImage${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyLogo}",
-                                                                                                  carOwnerName: "${widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.companyName}",
-                                                                                                  carOwnerId: widget.filterCarByAttributeModelObject!.data![index].usersCompanies!.usersCompaniesId,
-                                                                                                  myCarDescription: widget.filterCarByAttributeModelObject!.data![index].description,
-                                                                                                  favouriteStatus: widget.filterCarByAttributeModelObject!.data![index].favouriteStatus,
-
-                                                                                                  featureSuv: widget.filterCarByAttributeModelObject!.data![index].featuresSuv,
-                                                                                                  featuresDoors: widget.filterCarByAttributeModelObject!.data![index].featuresDoors,
-                                                                                                  featuresSeats: widget.filterCarByAttributeModelObject!.data![index].featuresSeats,
-                                                                                                  featuresAutomatic: widget.filterCarByAttributeModelObject!.data![index].featuresAutomatic,
-                                                                                                  featuresSpeed: widget.filterCarByAttributeModelObject!.data![index].featuresSpeed,
-                                                                                                  featuresElectric: widget.filterCarByAttributeModelObject!.data![index].featuresElectric,
-                                                                                                  featuresEngine_capacity: widget.filterCarByAttributeModelObject!.data![index].featuresEngineCapacity,
-                                                                                                  featuresFuelCapacity: widget.filterCarByAttributeModelObject!.data![index].featuresFuelCapacity,
-                                                                                                  featuresMeterReading: widget.filterCarByAttributeModelObject!.data![index].featuresMeterReading,
-                                                                                                  featuresNewCars: widget.filterCarByAttributeModelObject!.data![index].featuresNewCars,
-                                                                                                )));
-                                                                                  }
-                                                                                },
-                                                      child: Container(
-                                                        width: Get.width * 0.4,
-                                                        height: 55,
-                                                        alignment:
-                                                            Alignment.bottomRight,
-                                                        decoration: BoxDecoration(
-                                                          color:
-                                                              borderColor,
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    30),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    30),
-                                                          ),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Click to see Details",
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                            style: TextStyle(
-                                                              color: kWhite,
-                                                              fontFamily:
-                                                                  poppinMedium,
-                                                              fontSize: 12,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    left: 20,
-                                                    top: -35,
-                                                    child: SizedBox(
-                                                      width: 180,
-                                                      height: 180,
-                                                      child: Image.network(
-                                                        '$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}',
-                                                        errorBuilder: (BuildContext context, Object exception,
-                                                            StackTrace? stackTrace) {
-                                                          return Container(
-                                                            child: Image.asset(
-                                                                'assets/icon/fade_in_image.jpeg'),
-                                                          );
-                                                        },
-                                                        loadingBuilder: (BuildContext context, Widget child,
-                                                            ImageChunkEvent? loadingProgress) {
-                                                          if (loadingProgress == null) {
-                                                            return child;
-                                                          }
-                                                          return Center(
-                                                            child: CircularProgressIndicator(
-                                                              color: borderColor,
-                                                              value: loadingProgress.expectedTotalBytes != null
-                                                                  ? loadingProgress.cumulativeBytesLoaded /
-                                                                  loadingProgress.expectedTotalBytes!
-                                                                  : null,
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-
-                                                    // widget
-                                                    //             .filterCarByAttributeModelObject
-                                                    //             ?.data?[index]
-                                                    //             .image1 ==
-                                                    //         null
-                                                    //     ? Padding(
-                                                    //         padding:
-                                                    //             const EdgeInsets
-                                                    //                     .only(
-                                                    //                 top: 80.0),
-                                                    //         child: Image.asset(
-                                                    //           'assets/icon/fade_in_image.jpeg',
-                                                    //           width: 50,
-                                                    //           height: 50,
-                                                    //         ),
-                                                    //       )
-                                                    //     : FadeInImage(
-                                                    //         placeholder: AssetImage(
-                                                    //             "assets/icon/fade_in_image.jpeg"),
-                                                    //         width: 180,
-                                                    //         height: 180,
-                                                    //         image: NetworkImage(
-                                                    //           "$baseUrlImage${widget.filterCarByAttributeModelObject?.data?[index].image1}",
-                                                    //         ),
-                                                    //       ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             );
                                           },
@@ -2257,279 +2131,254 @@ class _HomePageState extends State<HomePage> {
                         print("Invalid data or index");
                       }
                       return Container(
-                        height: Get.height * 0.18,
-                        margin: EdgeInsets.only(bottom: 10),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Positioned(
-                              bottom: 0,
-                              child: Container(
-                                width: Get.width * 0.9,
-                                height: Get.height * 0.15,
-                                margin: EdgeInsets.only(bottom: 10),
-                                decoration: BoxDecoration(
-                                  color: kWhite,
-                                  borderRadius: BorderRadius.circular(30),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(3, 3),
-                                    ),
-                                  ],
-                                ),
+                        height: Get.height * 0.15,
+                        margin: EdgeInsets.only(bottom: 25, left: 15, right: 15),
+                        child: Container(
+                          width: Get.width * 0.9,
+                          height: Get.height * 0.15,
+                          decoration: BoxDecoration(
+                            color: kWhite,
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(3, 3),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              // Left side (Image + Price)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
                                 child: Column(
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  // mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 18.0, top: 10),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              "${topRentedCarsModelObject.data?[index].vehicalName}",
-                                              style: TextStyle(
-                                                color: kBlack,
-                                                fontSize: 14,
-                                                fontFamily: poppinBold,
+                                    // Car image
+                                    Container(
+                                      width: Get.width * 0.47,
+                                      height: Get.height * 0.12,
+                                      child: Image.network(
+                                        '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                        errorBuilder: (BuildContext context, Object exception,
+                                            StackTrace? stackTrace) {
+                                          return Container(
+                                            child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                          );
+                                        },
+                                        loadingBuilder: (BuildContext context, Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              color: borderColor,
+                                              value: loadingProgress.expectedTotalBytes != null
+                                                  ? loadingProgress.cumulativeBytesLoaded /
+                                                  loadingProgress.expectedTotalBytes!
+                                                  : null,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    // Price (RM, formattedPrice, /Month)
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "RM",
+                                          style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinSemiBold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${formattedPrice}",
+                                          style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinSemiBold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "/Month",
+                                          style: TextStyle(
+                                            color: textLabelColor,
+                                            fontSize: 14,
+                                            fontFamily: poppinSemiBold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // Right side info
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    // Vehicle name and year
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15.0, right: 15),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            "${topRentedCarsModelObject.data?[index].vehicalName}",
+                                            style: TextStyle(
+                                              color: kBlack,
+                                              fontSize: 14,
+                                              fontFamily: poppinBold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${topRentedCarsModelObject.data?[index].year}",
+                                            style: TextStyle(
+                                              color: textLabelColor,
+                                              fontSize: 14,
+                                              fontFamily: poppinSemiBold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // Click to see Details Button
+                                    GestureDetector(
+                                      onTap: () {
+                                        carID = topRentedCarsModelObject
+                                            .data![index].carsId;
+                                        if (topRentedCarsModelObject
+                                            .data![index].carsUsageType ==
+                                            "EV Subscriptions") {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => EVCarDescription(
+                                                carName: topRentedCarsModelObject
+                                                    .data![index].vehicalName,
+                                                carPrice: formattedPrice,
+                                                carImageModel: topRentedCarsModelObject.data?[index].objectImage,
+                                                carImage: topRentedCarsModelObject
+                                                    .data![index].image1!
+                                                    .endsWith('.jpg') ||
+                                                    topRentedCarsModelObject
+                                                        .data![index].image1!
+                                                        .endsWith('.png') ||
+                                                    topRentedCarsModelObject
+                                                        .data![index].image1!
+                                                        .endsWith('.jpeg')
+                                                    ? "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"
+                                                    : topRentedCarsModelObject
+                                                    .data?[index].image1,
+                                                carYear:
+                                                "${topRentedCarsModelObject.data![index].year}",
+                                                carId: topRentedCarsModelObject
+                                                    .data![index].carsId,
+                                                carRating: topRentedCarsModelObject
+                                                    .data![index].rating,
+                                                carColorName: topRentedCarsModelObject
+                                                    .data![index].carsColors!.name,
+                                                carMakesName: topRentedCarsModelObject
+                                                    .data![index].carsMakes!.name,
+                                                carModelName: topRentedCarsModelObject
+                                                    .data![index].carsModels!.name,
+                                                carMakesImage:
+                                                "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                discountPercentage:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .discountPercentage,
+                                                carDiscountPrice: formattedPrice,
+                                                carOwnerImage:
+                                                "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                carOwnerName:
+                                                "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                carOwnerId: topRentedCarsModelObject
+                                                    .data![index]
+                                                    .usersCompanies!
+                                                    .usersCompaniesId,
+                                                myCarDescription:
+                                                topRentedCarsModelObject
+                                                    .data![index].description,
+                                                favouriteStatus:
+                                                topRentedCarsModelObject
+                                                    .data![index].favouriteStatus,
+                                                featureSuv: topRentedCarsModelObject
+                                                    .data![index].featuresSuv,
+                                                featuresDoors:
+                                                topRentedCarsModelObject
+                                                    .data![index].featuresDoors,
+                                                featuresSeats:
+                                                topRentedCarsModelObject
+                                                    .data![index].featuresSeats,
+                                                featuresAutomatic:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresAutomatic,
+                                                featuresSpeed:
+                                                topRentedCarsModelObject
+                                                    .data![index].featuresSpeed,
+                                                featuresElectric:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresElectric,
+                                                featuresEngine_capacity:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresEngineCapacity,
+                                                featuresFuelCapacity:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresFuelCapacity,
+                                                featuresMeterReading:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresMeterReading,
+                                                featuresNewCars:
+                                                topRentedCarsModelObject
+                                                    .data![index].featuresNewCars,
                                               ),
                                             ),
-                                            Text(
-                                              "${topRentedCarsModelObject.data?[index].year}",
-                                              style: TextStyle(
-                                                color: textLabelColor,
-                                                fontSize: 14,
-                                                fontFamily: poppinSemiBold,
-                                              ),
+                                          );
+                                        }
+                                      },
+                                      child: Container(
+                                        width: Get.width * 0.4,
+                                        height: Get.height * 0.065,
+                                        alignment: Alignment.bottomRight,
+                                        decoration: BoxDecoration(
+                                          color: borderColor,
+                                          borderRadius: BorderRadius.only(
+                                            bottomRight: Radius.circular(30),
+                                            topLeft: Radius.circular(30),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "Click to see Details",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              color: kWhite,
+                                              fontFamily: poppinMedium,
+                                              fontSize: 12,
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              left: 25,
-                              bottom: 20,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "RM",
-                                    style: TextStyle(
-                                      color: kBlack,
-                                      fontSize: 14,
-                                      fontFamily: poppinSemiBold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "${formattedPrice}",
-                                    style: TextStyle(
-                                      color: kBlack,
-                                      fontSize: 14,
-                                      fontFamily: poppinSemiBold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "/Month",
-                                    style: TextStyle(
-                                      color: textLabelColor,
-                                      fontSize: 14,
-                                      fontFamily: poppinSemiBold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                              right: 14,
-                              bottom: 10,
-                              child: GestureDetector(
-                                onTap: () {
-                                  carID = topRentedCarsModelObject
-                                      .data![index].carsId;
-                                  if (topRentedCarsModelObject
-                                          .data![index].carsUsageType ==
-                                      "EV Subscriptions") {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => EVCarDescription(
-                                          carName: topRentedCarsModelObject
-                                              .data![index].vehicalName,
-                                          carPrice: formattedPrice,
-                                          carImageModel: topRentedCarsModelObject.data?[index].objectImage,
-                                          carImage: topRentedCarsModelObject
-                                                      .data![index].image1!
-                                                      .endsWith('.jpg') ||
-                                                  topRentedCarsModelObject
-                                                      .data![index].image1!
-                                                      .endsWith('.png') ||
-                                                  topRentedCarsModelObject
-                                                      .data![index].image1!
-                                                      .endsWith('.jpeg')
-                                              ? "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"
-                                              : topRentedCarsModelObject
-                                                  .data?[index].image1,
-                                          carYear:
-                                              "${topRentedCarsModelObject.data![index].year}",
-                                          carId: topRentedCarsModelObject
-                                              .data![index].carsId,
-                                          carRating: topRentedCarsModelObject
-                                              .data![index].rating,
-                                          carColorName: topRentedCarsModelObject
-                                              .data![index].carsColors!.name,
-                                          carMakesName: topRentedCarsModelObject
-                                              .data![index].carsMakes!.name,
-                                          carModelName: topRentedCarsModelObject
-                                              .data![index].carsModels!.name,
-                                          carMakesImage:
-                                              "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                          discountPercentage:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .discountPercentage,
-                                          carDiscountPrice: formattedPrice,
-                                          carOwnerImage:
-                                              "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                          carOwnerName:
-                                              "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                          carOwnerId: topRentedCarsModelObject
-                                              .data![index]
-                                              .usersCompanies!
-                                              .usersCompaniesId,
-                                          myCarDescription:
-                                              topRentedCarsModelObject
-                                                  .data![index].description,
-                                          favouriteStatus:
-                                              topRentedCarsModelObject
-                                                  .data![index].favouriteStatus,
-                                          featureSuv: topRentedCarsModelObject
-                                              .data![index].featuresSuv,
-                                          featuresDoors:
-                                              topRentedCarsModelObject
-                                                  .data![index].featuresDoors,
-                                          featuresSeats:
-                                              topRentedCarsModelObject
-                                                  .data![index].featuresSeats,
-                                          featuresAutomatic:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresAutomatic,
-                                          featuresSpeed:
-                                              topRentedCarsModelObject
-                                                  .data![index].featuresSpeed,
-                                          featuresElectric:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresElectric,
-                                          featuresEngine_capacity:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresEngineCapacity,
-                                          featuresFuelCapacity:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresFuelCapacity,
-                                          featuresMeterReading:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresMeterReading,
-                                          featuresNewCars:
-                                              topRentedCarsModelObject
-                                                  .data![index].featuresNewCars,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  width: Get.width * 0.4,
-                                  height: 55,
-                                  alignment: Alignment.bottomRight,
-                                  decoration: BoxDecoration(
-                                    color: borderColor,
-                                    borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(30),
-                                      topLeft: Radius.circular(30),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Click to see Details",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        color: kWhite,
-                                        fontFamily: poppinMedium,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 20,
-                              top: -35,
-                              child: SizedBox(
-                                width: 180,
-                                height: 180,
-                                child: Image.network(
-                                  '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
-                                  errorBuilder: (BuildContext context, Object exception,
-                                      StackTrace? stackTrace) {
-                                    return Container(
-                                      child: Image.asset(
-                                          'assets/icon/fade_in_image.jpeg'),
-                                    );
-                                  },
-                                  loadingBuilder: (BuildContext context, Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    }
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        color: borderColor,
-                                        value: loadingProgress.expectedTotalBytes != null
-                                            ? loadingProgress.cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                            : null,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-
-                              // topRentedCarsModelObject
-                              //             .data?[index].image1 ==
-                              //         null
-                              //     ? Padding(
-                              //         padding: const EdgeInsets.only(top: 80.0),
-                              //         child: Image.asset(
-                              //           'assets/icon/fade_in_image.jpeg',
-                              //           width: 50,
-                              //           height: 50,
-                              //         ),
-                              //       )
-                              //     : FadeInImage(
-                              //         placeholder: AssetImage(
-                              //           "assets/icon/fade_in_image.jpeg",
-                              //         ),
-                              //         width: 180,
-                              //         height: 180,
-                              //         image: NetworkImage(
-                              //           "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}",
-                              //         ),
-                              //       ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -3203,278 +3052,254 @@ class _HomePageState extends State<HomePage> {
                         print("Invalid data or index");
                       }
                       return Container(
-                        height: Get.height * 0.18,
-                        margin: EdgeInsets.only(bottom: 10),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Positioned(
-                              bottom: 0,
-                              child: Container(
-                                width: Get.width * 0.9,
-                                height: Get.height * 0.15,
-                                margin: EdgeInsets.only(bottom: 10),
-                                decoration: BoxDecoration(
-                                  color: kWhite,
-                                  borderRadius: BorderRadius.circular(30),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(3, 3),
-                                    ),
-                                  ],
-                                ),
+                        height: Get.height * 0.15,
+                        margin: EdgeInsets.only(bottom: 25, left: 15, right: 15),
+                        child: Container(
+                          width: Get.width * 0.9,
+                          height: Get.height * 0.15,
+                          decoration: BoxDecoration(
+                            color: kWhite,
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(3, 3),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              // Left side (Image + Price)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
                                 child: Column(
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  // mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 18.0, top: 10),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              "${topRentedCarsModelObject.data?[index].vehicalName}",
-                                              style: TextStyle(
-                                                color: kBlack,
-                                                fontSize: 14,
-                                                fontFamily: poppinBold,
+                                    // Car image
+                                    Container(
+                                      width: Get.width * 0.47,
+                                      height: Get.height * 0.12,
+                                      child: Image.network(
+                                        '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
+                                        errorBuilder: (BuildContext context, Object exception,
+                                            StackTrace? stackTrace) {
+                                          return Container(
+                                            child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                          );
+                                        },
+                                        loadingBuilder: (BuildContext context, Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              color: borderColor,
+                                              value: loadingProgress.expectedTotalBytes != null
+                                                  ? loadingProgress.cumulativeBytesLoaded /
+                                                  loadingProgress.expectedTotalBytes!
+                                                  : null,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    // Price (RM, formattedPrice, /Month)
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "RM",
+                                          style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinSemiBold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${formattedPrice}",
+                                          style: TextStyle(
+                                            color: kBlack,
+                                            fontSize: 14,
+                                            fontFamily: poppinSemiBold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "/Month",
+                                          style: TextStyle(
+                                            color: textLabelColor,
+                                            fontSize: 14,
+                                            fontFamily: poppinSemiBold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // Right side info
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    // Vehicle name and year
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15.0, right: 15),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            "${topRentedCarsModelObject.data?[index].vehicalName}",
+                                            style: TextStyle(
+                                              color: kBlack,
+                                              fontSize: 14,
+                                              fontFamily: poppinBold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${topRentedCarsModelObject.data?[index].year}",
+                                            style: TextStyle(
+                                              color: textLabelColor,
+                                              fontSize: 14,
+                                              fontFamily: poppinSemiBold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // Click to see Details Button
+                                    GestureDetector(
+                                      onTap: () {
+                                        carID = topRentedCarsModelObject
+                                            .data![index].carsId;
+                                        if (topRentedCarsModelObject
+                                            .data![index].carsUsageType ==
+                                            "EV Subscriptions") {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => EVCarDescription(
+                                                carName: topRentedCarsModelObject
+                                                    .data![index].vehicalName,
+                                                carPrice: formattedPrice,
+                                                carImageModel: topRentedCarsModelObject.data?[index].objectImage,
+                                                carImage: topRentedCarsModelObject
+                                                    .data![index].image1!
+                                                    .endsWith('.jpg') ||
+                                                    topRentedCarsModelObject
+                                                        .data![index].image1!
+                                                        .endsWith('.png') ||
+                                                    topRentedCarsModelObject
+                                                        .data![index].image1!
+                                                        .endsWith('.jpeg')
+                                                    ? "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"
+                                                    : topRentedCarsModelObject
+                                                    .data?[index].image1,
+                                                carYear:
+                                                "${topRentedCarsModelObject.data![index].year}",
+                                                carId: topRentedCarsModelObject
+                                                    .data![index].carsId,
+                                                carRating: topRentedCarsModelObject
+                                                    .data![index].rating,
+                                                carColorName: topRentedCarsModelObject
+                                                    .data![index].carsColors!.name,
+                                                carMakesName: topRentedCarsModelObject
+                                                    .data![index].carsMakes!.name,
+                                                carModelName: topRentedCarsModelObject
+                                                    .data![index].carsModels!.name,
+                                                carMakesImage:
+                                                "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
+                                                discountPercentage:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .discountPercentage,
+                                                carDiscountPrice: formattedPrice,
+                                                carOwnerImage:
+                                                "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
+                                                carOwnerName:
+                                                "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
+                                                carOwnerId: topRentedCarsModelObject
+                                                    .data![index]
+                                                    .usersCompanies!
+                                                    .usersCompaniesId,
+                                                myCarDescription:
+                                                topRentedCarsModelObject
+                                                    .data![index].description,
+                                                favouriteStatus:
+                                                topRentedCarsModelObject
+                                                    .data![index].favouriteStatus,
+                                                featureSuv: topRentedCarsModelObject
+                                                    .data![index].featuresSuv,
+                                                featuresDoors:
+                                                topRentedCarsModelObject
+                                                    .data![index].featuresDoors,
+                                                featuresSeats:
+                                                topRentedCarsModelObject
+                                                    .data![index].featuresSeats,
+                                                featuresAutomatic:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresAutomatic,
+                                                featuresSpeed:
+                                                topRentedCarsModelObject
+                                                    .data![index].featuresSpeed,
+                                                featuresElectric:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresElectric,
+                                                featuresEngine_capacity:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresEngineCapacity,
+                                                featuresFuelCapacity:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresFuelCapacity,
+                                                featuresMeterReading:
+                                                topRentedCarsModelObject
+                                                    .data![index]
+                                                    .featuresMeterReading,
+                                                featuresNewCars:
+                                                topRentedCarsModelObject
+                                                    .data![index].featuresNewCars,
                                               ),
                                             ),
-                                            Text(
-                                              "${topRentedCarsModelObject.data?[index].year}",
-                                              style: TextStyle(
-                                                color: textLabelColor,
-                                                fontSize: 14,
-                                                fontFamily: poppinSemiBold,
-                                              ),
+                                          );
+                                        }
+                                      },
+                                      child: Container(
+                                        width: Get.width * 0.4,
+                                        height: Get.height * 0.065,
+                                        alignment: Alignment.bottomRight,
+                                        decoration: BoxDecoration(
+                                          color: borderColor,
+                                          borderRadius: BorderRadius.only(
+                                            bottomRight: Radius.circular(30),
+                                            topLeft: Radius.circular(30),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "Click to see Details",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              color: kWhite,
+                                              fontFamily: poppinMedium,
+                                              fontSize: 12,
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              left: 25,
-                              bottom: 20,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "RM",
-                                    style: TextStyle(
-                                      color: kBlack,
-                                      fontSize: 14,
-                                      fontFamily: poppinSemiBold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "${formattedPrice}",
-                                    style: TextStyle(
-                                      color: kBlack,
-                                      fontSize: 14,
-                                      fontFamily: poppinSemiBold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "/Month",
-                                    style: TextStyle(
-                                      color: textLabelColor,
-                                      fontSize: 14,
-                                      fontFamily: poppinSemiBold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                              right: 14,
-                              bottom: 10,
-                              child: GestureDetector(
-                                onTap: () {
-                                  carID = topRentedCarsModelObject
-                                      .data![index].carsId;
-                                  if (topRentedCarsModelObject
-                                          .data![index].carsUsageType ==
-                                      "EV Subscriptions") {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => EVCarDescription(
-                                          carName: topRentedCarsModelObject
-                                              .data![index].vehicalName,
-                                          carPrice: formattedPrice,
-                                          carImageModel: topRentedCarsModelObject.data?[index].objectImage,
-                                          carImage: topRentedCarsModelObject
-                                                      .data![index].image1!
-                                                      .endsWith('.jpg') ||
-                                                  topRentedCarsModelObject
-                                                      .data![index].image1!
-                                                      .endsWith('.png') ||
-                                                  topRentedCarsModelObject
-                                                      .data![index].image1!
-                                                      .endsWith('.jpeg')
-                                              ? "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}"
-                                              : topRentedCarsModelObject
-                                                  .data?[index].image1,
-                                          carYear:
-                                              "${topRentedCarsModelObject.data![index].year}",
-                                          carId: topRentedCarsModelObject
-                                              .data![index].carsId,
-                                          carRating: topRentedCarsModelObject
-                                              .data![index].rating,
-                                          carColorName: topRentedCarsModelObject
-                                              .data![index].carsColors!.name,
-                                          carMakesName: topRentedCarsModelObject
-                                              .data![index].carsMakes!.name,
-                                          carModelName: topRentedCarsModelObject
-                                              .data![index].carsModels!.name,
-                                          carMakesImage:
-                                              "$baseUrlImage${topRentedCarsModelObject.data![index].carsMakes!.image}",
-                                          discountPercentage:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .discountPercentage,
-                                          carDiscountPrice: formattedPrice,
-                                          carOwnerImage:
-                                              "$baseUrlImage${topRentedCarsModelObject.data![index].usersCompanies!.companyLogo}",
-                                          carOwnerName:
-                                              "${topRentedCarsModelObject.data![index].usersCompanies!.companyName}",
-                                          carOwnerId: topRentedCarsModelObject
-                                              .data![index]
-                                              .usersCompanies!
-                                              .usersCompaniesId,
-                                          myCarDescription:
-                                              topRentedCarsModelObject
-                                                  .data![index].description,
-                                          favouriteStatus:
-                                              topRentedCarsModelObject
-                                                  .data![index].favouriteStatus,
-                                          featureSuv: topRentedCarsModelObject
-                                              .data![index].featuresSuv,
-                                          featuresDoors:
-                                              topRentedCarsModelObject
-                                                  .data![index].featuresDoors,
-                                          featuresSeats:
-                                              topRentedCarsModelObject
-                                                  .data![index].featuresSeats,
-                                          featuresAutomatic:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresAutomatic,
-                                          featuresSpeed:
-                                              topRentedCarsModelObject
-                                                  .data![index].featuresSpeed,
-                                          featuresElectric:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresElectric,
-                                          featuresEngine_capacity:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresEngineCapacity,
-                                          featuresFuelCapacity:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresFuelCapacity,
-                                          featuresMeterReading:
-                                              topRentedCarsModelObject
-                                                  .data![index]
-                                                  .featuresMeterReading,
-                                          featuresNewCars:
-                                              topRentedCarsModelObject
-                                                  .data![index].featuresNewCars,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  width: Get.width * 0.4,
-                                  height: 55,
-                                  alignment: Alignment.bottomRight,
-                                  decoration: BoxDecoration(
-                                    color: borderColor,
-                                    borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(30),
-                                      topLeft: Radius.circular(30),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Click to see Details",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        color: kWhite,
-                                        fontFamily: poppinMedium,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 20,
-                              top: -35,
-                              child: SizedBox(
-                                width: 180,
-                                height: 180,
-                                child: Image.network(
-                                  '$baseUrlImage${topRentedCarsModelObject.data?[index].image1}',
-                                  errorBuilder: (BuildContext context, Object exception,
-                                      StackTrace? stackTrace) {
-                                    return Container(
-                                      child: Image.asset(
-                                          'assets/icon/fade_in_image.jpeg'),
-                                    );
-                                  },
-                                  loadingBuilder: (BuildContext context, Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    }
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        color: borderColor,
-                                        value: loadingProgress.expectedTotalBytes != null
-                                            ? loadingProgress.cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                            : null,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-
-                              // topRentedCarsModelObject
-                              //             .data?[index].image1 ==
-                              //         null
-                              //     ? Padding(
-                              //         padding: const EdgeInsets.only(top: 80.0),
-                              //         child: Image.asset(
-                              //           'assets/icon/fade_in_image.jpeg',
-                              //           width: 50,
-                              //           height: 50,
-                              //         ),
-                              //       )
-                              //     : FadeInImage(
-                              //         placeholder: AssetImage(
-                              //             "assets/icon/fade_in_image.jpeg"),
-                              //         width: 180,
-                              //         height: 180,
-                              //         image: NetworkImage(
-                              //           "$baseUrlImage${topRentedCarsModelObject.data?[index].image1}",
-                              //         ),
-                              //       ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -3525,281 +3350,256 @@ class _HomePageState extends State<HomePage> {
                             print("Invalid data or index");
                           }
                           return Container(
-                            height: Get.height * 0.18,
-                            margin: EdgeInsets.only(bottom: 10),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Positioned(
-                                  bottom: 0,
-                                  child: Container(
-                                    width: Get.width * 0.9,
-                                    height: Get.height * 0.15,
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      color: kWhite,
-                                      borderRadius: BorderRadius.circular(30),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 5,
-                                          offset: Offset(3, 3),
-                                        ),
-                                      ],
-                                    ),
+                            height: Get.height * 0.15,
+                            margin: EdgeInsets.only(bottom: 25, left: 20, right: 20),
+                            child: Container(
+                              width: Get.width * 0.9,
+                              height: Get.height * 0.15,
+                              decoration: BoxDecoration(
+                                color: kWhite,
+                                borderRadius: BorderRadius.circular(30),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: Offset(3, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  // Left side (Image + Price)
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5),
                                     child: Column(
+                                      // crossAxisAlignment: CrossAxisAlignment.center,
+                                      // mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 18.0, top: 10),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  "${searchModelObject.data?[index].vehicalName}",
-                                                  style: TextStyle(
-                                                    color: kBlack,
-                                                    fontSize: 14,
-                                                    fontFamily: poppinBold,
-                                                  ),
+                                        // Car image
+                                        Container(
+                                          width: Get.width * 0.47,
+                                          height: Get.height * 0.12,
+                                          child: Image.network(
+                                            '$baseUrlImage${searchModelObject.data?[index].image1}',
+                                            errorBuilder: (BuildContext context, Object exception,
+                                                StackTrace? stackTrace) {
+                                              return Container(
+                                                child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                              );
+                                            },
+                                            loadingBuilder: (BuildContext context, Widget child,
+                                                ImageChunkEvent? loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              }
+                                              return Center(
+                                                child: CircularProgressIndicator(
+                                                  color: borderColor,
+                                                  value: loadingProgress.expectedTotalBytes != null
+                                                      ? loadingProgress.cumulativeBytesLoaded /
+                                                      loadingProgress.expectedTotalBytes!
+                                                      : null,
                                                 ),
-                                                Text(
-                                                  "${searchModelObject.data?[index].year}",
-                                                  style: TextStyle(
-                                                    color: textLabelColor,
-                                                    fontSize: 14,
-                                                    fontFamily: poppinSemiBold,
-                                                  ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        // Price (RM, formattedPrice, /Month)
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: kBlack,
+                                                fontSize: 14,
+                                                fontFamily: poppinSemiBold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${formattedPrice}",
+                                              style: TextStyle(
+                                                color: kBlack,
+                                                fontSize: 14,
+                                                fontFamily: poppinSemiBold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "/Month",
+                                              style: TextStyle(
+                                                color: textLabelColor,
+                                                fontSize: 14,
+                                                fontFamily: poppinSemiBold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  // Right side info
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        // Vehicle name and year
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 15.0, right: 15),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                "${searchModelObject.data?[index].vehicalName}",
+                                                style: TextStyle(
+                                                  color: kBlack,
+                                                  fontSize: 14,
+                                                  fontFamily: poppinBold,
                                                 ),
-                                              ],
+                                              ),
+                                              Text(
+                                                "${searchModelObject.data?[index].year}",
+                                                style: TextStyle(
+                                                  color: textLabelColor,
+                                                  fontSize: 14,
+                                                  fontFamily: poppinSemiBold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        // Click to see Details Button
+                                        GestureDetector(
+                                          onTap: () {
+                                            carID =
+                                                searchModelObject.data![index].carsId;
+                                            print("cardId $carID");
+                                            print(
+                                                "carsUsageType ${searchModelObject.data?[index].carsUsageType}");
+                                            print(
+                                                "favouriteStatusHome ${searchModelObject.data?[index].favouriteStatus}");
+
+                                            if (searchModelObject
+                                                .data![index].carsUsageType ==
+                                                "EV Subscriptions") {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EVCarDescription(
+                                                        carName: searchModelObject
+                                                            .data![index].vehicalName,
+                                                        carPrice: formattedPrice,
+                                                        carImageModel: searchModelObject.data?[index].objectImage,
+                                                        carImage: searchModelObject
+                                                            .data![index].image1!
+                                                            .endsWith('.jpg') ||
+                                                            searchModelObject
+                                                                .data![index].image1!
+                                                                .endsWith('.png') ||
+                                                            searchModelObject
+                                                                .data![index].image1!
+                                                                .endsWith('.jpeg')
+                                                            ? "$baseUrlImage${searchModelObject.data?[index].image1}"
+                                                            : searchModelObject
+                                                            .data?[index].image1,
+                                                        carYear:
+                                                        "${searchModelObject.data![index].year}",
+                                                        carId: searchModelObject
+                                                            .data![index].carsId,
+                                                        carRating: searchModelObject
+                                                            .data![index].rating,
+                                                        carColorName: searchModelObject
+                                                            .data![index]
+                                                            .carsColors!
+                                                            .name,
+                                                        carMakesName: searchModelObject
+                                                            .data![index].carsMakes!.name,
+                                                        carModelName: searchModelObject
+                                                            .data![index]
+                                                            .carsModels!
+                                                            .name,
+                                                        carMakesImage:
+                                                        "$baseUrlImage${searchModelObject.data![index].carsMakes!.image}",
+                                                        // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                        discountPercentage:
+                                                        searchModelObject.data![index]
+                                                            .discountPercentage,
+                                                        carDiscountPrice: formattedPrice,
+                                                        carOwnerImage:
+                                                        "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
+                                                        carOwnerName:
+                                                        "${searchModelObject.data![index].usersCompanies!.companyName}",
+                                                        carOwnerId: searchModelObject
+                                                            .data![index]
+                                                            .usersCompanies!
+                                                            .usersCompaniesId,
+                                                        myCarDescription:
+                                                        searchModelObject
+                                                            .data![index].description,
+                                                        favouriteStatus: searchModelObject
+                                                            .data![index].favouriteStatus,
+
+                                                        featureSuv: searchModelObject
+                                                            .data![index].featuresSuv,
+                                                        featuresDoors: searchModelObject
+                                                            .data![index].featuresDoors,
+                                                        featuresSeats: searchModelObject
+                                                            .data![index].featuresSeats,
+                                                        featuresAutomatic:
+                                                        searchModelObject.data![index]
+                                                            .featuresAutomatic,
+                                                        featuresSpeed: searchModelObject
+                                                            .data![index].featuresSpeed,
+                                                        featuresElectric:
+                                                        searchModelObject.data![index]
+                                                            .featuresElectric,
+                                                        featuresEngine_capacity:
+                                                        searchModelObject.data![index]
+                                                            .featuresEngineCapacity,
+                                                        featuresFuelCapacity:
+                                                        searchModelObject.data![index]
+                                                            .featuresFuelCapacity,
+                                                        featuresMeterReading:
+                                                        searchModelObject.data![index]
+                                                            .featuresMeterReading,
+                                                        featuresNewCars: searchModelObject
+                                                            .data![index].featuresNewCars,
+                                                      ),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          child: Container(
+                                            width: Get.width * 0.4,
+                                            height: Get.height * 0.065,
+                                            alignment: Alignment.bottomRight,
+                                            decoration: BoxDecoration(
+                                              color: borderColor,
+                                              borderRadius: BorderRadius.only(
+                                                bottomRight: Radius.circular(30),
+                                                topLeft: Radius.circular(30),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Click to see Details",
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  color: kWhite,
+                                                  fontFamily: poppinMedium,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  left: 25,
-                                  bottom: 20,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "RM",
-                                        style: TextStyle(
-                                          color: kBlack,
-                                          fontSize: 14,
-                                          fontFamily: poppinSemiBold,
-                                        ),
-                                      ),
-                                      Text(
-                                        "${formattedPrice}",
-                                        style: TextStyle(
-                                          color: kBlack,
-                                          fontSize: 14,
-                                          fontFamily: poppinSemiBold,
-                                        ),
-                                      ),
-                                      Text(
-                                        "/Month",
-                                        style: TextStyle(
-                                          color: textLabelColor,
-                                          fontSize: 14,
-                                          fontFamily: poppinSemiBold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 14,
-                                  bottom: 10,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      carID =
-                                          searchModelObject.data![index].carsId;
-                                      print("cardId $carID");
-                                      print(
-                                          "carsUsageType ${searchModelObject.data?[index].carsUsageType}");
-                                      print(
-                                          "favouriteStatusHome ${searchModelObject.data?[index].favouriteStatus}");
-
-                                      if (searchModelObject
-                                              .data![index].carsUsageType ==
-                                          "EV Subscriptions") {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                EVCarDescription(
-                                              carName: searchModelObject
-                                                  .data![index].vehicalName,
-                                              carPrice: formattedPrice,
-                                              carImageModel: searchModelObject.data?[index].objectImage,
-                                              carImage: searchModelObject
-                                                          .data![index].image1!
-                                                          .endsWith('.jpg') ||
-                                                      searchModelObject
-                                                          .data![index].image1!
-                                                          .endsWith('.png') ||
-                                                      searchModelObject
-                                                          .data![index].image1!
-                                                          .endsWith('.jpeg')
-                                                  ? "$baseUrlImage${searchModelObject.data?[index].image1}"
-                                                  : searchModelObject
-                                                      .data?[index].image1,
-                                              carYear:
-                                                  "${searchModelObject.data![index].year}",
-                                              carId: searchModelObject
-                                                  .data![index].carsId,
-                                              carRating: searchModelObject
-                                                  .data![index].rating,
-                                              carColorName: searchModelObject
-                                                  .data![index]
-                                                  .carsColors!
-                                                  .name,
-                                              carMakesName: searchModelObject
-                                                  .data![index].carsMakes!.name,
-                                              carModelName: searchModelObject
-                                                  .data![index]
-                                                  .carsModels!
-                                                  .name,
-                                              carMakesImage:
-                                                  "$baseUrlImage${searchModelObject.data![index].carsMakes!.image}",
-                                              // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                              discountPercentage:
-                                                  searchModelObject.data![index]
-                                                      .discountPercentage,
-                                              carDiscountPrice: formattedPrice,
-                                              carOwnerImage:
-                                                  "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
-                                              carOwnerName:
-                                                  "${searchModelObject.data![index].usersCompanies!.companyName}",
-                                              carOwnerId: searchModelObject
-                                                  .data![index]
-                                                  .usersCompanies!
-                                                  .usersCompaniesId,
-                                              myCarDescription:
-                                                  searchModelObject
-                                                      .data![index].description,
-                                              favouriteStatus: searchModelObject
-                                                  .data![index].favouriteStatus,
-
-                                              featureSuv: searchModelObject
-                                                  .data![index].featuresSuv,
-                                              featuresDoors: searchModelObject
-                                                  .data![index].featuresDoors,
-                                              featuresSeats: searchModelObject
-                                                  .data![index].featuresSeats,
-                                              featuresAutomatic:
-                                                  searchModelObject.data![index]
-                                                      .featuresAutomatic,
-                                              featuresSpeed: searchModelObject
-                                                  .data![index].featuresSpeed,
-                                              featuresElectric:
-                                                  searchModelObject.data![index]
-                                                      .featuresElectric,
-                                              featuresEngine_capacity:
-                                                  searchModelObject.data![index]
-                                                      .featuresEngineCapacity,
-                                              featuresFuelCapacity:
-                                                  searchModelObject.data![index]
-                                                      .featuresFuelCapacity,
-                                              featuresMeterReading:
-                                                  searchModelObject.data![index]
-                                                      .featuresMeterReading,
-                                              featuresNewCars: searchModelObject
-                                                  .data![index].featuresNewCars,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    child: Container(
-                                      width: Get.width * 0.4,
-                                      height: 55,
-                                      alignment: Alignment.bottomRight,
-                                      decoration: BoxDecoration(
-                                        color: borderColor,
-                                        borderRadius: BorderRadius.only(
-                                          bottomRight: Radius.circular(30),
-                                          topLeft: Radius.circular(30),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "Click to see Details",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: kWhite,
-                                            fontFamily: poppinMedium,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 20,
-                                  top: -35,
-                                  child: SizedBox(
-                                    width: 180,
-                                    height: 180,
-                                    child: Image.network(
-                                      '$baseUrlImage${searchModelObject.data?[index].image1}',
-                                      errorBuilder: (BuildContext context, Object exception,
-                                          StackTrace? stackTrace) {
-                                        return Container(
-                                          child: Image.asset(
-                                              'assets/icon/fade_in_image.jpeg'),
-                                        );
-                                      },
-                                      loadingBuilder: (BuildContext context, Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            color: borderColor,
-                                            value: loadingProgress.expectedTotalBytes != null
-                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                loadingProgress.expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-
-                                  // searchModelObject
-                                  //             .data?[index].image1 ==
-                                  //         null
-                                  //     ? Padding(
-                                  //         padding:
-                                  //             const EdgeInsets.only(top: 80.0),
-                                  //         child: Image.asset(
-                                  //           'assets/icon/fade_in_image.jpeg',
-                                  //           width: 50,
-                                  //           height: 50,
-                                  //         ),
-                                  //       )
-                                  //     : FadeInImage(
-                                  //         placeholder: AssetImage(
-                                  //             "assets/icon/fade_in_image.jpeg"),
-                                  //         width: 180,
-                                  //         height: 180,
-                                  //         image: NetworkImage(
-                                  //           "$baseUrlImage${searchModelObject.data?[index].image1}",
-                                  //         ),
-                                  //       ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -4469,320 +4269,256 @@ class _HomePageState extends State<HomePage> {
                             print("Invalid data or index");
                           }
                           return Container(
-                            height: Get.height * 0.18,
-                            margin: EdgeInsets.only(bottom: 10),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Positioned(
-                                  bottom: 0,
-                                  child: Container(
-                                    width: Get.width * 0.9,
-                                    height: Get.height * 0.15,
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      color: kWhite,
-                                      borderRadius: BorderRadius.circular(30),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 5,
-                                          offset: Offset(3, 3),
+                            height: Get.height * 0.15,
+                            margin: EdgeInsets.only(bottom: 25, left: 20, right: 20),
+                            child: Container(
+                              width: Get.width * 0.9,
+                              height: Get.height * 0.15,
+                              decoration: BoxDecoration(
+                                color: kWhite,
+                                borderRadius: BorderRadius.circular(30),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: Offset(3, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  // Left side (Image + Price)
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Column(
+                                      // crossAxisAlignment: CrossAxisAlignment.center,
+                                      // mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        // Car image
+                                        Container(
+                                          width: Get.width * 0.47,
+                                          height: Get.height * 0.12,
+                                          child: Image.network(
+                                            '$baseUrlImage${searchModelObject.data?[index].image1}',
+                                            errorBuilder: (BuildContext context, Object exception,
+                                                StackTrace? stackTrace) {
+                                              return Container(
+                                                child: Image.asset('assets/icon/fade_in_image.jpeg'),
+                                              );
+                                            },
+                                            loadingBuilder: (BuildContext context, Widget child,
+                                                ImageChunkEvent? loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              }
+                                              return Center(
+                                                child: CircularProgressIndicator(
+                                                  color: borderColor,
+                                                  value: loadingProgress.expectedTotalBytes != null
+                                                      ? loadingProgress.cumulativeBytesLoaded /
+                                                      loadingProgress.expectedTotalBytes!
+                                                      : null,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        // Price (RM, formattedPrice, /Month)
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "RM",
+                                              style: TextStyle(
+                                                color: kBlack,
+                                                fontSize: 14,
+                                                fontFamily: poppinSemiBold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${formattedPrice}",
+                                              style: TextStyle(
+                                                color: kBlack,
+                                                fontSize: 14,
+                                                fontFamily: poppinSemiBold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "/Month",
+                                              style: TextStyle(
+                                                color: textLabelColor,
+                                                fontSize: 14,
+                                                fontFamily: poppinSemiBold,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
+                                  ),
+                                  // Right side info
+                                  Expanded(
                                     child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 18.0, top: 10),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  "${searchModelObject.data?[index].vehicalName}",
-                                                  style: TextStyle(
-                                                    color: kBlack,
-                                                    fontSize: 14,
-                                                    fontFamily: poppinBold,
-                                                  ),
+                                        // Vehicle name and year
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 15.0, right: 15),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                "${searchModelObject.data?[index].vehicalName}",
+                                                style: TextStyle(
+                                                  color: kBlack,
+                                                  fontSize: 14,
+                                                  fontFamily: poppinBold,
                                                 ),
-                                                Text(
-                                                  "${searchModelObject.data?[index].year}",
-                                                  style: TextStyle(
-                                                    color: textLabelColor,
-                                                    fontSize: 14,
-                                                    fontFamily: poppinSemiBold,
-                                                  ),
+                                              ),
+                                              Text(
+                                                "${searchModelObject.data?[index].year}",
+                                                style: TextStyle(
+                                                  color: textLabelColor,
+                                                  fontSize: 14,
+                                                  fontFamily: poppinSemiBold,
                                                 ),
-                                              ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        // Click to see Details Button
+                                        GestureDetector(
+                                          onTap: () {
+                                            carID =
+                                                searchModelObject.data![index].carsId;
+                                            print("cardId $carID");
+                                            print(
+                                                "carsUsageType ${searchModelObject.data?[index].carsUsageType}");
+                                            print(
+                                                "favouriteStatusHome ${searchModelObject.data?[index].favouriteStatus}");
+
+                                            if (searchModelObject
+                                                .data![index].carsUsageType ==
+                                                "EV Subscriptions") {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EVCarDescription(
+                                                        carName: searchModelObject
+                                                            .data![index].vehicalName,
+                                                        carPrice: formattedPrice,
+                                                        carImageModel: searchModelObject.data?[index].objectImage,
+                                                        carImage: searchModelObject
+                                                            .data![index].image1!
+                                                            .endsWith('.jpg') ||
+                                                            searchModelObject
+                                                                .data![index].image1!
+                                                                .endsWith('.png') ||
+                                                            searchModelObject
+                                                                .data![index].image1!
+                                                                .endsWith('.jpeg')
+                                                            ? "$baseUrlImage${searchModelObject.data?[index].image1}"
+                                                            : searchModelObject
+                                                            .data?[index].image1,
+                                                        carYear:
+                                                        "${searchModelObject.data![index].year}",
+                                                        carId: searchModelObject
+                                                            .data![index].carsId,
+                                                        carRating: searchModelObject
+                                                            .data![index].rating,
+                                                        carColorName: searchModelObject
+                                                            .data![index]
+                                                            .carsColors!
+                                                            .name,
+                                                        carMakesName: searchModelObject
+                                                            .data![index].carsMakes!.name,
+                                                        carModelName: searchModelObject
+                                                            .data![index]
+                                                            .carsModels!
+                                                            .name,
+                                                        carMakesImage:
+                                                        "$baseUrlImage${searchModelObject.data![index].carsMakes!.image}",
+                                                        // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
+                                                        discountPercentage:
+                                                        searchModelObject.data![index]
+                                                            .discountPercentage,
+                                                        carDiscountPrice: formattedPrice,
+                                                        carOwnerImage:
+                                                        "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
+                                                        carOwnerName:
+                                                        "${searchModelObject.data![index].usersCompanies!.companyName}",
+                                                        carOwnerId: searchModelObject
+                                                            .data![index]
+                                                            .usersCompanies!
+                                                            .usersCompaniesId,
+                                                        myCarDescription:
+                                                        searchModelObject
+                                                            .data![index].description,
+                                                        favouriteStatus: searchModelObject
+                                                            .data![index].favouriteStatus,
+
+                                                        featureSuv: searchModelObject
+                                                            .data![index].featuresSuv,
+                                                        featuresDoors: searchModelObject
+                                                            .data![index].featuresDoors,
+                                                        featuresSeats: searchModelObject
+                                                            .data![index].featuresSeats,
+                                                        featuresAutomatic:
+                                                        searchModelObject.data![index]
+                                                            .featuresAutomatic,
+                                                        featuresSpeed: searchModelObject
+                                                            .data![index].featuresSpeed,
+                                                        featuresElectric:
+                                                        searchModelObject.data![index]
+                                                            .featuresElectric,
+                                                        featuresEngine_capacity:
+                                                        searchModelObject.data![index]
+                                                            .featuresEngineCapacity,
+                                                        featuresFuelCapacity:
+                                                        searchModelObject.data![index]
+                                                            .featuresFuelCapacity,
+                                                        featuresMeterReading:
+                                                        searchModelObject.data![index]
+                                                            .featuresMeterReading,
+                                                        featuresNewCars: searchModelObject
+                                                            .data![index].featuresNewCars,
+                                                      ),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          child: Container(
+                                            width: Get.width * 0.4,
+                                            height: Get.height * 0.065,
+                                            alignment: Alignment.bottomRight,
+                                            decoration: BoxDecoration(
+                                              color: borderColor,
+                                              borderRadius: BorderRadius.only(
+                                                bottomRight: Radius.circular(30),
+                                                topLeft: Radius.circular(30),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Click to see Details",
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  color: kWhite,
+                                                  fontFamily: poppinMedium,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  left: 25,
-                                  bottom: 20,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "RM",
-                                        style: TextStyle(
-                                          color: kBlack,
-                                          fontSize: 14,
-                                          fontFamily: poppinSemiBold,
-                                        ),
-                                      ),
-                                      Text(
-                                        "${formattedPrice}",
-                                        style: TextStyle(
-                                          color: kBlack,
-                                          fontSize: 14,
-                                          fontFamily: poppinSemiBold,
-                                        ),
-                                      ),
-                                      Text(
-                                        "/Month",
-                                        style: TextStyle(
-                                          color: textLabelColor,
-                                          fontSize: 14,
-                                          fontFamily: poppinSemiBold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 14,
-                                  bottom: 10,
-                                  child: GestureDetector(
-                                                            onTap: () {
-                                                              carID = searchModelObject
-                                                                  .data![index].carsId;
-                                                              print("cardId $carID");
-                                                              print(
-                                                                  "carsUsageType ${searchModelObject.data?[index].carsUsageType}");
-                                                              print(
-                                                                  "favouriteStatusHome ${searchModelObject.data?[index].favouriteStatus}");
-
-                                                              if (searchModelObject
-                                                                      .data![index]
-                                                                      .carsUsageType ==
-                                                                  "EV Subscriptions") {
-                                                                Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder: (context) =>
-                                                                        EVCarDescription(
-                                                                      carName:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .vehicalName,
-                                                                      carPrice:
-                                                                          formattedPrice,
-                                                                          carImageModel: searchModelObject.data?[index].objectImage,
-                                                                      carImage: searchModelObject.data![index].image1!.endsWith('.jpg') ||
-                                                                              searchModelObject
-                                                                                  .data![
-                                                                                      index]
-                                                                                  .image1!
-                                                                                  .endsWith(
-                                                                                      '.png') ||
-                                                                              searchModelObject
-                                                                                  .data![
-                                                                                      index]
-                                                                                  .image1!
-                                                                                  .endsWith(
-                                                                                      '.jpeg')
-                                                                          ? "$baseUrlImage${searchModelObject.data?[index].image1}"
-                                                                          : searchModelObject
-                                                                              .data?[index]
-                                                                              .image1,
-                                                                      carYear:
-                                                                          "${searchModelObject.data![index].year}",
-                                                                      carId:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .carsId,
-                                                                      carRating:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .rating,
-                                                                      carColorName:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .carsColors!
-                                                                              .name,
-                                                                      carMakesName:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .carsMakes!
-                                                                              .name,
-                                                                      carModelName:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .carsModels!
-                                                                              .name,
-                                                                      carMakesImage:
-                                                                          "$baseUrlImage${searchModelObject.data![index].carsMakes!.image}",
-                                                                      // carStatus: topRentedCarsModelObject.data![index].favouriteStatus,
-                                                                      discountPercentage:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .discountPercentage,
-                                                                      carDiscountPrice:
-                                                                      formattedPrice,
-                                                                      carOwnerImage:
-                                                                          "$baseUrlImage${searchModelObject.data![index].usersCompanies!.companyLogo}",
-                                                                      carOwnerName:
-                                                                          "${searchModelObject.data![index].usersCompanies!.companyName}",
-                                                                      carOwnerId:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .usersCompanies!
-                                                                              .usersCompaniesId,
-                                                                      myCarDescription:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .description,
-                                                                      favouriteStatus:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .favouriteStatus,
-
-                                                                      featureSuv:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresSuv,
-                                                                      featuresDoors:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresDoors,
-                                                                      featuresSeats:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresSeats,
-                                                                      featuresAutomatic:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresAutomatic,
-                                                                      featuresSpeed:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresSpeed,
-                                                                      featuresElectric:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresElectric,
-                                                                      featuresEngine_capacity:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresEngineCapacity,
-                                                                      featuresFuelCapacity:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresFuelCapacity,
-                                                                      featuresMeterReading:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresMeterReading,
-                                                                      featuresNewCars:
-                                                                          searchModelObject
-                                                                              .data![index]
-                                                                              .featuresNewCars,
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              }
-                                                            },
-                                    child: Container(
-                                      width: Get.width * 0.4,
-                                      height: 55,
-                                      alignment: Alignment.bottomRight,
-                                      decoration: BoxDecoration(
-                                        color: borderColor,
-                                        borderRadius: BorderRadius.only(
-                                          bottomRight: Radius.circular(30),
-                                          topLeft: Radius.circular(30),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "Click to see Details",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: kWhite,
-                                            fontFamily: poppinMedium,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 20,
-                                  top: -35,
-                                  child: SizedBox(
-                                    width: 180,
-                                    height: 180,
-                                    child: Image.network(
-                                      '$baseUrlImage${searchModelObject.data?[index].image1}',
-                                      errorBuilder: (BuildContext context, Object exception,
-                                          StackTrace? stackTrace) {
-                                        return Container(
-                                          child: Image.asset(
-                                              'assets/icon/fade_in_image.jpeg'),
-                                        );
-                                      },
-                                      loadingBuilder: (BuildContext context, Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            color: borderColor,
-                                            value: loadingProgress.expectedTotalBytes != null
-                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                loadingProgress.expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-
-                                  // searchModelObject
-                                  //             .data?[index].image1 ==
-                                  //         null
-                                  //     ? Padding(
-                                  //         padding:
-                                  //             const EdgeInsets.only(top: 80.0),
-                                  //         child: Image.asset(
-                                  //           'assets/icon/fade_in_image.jpeg',
-                                  //           width: 50,
-                                  //           height: 50,
-                                  //         ),
-                                  //       )
-                                  //     : FadeInImage(
-                                  //         placeholder: AssetImage(
-                                  //             "assets/icon/fade_in_image.jpeg"),
-                                  //         width: 180,
-                                  //         height: 180,
-                                  //         image: NetworkImage(
-                                  //           "$baseUrlImage${searchModelObject.data?[index].image1}",
-                                  //         ),
-                                  //       ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },

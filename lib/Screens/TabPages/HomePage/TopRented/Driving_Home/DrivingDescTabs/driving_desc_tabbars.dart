@@ -45,6 +45,7 @@ class _DrivingDescTabBarsState extends State<DrivingDescTabBars>
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   indicatorColor: kWhite,
+                  automaticIndicatorColorAdjustment: false,
                   // isScrollable: true,
                   labelColor: kBlack,
                   labelStyle: TextStyle(fontSize: 12, fontFamily: poppinRegular),

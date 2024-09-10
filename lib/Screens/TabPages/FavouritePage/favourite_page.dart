@@ -451,10 +451,10 @@ class _FavoritePageState extends State<FavoritePage> {
                             ),
                             Positioned(
                               left: 30,
-                              top: -45,
+                              top: 0,
                               child: SizedBox(
-                                width: 180,
-                                height: 180,
+                                width: Get.width * 0.5,
+                                // height: 180,
                                 child: Image.network(
                                   '$baseUrlImage${favoriteCarModelObject.data?[index].image1}',
                                   errorBuilder: (BuildContext context, Object exception,

@@ -42,6 +42,7 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   indicatorColor: kWhite,
+                  automaticIndicatorColorAdjustment: false,
                   labelColor: kBlack,
                   labelStyle: TextStyle(fontSize: 14, fontFamily: poppinRegular),
                   unselectedLabelColor: kBlack,

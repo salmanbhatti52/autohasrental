@@ -381,8 +381,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                                   color: isSelected ? borderColor : kWhite,
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                child: Center(
                                   child: Text(
                                     mileagePlan.plansMileageDescription
                                         .toString(),
@@ -611,7 +610,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                           borderRadius: BorderRadius.circular(15)),
                       child: Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                         child: TabBar(
                           controller: tabController,
                           indicator: BoxDecoration(
@@ -665,8 +664,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                               height: MediaQuery.of(context).size.height * 0.12,
                               child: Tab(
                                 child: SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
+                                  width: MediaQuery.of(context).size.width * 0.3,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:

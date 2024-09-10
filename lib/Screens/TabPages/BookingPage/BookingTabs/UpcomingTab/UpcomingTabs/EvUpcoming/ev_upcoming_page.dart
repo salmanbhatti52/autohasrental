@@ -284,10 +284,10 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
                         ),
                         Positioned(
                           left: 30,
-                          top: -45,
+                          top: 0,
                           child: SizedBox(
-                            width: 180,
-                            height: 180,
+                            width: Get.width * 0.5,
+                            // height: 180,
                             child: Image.network(
                               '$baseUrlImage${evUpcomingModelObject.data![reversedIndex].carsDetails!.image1}',
                               errorBuilder: (BuildContext context, Object exception,
@@ -662,7 +662,7 @@ class _EvUpcomingPageState extends State<EvUpcomingPage> {
           borderRadius: BorderRadius.circular(30),
         ),
         child: Center(
-          child: Text("PLease wait", textAlign: TextAlign.center, style: TextStyle(
+          child: Text("Please wait", textAlign: TextAlign.center, style: TextStyle(
               color: kWhite, fontFamily: poppinRegular, fontSize: 16)),
         ),
       ),

@@ -39,6 +39,7 @@ class _TabbarCarBookingsState extends State<TabbarCarBookings> with TickerProvid
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   indicatorColor: kWhite,
+                  automaticIndicatorColorAdjustment: false,
                   // isScrollable: true,
                   labelColor: kBlack,
                   // labelPadding: EdgeInsets.symmetric(horizontal: 55),

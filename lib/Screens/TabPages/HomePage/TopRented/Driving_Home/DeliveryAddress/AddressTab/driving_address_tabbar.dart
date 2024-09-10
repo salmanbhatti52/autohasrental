@@ -93,6 +93,7 @@ class _DrivingAddressTabBarState extends State<DrivingAddressTabBar>
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   indicatorColor: kWhite,
+                  automaticIndicatorColorAdjustment: false,
                   labelColor: kBlack,
                   labelStyle: TextStyle(fontSize: 12),
                   unselectedLabelColor: kBlack,
