@@ -60,6 +60,7 @@ class _EvAddressTabBarState extends State<EvAddressTabBar> with SingleTickerProv
                   padding: EdgeInsets.all(05),
                   child: TabBar(
                     controller: tabController,
+                    indicatorSize:  TabBarIndicatorSize.tab,
                     indicator: BoxDecoration(
                       color: kWhite,
                       borderRadius: BorderRadius.circular(30.0),

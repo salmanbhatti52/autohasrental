@@ -38,6 +38,7 @@ class _UpComingTabsPagesState extends State<UpComingTabsPages> with TickerProvid
                 padding: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
                 child: TabBar(
                   controller: tabController,
+                    indicatorSize:  TabBarIndicatorSize.tab,
                   indicator: BoxDecoration(
                     color: kWhite,
                     borderRadius: BorderRadius.circular(30.0),

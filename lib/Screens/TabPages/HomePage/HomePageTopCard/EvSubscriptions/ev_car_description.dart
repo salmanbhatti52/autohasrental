@@ -668,7 +668,7 @@ class _EVCarDescriptionState extends State<EVCarDescription>
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       getMonthPlansModel.data?[index].months
                                                   .toString() ==

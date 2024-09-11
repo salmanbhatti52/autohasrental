@@ -36,6 +36,7 @@ class _PreviousTabsPagesState extends State<PreviousTabsPages> with TickerProvid
               child: Padding(
                 padding: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
                 child: TabBar(
+                    indicatorSize:  TabBarIndicatorSize.tab,
                   controller: tabController,
                   indicator: BoxDecoration(
                     color: kWhite,
