@@ -562,6 +562,7 @@ class _HomePageState extends State<HomePage> {
                                                                     color: kBlack,
                                                                     fontSize: 14,
                                                                     fontFamily: poppinBold,
+                                                                    overflow: TextOverflow.ellipsis,
                                                                   ),
                                                                 ),
                                                                 Text(
@@ -1394,6 +1395,7 @@ class _HomePageState extends State<HomePage> {
                                                                     color: kBlack,
                                                                     fontSize: 14,
                                                                     fontFamily: poppinBold,
+                                                                    overflow: TextOverflow.ellipsis,
                                                                   ),
                                                                 ),
                                                                 Text(
@@ -2233,10 +2235,12 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           Text(
                                             "${topRentedCarsModelObject.data?[index].vehicalName}",
+                                             textAlign: TextAlign.right,
                                             style: TextStyle(
                                               color: kBlack,
                                               fontSize: 14,
                                               fontFamily: poppinBold,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
                                           Text(
@@ -3158,6 +3162,7 @@ class _HomePageState extends State<HomePage> {
                                               color: kBlack,
                                               fontSize: 14,
                                               fontFamily: poppinBold,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
                                           Text(
@@ -3456,6 +3461,7 @@ class _HomePageState extends State<HomePage> {
                                                   color: kBlack,
                                                   fontSize: 14,
                                                   fontFamily: poppinBold,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ),
                                               Text(
@@ -4375,6 +4381,7 @@ class _HomePageState extends State<HomePage> {
                                                   color: kBlack,
                                                   fontSize: 14,
                                                   fontFamily: poppinBold,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ),
                                               Text(
